@@ -310,6 +310,9 @@ defineObject{
 			local MX, MY = context.mouseX, context.mouseY
 
 			if champion:getClass() == "tinkerer" then
+				if Editor.isRunning() and context.keyDown("T") then 
+					functions.script.tinkering_level[champion:getOrdinal()] = functions.script.tinkering_level[champion:getOrdinal()] + 1
+				end
 				-- Draw "dismantle" icon on items
 				local posx, posy = 0, 0
 				for i=13,ItemSlot.BackpackLast do
@@ -329,8 +332,6 @@ defineObject{
 				
 				-- Show tinkering level and upgradable icon while lockpick is in hand
 				if getMouseItem() and getMouseItem().go.name == "lock_pick" then
-					local text = "Tinkering Level = ".. math.min((math.floor(functions.script.tinkering_level[champion:getOrdinal()] / 3) + 1), 10)
-					context.drawText(text, MX - (context.getTextWidth(text) / 2), MY + 30)
 					local posx, posy = 0, 0
 					for i=13,ItemSlot.BackpackLast do
 						if champion:getItem(i) and champion:getItem(i):hasTrait("upgradable") then
@@ -338,7 +339,9 @@ defineObject{
 						posy = math.floor((i-13) / 4)
 						context.drawImage2("mod_assets/textures/gui/upgradable.dds", w - ((553 - (posx * 63)) * f2), (297 + (posy * 63)) * f2, 0, 0, 64, 64, 55 * f2, 55 * f2)
 						end
-					end				
+					end
+					local text = "Tinkering Level = ".. math.min((math.floor(functions.script.tinkering_level[champion:getOrdinal()] / 3) + 1), 10)
+					context.drawText(text, MX - (context.getTextWidth(text) / 2), MY + 30)					
 				end
 				
 				-- Dismantle prompt

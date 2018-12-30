@@ -12,7 +12,7 @@ defineObject{
 			gfxIndex = 273,
 			impactSound = "impact_blunt",
 			weight = 1.2,
-			traits = { "light_weapon", "mace", "weapon" },
+			traits = { "light_weapon", "mace", "dismantle", "upgradable", "weapon" },
 		},
 		{
 			class = "MeleeAttack",
@@ -41,7 +41,7 @@ defineObject{
 			gfxIndex = 298,
 			impactSound = "impact_blunt",
 			weight = 1.2,
-			traits = { "heavy_weapon", "mace" },
+			traits = { "heavy_weapon", "mace", "dismantle", "upgradable" },
 		},
 		{
 			class = "MeleeAttack",
@@ -71,7 +71,7 @@ defineObject{
 			gfxIndexPowerAttack = 419,
 			impactSound = "impact_blade",
 			weight = 2.4,
-			traits = { "light_weapon", "mace" },
+			traits = { "light_weapon", "mace", "dismantle", "upgradable", "bash" },
 		},
 		{
 			class = "MeleeAttack",
@@ -80,7 +80,6 @@ defineObject{
 			cooldown = 4.5,
 			swipe = "vertical",
 			attackSound = "swipe",
-			powerAttackTemplate = "bash",
 		},
 	},
 	tags = { "weapon_mace", "weapon_light" },
@@ -101,14 +100,13 @@ defineObject{
 			gfxIndexPowerAttack = 420,
 			impactSound = "impact_blunt",
 			weight = 3.8,
-			traits = { "heavy_weapon", "mace" },
+			traits = { "heavy_weapon", "mace", "dismantle", "upgradable", "bash" },
 		},
 		{
 			class = "MeleeAttack",
 			attackPower = 12,
 			cooldown = 5,
 			swipe = "vertical",
-			powerAttackTemplate = "bash",
 		},
 	},
 	tags = { "weapon_mace", "weapon_heavy" },
@@ -129,7 +127,7 @@ defineObject{
 			gfxIndexPowerAttack = 421,
 			impactSound = "impact_blunt",
 			weight = 5.7,
-			traits = { "heavy_weapon", "mace" },
+			traits = { "heavy_weapon", "mace", "dismantle", "upgradable", "stun" },
 		},
 		{
 			class = "MeleeAttack",
@@ -139,7 +137,6 @@ defineObject{
 			cooldown = 4.5,
 			swipe = "vertical",
 			requirements = { "heavy_weapons", 1 },
-			powerAttackTemplate = "stun",
 		},
 	},
 	tags = { "weapon_mace", "weapon_heavy" },
@@ -160,7 +157,7 @@ defineObject{
 			gfxIndexPowerAttack = 203,
 			impactSound = "impact_blunt",
 			weight = 5.0,
-			traits = { "heavy_weapon", "mace" },
+			traits = { "heavy_weapon", "mace", "dismantle", "upgradable" },
 		},
 		{
 			class = "MeleeAttack",
@@ -192,7 +189,7 @@ defineObject{
 			gfxIndexPowerAttack = 422,
 			impactSound = "impact_blade",
 			weight = 2.4,
-			traits = { "light_weapon", "mace" },
+			traits = { "light_weapon", "mace", "dismantle", "upgradable" },
 			secondaryAction = "bite",
 		},
 		{
@@ -241,7 +238,7 @@ defineObject{
 			gfxIndexPowerAttack = 423,
 			impactSound = "impact_blunt",
 			weight = 6.5,
-			traits = { "heavy_weapon", "mace" },
+			traits = { "heavy_weapon", "mace", "dismantle", "upgradable" },
 		},
 		{
 			class = "MeleeAttack",
@@ -273,7 +270,7 @@ defineObject{
 			gfxIndexPowerAttack = 424,
 			impactSound = "impact_blunt",
 			weight = 6.0,
-			traits = { "heavy_weapon", "two_handed", "mace", "epic" },
+			traits = { "heavy_weapon", "two_handed", "mace", "dismantle", "upgradable", "epic" },
 		},
 		{
 			class = "MeleeAttack",
@@ -304,7 +301,7 @@ defineObject{
 			gfxIndexPowerAttack = 425,
 			impactSound = "impact_blunt",
 			weight = 13.0,
-			traits = { "heavy_weapon", "two_handed", "mace" },
+			traits = { "heavy_weapon", "two_handed", "mace", "dismantle", "upgradable" },
 		},
 		{
 			class = "MeleeAttack",
@@ -337,7 +334,7 @@ defineObject{
 			weight = 6.5,
 			secondaryAction = "meteorStorm",
 			achievement = "find_meteor_hammer",
-			traits = { "heavy_weapon", "two_handed", "mace", "epic" },
+			traits = { "heavy_weapon", "two_handed", "mace", "dismantle", "upgradable", "epic" },
 		},
 		{
 			class = "MeleeAttack",

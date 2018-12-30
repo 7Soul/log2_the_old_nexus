@@ -23,7 +23,7 @@ defineObject{
 			attackSound = "swipe",
 		},
 	},
-	tags = { "weapon" },
+	tags = { "weapon", "weapon_light" },
 }
 
 defineObject{
@@ -41,17 +41,29 @@ defineObject{
 			impactSound = "impact_blade",
 			weight = 2.4,
 			traits = { "light_weapon", "axe", "upgradable", "dismantle" },
+			secondaryAction = "chip",
 		},
 		{
 			class = "MeleeAttack",
 			attackPower = 13,
-			accuracy = -5,
+			accuracy = 0,
 			cooldown = 4.5,
 			swipe = "vertical",
 			attackSound = "swipe",
 		},
+		{
+			class = "MeleeAttack",
+			name = "chip",
+			uiName = "Chip",
+			energyCost = 20,
+			attackPower = 20,
+			cooldown = 5,
+			swipe = "vertical",
+			requirements = { "light_weapons", 1 },
+			gameEffect = "This attack chips away 1 armor from the enemy with each hit.",
+		},
 	},
-	tags = { "weapon" },
+	tags = { "weapon", "weapon_light" },
 }
 
 defineObject{
@@ -69,7 +81,7 @@ defineObject{
 			gfxIndexPowerAttack = 476,
 			impactSound = "impact_blade",
 			weight = 2.4,
-			traits = { "heavy_weapon", "axe", "upgradable", "dismantle" },
+			traits = { "heavy_weapon", "axe", "upgradable", "dismantle", "chop" },
 		},
 		{
 			class = "MeleeAttack",
@@ -78,10 +90,9 @@ defineObject{
 			cooldown = 4.5,
 			swipe = "vertical",
 			attackSound = "swipe",
-			powerAttackTemplate = "chop",
 		},
 	},
-	tags = { "weapon" },
+	tags = { "weapon", "weapon_heavy" },
 }
 
 defineObject{
@@ -99,7 +110,7 @@ defineObject{
 			gfxIndexPowerAttack = 460,
 			impactSound = "impact_blade",
 			weight = 4.0,
-			traits = { "heavy_weapon", "axe", "upgradable", "dismantle" },
+			traits = { "heavy_weapon", "axe", "upgradable", "dismantle", "chop" },
 		},
 		{
 			class = "MeleeAttack",
@@ -108,10 +119,9 @@ defineObject{
 			cooldown = 5.2,
 			swipe = "horizontal",
 			attackSound = "swipe",
-			powerAttackTemplate = "chop",
 		},
 	},
-	tags = { "weapon" },
+	tags = { "weapon", "weapon_heavy" },
 }
 
 defineObject{
@@ -129,7 +139,7 @@ defineObject{
 			gfxIndexPowerAttack = 416,
 			impactSound = "impact_blade",
 			weight = 4.5,
-			traits = { "heavy_weapon", "two_handed", "axe", "upgradable", "dismantle" },
+			traits = { "heavy_weapon", "two_handed", "axe", "upgradable", "dismantle", "cleave" },
 		},
 		{
 			class = "MeleeAttack",
@@ -139,10 +149,9 @@ defineObject{
 			swipe = "vertical",
 			attackSound = "swipe",
 			requirements = { "heavy_weapons", 2 },
-			powerAttackTemplate = "cleave",
 		},
 	},
-	tags = { "weapon" },
+	tags = { "weapon", "weapon_heavy" },
 }
 
 defineObject{
@@ -161,7 +170,7 @@ defineObject{
 			gfxIndexPowerAttack = 205,
 			impactSound = "impact_blade",
 			weight = 2.4,
-			traits = { "heavy_weapon", "axe", "upgradable", "dismantle" },
+			traits = { "heavy_weapon", "axe", "upgradable", "dismantle", "flurry" },
 		},
 		{
 			class = "MeleeAttack",
@@ -171,10 +180,9 @@ defineObject{
 			swipe = "vertical",
 			attackSound = "swipe",
 			requirements = { "heavy_weapons", 3 },
-			powerAttackTemplate = "flurry",
 		},
 	},
-	tags = { "weapon" },
+	tags = { "weapon", "weapon_heavy" },
 }
 
 defineObject{
@@ -192,20 +200,19 @@ defineObject{
 			gfxIndexPowerAttack = 201,
 			impactSound = "impact_blade",
 			weight = 8.0,
-			traits = { "heavy_weapon", "two_handed", "axe", "upgradable", "dismantle" },
+			traits = { "heavy_weapon", "two_handed", "axe", "upgradable", "dismantle", "cleave" },
 		},
 		{
 			class = "MeleeAttack",
 			requirements = { "heavy_weapons", 3 },
 			attackPower = 37,
 			accuracy = 0,
-			cooldown = 7,
+			cooldown = 6,
 			swipe = "vertical",
 			attackSound = "swipe_heavy",
-			powerAttackTemplate = "cleave",
 		},
 	},
-	tags = { "weapon" },
+	tags = { "weapon", "weapon_heavy" },
 }
 
 defineObject{
@@ -225,7 +232,8 @@ defineObject{
 			impactSound = "impact_blade",
 			weight = 7.3,
 			achievement = "find_bane",
-			traits = { "heavy_weapon", "two_handed", "axe", "epic", "dismantle" },
+			traits = { "heavy_weapon", "two_handed", "axe", "epic", "dismantle", "banish", "upgradable" },
+			secondaryAction = "banish",
 		},
 		{
 			class = "MeleeAttack",
@@ -234,8 +242,20 @@ defineObject{
 			swipe = "horizontal",
 			attackSound = "swipe_heavy",
 			requirements = { "heavy_weapons", 5 },
-			powerAttackTemplate = "devastate",
+		},
+		{
+			class = "MeleeAttack",
+			name = "banish",
+			uiName = "Banish",
+			energyCost = 80,
+			attackPower = 55*2.5,
+			critChance = 9,
+			cooldown = 12.6,
+			cameraShake = true,
+			swipe = "horizontal",
+			requirements = { "heavy_weapons", 5, "critical", 1 },
+			gameEffect = "An extremely powerful attack. Deals 2.5x damage and has +9% critical chance.",
 		},
 	},
-	tags = { "weapon" },
+	tags = { "weapon", "weapon_heavy" },
 }

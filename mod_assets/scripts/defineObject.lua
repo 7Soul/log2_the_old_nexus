@@ -15,7 +15,7 @@ end
 
 local onHitMonster = function(self, monster, tside, damage, champion)
 	functions.script.monster_attacked(self, monster, tside, damage, champion)		
-	functions.script.reset_attack(self)				
+	functions.script.reset_attack(self)
 end
 
 local onPostAttack = function(self, monster, tside, damage, champion)
@@ -29,7 +29,7 @@ end
 local onFirearmPostAttack = function(self, champion, slot)
 	local secondary2 = functions.script.secondary
 	functions.script.onPostFirearmAttack(self, champion, slot, secondary2)
-	--functions.script.reset_attack(self)
+	functions.script.reset_attack(self)
 end
 
 local onThrowAttack = function(self, champion, slot, chainIndex)
@@ -40,66 +40,36 @@ local onMonsterDealDamage = function(self, champion, damage)
 	functions.script.onMonsterDealDamage(self, champion, damage)
 end
 
-local onInit = function(self)
+local onWInit = function(self)
 	if self.go.item:hasTrait("flurry") then
 		local c = self.go:createComponent("MeleeAttack","flurry")
-		c:setAccuracy(20)
-		c:setAttackPower(self:getAttackPower() / 2)
-		c:setBaseDamageStat(self:getBaseDamageStat())
-		c:setCooldown(self:getCooldown() * 1.5)
-		c:setEnergyCost(40)
-		c:setGameEffect("A series of three quick slashes with deadly accuracy.")
-		c:setPierce(iff(self:getPierce(),self:getPierce(), 0))
-		c:setRepeatCount(3)
-		c:setRepeatDelay(0.2)
-		c:setSwipe("flurry")
-		c:setUiName("Flurry of Slashes")
-		if c.go.item:hasTrait("light_weapon") then
-			c:setRequirements({"light_weapons", 4})
-		elseif c.go.item:hasTrait("heavy_weapon") then
-			c:setRequirements({"heavy_weapons", 4})
-		end
-		c.go.item:setSecondaryAction("flurry")
+		functions.script.updateSecondary(self, c, "flurry")		
 	end
 	
-	-- if self.go.item:hasTrait("cleave") then
-		-- local c = self.go:createComponent("MeleeAttack","cleave")
-		-- c:setAccuracy(20)
-		-- c:setAttackPower(self:getAttackPower() * 2.5)
-		-- c:setBaseDamageStat(self:getBaseDamageStat())
-		-- c:setCooldown(self:getCooldown() * 1.5)
-		-- c:setEnergyCost(40)
-		-- c:setGameEffect("")
-		-- c:setPierce(iff(self:getPierce(),self:getPierce() + 10, 10))
-		-- c:setSwipe("flurry")
-		-- c:setUiName("Cleave")
-		-- if c.go.item:hasTrait("light_weapon") then
-			-- c:setRequirements({"light_weapons", 4})
-		-- elseif c.go.item:hasTrait("heavy_weapon") then
-			-- c:setRequirements({"heavy_weapons", 4})
-		-- end
-		-- c.go.item:setSecondaryAction("clave")
-	-- end
+	if self.go.item:hasTrait("cleave") then
+		local c = self.go:createComponent("MeleeAttack","cleave")
+		functions.script.updateSecondary(self, c, "cleave")		
+	end
 	
-	-- if self.go.item:hasTrait("stun") then
-		-- local c = self.go:createComponent("MeleeAttack","cleave")
-		-- c:setAccuracy(20)
-		-- c:setAttackPower(self:getAttackPower() * 2)
-		-- c:setBaseDamageStat(self:getBaseDamageStat())
-		-- c:setCooldown(self:getCooldown() * 1.5)
-		-- c:setEnergyCost(40)
-		-- c:setGameEffect("")
-		-- c:setPierce(iff(self:getPierce(),self:getPierce(), 0))
-		-- c:setCauseCondition("stunned")
-		-- c:setSwipe("stun")
-		-- c:setUiName("Stun")
-		-- if c.go.item:hasTrait("light_weapon") then
-			-- c:setRequirements({"light_weapons", 3})
-		-- elseif c.go.item:hasTrait("heavy_weapon") then
-			-- c:setRequirements({"heavy_weapons", 3})
-		-- end
-		-- c.go.item:setSecondaryAction("stun")
-	-- end
+	if self.go.item:hasTrait("stun") then
+		local c = self.go:createComponent("MeleeAttack","stun")
+		functions.script.updateSecondary(self, c, "stun")
+	end
+	
+	if self.go.item:hasTrait("chop") then
+		local c = self.go:createComponent("MeleeAttack","chop")
+		functions.script.updateSecondary(self, c, "chop")
+	end
+	
+	if self.go.item:hasTrait("devastate") then
+		local c = self.go:createComponent("MeleeAttack","devastate")
+		functions.script.updateSecondary(self, c, "devastate")
+	end
+	
+	if self.go.item:hasTrait("banish") then
+		local c = self.go:getComponent("banish")
+		functions.script.updateSecondary(self, c, "banish")
+	end
 end
 
 defineObject = function(def)
@@ -113,7 +83,7 @@ defineObject = function(def)
 				c.onAttack = onAttack
 				c.onHitMonster = onHitMonster
 				c.onPostAttack = onPostAttack
-				c.onInit = onInit
+				c.onInit = onWInit
 			end
 			if c.class == "FirearmAttack" then
 				c.onAttack = onFirearmAttack

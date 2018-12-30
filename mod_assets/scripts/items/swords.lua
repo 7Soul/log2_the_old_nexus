@@ -81,7 +81,6 @@ defineObject{
 			cooldown = 3.7,
 			swipe = "horizontal",
 			requirements = { "light_weapons", 1 },
-			powerAttackTemplate = "thrust",
 			
 		},
 	},
@@ -195,7 +194,7 @@ defineObject{
 			gfxIndexPowerAttack = 463,
 			impactSound = "impact_blade",
 			weight = 4.5,
-			traits = { "heavy_weapon", "two_handed", "sword" },
+			traits = { "heavy_weapon", "two_handed", "sword", "cleave" },
 		},
 		{
 			class = "MeleeAttack",
@@ -205,7 +204,6 @@ defineObject{
 			swipe = "vertical",
 			attackSound = "swipe_heavy",
 			requirements = { "heavy_weapons", 3 },
-			powerAttackTemplate = "cleave",
 		},
 	},
 	tags = { "weapon_sword", "weapon_heavy" },
@@ -226,7 +224,7 @@ defineObject{
 			gfxIndexPowerAttack = 200,
 			impactSound = "impact_blade",
 			weight = 3.5,
-			traits = { "light_weapon", "sword" },
+			traits = { "light_weapon", "sword", "flurry" },
 		},
 		{
 			class = "MeleeAttack",
@@ -235,7 +233,6 @@ defineObject{
 			cooldown = 3.3,
 			swipe = "horizontal",
 			requirements = { "light_weapons", 1 },
-			powerAttackTemplate = "flurry",
 		},
 	},
 	tags = { "weapon_sword", "weapon_light" },
