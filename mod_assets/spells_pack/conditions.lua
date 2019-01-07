@@ -42,7 +42,8 @@ defineCondition
   beneficial = true,
   harmful = false,
   onRecomputeStats = function(self, champion)
-    champion:addStatModifier("protection", (champion:hasTrait("battle_mage") or champion:hasTrait("knight")) and 50 or 25)
+	local shield = (champion:hasTrait("battle_mage") or champion:hasTrait("knight")) and 50 or 25
+    champion:addStatModifier("protection", shield)
   end,
   onStart = function(self, champion)
     if not self:getDuration() then self:setDuration(40) end

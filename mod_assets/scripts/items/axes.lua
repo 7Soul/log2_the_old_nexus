@@ -13,6 +13,9 @@ defineObject{
 			impactSound = "impact_blade",
 			weight = 2.4,
 			traits = { "light_weapon", "axe", "upgradable", "dismantle" },
+			onEquipItem = function(self, champion, slot)
+				
+			end
 		},
 		{
 			class = "MeleeAttack",

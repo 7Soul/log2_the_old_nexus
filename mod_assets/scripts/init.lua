@@ -2,11 +2,17 @@
 import "mod_assets/spells_pack/defineObject.lua"
 -- import standard assets
 import "mod_assets/scripts/mod_standard_assets.lua"
+
+import "mod_assets/scripts/objects/generic.lua"
+import "mod_assets/scripts/objects/beach.lua"
+import "mod_assets/scripts/objects/forest.lua"
+import "mod_assets/scripts/objects/sky.lua"
 -- import the spells pack
 import "mod_assets/spells_pack/init.lua"   -- the spells pack
 -- import custom assets
 import "mod_assets/scripts/defineObject.lua"
 import "mod_assets/scripts/functions.lua"
+import "mod_assets/scripts/level_start.lua"
 import "mod_assets/scripts/beach.lua"
 import "mod_assets/scripts/monsters.lua"
 import "mod_assets/scripts/objects.lua"
@@ -17,6 +23,7 @@ import "mod_assets/scripts/sounds.lua"
 import "mod_assets/scripts/skills.lua"
 import "mod_assets/scripts/traits.lua"
 import "mod_assets/scripts/conditions.lua"
+import "mod_assets/scripts/monsters/turtle.lua"
 import "mod_assets/scripts/items/accessories.lua"
 import "mod_assets/scripts/items/armors.lua"
 import "mod_assets/scripts/items/axes.lua"
@@ -29,11 +36,13 @@ import "mod_assets/scripts/items/herbs.lua"
 import "mod_assets/scripts/items/swords.lua"
 import "mod_assets/scripts/items/potions.lua"
 import "mod_assets/scripts/items/maces.lua"
+import "mod_assets/scripts/items/missile_weapons.lua"
 import "mod_assets/scripts/items/firearms.lua"
+import "mod_assets/scripts/items/scrolls.lua"
 import "mod_assets/scripts/items/shields.lua"
 import "mod_assets/scripts/items/throwing_weapons.lua"
 import "mod_assets/scripts/items/misc_weapons.lua"
-import "mod_assets/scripts/materials.lua"
+import "mod_assets/scripts/items/misc.lua"
 
 
 -- defineObject{
@@ -49,82 +58,6 @@ import "mod_assets/scripts/materials.lua"
     -- },
   -- },
 -- }
-
-defineObject{
-	name = "chest",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/env/treasure_chest.fbx",
-		},
-		{
-			class = "Model",
-			name = "lock",
-			model = "assets/models/env/treasure_chest_lock.fbx",
-			offset = vec(0, 0.41406, 0.54883),
-			enabled = false,
-		},
-		{
-			class = "Animation",
-			animations = {
-				open = "assets/animations/env/treasure_chest_open.fbx",
-				close = "assets/animations/env/treasure_chest_close.fbx",
-			}
-		},
-		{
-			class = "Clickable",
-			offset = vec(0,0.5,0),
-			size = vec(1.5, 1.0, 1.0),
-			maxDistance = 1,
-			--debugDraw = true,
-			onClick = function(self)
-				local champion = nil
-				for i=1,4 do
-					champion = party.party:getChampion(i)
-					if champion:getClass() == "tinkerer" and self.go.chest:getLocked() then
-						if champion:isAlive() then				
-							champion:regainEnergy(champion:getEnergy() * -0.25)
-							self.go.chest:setLocked(false)
-							break
-						else
-							-- if tinkerer is dead and you're trying to use a lock pick, use it normally
-							if getMouseItem() and getMouseItem().go.name == "lock_pick" then
-								local stacksize = getMouseItem().go.item:getStackSize()
-								local lock = getMouseItem()
-								if stacksize > 1 then
-									lock:setStackSize(stacksize - 1)
-									setMouseItem(lock)
-								else
-									setMouseItem(nil)
-								end
-							end		
-						end
-					end
-				end
-			end
-		},
-		{
-			class = "Obstacle",
-			hitSound = "barrel_hit",
-		},
-		{
-			class = "ProjectileCollider",
-		},
-		{
-			class = "Surface",
-			offset = vec(0,0.153,0),
-			size = vec(1.5, 0.85),
-			--debugDraw = true,
-		},		
-		{
-			class = "Chest",
-		},
-	},
-	placement = "floor",
-	editorIcon = 216,
-	automapIcon = 124,
-	automapIconLayer = 1,
-}
 
 defineObject{
 	name = "party",
@@ -183,22 +116,20 @@ defineObject{
 		-----------------------------------------------------------
 		-- On Attack
 		-----------------------------------------------------------
-		onAttack = function(party, champion, weapon)
-			if weapon == nil then
-				print("no weapon") --doesn't work
-			end
-			print(champion:getName(), "is attacking with", weapon.go.name)
+		onAttack = function(party, champion, action, slot)
+			print(champion:getName(), "is attacking with", action.go.name)
 			if champion:getClass() == "hunter" then
-				if weapon.go.item:hasTrait("missile_weapon") or weapon.go.name == "crossbow" then
+				if action.go.item:hasTrait("missile_weapon") or action.go.name == "crossbow" then
 					functions.script.hunter_timer[champion:getOrdinal()] = 3
 				end
 			end
+			return spells_functions.script.onAttack(champion, action, slot)
 		end,
 		-----------------------------------------------------------
 		-- On Damage Taken
 		-----------------------------------------------------------
 		onDamage = function(party, champion, damage, damageType)
-			print(party.go.id, champion:getName(), 'received damage', damage, damageType) 
+			print(party.go.id, champion:getName(), 'received', damage, 'damage,', damageType, 'type') 
 			
 			for i=1,4 do
 				if party:getChampion(i):getClass() == "fighter" and party:getChampion(i):isAlive() and not party:getChampion(i):hasCondition("berserker_revenge") then
@@ -289,7 +220,7 @@ defineObject{
 							end
 						end
 								
-						if button == 2 and dismantle == 9 then
+						if button == 5 and dismantle == 9 then
 							if slot >= 13 and slot <= 32 then
 								local posx = 553 - (((slot-1) % 4) * 63)
 								local posy = (297 + ((math.floor((slot-13) / 4)) * 63))
@@ -449,15 +380,51 @@ defineObject{
 		onDrawGui = function(self, context)			
 			local w, h, r = context.width, 		context.height, 	context.width / context.height
 			local f = (r < 1.3 and 0.8 or r < 1.4 and 0.9 or 1) * context.height/1080
+			local f2 = context.height/1080
 			local MX, MY = context.mouseX, context.mouseY
 			local mLeft, mRight = context.mouseDown(0), context.mouseDown(2)
-
-			--print(MX, " ", MY)
-			if Editor.isRunning() and context.keyDown("I") and context.mouseDown(0) then 
-				context.font("large")
-				context.color(225, 125, 125, 255)
-				local text = "TEST DRAW TEXT"
-				context.drawText(text, 	w - f * (w / 2  + context.getTextWidth(text)), h - f * h / 2)
+			
+			local multi = 1
+			if context.keyDown("shift") then
+				multi = -1
+			else
+				multi = 1
+			end
+			if context.keyDown("1") then
+				party:setPosition(party.x, party.y, party.facing, 0, party.level)
+			end
+			if context.keyDown("2") then
+				party:setPosition(party.x, party.y, party.facing, 1, party.level)
+			end
+			if context.keyDown("3") then
+				party:setPosition(party.x, party.y, party.facing, 2, party.level)
+			end
+			
+			if context.keyDown("O") then		
+				local text = "OFFSETING"
+				context.drawText(text, 	w - (f2 * (w / 2  + context.getTextWidth(text))), h - (f2 * h / 2))
+				if context.keyDown("X") then
+					functions2.script.move(0.01*multi,0,0)
+				end
+				if context.keyDown("C") then
+					functions2.script.move(0,0.01*multi,0)
+				end
+				if context.keyDown("Z") then
+					functions2.script.move(0,0,0.01*multi)
+				end
+			end
+			if context.keyDown("P") then
+				local text = "ROTATING"
+				context.drawText(text, 	w - (f2 * (w / 2  + context.getTextWidth(text))), h - (f2 * h / 2))
+				if context.keyDown("X") then
+					functions2.script.rotate(0.1*multi,0,0)
+				end
+				if context.keyDown("C") then
+					functions2.script.rotate(0,0.1*multi,0)
+				end
+				if context.keyDown("Z") then
+					functions2.script.rotate(0,0,0.1*multi)
+				end
 			end
 		end,
 		
@@ -483,32 +450,152 @@ defineObject{
 		end, 
 
 		onDrawSkills = function(self, context, champion)
-			-- local w, h, r = context.width, 		context.height, 	context.width / context.height
-			-- local f = (r < 1.3 and 0.8 or r < 1.4 and 0.9 or 1) * context.height/1080
-			-- local f2 = (context.height/1080)
-			-- local MX, MY = context.mouseX, context.mouseY
-			-- local skill_x, skill_y = 0, 0
-			-- local val1, val2 = {}, {}
-			-- local skill1_p = { 3,4,5 }
-			-- local skill2_p = { 2,5 }
-			-- local skill3_p = { 2,5 }
-			-- local skill4_p = { 2,5 }
-			-- local skill_perks = { skill1_p, skill2_p, skill2_p, skill2_p }
-			-- for i=1,16 do
-				-- skill_x = math.floor((i-1) / 8)
-				-- skill_y = (i-1) % 8
-				-- if i > 4 then break end
-				-- context.drawGuiItem2("SkillSlots", w - ((369 - (skill_x * 252)) * f2), (316 + (skill_y * 31)) * f2, 0, 0, 60, 21, 60 * f2, 21 * f2)
-				-- val1[i], val2[i] = context.button("skill_info", w - (369 - (skill_x * 252)), 316 + (skill_y * 31), 60, 21)
-				-- local tickX = 0
-				-- for j=1,#skill_perks[i] do
-					-- tickX = (skill_perks[i][j] - 1) * 11
-					-- context.drawGuiItem2("SkillTickUpgrade", w - ((367 - (skill_x * 252) - tickX) * f2), (319 + (skill_y * 31)) * f2, 0, 0, 10, 15, 10*f2, 15*f2)
-				-- end
-			-- end
-			-- if val1[1] or val2[1] then
-				-- context.drawText("ok", MX, MY)
-			-- end
+			local w, h, r = context.width, 		context.height, 	context.width / context.height
+			local f = (r < 1.3 and 0.8 or r < 1.4 and 0.9 or 1) * context.height/1080
+			local f2 = (context.height/1080)
+			local MX, MY = context.mouseX, context.mouseY
+			-- Cover original skill window up
+			context.drawImage2("mod_assets/textures/gui/skills_bg.dds", w - (548 * f2), 307 * f2, 0, 0, 510, 261, 510*f2, 261*f2)
+			local dummy1, dummy2 = context.button("dummy",w - (556), 307, 510, 261)
+			-- Variables
+			local skill_x, skill_y = 0, 0
+			local val1, val2, valX, valY = {}, {}, {}, {}
+			local skill1_p = { 2,4,5 } -- athletics
+			local skill2_p = { 2,4,5 } -- block
+			local skill3_p = { 2,4,5 } -- light armor
+			local skill4_p = { 2,4,5 } -- heavy armor
+			local skill5_p = { 2,5 } -- accuracy
+			local skill6_p = { 3,5 } -- critical
+			local skill7_p = { 2,4,5 } -- firearms
+			local skill8_p = { 5 } -- throwing
+			local skill9_p = { 4,5 } -- alchemy
+			local skill10_p = { 2,4,5 } -- missile
+			local skill11_p = { 3,5 } -- light weapons
+			local skill12_p = { 3,5 } -- heavy weapons
+			local skill13_p = { 2,5 } -- spellblade
+			local skill14_p = { 4,5 } -- elemental
+			local skill15_p = { 2,5 } -- poison
+			local skill16_p = { 3,5 } -- concentration
+			local skill_perks = { skill1_p, skill2_p, skill3_p, skill4_p, skill5_p, skill6_p, skill7_p, skill8_p, skill9_p, skill10_p, skill11_p, skill12_p, skill13_p, skill14_p, skill15_p, skill16_p }
+			-- Draw skills tabs
+			for i=1,16 do
+				skill_x = math.floor((i-1) / 8)
+				skill_y = (i-1) % 8
+				context.drawImage2("mod_assets/textures/gui/skill_slots.dds", w - ((369 - (skill_x * 252)) * f2), (316 + (skill_y * 31)) * f2, 1, 1, 70, 21, 70*f2, 21*f2)
+				val1[i], val2[i] = context.button("skill_info"..i, w - (548 - (skill_x * 252)), 310 + (skill_y * 31), 252, 31)
+				valX[i] = 369 - (skill_x * 252)
+				valY[i] = 316 + (skill_y * 31)
+			end
+			-- Draw skills tabs (hover)
+			for i=1,16 do	
+				if val2[i] then
+					context.drawImage2("mod_assets/textures/gui/skill_slots.dds", w - ((valX[i] + 1) * f2), (valY[i] - 1) * f2, 0, 23, 72, 23, 72*f2, 23*f2)
+					break
+				end
+			end
+			-- Draw skill pegs
+			for i=1,16 do				
+				skill_x = math.floor((i-1) / 8)
+				skill_y = (i-1) % 8
+				local xpositions = {0,0,0,5,10}
+				local tickX = 0				
+				-- Draw green pegs
+				local skillLevel = champion:getSkillLevel(functions.script.skillNames[i])
+				local tempLevel = skillLevel + functions.script.partySkillTemp[champion:getOrdinal()][i]
+				if skillLevel < 5 then					
+					if tempLevel > 0 and skillLevel < 5 then
+						for j=skillLevel+1,tempLevel do
+							tickX = ((j-1) * 11) + xpositions[j]
+							context.drawImage2("mod_assets/textures/gui/skill_slots.dds", w - ((366 - (skill_x * 252) - tickX) * f2), (319 + (skill_y * 31)) * f2, 10, 46, 10, 15, 10*f2, 15*f2)
+						end
+					end	
+				end
+				
+				-- Draw yellow pegs
+				local skillLevel = champion:getSkillLevel(functions.script.skillNames[i])
+				if skillLevel > 0 then
+					for j=1,skillLevel do
+						tickX = ((j-1) * 11) + xpositions[j]
+						context.drawImage2("mod_assets/textures/gui/skill_slots.dds", w - ((366 - (skill_x * 252) - tickX) * f2), (319 + (skill_y * 31)) * f2, 0, 46, 10, 15, 10*f2, 15*f2)
+					end
+				end
+				
+				-- Draw trait pegs
+				for j=1,#skill_perks[i] do
+					tickX = (skill_perks[i][j] - 1) * 11 + xpositions[skill_perks[i][j]]
+					local got = 0
+					if skillLevel >= skill_perks[i][j] or tempLevel >= skill_perks[i][j] then
+						got = 7
+					end
+					if skill_perks[i][j] < 4 then
+						context.drawImage2("mod_assets/textures/gui/skill_slots.dds", w - ((363 - (skill_x * 252) - tickX) * f2), (324 + (skill_y * 31)) * f2, 72, got, 4, 5, 4*f2, 5*f2)
+					elseif skill_perks[i][j] == 4 then
+						context.drawImage2("mod_assets/textures/gui/skill_slots.dds", w - ((364 - (skill_x * 252) - tickX) * f2), (323 + (skill_y * 31)) * f2, 76, got, 6, 6, 6*f2, 6*f2)
+					else
+						context.drawImage2("mod_assets/textures/gui/skill_slots.dds", w - ((364 - (skill_x * 252) - tickX) * f2), (323 + (skill_y * 31)) * f2, 82, got, 6, 7, 6*f2, 7*f2)
+					end
+				end				
+			end
+			-- Draw confirm and clear buttons
+			local confirm1, confirm2 = context.button("confirm", w - (270), 584, 108, 32)
+			local clear1, clear2 = context.button("clear", w - (270-125), 584, 108, 32)
+			for i=1,16 do
+				if functions.script.partySkillTemp[champion:getOrdinal()][i] > 0 then
+					context.drawGuiItem2("ButtonAccept", w - (274*f2), 583*f2, 0, 0, 108, 32, 108*f2, 32*f2)
+					context.drawGuiItem2("ButtonClear", w - ((274-125)*f2), 583*f2, 0, 0, 108, 32, 108*f2, 32*f2)
+					if confirm2 then
+						context.drawGuiItem2("ButtonAcceptHover", w - (274*f2), 583*f2, 0, 0, 108, 32, 108*f2, 32*f2)
+						if context.mouseDown(3) then
+							functions.script.performSkillTemp(champion)
+						end
+					end
+					if clear2 then
+						context.drawGuiItem2("ButtonClearHover", w - ((274-125)*f2), 583*f2, 0, 0, 108, 32, 108*f2, 32*f2)
+						if context.mouseDown(3) then
+							functions.script.clearSkillTemp(champion)
+						end
+					end
+					break
+				end
+			end
+			-- Draw description overlay and icon
+			for j=1,16 do
+				if val2[j] then	
+					-- Click skill --
+					local points = champion:getSkillPoints()
+					local skillLevel = champion:getSkillLevel(functions.script.skillNames[j])
+					local skillLevelTemp = functions.script.partySkillTemp[champion:getOrdinal()][j]
+					local totalSkills = functions.script.countAllSkills(champion)
+					if context.mouseDown(3) and points > 0 and skillLevelTemp < 5 and skillLevelTemp < 5 - skillLevel then
+						if skillLevelTemp + skillLevel == 3 then
+							if totalSkills >= 7 then
+								functions.script.addSkillTemp(champion, j)
+							else
+								hudPrint("Need 7 allocated skill points to get Silver tier. You got " .. totalSkills .. ".")
+							end						
+						elseif skillLevelTemp + skillLevel == 4 then
+							if totalSkills >= 11 then
+								functions.script.addSkillTemp(champion, j)
+							else
+								hudPrint("Need 11 allocated skill points to get Gold tier. You got " .. totalSkills .. ".")
+							end	
+						else
+							functions.script.addSkillTemp(champion, j)
+						end
+					end
+					-- Unclick skill --
+					if context.mouseDown(5) and functions.script.partySkillTemp[champion:getOrdinal()][j] > 0 then
+						functions.script.removeSkillTemp(champion, j)						
+					end
+					local f3 = math.min(f2 + 0.1, 1)
+					local yAdd = 0
+					if MY > 358 then yAdd = -368 else yAdd = 32	end
+					context.drawImage2("mod_assets/textures/gui/skill_description.dds", math.min(MX - (285*f2), w - (569)), MY + yAdd, ((j-1)%4)*569, math.floor((j-1)/4)*337, 569, 337, 569*f3, 337*f3)
+					-- Draw icon
+					context.drawImage2("mod_assets/textures/gui/skills.dds", math.min(MX - (269 * f2), w - 585+32), MY + yAdd + 16, ((j-1)%13)*75, math.floor((j-1)/13)*75, 75, 75, 75*f3, 75*f3)
+					break
+				end			
+			end
 		end, 
 		
 		--onDrawTraits = function(g,champion) print('traits') end, 
@@ -516,6 +603,16 @@ defineObject{
 		-- WORKS
 		onCastSpell = function(party, champion, spellName) 
 			print(champion:getName(),'is using',spellName) 
+			if champion:hasTrait("spell_slinger") then
+				champion:removeTrait("fireburst_memo")
+				champion:removeTrait("frost_burst_memo")
+				champion:removeTrait("shock_memo")
+				champion:removeTrait("poison_cloud_memo")
+				if spellName == "fireburst" or spellName == "frost_burst" or spellName == "shock" or spellName == "poison_cloud" then
+					champion:addTrait(spellName.."_memo")
+					functions.script.spellSlinger[champion:getOrdinal()] = spellName
+				end
+			end
 		end,
 		
 		-- UNTESTED
@@ -533,7 +630,13 @@ defineObject{
 				end
 			end
 		end,
-		onPickUpItem = function(party,item) end
+		onPickUpItem = function(party,item)
+			if item.go.model then
+				item.go.model:setOffset(vec(0,0,0))
+				item.go.model:setRotationAngles(0,0,0)
+			end
+			functions2.script.checkIronKeyBurn(party,item)
+		end
 	},
 	{
 		class = "Counter",
@@ -557,6 +660,71 @@ defineObject{
 			end
 			--return hudPrint("Time = "..v.."")
 		end
+	},
+	{
+		class = "Timer",
+		name = "partytimer2",
+		timerInterval = 0,
+		triggerOnStart = true,
+		onActivate = function(self)
+			self.go.gametime2:setValue(self.go.gametime2:getValue()+Time.deltaTime())
+			--local v = self.go.gametime2:getValue()
+			local t = GameMode.getTimeOfDay()
+			functions2.script.updateSky(t)
+			
+			if party.party:isCarrying("enchanted_timepiece") or (getMouseItem() and getMouseItem().go.name == "enchanted_timepiece") then
+				local timepiece = functions.script.getTimepiece()
+				for entity in Dungeon.getMap(party.level):entitiesAt(party.x, party.y) do
+					if timepiece then
+						if (entity.name == "crystal_area_inside" or entity.name == "crystal_area") then
+							if functions2.script.timeTravelTimer == 0 then
+								timepiece.go.item:setGfxIndex(26) -- charged
+							else
+								timepiece.go.item:setGfxIndex(39 - functions2.script.timeTravelTimer)
+							end
+							break
+						else
+							if functions2.script.timeTravelTimer == 0 then
+								timepiece.go.item:setGfxIndex(13) -- empty
+							else
+								timepiece.go.item:setGfxIndex(26 - functions2.script.timeTravelTimer)
+							end
+						end
+					end
+				end
+			end
+		end
+	},
+	{
+		class = "Counter",
+		name = "gametime2",
+	},
+	{
+		class = "Timer",
+		name = "timetravel",
+		timerInterval = 1,
+		triggerOnStart = true,
+		onActivate = function(self)
+			--self.go.timetraveltimer:setValue(self.go.timetraveltimer:getValue()+Time.deltaTime())
+			--local v = self.go.timetraveltimer:getValue()
+			--local t = GameMode.getTimeOfDay()
+			if functions2.script.timeTravelTimer > 0 then
+				local has_area = false
+				for entity in Dungeon.getMap(party.level):entitiesAt(party.x, party.y) do
+					if (entity.name == "crystal_area_inside" or entity.name == "crystal_area") then
+						has_area = true
+						break
+					end
+				end
+				if not  has_area then
+					functions2.script.updateTimeTravelTimer(-1)
+				end
+			end
+		end
+	},
+	{
+		class = "Counter",
+		name = "timetraveltimer",
 	},
 	},
 }

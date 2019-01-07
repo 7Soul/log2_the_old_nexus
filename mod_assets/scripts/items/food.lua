@@ -11,7 +11,7 @@ defineObject{
 			uiName = "Snail Slice",
 			gfxIndex = 48,
 			weight = 2.4,
-			traits = { "consumable" },
+			traits = { "consumable", "meat" },
 		},
 		{
 			class = "UsableItem",
@@ -108,7 +108,7 @@ defineObject{
 			uiName = "Burrow Rat Shank",
 			gfxIndex = 16,
 			weight = 0.8,
-			traits = { "consumable" },
+			traits = { "consumable", "meat" },
 		},
 		{
 			class = "UsableItem",
@@ -131,7 +131,7 @@ defineObject{
 			uiName = "Small Rat Shank",
 			gfxIndex = 435,
 			weight = 0.8,
-			traits = { "consumable" },
+			traits = { "consumable", "meat" },
 		},
 		{
 			class = "UsableItem",
@@ -200,7 +200,7 @@ defineObject{
 			uiName = "Ice Lizard Steak",
 			gfxIndex = 46,
 			weight = 2.2,
-			traits = { "consumable" },
+			traits = { "consumable", "meat" },
 		},
 		{
 			class = "UsableItem",
@@ -223,7 +223,7 @@ defineObject{
 			uiName = "Mole Jerky",
 			gfxIndex = 17,
 			weight = 1.4,
-			traits = { "consumable" },
+			traits = { "consumable", "meat" },
 		},
 		{
 			class = "UsableItem",
@@ -316,7 +316,7 @@ defineObject{
 			uiName = "Salted Sausage",
 			gfxIndex = 276,
 			weight = 1.0,
-			traits = { "consumable" },
+			traits = { "consumable", "meat"},
 		},
 		{
 			class = "UsableItem",
@@ -339,7 +339,7 @@ defineObject{
 			uiName = "Turtle Steak",
 			gfxIndex = 277,
 			weight = 1.8,
-			traits = { "consumable" },
+			traits = { "consumable", "meat" },
 		},
 		{
 			class = "UsableItem",
@@ -457,7 +457,7 @@ defineObject{
 			uiName = "Warg Meat",
 			gfxIndex = 290,
 			weight = 1.5,
-			traits = { "consumable" },
+			traits = { "consumable", "meat" },
 		},
 		{
 			class = "UsableItem",
@@ -480,7 +480,7 @@ defineObject{
 			uiName = "Fjeld Warg Meat",
 			gfxIndex = 436,
 			weight = 1,
-			traits = { "consumable" },
+			traits = { "consumable", "meat" },
 		},
 		{
 			class = "UsableItem",
@@ -503,7 +503,7 @@ defineObject{
 			uiName = "Lizard on a Stick",
 			gfxIndex = 323,
 			weight = 0.5,
-			traits = { "consumable" },
+			traits = { "consumable", "meat" },
 		},
 		{
 			class = "UsableItem",
@@ -526,7 +526,7 @@ defineObject{
 			uiName = "Snake Tail",
 			gfxIndex = 366,
 			weight = 2.4,
-			traits = { "consumable" },
+			traits = { "consumable", "meat" },
 		},
 		{
 			class = "UsableItem",
@@ -549,7 +549,7 @@ defineObject{
 			uiName = "Toad Tongue",
 			gfxIndex = 367,
 			weight = 2.4,
-			traits = { "consumable" },
+			traits = { "consumable", "meat" },
 		},
 		{
 			class = "UsableItem",

@@ -27,3 +27,21 @@ defineSound{
 	minDistance = 1,
 	maxDistance = 5,
 }
+
+defineSound{
+	name = "time_1",
+	filename = "mod_assets/sounds/Time_1.wav",
+	loop = false,
+	volume = 1,
+	minDistance = 1,
+	maxDistance = 5,
+}
+
+defineSound{
+	name = "time_2",
+	filename = "mod_assets/sounds/Time_2.wav",
+	loop = false,
+	volume = 1,
+	minDistance = 1,
+	maxDistance = 5,
+}

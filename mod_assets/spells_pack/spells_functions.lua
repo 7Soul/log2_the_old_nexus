@@ -15,7 +15,7 @@ defOrdered =
 {
   name = "shield",
   uiName = "Shield",
-  gesture = 6,
+  gesture = 456,
   manaCost = 35,
   skill = "concentration",
   requirements = {"concentration", 1},
@@ -39,42 +39,38 @@ defOrdered =
   requirements = {"concentration", 1},
   icon = 72,
   spellIcon = 13,
-  description = "Shoots a ray that damages elementals. If used on a weapon or an equipment (grabbed in mouse selection), disenchant it to create crystal shards of enchantment.\n- Cost : 42 energy\n- Power : 25\n\n[Wizard, Concentration 3]:\nShoots several rays instead.",
+  description = "Shoots a ray that damages elementals. \n- Cost : 42 energy\n- Power : 25",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
-    local item = getMouseItem()
-    if item then
-      if item:hasTrait("epic") then
-        playSound("spell_fizzle")
-        hudPrint("Epic items cannot be disenchanted.")
-        return false
-      end
-      if item.go.equipmentitem or item.go.firearmattack or item.go.meleeattack or item.go.rangedattack then
-        playSound("generic_spell")
-        local power = spells_functions.script.quantumPower(1, champion, "concentration")
-        local item = spawn("crystal_shard_enchantment").item
-        item:setStackSize(power)
-        setMouseItem(item)
-      else
-        playSound("spell_fizzle")
-        hudPrint("This item cannot be disenchanted.")
-        return false
-      end
-    else
-      local power = spells_functions.script.getPower(25, champion, "concentration")
-      if champion:hasTrait("wizard") and skillLevel > 2 then
-        spells_functions.script.missiles(power/20, {"dispel_cast"}, champion:getOrdinal(), 0.5, true)
-      else
-        spells_functions.script.missile("dispel_cast", champion:getOrdinal(), power)
-      end
-      spells_functions.script.stopInvisibility()
-    end
+    -- local item = getMouseItem()
+    -- if item then
+      -- if item:hasTrait("epic") then
+        -- playSound("spell_fizzle")
+        -- hudPrint("Epic items cannot be disenchanted.")
+        -- return false
+      -- end
+      -- if item.go.equipmentitem or item.go.firearmattack or item.go.meleeattack or item.go.rangedattack then
+        -- playSound("generic_spell")
+        -- local power = spells_functions.script.quantumPower(1, champion, "concentration")
+        -- local item = spawn("crystal_shard_enchantment").item
+        -- item:setStackSize(power)
+        -- setMouseItem(item)
+      -- else
+        -- playSound("spell_fizzle")
+        -- hudPrint("This item cannot be disenchanted.")
+        -- return false
+      -- end
+    -- else
+	local power = spells_functions.script.getPower(25, champion, "concentration")
+	spells_functions.script.missile("dispel_cast", champion:getOrdinal(), power)
+	spells_functions.script.stopInvisibility()
+    -- end
   end
 },
 
 {
   name = "force_field",
   uiName = "Force Field",
-  gesture = 456,
+  gesture = 147896321,
   manaCost = 35,
   skill = "concentration",
   requirements = {"concentration", 2},
@@ -105,18 +101,18 @@ defOrdered =
     GameMode.fadeIn(0xFFFFFF, 1)
     spells_functions.script.darknessStop()
     local c = 5*spells_functions.script.getSkillPower(champion, "concentration")
-    local f = 5*spells_functions.script.getSkillPower(champion, "fire_magic")
-    local a = 5*spells_functions.script.getSkillPower(champion, "air_magic")
-    local w = 5*spells_functions.script.getSkillPower(champion, "water_magic")
-    local e = 5*spells_functions.script.getSkillPower(champion, "earth_magic")
+    local f = 5*spells_functions.script.getSkillPower(champion, "elemental_magic")
+    local a = 5*spells_functions.script.getSkillPower(champion, "elemental_magic")
+    local w = 5*spells_functions.script.getSkillPower(champion, "elemental_magic")
+    local e = 5*spells_functions.script.getSkillPower(champion, "poison_mastery")
     local r = 1 + c + 88*f + 24*a +  1*w + 19*e
     local g = 1 + c + 10*f + 10*a + 33*w + 79*e
     local b = 1 + c +  1*f + 65*a + 65*w +  1*e
     local m = math.max(r, g, b)
     r=r/m g=g/m b=b/m
-    local brightness = 15*(1+c)/(3+c)
+    local brightness = 10*(1+c)/(3+c)
     spells_functions.script.partyLight("light_spell", duration, vec(r, g, b), brightness)
-    if champion:hasTrait("knight") then
+    if champion:hasTrait("monk") then
       -- spawns <effects> around entity <centerID> up to <range> tiles on xy plan,
       -- and elevation if <sphere> is true, in <duration> seconds,
       -- with <power> decreasing with squared distance, cast by <ordinal> champion,
@@ -140,7 +136,7 @@ defOrdered =
   requirements = {"concentration", 3},
   icon = 59,
   spellIcon = 11,
-  description = "Negates all magical and non-magical light sources carried by your party.\n- Cost : 25 energy\n- Duration : 5 minutes\n\n[Evasive]:\nMakes you and your friends invisible for 30 seconds.\n\n[Concentration 5]:\nIf you don't already have a Mage Armor, creates an Arcane Mage Armor, then drains all your energy.\nSpells power per level:\nConcentration +6%\nFire, Air, Water & Earth -1.5%",
+  description = "Negates all magical and non-magical light sources carried by your party.\n- Cost : 25 energy\n- Duration : 5 minutes",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
     playSound("generic_spell")
     local duration = spells_functions.script.getPower(300, champion, "concentration")
@@ -151,9 +147,6 @@ defOrdered =
     if champion:hasTrait("evasive") then spells_functions.script.addConditionValue("invisibility", duration/10) end
     spells_functions.script.removeEffectIcons("light")
     spells_functions.script.maxEffectIcons("darkness", duration)
-    if champion:getSkillLevel("concentration") > 4 and not spells_functions.script.get("mage_armor"..champion:getOrdinal()) then
-      spells_functions.script.elementalArmor("balance_armor", champion)
-    end
   end
 },
 
@@ -323,7 +316,7 @@ defOrdered =
 {
   name = "fireball",
   uiName = "Fireball",
-  gesture = 214,
+  gesture = 1236,
   manaCost = 43,
   skill = "elemental_magic",
   requirements = { "elemental_magic", 3, "concentration", 1 },
@@ -442,13 +435,13 @@ defOrdered =
   uiName = "Lightning Bolt",
   gesture = 236,
   manaCost = 35,
-  skill = "air_magic",
-  requirements = { "air_magic", 3, "concentration", 1 },  
+  skill = "elemental_magic",
+  requirements = { "elemental_magic", 3, "concentration", 1 },  
   icon = 65,
   spellIcon = 9,
   description = "You channel the power of storms through your hands.\n- Cost : 35 energy\n- Power : 27\n\n[Missile Weapons 3]:\nFor the next 15 seconds, your next missile weapon attack also triggers this spell for free.",
   onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
-    local power = spells_functions.script.getPower(27, champion, "air_magic")
+    local power = spells_functions.script.getPower(27, champion, "elemental_magic")
     local ord = champion:getOrdinal()
     if champion:getSkillLevel("missile_weapons") > 2 and not trigger then spells_functions.script.maxEffectIcons("lightning_bolt", 15, ord) end
     spells_functions.script.missile("lightning_bolt_greater_cast", ord, power)
@@ -510,13 +503,13 @@ defOrdered =
 {
   name = "frost_burst",
   uiName = "Frostburst",
-  skill = "water_magic",
-  requirements = {"water_magic", 1},
+  skill = "elemental_magic",
+  requirements = {"elemental_magic", 1},
   gesture = 9,
   manaCost = 25,
   description = "Conjures ice that deals damage to all foes directly in front of you and freezes them.\n- Cost : 25 energy\n- Power : 11\n- Duration : 0 to Water Magic + 3 seconds",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
-    local power = spells_functions.script.getPower(11, champion, "water_magic")
+    local power = spells_functions.script.getPower(11, champion, "elemental_magic")
 	spells_functions.script.elementalistPower("cold", champion, power)
     spells_functions.script.frontAttack("frostburst_cast", power, champion:getOrdinal())
     spells_functions.script.stopInvisibility()
@@ -560,16 +553,16 @@ defOrdered =
 {
   name = "ice_shards",
   uiName = "Ice Shards",
-  gesture = 89,
+  gesture = 789,
   manaCost = 30,
-  skill = "water_magic",
-  requirements = {"water_magic", 2},
+  skill = "elemental_magic",
+  requirements = {"elemental_magic", 2},
   icon = 70,
   spellIcon = 3,
   description = "Deathly sharp spikes of ice thrust from the ground hitting your opponents in a line.\n- Cost : 30 energy\n- Power : 18\n- Range : Water Magic + 2 tiles",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
-    local range = spells_functions.script.quantum(2 + 5*spells_functions.script.getSkillPower(champion, "water_magic"))
-    local power = spells_functions.script.getPower(18, champion, "water_magic")
+    local range = spells_functions.script.quantum(2 + 5*spells_functions.script.getSkillPower(champion, "elemental_magic"))
+    local power = spells_functions.script.getPower(18, champion, "elemental_magic")
     local spl = spells_functions.script.frontAttack("ice_shards", power, champion:getOrdinal())
     spl.iceshards:setRange(range)
     if not spl.tiledamager:isEnabled() then playSound("spell_fizzle") end
@@ -597,37 +590,17 @@ defOrdered =
 },
 
 {
-  name = "water_enchantment",
-  uiName = "Water Enchantment",
-  skill = "water_magic",
-  requirements = {"water_magic", 3},
-  gesture = 985,
-  manaCost = 100,
-  description = "Channels the water spirit into an item (grabbed in mouse selection). The quality of the resulting enchantment increases with water magic, concentration and the current enchantment.\n- Cost : 100 energy, 1 crystal shard of enchantment\n\n[Water Magic 5]:\nIf no item is picked, creates instead a Mage Armor then drains all your energy, or cancels it if it is already active. You can only have one Mage Armor active at any time.\nSpells power per level:\nWater +6%\nEarth & Air -1%\nFire -4%\n- Duration : until canceled",
-  onCast = function(champion, x, y, direction, elevation, skillLevel)
-    if champion:getSkillLevel("water_magic") > 4 and not getMouseItem() then
-      playSound("generic_spell")
-      spells_functions.script.elementalArmor("water_armor", champion)
-    else
-      local power = spells_functions.script.getPower(1, champion, "water_magic", "concentration")
-      spells_functions.script.enchantment(spells_functions.script.waterEnchantment, power, champion, 50)
-    end
-    spells_functions.script.partyLight("water", 1, vec(0, 0.5, 1), 10)
-  end,
-},
-
-{
   name = "frostbolt",
   uiName = "Frostbolt",
   gesture = 698,
   manaCost = 37,
-  skill = "water_magic",
-  requirements = { "water_magic", 3, "concentration", 1 },
+  skill = "elemental_magic",
+  requirements = { "elemental_magic", 3, "concentration", 1 },
   icon = 71,
   spellIcon = 4,
   description = "You hurl a bolt of icy death dealing ranged damage and freezing your opponents. Every point in Water Magic increases the probability and duration of the freezing effect.\n- Cost : 37 energy\n- Power : 15\n\n[Missile Weapons 3]:\nFor the next 15 seconds, your next missile weapon attack also triggers this spell for free.",
   onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
-    local power = spells_functions.script.getPower(15, champion, "water_magic")
+    local power = spells_functions.script.getPower(15, champion, "elemental_magic")
     local ord = champion:getOrdinal()
     if champion:getSkillLevel("missile_weapons") > 2 and not trigger then spells_functions.script.maxEffectIcons("frostbolt", 15, ord) end
     spells_functions.script.missile("frostbolt_cast", ord, power)
@@ -640,8 +613,8 @@ defOrdered =
   uiName = "Frost Shield",
   gesture = 58965,
   manaCost = 50,
-  skill = "water_magic",
-  requirements = { "water_magic", 3, "concentration", 3 },
+  skill = "elemental_magic",
+  requirements = { "elemental_magic", 3, "concentration", 3 },
   icon = 68,
   spellIcon = 14,
   description = "Creates a magical shield reducing cold damage against the party.\n- Cost : 50 energy\n- Duration : 50 seconds\n\n[Concentration 5]:\nThis spell does not remove other existing elemental shields and its duration becomes cumulative.",
@@ -654,14 +627,14 @@ defOrdered =
 {
   name = "freeze_rune",
   uiName = "Freeze Rune",
-  skill = "water_magic",
-  requirements = {"water_magic", 4},
+  skill = "elemental_magic",
+  requirements = {"elemental_magic", 4},
   gesture = 965,
   manaCost = 50,
   description = "Creates a rune trap that freezes anyone who steps on it. You can have up to 1 + Concentration traps at any time.\n- Cost : 50 energy\n- Power : 10",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
     playSound("generic_spell")
-    local power = spells_functions.script.getPower(10, champion, "water_magic")
+    local power = spells_functions.script.getPower(10, champion, "elemental_magic")
     spells_functions.script.ward("freeze_trap", power, champion:getOrdinal(), vec(0, 0.5, 1))
     spells_functions.script.partyLight("water", 1, vec(0, 0.5, 1), 10)
   end,
@@ -670,16 +643,16 @@ defOrdered =
 {
   name = "conjure_ice",
   uiName = "Conjure Ice",
-  skill = "water_magic",
-  requirements = {"water_magic", 5},
+  skill = "elemental_magic",
+  requirements = {"elemental_magic", 5},
   gesture = 96,
   manaCost = 50,
   description = "Conjures a block of ice in front of the party. It can take as much damage as the spell power before it breaks. It takes one damage each second or when it is walked on, traps an ennemy, is pushed, or more if it hits the ground or is struck.\nCost : 50 energy\n- Power : 20\n\n[Cold-blooded]:\nPower increased by 10.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
     playSound("frostburst")
     local x,y = spells_functions.script.getFrontTarget(true) -- blockedByHealth = true
-    local power = spells_functions.script.getPower(champion:hasTrait("cold_resistant") and 30 or 20, champion, "water_magic")
-    spawn("ice_cube", party.level, x, y, party.facing, party.elevation).health:setHealth(power)
+    local power = spells_functions.script.getPower(champion:hasTrait("cold_resistant") and 30 or 20, champion, "elemental_magic")
+	local cube = spawn("ice_cube", party.level, x, y, party.facing, party.elevation).health:setHealth(power)
     spells_functions.script.partyLight("water", 1, vec(0, 0.5, 1), 10)
   end,
 },
@@ -687,13 +660,13 @@ defOrdered =
 {
   name = "ice_storm",
   uiName = "Ice Storm",
-  skill = "water_magic",
-  requirements = {"water_magic", 5, "concentration", 3},
+  skill = "elemental_magic",
+  requirements = {"elemental_magic", 5, "concentration", 3},
   gesture = 9654,
   manaCost = 69,
   description = "Unleashes a devastating storm of ice on your foes.\n- Cost : 69 energy\n- Power : 15 per bolt",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
-    local power = spells_functions.script.getPower(2.5, champion, "water_magic")
+    local power = spells_functions.script.getPower(2.5, champion, "elemental_magic")
     spells_functions.script.missiles(power, {"frostbolt_cast"}, champion:getOrdinal(), 1, true)
     spells_functions.script.stopInvisibility()
   end
@@ -706,13 +679,13 @@ defOrdered =
   uiName = "Poison Cloud",
   gesture = 7,
   manaCost = 27,
-  skill = "earth_magic",
-  requirements = { "earth_magic", 1 },  
+  skill = "poison_mastery",
+  requirements = { "poison_mastery", 1 },  
   icon = 62,
   spellIcon = 2,
   description = "Summons a toxic cloud of poison that deals damage over time.\n- Cost : 27 energy\n- Power : 5 damage each 0.8 second\n- Duration : 20 seconds\n\n[Insectoid, Earth Magic 5]:\nA swarm of insects also follows and devours any enemy that gets too close.\n- Power : 2 damage per second\n- Duration : 60 seconds",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
-    local power = spells_functions.script.getPower(5, champion, "earth_magic")
+    local power = spells_functions.script.getPower(5, champion, "poison_mastery")
     spells_functions.script.frontAttack("poison_cloud_large", power, champion:getOrdinal())
     if champion:hasTrait("insectoid") and skillLevel > 4 then 
       spells_functions.script.frontAttack("swarm_cloud", power*2/5, champion:getOrdinal())
@@ -721,83 +694,34 @@ defOrdered =
   end
 },
 
-{
-  name = "healing",
-  uiName = "Healing",
-  skill = "earth_magic",
-  requirements = {"earth_magic", 1, "concentration", 1},
-  gesture = 7452,
-  manaCost = 0,
-  description = "Heals instantly the most wounded party member.\n- Cost : 15% maximum energy\n- Power : 15% maximum energy\n\n[Accuracy 3]:\nAffects all champions.",
-  onCast = function(champion, x, y, direction, elevation, skillLevel)
-    local indexMostWounded = spells_functions.script.mostWounded()
-    local cost = 0.15 * champion:getMaxEnergy()
-    spells_functions.script.paySpellCost(champion, cost)
-    local power = spells_functions.script.getPower(cost, champion, "earth_magic")
-    if champion:getSkillLevel("accuracy") then
-      spells_functions.script.healParty(power)
-    else 
-      spells_functions.script.heal(indexMostWounded, power)
-    end
-    playSound("heal_party")
-    spells_functions.script.partyLight("earth", 1, vec(0, 1, 0), 20)
-  end,
-  preCast = function(champion, x, y, direction, elevation, skillLevel)
-    local indexMostWounded = spells_functions.script.mostWounded()
-    if indexMostWounded == 0 then hudPrint("Nobody is wounded.") playSound("spell_fizzle") return false end
-    local cost = 0.15 * champion:getMaxEnergy()
-    if champion:getEnergy() < cost then return false,"no_energy" end
-  end,
-},
-
-{
-  name = "stone_rain",
-  uiName = "Stone Rain",
-  skill = "earth_magic",
-  requirements = {"earth_magic", 2},
-  gesture = 74,
-  manaCost = 44,
-  description = "Conjures several rocks that deals physical damage to all foes directly in front of you.\n- Cost : 44 energy\n- Power : 10 per rock",
-  onCast = function(champion, x, y, direction, elevation, skillLevel)
-    playSound("generic_spell")
-    local power = spells_functions.script.getPower(4, champion, "earth_magic")
-    spells_functions.script.rocksFall(power, champion:getOrdinal())
-    spells_functions.script.stopInvisibility()
-  end
-},
-
-{
-  name = "earth_enchantment",
-  uiName = "Earth Enchantment",
-  skill = "earth_magic",
-  requirements = {"earth_magic", 3},
-  gesture = 785,
-  manaCost = 100,
-  description = "Channels the earth spirit into an item (grabbed in mouse selection). The quality of the resulting enchantment increases with earth magic, concentration and the current enchantment.\n- Cost : 100 energy, 1 crystal shard of enchantment\n\n[Earth Magic 5]:\nIf no item is picked, creates instead a Mage Armor then drains all your energy, or cancels it if it is already active. You can only have one Mage Armor active at any time.\nSpells power per level:\nEarth +6%\nFire & Water -1%\nAir -4%\n- Duration : until canceled",
-  onCast = function(champion, x, y, direction, elevation, skillLevel)
-    if champion:getSkillLevel("earth_magic") > 4 and not getMouseItem() then
-      playSound("generic_spell")
-      spells_functions.script.elementalArmor("earth_armor", champion)
-    else
-      local power = spells_functions.script.getPower(1, champion, "earth_magic", "concentration")
-      spells_functions.script.enchantment(spells_functions.script.earthEnchantment, power, champion, 50)
-    end
-    spells_functions.script.partyLight("earth", 1, vec(0.5, 1, 0), 10)
-  end,
-},
+-- {
+  -- name = "stone_rain",
+  -- uiName = "Stone Rain",
+  -- skill = "earth_magic",
+  -- requirements = {"earth_magic", 2},
+  -- gesture = 74,
+  -- manaCost = 44,
+  -- description = "Conjures several rocks that deals physical damage to all foes directly in front of you.\n- Cost : 44 energy\n- Power : 10 per rock",
+  -- onCast = function(champion, x, y, direction, elevation, skillLevel)
+    -- playSound("generic_spell")
+    -- local power = spells_functions.script.getPower(4, champion, "earth_magic")
+    -- spells_functions.script.rocksFall(power, champion:getOrdinal())
+    -- spells_functions.script.stopInvisibility()
+  -- end
+-- },
 
 {
   name = "poison_bolt",
   uiName = "Poison Bolt",
   gesture = 478,
   manaCost = 32,
-  skill = "earth_magic",
-  requirements = { "earth_magic", 3, "concentration", 1 },  
+  skill = "poison_mastery",
+  requirements = { "poison_mastery", 3, "concentration", 1 },  
   icon = 63,
   spellIcon = 10,
   description = "A sizzling venomous bolt of poison shoots from your hands.\n- Cost : 32 energy\n- Power : 15\n\n[Missile Weapons 3]:\nFor the next 15 seconds, your next missile weapon attack also triggers this spell for free.",
   onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
-    local power = spells_functions.script.getPower(15, champion, "earth_magic")
+    local power = spells_functions.script.getPower(15, champion, "poison_mastery")
     local ord = champion:getOrdinal()
     if champion:getSkillLevel("missile_weapons") > 2 and not trigger then spells_functions.script.maxEffectIcons("poison_bolt", 15, ord) end
     spells_functions.script.missile("poison_bolt_greater_cast", ord, power)
@@ -810,8 +734,8 @@ defOrdered =
   uiName = "Poison Shield",
   gesture = 58745,
   manaCost = 50,
-  skill = "earth_magic",
-  requirements = { "earth_magic", 3, "concentration", 3 },
+  skill = "poison_mastery",
+  requirements = { "poison_mastery", 3, "concentration", 3 },
   icon = 67,
   spellIcon = 17,
   description = "Creates a magical shield reducing poison damage against the party.\n- Cost : 50 energy\n- Duration : 50 seconds\n\n[Concentration 5]:\nThis spell does not remove other existing elemental shields and its duration becomes cumulative.",
@@ -824,75 +748,46 @@ defOrdered =
 {
   name = "entangling_roots_rune",
   uiName = "Entangling Roots Rune",
-  skill = "earth_magic",
-  requirements = {"earth_magic", 4},
+  skill = "poison_mastery",
+  requirements = {"poison_mastery", 2, "alchemist", 4},
   gesture = 745,
   manaCost = 50,
   description = "Creates a rune trap that entangles anyone who steps on it. You can have up to 1 + Concentration traps at any time.\n- Cost : 50 energy\n- Power : 20\n\n[Alchemist]:\nPower increased by 20.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
     playSound("generic_spell")
-    local power = spells_functions.script.getPower(champion:hasTrait("alchemist") and 40 or 20, champion, "earth_magic")
+    local power = spells_functions.script.getPower(champion:hasTrait("alchemist") and 40 or 20, champion, "poison_mastery")
     spells_functions.script.ward("entangling_roots_trap", power, champion:getOrdinal(), vec(0.3, 1, 0.6))
     spells_functions.script.partyLight("earth", 1, vec(0.5, 1, 0), 10)
   end,
 },
 
-{
-  name = "stone_storm",
-  uiName = "Stone Storm",
-  skill = "earth_magic",
-  requirements = {"earth_magic", 4, "concentration", 1},
-  gesture = 7852,
-  manaCost = 53,
-  description = "Unleashes a devastating storm of rocks on your foes.\n- Cost : 53 energy\n- Power : 10 per rock\n\n[Throwing X]:\nPower increased by an additional X% for each point of strength you have.",
-  onCast = function(champion, x, y, direction, elevation, skillLevel)
-    party.party:shakeCamera(0.1, 9)
-    playSound("earthquake")
-    local power = spells_functions.script.getPower(5, champion, "earth_magic") + champion:getSkillLevel("throwing")*champion:getCurrentStat("strength")*0.05
-    spells_functions.script.missiles(power, {"rock_spell"}, champion:getOrdinal(), 1, true)
-    spells_functions.script.stopInvisibility()
-  end
-},
-
-{
-  name = "earthquake",
-  uiName = "Earthquake",
-  skill = "earth_magic",
-  requirements = {"earth_magic", 5},
-  gesture = 7856,
-  manaCost = 50,
-  description = "Unleashes a devastating earthquake on your surrondings.\n- Cost : 50 energy\n- Power : 20 on nearest tiles per second\n- Duration : 9 seconds\n- Range : 5 tiles\n\n[Muscular]:\nDeals 20% more damage.\n\n[Minotaur]:\nDeals 30% more damage and increases range by 1 tile.",
-  onCast = function(champion, x, y, direction, elevation, skillLevel)
-    playSound("earthquake")
-    local range = 5
-    local power = 20
-    if champion:hasTrait("athletic") then power = power+4 end
-    if champion:hasTrait("minotaur") then power = power+6 range = range+1 end
-    local power = spells_functions.script.getPower(power, champion, "earth_magic")
-    party.party:shakeCamera(0.3*power/(40+power), 9)
-    -- spawns <effects> around entity <centerID> up to <range> tiles on xy plan,
-    -- and elevation if <sphere> is true, in <duration> seconds,
-    -- with <power> decreasing with squared distance, cast by <ordinal> champion,
-    -- checking line of fire if <checkMode> ~= "NA".
-    -- function zoneEffects(effects, centerID, range, sphere, duration, power, ordinal, checkMode)
-    --spells_functions.script.durationEffects(1, 9, "zoneEffects", {"earthquake_tick", "party", range, false, 0, power, champion:getOrdinal()})
-    spells_functions.script.zoneEffects({{"earthquake_tick", true}}, "party", range, false, 0, power, champion:getOrdinal())
-    spells_functions.script.partyLight("earth", 9, vec(1, 0.75, 0), 3)
-    spells_functions.script.insertEffectIcons("earthquake", 9)
-    spells_functions.script.stopInvisibility()
-  end
-},
+-- {
+  -- name = "stone_storm",
+  -- uiName = "Stone Storm",
+  -- skill = "earth_magic",
+  -- requirements = {"earth_magic", 4, "concentration", 1},
+  -- gesture = 7852,
+  -- manaCost = 53,
+  -- description = "Unleashes a devastating storm of rocks on your foes.\n- Cost : 53 energy\n- Power : 10 per rock\n\n[Throwing X]:\nPower increased by an additional X% for each point of strength you have.",
+  -- onCast = function(champion, x, y, direction, elevation, skillLevel)
+    -- party.party:shakeCamera(0.1, 9)
+    -- playSound("earthquake")
+    -- local power = spells_functions.script.getPower(5, champion, "earth_magic") + champion:getSkillLevel("throwing")*champion:getCurrentStat("strength")*0.05
+    -- spells_functions.script.missiles(power, {"rock_spell"}, champion:getOrdinal(), 1, true)
+    -- spells_functions.script.stopInvisibility()
+  -- end
+-- },
 
 {
   name = "poison_storm",
   uiName = "Poison Storm",
-  skill = "earth_magic",
-  requirements = {"earth_magic", 5, "concentration", 3},
+  skill = "poison_mastery",
+  requirements = {"poison_mastery", 5, "concentration", 3},
   gesture = 7456,
   manaCost = 60,
   description = "Unleashes a devastating storm of poison on your foes.\n- Cost : 60 energy\n- Power : 15 per bolt",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
-    local power = spells_functions.script.getPower(2.5, champion, "earth_magic")
+    local power = spells_functions.script.getPower(2.5, champion, "poison_mastery")
     spells_functions.script.missiles(power, {"poison_bolt_greater_cast"}, champion:getOrdinal(), 1, true)
     spells_functions.script.stopInvisibility()
   end
@@ -938,7 +833,7 @@ defOrdered =
   name = "burning_thunder_shield",
   uiName = "Burning Thunder Mage Armor",
   requirements = {"fire_magic", 3, "air_magic", 3},
-  gesture = 5412365,
+  gesture = 0,
   manaCost = 0,
   description = "Creates a Mage Armor enhancing your magical power and draining all your energy, or cancels it if it is already active. You can only have one Mage Armor active at any time.\nSpells power per level:\nFire & Air +3%\nWater & Earth -3%\n- Cost : 0 energy\n- Duration : until canceled",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1055,41 +950,6 @@ defOrdered =
 },
 
 -- water & earth magic
-
-{
-  name = "life_bloom",
-  uiName = "Life Bloom",
-  requirements = {"water_magic", 1, "earth_magic", 1},
-  gesture = 789,
-  manaCost = 0,
-  description = "Heals the most wounded party member, then regenerates their health further over the duration. \n- Cost : 25% maximum energy\n- Power : 25% maximum energy\n- Duration : 15 seconds\n\n[Accuracy 3 or Alchemist or Farmer]:\nAffects all champions.",
-  onCast = function(champion, x, y, direction, elevation, skillLevel)
-    local indexMostWounded = spells_functions.script.mostWounded()
-    local cost = 0.25 * champion:getMaxEnergy()
-    spells_functions.script.paySpellCost(champion, cost)
-    local ratio = spells_functions.script.getPower(1, champion, "water_magic", "earth_magic")
-    local halfPower = cost * ratio / 2
-    local duration = spells_functions.script.quantumPower(15, champion,"water_magic")
-    local tick = halfPower / duration
-    if champion:getSkillLevel("accuracy") > 2 or champion:hasTrait("alchemist") or champion:hasTrait("farmer")then
-      spells_functions.script.healParty(halfPower, false)
-      spells_functions.script.durationEffects(1, duration, "healParty", {tick, false})
-      spells_functions.script.maxEffectIcons("life_bloom", duration)
-    else 
-      spells_functions.script.heal(indexMostWounded, halfPower)
-      spells_functions.script.durationEffects(1, duration, "heal", {indexMostWounded, tick})
-      spells_functions.script.maxEffectIcons("life_bloom", duration, indexMostWounded)
-    end
-    playSound("heal_party")
-    spells_functions.script.partyLight("water_earth", duration, vec(0.5, 1, 0.75), 3)
-  end,
-  preCast = function(champion, x, y, direction, elevation, skillLevel)
-    local indexMostWounded = spells_functions.script.mostWounded()
-    if indexMostWounded == 0 then hudPrint("Nobody is wounded.") playSound("spell_fizzle") return false end
-    local cost = 0.25 * champion:getMaxEnergy()
-    if champion:getEnergy() < cost then return false,"no_energy" end
-  end,
-},
 
 {
   name = "health_shield",
@@ -2007,34 +1867,38 @@ function getSkillPower(champion, skill)
 end
 
 function getSpellCriticalChance(champion)
-  local chance = 5 + 3 * champion:getSkillLevel("critical") + (champion:hasTrait("fire_mastery") and 15 or 0)
-  for slot = 1,ItemSlot.Bracers do
-    local item = champion:getItem(slot)
-    if item and item.equipmentitem then
-      local crit = item.equipmentitem:getCriticalChance()
-      if crit and crit ~= 0 then chance = chance + crit end
-    end
+  local chance = 0
+  if champion:hasTrait("mage_strike") then
+	  chance = chance + (3 * champion:getSkillLevel("critical"))
+	  for slot = 1,ItemSlot.Bracers do
+		local item = champion:getItem(slot)
+		if item and item.equipmentitem then
+		  local crit = item.equipmentitem:getCriticalChance()
+		  if crit and crit ~= 0 then chance = chance + crit end
+		end
+	  end
   end
-  if hasEffectIcons("demonic_pact", champion:getOrdinal())  and champion:getSkillLevel("fire_magic")>2  and champion:getSkillLevel("air_magic")>2
-	then chance = chance + 50*(1-champion:getHealth()/champion:getMaxHealth()) end
   return chance
 end
 
 function getPower(base, champion, skill1, skill2, skill3, skill4, skill5)
-  local f = getSkillPower(champion, skill1) + champion:getCurrentStat("willpower")/50 + 1
-  if skill2 then
-    f = f + getSkillPower(champion, skill2)
-    if skill3 then
-      f = f + getSkillPower(champion, skill3)
-      if skill4 then
-        f = f + getSkillPower(champion, skill4)
-        if skill5 then
-          f = f + getSkillPower(champion, skill5)
-        end 
-      end 
-    end 
-  end
-  return base * f * (get("crit") and (champion:hasTrait("air_mastery") and 2 or 1.5) or 1)
+	local f = getSkillPower(champion, skill1) + champion:getCurrentStat("willpower")/50 + 1
+	if skill2 then
+		f = f + getSkillPower(champion, skill2)
+		if skill3 then
+			f = f + getSkillPower(champion, skill3)
+			if skill4 then
+				f = f + getSkillPower(champion, skill4)
+				if skill5 then
+					f = f + getSkillPower(champion, skill5)
+				end 
+			end 
+		end 
+	end
+	if champion:hasTrait("persistence") then
+		f = f * (1.00 + (champion:getCurrentStat("strength") * 0.01))
+	end	
+  return base * f * (get("crit") and 2 or 1)
 end
 
 function quantumPower(base, champion, skill1, skill2, skill3, skill4, skill5)
@@ -2128,33 +1992,29 @@ function onAttack(champion, action, slot)
     if action:getClass() == "MeleeAttackComponent" then
       local item = champion:getItem(slot)
       if not item then return end
-      local spell =
-      (item:hasTrait("sword") and champion:hasTrait("fire_sword") and defByName["fireburst"]) or
-      (item:hasTrait("mace") and champion:hasTrait("thunder_hammer") and defByName["shock"]) or
-      (item:hasTrait("dagger") and champion:hasTrait("poisoned_dagger") and defByName["poison_cloud"]) or
-      (item:hasTrait("axe") and champion:hasTrait("frost_axe") and defByName["frost_burst"])
+      local spell = champion:hasTrait("spell_slinger") and defByName[functions.script.spellSlinger[champion:getOrdinal()]] or nil
       if not spell then return end
       for i = 1,quantum(action:getCooldown()*0.05) do
         set("crit", math.random()*100 < getSpellCriticalChance(champion))
         spell.onCast(champion, party.x, party.y, party.facing, party.elevation, 3)
       end
     else
-      local tab = (action:getClass() == "RangedAttackComponent" and missile_cast) or (action:getClass() == "FirearmAttackComponent" and firearm_cast)
-      if tab then
-        local ammo = action:getAmmo()
-        local item = champion:getOtherHandItem(slot)
-        if not ammo or (item and item.go.name == ammo) then
-          local ord = champion:getOrdinal()
-          for _,name in ipairs(tab) do
-            if hasEffectIcons(name, ord) then
-              local spell = defByName[name]
-              set("crit", math.random()*100 < getSpellCriticalChance(champion))
-              spell.onCast(champion, party.x, party.y, party.facing, party.elevation, champion:getSkillLevel(spell.skill or "concentration"), true)
-              removeEffectIcons(name, 0, ord)
-            end
-          end
-        end
-      end
+      -- local tab = (action:getClass() == "RangedAttackComponent" and missile_cast) or (action:getClass() == "FirearmAttackComponent" and firearm_cast)
+      -- if tab then
+        -- local ammo = action:getAmmo()
+        -- local item = champion:getOtherHandItem(slot)
+        -- if not ammo or (item and item.go.name == ammo) then
+          -- local ord = champion:getOrdinal()
+          -- for _,name in ipairs(tab) do
+            -- if hasEffectIcons(name, ord) then
+              -- local spell = defByName[name]
+              -- set("crit", math.random()*100 < getSpellCriticalChance(champion))
+              -- spell.onCast(champion, party.x, party.y, party.facing, party.elevation, champion:getSkillLevel(spell.skill or "concentration"), true)
+              -- removeEffectIcons(name, 0, ord)
+            -- end
+          -- end
+        -- end
+      -- end
     end
   end
   return true
@@ -2362,42 +2222,42 @@ function getFrontTarget(blockedByHealth)
 end
 
 function frontAttack(attack, power, ordinal)
-  local x,y = getFrontTarget()
-  local dx,dy = getFrontTarget()
-  local a = spawn(attack, party.level, x, y, party.facing, party.elevation)
-  if attack == "poison_cloud_large" then
-	local success = 0
-	for e in party.map:entitiesAt(dx, dy) do
-		if e ~= nil then			
-			local herb_items = {"blooddrop_cap", "blooddrop_cap", "etherweed", "etherweed", "mudwort", "mudwort", "blackmoss", "falconskyre", "falconskyre"}
-			local herb = herb_items[math.random(#herb_items)]
-			if e.name == "borra" then	
-				spawn(herb, 1, e.x, e.y, e.facing, e.elevation)
-				success = success + 1
-				e:destroy()
-			elseif e.name == "bread" then
-				spawn(herb, 1, e.x, e.y, e.facing, e.elevation)
-				success = success + 1
-				e:destroy()
-			elseif e.name == "pitroot_bread" then
-				spawn(herb, 1, e.x, e.y, e.facing, e.elevation)
-				success = success + 1
-				e:destroy()
-			elseif e.name == "baked_maggot" then
-				spawn(herb, 1, e.x, e.y, e.facing, e.elevation)
-				success = success + 1
-				e:destroy()
-			end
-		end		
+	local x,y = getFrontTarget()
+	local dx,dy = getFrontTarget()
+	local a = spawn(attack, party.level, x, y, party.facing, party.elevation)
+		if attack == "poison_cloud_large" then
+		local success = 0
+		for e in party.map:entitiesAt(dx, dy) do
+			if e ~= nil then			
+				local herb_items = {"blooddrop_cap", "blooddrop_cap", "etherweed", "etherweed", "mudwort", "mudwort", "blackmoss", "falconskyre", "falconskyre"}
+				local herb = herb_items[math.random(#herb_items)]
+				if e.name == "borra" then	
+					spawn(herb, 1, e.x, e.y, e.facing, e.elevation)
+					success = success + 1
+					e:destroy()
+				elseif e.name == "bread" then
+					spawn(herb, 1, e.x, e.y, e.facing, e.elevation)
+					success = success + 1
+					e:destroy()
+				elseif e.name == "pitroot_bread" then
+					spawn(herb, 1, e.x, e.y, e.facing, e.elevation)
+					success = success + 1
+					e:destroy()
+				elseif e.name == "baked_maggot" then
+					spawn(herb, 1, e.x, e.y, e.facing, e.elevation)
+					success = success + 1
+					e:destroy()
+				end
+			end		
+		end
+		if success > 0 then
+			hudPrint("The caustic fumes caused herbs to sprout from the food...")
+		end
 	end
-	if success > 0 then
-		hudPrint("The caustic fumes caused herbs to sprout from the food...")
-	end
-  end
-  if a.tiledamager then a.tiledamager:setCastByChampion(ordinal) a.tiledamager:setAttackPower(power) end
-  if a.cloudspell then a.cloudspell:setCastByChampion(ordinal) a.cloudspell:setAttackPower(power) end
-  if a.forcefield then delayedCall(a.id, power, "deactivate") delayEffects(power+3, destroy, {a.id}) end
-  return a
+	if a.tiledamager then a.tiledamager:setCastByChampion(ordinal) a.tiledamager:setAttackPower(power) end
+	if a.cloudspell then a.cloudspell:setCastByChampion(ordinal) a.cloudspell:setAttackPower(power) end
+	if a.forcefield then delayedCall(a.id, power, "deactivate") delayEffects(power+3, destroy, {a.id}) end
+	return a
 end
 
 function destroy(o) if o then o = findEntity(o) if o then o:destroy() end end end
@@ -2931,11 +2791,12 @@ function elementalShields(duration, caster, f, a, w, e)
 end
 
 function elementalShieldSingle(duration, caster, f, a, w, e)
-  local old = caster:getSkillLevel("concentration")>4 and 1 or 0
-  f = (f and getPower(duration, caster,  "fire_magic") or 0) + old*removeEffectIcons(  "fire_shield")
-  a = (a and getPower(duration, caster,   "air_magic") or 0) + old*removeEffectIcons( "shock_shield")
-  w = (w and getPower(duration, caster, "water_magic") or 0) + old*removeEffectIcons( "frost_shield")
-  e = (e and getPower(duration, caster, "earth_magic") or 0) + old*removeEffectIcons("poison_shield")
+  --local old = caster:getSkillLevel("concentration")>4 and 1 or 0
+  local old = 1
+  f = (f and duration or 0) + old*removeEffectIcons(  "fire_shield")
+  a = (a and duration or 0) + old*removeEffectIcons( "shock_shield")
+  w = (w and duration or 0) + old*removeEffectIcons( "frost_shield")
+  e = (e and duration or 0) + old*removeEffectIcons("poison_shield")
   insertEffectIcons(  "fire_shield", f)
   insertEffectIcons( "shock_shield", a)
   insertEffectIcons( "frost_shield", w)

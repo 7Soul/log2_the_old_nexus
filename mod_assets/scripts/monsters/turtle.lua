@@ -41,7 +41,7 @@ defineObject{
 			exp = 60,
 			lootDrop = { 75, "turtle_steak", 75, "turtle_steak" },
 			resistances = { ["poison"] = "weak" },
-			traits = { "animal" },
+			traits = { "animal", "weakness_fire" },
 			headRotation = vec(90, 0, 0),
 			onDie = function(self)
 				-- maybe do something?

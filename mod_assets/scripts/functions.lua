@@ -5,16 +5,74 @@ hunter_crit = {0,0,0,0}
 hunter_timer = {0,0,0,0}
 hunter_max = {0,0,0,0}
 secondary = 0
+spellSlinger = {}
 
-function test_start()	
-	if Editor.isRunning() then
+
+champSkillTemp1, champSkillTemp2 = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+champSkillTemp3, champSkillTemp4 = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+partySkillTemp = {champSkillTemp1, champSkillTemp2, champSkillTemp3, champSkillTemp4 } 
+skillNames = { "athletics", "block", "light_armor", "heavy_armor", "accuracy", "critical", "firearms", "throwing", "alchemy", "deadshot", "light_weapons", "heavy_weapons", "spellblade", "elemental_magic", "poison_mastery", "concentration" }
+
+function addSkillTemp(champion, skill)
+	local champ = champion:getOrdinal()
+	partySkillTemp[champ][skill] = math.min(partySkillTemp[champ][skill] + 1, 5)
+	champion:setSkillPoints(champion:getSkillPoints() - 1)
+end
+
+function removeSkillTemp(champion, skill)
+	local champ = champion:getOrdinal()
+	partySkillTemp[champ][skill] = math.max(partySkillTemp[champ][skill] - 1, 0)
+	champion:setSkillPoints(champion:getSkillPoints() + 1)
+end
+
+function clearSkillTemp(champion)
+	local champ = champion:getOrdinal()
+	for i=1,16 do
+		if partySkillTemp[champ][i] > 0 then
+			for j=1, partySkillTemp[champ][i] do
+				partySkillTemp[champ][i] = partySkillTemp[champ][i] - 1
+				champion:addSkillPoints(1)
+			end
+		end
+	end
+end
+
+function performSkillTemp(champion)
+	local champ = champion:getOrdinal()
+	for i=1,16 do
+		if partySkillTemp[champ][i] > 0 then
+			for j=1, partySkillTemp[champ][i] do
+				partySkillTemp[champ][i] = partySkillTemp[champ][i] - 1
+				champion:trainSkill(skillNames[i], 1)
+				champion:addSkillPoints(1)
+			end
+		end
+	end
+end
+
+function countAllSkills(champion)
+	local champ = champion:getOrdinal()
+	local result = 0
+	for i=1,16 do
+		result = result + champion:getSkillLevel(skillNames[i])
+	end
+	return result
+end
+
+function teststart()
+	--spawn("script_entity", party.level, 1, 1, 0, 0, "functions2").script:setSource("mod_assets/scripts/f2.lua")
+	--functions2.script:setSource("mod_assets/scripts/f2.lua")
+	functions2.script.start()
+	--if Editor.isRunning() then
 		--party:setPosition(16, 9, 0, 3, 1)
 		party.party:getChampionByOrdinal(1):setClass("fighter")
 		party.party:getChampionByOrdinal(2):setClass("corsair")
-		party.party:getChampionByOrdinal(3):setClass("tinkerer")
-		party.party:getChampionByOrdinal(4):setClass("hunter")
+		party.party:getChampionByOrdinal(3):setClass("druid")
+		party.party:getChampionByOrdinal(4):setClass("elementalist")
+		party.party:getChampionByOrdinal(4):setRace("insectoid")
 		for i=1,4 do
 			local champion = party.party:getChampionByOrdinal(i)
+			if not champion:getItem(32) then champion:insertItem(32,spawn("torch").item) end
 			champion:addSkillPoints(10)
 			if champion:getClass() == "assassin" then
 				champion:addTrait("assassination")
@@ -34,11 +92,31 @@ function test_start()
 				champion:insertItem(17,spawn("blackmoss").item)
 				champion:insertItem(18,spawn("crystal_flower").item)
 			end
+			if champion:getRace() == "minotaur" then
+				champion:addTrait("carnivorous")
+			end
+			if champion:getRace() == "lizardman" then
+				champion:addTrait("lizard_blood")
+			end
+			if champion:getRace() == "insectoid" then
+				champion:addTrait("persistence")
+			end
 		end	
-	else
+	--else
 		for i=1,4 do
 			local champion = party.party:getChampionByOrdinal(i)
-			champion:addSkillPoints(10)
+			champion:addSkillPoints(15)
+		end
+	--end
+	findCrystalArea()
+end
+
+crystal_area = {}
+
+function findCrystalArea()
+	for entity in Dungeon.getMap(party.level):allEntities() do
+		if entity.name == "crystal_area" then
+			crystal_area = {entity.x-2, entity.y-2, entity.x+2, entity.y+2}
 		end
 	end
 end
@@ -109,6 +187,19 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 		end
 		--print("killing blow delivered by ", champion:getName())
 		--monster:showDamageText("+"..h, "00FF00")
+	end
+end
+
+
+function onUseItem(self, champion)
+	if champion:hasTrait("carnivorous") then
+		if self.go.item:hasTrait("consumable") and self.go.item:hasTrait("meat") then
+			champion:setConditionValue("carnivorous", 60)
+			champion:modifyFood(self.go.usableitem:getNutritionValue() * 0.15)
+		else
+			hudPrint("This isn't meat...")
+			return false
+		end
 	end
 end
 
@@ -193,6 +284,23 @@ function onEquipItem(self, champion, slot)
 			end
 		end
 	end
+	if self.go.name == "enchanted_timepiece" then
+		getTimepiece()
+	end
+end
+
+function getTimepiece()
+	for j=1,4 do
+		for i=1,32 do
+			if party.party:getChampionByOrdinal(j):getItem(i) and party.party:getChampionByOrdinal(j):getItem(i).go.name == "enchanted_timepiece" then
+				local timepiece_champion = party.party:getChampionByOrdinal(j)
+				return timepiece_champion:getItem(i)
+			end
+		end
+	end
+	if getMouseItem() and getMouseItem().go.name == "enchanted_timepiece" then
+		return getMouseItem()
+	end
 end
 
 function onUnequipItem(self, champion, slot)
@@ -275,15 +383,14 @@ end
 function onMeleeAttack(self, item, champion, slot, chainIndex)
 	supertable[1][item.go.id] = self:getAttackPower()
 	supertable[2][item.go.id] = self:getCooldown()
-	supertable[4][self.go.id] = iff(self:getPierce() ~= nil, self:getPierce(), 0)
+	supertable[4][self.go.id] = self:getPierce() ~= nil and self:getPierce() or 0
 	
 	if math.random() <= 0.25 and champion:hasTrait("precision") then
-		if supertable[4][self.go.id] then	
-			self:setPierce(supertable[4][self.go.id] + 30)
+		if not self:getPierce() then	
+			self:setPierce(supertable[4][self.go.id] + 10)
 		else
-			self:setPierce(self:getPierce() + 30)
-		end
-		
+			self:setPierce(self:getPierce() + 10)
+		end		
 	end
 	if champion:getClass() == "assassin" and champion:isDualWielding() then
 		self:setAttackPower(self:getAttackPower() * 1.25 + (assassinations[champion:getOrdinal()] * 0.05) )
@@ -294,11 +401,17 @@ function onMeleeAttack(self, item, champion, slot, chainIndex)
 	if champion:getClass() == "corsair" then
 		if item:hasTrait("light_weapon") then
 			local item2 = champion:getOtherHandItem(slot)
-			if item2:hasTrait("firearm") then
+			if item2 and item2:hasTrait("firearm") then
 				delayedCall("functions", 0.25, "duelistSword", champion:getOrdinal(), item.go.name, slot)
 			end
 		end
 	end
+	if champion:hasTrait("brutalizer") then
+		self:setAttackPower(self:getAttackPower() * (1.00 + (champion:getCurrentStat("strength") * 0.01)))
+	end	
+	if champion:hasTrait("persistence") then
+		self:setAttackPower(self:getAttackPower() * (1.00 + (champion:getCurrentStat("willpower") * 0.01)))
+	end	
 end
 
 function duelistSword(id, itemName, slot)
@@ -321,11 +434,19 @@ function onFirearmAttack(self, champion, slot)
 	end
 	
 	if math.random() <= 0.25 and champion:hasTrait("precision") then
-		if supertable[4][self.go.id] then	
-			self:setPierce(supertable[4][self.go.id] + 30)
+		if not self:getPierce() then	
+			self:setPierce(supertable[4][self.go.id] + 10)
 		else
-			self:setPierce(self:getPierce() + 30)
-		end
+			self:setPierce(self:getPierce() + 10)
+		end	
+	end
+	
+	if champion:hasTrait("fleshbore") then
+		if not self:getPierce() then	
+			self:setPierce(supertable[4][self.go.id] + 10)
+		else
+			self:setPierce(self:getPierce() + 10)
+		end	
 	end
 	
 	if champion:getClass() == "corsair" then
@@ -346,7 +467,7 @@ function onFirearmAttack(self, champion, slot)
 			if pelletsSlot ~= nil then
 				local stack = pellets:getStackSize()
 				if stack > 1 then pellets:setStackSize(stack-1)	else champion:removeItemFromSlot(pelletsSlot) end
-				if item2 ~= nil then -- if other hand has an item
+				if item2 then -- if other hand has an item
 					if item2.go.name ~= "pellet_box" then
 						corsairItem = item2.go.name
 						
@@ -493,21 +614,53 @@ function reloadAfter(id, cItem, slot, pelletsSlot)
 	end
 end
 
-function onThrowAttack(self, champion, slot, chainIndex)
-	local item = self.go.item
-	table_attackPower[item.go.id] = self:getAttackPower()
-	table_cooldown[item.go.id] = self:getCooldown()
-	if self:getPierce() ~= nil then table_pierce[self.go.id] = self:getPierce()	else table_pierce[self.go.id] = 0 end
-	if champion:getClass() == "assassin" then
-		item:setAttackPower(champion:getCurrentStat("dexterity") * 1.25 + (assassinations[champion:getOrdinal()] * 3))
-	end
-	supertable = { table_attackPower, table_cooldown, table_range, table_pierce, table_weight }
+function onThrowAttack(self, champion, slot, chainIndex, item)
+	supertable[1][item.go.id] = self:getAttackPower()
+	supertable[2][item.go.id] = self:getCooldown()
+	supertable[4][self.go.id] = self:getPierce() and self:getPierce() or 0
+	
+	-- if math.random() <= 0.25 and champion:hasTrait("precision") then
+		-- if not self:getPierce() then	
+			-- self:setPierce(supertable[4][self.go.id] + 10)
+		-- else
+			-- self:setPierce(self.go.throwattack:getPierce() + 10)
+		-- end		
+	-- end
+	
+	-- if champion:getClass() == "assassin" then
+		-- item:setAttackPower(self:getAttackPower() * 1.25 + (assassinations[champion:getOrdinal()] * 0.05))
+	-- end
+	
+	-- if champion:hasTrait("fleshbore") then
+		-- if not self:getPierce() then	
+			-- self:setPierce(supertable[4][self.go.id] + 10)
+		-- else
+			-- self:setPierce(self.go.throwattack:getPierce() + 10)
+		-- end	
+	-- end
 end
 
-function reset_attack(self)
+function onMissileAttack(self, champion, slot, chainIndex, item)
+	supertable[1][item.go.id] = self:getAttackPower()
+	supertable[2][item.go.id] = self:getCooldown()
+end
+
+function reset_attack(self, champion, slot, secondary2)
+	print(self.go.rangedattack)
+	if secondary2 == 0 and champion:hasTrait("double_shot") and (self.go.rangedattack or self.go.throwattack or self.go.firearmattack) then
+		secondary = 1
+		delayedCall("functions", 0.25, "secondShot", champion:getOrdinal(), slot)
+	else
+		secondary = 0
+	end
+	-- Reset attack power and cooldown
 	self:setAttackPower(supertable[1][self.go.id])
 	self:setCooldown(supertable[2][self.go.id]) 
-	self:setPierce(supertable[4][self.go.id])
+	-- Reset pierce for non-missiles
+	if not self.go.item:hasTrait("missile_weapon") and not self.go.item:hasTrait("throwing_weapon") then
+		self:setPierce(supertable[4][self.go.id])
+	end
+	-- Reset range for firearms
 	if self.go.item:hasTrait("firearm") then 
 		self:setRange(supertable[3][self.go.id]) 
 	end
@@ -548,6 +701,41 @@ function onMonsterDealDamage(self, champion, damage)
 			end
 		end
 	end
+end
+
+-- Monster hooks
+
+function onMonsterDie(self)
+	print("on die")
+	if self:hasTrait("animal") and math.random() < 0.55 then
+		print("animal")
+		for i=1,4 do
+			if party.party:getChampion(i):hasTrait("carnivorous") then
+				local common = {"warg_meat", "sausage", "rat_shank", "mole_jerky", "lizard_stick"}
+				local rare = {"snake_tail", "toad_tongue", "turtle_steak" }
+				if math.random() < 0.75 then
+					spawn(common[math.ceil(math.random() * 5)], self.level, self.x, self.y, self.facing, self.elevation)
+					break
+				else
+					spawn(common[math.ceil(math.random() * 3)], self.level, self.x, self.y, self.facing, self.elevation)
+					break
+				end
+			end
+		end
+	end
+end
+
+function onDamageMonster(self, damage, damageType)
+	local resistances = self:getResistance(damageType)
+	if resistances == "weak" then
+		functions.script.hitMonster(self, math.ceil(damage * 0.25), "FF0000")
+	end
+end
+
+function hitMonster(self, damage, color, flair)
+	if math.random() <= 0.5 then self.go.animation:play("getHitFrontRight") else self.go.animation:play("getHitFrontLeft") end
+	if flair then self.go.monster:showDamageText("" .. damage, "FF0000", flair) else self.go.monster:showDamageText("" .. damage, "FF0000") end
+	self.go.monster:setHealth(self.go.monster:getHealth() - damage)
 end
 
 tinkering_level = { 0,0,0,0 }

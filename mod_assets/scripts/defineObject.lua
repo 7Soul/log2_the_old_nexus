@@ -1,5 +1,9 @@
 local orig_defineObject = defineObject
 
+local onUseItem = function(self, champion)
+	functions.script.onUseItem(self, champion)
+end
+
 local onEquipItem = function(self, champion, slot)
 	functions.script.onEquipItem(self, champion, slot)
 end
@@ -8,18 +12,20 @@ local onUnequipItem = function(self, champion, slot)
 	functions.script.onUnequipItem(self, champion, slot)
 end
 
-local onAttack = function(self, champion, slot, chainIndex)
+local onMeleeAttack = function(self, champion, slot, chainIndex)
 	local item = champion:getItem(slot)
 	functions.script.onMeleeAttack(self, item, champion, slot, chainIndex)
+	functions.script.onPhysical(self, item, champion, slot, chainIndex)
 end
 
 local onHitMonster = function(self, monster, tside, damage, champion)
 	functions.script.monster_attacked(self, monster, tside, damage, champion)		
-	functions.script.reset_attack(self)
+	functions.script.reset_attack(self, champion, slot)
 end
 
-local onPostAttack = function(self, monster, tside, damage, champion)
-	functions.script.reset_attack(self)
+local onPostAttack = function(self, champion, slot)
+	local secondary2 = functions.script.secondary
+	functions.script.reset_attack(self, champion, slot, secondary2)
 end
 
 local onFirearmAttack = function(self, champion, slot)
@@ -29,15 +35,29 @@ end
 local onFirearmPostAttack = function(self, champion, slot)
 	local secondary2 = functions.script.secondary
 	functions.script.onPostFirearmAttack(self, champion, slot, secondary2)
-	functions.script.reset_attack(self)
+	functions.script.reset_attack(self, champion, slot)
 end
 
 local onThrowAttack = function(self, champion, slot, chainIndex)
-	functions.script.onThrowAttack(self, champion, slot, chainIndex)
+	local item = champion:getItem(slot)	
+	functions.script.onThrowAttack(self, champion, slot, chainIndex, item)
+end
+
+local onMissileAttack = function(self, champion, slot, chainIndex)
+	local item = champion:getItem(slot)
+	functions.script.onMissileAttack(self, champion, slot, chainIndex, item)
 end
 
 local onMonsterDealDamage = function(self, champion, damage)
 	functions.script.onMonsterDealDamage(self, champion, damage)
+end
+
+local onMonsterDie = function(self)
+	functions.script.onMonsterDie(self)
+end
+
+local onDamage = function(self, damage, damageType)
+	functions.script.onDamageMonster(self, damage, damageType)
 end
 
 local onWInit = function(self)
@@ -79,8 +99,11 @@ defineObject = function(def)
 				c.onEquipItem = onEquipItem
 				c.onUnequipItem = onUnequipItem
 			end
+			if c.class == "UsableItem" then
+				c.onUseItem = onUseItem
+			end
 			if c.class == "MeleeAttack" then
-				c.onAttack = onAttack
+				c.onAttack = onMeleeAttack
 				c.onHitMonster = onHitMonster
 				c.onPostAttack = onPostAttack
 				c.onInit = onWInit
@@ -93,8 +116,16 @@ defineObject = function(def)
 				c.onAttack = onThrowAttack
 				c.onPostAttack = onPostAttack
 			end
+			if c.class == "RangedAttack" then
+				c.onAttack = onMissileAttack
+				c.onPostAttack = onPostAttack
+			end
 			if c.class == "MonsterAttack" then
 				c.onDealDamage = onMonsterDealDamage
+			end
+			if c.class == "Monster" then
+				c.onDie = onMonsterDie
+				c.onDamage = onDamageMonster
 			end
 		end
 	end

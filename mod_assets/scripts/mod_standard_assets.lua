@@ -8,7 +8,7 @@ import "assets/scripts/ambient_tracks.lua"
 import "assets/scripts/races.lua"
 import "mod_assets/scripts/char_classes.lua"
 import "mod_assets/scripts/skills.lua"
-import "assets/scripts/traits.lua"
+--import "assets/scripts/traits.lua"
 
 -- import objects
 import "assets/scripts/objects/generic.lua"

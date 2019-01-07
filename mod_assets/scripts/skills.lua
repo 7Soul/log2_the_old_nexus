@@ -3,15 +3,18 @@ defineSkill{
 	uiName = "Athletics",
 	priority = 10,
 	icon = 12,
-	description = [[Increases your health by 20 for each skill point. 
+	description = [[Increases your health by 20 and carrying capacity by 1kg for each skill point. 
 
 	Perks:
-	- Level 3 | Your carrying capacity is increased by 15 kg.
+	- Level 2 | Your carrying capacity is increased by 10 kg.
 	- Level 4 | Increases resistance to leg wounds by 10%, plus 10% if wearing Light Armor boots or 20% if wearing Heavy Armor boots.
 	- Level 5 | You gain +100% Health Regeneration Rate for 30 seconds after drinking a healing potion.]],
-	traits = { [3] = "pack_mule", [4] = "endurance", [5] = "refreshed" },
+	traits = { [2] = "pack_mule", [4] = "endurance", [5] = "refreshed" },
 	onRecomputeStats = function(champion, level)
-		champion:addStatModifier("max_health", level*20)
+		if level > 0 then
+			champion:addStatModifier("max_health", level * 20)
+			champion:addStatModifier("max_load", level)
+		end
 	end,
 	onReceiveCondition = function(champion, cond, level)
 		if level > 0 then
@@ -37,24 +40,18 @@ defineSkill{
 	priority = 30,
 	icon = 12,
 	description = [[Increases all resistances by 2 per skill level when holding a shield. 
-	- Protection against hand and chest wounds +20% per skill level.
-	
+		
 	Perks:
 	- Level 2 | Gain 10% chance to block an attack.
+	- Level 4 | Immunity against hand and chest wounds.
 	- Level 5 | Bashes the enemy for 150% of the damage received when you block an attack.]],
-	traits = { [2] = "block", [5] = "shield_bash" },
+	traits = { [2] = "block", [4] = "shield_bearer", [5] = "shield_bash" },
 	onRecomputeStats = function(champion, level)
 		local skillLevel = champion:getSkillLevel("block")
 		champion:addStatModifier("resist_fire", 2 * skillLevel)
 		champion:addStatModifier("resist_cold", 2 * skillLevel)
 		champion:addStatModifier("resist_poison", 2 * skillLevel)
 		champion:addStatModifier("resist_shock", 2 * skillLevel)
-	end,
-	onReceiveCondition = function(champion, cond, level)
-		local skillLevel = champion:getSkillLevel("block")
-		if level > 0 and (cond == "chest_wound" or cond == "left_hand_wound" or cond == "right_hand_wound") and math.random() <= 0.2*skillLevel then
-			return false
-		end
 	end,
 }
 
@@ -119,11 +116,11 @@ defineSkill{
 	
 	Perks:
 	- Level 2 | You can perform melee attacks from the back row.
-	- Level 4 | 25% Chance to pierce 10 armor with attacks.	]],
+	- Level 5 | 25% Chance to pierce 10 armor with attacks.	]],
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
 		return level * 10
 	end,
-	traits = { [2] = "reach", [4] = "precision" },
+	traits = { [2] = "reach", [5] = "precision" },
 }
 
 defineSkill{
@@ -156,22 +153,23 @@ defineSkill{
 }
 
 defineSkill{
-	name = "missile_weapons",
-	uiName = "Missile Weapons",
-	priority = 90,
+	name = "deadshot",
+	uiName = "Deadshot",
+	priority = 110,
 	icon = 17,
-	description = [[Increases damage of Missile Weapons by 20% for each skill point. 
+	description = [[Increases damage of ranged attacks by 20% for each skill point. 
 	
 	Perks:
-	- Level 3 | Missile Weapon attacks ignore 20 points of an enemy's armor.
-	- Level 5 | ]],
-	traits = { [3] = "piercing_arrows" },
+	- Level 2 | Gain 15 accuracy with ranged attacks.
+	- Level 4 | Ranged attacks ignore 10 points of an enemy's armor.
+	- Level 5 | You attack twice when using Missile Weapons, Throwing Weapons and Firearms.]],
+	traits = { [2] = "bullseye", [4] = "fleshbore", [5] = "double_shot" },
 }
 
 defineSkill{
 	name = "throwing",
 	uiName = "Throwing",
-	priority = 100,
+	priority = 90,
 	icon = 16,
 	description = [[Increases damage of Throwing Weapons by 20% for each skill point. 
 	
@@ -183,7 +181,7 @@ defineSkill{
 defineSkill{
 	name = "light_weapons",
 	uiName = "Light Weapons",
-	priority = 110,
+	priority = 120,
 	icon = 106,
 	description = [[Increases damage of Light Weapons by 20% for each skill point. 
 	
@@ -196,7 +194,7 @@ defineSkill{
 defineSkill{
 	name = "heavy_weapons",
 	uiName = "Heavy Weapons",
-	priority = 120,
+	priority = 130,
 	icon = 105,
 	description = [[Increases damage of Heavy Weapons by 20% for each skill point. 
 	
@@ -209,31 +207,31 @@ defineSkill{
 defineSkill{
 	name = "spellblade",
 	uiName = "Spellblade",
-	priority = 130,
+	priority = 140,
 	icon = 12,
-	description = [[Increase Protection and Accuracy by 2 per skill level when holding a mage weapon.
-	- You can hold a Staff in one hand. Staves gain 10% damage per skill point plus 5% for each Willpower point.
+	description = [[Increase Protection and Accuracy by 2 per skill level when holding a staff.
+	- You can hold a Staff in one hand.
 	
 	Perks:
 	- Level 2 | Cast a basic spell to memorize it. You'll automatically cast this spell with melee attacks at 10% chance.
-	- Level 5 | Your spells gain Critical Chance from your equipment and skills.
-	]],
-	traits = { [2] = "spell_proficiency", [5] = "mage_strike" },
+	- Level 5 | Your spells gain Critical Chance from your equipment and skills.]],
+	traits = { [2] = "spell_slinger", [5] = "mage_strike" },
 	onRecomputeStats = function(champion, level)
 		local level2 = champion:getSkillLevel("spellblade")
 		champion:addStatModifier("max_energy", level2 * 5)
 		for i=1,2 do
 			local item = champion:getItem(i)
 			if item and item:hasTrait("mage_weapon") then
-				champion:addStatModifier("protection", 5)
+				champion:addStatModifier("protection", level2 * 2)
 			end
 		end
 	end,
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
+		local level2 = champion:getSkillLevel("spellblade")
 		for i=1,2 do
 			local item = champion:getItem(i)
 			if item and item:hasTrait("mage_weapon") then
-				return 5
+				return level2 * 2
 			end
 		end
 	end,
@@ -242,33 +240,33 @@ defineSkill{
 defineSkill{
 	name = "elemental_magic",
 	uiName = "Elemental Magic",
-	priority = 140,
+	priority = 150,
 	icon = 29,
 	description = [[Increases damage of elemental spells by 20% for each skill point.
 	
 	Perks:
 	- Level 4 | Deal 25% more damage if the enemy is vulnerable to that element.
-	- Level 5 | + 25 Resist Fire, Shock and Cold.]],
+	- Level 5 | + 25% Resist Fire, Shock and Cold.]],
 	traits = { [4] = "elemental_exploitation", [5] = "elemental_armor" },
 }
 
 defineSkill{
-	name = "poison_magic",
+	name = "poison_mastery",
 	uiName = "Poison Mastery",
-	priority = 150,
+	priority = 160,
 	icon = 31,
 	description = [[Increases damage of poison spells by 20% for each skill point.
 	
 	Perks:
-	- Level 2 | 20% chance to poison enemies with melee, ranged and throwing attacks.
-	- Level 5 | + 50 Resist Poison.	]],
+	- Level 2 | 20% chance to poison enemies with melee, ranged and throwing attacks. (to-do)
+	- Level 5 | + 50% Resist Poison.]],
 	traits = { [2] = "venomancer", [5] = "antivenom" },
 }
 
 defineSkill{
 	name = "concentration",
 	uiName = "Magic Training",
-	priority = 160,
+	priority = 170,
 	icon = 26,
 	description = [[Increases your energy by 20 for each skill point. 
 	
@@ -284,7 +282,7 @@ defineSkill{
 defineSkill{
 	name = "alchemy",
 	uiName = "Alchemy",
-	priority = 170,
+	priority = 100,
 	icon = 20,
 	description = [[A higher skill level in Alchemy allows you to brew a wider range of potions. To craft potions you also need herbs and a Mortar and Pestle.
 	- Herbs multiply while in your inventory.
@@ -293,6 +291,24 @@ defineSkill{
 	- Level 4 | You brew stronger healing and energy potions.
 	- Level 5 | When you craft bombs you get three bombs instead of one.]],
 	traits = { [4] = "improved_alchemy", [5] = "bomb_expert" },
+	onRecomputeStats = function(champion, level)
+		if level > 0 then
+			champion:addTrait("green_thumb")
+		end
+	end,
+}
+
+defineSkill{
+	name = "seafaring",
+	uiName = "Seafaring",
+	priority = 100,
+	icon = 20,
+	description = [[.
+	
+	Perks:
+	- Level 3 | You deal 30% more melee damage from the backline and 30% more firearms damage from the frontline.
+	- Level 5 | .]],
+	traits = { [4] = "", [5] = "" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			champion:addTrait("green_thumb")

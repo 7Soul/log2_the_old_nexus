@@ -246,3 +246,25 @@ defineCondition{
 		champion:addStatModifier("energy_regeneration_rate", 100)
 	end,
 }
+
+defineCondition{
+	name = "carnivorous",
+	uiName = "Carnivorous",
+	description = "Eating meat increases your Strength by 4 and Health and Energy regeneration rate by 25% for 1 minute.",
+	icon = 1,
+	--iconAtlas = "mod_assets/textures/conditions.tga",
+	beneficial = true,
+	harmful = false,
+	tickInterval = 1,
+	onStart = function(self, champion)
+	end,
+	onStop = function(self, champion)
+	end,
+	onRecomputeStats = function(self, champion)
+		champion:addStatModifier("strength", 4)
+		champion:addStatModifier("health_regeneration_rate", 25)
+		champion:addStatModifier("energy_regeneration_rate", 25)
+	end,
+	onTick = function(self, champion)
+	end,	
+}
