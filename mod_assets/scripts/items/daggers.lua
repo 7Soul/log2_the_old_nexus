@@ -28,7 +28,7 @@ defineObject{
 			powerAttackTemplate = "throw",
 		},
 	},
-	tags = { "weapon_light", "weapon_dagger" },
+	tags = { "weapon", "weapon_light", "weapon_dagger" },
 }
 
 defineObject{
@@ -72,7 +72,7 @@ defineObject{
 			requirements = { "concentration", 1 },
 		},
 	},
-	tags = { "weapon_light", "weapon_dagger" },
+	tags = { "weapon", "weapon_light", "weapon_dagger" },
 }
 
 defineObject{
@@ -92,7 +92,7 @@ defineObject{
 			impactSound = "impact_blade",
 			weight = 2.4,
 			secondaryAction = "leech",
-			traits = { "light_weapon", "dagger" },
+			traits = { "light_weapon", "dagger", "leech" },
 		},
 		{
 			class = "MeleeAttack",
@@ -130,7 +130,7 @@ defineObject{
 			gameEffect = "Successful hit drains life from target and heals you.",
 		},
 	},
-	tags = { "weapon_light", "weapon_dagger" },
+	tags = { "weapon", "weapon_light", "weapon_dagger" },
 }
 
 defineObject{
@@ -161,7 +161,7 @@ defineObject{
 			powerAttackTemplate = "thrust",
 		},
 	},
-	tags = { "weapon_light", "weapon_dagger" },
+	tags = { "weapon", "weapon_light", "weapon_dagger" },
 }
 
 defineObject{
@@ -193,7 +193,7 @@ defineObject{
 			powerAttackTemplate = "flurry",
 		},
 	},
-	tags = { "weapon_light", "weapon_dagger" },
+	tags = { "weapon", "weapon_light", "weapon_dagger" },
 }
 
 defineObject{
@@ -224,7 +224,7 @@ defineObject{
 			requirements = { "light_weapons", 4 },
 		},
 	},
-	tags = { "weapon_light", "weapon_dagger" },
+	tags = { "weapon", "weapon_light", "weapon_dagger" },
 }
 
 defineObject{
@@ -253,7 +253,7 @@ defineObject{
 			requirements = { "light_weapons", 5 },
 		},
 	},
-	tags = { "weapon_light", "weapon_dagger" },
+	tags = { "weapon", "weapon_light", "weapon_dagger" },
 }
 
 defineObject{
@@ -296,5 +296,5 @@ defineObject{
 			fillLight = true,
 		},
 	},
-	tags = { "weapon_light", "weapon_dagger" },
+	tags = { "weapon", "weapon_light", "weapon_dagger" },
 }

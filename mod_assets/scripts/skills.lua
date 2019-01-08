@@ -68,8 +68,22 @@ defineSkill{
 	- Level 5 | Reduces action timers by 15% if wearing all light armor.]],
 	traits = { [2] = "light_wear", [4] = "reflective", [5]="nimble" },
 	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			local all_light = functions.script.wearingAll(champion, "light_armor", "clothes")
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and functions ~= nil and Time.currentTime() > 3 then
+			local armor = "light_armor"
+			local armor2 = "clothes"
+			if armor2 == nil then armor2 = armor end
+			local all_light = true
+			local equip_slots = {3,4,5,6,9}
+			for i, v in pairs(equip_slots) do
+				if champion:getItem(v) ~= nil then
+					if (not champion:getItem(v):hasTrait(armor)) and (not champion:getItem(v):hasTrait(armor2)) then	
+						all_light = false
+					end
+				else
+					all_light = false
+				end
+			end
+	
 			local equip_slots = {3,4,5,6,9}
 			for i, v in pairs(equip_slots) do
 				if champion:getItem(v) and champion:getItem(v):hasTrait("light_armor") then
@@ -94,8 +108,21 @@ defineSkill{
 	- Level 5 | Heavy Armor weights nothing if wearing all heavy armor.]],
 	traits = { [2] = "armored_up", [4] = "heavy_conditioning", [5]="armor_training" },
 	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			local all_heavy = functions.script.wearingAll(champion, "heavy_armor")
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and functions ~= nil and Time.currentTime() > 3 then
+			local armor = "heavy_armor"
+			local armor2 = "heavy_armor"
+			local all_light = true
+			local equip_slots = {3,4,5,6,9}
+			for i, v in pairs(equip_slots) do
+				if champion:getItem(v) ~= nil then
+					if (not champion:getItem(v):hasTrait(armor)) and (not champion:getItem(v):hasTrait(armor2)) then	
+						all_light = false
+					end
+				else
+					all_light = false
+				end
+			end
+			
 			local equip_slots = {3,4,5,6,9}
 			for i, v in pairs(equip_slots) do
 				if champion:getItem(v) and champion:getItem(v):hasTrait("heavy_armor") then
@@ -132,11 +159,12 @@ defineSkill{
 	
 	Perks:
 	- Level 3 | You can backstab an enemy with a dagger and deal triple damage.
-	- Level 5 | You can backstab with any Light Weapon.]],
+	- Level 4 | You can backstab with any Light Weapon.
+	- Level 5 | You gain double critical chance from items.]],
 	onComputeCritChance = function(champion, weapon, attack, attackType, level)
 		return level * 3
 	end,
-	traits = { [3] = "backstab", [5] = "assassin" },
+	traits = { [3] = "backstab", [4] = "assassin", [5] = "weapons_specialist" },
 }
 
 defineSkill{
@@ -153,17 +181,17 @@ defineSkill{
 }
 
 defineSkill{
-	name = "deadshot",
-	uiName = "Deadshot",
+	name = "ranged_weapons",
+	uiName = "Ranged Weapons",
 	priority = 110,
 	icon = 17,
-	description = [[Increases damage of ranged attacks by 20% for each skill point. 
+	description = [[Increases damage of Missiles and Throwing Weapons attacks by 20% for each skill point. 
 	
 	Perks:
-	- Level 2 | Gain 15 accuracy with ranged attacks.
-	- Level 4 | Ranged attacks ignore 10 points of an enemy's armor.
-	- Level 5 | You attack twice when using Missile Weapons, Throwing Weapons and Firearms.]],
-	traits = { [2] = "bullseye", [4] = "fleshbore", [5] = "double_shot" },
+	- Level 2 | Gain 15 accuracy with Ranged Weapons.
+	- Level 4 | You launch a magical projectile with your attacks. It does 1/3 the damage of your attack and pierces half the target's protection.
+	- Level 5 | You attack twice when using Ranged Weapons.]],
+	traits = { [2] = "bullseye", [4] = "magic_missile", [5] = "double_shot" },
 }
 
 defineSkill{
@@ -217,21 +245,25 @@ defineSkill{
 	- Level 5 | Your spells gain Critical Chance from your equipment and skills.]],
 	traits = { [2] = "spell_slinger", [5] = "mage_strike" },
 	onRecomputeStats = function(champion, level)
-		local level2 = champion:getSkillLevel("spellblade")
-		champion:addStatModifier("max_energy", level2 * 5)
-		for i=1,2 do
-			local item = champion:getItem(i)
-			if item and item:hasTrait("mage_weapon") then
-				champion:addStatModifier("protection", level2 * 2)
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and Time.currentTime() > 3 then
+			local level2 = champion:getSkillLevel("spellblade")
+			champion:addStatModifier("max_energy", level2 * 5)
+			for i=1,2 do
+				local item = champion:getItem(i)
+				if item and item:hasTrait("mage_weapon") then
+					champion:addStatModifier("protection", level2 * 2)
+				end
 			end
 		end
 	end,
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
-		local level2 = champion:getSkillLevel("spellblade")
-		for i=1,2 do
-			local item = champion:getItem(i)
-			if item and item:hasTrait("mage_weapon") then
-				return level2 * 2
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 then
+			local level2 = champion:getSkillLevel("spellblade")
+			for i=1,2 do
+				local item = champion:getItem(i)
+				if item and item:hasTrait("mage_weapon") then
+					return level2 * 2
+				end
 			end
 		end
 	end,
@@ -285,33 +317,32 @@ defineSkill{
 	priority = 100,
 	icon = 20,
 	description = [[A higher skill level in Alchemy allows you to brew a wider range of potions. To craft potions you also need herbs and a Mortar and Pestle.
-	- Herbs multiply while in your inventory.
 	
 	Perks:
+	- Level 1 | Herbs multiply while in your inventory.
 	- Level 4 | You brew stronger healing and energy potions.
 	- Level 5 | When you craft bombs you get three bombs instead of one.]],
-	traits = { [4] = "improved_alchemy", [5] = "bomb_expert" },
+	traits = { [4] = "green_thumb", [4] = "improved_alchemy", [5] = "bomb_expert" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			champion:addTrait("green_thumb")
 		end
 	end,
 }
 
-defineSkill{
-	name = "seafaring",
-	uiName = "Seafaring",
-	priority = 100,
-	icon = 20,
-	description = [[.
+-- defineSkill{
+	-- name = "seafaring",
+	-- uiName = "Seafaring",
+	-- priority = 100,
+	-- icon = 20,
+	-- description = [[.
 	
-	Perks:
-	- Level 3 | You deal 30% more melee damage from the backline and 30% more firearms damage from the frontline.
-	- Level 5 | .]],
-	traits = { [4] = "", [5] = "" },
-	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			champion:addTrait("green_thumb")
-		end
-	end,
-}
+	-- Perks:
+	-- - Level 3 | You deal 30% more melee damage from the backline and 30% more firearms damage from the frontline.
+	-- - Level 5 | .]],
+	-- traits = { [4] = "", [5] = "" },
+	-- onRecomputeStats = function(champion, level)
+		-- if level > 0 then
+			-- champion:addTrait("green_thumb")
+		-- end
+	-- end,
+-- }

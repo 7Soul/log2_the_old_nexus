@@ -138,7 +138,13 @@ defineObject{
 			--emptyItem = "flask",
 			sound = "consume_potion",
 			onUseItem = function(self, champion)
-				champion:regainEnergy(75)
+				local mult = iff(champion:hasTrait("arcane_extraction"), 2, 1)
+				champion:regainHealth(75*mult)
+				champion:playHealingIndicator()
+				if champion:hasTrait("refreshed") then
+					champion:setConditionValue("refreshed", 30)
+				end
+				champion:regainEnergy(75*mult)
 				champion:playHealingIndicator()
 			end,
 		},

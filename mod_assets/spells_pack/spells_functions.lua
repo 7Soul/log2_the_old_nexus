@@ -8,7 +8,26 @@ starting_spells_level = 0        -- The maximum total requirements of the starti
 
 
 defOrdered =
-{                   
+{ 
+
+{
+  name = "psionic_arrow",
+  uiName = "Psionic Arrow",
+  gesture = 0,
+  manaCost = 10,
+  skill = "missile_weapons",
+  requirements = {  },
+  icon = 61,
+  spellIcon = 7,
+  hidden = true,
+  description = "",
+  onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
+    local power = spells_functions.script.getPower(1, champion, "missile_weapons")	
+    local ord = champion:getOrdinal()
+    spells_functions.script.missile("psionic_arrow", ord, power, nil, true)
+    spells_functions.script.stopInvisibility()
+  end
+},
 
 -- concentration
 

@@ -38,7 +38,7 @@ defineObject{
           if c:getLevel() <= minLevel then c:levelUp() end
           local missing = 0
           local skills = { 
-	         "accuracy","athletics", "armors", "critical", "dodge", "missile_weapons",
+	         "accuracy","athletics", "armors", "critical", "dodge", "ranged_weapons",
 	         "throwing", "firearms", "light_weapons", "heavy_weapons", "concentration", "alchemy",
 	         "fire_magic","earth_magic","water_magic","air_magic" 
           }
@@ -87,7 +87,7 @@ defineObject{
         for i = 1,4 do
           local c = party.party:getChampionByOrdinal(i)
           local skills = { 
-	         "accuracy","athletics", "armors", "critical", "dodge", "missile_weapons",
+	         "accuracy","athletics", "armors", "critical", "dodge", "ranged_weapons",
 	         "throwing", "firearms", "light_weapons", "heavy_weapons", "concentration", "alchemy",
 	         "fire_magic","earth_magic","water_magic","air_magic" 
           }

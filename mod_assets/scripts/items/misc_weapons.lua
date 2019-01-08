@@ -212,6 +212,10 @@ defineObject{
 			requirements = { "heavy_weapons", 2 },
 		},
 		{
+			class = "EquipmentItem",
+			criticalChance = 0
+		},
+		{
 			class = "MeleeAttack",
 			name = "reap",
 			uiName = "Harvest Time",

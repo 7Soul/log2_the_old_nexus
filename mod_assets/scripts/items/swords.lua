@@ -255,7 +255,7 @@ defineObject{
 			gfxIndexPowerAttack = 433,
 			impactSound = "impact_blade",
 			weight = 3.2,
-			traits = { "light_weapon", "sword" },
+			traits = { "light_weapon", "sword", "leech" },
 			secondaryAction = "leech",
 		},
 		{

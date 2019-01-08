@@ -26,7 +26,7 @@ defineObject{
 			attackSound = "swipe",
 		},
 	},
-	tags = { "weapon", "weapon_light" },
+	tags = { "weapon", "weapon_light", "weapon_axe" },
 }
 
 defineObject{
@@ -66,7 +66,7 @@ defineObject{
 			gameEffect = "This attack chips away 1 armor from the enemy with each hit.",
 		},
 	},
-	tags = { "weapon", "weapon_light" },
+	tags = { "weapon", "weapon_light", "weapon_axe" },
 }
 
 defineObject{
@@ -95,7 +95,7 @@ defineObject{
 			attackSound = "swipe",
 		},
 	},
-	tags = { "weapon", "weapon_heavy" },
+	tags = { "weapon", "weapon_heavy", "weapon_axe" },
 }
 
 defineObject{
@@ -124,7 +124,7 @@ defineObject{
 			attackSound = "swipe",
 		},
 	},
-	tags = { "weapon", "weapon_heavy" },
+	tags = { "weapon", "weapon_heavy", "weapon_axe" },
 }
 
 defineObject{
@@ -154,7 +154,7 @@ defineObject{
 			requirements = { "heavy_weapons", 2 },
 		},
 	},
-	tags = { "weapon", "weapon_heavy" },
+	tags = { "weapon", "weapon_heavy", "weapon_axe" },
 }
 
 defineObject{
@@ -185,7 +185,7 @@ defineObject{
 			requirements = { "heavy_weapons", 3 },
 		},
 	},
-	tags = { "weapon", "weapon_heavy" },
+	tags = { "weapon", "weapon_heavy", "weapon_axe" },
 }
 
 defineObject{
@@ -215,7 +215,7 @@ defineObject{
 			attackSound = "swipe_heavy",
 		},
 	},
-	tags = { "weapon", "weapon_heavy" },
+	tags = { "weapon", "weapon_heavy", "weapon_axe" },
 }
 
 defineObject{
@@ -260,5 +260,5 @@ defineObject{
 			gameEffect = "An extremely powerful attack. Deals 2.5x damage and has +9% critical chance.",
 		},
 	},
-	tags = { "weapon", "weapon_heavy" },
+	tags = { "weapon", "weapon_heavy", "weapon_axe" },
 }

@@ -61,7 +61,7 @@ defineObject{
 			attackSound = "swipe",
 			ammo = "dart",
 			projectileItem = "sleep_dart",
-			requirements = { "missile_weapons", 2 },
+			requirements = { "ranged_weapons", 2 },
 		},
 	},
 	tags = { "weapon", "weapon_missile" },
@@ -82,7 +82,7 @@ defineObject{
 			gfxIndexPowerAttack = 466,
 			impactSound = "impact_blunt",
 			weight = 1.0,
-			traits = { "missile_weapon" },
+			traits = { "missile_weapon", "bow", "upgradable", "volley" },
 		},
 		{
 			class = "RangedAttack",
@@ -90,7 +90,6 @@ defineObject{
 			cooldown = 4,
 			attackSound = "swipe_bow",
 			ammo = "arrow",
-			powerAttackTemplate = "volley",
 		},
 	},
 	tags = { "weapon", "weapon_missile" },
@@ -112,7 +111,7 @@ defineObject{
 			gfxIndexPowerAttack = 98,
 			impactSound = "impact_blunt",
 			weight = 1.6,
-			traits = { "missile_weapon" },
+			traits = { "missile_weapon", "bow", "upgradable", "volley" },
 		},
 		{
 			class = "RangedAttack",
@@ -120,7 +119,6 @@ defineObject{
 			cooldown = 4.5,
 			attackSound = "swipe_bow",
 			ammo = "arrow",
-			powerAttackTemplate = "volley",
 		},
 	},
 	tags = { "weapon", "weapon_missile" },
@@ -192,7 +190,7 @@ defineObject{
 			ammo = "arrow",
 			projectileItem = "shock_arrow",	-- converts shot arrows to fire arrows
 			energyCost = 30,
-			requirements = { "missile_weapons", 4, "air_magic", 1 },
+			requirements = { "ranged_weapons", 4, "air_magic", 1 },
 			gameEffect = "Shoot an arrow enchanted with the energy of storms."
 		},
 	},

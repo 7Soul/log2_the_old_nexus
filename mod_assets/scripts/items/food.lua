@@ -16,6 +16,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 550,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },
@@ -39,6 +42,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 525,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },
@@ -62,6 +68,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 450,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },
@@ -86,6 +95,7 @@ defineObject{
 			class = "UsableItem",
 			nutritionValue = 250,
 			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
 				if math.random() < 0.5 then
 					champion:setCondition("diseased")
 				end
@@ -113,6 +123,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 200,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },
@@ -136,6 +149,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 100,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },
@@ -159,6 +175,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 300,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },
@@ -182,6 +201,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 400,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },
@@ -205,6 +227,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 750,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },
@@ -228,6 +253,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 450,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },
@@ -252,6 +280,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 1000,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },
@@ -275,6 +306,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 350,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },
@@ -298,6 +332,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 475,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },
@@ -321,6 +358,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 400,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },
@@ -344,6 +384,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 420,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },
@@ -367,6 +410,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 430,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },
@@ -390,6 +436,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 300,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },
@@ -413,6 +462,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 460,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },
@@ -439,6 +491,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 250,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },
@@ -462,6 +517,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 420,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },
@@ -485,6 +543,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 350,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },
@@ -508,6 +569,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 300,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },
@@ -531,6 +595,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 550,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },
@@ -554,6 +621,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 550,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },
@@ -578,6 +648,9 @@ defineObject{
 		{
 			class = "UsableItem",
 			nutritionValue = 240,
+			onUseItem = function(self, champion)
+				functions.script.onConsumeFood(self, champion)
+			end,
 		},
 	},
 	tags = { "food" },

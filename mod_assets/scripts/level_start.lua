@@ -7,14 +7,16 @@ posz = 0
 gotDevice = false
 
 function start()
-	-- local startx, starty = party.x, party.y
-	-- for x=0,31 do
-		-- for y=0,31 do
-			-- party:setPosition(x, y, party.facing, party.elevation, party.level)
-		-- end
-	-- end
-	-- party:setPosition(startx, starty, party.facing, party.elevation, party.level)
-		
+	local reveal_map = false
+	if reveal_map then
+		local startx, starty = party.x, party.y
+		for x=0,31 do
+			for y=0,31 do
+				party:setPosition(x, y, party.facing, party.elevation, party.level)
+			end
+		end
+		party:setPosition(startx, starty, party.facing, party.elevation, party.level)
+	end
 	-- scenery
 	findEntity("beach_rock_1x1_low_6"):getComponent("model"):setOffset(vec(-1.5,-0.8,0))
 	findEntity("beach_rock_spire_4"):getComponent("model"):setOffset(vec(-20,0,0))
@@ -25,6 +27,7 @@ function start()
 	-- Area around wrecked ship --
 	beach_boulder_3:setWorldPosition(beach_boulder_3:getWorldPosition() + vec(2.7,3.1,2.2)) -- present
 	beach_boulder_3:setWorldRotationAngles(126,0,0) -- present
+	Dungeon.getMap(1):setAutomapTile(24,18,0)
 	beach_boulder_7:setWorldPosition(beach_boulder_7:getWorldPosition() + vec(2.7,3.1,2.2)) -- present
 	beach_boulder_7:setWorldRotationAngles(126,0,0) -- present
 	
@@ -101,14 +104,17 @@ function start()
 	-- items and objects
 	findEntity("wooden_box_2"):getComponent("model"):setOffset(vec(-0.6,0.7,-0.6))
 	findEntity("wooden_box_2"):getComponent("model"):setRotationAngles(-30,35,35)
-	findEntity("shovel_1"):getComponent("model"):setOffset(vec(-0.1,0.58,-0.0))
+	findEntity("shovel_1"):getComponent("model"):setOffset(vec(0.6,0.58,-0.0))
 	findEntity("shovel_1"):getComponent("model"):setRotationAngles(45,-10,-90)
 	findEntity("beach_sandpile_1"):getComponent("model"):setOffset(vec(-0.45,-0.35,2))	
+	
+	daemon_head_3:setWorldPosition(daemon_head_3:getWorldPosition() + vec(-0.27,0,0.0))
+	mine_ceiling_lantern_4:setWorldPosition(mine_ceiling_lantern_4:getWorldPosition() + vec(-1.5,-0.7,0.9))
 	
 	-------------------
 	-- Minute Grotto --
 	-------------------
-	for i=27,34 do
+	for i=27,36 do
 		findEntity("beach_rock_3x1_"..i):setWorldPosition(findEntity("beach_rock_3x1_"..i):getWorldPosition() + vec(-5,5,-2.7))
 		findEntity("beach_rock_3x1_"..i):setWorldRotationAngles(104,0,96)
 	end
@@ -122,19 +128,19 @@ function start()
 	-- Items --
 	throwing_knife_2:setWorldPosition(throwing_knife_2:getWorldPosition() + vec(-0.19,1.84,1.46))
 	throwing_knife_2:setWorldRotationAngles(115,133,-40)
-	note_1:setWorldPosition(note_1:getWorldPosition() + vec(-0.26,1.58,0.96))
+	note_1:setWorldPosition(note_1:getWorldPosition() + vec(-0.26,1.65,0.96))
 	note_1:setWorldRotationAngles(87.2,26.4,-2.4)
 	iron_key_1:setWorldPosition(iron_key_1:getWorldPosition() + vec(-0.34,0.69,0.05))
 	iron_key_1:setWorldRotationAngles(33,62,23)
 
 	
-	local pos = note_1:getWorldPosition()
+	local pos = mine_ceiling_lantern_4:getWorldPosition()
 	posx = pos.x
 	posy = pos.y
 	posz = pos.z
 end
 
-objname = "note_1"
+objname = "mine_ceiling_lantern_4"
 
 function move(x,y,z)
 	xx = xx + x*1
@@ -184,6 +190,7 @@ end
 
 function teleportParty(level)
 	party:setPosition(party.x, party.y, party.facing, party.elevation, level)
+	GameMode.setTimeOfDay((GameMode.getTimeOfDay() + 1) % 2)
 	if gotDevice and not party.party:isCarrying("enchanted_timepiece") then
 		local timepiece = nil
 		local tpSpawned = false

@@ -14,21 +14,11 @@ defineObject{
 			stackable = true,
 			weight = 0.05,
 			traits = { "herb" },
-			onEquipItem = function(self, champion, slot)
-				if champion:hasTrait("druid") then
-					local item1 = champion:getItem(ItemSlot.Weapon)
-					local item2 = champion:getItem(ItemSlot.OffHand)
-					if (slot == ItemSlot.Weapon and item2 ~= nil and (not item2:hasTrait("herb"))) or (slot == ItemSlot.OffHand and item1 ~= nil and (not item1:hasTrait("herb"))) or (slot == ItemSlot.Weapon and item2 == nil) or (slot == ItemSlot.OffHand and item1 == nil) then
-						champion:addTrait("blooddrop_cap")
-					end
-				end
-			end,
-			onUnequipItem = function(self, champion, slot)
-				if champion:hasTrait("blooddrop_cap") then
-					champion:removeTrait("blooddrop_cap")
-				end
-			end
-		},		
+		},
+		{
+			class = "Particle",
+			particleSystem = "blooddrop",
+		},	
 	},
 	tags = { "herb" },
 }
@@ -49,20 +39,6 @@ defineObject{
 			stackable = true,
 			weight = 0.05,
 			traits = { "herb" },
-			onEquipItem = function(self, champion, slot)
-				if champion:hasTrait("druid") then
-					local item1 = champion:getItem(ItemSlot.Weapon)
-					local item2 = champion:getItem(ItemSlot.OffHand)
-					if (slot == ItemSlot.Weapon and item2 ~= nil and (not item2:hasTrait("herb"))) or (slot == ItemSlot.OffHand and item1 ~= nil and (not item1:hasTrait("herb"))) or (slot == ItemSlot.Weapon and item2 == nil) or (slot == ItemSlot.OffHand and item1 == nil) then
-						champion:addTrait("etherweed")
-					end
-				end
-			end,
-			onUnequipItem = function(self, champion, slot)
-				if champion:hasTrait("etherweed") then
-					champion:removeTrait("etherweed")
-				end
-			end
 		},
 		{
 			class = "Particle",
@@ -88,30 +64,6 @@ defineObject{
 			stackable = true,
 			weight = 0.05,
 			traits = { "herb" },
-			onEquipItem = function(self, champion, slot)
-				if champion:hasTrait("druid") then
-					local item1 = champion:getItem(ItemSlot.Weapon)
-					local item2 = champion:getItem(ItemSlot.OffHand)
-					if (slot == ItemSlot.Weapon and item2 ~= nil and (not item2:hasTrait("herb"))) or (slot == ItemSlot.OffHand and item1 ~= nil and (not item1:hasTrait("herb"))) or (slot == ItemSlot.Weapon and item2 == nil) or (slot == ItemSlot.OffHand and item1 == nil) then
-						champion:addTrait("mudwort")
-						for i=1,4 do
-							if i ~= champion:getOrdinal() then
-								party.party:getChampion(i):addTrait("lesser_mudwort")
-							end
-						end
-					end
-				end
-			end,
-			onUnequipItem = function(self, champion, slot)
-				if champion:hasTrait("mudwort") then
-					champion:removeTrait("mudwort")
-					for i=1,4 do
-						if i ~= champion:getOrdinal() then
-							party.party:getChampion(i):removeTrait("lesser_mudwort")
-						end
-					end
-				end
-			end
 		},
 	},
 	tags = { "herb" },
@@ -133,20 +85,6 @@ defineObject{
 			stackable = true,
 			weight = 0.05,
 			traits = { "herb" },
-			onEquipItem = function(self, champion, slot)
-				if champion:hasTrait("druid") then
-					local item1 = champion:getItem(ItemSlot.Weapon)
-					local item2 = champion:getItem(ItemSlot.OffHand)
-					if (slot == ItemSlot.Weapon and item2 ~= nil and (not item2:hasTrait("herb"))) or (slot == ItemSlot.OffHand and item1 ~= nil and (not item1:hasTrait("herb"))) or (slot == ItemSlot.Weapon and item2 == nil) or (slot == ItemSlot.OffHand and item1 == nil) then
-						champion:addTrait("falconskyre")
-					end
-				end
-			end,
-			onUnequipItem = function(self, champion, slot)
-				if champion:hasTrait("falconskyre") then
-					champion:removeTrait("falconskyre")
-				end
-			end
 		},
 	},
 	tags = { "herb" },
@@ -168,20 +106,6 @@ defineObject{
 			stackable = true,
 			weight = 0.05,
 			traits = { "herb" },
-			onEquipItem = function(self, champion, slot)
-				if champion:hasTrait("druid") then
-					local item1 = champion:getItem(ItemSlot.Weapon)
-					local item2 = champion:getItem(ItemSlot.OffHand)
-					if (slot == ItemSlot.Weapon and item2 ~= nil and (not item2:hasTrait("herb"))) or (slot == ItemSlot.OffHand and item1 ~= nil and (not item1:hasTrait("herb"))) or (slot == ItemSlot.Weapon and item2 == nil) or (slot == ItemSlot.OffHand and item1 == nil) then
-						champion:addTrait("blackmoss")
-					end
-				end
-			end,
-			onUnequipItem = function(self, champion, slot)
-				if champion:hasTrait("blackmoss") then
-					champion:removeTrait("blackmoss")
-				end
-			end
 		},
 	},
 	tags = { "herb" },
@@ -203,20 +127,6 @@ defineObject{
 			stackable = true,
 			weight = 0.05,
 			traits = { "herb" },
-			onEquipItem = function(self, champion, slot)
-				if champion:hasTrait("druid") then
-					local item1 = champion:getItem(ItemSlot.Weapon)
-					local item2 = champion:getItem(ItemSlot.OffHand)
-					if (slot == ItemSlot.Weapon and item2 ~= nil and (not item2:hasTrait("herb"))) or (slot == ItemSlot.OffHand and item1 ~= nil and (not item1:hasTrait("herb"))) or (slot == ItemSlot.Weapon and item2 == nil) or (slot == ItemSlot.OffHand and item1 == nil) then
-						champion:addTrait("crystal_flower")
-					end
-				end
-			end,
-			onUnequipItem = function(self, champion, slot)
-				if champion:hasTrait("crystal_flower") then
-					champion:removeTrait("crystal_flower")
-				end
-			end
 		},
 	},
 	tags = { "herb" },

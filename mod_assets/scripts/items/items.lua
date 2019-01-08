@@ -140,33 +140,3 @@ defineObject{
 		},
 	},
 }
-
-defineObject{
-	name = "potion_energy",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/flask.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Energy Potion",
-			gfxIndex = 145,
-			weight = 0.3,
-			stackable = true,
-			traits = { "potion" },
-		},
-		{
-			class = "UsableItem",
-			--emptyItem = "flask",
-			sound = "consume_potion",
-			onUseItem = function(self, champion)
-				local extra = champion:getSkillLevel("concentration")*5
-				print(extra)
-				champion:regainEnergy(75+extra)
-				champion:playHealingIndicator()
-			end,
-		},
-	},
-}

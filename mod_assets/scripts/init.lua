@@ -9,7 +9,9 @@ import "mod_assets/scripts/objects/forest.lua"
 import "mod_assets/scripts/objects/sky.lua"
 -- import the spells pack
 import "mod_assets/spells_pack/init.lua"   -- the spells pack
+import "mod_assets/scripts/spells/psionic_arrow.lua"
 -- import custom assets
+import "mod_assets/scripts/objects/base.lua"
 import "mod_assets/scripts/defineObject.lua"
 import "mod_assets/scripts/functions.lua"
 import "mod_assets/scripts/level_start.lua"
@@ -23,87 +25,89 @@ import "mod_assets/scripts/sounds.lua"
 import "mod_assets/scripts/skills.lua"
 import "mod_assets/scripts/traits.lua"
 import "mod_assets/scripts/conditions.lua"
+-- Monsters
 import "mod_assets/scripts/monsters/turtle.lua"
+import "mod_assets/scripts/monsters/sand_warg.lua"
+-- Items
 import "mod_assets/scripts/items/accessories.lua"
 import "mod_assets/scripts/items/armors.lua"
 import "mod_assets/scripts/items/axes.lua"
 import "mod_assets/scripts/items/clothes.lua"
 import "mod_assets/scripts/items/containers.lua"
+import "mod_assets/scripts/items/crystal_shards.lua"
 import "mod_assets/scripts/items/daggers.lua"
-import "mod_assets/scripts/items/items.lua"
+import "mod_assets/scripts/items/firearms.lua"
 import "mod_assets/scripts/items/food.lua"
 import "mod_assets/scripts/items/herbs.lua"
-import "mod_assets/scripts/items/swords.lua"
-import "mod_assets/scripts/items/potions.lua"
+import "mod_assets/scripts/items/items.lua"
 import "mod_assets/scripts/items/maces.lua"
 import "mod_assets/scripts/items/missile_weapons.lua"
-import "mod_assets/scripts/items/firearms.lua"
+import "mod_assets/scripts/items/misc.lua"
+import "mod_assets/scripts/items/misc_weapons.lua"
+import "mod_assets/scripts/items/potions.lua"
 import "mod_assets/scripts/items/scrolls.lua"
 import "mod_assets/scripts/items/shields.lua"
+import "mod_assets/scripts/items/staves.lua"
+import "mod_assets/scripts/items/swords.lua"
 import "mod_assets/scripts/items/throwing_weapons.lua"
-import "mod_assets/scripts/items/misc_weapons.lua"
-import "mod_assets/scripts/items/misc.lua"
+import "mod_assets/scripts/items/tomes.lua"
+-- Other
+import "mod_assets/scripts/particles/blooddrop.lua"
 
-
--- defineObject{
-  -- name = "attack",
-  -- baseObject = "base_spell",
-  -- components = {
-    -- {
-      -- class = "TileDamager",
-      -- attackPower = 10,
-      -- castByChampion = 1,
-      -- damageType = "physical",
-      -- damageFlags = DamageFlags.NoLingeringEffects,
-    -- },
-  -- },
--- }
 
 defineObject{
 	name = "party",
 	baseObject = "party",
 	components = {
-    {
+		{ 
+			class = "Script",
+			name = "data",
+			source = [[
+					data = {}
+					function get(self,name) return self.data[name] end
+					function set(self,name,value) self.data[name] = value end
+					]],
+		},
+		{
         class = "Party",
 		-----------------------------------------------------------
 		-- On Move
 		-----------------------------------------------------------
 		onMove = function(party, dir, arg1) 
-			--print(party.go.id, "moving to", dir)
+			functions.script.stepCountIncrease()
 			-- Herb multiply
 			for i=1,4 do
 				local champion = party:getChampionByOrdinal(i)
-				--print("herb timer ", functions.script.herb_timer[i])
-				if champion:getSkillLevel("alchemy") >= 1 then
-					if functions.script.herb_timer[i] > 0 then functions.script.herb_timer[i] = functions.script.herb_timer[i] - 1 end
-					if functions.script.herb_timer[i] == 0 then
-					local chance = math.random() * 1000
-						if chance >= 995 then	
-							local herb_items = {"blooddrop_cap", "etherweed", "mudwort", "falconskyre", "blackmoss"}
-							local crystal_chance = math.random() * 100
-							local herb_list = {}
-							local list_size = 5
-							if crystal_chance >= 50 then --half the chance to double crystal flowers
-								table.insert(herb_items, "crystal_flower")
-								list_size = list_size + 1
-							end
-							for i=1,list_size do
-								if party:isCarrying(herb_items[i]) then
-									table.insert(herb_list, herb_items[i])
-								end
-							end
-							local herb = herb_list[math.random(#herb_list)]
-							if herb ~= nil and party:isCarrying(herb) then
-								for slot=13,32 do
-									if champion:getItem(slot, herb) == nil then
-										champion:insertItem(slot, spawn(herb).item)
-										functions.script.herb_timer[i] = 20
-										break
-									end
-								end
-							end
-						end	
+				local insertHerb = nil
+				if champion:getSkillLevel("alchemy") > 0 then
+					local herb_items = {["blooddrop_cap"] = 450, ["etherweed"] = 930, ["mudwort"] = 1950, ["falconskyre"] = 2500, ["blackmoss"] = 3700, ["crystal_flower"] = 4500}
+					for herb,count in pairs(herb_items) do
+						if functions.script.stepCount % count == 0 and party:isCarrying(herb) then
+							insertHerb = herb
+						end
 					end
+					if insertHerb then
+						local herbSlot = 0
+						local slotsFilled = 0
+						for slot=13,32 do
+							if champion:getItem(slot) == nil then
+								champion:insertItem(slot, spawn(insertHerb).item)
+								break
+							else
+								print(champion:getItem(slot).go.name)
+								print(insertHerb)
+								if champion:getItem(slot).go.name == insertHerb then
+									herbSlot = slot
+									print(herbSlot)
+								end
+								slotsFilled = slotsFilled + 1
+							end
+							if slotsFilled == 20 then
+								champion:getItem(herbSlot):setStackSize(champion:getItem(herbSlot):getStackSize() + 1)
+							end
+						end
+					end
+					break
 				end
 			end
 		end,
@@ -465,11 +469,11 @@ defineObject{
 			local skill3_p = { 2,4,5 } -- light armor
 			local skill4_p = { 2,4,5 } -- heavy armor
 			local skill5_p = { 2,5 } -- accuracy
-			local skill6_p = { 3,5 } -- critical
+			local skill6_p = { 3,4,5 } -- critical
 			local skill7_p = { 2,4,5 } -- firearms
 			local skill8_p = { 5 } -- throwing
-			local skill9_p = { 4,5 } -- alchemy
-			local skill10_p = { 2,4,5 } -- missile
+			local skill9_p = { 1,4,5 } -- alchemy
+			local skill10_p = { 2,4,5 } -- ranged weapons
 			local skill11_p = { 3,5 } -- light weapons
 			local skill12_p = { 3,5 } -- heavy weapons
 			local skill13_p = { 2,5 } -- spellblade

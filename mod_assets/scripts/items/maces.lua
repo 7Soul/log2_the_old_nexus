@@ -16,14 +16,14 @@ defineObject{
 		},
 		{
 			class = "MeleeAttack",
-			attackPower = 30,
+			attackPower = 3,
 			accuracy = 0,
 			cooldown = 3,
 			swipe = "vertical",
 			attackSound = "swipe",
 		},
 	},
-	tags = { "weapon_mace", "weapon_light" },
+	tags = { "weapon", "weapon_mace", "weapon_light" },
 }
 
 defineObject{
@@ -52,7 +52,7 @@ defineObject{
 			attackSound = "swipe",
 		},
 	},
-	tags = { "weapon_mace", "weapon_heavy" },
+	tags = { "weapon", "weapon_mace", "weapon_heavy" },
 }
 
 defineObject{
@@ -82,7 +82,7 @@ defineObject{
 			attackSound = "swipe",
 		},
 	},
-	tags = { "weapon_mace", "weapon_light" },
+	tags = { "weapon", "weapon_mace", "weapon_light" },
 }
 
 defineObject{
@@ -109,7 +109,7 @@ defineObject{
 			swipe = "vertical",
 		},
 	},
-	tags = { "weapon_mace", "weapon_heavy" },
+	tags = { "weapon", "weapon_mace", "weapon_heavy" },
 }
 
 defineObject{
@@ -139,7 +139,7 @@ defineObject{
 			requirements = { "heavy_weapons", 1 },
 		},
 	},
-	tags = { "weapon_mace", "weapon_heavy" },
+	tags = { "weapon", "weapon_mace", "weapon_heavy" },
 }
 
 defineObject{
@@ -170,7 +170,7 @@ defineObject{
 			powerAttackTemplate = "stun",
 		},
 	},
-	tags = { "weapon_mace", "weapon_heavy" },
+	tags = { "weapon", "weapon_mace", "weapon_heavy" },
 }
 
 defineObject{
@@ -220,7 +220,7 @@ defineObject{
 			gameEffect = "A sting that injects poison into victim's bloodstream.",
 		},
 	},
-	tags = { "weapon_mace", "weapon_light" },
+	tags = { "weapon", "weapon_mace", "weapon_light" },
 }
 
 defineObject{
@@ -251,7 +251,7 @@ defineObject{
 			powerAttackTemplate = "stun",
 		},
 	},
-	tags = { "weapon_mace", "weapon_heavy" },
+	tags = { "weapon", "weapon_mace", "weapon_heavy" },
 }
 
 defineObject{
@@ -283,7 +283,7 @@ defineObject{
 			powerAttackTemplate = "knockback",
 		},
 	},
-	tags = { "weapon_mace", "weapon_heavy" },
+	tags = { "weapon", "weapon_mace", "weapon_heavy" },
 }
 
 defineObject{
@@ -313,7 +313,7 @@ defineObject{
 			requirements = { "heavy_weapons", 3 },
 		},
 	},
-	tags = { "weapon_mace", "weapon_heavy" },
+	tags = { "weapon", "weapon_mace", "weapon_heavy" },
 }
 
 defineObject{
@@ -362,5 +362,5 @@ defineObject{
 			particleSystem = "meteor_hammer",
 		},
 	},
-	tags = { "weapon_mace", "weapon_heavy" },
+	tags = { "weapon", "weapon_mace", "weapon_heavy" },
 }

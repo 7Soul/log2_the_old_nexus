@@ -1,9 +1,5 @@
 local orig_defineObject = defineObject
 
-local onUseItem = function(self, champion)
-	functions.script.onUseItem(self, champion)
-end
-
 local onEquipItem = function(self, champion, slot)
 	functions.script.onEquipItem(self, champion, slot)
 end
@@ -15,12 +11,15 @@ end
 local onMeleeAttack = function(self, champion, slot, chainIndex)
 	local item = champion:getItem(slot)
 	functions.script.onMeleeAttack(self, item, champion, slot, chainIndex)
-	functions.script.onPhysical(self, item, champion, slot, chainIndex)
 end
 
 local onHitMonster = function(self, monster, tside, damage, champion)
-	functions.script.monster_attacked(self, monster, tside, damage, champion)		
+	functions.script.monster_attacked(self, monster, tside, damage, champion)
 	functions.script.reset_attack(self, champion, slot)
+end
+
+local onProjectileHitMonster = function(self, item, damage, damageType)
+	functions.script.onProjectileHitMonster(self, item, damage, damageType)
 end
 
 local onPostAttack = function(self, champion, slot)
@@ -90,6 +89,11 @@ local onWInit = function(self)
 		local c = self.go:getComponent("banish")
 		functions.script.updateSecondary(self, c, "banish")
 	end
+	
+	if self.go.item:hasTrait("volley") then
+		local c = self.go:createComponent("RangedAttack","volley")
+		functions.script.updateSecondary(self, c, "volley")
+	end
 end
 
 defineObject = function(def)
@@ -98,9 +102,6 @@ defineObject = function(def)
 			if c.class == "Item" then
 				c.onEquipItem = onEquipItem
 				c.onUnequipItem = onUnequipItem
-			end
-			if c.class == "UsableItem" then
-				c.onUseItem = onUseItem
 			end
 			if c.class == "MeleeAttack" then
 				c.onAttack = onMeleeAttack
@@ -111,14 +112,17 @@ defineObject = function(def)
 			if c.class == "FirearmAttack" then
 				c.onAttack = onFirearmAttack
 				c.onPostAttack = onFirearmPostAttack
+				c.onInit = onWInit
 			end
 			if c.class == "ThrowAttack" then
 				c.onAttack = onThrowAttack
 				c.onPostAttack = onPostAttack
+				c.onInit = onWInit
 			end
 			if c.class == "RangedAttack" then
 				c.onAttack = onMissileAttack
 				c.onPostAttack = onPostAttack
+				c.onInit = onWInit
 			end
 			if c.class == "MonsterAttack" then
 				c.onDealDamage = onMonsterDealDamage
@@ -126,6 +130,7 @@ defineObject = function(def)
 			if c.class == "Monster" then
 				c.onDie = onMonsterDie
 				c.onDamage = onDamageMonster
+				c.onProjectileHit = onProjectileHitMonster
 			end
 		end
 	end

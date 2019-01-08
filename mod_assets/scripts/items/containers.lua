@@ -74,5 +74,11 @@ defineObject{
 			openSound = "container_box_open",
 			closeSound = "container_box_close",
 		},
+		{
+			class = "UsableItem",
+			onUseItem = function(self, champion)
+				return false
+			end,
+		},
 	},
 }

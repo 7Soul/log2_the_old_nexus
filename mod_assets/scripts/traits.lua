@@ -766,7 +766,7 @@ defineTrait{
 	requiredRace = "lizardman",
 	description = "Your blood is warm during the day, giving you +2 Strength and +25% Fire Resist. Your skin is cold during the night, giving you +2 Willpower and +25% Cold Resist.",
 	onRecomputeStats = function(champion, level)
-		if level > 0 then
+		if level > 0 and Dungeon.getMaxLevels() == 0 then
 			local curTime = GameMode.getTimeOfDay()
 			if curTime > 0 and curTime < 1.01 then
 				champion:addStatModifier("strength", 2)
@@ -813,8 +813,7 @@ defineTrait{
 	end,
 	onComputeCooldown = function(champion, weapon, attack, attackType, level)
 		if level > 0 then 
-			local food = (champion:getFood()-500) / 500
-			
+			local food = (champion:getFood()-500) / 500			
 			return 1 - (0.15 * food)
 		end
 	end,
@@ -853,6 +852,7 @@ defineTrait{
 			champion:addStatModifier("resist_shock",-10)
 			local health = math.max(champion:getCurrentStat("resist_poison") - 75, 0)
 			champion:addStatModifier("max_health", health)
+			champion:addStatModifier("health", health)
 		end
 	end,
 }
@@ -880,12 +880,18 @@ defineTrait{
 	description = "Increases resistance to leg wounds by 10%, plus 10% if wearing Light Armor pants or 20% if wearing Heavy Armor pants.",
 }
 
-
 defineTrait{
 	name = "refreshed",
 	uiName = "Refreshed",
 	icon = 1,
 	description = "You gain +100% Health Regeneration Rate for 30 seconds after drinking a healing potion.",
+}
+
+defineTrait{
+	name = "weapons_specialist",
+	uiName = "Weapons Specialist",
+	icon = 1,
+	description = "You gain double critical chance from items.",
 }
 
 -- Defensive Skills Traits
@@ -1046,7 +1052,7 @@ defineTrait{
 	description = "Gain 15 accuracy with ranged attacks.",
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
 		if level > 0 then 
-			if attackType == "missile" or attackType == "throw" or attackType == "firearm" then
+			if attackType == "missile" or attackType == "throw" then
 				return 15
 			end
 		end
@@ -1054,10 +1060,10 @@ defineTrait{
 }
 
 defineTrait{
-	name = "fleshbore",
-	uiName = "Fleshbore",
+	name = "magic_missile",
+	uiName = "Magic Missile",
 	icon = 41,
-	description = "Ranged attacks ignore 10 points of an enemy's armor.",
+	description = "You launch a magical projectile with your attacks. It does 1/3 the damage of your attack and pierces half the target's protection.",
 }
 
 defineTrait{
@@ -1170,5 +1176,5 @@ defineTrait{
 	uiName = "Green Thumb",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 0,
-	description = "Herbs multiply while in your inventory. Rate is 0.5% chance per step, with a delay after a multiplication happens. The number of herbs and their stacks doesn't affect the multiplication rate. An empty inventory slot is needed.",
+	description = "Herbs multiply while in your inventory. Spreading the herbs out or having multiple alchemists don't affect the multiplication.",
 }
