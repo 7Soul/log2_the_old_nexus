@@ -587,7 +587,7 @@ defineObject{
 				local dx,dy = getForward(self.go.facing)
 				local x = self.go.x - dx
 				local y = self.go.y - dy
-				spawn("blocker", self.go.level, x, y, 0, self.go.elevation)
+				--spawn("blocker", self.go.level, x, y, 0, self.go.elevation)
 			end,
 		},
 	},

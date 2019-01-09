@@ -48,6 +48,23 @@ defineObject{
 			sight = 5,
 		},
 		{
+			class = "Brain",
+			name = "sbrain",
+			sight = 5,
+			seeInvisible = true,
+			allAroundSight = true,
+			onThink = function(self)
+				-- call brain script
+				local script = self.go.brainScript
+				if script and script:isEnabled() and script.think then script.think(self) end
+			end,
+		},
+		{
+			class = "Script",
+			name = "brainScript",
+			source = "function think(s) return s:wait() end",
+		},
+		{
 			class = "MonsterMove",
 			name = "move",
 			sound = "warg_walk",
@@ -99,25 +116,19 @@ defineObject{
 }
 
 defineObject{
-	name = "sand_warg_scriptable",
+	name = "sand_warg_boss",
 	baseObject = "sand_warg",
 	components = {
 		{
-			class = "Brain",
-			name = "brain",
-			sight = 5,
-			seeInvisible = true,
-			allAroundSight = true,
-			onThink = function(self)
-				-- call brain script
-				local script = self.go.brainScript
-				if script and script:isEnabled() and script.think then script.think(self) end
-			end,
-		},
-		{
-			class = "Script",
-			name = "brainScript",
-			source = "function think(s) return s:wait() end",
+			class = "MonsterAttack",
+			name = "basicAttack",
+			attackPower = 35,
+			pierce = 0,
+			accuracy = 15,
+			cooldown = 3,
+			woundChance = 0,
+			sound = "warg_attack",
+			screenEffect = "damage_screen",
 		},
 	},
 }

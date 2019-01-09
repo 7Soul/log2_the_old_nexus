@@ -12,7 +12,11 @@ function start()
 		local startx, starty = party.x, party.y
 		for x=0,31 do
 			for y=0,31 do
-				party:setPosition(x, y, party.facing, party.elevation, party.level)
+				local zfloor = Dungeon.getMap(party.level):getElevation(x, y)
+				
+				if not Dungeon.getMap(party.level):isBlocked(x, y, zfloor) then
+					party:setPosition(x, y, party.facing, zfloor, party.level)
+				end
 			end
 		end
 		party:setPosition(startx, starty, party.facing, party.elevation, party.level)
