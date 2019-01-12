@@ -38,9 +38,9 @@ defineObject{
           if c:getLevel() <= minLevel then c:levelUp() end
           local missing = 0
           local skills = { 
-	         "accuracy","athletics", "armors", "critical", "dodge", "ranged_weapons",
+	         "accuracy","athletics", "light_armor", "heavy_armor", "critical", "ranged_weapons",
 	         "throwing", "firearms", "light_weapons", "heavy_weapons", "concentration", "alchemy",
-	         "fire_magic","earth_magic","water_magic","air_magic" 
+	         "elemental_magic","poison_mastery","spellslinger" 
           }
           for _,skill in ipairs(skills) do
             missing = missing + 5 - c:getSkillLevel(skill)

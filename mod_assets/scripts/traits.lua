@@ -1,7 +1,8 @@
 defineTrait{
 	name = "fighter",
 	uiName = "Berserker",
-	icon = 94,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 26,
 	description = "A prideful warrior of the tribes of the Red Hills.",
 	gameEffect = [[
 	- Health 80 (+5 per level, +5 per 5 strength and 10 strength)
@@ -26,7 +27,8 @@ defineTrait{
 defineTrait{
 	name = "monk",
 	uiName = "Champion of Light",
-	icon = 93,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 27,
 	description = "A monk who has trained in the path of light to achieve inner balance.",
 	gameEffect = [[
 	- Health 70 (+5 per level)
@@ -83,7 +85,8 @@ defineTrait{
 defineTrait{
 	name = "druid",
 	uiName = "Druid",
-	icon = 92,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 28,
 	description = "The caretaker of the most ancient forests unknown to man.",
 	gameEffect = [[
 	- Health 50 (+5 per level)
@@ -118,7 +121,8 @@ defineTrait{
 defineTrait{
 	name = "stalker",
 	uiName = "Stalker",
-	icon = 96,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 29,
 	description = "The most silent and deadly predator, who has become a living shadow.",
 	gameEffect = [[
 	- Health 50 (+4 per level)
@@ -154,7 +158,8 @@ defineTrait{
 defineTrait{
 	name = "assassin",
 	uiName = "Assassin",
-	icon = 96,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 30,
 	description = "The Assassin is always looking for their next target.",
 	gameEffect = [[
 	- Health 60 (+6 per level)
@@ -177,7 +182,8 @@ defineTrait{
 defineTrait{
 	name = "elementalist",
 	uiName = "Elementalist",
-	icon = 33,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 31,
 	description = "Master of the elements, they can control Fire, Ice and Thunder.",
 	gameEffect = [[
 	- Health 35 (+5 per level)
@@ -199,7 +205,8 @@ defineTrait{
 defineTrait{
 	name = "hunter",
 	uiName = "Hunter",
-	icon = 33,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 32,
 	description = "A member of the hunting tribes of the Xaae Jungle.",
 	gameEffect = [[
 	- Health 35 (+5 per level)
@@ -231,7 +238,8 @@ defineTrait{
 defineTrait{
 	name = "corsair",
 	uiName = "Corsair",
-	icon = 94,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 33,
 	description = "A sailor of the Serpent Sea, a master duelist and firearms specialist.",
 	gameEffect = [[
 	- Health 70 (+7 per level)
@@ -256,7 +264,8 @@ defineTrait{
 defineTrait{
 	name = "tinkerer",
 	uiName = "Tinkerer",
-	icon = 94,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 34,
 	description = "With the simplest set of tools this humble artificer is able to alter the properties of objects to improve on their qualities.",
 	gameEffect = [[
 	- Health 50 (+5 per level)
@@ -646,7 +655,7 @@ defineTrait{
 					if item.go.equipmentitem:getResistShock() then champion:addStatModifier("resist_shock", item.go.equipmentitem:getResistShock()) end
 					if item.go.equipmentitem:getResistCold() then champion:addStatModifier("resist_cold", item.go.equipmentitem:getResistCold()) end
 				end
-			end
+			end			
 		end
 	end,
 	onReceiveCondition = function(champion, cond, level)
@@ -664,7 +673,8 @@ defineTrait{
 defineTrait{
 	name = "lore_master",
 	uiName = "Lore Master",
-	icon = 46,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 39,
 	charGen = true,
 	requiredRace = "human",
 	description = "Scrolls weight nothing and you gain +1% Increased Experience Gain per scroll, plus 1 Willpower for every 5 scrolls. Bags and Boxes full of scrolls also weight nothing.",
@@ -700,7 +710,8 @@ defineTrait{
 defineTrait{
 	name = "average_joe",
 	uiName = "Average Joe",
-	icon = 46,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 40,
 	charGen = true,
 	requiredRace = "human",
 	description = "Gain + 2 to your lowest stat and +25% to your lowest resistance. If two are tied, the on at the bottom takes priority.",
@@ -729,7 +740,8 @@ defineTrait{
 defineTrait{
 	name = "drinker",
 	uiName = "Seasoned Drinker",
-	icon = 46,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 41,
 	charGen = true,
 	requiredRace = "human",
 	description = "Start the game with a bottle of rum. When you take a drink, you lose a point in Dexterity, Vitality and Willpower (a different stat each time) permanently, but gain 50% extra experience gain for 5 minutes. You regain half those stats back when you empty the bottle, which holds 12 drinks.",
@@ -738,7 +750,8 @@ defineTrait{
 defineTrait{
 	name = "carnivorous",
 	uiName = "Carnivorous",
-	icon = 46,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 42,
 	charGen = true,
 	requiredRace = "minotaur",
 	description = "Increases chances of finding meat when defeating beasts. Eating red meat increases your Strength by 4 and Health and Energy regeneration rate by 25% for 1 minute. You can't eat non-meat foods, like bread, bugs or even fish.",
@@ -747,7 +760,8 @@ defineTrait{
 defineTrait{
 	name = "brutalizer",
 	uiName = "Brutalizer",
-	icon = 46,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 43,
 	charGen = true,
 	requiredRace = "minotaur",
 	description = "Melee attacks deal an extra 1% damage per Strength point but you also take 1% more damage. Every 3 levels you gain + 1 to Strength.",
@@ -761,7 +775,8 @@ defineTrait{
 defineTrait{
 	name = "lizard_blood",
 	uiName = "Lizard Blood",
-	icon = 52,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 45,
 	charGen = true,
 	requiredRace = "lizardman",
 	description = "Your blood is warm during the day, giving you +2 Strength and +25% Fire Resist. Your skin is cold during the night, giving you +2 Willpower and +25% Cold Resist.",
@@ -782,7 +797,8 @@ defineTrait{
 defineTrait{
 	name = "wide_vision",
 	uiName = "Wide Vision",
-	icon = 52,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 46,
 	charGen = true,
 	requiredRace = "lizardman",
 	description = "You can see attacks coming from all directions, giving you +5 evasion for each monsters that is behind or beside you.",
@@ -791,7 +807,8 @@ defineTrait{
 defineTrait{
 	name = "persistence",
 	uiName = "Persistence",
-	icon = 52,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 48,
 	charGen = true,
 	requiredRace = "insectoid",
 	description = "Increases melee damage by 4% for each point in Willpower. Increases magic damage by 4% for each point in Strength.",
@@ -800,7 +817,8 @@ defineTrait{
 defineTrait{
 	name = "chemical_processing",
 	uiName = "Chemical Processing",
-	icon = 52,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 49,
 	charGen = true,
 	requiredRace = "insectoid",
 	description = "You are up to 15% faster when well-fed (between 50% and 100% of hunger bar filled), but you get hungry 25% faster if your health is below half.",
@@ -822,7 +840,8 @@ defineTrait{
 defineTrait{
 	name = "limb_regeneration",
 	uiName = "Limb Regeneration",
-	icon = 52,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 50,
 	charGen = true,
 	requiredRace = "insectoid",
 	description = "Once per day you heal back to full if you fall below 20%.",
@@ -831,7 +850,8 @@ defineTrait{
 defineTrait{
 	name = "rodent",
 	uiName = "Rodent",
-	icon = 52,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 51,
 	charGen = true,
 	requiredRace = "ratling",
 	description = "You can eat herbs (but not Crystal Flowers and Blackmoss), which in addition to feeding you, reduces spell costs and cooldowns by 10% for 3 minutes.",
@@ -840,19 +860,25 @@ defineTrait{
 defineTrait{
 	name = "built_resistance",
 	uiName = "Built Resistance",
-	icon = 48,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 52,
 	charGen = true,
 	requiredRace = "ratling",
-	description = "Poison resistance + 75%, other resistances -10%. You gain 1 Maximum Health for each extra point of poison resistance (goes past 100).",
+	description = "Poison resistance + 50%, other resistances -10%. You gain 1 Maximum Health for each extra point of poison resistance (goes past 100).",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			champion:addStatModifier("resist_poison", 75)
+			champion:addStatModifier("resist_poison", 50)
 			champion:addStatModifier("resist_fire", -10)
 			champion:addStatModifier("resist_cold", -10)
 			champion:addStatModifier("resist_shock",-10)
-			local health = math.max(champion:getCurrentStat("resist_poison") - 75, 0)
+			local health = math.max(champion:getResistance("poison") - 50, 0)
+			
 			champion:addStatModifier("max_health", health)
 			champion:addStatModifier("health", health)
+			
+			local resist = math.max(math.min(champion:getResistance("poison"), 85), 0)
+			champion:addStatModifier("resist_poison", (champion:getResistance("poison") * -1) - ((champion:getCurrentStat("vitality") - 10) * 2))
+			champion:addStatModifier("resist_poison", resist)
 		end
 	end,
 }
@@ -865,7 +891,8 @@ defineTrait{
 defineTrait{
 	name = "pack_mule",
 	uiName = "Pack Mule",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 65,
 	description = "Increases carrying capacity by 10kg.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
@@ -876,21 +903,24 @@ defineTrait{
 defineTrait{
 	name = "endurance",
 	uiName = "Endurance",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 66,
 	description = "Increases resistance to leg wounds by 10%, plus 10% if wearing Light Armor pants or 20% if wearing Heavy Armor pants.",
 }
 
 defineTrait{
 	name = "refreshed",
 	uiName = "Refreshed",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 67,
 	description = "You gain +100% Health Regeneration Rate for 30 seconds after drinking a healing potion.",
 }
 
 defineTrait{
 	name = "weapons_specialist",
 	uiName = "Weapons Specialist",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 68,
 	description = "You gain double critical chance from items.",
 }
 
@@ -899,14 +929,16 @@ defineTrait{
 defineTrait{
 	name = "block",
 	uiName = "Block",
-	icon = 41,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 69,
 	description = "Gain +10% chance to block a physical attack with a shield.",
 }
 
 defineTrait{
 	name = "shield_bearer",
 	uiName = "Shield Bearer",
-	icon = 41,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 70,
 	description = "Immunity against hand and chest wounds.",
 	onReceiveCondition = function(champion, cond, level)
 		if level > 0 and (cond == "chest_wound" or cond == "left_hand_wound" or cond == "right_hand_wound") then
@@ -918,14 +950,15 @@ defineTrait{
 defineTrait{
 	name = "shield_bash",
 	uiName = "Shield Bash",
-	icon = 41,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 71,
 	description = "Bashes the enemy for 150% of the damage received when you block an attack.",
 }
 
 defineTrait{
 	name = "armored_up",
 	uiName = "Armored Up",
-	icon = 41,
+	icon = 72,
 	description = "Gain +2 Protection per level if wearing heavy armor in all 5 slots",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
@@ -941,7 +974,7 @@ defineTrait{
 defineTrait{
 	name = "armor_training",
 	uiName = "Armor Training",
-	icon = 41,
+	icon = 73,
 	description = "Heavy Armor weights nothing if wearing all heavy armor.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
@@ -1128,12 +1161,12 @@ defineTrait{
 	name = "elemental_armor",
 	uiName = "Elemental Armor",
 	icon = 1,
-	description = "+ 25% Resist Fire, Shock and Cold.",
+	description = "+ 20% Resist Fire, Shock and Cold.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			champion:addStatModifier("resist_fire", 25)
-			champion:addStatModifier("resist_cold", 25)
-			champion:addStatModifier("resist_shock", 25)
+			champion:addStatModifier("resist_fire", 20)
+			champion:addStatModifier("resist_cold", 20)
+			champion:addStatModifier("resist_shock", 20)
 		end
 	end,
 }
@@ -1142,17 +1175,22 @@ defineTrait{
 	name = "venomancer",
 	uiName = "Venomancer",
 	icon = 1,
-	description = "",
+	description = "You gain 20% chance to poison enemies with both melee and ranged attacks.",
 }
 
 defineTrait{
 	name = "antivenom",
 	uiName = "Anti-venom",
 	icon = 1,
-	description = "+ 50% Resist Poison",
+	description = "+35% Resist Poison and immunity to being poisoned.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			champion:addStatModifier("resist_poison", 50)
+			champion:addStatModifier("resist_poison", 45)
+		end
+	end,
+	onReceiveCondition = function(champion, cond, level)
+		if level > 0 and cond == "poison" then
+			return false
 		end
 	end,
 }
@@ -1174,7 +1212,6 @@ defineTrait{
 defineTrait{
 	name = "green_thumb",
 	uiName = "Green Thumb",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 0,
+	 
 	description = "Herbs multiply while in your inventory. Spreading the herbs out or having multiple alchemists don't affect the multiplication.",
-}
+}    

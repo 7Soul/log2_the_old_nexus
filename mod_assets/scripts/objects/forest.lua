@@ -296,6 +296,39 @@ defineObject{
 }
 
 defineObject{
+	name = "forest_oak_cluster_noicon",
+	baseObject = "base_obstacle",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/env/forest_oak_cluster.fbx",
+			dissolveStart = 2,
+			dissolveEnd = 5,
+			shadowLod = 1,
+			staticShadow = true,
+			--debugDraw = true,
+			-- bounding box fix: automatically computed bounding box is too small because the model is built incorrectly
+			-- (without skinning all the trees in the cluster are in one place)
+			boundBox = { pos = vec(0, 5, 0), size = vec(8, 10, 8) },
+		},
+		{
+			class = "Animation",
+			animations = {
+				sway = "assets/animations/env/forest_oak_cluster_idle.fbx",
+			},
+			playOnInit = "sway",
+			loop = true,
+			maxUpdateDistance = 5,
+		},
+	},
+	editorIcon = 168,
+	automapIcon = -1,
+	automapTile = "ground",
+	minimalSaveState = true,
+	tags = { "level_design" }
+}
+
+defineObject{
 	name = "forest_oak_stump",
 	components = {
 		{
@@ -1452,6 +1485,97 @@ defineObject{
 	placement = "floor",
 	editorIcon = 88,
 	tags = { "level_decoration" },
+}
+
+
+defineObject{
+	name = "forest_darkness",
+	components = {
+		{
+			class = "Particle",
+			particleSystem = "forest_darkness",
+		},
+	},
+	placement = "floor",
+	editorIcon = 88,
+	tags = { "level_decoration" },
+}
+
+defineParticleSystem{
+	name = "forest_darkness",
+	emitters = {
+		-- fog
+		{
+			emissionRate = 200,
+			emissionTime = 0,
+			maxParticles = 500,
+			boxMin = {-9.0, -1.0,-9.0},
+			boxMax = { 9.0,  0.0, 9.0},
+			sprayAngle = {0,360},
+			velocity = {0.1,0.3},
+			--objectSpace = true,
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {5,5},
+			color0 = {0,0,0},
+			opacity = 0.3,
+			fadeIn = 0.5,
+			fadeOut = 2,
+			size = {1.5, 2.5},
+			gravity = {0,0.25,0},
+			airResistance = 0.1,
+			rotationSpeed = 0.1,
+			blendMode = "Translucent",
+			depthBias = 1.0,
+		},
+
+		-- fog
+		{
+			emissionRate = 200,
+			emissionTime = 0,
+			maxParticles = 500,
+			boxMin = {-9.0, -1.0,-9.0},
+			boxMax = { 9.0,  0.0, 9.0},
+			sprayAngle = {0,360},
+			velocity = {0.1,0.3},
+			--objectSpace = true,
+			texture = "assets/textures/particles/darkness_cloud.tga",
+			lifetime = {5,5},
+			color0 = {0.0,0.0,0.0},
+			opacity = 0.3,
+			fadeIn = 0.5,
+			fadeOut = 2,
+			size = {1.5, 2.5},
+			gravity = {0,0.25,0},
+			airResistance = 0.1,
+			rotationSpeed = 0.1,
+			blendMode = "Translucent",
+			depthBias = 1.0,
+		},
+
+		-- fog
+		{
+			emissionRate = 500,
+			emissionTime = 0,
+			maxParticles = 1000,
+			boxMin = {-9.0, -2.0,-9.0},
+			boxMax = { 9.0, -2.0, 9.0},
+			sprayAngle = {0,0},
+			velocity = {0.1,0.3},
+			--objectSpace = true,
+			texture = "assets/textures/particles/darkness_cloud.tga",
+			lifetime = {10,10},
+			color0 = {0.0,0.0,0.0},
+			opacity = 1.0,
+			fadeIn = 0.5,
+			fadeOut = 0.5,
+			size = {2.5, 3.5},
+			gravity = {0,0.0,0},
+			airResistance = 0.1,
+			rotationSpeed = 0.1,
+			blendMode = "Translucent",
+			depthBias = 1.0,
+		},
+	}
 }
 
 defineObject{

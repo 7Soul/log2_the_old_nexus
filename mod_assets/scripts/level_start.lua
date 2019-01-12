@@ -21,6 +21,16 @@ function start()
 		end
 		party:setPosition(startx, starty, party.facing, party.elevation, party.level)
 	end
+	local no_mobs = false
+	if no_mobs then
+		for entity in Dungeon.getMap(party.level):allEntities() do
+			if entity.monster then
+				entity:destroy()
+			end
+		end
+	end
+	
+	
 	-- scenery
 	findEntity("beach_rock_1x1_low_6"):getComponent("model"):setOffset(vec(-1.5,-0.8,0))
 	findEntity("beach_rock_spire_4"):getComponent("model"):setOffset(vec(-20,0,0))
@@ -130,21 +140,47 @@ function start()
 	beach_high_rock_pillar_01_10:setWorldPosition(beach_high_rock_pillar_01_10:getWorldPosition() + vec(0.75,0.75,0.4))
 	
 	-- Items --
-	throwing_knife_2:setWorldPosition(throwing_knife_2:getWorldPosition() + vec(-0.19,1.84,1.46))
+	throwing_knife_2:setWorldPosition(vec(30.19,1.27,35.73))
 	throwing_knife_2:setWorldRotationAngles(115,133,-40)
-	note_1:setWorldPosition(note_1:getWorldPosition() + vec(-0.26,1.65,0.96))
+	note_1:setWorldPosition(vec(30.07,1.00,35.89))
 	note_1:setWorldRotationAngles(87.2,26.4,-2.4)
-	iron_key_1:setWorldPosition(iron_key_1:getWorldPosition() + vec(-0.34,0.69,0.05))
+	iron_key_1:setWorldPosition(vec(36.05,-0.14,70.51))
 	iron_key_1:setWorldRotationAngles(33,62,23)
 
+	--------------------
+	-- Bridge of Ages --
+	--------------------
+	short_bow_1:setWorldPosition(vec(73.55,0.76,32.91))
+	short_bow_1:setWorldRotationAngles(101,-2.4,72)
+	short_bow_1.gravity:disable()	
+	arrow_1:setWorldPosition(vec(73.26,0.36,32.69))
+	arrow_1:setWorldRotationAngles(13.6,13.6,55.2)
+	arrow_1.gravity:disable()
+	arrow_2:setWorldPosition(vec(73.58,0.47,32.81))
+	arrow_2:setWorldRotationAngles(75.2,6.4,81.6)
+	arrow_2.gravity:disable()
+	arrow_3:setWorldPosition(vec(48.43,0.49,33.9))
+	arrow_3:setWorldRotationAngles(55.2,127.2,268)
+	arrow_3.gravity:disable()
 	
-	local pos = mine_ceiling_lantern_4:getWorldPosition()
+	castle_pressure_plate_1:setWorldPositionY(-0.01)
+	--castle_pressure_plate_1:setWorldPosition(vec(17.75,-0.01,73.5))
+	--wall_button_2:setWorldPosition(vec(18.41,-0.96,72.75))
+	--beach_lock_gold_2:setWorldPosition(vec(18.41,-0.96,72.75))
+	beach_lock_gold_2:createComponent("Door")
+	
+	for i=1,4 do
+		findEntity("demo_pillar_"..i):setWorldPosition(vec(81,0,59.4 + (i*3) - 3))
+		findEntity("demo_button_"..i):setWorldPosition(vec(80.87,0,59.4 + (i*3) - 3))
+	end
+	
+	local pos = demo_button_1:getWorldPosition()
 	posx = pos.x
 	posy = pos.y
 	posz = pos.z
 end
 
-objname = "mine_ceiling_lantern_4"
+objname = "demo_button_1"
 
 function move(x,y,z)
 	xx = xx + x*1
@@ -152,7 +188,7 @@ function move(x,y,z)
 	zz = zz + z*1
 	findEntity(objname):setWorldPosition(vec(posx + xx, posy + yy, posz + zz))
 	--findEntity(objname):getComponent("socket"):setOffset(vec(xx, yy, zz))
-	print("Offset: ", xx, yy, zz)
+	print("Offset: ", findEntity(objname):getWorldPosition())
 end
 
 function rotate(x,y,z)

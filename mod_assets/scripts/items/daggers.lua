@@ -16,7 +16,7 @@ defineObject{
 			projectileRotationX = 90,
 			projectileRotationY = 90,
 			description = "A vicious looking dagger, which is effective in close combat as well as from a distance. The dagger is the favorite weapon of many a rogue.",
-			traits = { "light_weapon", "dagger" },
+			traits = { "light_weapon", "dagger", "dismantle", "upgradable", "weapon" },
 		},
 		{
 			class = "MeleeAttack",

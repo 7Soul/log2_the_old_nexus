@@ -15,12 +15,20 @@ function hit(self, what, entity)
   if e.tiledamager then
     e.tiledamager:setCastByChampion(self:getCastByChampion() or 1)
     if attackPower then e.tiledamager:setAttackPower(attackPower) end
+	-- Add elemental exploitation tag
+	if party.party:getChampionByOrdinal(self:getCastByChampion()):hasTrait("elemental_exploitation") then
+		functions.script.set_c("elemental_exploitation", self:getCastByChampion(), true)
+	end	
   end
   if e.cloudspell then
     e.cloudspell:setCastByChampion(self:getCastByChampion() or 1)
     if attackPower then e.cloudspell:setAttackPower(attackPower) end
     local duration = self.go.data:get("duration")
     if duration then e.cloudspell:setDuration(duration) end
+	-- Add elemental exploitation tag
+	if party.party:getChampionByOrdinal(self:getCastByChampion()):hasTrait("elemental_exploitation") then
+		functions.script.set_c("elemental_exploitation", self:getCastByChampion(), true)
+	end
   end
 end
 
@@ -541,13 +549,83 @@ defineObject{
 }
 
 defineObject{
+	name = "fireburst",
+	baseObject = "fireburst",
+	components = {
+		{
+			class = "TileDamager",
+			attackPower = 20,
+			damageType = "fire",
+			sound = "fireburst",
+			screenEffect = "fireball_screen",			
+			--cameraShake = true,
+			onHitMonster = function(self, monster)
+				local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
+				local skillLevel = champion:getSkillLevel("elemental_magic")
+				if monster:isAlive() and skillLevel >= 3 then
+					monster:setCondition("burning", skillLevel * 5)
+					-- mark condition so that exp is awarded if monster is killed by the condition
+					local burning = monster.go.burning
+					local ordinal = self:getCastByChampion()
+					if burning and ordinal then burning:setCausedByChampion(ordinal) end
+				end
+			end
+		},	
+	},
+}
+
+defineObject{
+  name = "fireball_small_cast",
+  baseObject = "fireball_small",
+  components = {
+    { class = "Script",
+      name = "data",
+      source = [[
+        data = {hitEffect = "fireball_blast_large", attackPower=30}
+        function get(self,name) return self.data[name] end
+        function set(self,name,value) self.data[name] = value end
+      ]],      
+    },
+    {
+      class = "Projectile",
+      spawnOffsetY = 1.35,
+      velocity = 10,
+      radius = 0.1,
+      onProjectileHit = hit,
+    },
+  },
+}
+
+defineObject{
+  name = "fireball_medium_cast",
+  baseObject = "fireball_medium",
+  components = {
+    { class = "Script",
+      name = "data",
+      source = [[
+        data = {hitEffect = "fireball_blast_large", attackPower=50}
+        function get(self,name) return self.data[name] end
+        function set(self,name,value) self.data[name] = value end
+      ]],      
+    },
+    {
+      class = "Projectile",
+      spawnOffsetY = 1.35,
+      velocity = 10,
+      radius = 0.1,
+      onProjectileHit = hit,
+    },
+  },
+}
+
+defineObject{
   name = "fireball_large_cast",
   baseObject = "fireball_large",
   components = {
     { class = "Script",
       name = "data",
       source = [[
-        data = {hitEffect = "fireball_blast_large", attackPower=30}
+        data = {hitEffect = "fireball_blast_large", attackPower=70}
         function get(self,name) return self.data[name] end
         function set(self,name,value) self.data[name] = value end
       ]],      

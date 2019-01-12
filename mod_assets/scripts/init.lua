@@ -2,10 +2,11 @@
 import "mod_assets/spells_pack/defineObject.lua"
 -- import standard assets
 import "mod_assets/scripts/mod_standard_assets.lua"
-
 import "mod_assets/scripts/objects/generic.lua"
 import "mod_assets/scripts/objects/beach.lua"
 import "mod_assets/scripts/objects/forest.lua"
+import "mod_assets/scripts/objects/mine.lua"
+import "mod_assets/scripts/objects/stone_philosophers.lua"
 import "mod_assets/scripts/objects/sky.lua"
 -- import the spells pack
 import "mod_assets/spells_pack/init.lua"   -- the spells pack
@@ -28,6 +29,7 @@ import "mod_assets/scripts/conditions.lua"
 -- Monsters
 import "mod_assets/scripts/monsters/turtle.lua"
 import "mod_assets/scripts/monsters/sand_warg.lua"
+import "mod_assets/scripts/monsters/twigroot.lua"
 -- Items
 import "mod_assets/scripts/items/accessories.lua"
 import "mod_assets/scripts/items/armors.lua"
@@ -53,6 +55,7 @@ import "mod_assets/scripts/items/throwing_weapons.lua"
 import "mod_assets/scripts/items/tomes.lua"
 -- Other
 import "mod_assets/scripts/particles/blooddrop.lua"
+import "mod_assets/scripts/particles/soundGate.lua"
 
 
 defineObject{
@@ -680,7 +683,7 @@ defineObject{
 				local timepiece = functions.script.getTimepiece()
 				for entity in Dungeon.getMap(party.level):entitiesAt(party.x, party.y) do
 					if timepiece then
-						if (entity.name == "crystal_area_inside" or entity.name == "crystal_area") then
+						if entity.name == "crystal_area_inside" and entity.elevation == party.elevation then
 							if functions2.script.timeTravelTimer == 0 then
 								timepiece.go.item:setGfxIndex(26) -- charged
 							else

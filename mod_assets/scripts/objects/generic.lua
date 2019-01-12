@@ -1271,13 +1271,13 @@ defineParticleSystem{
 	emitters = {		
 		-- Border emitter
 		{
-			emissionRate = 50,
+			emissionRate = 75,
 			emissionTime = 0,
-			maxParticles = 200,
+			maxParticles = 250,
 			boxMin = {1.5, 0, 1.5},
 			boxMax = {-1.5, -0.06, 1.4},
 			sprayAngle = {0,2},
-			velocity = {0.0,0.15},
+			velocity = {0.0,0.2},
 			objectSpace = true,
 			texture = "assets/textures/particles/glitter_silver.tga",
 			lifetime = {1.75,2},
@@ -1323,9 +1323,9 @@ defineParticleSystem{
 	emitters = {
 		-- fog
 		{
-			emissionRate = 1,
+			emissionRate = 5,
 			emissionTime = 0,
-			maxParticles = 5,
+			maxParticles = 10,
 			boxMin = {-1.5, 0,-1.5},
 			boxMax = { 1.5, 1, 1.5},
 			sprayAngle = {0,360},
@@ -1373,14 +1373,14 @@ defineParticleSystem{
 			emissionTime = 0,
 			maxParticles = 50,
 			boxMin = {-1.5, 0, -1.5},
-			boxMax = { 1.5, -0.06, 1.5},
+			boxMax = { 1.5, 0.06, 1.5},
 			sprayAngle = {0,30},
 			velocity = {0.0,0.1},
 			objectSpace = true,
 			texture = "assets/textures/particles/glitter_silver.tga",
-			lifetime = {1,1},
+			lifetime = {1,1.5},
 			color0 = {1.0*1.5, 1.1*1.5, 1.5*1.5},
-			opacity = 0.8,
+			opacity = 1.0,
 			fadeIn = 0.1,
 			fadeOut = 0.5,
 			size = {0.05, 0.25},

@@ -16,6 +16,15 @@ defineObject{
 			projectileRotationZ = -30,
 			weight = 0.7,
 			traits = { "throwing_weapon" },
+			onThrowAttackHitMonster = function(self, monster)
+				for i=1,4 do
+					if functions.script.get_c("venomancerShot", i) then
+						monster:setCondition("poisoned", 25)
+						functions.script.set_c("venomancerShot", i, nil)
+						if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(i) end
+					end
+				end
+		 	end,
 		},
 		{
 			class = "ThrowAttack",
@@ -25,28 +34,6 @@ defineObject{
 		{
 			class = "AmmoItem",
 			ammoType = "rock",
-		},
-	},
-	tags = { "weapon", "weapon_throwing" },
-}
-
-defineObject{
-	name = "boulder",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/boulder.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Boulder",
-			gfxIndex = 368,
-			impactSound = "impact_blunt",
-			projectileRotationSpeed = 10,
-			projectileRotationZ = -30,
-			weight = 3.5,
-			traits = { "throwing_weapon" },
 		},
 	},
 	tags = { "weapon", "weapon_throwing" },
@@ -70,6 +57,15 @@ defineObject{
 			projectileRotationY = 90,
 			weight = 0.1,
 			traits = { "throwing_weapon" },
+			onThrowAttackHitMonster = function(self, monster)
+				for i=1,4 do
+					if functions.script.get_c("venomancerShot", i) then
+						monster:setCondition("poisoned", 25)
+						functions.script.set_c("venomancerShot", i, nil)
+						if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(i) end
+					end
+				end
+		 	end,
 		},
 		{
 			class = "ThrowAttack",
@@ -105,6 +101,13 @@ defineObject{
 			traits = { "throwing_weapon" },
 			onThrowAttackHitMonster = function(self, monster)
 		 		monster:setCondition("sleep", 20)
+				for i=1,4 do
+					if functions.script.get_c("venomancerShot", i) then
+						monster:setCondition("poisoned", 25)
+						functions.script.set_c("venomancerShot", i, nil)
+						if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(i) end
+					end
+				end
 		 	end,
 		},
 		{
@@ -140,6 +143,15 @@ defineObject{
 			projectileRotationX = 90,
 			projectileRotationY = 90,
 			traits = { "throwing_weapon" },
+			onThrowAttackHitMonster = function(self, monster)
+				for i=1,4 do
+					if functions.script.get_c("venomancerShot", i) then
+						monster:setCondition("poisoned", 25)
+						functions.script.set_c("venomancerShot", i, nil)
+						if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(i) end
+					end
+				end
+		 	end,
 		},
 		{
 			class = "ThrowAttack",
@@ -172,6 +184,15 @@ defineObject{
 			weight = 0.1,
 			traits = { "throwing_weapon" },
 			secondaryAction = "volley",
+			onThrowAttackHitMonster = function(self, monster)
+				for i=1,4 do
+					if functions.script.get_c("venomancerShot", i) then
+						monster:setCondition("poisoned", 25)
+						functions.script.set_c("venomancerShot", i, nil)
+						if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(i) end
+					end
+				end
+		 	end,
 		},
 		{
 			class = "ThrowAttack",
@@ -215,6 +236,15 @@ defineObject{
 			weight = 0.5,
 			traits = { "throwing_weapon" },
 			secondaryAction = "powerThrow",
+			onThrowAttackHitMonster = function(self, monster)
+				for i=1,4 do
+					if functions.script.get_c("venomancerShot", i) then
+						monster:setCondition("poisoned", 25)
+						functions.script.set_c("venomancerShot", i, nil)
+						if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(i) end
+					end
+				end
+		 	end,
 		},
 		{
 			class = "ThrowAttack",
@@ -235,33 +265,6 @@ defineObject{
 	},
 	tags = { "weapon", "weapon_throwing" },
 }
-
--- defineObject{
--- 	name = "boomerang",
--- 	baseObject = "base_item",
--- 	components = {
--- 		{
--- 			class = "Model",
--- 			model = "assets/models/items/boomerang.fbx",
--- 		},
--- 		{
--- 			class = "Item",
--- 			uiName = "Boomerang",
--- 			gfxIndex = 282,
--- 			impactSound = "impact_blunt",
--- 			stackable = true,
--- 			projectileRotationSpeed = 0,
--- 			projectileRotationX = 90,
--- 			projectileRotationY = 90,
--- 			weight = 0.7,
--- 		},
--- 		{
--- 			class = "ThrowAttack",
--- 			attackPower = 8,
--- 			cooldown = 4,
--- 		},
--- 	},
--- }
 
 defineObject{
 	name = "fire_bomb",
@@ -407,6 +410,15 @@ defineObject{
 			impactSound = "impact_blunt",
 			weight = 2.0,
 			traits = { "throwing_weapon" },
+			onThrowAttackHitMonster = function(self, monster)
+				for i=1,4 do
+					if functions.script.get_c("venomancerShot", i) then
+						monster:setCondition("poisoned", 25)
+						functions.script.set_c("venomancerShot", i, nil)
+						if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(i) end
+					end
+				end
+		 	end,
 		},
 		{
 			class = "ThrowAttack",

@@ -1,4 +1,109 @@
 defineObject{
+	name = "coldspike_bracelet",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/metal_bracelet.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Coldspike Bracelet",
+			description = "A spiked bracer that never melts, which sends a deep cold energy that only a magic user can withstand.",
+			gameEffect = [[Cold damage +20%]],
+			gfxAtlas = "mod_assets/textures/gui/items.dds",
+			gfxIndex = 39,
+			weight = 0.3,
+			traits = { "bracers", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			resistFire = -15,
+		},
+	},
+	tags = { "accessory" },
+}
+
+defineObject{
+	name = "forestfire_bracer",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/bronze_brace.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Forestfire Bracer",
+			description = "An everburning enchanted bracer made with the bark of an ancient tree.",
+			gameEffect = [[Fire damage +20%]],
+			gfxAtlas = "mod_assets/textures/gui/items.dds",
+			gfxIndex = 40,
+			weight = 0.3,
+			traits = { "bracers", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			resistCold = -15,
+		},
+	},
+	tags = { "accessory" },
+}
+
+defineObject{
+	name = "torment_bracer",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/hardstone_bracelet.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Torment Bracer",
+			description = "An electrically charged device that constantly shocks the user.",
+			gameEffect = [[Shock damage +20%]],
+			gfxAtlas = "mod_assets/textures/gui/items.dds",
+			gfxIndex = 41,
+			weight = 0.3,
+			traits = { "bracers", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			evasion = -15,
+		},
+	},
+	tags = { "accessory" },
+}
+
+defineObject{
+	name = "serpent_bracer",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/serpent_bracer.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Serpent Bracer",
+			description = "A bracer fashioned after a venomous tropical snake. The teeth of the snake bite into the forearm of its wearer.",
+			gameEffect = [[Poison damage +20%
+			Adds 10% chance to poison enemies with 
+			melee and ranged attacks.]],
+			gfxIndex = 29,
+			weight = 0.5,
+			traits = { "bracers", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = -8,
+		},
+	},
+	tags = { "accessory" },
+}
+
+defineObject{
 	name = "frostbite_necklace",
 	baseObject = "base_item",
 	components = {
@@ -10,13 +115,16 @@ defineObject{
 			class = "Item",
 			uiName = "Frostbite Necklace",
 			description = "This necklace, made out of Ice Lizard teeth, freezes everything it lays on but feels warm to touch.",
+			gameEffect = [[Cold damage +20%
+			Adds cold resistance to the entire party +15%.]],
 			gfxIndex = 26,
 			weight = 0.2,
 			traits = { "necklace", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
-			resistCold = 50,
+			resistCold = 15,
+			resistFire = -10,
 		},
 	},
 	tags = { "accessory" },
@@ -34,6 +142,8 @@ defineObject{
 			class = "Item",
 			uiName = "Bone Amulet",
 			description = "A primitive amulet made out of bones that are bound together with string.",
+			gameEffect = [[You gain 5% chance to recover a pellet 
+			when firing with firearms.]],
 			gfxIndex = 65,
 			weight = 0.2,
 			traits = { "necklace", "upgradable" },
@@ -54,13 +164,16 @@ defineObject{
 			class = "Item",
 			uiName = "Fire Torc",
 			description = "Two metal bands that clamp tightly around the neck. A faint sound of crackling embers can be heard emanating from it.",
+			gameEffect = [[Fire damage +20%
+			Adds fire resistance to the entire party +15%.]],
 			gfxIndex = 67,
 			weight = 0.2,
 			traits = { "necklace"  },
 		},
 		{
 			class = "EquipmentItem",
-			resistFire = 50,
+			resistFire = 15,
+			resistCold = -10,
 		},
 	},
 	tags = { "accessory" },
@@ -102,6 +215,8 @@ defineObject{
 			class = "Item",
 			uiName = "Hardstone Bracelet",
 			description = "A bracelet that the warriors of the hill tribes pass on from generation to generation.",
+			gameEffect = [[Adds a small chance to gain +35 protection
+			for 10 seconds when you get hit.]],
 			gfxIndex = 27,
 			weight = 0.3,
 			traits = { "bracers", "upgradable" },
@@ -133,7 +248,7 @@ defineObject{
 		},
 		{
 			class = "EquipmentItem",
-			protection = 1,
+			protection = 2,
 			cooldownRate = 15,
 		},
 	},
@@ -158,7 +273,7 @@ defineObject{
 		},
 		{
 			class = "EquipmentItem",
-			strength = 1,
+			strength = 2,
 			foodRate = 20,
 			healthRegenerationRate = 20,
 		},
@@ -262,31 +377,6 @@ defineObject{
 }
 
 defineObject{
-	name = "serpent_bracer",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/serpent_bracer.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Serpent Bracer",
-			description = "A bracer fashioned after a venomous tropical snake. The teeth of the snake bite into the forearm of its wearer.",
-			gfxIndex = 29,
-			weight = 0.5,
-			traits = { "bracers", "upgradable" },
-		},
-		{
-			class = "EquipmentItem",
-			protection = 2,
-			resistPoison = 50,
-		},
-	},
-	tags = { "accessory" },
-}
-
-defineObject{
 	name = "pit_gauntlets",
 	baseObject = "base_item",
 	components = {
@@ -322,6 +412,7 @@ defineObject{
 			class = "Item",
 			uiName = "Nomad Mittens",
 			description = "Thick mittens worn by the tribesmen who live and travel with horned beasts in the far away tundras.",
+			gameEffect = [[Cold damage +5%]],
 			gfxIndex = 52,
 			weight = 0.4,
 			traits = { "gloves" },
@@ -421,14 +512,16 @@ defineObject{
 		{
 			class = "Item",
 			uiName = "Storm Amulet",
+			description = "",
+			gameEffect = [[Shock damage +20%
+			Adds shock resistance to the entire party +15%.]],
 			gfxIndex = 302,
 			weight = 0.4,
 			traits = { "necklace", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
-			resistShock = 50,
-			willpower = 2,
+			resistShock = 15,
 		},
 	},
 	tags = { "accessory" },
@@ -451,7 +544,7 @@ defineObject{
 		},
 		{
 			class = "EquipmentItem",
-			willpower = 1,
+			willpower = 2,
 		},
 	},
 	tags = { "accessory" },
@@ -524,7 +617,7 @@ defineObject{
 		},
 		{
 			class = "EquipmentItem",
-			willpower = 2,
+			willpower = 4,
 		},
 	},
 	tags = { "accessory" },

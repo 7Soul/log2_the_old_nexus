@@ -14,8 +14,10 @@ local onMeleeAttack = function(self, champion, slot, chainIndex)
 end
 
 local onHitMonster = function(self, monster, tside, damage, champion)
+	local secondary2 = functions.script.secondary
+	local item = self.go.item
 	functions.script.monster_attacked(self, monster, tside, damage, champion)
-	functions.script.reset_attack(self, champion, slot)
+	functions.script.reset_attack(self, champion, slot, secondary2, item) -- (when hit)
 end
 
 local onProjectileHitMonster = function(self, item, damage, damageType)
@@ -24,7 +26,8 @@ end
 
 local onPostAttack = function(self, champion, slot)
 	local secondary2 = functions.script.secondary
-	functions.script.reset_attack(self, champion, slot, secondary2)
+	local item = self.go.item
+	functions.script.reset_attack(self, champion, slot, secondary2, item) -- (when misses)
 end
 
 local onFirearmAttack = function(self, champion, slot)
@@ -38,7 +41,7 @@ local onFirearmPostAttack = function(self, champion, slot)
 end
 
 local onThrowAttack = function(self, champion, slot, chainIndex)
-	local item = champion:getItem(slot)	
+	local item = self.go.item
 	functions.script.onThrowAttack(self, champion, slot, chainIndex, item)
 end
 
@@ -76,8 +79,11 @@ local onWInit = function(self)
 	end
 	
 	if self.go.item:hasTrait("chop") then
-		local c = self.go:createComponent("MeleeAttack","chop")
-		functions.script.updateSecondary(self, c, "chop")
+		functions.script.derp()
+		if functions.script then
+			local c = self.go:createComponent("MeleeAttack","chop")
+			functions.script.updateSecondary(self, c, "chop")
+		end
 	end
 	
 	if self.go.item:hasTrait("devastate") then

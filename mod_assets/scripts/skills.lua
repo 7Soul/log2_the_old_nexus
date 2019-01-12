@@ -207,6 +207,24 @@ defineSkill{
 }
 
 defineSkill{
+	name = "alchemy",
+	uiName = "Alchemy",
+	priority = 100,
+	icon = 20,
+	description = [[A higher skill level in Alchemy allows you to brew a wider range of potions. To craft potions you also need herbs and a Mortar and Pestle.
+	
+	Perks:
+	- Level 1 | Herbs multiply while in your inventory.
+	- Level 4 | You brew stronger healing and energy potions.
+	- Level 5 | When you craft bombs you get three bombs instead of one.]],
+	traits = { [4] = "green_thumb", [4] = "improved_alchemy", [5] = "bomb_expert" },
+	onRecomputeStats = function(champion, level)
+		if level > 0 then
+		end
+	end,
+}
+
+defineSkill{
 	name = "light_weapons",
 	uiName = "Light Weapons",
 	priority = 120,
@@ -290,7 +308,7 @@ defineSkill{
 	description = [[Increases damage of poison spells by 20% for each skill point.
 	
 	Perks:
-	- Level 2 | 20% chance to poison enemies with melee, ranged and throwing attacks. (to-do)
+	- Level 2 | 20% chance to poison enemies with melee, ranged and throwing attacks.
 	- Level 5 | + 50% Resist Poison.]],
 	traits = { [2] = "venomancer", [5] = "antivenom" },
 }
@@ -309,24 +327,6 @@ defineSkill{
 		champion:addStatModifier("max_energy", level * 20)
 	end,
 	traits = { [3] = "meditation", [5] = "arcane_extraction" },
-}
-
-defineSkill{
-	name = "alchemy",
-	uiName = "Alchemy",
-	priority = 100,
-	icon = 20,
-	description = [[A higher skill level in Alchemy allows you to brew a wider range of potions. To craft potions you also need herbs and a Mortar and Pestle.
-	
-	Perks:
-	- Level 1 | Herbs multiply while in your inventory.
-	- Level 4 | You brew stronger healing and energy potions.
-	- Level 5 | When you craft bombs you get three bombs instead of one.]],
-	traits = { [4] = "green_thumb", [4] = "improved_alchemy", [5] = "bomb_expert" },
-	onRecomputeStats = function(champion, level)
-		if level > 0 then
-		end
-	end,
 }
 
 -- defineSkill{

@@ -111,3 +111,60 @@ defineObject{
 	editorIcon = 100,
 	reflectionMode = "always",
 }
+
+defineObject{
+	name = "bridge_sky",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/env/sky.fbx",
+			sortOffset = 200000,	-- force water rendering before other transparent surfaces
+			renderHack = "Sky",
+		},
+		{
+			class = "Model",
+			name = "nightSky",
+			model = "assets/models/env/sky.fbx",
+			material = "night_sky",
+			sortOffset = 199999,	-- force water rendering before other transparent surfaces
+			renderHack = "Sky",
+		},
+		{
+			class = "Model",
+			name = "stars",
+			model = "assets/models/env/stars.fbx",
+			sortOffset = 199998,	-- stars are rendered after night sky
+			renderHack = "Sky",
+		},
+		{
+			class = "Light",
+			type = "directional",
+			castShadow = false,
+		},
+		{
+			class = "Light",
+			name = "ambient",
+			type = "ambient",
+		},
+		{
+			class = "Sky",
+			farClip = 11,
+			sunColor1 = vec(1 * 1.0, 1 * 0.6, 1 * 0.8) * 5.0,--day
+			sunColor2 = vec(1, 0.85, 1) * 2.5,--dawn/dusk
+			sunColor3 = vec(0.8, 0.85, 1) * 0.2,--night
+			fogMode = "linear",
+			fogColor1 = vec(0.7, 0.85, 0.9) * 0.25,
+			fogColor2 = vec(0.7, 0.85, 0.9) * 0.2,
+			fogColor3 = vec(0.7, 0.85, 0.9) * 0.1,
+			fogRange = {5,11},
+			ambientIntensity = 3.0,
+			tonemapSaturation = 1.25,
+		},
+		-- {
+			-- class = "LensFlare",
+		-- },
+	},
+	placement = "floor",
+	editorIcon = 100,
+	reflectionMode = "always",
+}
