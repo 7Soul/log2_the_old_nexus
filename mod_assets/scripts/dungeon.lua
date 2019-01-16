@@ -23,11 +23,11 @@ loadLayer("floor_elevation", {
 	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,
 	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,
 	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,
-	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,
-	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,0,-4,-4,-4,
-	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,0,-4,0,-4,-4,-4,
-	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,0,0,0,0,0,0,0,-4,-4,-4,-4,0,-4,0,-4,-4,-4,
-	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,0,0,0,0,0,0,-4,-4,-4,0,0,0,-4,0,-4,-4,-4,
+	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,1,-4,-4,-4,
+	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-1,-1,-4,0,-4,-4,-4,
+	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,0,-4,0,-1,-4,-4,
+	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,0,0,0,0,0,0,0,-4,-4,-4,-1,0,-4,0,-1,-4,-4,
+	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,0,0,0,0,0,0,-4,-4,-4,0,0,0,-4,0,-1,-4,-4,
 	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,0,0,0,0,0,0,0,0,-4,-4,0,0,0,-4,0,-4,-4,-4,
 	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,0,0,0,0,0,0,0,0,0,0,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,
 	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,0,0,0,0,0,0,0,0,0,0,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,
@@ -90,17 +90,17 @@ loadLayer("tiles", {
 	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,3,3,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,1,3,1,3,3,1,
-	1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,1,1,1,1,1,1,1,3,3,3,3,1,3,1,3,3,1,
-	1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,3,1,3,3,1,
-	1,1,1,1,1,1,1,1,1,3,3,1,1,1,1,1,1,1,1,1,1,1,3,3,1,1,1,3,1,3,3,1,
-	1,1,1,1,1,1,1,1,1,3,3,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,1,
-	1,1,1,1,1,1,1,1,1,3,3,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,1,1,1,3,3,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,3,1,1,1,1,3,3,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,3,3,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,1,3,1,1,3,3,
+	1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,1,1,1,1,1,1,1,3,3,3,1,1,3,1,1,3,3,
+	1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,3,
+	1,1,1,1,1,1,1,1,1,3,3,1,1,1,1,1,1,1,1,1,1,1,3,3,1,1,1,3,1,3,3,3,
+	1,1,1,1,1,1,1,1,1,3,3,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,
+	1,1,1,1,1,1,1,1,1,3,3,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,
 	1,1,1,1,1,1,1,1,1,3,3,1,1,1,1,1,1,3,3,1,3,3,3,3,3,3,3,3,3,1,1,1,
 	1,1,1,1,1,1,1,1,1,3,3,1,1,3,3,3,3,3,1,1,3,3,3,3,3,1,1,3,3,1,1,1,
 	1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,3,3,3,1,1,1,1,3,3,1,1,1,1,3,1,1,1,
@@ -115,7 +115,7 @@ loadLayer("tiles", {
 	1,1,1,1,1,3,3,3,3,1,3,3,1,1,1,1,1,1,1,1,1,3,1,1,1,1,3,3,1,1,1,1,
 	1,1,1,1,1,1,1,1,1,1,3,3,1,1,1,1,1,1,1,1,1,3,1,3,1,3,3,3,1,1,1,1,
 	1,1,1,1,1,3,3,3,3,1,3,3,1,1,1,1,1,1,3,3,3,3,3,3,1,3,3,3,3,1,1,1,
-	1,1,1,1,1,3,3,3,3,3,3,3,1,1,1,1,1,1,3,3,3,3,3,3,1,3,3,1,1,3,1,1,
+	1,1,1,1,1,3,3,3,3,1,3,3,1,1,1,1,1,1,3,3,3,3,3,3,1,3,3,1,1,3,1,1,
 	1,1,1,1,1,1,1,3,1,1,1,3,1,1,1,1,1,1,3,3,3,3,3,1,1,1,3,1,1,1,1,1,
 	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,1,2,2,2,1,1,1,1,
 })
@@ -915,6 +915,10 @@ end\
 function wakeUp3()\
 \9if twigroot_dormant_3 then twigroot_dormant_3.monster:performAction(\"wakeUp\") end\
 end\
+\
+function wakeUp7()\
+\9if twigroot_dormant_7 then twigroot_dormant_7.monster:performAction(\"wakeUp\") end\
+end\
 ")
 spawn("mine_support_pillar_01",27,23,0,-1,"mine_support_pillar_01_138")
 spawn("mine_support_ceiling_01",27,22,3,-1,"mine_support_ceiling_01_2")
@@ -1232,20 +1236,6 @@ teleporter_25.teleporter:setTriggeredByMonster(true)
 teleporter_25.teleporter:setTriggeredByItem(true)
 teleporter_25.teleporter:setTriggeredBySpell(true)
 teleporter_25.controller:setInitialState("deactivate")
-spawn("rock",19,11,1,0,"rock_5")
-rock_5.data:setSource("\9\9\9\9data = {}\
-\9\9\9\9function get(name)\
-\9\9\9\9\9return self.data[name]\
-\9\9\9\9end\
-\9\9\9\9function set(name,value)\
-\9\9\9\9\9self.data[name] = value\
-\9\9\9\9end\
-\9\9\9")
-rock_5.item:setStackSize(10)
-rock_5.detectedtimer:setTimerInterval(0)
-rock_5.detectedtimer:setDisableSelf(false)
-rock_5.detectedtimer:setTriggerOnStart(true)
-rock_5.detectedtimer:setCurrentLevelOnly(true)
 spawn("timer",19,9,0,1,"timer_8")
 timer_8.timer:setTimerInterval(0.2)
 timer_8.timer:setDisableSelf(false)
@@ -2006,19 +1996,6 @@ spawn("mine_support_beam_floor_double",10,17,1,-3,"mine_support_beam_floor_doubl
 spawn("mine_support_beam_floor_double",10,17,1,-2,"mine_support_beam_floor_double_202")
 spawn("mine_support_wall_02",11,17,3,-1,"mine_support_wall_02_47")
 spawn("mine_support_pillar_01_half",11,18,0,-1,"mine_support_pillar_01_half_47")
-spawn("enchanted_timepiece",15,13,1,0,"enchanted_timepiece_1")
-enchanted_timepiece_1.data:setSource("\9\9\9\9data = {}\
-\9\9\9\9function get(name)\
-\9\9\9\9\9return self.data[name]\
-\9\9\9\9end\
-\9\9\9\9function set(name,value)\
-\9\9\9\9\9self.data[name] = value\
-\9\9\9\9end\
-\9\9\9")
-enchanted_timepiece_1.detectedtimer:setTimerInterval(0)
-enchanted_timepiece_1.detectedtimer:setDisableSelf(false)
-enchanted_timepiece_1.detectedtimer:setTriggerOnStart(true)
-enchanted_timepiece_1.detectedtimer:setCurrentLevelOnly(true)
 spawn("forest_oak_cluster",24,17,3,-5,"forest_oak_cluster_76")
 spawn("forest_oak_cluster",25,19,3,-5,"forest_oak_cluster_82")
 spawn("forest_oak_cluster",26,19,3,-5,"forest_oak_cluster_96")
@@ -2273,18 +2250,18 @@ timer_12.timer:setCurrentLevelOnly(true)
 timer_12.timer:addConnector("onActivate", "spawner_5", "activate")
 timer_12.timer:disable()
 spawn("script_entity",8,25,2,0,"script_entity_23")
-script_entity_23.script:setSource("passedDemoGate = { false, false, false, false }\
+script_entity_23.script:setSource("passedGate = { false, false, false, false }\
 \
 function blob(sender)\
-\9for y=0, 4 do\
-\9\9for entity in self.go.map:entitiesAt(28, 8 + y) do\
+\9for y=0, 9 do\
+\9\9for entity in self.go.map:entitiesAt(9, 20 + y) do\
 \9\9\9if entity.name == \"blob\" then\
 \9\9\9\9local entPos = entity:getWorldPosition()\
-\9\9\9\9local gatePos = { gate_demo_1:getWorldPosition(), gate_demo_2:getWorldPosition(), gate_demo_3:getWorldPosition(), gate_demo_4:getWorldPosition() }\
+\9\9\9\9local gatePos = { gate_1:getWorldPosition(), gate_2:getWorldPosition(), gate_3:getWorldPosition(), gate_4:getWorldPosition() }\
 \9\9\9\9for i=1,4 do\
-\9\9\9\9\9if (entPos.z + 0.1 >= gatePos[i].z) and (entPos.z - 0.1 <= gatePos[i].z) and not passedDemoGate[i] then\
-\9\9\9\9\9\9passedDemoGate[i] = true\
-\9\9\9\9\9\9local gate = spawn(\"soundGate\", party.level, entity.x, entity.y, 0, 0)\
+\9\9\9\9\9if (entPos.z + 0.1 >= gatePos[i].z) and (entPos.z - 0.1 <= gatePos[i].z) and not passedGate[i] then\
+\9\9\9\9\9\9passedGate[i] = true\
+\9\9\9\9\9\9local gate = spawn(\"soundGate1\", party.level, entity.x, entity.y, 0, 0)\
 \9\9\9\9\9\9gate:setWorldPosition(gatePos[i])\
 \9\9\9\9\9end\
 \9\9\9\9end\
@@ -2297,7 +2274,7 @@ end\
 \
 function clearGates()\
 \9for i=1,4 do\
-\9\9passedDemoGate[i] = false\
+\9\9passedGate[i] = false\
 \9end\
 end")
 spawn("timer",8,26,1,0,"timer_13")
@@ -2352,7 +2329,6 @@ spawn("forest_elevation_edge",29,11,3,-2,"forest_elevation_edge_107")
 spawn("forest_elevation_edge",29,11,3,-1,"forest_elevation_edge_108")
 spawn("forest_elevation_edge",24,10,2,-1,"forest_elevation_edge_67")
 spawn("forest_elevation_edge",24,10,2,-2,"forest_elevation_edge_68")
-spawn("forest_elevation_edge",25,10,2,-2,"forest_elevation_edge_109")
 spawn("forest_elevation_edge",25,10,2,-1,"forest_elevation_edge_110")
 spawn("forest_elevation_edge",25,13,0,-1,"forest_elevation_edge_69")
 spawn("forest_elevation_edge",24,13,0,-1,"forest_elevation_edge_70")
@@ -2370,12 +2346,12 @@ spawn("daemon_head",28,13,2,0,"daemon_head_6")
 spawn("spawner",28,13,0,0,"spawner_8")
 spawner_8.spawner:setSpawnedEntity("blob")
 spawner_8.spawner:setMonsterLevel(1)
-spawner_8.spawner:setCooldown(1)
+spawner_8.spawner:setCooldown(2)
 spawner_8.spawner:setDisableSelf(false)
 spawn("receptor",28,8,0,0,"receptor_3")
 receptor_3.walltrigger:setEntityType("blob")
 receptor_3.walltrigger:addConnector("onActivate", "script_entity_25", "clearGates")
-spawn("mine_support_beam_floor_double",28,12,0,0,"gate_demo_1")
+receptor_3.walltrigger:addConnector("onActivate", "script_entity_26", "checkResult")
 spawn("forest_elevation_edge",26,13,0,-1,"forest_elevation_edge_114")
 spawn("forest_elevation_edge",26,13,0,-2,"forest_elevation_edge_115")
 spawn("forest_elevation_edge",28,13,0,-2,"forest_elevation_edge_117")
@@ -2385,26 +2361,13 @@ spawn("forest_elevation_edge",29,10,3,-1,"forest_elevation_edge_119")
 spawn("forest_elevation_edge",29,9,3,-1,"forest_elevation_edge_121")
 spawn("forest_elevation_edge",29,9,3,-2,"forest_elevation_edge_122")
 spawn("forest_elevation_edge",26,8,2,-1,"forest_elevation_edge_123")
-spawn("forest_elevation_edge",26,8,2,-2,"forest_elevation_edge_124")
+spawn("forest_elevation_edge",26,7,2,-2,"forest_elevation_edge_124")
 spawn("forest_elevation_edge",28,7,2,-2,"forest_elevation_edge_125")
 spawn("forest_elevation_edge",28,7,2,-1,"forest_elevation_edge_126")
-spawn("forest_elevation_edge",28,7,2,-2,"forest_elevation_edge_127")
-spawn("forest_elevation_edge",28,7,2,-1,"forest_elevation_edge_130")
 spawn("forest_elevation_edge",25,10,1,-1,"forest_elevation_edge_128")
-spawn("forest_elevation_edge",25,10,1,-2,"forest_elevation_edge_129")
 spawn("forest_elevation_edge",25,9,1,-2,"forest_elevation_edge_131")
 spawn("forest_elevation_edge",25,9,1,-1,"forest_elevation_edge_132")
-spawn("mine_support_beam_floor_double",28,11,0,0,"gate_demo_2")
-spawn("mine_support_beam_floor_double",28,10,0,0,"gate_demo_3")
-spawn("mine_support_beam_floor_double",28,9,0,0,"gate_demo_4")
-spawn("forest_oak_cluster",30,13,3,-2,"forest_oak_cluster_105")
-spawn("forest_oak_cluster",30,12,3,-3,"forest_oak_cluster_111")
-spawn("forest_oak_cluster",30,10,3,-3,"forest_oak_cluster_131")
-spawn("forest_oak_cluster",30,11,3,-3,"forest_oak_cluster_132")
-spawn("beach_lever",26,12,2,0,"beach_lever_3")
-beach_lever_3.lever:setDisableSelf(false)
-beach_lever_3.lever:addConnector("onActivate", "spawner_8", "activate")
-beach_lever_3.lever:addConnector("onActivate", "timer_15", "start")
+spawn("forest_oak_cluster",31,13,3,-2,"forest_oak_cluster_105")
 spawn("timer",27,13,2,0,"timer_15")
 timer_15.timer:setTimerInterval(3)
 timer_15.timer:setDisableSelf(false)
@@ -2440,12 +2403,16 @@ spawn("mine_support_pillar_01_half",27,10,0,0,"demo_pillar_3")
 spawn("mine_support_pillar_01_half",27,9,0,0,"demo_pillar_4")
 spawn("wall_button",26,12,1,0,"demo_button_1")
 demo_button_1.button:setDisableSelf(false)
+demo_button_1.button:addConnector("onActivate", "script_entity_26", "demoButton1")
 spawn("wall_button",26,11,1,0,"demo_button_2")
 demo_button_2.button:setDisableSelf(false)
+demo_button_2.button:addConnector("onActivate", "script_entity_26", "demoButton2")
 spawn("wall_button",26,10,1,0,"demo_button_3")
 demo_button_3.button:setDisableSelf(false)
+demo_button_3.button:addConnector("onActivate", "script_entity_26", "demoButton3")
 spawn("wall_button",26,9,1,0,"demo_button_4")
 demo_button_4.button:setDisableSelf(false)
+demo_button_4.button:addConnector("onActivate", "script_entity_26", "demoButton4")
 spawn("script_entity",29,12,0,0,"script_entity_25")
 script_entity_25.script:setSource("passedDemoGate = { false, false, false, false }\
 \
@@ -2454,11 +2421,13 @@ function blob(sender)\
 \9\9for entity in self.go.map:entitiesAt(28, 8 + y) do\
 \9\9\9if entity.name == \"blob\" then\
 \9\9\9\9local entPos = entity:getWorldPosition()\
-\9\9\9\9local gatePos = { gate_demo_1:getWorldPosition(), gate_demo_2:getWorldPosition(), gate_demo_3:getWorldPosition(), gate_demo_4:getWorldPosition() }\
+\9\9\9\9local gatePos = { gate_demo_1_top:getWorldPosition(), gate_demo_2_top:getWorldPosition(), gate_demo_3_top:getWorldPosition(), gate_demo_4_top:getWorldPosition() }\
 \9\9\9\9for i=1,4 do\
-\9\9\9\9\9if (entPos.z + 0.1 >= gatePos[i].z) and (entPos.z - 0.1 <= gatePos[i].z) and not passedDemoGate[i] then\
+\9\9\9\9\9if (entPos.z + 0.2 >= gatePos[i].z) and (entPos.z - 0.2 <= gatePos[i].z) and not passedDemoGate[i] then\
 \9\9\9\9\9\9passedDemoGate[i] = true\
-\9\9\9\9\9\9local gate = spawn(\"soundGate\", party.level, entity.x, entity.y, 0, 0)\
+\9\9\9\9\9\9local order = {1,2,3,2}\
+\9\9\9\9\9\9local gateStage = order[(script_entity_26.script.posDemoGate[i] % 4) + 1]\
+\9\9\9\9\9\9local gate = spawn(\"soundGate\"..gateStage, party.level, entity.x, entity.y, 0, 0)\
 \9\9\9\9\9\9gate:setWorldPosition(gatePos[i])\
 \9\9\9\9\9end\
 \9\9\9\9end\
@@ -2471,44 +2440,310 @@ end\
 \
 function clearGates()\
 \9for i=1,4 do\
-\9\9print(\"clear\"..i)\
 \9\9passedDemoGate[i] = false\
 \9end\
 end")
 spawn("script_entity",27,12,3,0,"script_entity_26")
-script_entity_26.script:setSource("")
+script_entity_26.script:setSource("posDemoGateTop = { 0, -1.25, 0, -1.25 }\
+posDemoGateBottom = { -0.5, -2.15, -2.9, -2.15 }\
+goalDemoGateTop = { 0, 0, 0, 0 }\
+goalDemoGateBottom = { 0, 0, 0, 0 }\
+posDemoGate = { 0, 0, 0, 0 }\
+demoGateTopPosY = { 0, 0, 0, 0 }\
+demoGateBotPosy = { 0, 0, 0, 0 }\
+gateMoving = { false, false, false, false }\
+gateSequence = { 1,2,0,1 }\
+\
+function demoButton1() startDemoGate(1) end\
+function demoButton2() startDemoGate(2) end\
+function demoButton3() startDemoGate(3) end\
+function demoButton4() startDemoGate(4) end\
+\
+function startDemoGate(i)\
+\9if gateMoving[i] == false then\
+\9\9demoGateBotPosy[i] = findEntity(\"gate_demo_\"..i..\"_bot\"):getWorldPosition().y\
+\9\9demoGateTopPosY[i] = findEntity(\"gate_demo_\"..i..\"_top\"):getWorldPosition().y\
+\9\9posDemoGate[i] = posDemoGate[i] + 1\
+\9\9goalDemoGateBottom[i] = posDemoGateBottom[(posDemoGate[i] % 4) + 1]\
+\9\9goalDemoGateTop[i] = posDemoGateTop[(posDemoGate[i] % 4) + 1]\
+\9\9delayedCall(self.go.id, 0.01, \"moveBar\", i)\
+\9end\
+end\
+\
+function moveBar(i)\
+\9if demoGateBotPosy[i] ~= goalDemoGateBottom[i] then\
+\9\9local gateTop = findEntity(\"gate_demo_\"..i..\"_top\")\
+\9\9local gateBot = findEntity(\"gate_demo_\"..i..\"_bot\")\
+\9\9local diff2 = demoGateTopPosY[i] - goalDemoGateTop[i]\
+\9\9gateTop:setWorldPositionY(demoGateTopPosY[i])\
+\9\9demoGateTopPosY[i] = demoGateTopPosY[i] - math.max(-0.02, math.min(0.02, diff2 * 0.05))\
+\9\9\
+\9\9local diff = demoGateBotPosy[i] - goalDemoGateBottom[i]\
+\9\9gateBot:setWorldPositionY(demoGateBotPosy[i])\9\9\
+\9\9demoGateBotPosy[i] = demoGateBotPosy[i] - math.max(-0.02, math.min(0.02, diff * 0.05))\9\9\
+\9\9\
+\9\9if math.abs(diff) > 0.05 then \
+\9\9\9delayedCall(self.go.id, 0.03, \"moveBar\", i)\
+\9\9\9if gateMoving[i] == false then\
+\9\9\9\9--playSoundAt(\"wall_sliding\", self.go.level, 28, 12)\
+\9\9\9\9gateMoving[i] = true\
+\9\9\9end\
+\9\9else\
+\9\9\9playSoundAt(\"cage_rattle\", self.go.level, gateTop.x, gateTop.y)\
+\9\9\9gateTop:setWorldPositionY(goalDemoGateTop[i])\
+\9\9\9gateBot:setWorldPositionY(goalDemoGateBottom[i])\
+\9\9\9setObstacles(i)\
+\9\9\9gateMoving[i] = false\
+\9\9end\
+\9\9counter_1.counter:reset()\
+\9end\
+end\
+\
+function checkResult()\
+\9print(\"-------\")\
+\9for j=1,4 do\
+\9\9local order = {1,2,3,2}\
+\9\9print(\"seq\", j, \"is\", gateSequence[j]%4 + 1)\
+\9\9print(\"pos\", j, \"is\", posDemoGate[j]%4 + 1)\
+\9\9if gateMoving[j] == false and gateSequence[j]%4+1 == order[posDemoGate[j]%4+1] then\
+\9\9\9counter_1.counter:decrement()\
+\9\9end\
+\9end\
+end\
+\
+function setObstacles(i)\
+\9print(\"demogate\" .. (posDemoGate[i]%4)+1)\
+\9findEntity(\"gate_demo_blocker_\"..i).obstacle:disable()\
+\9if (posDemoGate[i]%4)+1 == 2 or (posDemoGate[i]%4)+1 == 4 then\9\9\
+\9\9findEntity(\"gate_demo_blocker_\"..i).obstacle:enable()\
+\9end\
+end")
 spawn("timer",29,13,2,0,"timer_16")
 timer_16.timer:setTimerInterval(0)
 timer_16.timer:setDisableSelf(false)
 timer_16.timer:setTriggerOnStart(false)
 timer_16.timer:setCurrentLevelOnly(true)
 timer_16.timer:addConnector("onActivate", "script_entity_25", "blob")
-spawn("floor_trigger",24,11,1,0,"floor_trigger_36")
+spawn("forest_oak_cluster",24,5,3,-2,"forest_oak_cluster_133")
+spawn("forest_oak_cluster",23,6,3,-2,"forest_oak_cluster_134")
+spawn("forest_oak_cluster",26,4,3,-2,"forest_oak_cluster_135")
+spawn("forest_oak_cluster",28,4,3,-2,"forest_oak_cluster_136")
+spawn("forest_oak_cluster",27,4,3,-2,"forest_oak_cluster_137")
+spawn("forest_oak_cluster",29,4,3,-2,"forest_oak_cluster_138")
+spawn("forest_oak_cluster",23,7,3,-2,"forest_oak_cluster_139")
+spawn("forest_oak_cluster",24,6,3,-2,"forest_oak_cluster_141")
+spawn("forest_oak_cluster",25,5,3,-2,"forest_oak_cluster_142")
+spawn("beach_rock_3x1",27,14,1,-2,"beach_rock_3x1_99")
+spawn("mine_support_beam_01_floor",28,11,2,0,"gate_demo_1_bot")
+spawn("mine_support_beam_01_floor",28,11,2,0,"gate_demo_1_top")
+spawn("mine_support_beam_01_floor",28,10,2,0,"gate_demo_2_top")
+spawn("mine_support_beam_01_floor",28,10,2,0,"gate_demo_2_bot")
+spawn("mine_support_beam_01_floor",28,9,2,0,"gate_demo_3_top")
+spawn("mine_support_beam_01_floor",28,9,2,0,"gate_demo_3_bot")
+spawn("mine_support_beam_01_floor",28,8,2,0,"gate_demo_4_top")
+spawn("mine_support_beam_01_floor",28,8,2,0,"gate_demo_4_bot")
+spawn("forest_elevation_edge",24,10,1,-2,"forest_elevation_edge_151")
+spawn("forest_elevation_edge",24,10,1,-3,"forest_elevation_edge_152")
+spawn("forest_elevation_edge",25,9,2,-3,"forest_elevation_edge_153")
+spawn("forest_elevation_edge",25,9,2,-2,"forest_elevation_edge_154")
+spawn("swamp_heather",25,10,3,-1,"swamp_heather_11")
+spawn("forest_old_oak",25,10,0,-1,"forest_old_oak_11")
+spawn("beach_thicket_damaged",25,12,2,0,"beach_thicket_damaged_5")
+spawn("forest_elevation_edge",25,7,2,-2,"forest_elevation_edge_109")
+spawn("forest_elevation_edge",27,8,3,-2,"forest_elevation_edge_129")
+spawn("forest_elevation_edge",24,8,1,-2,"forest_elevation_edge_155")
+spawn("forest_elevation_edge",25,9,0,-2,"forest_elevation_edge_156")
+spawn("ladder",26,8,2,-1,"ladder_9")
+spawn("forest_elevation_edge",26,9,0,-2,"forest_elevation_edge_157")
+spawn("forest_bridge_no_icon",27,8,0,-1,"forest_bridge_no_icon_107")
+spawn("forest_bridge_no_icon",27,6,3,-1,"forest_bridge_no_icon_108")
+spawn("invisible_wall",27,9,2,0,"invisible_wall_112")
+spawn("invisible_wall",27,10,2,0,"invisible_wall_115")
+spawn("invisible_wall",27,11,2,0,"invisible_wall_117")
+spawn("invisible_wall",27,12,2,0,"invisible_wall_121")
+spawn("invisible_wall",27,9,2,-1,"invisible_wall_122")
+spawn("forest_bridge_no_icon",28,6,3,-1,"forest_bridge_no_icon_109")
+spawn("forest_bridge_no_icon",29,6,3,-1,"forest_bridge_no_icon_110")
+spawn("forest_bridge_no_icon",29,8,0,-1,"forest_bridge_no_icon_111")
+spawn("mine_support_pillar_01",30,7,3,-2,"mine_support_pillar_01_372")
+spawn("mine_support_beam_floor_double",29,5,2,-3,"mine_support_beam_floor_double_328")
+spawn("mine_support_beam_floor_double",29,5,2,-2,"mine_support_beam_floor_double_329")
+spawn("mine_support_pillar_01",30,7,3,-3,"mine_support_pillar_01_373")
+spawn("mine_support_beam_floor_double",29,7,1,-3,"mine_support_beam_floor_double_330")
+spawn("mine_support_beam_floor_double",29,7,1,-2,"mine_support_beam_floor_double_331")
+spawn("mine_support_beam_floor_double",28,5,2,-3,"mine_support_beam_floor_double_336")
+spawn("mine_support_beam_floor_double",28,5,2,-2,"mine_support_beam_floor_double_337")
+spawn("mine_support_beam_floor_double",27,5,2,-2,"mine_support_beam_floor_double_338")
+spawn("mine_support_beam_floor_double",27,5,2,-3,"mine_support_beam_floor_double_339")
+spawn("mine_support_beam_floor_double",27,8,2,-3,"mine_support_beam_floor_double_340")
+spawn("mine_support_beam_floor_double",27,8,2,-2,"mine_support_beam_floor_double_341")
+spawn("mine_support_beam_floor_double",29,8,1,-3,"mine_support_beam_floor_double_344")
+spawn("mine_support_beam_floor_double",29,8,1,-2,"mine_support_beam_floor_double_345")
+spawn("mine_support_pillar_01",30,8,3,-2,"mine_support_pillar_01_374")
+spawn("mine_support_pillar_01",30,8,3,-3,"mine_support_pillar_01_380")
+spawn("mine_support_pillar_01",30,9,3,-2,"mine_support_pillar_01_382")
+spawn("mine_support_pillar_01",30,9,3,-3,"mine_support_pillar_01_383")
+spawn("mine_support_pillar_01",29,6,3,-2,"mine_support_pillar_01_384")
+spawn("mine_support_pillar_01",29,6,3,-3,"mine_support_pillar_01_385")
+spawn("mine_support_pillar_01",28,6,3,-3,"mine_support_pillar_01_386")
+spawn("mine_support_pillar_01",28,6,3,-2,"mine_support_pillar_01_387")
+spawn("mine_support_pillar_01",27,7,3,-2,"mine_support_pillar_01_388")
+spawn("mine_support_pillar_01",27,7,3,-3,"mine_support_pillar_01_389")
+spawn("mine_support_wall_02",27,9,0,-1,"mine_support_wall_02_37")
+spawn("mine_support_pillar_01_half",28,9,0,-1,"mine_support_pillar_01_half_32")
+spawn("mine_support_pillar_01_half",27,9,0,-1,"mine_support_pillar_01_half_36")
+spawn("forest_bridge_no_icon",26,7,3,-1,"forest_bridge_no_icon_112")
+spawn("mine_support_beam_floor_double",25,7,1,-3,"mine_support_beam_floor_double_346")
+spawn("mine_support_beam_floor_double",25,7,1,-2,"mine_support_beam_floor_double_347")
+spawn("mine_support_beam_floor_double",26,6,2,-2,"mine_support_beam_floor_double_348")
+spawn("mine_support_beam_floor_double",26,6,2,-3,"mine_support_beam_floor_double_349")
+spawn("mine_support_pillar_01",26,7,3,-2,"mine_support_pillar_01_390")
+spawn("mine_support_pillar_01",26,7,3,-3,"mine_support_pillar_01_391")
+spawn("mine_support_wall_02",27,7,2,-1,"mine_support_wall_02_41")
+spawn("mine_support_pillar_01_half",28,8,0,-1,"mine_support_pillar_01_half_50")
+spawn("mine_support_pillar_01_half",27,8,0,-1,"mine_support_pillar_01_half_51")
+spawn("invisible_wall",25,9,2,-1,"invisible_wall_123")
+spawn("invisible_wall",24,8,2,-1,"invisible_wall_124")
+spawn("invisible_wall",25,7,2,-1,"invisible_wall_125")
+spawn("invisible_wall",26,6,2,-1,"invisible_wall_126")
+spawn("invisible_wall",25,9,2,0,"invisible_wall_127")
+spawn("invisible_wall",25,10,2,0,"invisible_wall_183")
+spawn("invisible_wall",24,10,2,0,"invisible_wall_189")
+spawn("invisible_wall",24,13,2,0,"invisible_wall_190")
+spawn("invisible_wall",25,13,2,0,"invisible_wall_191")
+spawn("invisible_wall",26,13,2,0,"invisible_wall_192")
+spawn("invisible_wall",23,12,2,0,"invisible_wall_193")
+spawn("invisible_wall",23,10,2,0,"invisible_wall_194")
+spawn("forest_elevation_edge",30,9,3,-2,"forest_elevation_edge_158")
+spawn("forest_elevation_edge",30,10,3,-2,"forest_elevation_edge_159")
+spawn("forest_elevation_edge",30,11,3,-2,"forest_elevation_edge_160")
+spawn("forest_elevation_edge",29,12,0,-2,"forest_elevation_edge_161")
+spawn("forest_elevation_edge",29,8,2,-2,"forest_elevation_edge_162")
+spawn("forest_willow",29,11,0,-1,"forest_willow_4")
+spawn("swamp_heather",29,11,1,-1,"swamp_heather_12")
+spawn("forest_ruins_fallen_bricks",29,10,3,-1,"forest_ruins_fallen_bricks_18")
+spawn("beach_rock_blocker_01",29,11,0,-1,"beach_rock_blocker_01_65")
+spawn("ladder",29,8,3,-1,"ladder_10")
+spawn("forest_oak_cluster",31,12,3,-2,"forest_oak_cluster_111")
+spawn("forest_oak_cluster",31,11,3,-2,"forest_oak_cluster_131")
+spawn("forest_oak_cluster",31,10,3,-2,"forest_oak_cluster_132")
+spawn("forest_oak_cluster",31,9,3,-2,"forest_oak_cluster_140")
+spawn("forest_oak_cluster",31,8,3,-2,"forest_oak_cluster_143")
+spawn("forest_oak_cluster",31,7,3,-2,"forest_oak_cluster_144")
+spawn("forest_oak_cluster",31,6,3,-2,"forest_oak_cluster_145")
+spawn("forest_oak_cluster",31,5,3,-2,"forest_oak_cluster_146")
+spawn("forest_oak_cluster",31,15,3,-2,"forest_oak_cluster_147")
+spawn("forest_oak_cluster",31,14,3,-2,"forest_oak_cluster_148")
+spawn("forest_bridge_no_icon",29,11,1,0,"forest_bridge_no_icon_113")
+spawn("forest_bridge_no_icon",30,11,1,0,"forest_bridge_no_icon_114")
+spawn("mine_support_beam_floor_double",27,7,2,-2,"mine_support_beam_floor_double_334")
+spawn("mine_support_beam_floor_double",29,6,2,-2,"mine_support_beam_floor_double_335")
+spawn("mine_support_pillar_01",30,6,3,-2,"mine_support_pillar_01_394")
+spawn("mine_support_pillar_01",30,6,3,-3,"mine_support_pillar_01_395")
+spawn("mine_support_beam_floor_double",29,6,1,-3,"mine_support_beam_floor_double_350")
+spawn("mine_support_beam_floor_double",29,6,1,-2,"mine_support_beam_floor_double_351")
+spawn("mine_support_pillar_01",27,6,3,-3,"mine_support_pillar_01_396")
+spawn("mine_support_beam_floor_double",26,6,1,-3,"mine_support_beam_floor_double_352")
+spawn("mine_support_pillar_01",27,6,3,-2,"mine_support_pillar_01_397")
+spawn("mine_support_beam_floor_double",26,6,1,-2,"mine_support_beam_floor_double_353")
+spawn("forest_oak_cluster",30,4,3,-2,"forest_oak_cluster_149")
+spawn("forest_oak_cluster",31,4,3,-2,"forest_oak_cluster_150")
+spawn("forest_bridge_no_icon",27,7,3,-1,"forest_bridge_no_icon_115")
+spawn("forest_bridge_no_icon",29,7,0,-1,"forest_bridge_no_icon_116")
+spawn("forest_elevation_edge",28,6,2,-2,"forest_elevation_edge_127")
+spawn("forest_elevation_edge",28,6,2,-1,"forest_elevation_edge_130")
+spawn("forest_elevation_edge",28,6,2,0,"forest_elevation_edge_163")
+spawn("forest_elevation_edge",29,7,3,-2,"forest_elevation_edge_164")
+spawn("forest_elevation_edge",29,7,3,-1,"forest_elevation_edge_165")
+spawn("forest_elevation_edge",29,7,3,0,"forest_elevation_edge_166")
+spawn("forest_elevation_edge",27,7,1,-2,"forest_elevation_edge_167")
+spawn("forest_elevation_edge",27,7,1,-1,"forest_elevation_edge_168")
+spawn("forest_elevation_edge",27,7,1,0,"forest_elevation_edge_169")
+spawn("forest_elevation_edge",28,8,0,0,"forest_elevation_edge_170")
+spawn("invisible_wall",27,5,2,-1,"invisible_wall_195")
+spawn("invisible_wall",28,5,2,-1,"invisible_wall_196")
+spawn("invisible_wall",29,5,2,-1,"invisible_wall_197")
+spawn("invisible_wall",30,6,2,-1,"invisible_wall_198")
+spawn("mine_support_pillar_01",30,11,3,-1,"mine_support_pillar_01_392")
+spawn("mine_support_pillar_01",30,12,3,-1,"mine_support_pillar_01_393")
+spawn("mine_support_pillar_01",31,12,3,-1,"mine_support_pillar_01_398")
+spawn("mine_support_pillar_01",31,11,3,-1,"mine_support_pillar_01_399")
+spawn("mine_support_pillar_01",31,12,3,-2,"mine_support_pillar_01_400")
+spawn("mine_support_pillar_01",31,11,3,-2,"mine_support_pillar_01_401")
+spawn("mine_support_beam_floor_double",29,10,2,-1,"mine_support_beam_floor_double_342")
+spawn("mine_support_beam_floor_double",29,11,2,-1,"mine_support_beam_floor_double_343")
+spawn("mine_support_beam_floor_double",30,11,2,-1,"mine_support_beam_floor_double_354")
+spawn("mine_support_beam_floor_double",30,10,2,-1,"mine_support_beam_floor_double_355")
+spawn("mine_support_beam_floor_double",30,10,2,-2,"mine_support_beam_floor_double_356")
+spawn("mine_support_beam_floor_double",30,11,2,-2,"mine_support_beam_floor_double_357")
+spawn("forest_oak_cluster",30,13,3,-2,"forest_oak_cluster_151")
+spawn("forest_oak_cluster",29,13,3,-2,"forest_oak_cluster_152")
+spawn("counter",28,14,3,0,"counter_1")
+counter_1.counter:setValue(4)
+counter_1.counter:addConnector("onActivate", "mine_door_spear_14", "open")
+counter_1.counter:addConnector("onActivate", "force_field_1", "deactivate")
+spawn("force_field",28,6,1,-1,"force_field_1")
+spawn("beach_thicket_01",27,6,1,-1,"beach_thicket_01_22")
+spawn("twigroot_dormant",27,6,2,-1,"twigroot_dormant_7")
+twigroot_dormant_7.detectedtimer:setTimerInterval(0)
+twigroot_dormant_7.detectedtimer:setDisableSelf(false)
+twigroot_dormant_7.detectedtimer:setTriggerOnStart(true)
+twigroot_dormant_7.detectedtimer:setCurrentLevelOnly(true)
+spawn("beach_wall_button",26,10,3,0,"beach_wall_button_5")
+beach_wall_button_5.button:setDisableSelf(false)
+beach_wall_button_5.button:addConnector("onActivate", "spawner_8", "activate")
+spawn("forest_spruce_sapling_pillar",28,12,3,-1,"forest_spruce_sapling_pillar_17")
+spawn("secret",27,16,0,0,"secret_3")
+spawn("floor_trigger",26,17,0,-2,"floor_trigger_36")
 floor_trigger_36.floortrigger:setTriggeredByParty(true)
 floor_trigger_36.floortrigger:setTriggeredByMonster(false)
 floor_trigger_36.floortrigger:setTriggeredByItem(false)
 floor_trigger_36.floortrigger:setTriggeredByDigging(false)
-floor_trigger_36.floortrigger:setDisableSelf(false)
-floor_trigger_36.floortrigger:addConnector("onActivate", "timer_15", "stop")
-spawn("floor_trigger",25,11,1,0,"floor_trigger_37")
+floor_trigger_36.floortrigger:setDisableSelf(true)
+floor_trigger_36.floortrigger:addConnector("onActivate", "secret_3", "activate")
+spawn("floor_trigger",26,8,1,-1,"floor_trigger_37")
 floor_trigger_37.floortrigger:setTriggeredByParty(true)
 floor_trigger_37.floortrigger:setTriggeredByMonster(false)
 floor_trigger_37.floortrigger:setTriggeredByItem(false)
 floor_trigger_37.floortrigger:setTriggeredByDigging(false)
-floor_trigger_37.floortrigger:setDisableSelf(false)
-floor_trigger_37.floortrigger:addConnector("onActivate", "timer_15", "start")
-floor_trigger_37.floortrigger:addConnector("onActivate", "spawner_8", "activate")
-spawn("forest_oak_cluster",25,7,3,-2,"forest_oak_cluster_133")
-spawn("forest_oak_cluster",24,7,3,-2,"forest_oak_cluster_134")
-spawn("forest_oak_cluster",26,7,3,-2,"forest_oak_cluster_135")
-spawn("forest_oak_cluster",28,6,3,-2,"forest_oak_cluster_136")
-spawn("forest_oak_cluster",27,6,3,-2,"forest_oak_cluster_137")
-spawn("forest_oak_cluster",29,6,3,-2,"forest_oak_cluster_138")
-spawn("forest_oak_cluster",23,7,3,-2,"forest_oak_cluster_139")
-spawn("forest_oak_cluster",25,6,3,-1,"forest_oak_cluster_140")
-spawn("forest_oak_cluster",24,6,3,-1,"forest_oak_cluster_141")
-spawn("forest_oak_cluster",26,6,3,-1,"forest_oak_cluster_142")
-spawn("beach_rock_3x1",27,14,1,-2,"beach_rock_3x1_99")
+floor_trigger_37.floortrigger:setDisableSelf(true)
+floor_trigger_37.floortrigger:addConnector("onActivate", "timer_20", "start")
+spawn("timer",24,9,0,0,"timer_20")
+timer_20.timer:setTimerInterval(2)
+timer_20.timer:setDisableSelf(true)
+timer_20.timer:setTriggerOnStart(false)
+timer_20.timer:setCurrentLevelOnly(false)
+timer_20.timer:addConnector("onActivate", "script_entity_20", "wakeUp7")
+timer_20.timer:disable()
+spawn("invisible_wall",30,7,2,-1,"invisible_wall_199")
+spawn("invisible_wall",30,8,2,-1,"invisible_wall_200")
+spawn("invisible_wall",30,9,2,-1,"invisible_wall_201")
+spawn("invisible_wall",30,10,2,-1,"invisible_wall_202")
+spawn("invisible_wall",30,10,2,0,"invisible_wall_203")
+spawn("invisible_wall",29,10,2,0,"invisible_wall_204")
+spawn("invisible_wall",29,9,2,0,"invisible_wall_205")
+spawn("invisible_wall",29,12,2,0,"invisible_wall_207")
+spawn("invisible_wall",28,13,2,0,"invisible_wall_208")
+invisible_wall_208.projectilecollider:disable()
+spawn("invisible_wall",30,8,2,0,"invisible_wall_209")
+spawn("invisible_wall",30,12,2,0,"invisible_wall_210")
+spawn("blocker",28,12,0,0,"gate_demo_blocker_1")
+spawn("blocker",28,11,0,0,"gate_demo_blocker_2")
+spawn("blocker",28,10,0,0,"gate_demo_blocker_3")
+spawn("blocker",28,9,0,0,"gate_demo_blocker_4")
+spawn("note_2",26,11,0,0,"note_2_1")
+note_2_1.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+note_2_1.detectedtimer:setTimerInterval(0)
+note_2_1.detectedtimer:setDisableSelf(false)
+note_2_1.detectedtimer:setTriggerOnStart(true)
+note_2_1.detectedtimer:setCurrentLevelOnly(true)
 
 --- level 2 ---
 
@@ -2585,7 +2820,7 @@ loadLayer("tiles", {
 	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,6,6,5,2,3,3,2,6,4,6,
 	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,6,6,5,3,3,3,6,6,4,6,
 	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,6,5,5,3,2,2,6,6,4,6,
-	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,6,2,5,6,6,2,2,2,6,4,6,
+	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,6,6,2,2,6,2,5,6,6,2,2,2,6,4,6,
 	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,6,5,5,6,6,5,6,6,2,2,2,6,4,6,
 	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,6,5,5,5,5,5,6,6,6,2,2,6,4,6,
 	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,5,6,6,6,2,2,2,6,6,4,6,
@@ -2919,7 +3154,7 @@ spawn("forest_ruins_wall_02",22,20,3,0,"forest_ruins_wall_02_34")
 spawn("forest_ruins_wall_02",21,21,0,0,"forest_ruins_wall_02_35")
 spawn("forest_ruins_wall_02",21,21,3,0,"forest_ruins_wall_02_36")
 spawn("forest_ruins_wall_02",20,22,0,0,"forest_ruins_wall_02_37")
-spawn("forest_ruins_wall_02",18,21,0,0,"forest_ruins_wall_02_38")
+spawn("forest_ruins_wall_02",18,20,3,0,"forest_ruins_wall_02_38")
 spawn("forest_ruins_pillar_03",22,14,3,0,"forest_ruins_pillar_03_33")
 spawn("forest_ruins_pillar_03",22,15,3,0,"forest_ruins_pillar_03_34")
 spawn("forest_ruins_pillar_03",22,16,3,0,"forest_ruins_pillar_03_35")
@@ -2930,8 +3165,8 @@ spawn("forest_ruins_pillar_03",22,21,3,0,"forest_ruins_pillar_03_39")
 spawn("forest_ruins_pillar_03",22,20,3,0,"forest_ruins_pillar_03_40")
 spawn("forest_ruins_pillar_03",21,21,3,0,"forest_ruins_pillar_03_41")
 spawn("forest_ruins_pillar_03",21,22,3,0,"forest_ruins_pillar_03_42")
-spawn("forest_ruins_pillar_03",20,22,3,0,"forest_ruins_pillar_03_43")
-spawn("forest_ruins_pillar_03",19,22,3,0,"forest_ruins_pillar_03_44")
+spawn("forest_ruins_pillar_03",20,21,3,0,"forest_ruins_pillar_03_43")
+spawn("forest_ruins_pillar_03",19,21,3,0,"forest_ruins_pillar_03_44")
 spawn("forest_ruins_wall_02",22,13,3,0,"forest_ruins_wall_02_39")
 spawn("forest_ruins_pillar_03",22,13,3,0,"forest_ruins_pillar_03_45")
 spawn("forest_ruins_pillar_03",22,12,3,0,"forest_ruins_pillar_03_46")
@@ -2979,10 +3214,10 @@ spawn("forest_heather",18,23,1,0,"forest_heather_60")
 spawn("forest_heather",17,23,1,0,"forest_heather_61")
 spawn("forest_heather",18,22,1,0,"forest_heather_62")
 spawn("forest_plant_cluster_01",22,26,3,0,"forest_plant_cluster_01_18")
-spawn("forest_ruins_wall_02",18,22,0,0,"forest_ruins_wall_02_50")
-spawn("forest_ruins_wall_02",17,22,0,0,"forest_ruins_wall_02_51")
-spawn("forest_ruins_pillar_03",18,22,3,0,"forest_ruins_pillar_03_57")
-spawn("forest_ruins_pillar_03",17,22,3,0,"forest_ruins_pillar_03_58")
+spawn("forest_ruins_wall_02",18,21,0,0,"forest_ruins_wall_02_50")
+spawn("forest_ruins_wall_02",17,21,0,0,"forest_ruins_wall_02_51")
+spawn("forest_ruins_pillar_03",18,21,3,0,"forest_ruins_pillar_03_57")
+spawn("forest_ruins_pillar_03",17,21,3,0,"forest_ruins_pillar_03_58")
 spawn("beach_rock_blocker_01",17,22,2,0,"beach_rock_blocker_01_63")
 spawn("beach_thicket_01",29,20,3,0,"beach_thicket_01_12")
 spawn("beach_thicket_01",23,25,0,0,"beach_thicket_01_13")
@@ -3006,25 +3241,25 @@ spawn("forest_stairs_down",17,24,3,0,"forest_stairs_down_6")
 spawn("beach_rock_2x1",17,23,3,0,"beach_rock_2x1_113")
 spawn("beach_rock_2x1",16,25,1,0,"beach_rock_2x1_114")
 spawn("forest_heather",18,25,2,0,"forest_heather_67")
-spawn("floor_corpse",20,22,1,0,"floor_corpse_10")
 spawn("forest_border_rocks_01",20,22,1,0,"forest_border_rocks_01_54")
-spawn("forest_ruins_wall_02",19,21,1,0,"forest_ruins_wall_02_48")
-spawn("forest_ruins_pillar_03",20,21,3,0,"forest_ruins_pillar_03_61")
-spawn("forest_ruins_pillar_03",19,21,3,0,"forest_ruins_pillar_03_62")
-spawn("daemon_head",19,21,0,0,"daemon_head_7")
-spawn("forest_ruins_wall_02",19,21,0,0,"forest_ruins_wall_02_54")
-spawn("forest_pit_trapdoor",19,21,0,0,"forest_pit_trapdoor_1")
-spawn("forest_pit",19,21,1,0,"forest_pit_1")
-spawn("forest_wall_text_short",19,22,3,0,"forest_wall_text_short_5")
+spawn("forest_ruins_wall_02",19,20,1,0,"forest_ruins_wall_02_48")
+spawn("forest_ruins_pillar_03",20,20,3,0,"forest_ruins_pillar_03_61")
+spawn("forest_ruins_pillar_03",19,20,3,0,"forest_ruins_pillar_03_62")
+spawn("daemon_head",19,20,0,0,"daemon_head_7")
+spawn("forest_ruins_wall_02",19,20,0,0,"forest_ruins_wall_02_54")
+spawn("forest_pit_trapdoor",19,20,0,0,"forest_pit_trapdoor_1")
+forest_pit_trapdoor_1.pit:setState("open")
+forest_pit_trapdoor_1.platform:disable()
+spawn("forest_pit",19,20,1,0,"forest_pit_1")
+spawn("forest_wall_text_short",19,21,3,0,"forest_wall_text_short_5")
 forest_wall_text_short_5.walltext:setWallText("Blood Sacrifice.")
-spawn("forest_ruins_pillar_03",18,21,3,0,"forest_ruins_pillar_03_63")
-spawn("forest_ruins_ceiling",19,21,3,0,"forest_ruins_ceiling_5")
-spawn("forest_ruins_ceiling",18,21,1,0,"forest_ruins_ceiling_6")
+spawn("forest_ruins_pillar_03",18,20,3,0,"forest_ruins_pillar_03_63")
+spawn("forest_ruins_ceiling",19,20,3,0,"forest_ruins_ceiling_5")
+spawn("forest_ruins_ceiling",18,20,1,0,"forest_ruins_ceiling_6")
 spawn("beach_rock_blocker_01",20,21,1,0,"beach_rock_blocker_01_64")
-spawn("forest_ruins_ground_tile_03",18,21,2,0,"forest_ruins_ground_tile_03_4")
-spawn("forest_ruins_fallen_bricks",19,22,1,0,"forest_ruins_fallen_bricks_17")
+spawn("forest_ruins_ground_tile_03",18,20,2,0,"forest_ruins_ground_tile_03_4")
+spawn("forest_ruins_fallen_bricks",19,21,1,0,"forest_ruins_fallen_bricks_17")
 spawn("forest_ruins_wall_ivy_02",20,22,0,0,"forest_ruins_wall_ivy_02_5")
-spawn("forest_thorn_blocker",20,18,3,0,"forest_thorn_blocker_1")
 spawn("forest_spruce_smallest_01",22,21,0,0,"forest_spruce_smallest_01_20")
 spawn("beach_thicket_01",24,18,3,0,"beach_thicket_01_15")
 spawn("beach_thicket_01",23,22,2,0,"beach_thicket_01_16")
@@ -3091,8 +3326,9 @@ floor_trigger_40.floortrigger:setTriggeredByParty(true)
 floor_trigger_40.floortrigger:setTriggeredByMonster(false)
 floor_trigger_40.floortrigger:setTriggeredByItem(false)
 floor_trigger_40.floortrigger:setTriggeredByDigging(false)
-floor_trigger_40.floortrigger:setDisableSelf(false)
+floor_trigger_40.floortrigger:setDisableSelf(true)
 floor_trigger_40.floortrigger:addConnector("onActivate", "spawner_13", "activate")
+floor_trigger_40.floortrigger:addConnector("onActivate", "spawner_18", "activate")
 spawn("beach_thicket_01",25,17,1,0,"beach_thicket_01_19")
 spawn("forest_spruce_smallest_01",19,27,1,0,"forest_spruce_smallest_01_21")
 spawn("forest_heather",19,27,1,0,"forest_heather_68")
@@ -3106,14 +3342,14 @@ spawn("beach_thicket_broken",26,21,3,0,"beach_thicket_broken_8")
 spawn("beach_thicket_broken",28,23,3,0,"beach_thicket_broken_9")
 spawn("beach_thicket_broken",27,14,1,0,"beach_thicket_broken_10")
 spawn("beach_thicket_broken",23,16,2,0,"beach_thicket_broken_11")
-spawn("beach_thicket_broken",20,27,2,0,"beach_thicket_broken_12")
+spawn("beach_thicket_broken",22,27,2,0,"beach_thicket_broken_12")
 spawn("beach_thicket_damaged",25,19,1,0,"beach_thicket_damaged_4")
 spawn("beach_thicket_broken",25,24,2,0,"beach_thicket_broken_13")
 spawn("beach_thicket_broken",21,24,1,0,"beach_thicket_broken_14")
 spawn("forest_lantern",26,10,1,0,"forest_lantern_26")
 spawn("forest_lantern",26,13,1,0,"forest_lantern_27")
 spawn("forest_lantern",21,28,2,0,"forest_lantern_28")
-spawn("forest_ruins_secret_door",20,20,0,0,"forest_ruins_secret_door_1")
+spawn("forest_ruins_secret_door",18,20,0,0,"forest_ruins_secret_door_1")
 spawn("forest_ruins_wall_02",16,28,0,0,"forest_ruins_wall_02_56")
 spawn("forest_ruins_pillar_03",17,28,3,0,"forest_ruins_pillar_03_64")
 spawn("forest_ruins_secret_door",17,28,0,0,"forest_ruins_secret_door_2")
@@ -3243,61 +3479,1005 @@ mervinTimer.timer:setTriggerOnStart(false)
 mervinTimer.timer:setCurrentLevelOnly(true)
 mervinTimer.timer:addConnector("onActivate", "script_entity_29", "mervinPrep")
 mervinTimer.timer:disable()
-spawn("starting_location",21,27,3,0,"starting_location_1")
-spawn("coldspike_bracelet",21,28,0,0,"coldspike_bracelet_1")
-coldspike_bracelet_1.data:setSource("\9\9\9\9data = {}\
-\9\9\9\9function get(name)\
-\9\9\9\9\9return self.data[name]\
-\9\9\9\9end\
-\9\9\9\9function set(name,value)\
-\9\9\9\9\9self.data[name] = value\
-\9\9\9\9end\
-\9\9\9")
-coldspike_bracelet_1.detectedtimer:setTimerInterval(0)
-coldspike_bracelet_1.detectedtimer:setDisableSelf(false)
-coldspike_bracelet_1.detectedtimer:setTriggerOnStart(true)
-coldspike_bracelet_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("forestfire_bracer",21,28,0,0,"forestfire_bracer_1")
-forestfire_bracer_1.data:setSource("\9\9\9\9data = {}\
-\9\9\9\9function get(name)\
-\9\9\9\9\9return self.data[name]\
-\9\9\9\9end\
-\9\9\9\9function set(name,value)\
-\9\9\9\9\9self.data[name] = value\
-\9\9\9\9end\
-\9\9\9")
-forestfire_bracer_1.detectedtimer:setTimerInterval(0)
-forestfire_bracer_1.detectedtimer:setDisableSelf(false)
-forestfire_bracer_1.detectedtimer:setTriggerOnStart(true)
-forestfire_bracer_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("torment_bracer",21,28,0,0,"torment_bracer_1")
-torment_bracer_1.data:setSource("\9\9\9\9data = {}\
-\9\9\9\9function get(name)\
-\9\9\9\9\9return self.data[name]\
-\9\9\9\9end\
-\9\9\9\9function set(name,value)\
-\9\9\9\9\9self.data[name] = value\
-\9\9\9\9end\
-\9\9\9")
-torment_bracer_1.detectedtimer:setTimerInterval(0)
-torment_bracer_1.detectedtimer:setDisableSelf(false)
-torment_bracer_1.detectedtimer:setTriggerOnStart(true)
-torment_bracer_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("serpent_bracer",21,28,0,0,"serpent_bracer_1")
-serpent_bracer_1.data:setSource("\9\9\9\9data = {}\
-\9\9\9\9function get(name)\
-\9\9\9\9\9return self.data[name]\
-\9\9\9\9end\
-\9\9\9\9function set(name,value)\
-\9\9\9\9\9self.data[name] = value\
-\9\9\9\9end\
-\9\9\9")
-serpent_bracer_1.detectedtimer:setTimerInterval(0)
-serpent_bracer_1.detectedtimer:setDisableSelf(false)
-serpent_bracer_1.detectedtimer:setTriggerOnStart(true)
-serpent_bracer_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("forest_ruins_wall_02",20,21,3,0,"forest_ruins_wall_02_72")
+spawn("forest_ruins_pillar_03",20,22,3,0,"forest_ruins_pillar_03_79")
+spawn("forest_ruins_wall_end_right",18,23,2,0,"forest_ruins_wall_end_right_4")
+spawn("forest_ruins_fallen_bricks",19,23,1,0,"forest_ruins_fallen_bricks_19")
+spawn("forest_willow",18,21,2,0,"forest_willow_5")
+spawn("grass_planes_01",18,21,2,0,"grass_planes_01_32")
+spawn("grass_planes_01",21,21,2,0,"grass_planes_01_33")
+spawn("forest_grass_01",19,25,0,0,"forest_grass_01_24")
+spawn("forest_grass_01",19,24,2,0,"forest_grass_01_29")
+spawn("forest_grass_01",20,24,2,0,"forest_grass_01_32")
+spawn("forest_grass_01",20,25,0,0,"forest_grass_01_33")
+spawn("forest_grass_01",18,24,1,0,"forest_grass_01_36")
+spawn("spawner",26,26,3,0,"spawner_18")
+spawner_18.spawner:setSpawnedEntity("twigroot")
+spawner_18.spawner:setMonsterLevel(1)
+spawner_18.spawner:setCooldown(600)
+spawner_18.spawner:setDisableSelf(false)
+spawn("healing_crystal",18,15,1,0,"healing_crystal_4")
+spawn("forest_ruins_dome",18,15,2,0,"forest_ruins_dome_3")
 
 --- level 3 ---
+
+newMap{
+	name = "Underground Ruins",
+	width = 32,
+	height = 32,
+	levelCoord = {-1,0,1},
+	ambientTrack = "dungeon",
+	tiles = {
+		"dungeon_floor",
+		"dungeon_wall",
+	}
+}
+
+loadLayer("floor_elevation", {
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+})
+
+loadLayer("ceiling_elevation", {
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,2,2,2,2,2,2,2,2,1,1,1,1,1,1,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,2,2,2,2,2,2,1,2,1,1,1,1,1,1,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,4,1,1,1,2,2,2,2,2,2,1,1,1,1,1,1,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,2,2,2,2,1,1,1,1,1,1,1,1,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,4,4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,7,1,7,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,7,1,7,1,1,1,1,1,1,1,1,1,1,1,1,4,4,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,7,1,7,1,1,1,1,7,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,7,1,7,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+})
+
+loadLayer("tiles", {
+	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+	2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+	2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,
+	2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+	2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,
+	2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,
+	2,2,2,1,1,1,1,1,1,1,1,2,2,2,2,2,2,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,
+	2,2,2,1,1,1,1,1,1,2,1,2,1,1,1,1,2,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,
+	2,1,2,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,
+	2,1,2,1,1,1,1,1,1,2,1,2,1,1,1,1,2,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,
+	2,1,1,1,2,2,2,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+	2,1,2,1,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,
+	2,1,1,1,2,2,1,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,
+	2,1,2,1,1,1,1,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,
+	2,1,2,1,2,2,1,2,2,1,1,2,1,1,1,1,2,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,
+	2,1,2,2,2,2,1,2,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,
+	2,1,2,2,1,1,1,1,1,2,1,2,2,2,1,1,2,2,1,2,2,1,1,1,2,2,2,2,2,2,2,2,
+	2,1,2,2,1,2,2,2,2,2,1,2,2,2,2,2,2,1,1,2,2,1,1,1,2,2,2,2,2,2,2,2,
+	2,1,1,1,1,1,2,2,2,2,1,2,1,1,2,2,2,2,1,1,1,1,1,1,2,2,2,2,2,2,2,2,
+	2,1,2,2,1,2,2,2,1,1,1,1,1,1,1,1,1,2,2,2,2,2,1,2,2,2,2,2,2,2,2,2,
+	2,2,2,1,1,1,2,2,1,1,1,1,1,2,2,2,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,
+	2,2,2,2,1,2,2,2,1,1,1,1,1,2,2,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+	2,2,2,1,1,1,2,2,1,1,1,1,1,2,2,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,
+	2,2,2,2,1,2,2,2,2,1,1,1,2,2,2,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+	2,2,2,1,1,1,2,2,2,1,2,1,2,2,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+	2,2,2,2,2,2,2,2,2,1,1,1,2,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,
+	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,2,2,1,1,2,2,2,2,2,2,2,2,2,2,2,
+	2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,2,1,1,2,1,1,1,2,2,2,2,2,2,2,2,2,
+	2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,
+	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+})
+
+spawn("dungeon_stairs_up",17,24,1,0,"dungeon_stairs_up_2")
+spawn("torch_holder",15,23,3,0,"torch_holder_1")
+torch_holder_1.controller:setHasTorch(true)
+spawn("forest_ruins_pillar_03",11,23,0,0,"forest_ruins_pillar_03_81")
+spawn("forest_ruins_pillar_03",10,23,3,0,"forest_ruins_pillar_03_82")
+spawn("forest_ruins_ceiling_flat",10,22,2,0,"forest_ruins_ceiling_flat_9")
+spawn("forest_ruins_wall_end_left",12,22,0,0,"forest_ruins_wall_end_left_11")
+spawn("forest_ruins_wall_02",13,22,0,0,"forest_ruins_wall_02_69")
+spawn("forest_ruins_wall_02",10,22,3,0,"forest_ruins_wall_02_70")
+spawn("dungeon_pillar",9,24,0,0,"dungeon_pillar_1")
+spawn("dungeon_pillar_chains_01",9,24,3,0,"dungeon_pillar_chains_01_1")
+spawn("dungeon_pillar_lantern_01",14,21,3,0,"dungeon_pillar_lantern_01_1")
+spawn("dungeon_wall_ivy_01",12,22,1,0,"dungeon_wall_ivy_01_1")
+spawn("dungeon_wall_ivy_02",16,23,1,0,"dungeon_wall_ivy_02_1")
+spawn("dungeon_cave_in",17,22,1,0,"dungeon_cave_in_1")
+spawn("mine_ceiling_pit_light",18,22,1,1,"mine_ceiling_pit_light_1")
+spawn("dungeon_wall_height_difference",18,22,3,1,"dungeon_wall_height_difference_6")
+spawn("dungeon_wall_height_difference",10,24,1,1,"dungeon_wall_height_difference_7")
+spawn("mine_ceiling_pit_light",10,24,1,1,"mine_ceiling_pit_light_2")
+spawn("dungeon_wall_height_difference",10,24,2,1,"dungeon_wall_height_difference_8")
+spawn("dungeon_wall_height_difference",10,24,3,1,"dungeon_wall_height_difference_9")
+spawn("dungeon_wall_height_difference",10,24,0,1,"dungeon_wall_height_difference_10")
+spawn("forest_ruins_wall_end_left",11,22,2,0,"forest_ruins_wall_end_left_12")
+spawn("forest_ruins_wall_02",10,21,3,0,"forest_ruins_wall_02_67")
+spawn("forest_ruins_wall_02",10,22,2,0,"forest_ruins_wall_02_68")
+spawn("forest_ruins_pillar_03",10,22,3,0,"forest_ruins_pillar_03_77")
+spawn("forest_ruins_wall_02",11,21,3,0,"forest_ruins_wall_02_71")
+spawn("forest_ruins_pillar_03",11,22,3,0,"forest_ruins_pillar_03_78")
+spawn("forest_ruins_ceiling_flat",10,21,2,0,"forest_ruins_ceiling_flat_1")
+spawn("dungeon_ceiling_0000",10,22,1,0,"dungeon_ceiling_0000_1")
+spawn("dungeon_ceiling_0000",10,21,2,0,"dungeon_ceiling_0000_2")
+spawn("dungeon_ceiling_1000",10,20,2,0,"dungeon_ceiling_1000_2")
+spawn("dungeon_ceiling_1000",9,22,1,0,"dungeon_ceiling_1000_3")
+spawn("dungeon_ceiling_1100",9,21,0,0,"dungeon_ceiling_1100_2")
+spawn("dungeon_ceiling_1100",11,21,3,0,"dungeon_ceiling_1100_1")
+spawn("dungeon_ceiling_1000",11,22,3,0,"dungeon_ceiling_1000_4")
+spawn("dungeon_ceiling_1000",10,23,0,0,"dungeon_ceiling_1000_1")
+spawn("dungeon_secret_button_large",12,24,2,0,"dungeon_secret_button_large_2")
+dungeon_secret_button_large_2.button:setDisableSelf(false)
+dungeon_secret_button_large_2.button:addConnector("onActivate", "dungeon_secret_door_5", "open")
+dungeon_secret_button_large_2.button:addConnector("onActivate", "dungeon_secret_door_4", "open")
+dungeon_secret_button_large_2.button:addConnector("onActivate", "spawner_14", "activate")
+dungeon_secret_button_large_2.button:addConnector("onActivate", "spawner_15", "activate")
+dungeon_secret_button_large_2.detectedtimer:setTimerInterval(0)
+dungeon_secret_button_large_2.detectedtimer:setDisableSelf(false)
+dungeon_secret_button_large_2.detectedtimer:setTriggerOnStart(true)
+dungeon_secret_button_large_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("dungeon_secret_door",9,25,2,0,"dungeon_secret_door_4")
+spawn("dungeon_secret_door",11,25,2,0,"dungeon_secret_door_5")
+spawn("dungeon_wall_lantern",10,27,2,0,"dungeon_wall_lantern_2")
+spawn("dungeon_wall_grating",9,26,2,0,"dungeon_wall_grating_1")
+spawn("dungeon_wall_grating",11,26,2,0,"dungeon_wall_grating_2")
+spawn("dungeon_alcove",9,27,2,0,"dungeon_alcove_1")
+spawn("potion_willpower",9,27,2,0,"potion_willpower_1")
+potion_willpower_1.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+potion_willpower_1.detectedtimer:setTimerInterval(0)
+potion_willpower_1.detectedtimer:setDisableSelf(false)
+potion_willpower_1.detectedtimer:setTriggerOnStart(true)
+potion_willpower_1.detectedtimer:setCurrentLevelOnly(true)
+dungeon_alcove_1.surface:addItem(potion_willpower_1.item)
+spawn("dungeon_alcove",11,27,2,0,"dungeon_alcove_2")
+spawn("potion_dexterity",11,27,2,0,"potion_dexterity_1")
+potion_dexterity_1.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+potion_dexterity_1.detectedtimer:setTimerInterval(0)
+potion_dexterity_1.detectedtimer:setDisableSelf(false)
+potion_dexterity_1.detectedtimer:setTriggerOnStart(true)
+potion_dexterity_1.detectedtimer:setCurrentLevelOnly(true)
+dungeon_alcove_2.surface:addItem(potion_dexterity_1.item)
+spawn("spawner",11,27,0,0,"spawner_14")
+spawner_14.spawner:setSpawnedEntity("rat_swarm")
+spawner_14.spawner:setMonsterLevel(1)
+spawner_14.spawner:setCooldown(300)
+spawner_14.spawner:setDisableSelf(true)
+spawn("spawner",9,27,0,0,"spawner_15")
+spawner_15.spawner:setSpawnedEntity("rat_swarm")
+spawner_15.spawner:setMonsterLevel(1)
+spawner_15.spawner:setCooldown(600)
+spawner_15.spawner:setDisableSelf(true)
+spawn("dungeon_pillar",12,24,0,0,"dungeon_pillar_2")
+spawn("hide_vest",16,22,1,0,"hide_vest_1")
+hide_vest_1.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+hide_vest_1.detectedtimer:setTimerInterval(0)
+hide_vest_1.detectedtimer:setDisableSelf(false)
+hide_vest_1.detectedtimer:setTriggerOnStart(true)
+hide_vest_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("leather_boots",16,22,1,0,"leather_boots_2")
+leather_boots_2.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+leather_boots_2.detectedtimer:setTimerInterval(0)
+leather_boots_2.detectedtimer:setDisableSelf(false)
+leather_boots_2.detectedtimer:setTriggerOnStart(true)
+leather_boots_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("fire_bomb",12,24,2,0,"fire_bomb_1")
+fire_bomb_1.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+fire_bomb_1.detectedtimer:setTimerInterval(0)
+fire_bomb_1.detectedtimer:setDisableSelf(false)
+fire_bomb_1.detectedtimer:setTriggerOnStart(true)
+fire_bomb_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("barrel_crate_block",12,24,0,0,"barrel_crate_block_1")
+spawn("barrel_crate_block",12,20,0,0,"barrel_crate_block_2")
+spawn("dagger",12,20,0,0,"dagger_1")
+dagger_1.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+dagger_1.detectedtimer:setTimerInterval(0)
+dagger_1.detectedtimer:setDisableSelf(false)
+dagger_1.detectedtimer:setTriggerOnStart(true)
+dagger_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("dungeon_door_portcullis",6,18,0,0,"dungeon_door_portcullis_10")
+spawn("dungeon_pillar_lantern_01",9,17,1,0,"dungeon_pillar_lantern_01_2")
+spawn("mine_ceiling_pit_light",5,20,1,1,"lightPuzzle4")
+spawn("mine_ceiling_pit_light",5,22,1,1,"lightPuzzle2")
+spawn("mine_ceiling_pit_light",3,24,1,1,"lightPuzzle1")
+spawn("mine_ceiling_pit_light",5,26,1,1,"lightPuzzle3")
+spawn("dungeon_wall_height_difference",5,20,3,1,"dungeon_wall_height_difference_11")
+spawn("dungeon_wall_height_difference",5,22,3,1,"dungeon_wall_height_difference_12")
+spawn("dungeon_wall_height_difference",3,24,1,1,"dungeon_wall_height_difference_13")
+spawn("dungeon_wall_height_difference",5,26,3,1,"dungeon_wall_height_difference_14")
+spawn("floor_trigger",5,18,1,0,"floor_trigger_46")
+floor_trigger_46.floortrigger:setTriggeredByParty(true)
+floor_trigger_46.floortrigger:setTriggeredByMonster(false)
+floor_trigger_46.floortrigger:setTriggeredByItem(false)
+floor_trigger_46.floortrigger:setTriggeredByDigging(false)
+floor_trigger_46.floortrigger:setDisableSelf(false)
+floor_trigger_46.floortrigger:addConnector("onActivate", "script_entity_30", "reset")
+spawn("floor_trigger",3,24,0,0,"lightTrigger1")
+lightTrigger1.floortrigger:setTriggeredByParty(true)
+lightTrigger1.floortrigger:setTriggeredByMonster(false)
+lightTrigger1.floortrigger:setTriggeredByItem(false)
+lightTrigger1.floortrigger:setTriggeredByDigging(false)
+lightTrigger1.floortrigger:setDisableSelf(false)
+lightTrigger1.floortrigger:addConnector("onActivate", "script_entity_30", "activateLightTrigger2")
+spawn("floor_trigger",5,22,2,0,"lightTrigger2")
+lightTrigger2.floortrigger:setTriggeredByParty(true)
+lightTrigger2.floortrigger:setTriggeredByMonster(false)
+lightTrigger2.floortrigger:setTriggeredByItem(false)
+lightTrigger2.floortrigger:setTriggeredByDigging(false)
+lightTrigger2.floortrigger:setDisableSelf(false)
+lightTrigger2.floortrigger:addConnector("onActivate", "script_entity_30", "activateLightTrigger3")
+spawn("floor_trigger",5,26,2,0,"lightTrigger3")
+lightTrigger3.floortrigger:setTriggeredByParty(true)
+lightTrigger3.floortrigger:setTriggeredByMonster(false)
+lightTrigger3.floortrigger:setTriggeredByItem(false)
+lightTrigger3.floortrigger:setTriggeredByDigging(false)
+lightTrigger3.floortrigger:setDisableSelf(false)
+lightTrigger3.floortrigger:addConnector("onActivate", "script_entity_30", "activateLightTrigger4")
+spawn("dungeon_secret_door",3,20,3,0,"dungeon_secret_door_6")
+spawn("floor_trigger",5,20,3,0,"lightTrigger4")
+lightTrigger4.floortrigger:setTriggeredByParty(true)
+lightTrigger4.floortrigger:setTriggeredByMonster(false)
+lightTrigger4.floortrigger:setTriggeredByItem(false)
+lightTrigger4.floortrigger:setTriggeredByDigging(false)
+lightTrigger4.floortrigger:setDisableSelf(false)
+lightTrigger4.floortrigger:addConnector("onActivate", "script_entity_30", "endPuzzle")
+lightTrigger4.floortrigger:addConnector("onActivate", "dungeon_secret_door_6", "open")
+lightTrigger4.floortrigger:addConnector("onActivate", "dungeon_secret_door_7", "open")
+spawn("script_entity",6,20,3,0,"script_entity_30")
+script_entity_30.script:setSource("function activateLightTrigger2()\
+\9lightTrigger1.floortrigger:disable()\
+\9lightPuzzle1.controller:deactivate()\
+\9lightTrigger2.floortrigger:enable()\
+\9lightPuzzle2.controller:activate()\
+end\
+\
+function activateLightTrigger3()\
+\9lightTrigger2.floortrigger:disable()\
+\9lightPuzzle2.controller:deactivate()\
+\9lightTrigger3.floortrigger:enable()\
+\9lightPuzzle3.controller:activate()\
+end\
+\
+function activateLightTrigger4()\
+\9lightTrigger3.floortrigger:disable()\
+\9lightPuzzle3.controller:deactivate()\
+\9lightTrigger4.floortrigger:enable()\
+\9lightPuzzle4.controller:activate()\
+end\
+\
+function endPuzzle()\
+\9local w = 2\
+\9local h = 6\
+\9for x=0,w do\
+\9\9for y=0,h do\
+\9\9\9for e in Dungeon.getMap(party.level):entitiesAt(3+x,20+y) do\9\9\9\9\
+\9\9\9\9if e.name == \"mine_ceiling_pit_light\" then\
+\9\9\9\9\9e.controller:activate()\
+\9\9\9\9end\
+\9\9\9end\
+\9\9end\
+\9end\
+end\
+\
+function reset()\
+\9if dungeon_secret_door_6.door:isClosed() then\
+\9\9lightTrigger1.floortrigger:enable()\
+\9\9lightTrigger2.floortrigger:disable()\
+\9\9lightTrigger3.floortrigger:disable()\
+\9\9lightTrigger4.floortrigger:disable()\
+\9\9lightPuzzle1.controller:activate()\
+\9\9lightPuzzle2.controller:deactivate()\
+\9\9lightPuzzle3.controller:deactivate()\
+\9\9lightPuzzle4.controller:deactivate()\
+\9\9lightPuzzle5.controller:deactivate()\
+\9\9lightPuzzle6.controller:deactivate()\
+\9\9lightPuzzle7.controller:deactivate()\
+\9\9lightPuzzle8.controller:deactivate()\
+\9end\
+end")
+spawn("floor_trigger",5,24,2,0,"floor_trigger_47")
+floor_trigger_47.floortrigger:setTriggeredByParty(true)
+floor_trigger_47.floortrigger:setTriggeredByMonster(false)
+floor_trigger_47.floortrigger:setTriggeredByItem(false)
+floor_trigger_47.floortrigger:setTriggeredByDigging(false)
+floor_trigger_47.floortrigger:setDisableSelf(false)
+floor_trigger_47.floortrigger:addConnector("onActivate", "script_entity_30", "reset")
+spawn("floor_trigger",3,26,2,0,"floor_trigger_48")
+floor_trigger_48.floortrigger:setTriggeredByParty(true)
+floor_trigger_48.floortrigger:setTriggeredByMonster(false)
+floor_trigger_48.floortrigger:setTriggeredByItem(false)
+floor_trigger_48.floortrigger:setTriggeredByDigging(false)
+floor_trigger_48.floortrigger:setDisableSelf(false)
+floor_trigger_48.floortrigger:addConnector("onActivate", "script_entity_30", "reset")
+spawn("floor_trigger",3,22,2,0,"floor_trigger_49")
+floor_trigger_49.floortrigger:setTriggeredByParty(true)
+floor_trigger_49.floortrigger:setTriggeredByMonster(false)
+floor_trigger_49.floortrigger:setTriggeredByItem(false)
+floor_trigger_49.floortrigger:setTriggeredByDigging(false)
+floor_trigger_49.floortrigger:setDisableSelf(false)
+floor_trigger_49.floortrigger:addConnector("onActivate", "script_entity_30", "reset")
+spawn("floor_trigger",3,20,2,0,"floor_trigger_50")
+floor_trigger_50.floortrigger:setTriggeredByParty(true)
+floor_trigger_50.floortrigger:setTriggeredByMonster(false)
+floor_trigger_50.floortrigger:setTriggeredByItem(false)
+floor_trigger_50.floortrigger:setTriggeredByDigging(false)
+floor_trigger_50.floortrigger:setDisableSelf(false)
+floor_trigger_50.floortrigger:addConnector("onActivate", "script_entity_30", "reset")
+spawn("dungeon_alcove",4,26,2,0,"dungeon_alcove_3")
+spawn("pellet_box",4,26,2,0,"pellet_box_5")
+pellet_box_5.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+pellet_box_5.item:setStackSize(20)
+pellet_box_5.detectedtimer:setTimerInterval(0)
+pellet_box_5.detectedtimer:setDisableSelf(false)
+pellet_box_5.detectedtimer:setTriggerOnStart(true)
+pellet_box_5.detectedtimer:setCurrentLevelOnly(true)
+dungeon_alcove_3.surface:addItem(pellet_box_5.item)
+spawn("flintlock",4,26,2,0,"flintlock_2")
+flintlock_2.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+flintlock_2.detectedtimer:setTimerInterval(0)
+flintlock_2.detectedtimer:setDisableSelf(false)
+flintlock_2.detectedtimer:setTriggerOnStart(true)
+flintlock_2.detectedtimer:setCurrentLevelOnly(true)
+dungeon_alcove_3.surface:addItem(flintlock_2.item)
+spawn("barrel_crate_block",10,16,0,0,"barrel_crate_block_3")
+spawn("pellet_box",10,16,1,0,"pellet_box_6")
+pellet_box_6.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+pellet_box_6.item:setStackSize(20)
+pellet_box_6.detectedtimer:setTimerInterval(0)
+pellet_box_6.detectedtimer:setDisableSelf(false)
+pellet_box_6.detectedtimer:setTriggerOnStart(true)
+pellet_box_6.detectedtimer:setCurrentLevelOnly(true)
+spawn("arrow",10,16,0,0,"arrow_4")
+arrow_4.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+arrow_4.detectedtimer:setTimerInterval(0)
+arrow_4.detectedtimer:setDisableSelf(false)
+arrow_4.detectedtimer:setTriggerOnStart(true)
+arrow_4.detectedtimer:setCurrentLevelOnly(true)
+spawn("rat_swarm",8,18,0,0,"rat_swarm_1")
+rat_swarm_1.monster:setAIState("guard")
+rat_swarm_1.monster:setHealth(100)
+rat_swarm_1.detectedtimer:setTimerInterval(0)
+rat_swarm_1.detectedtimer:setDisableSelf(false)
+rat_swarm_1.detectedtimer:setTriggerOnStart(true)
+rat_swarm_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("dungeon_wall_broken_01",10,18,1,0,"dungeon_wall_broken_01_1")
+spawn("dungeon_wall_broken_02",8,21,0,0,"dungeon_wall_broken_02_1")
+spawn("dungeon_wall_chains_01",4,18,0,0,"dungeon_wall_chains_01_1")
+spawn("floor_trigger",4,19,2,0,"floor_trigger_51")
+floor_trigger_51.floortrigger:setTriggeredByParty(true)
+floor_trigger_51.floortrigger:setTriggeredByMonster(false)
+floor_trigger_51.floortrigger:setTriggeredByItem(false)
+floor_trigger_51.floortrigger:setTriggeredByDigging(false)
+floor_trigger_51.floortrigger:setDisableSelf(false)
+floor_trigger_51.floortrigger:addConnector("onActivate", "script_entity_30", "reset")
+spawn("mine_ceiling_pit_light",3,20,1,1,"lightPuzzle5")
+spawn("mine_ceiling_pit_light",3,22,1,1,"lightPuzzle6")
+spawn("mine_ceiling_pit_light",5,24,1,1,"lightPuzzle7")
+spawn("mine_ceiling_pit_light",3,26,1,1,"lightPuzzle8")
+spawn("dungeon_pillar_lantern_01",1,19,1,0,"dungeon_pillar_lantern_01_3")
+spawn("dungeon_pillar_lantern_01",4,19,1,0,"dungeon_pillar_lantern_01_4")
+spawn("lizard_stick",3,24,3,0,"lizard_stick_2")
+lizard_stick_2.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+lizard_stick_2.detectedtimer:setTimerInterval(0)
+lizard_stick_2.detectedtimer:setDisableSelf(false)
+lizard_stick_2.detectedtimer:setTriggerOnStart(true)
+lizard_stick_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("blooddrop_cap",5,20,1,0,"blooddrop_cap_3")
+blooddrop_cap_3.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+blooddrop_cap_3.detectedtimer:setTimerInterval(0)
+blooddrop_cap_3.detectedtimer:setDisableSelf(false)
+blooddrop_cap_3.detectedtimer:setTriggerOnStart(true)
+blooddrop_cap_3.detectedtimer:setCurrentLevelOnly(true)
+spawn("dungeon_cave_in",1,11,0,0,"dungeon_cave_in_2")
+spawn("mine_ceiling_pit_light",1,10,0,1,"mine_ceiling_pit_light_3")
+spawn("dungeon_wall_height_difference",1,10,2,1,"dungeon_wall_height_difference_15")
+spawn("dungeon_wall_grating",3,12,2,0,"dungeon_wall_grating_3")
+spawn("dungeon_wall_grating",6,11,1,0,"dungeon_wall_grating_4")
+spawn("dungeon_pillar_lantern_01",8,9,2,0,"dungeon_pillar_lantern_01_5")
+spawn("dungeon_wall_grating",6,9,1,0,"dungeon_wall_grating_5")
+spawn("dungeon_pillar_high",7,10,0,0,"dungeon_pillar_high_1")
+spawn("dungeon_pillar_high",7,11,0,0,"dungeon_pillar_high_2")
+spawn("dungeon_wall_grating",6,9,1,1,"dungeon_wall_grating_6")
+spawn("dungeon_wall_grating",6,11,1,1,"dungeon_wall_grating_7")
+spawn("dungeon_wall_grating",6,8,1,1,"dungeon_wall_grating_8")
+spawn("dungeon_pillar_high",7,9,0,0,"dungeon_pillar_high_3")
+spawn("dungeon_wall_open",6,9,1,1,"dungeon_wall_open_1")
+spawn("dungeon_pillar_lantern_01",8,13,0,0,"dungeon_pillar_lantern_01_6")
+spawn("dungeon_door_portcullis",1,16,0,0,"dungeon_door_portcullis_11")
+dungeon_door_portcullis_11.door:setPullChain(true)
+spawn("lever",5,18,0,0,"lever_2")
+lever_2.lever:setDisableSelf(false)
+lever_2.lever:addConnector("onActivate", "dungeon_door_portcullis_10", "toggle")
+spawn("dungeon_pillar",7,12,1,0,"dungeon_pillar_5")
+spawn("dungeon_pit",6,14,3,0,"dungeon_pit_1")
+spawn("mine_counterweight_chains",6,14,2,0,"mine_counterweight_chains_1")
+spawn("mine_ceiling_pit_light",6,14,0,1,"mine_ceiling_pit_light_4")
+spawn("dungeon_wall_chains_01",3,16,2,0,"dungeon_wall_chains_01_2")
+spawn("dungeon_wall_broken_01",2,14,0,0,"dungeon_wall_broken_01_2")
+spawn("dungeon_wall_broken_01",7,18,2,0,"dungeon_wall_broken_01_3")
+spawn("dungeon_wall_open",6,8,1,1,"dungeon_wall_open_2")
+spawn("dungeon_wall_open",6,11,1,1,"dungeon_wall_open_3")
+spawn("dungeon_wall_broken_02",1,13,1,0,"dungeon_wall_broken_02_2")
+spawn("dungeon_wall_grating",3,13,2,0,"dungeon_wall_grating_9")
+spawn("dungeon_wall_ivy_02",4,15,0,0,"dungeon_wall_ivy_02_2")
+spawn("dungeon_wall_ivy_01",4,9,0,0,"dungeon_wall_ivy_01_2")
+spawn("dungeon_wall_broken_02",4,9,2,1,"dungeon_wall_broken_02_3")
+spawn("dungeon_wall_height_difference",6,14,2,1,"dungeon_wall_height_difference_16")
+spawn("dungeon_wall_broken_01",8,11,1,0,"dungeon_wall_broken_01_4")
+spawn("dungeon_alcove",10,10,0,0,"dungeon_alcove_4")
+spawn("reed_gauntlets",10,10,0,0,"reed_gauntlets_1")
+reed_gauntlets_1.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+reed_gauntlets_1.detectedtimer:setTimerInterval(0)
+reed_gauntlets_1.detectedtimer:setDisableSelf(false)
+reed_gauntlets_1.detectedtimer:setTriggerOnStart(true)
+reed_gauntlets_1.detectedtimer:setCurrentLevelOnly(true)
+dungeon_alcove_4.surface:addItem(reed_gauntlets_1.item)
+spawn("dungeon_stairs_up",17,3,1,0,"dungeon_stairs_up_3")
+spawn("spawner",10,11,0,0,"spawner_16")
+spawner_16.spawner:setSpawnedEntity("skeleton_trooper1")
+spawner_16.spawner:setMonsterLevel(1)
+spawner_16.spawner:setCooldown(0)
+spawner_16.spawner:setDisableSelf(true)
+spawn("spawner",5,10,2,0,"spawner_17")
+spawner_17.spawner:setSpawnedEntity("skeleton_trooper1")
+spawner_17.spawner:setMonsterLevel(1)
+spawner_17.spawner:setCooldown(0)
+spawner_17.spawner:setDisableSelf(true)
+spawn("floor_trigger",1,14,0,0,"floor_trigger_52")
+floor_trigger_52.floortrigger:setTriggeredByParty(true)
+floor_trigger_52.floortrigger:setTriggeredByMonster(false)
+floor_trigger_52.floortrigger:setTriggeredByItem(false)
+floor_trigger_52.floortrigger:setTriggeredByDigging(false)
+floor_trigger_52.floortrigger:setDisableSelf(true)
+floor_trigger_52.floortrigger:addConnector("onActivate", "spawner_17", "activate")
+floor_trigger_52.floortrigger:addConnector("onActivate", "spawner_16", "activate")
+spawn("sack",3,13,0,0,"sack_3")
+sack_3.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+spawn("bread",3,13,0,0,"bread_3")
+bread_3.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+bread_3.detectedtimer:setTimerInterval(0)
+bread_3.detectedtimer:setDisableSelf(false)
+bread_3.detectedtimer:setTriggerOnStart(true)
+bread_3.detectedtimer:setCurrentLevelOnly(true)
+sack_3.containeritem:addItem(bread_3.item)
+spawn("throwing_knife",3,13,0,0,"throwing_knife_5")
+throwing_knife_5.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+throwing_knife_5.detectedtimer:setTimerInterval(0)
+throwing_knife_5.detectedtimer:setDisableSelf(false)
+throwing_knife_5.detectedtimer:setTriggerOnStart(true)
+throwing_knife_5.detectedtimer:setCurrentLevelOnly(true)
+sack_3.containeritem:addItem(throwing_knife_5.item)
+spawn("cheese",3,13,0,0,"cheese_2")
+cheese_2.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+cheese_2.detectedtimer:setTimerInterval(0)
+cheese_2.detectedtimer:setDisableSelf(false)
+cheese_2.detectedtimer:setTriggerOnStart(true)
+cheese_2.detectedtimer:setCurrentLevelOnly(true)
+sack_3.containeritem:addItem(cheese_2.item)
+sack_3.detectedtimer:setTimerInterval(0)
+sack_3.detectedtimer:setDisableSelf(false)
+sack_3.detectedtimer:setTriggerOnStart(true)
+sack_3.detectedtimer:setCurrentLevelOnly(true)
+spawn("scroll_light",10,24,2,0,"scroll_light_1")
+scroll_light_1.detectedtimer:setTimerInterval(0)
+scroll_light_1.detectedtimer:setDisableSelf(false)
+scroll_light_1.detectedtimer:setTriggerOnStart(true)
+scroll_light_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("torch_holder",2,12,0,0,"torch_holder_4")
+torch_holder_4.controller:setHasTorch(true)
+spawn("dungeon_alcove",1,21,2,0,"dungeon_alcove_5")
+spawn("dart",1,21,2,0,"dart_1")
+dart_1.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+dart_1.item:setStackSize(2)
+dart_1.detectedtimer:setTimerInterval(0)
+dart_1.detectedtimer:setDisableSelf(false)
+dart_1.detectedtimer:setTriggerOnStart(true)
+dart_1.detectedtimer:setCurrentLevelOnly(true)
+dungeon_alcove_5.surface:addItem(dart_1.item)
+spawn("dart",1,21,2,0,"dart_2")
+dart_2.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+dart_2.detectedtimer:setTimerInterval(0)
+dart_2.detectedtimer:setDisableSelf(false)
+dart_2.detectedtimer:setTriggerOnStart(true)
+dart_2.detectedtimer:setCurrentLevelOnly(true)
+dungeon_alcove_5.surface:addItem(dart_2.item)
+spawn("dungeon_secret_door",2,20,3,0,"dungeon_secret_door_7")
+spawn("dungeon_alcove",2,20,0,0,"dungeon_alcove_6")
+spawn("bronze_brace",2,20,0,0,"bronze_brace_1")
+bronze_brace_1.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+bronze_brace_1.detectedtimer:setTimerInterval(0)
+bronze_brace_1.detectedtimer:setDisableSelf(false)
+bronze_brace_1.detectedtimer:setTriggerOnStart(true)
+bronze_brace_1.detectedtimer:setCurrentLevelOnly(true)
+dungeon_alcove_6.surface:addItem(bronze_brace_1.item)
+spawn("mudwort",2,20,2,0,"mudwort_2")
+mudwort_2.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+mudwort_2.detectedtimer:setTimerInterval(0)
+mudwort_2.detectedtimer:setDisableSelf(false)
+mudwort_2.detectedtimer:setTriggerOnStart(true)
+mudwort_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("blowpipe",1,21,2,0,"blowpipe_1")
+blowpipe_1.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+blowpipe_1.detectedtimer:setTimerInterval(0)
+blowpipe_1.detectedtimer:setDisableSelf(false)
+blowpipe_1.detectedtimer:setTriggerOnStart(true)
+blowpipe_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("dungeon_wall_chains_01",1,17,3,0,"dungeon_wall_chains_01_3")
+spawn("dungeon_wall_chains_hooks_01",1,20,3,0,"dungeon_wall_chains_hooks_01_1")
+spawn("dungeon_wall_broken_01",15,24,3,0,"dungeon_wall_broken_01_5")
+spawn("dungeon_wall_broken_01",15,21,0,0,"dungeon_wall_broken_01_6")
+spawn("mole_jerky",15,23,0,0,"mole_jerky_1")
+mole_jerky_1.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+mole_jerky_1.detectedtimer:setTimerInterval(0)
+mole_jerky_1.detectedtimer:setDisableSelf(false)
+mole_jerky_1.detectedtimer:setTriggerOnStart(true)
+mole_jerky_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("rat_swarm",4,26,0,0,"rat_swarm_2")
+rat_swarm_2.monster:setAIState("guard")
+rat_swarm_2.monster:setHealth(100)
+rat_swarm_2.detectedtimer:setTimerInterval(0)
+rat_swarm_2.detectedtimer:setDisableSelf(false)
+rat_swarm_2.detectedtimer:setTriggerOnStart(true)
+rat_swarm_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("skeleton_trooper",2,20,1,0,"skeleton_trooper_1")
+skeleton_trooper_1.detectedtimer:setTimerInterval(0)
+skeleton_trooper_1.detectedtimer:setDisableSelf(false)
+skeleton_trooper_1.detectedtimer:setTriggerOnStart(true)
+skeleton_trooper_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("dungeon_wall_broken_01",6,14,3,0,"dungeon_wall_broken_01_7")
+spawn("dungeon_wall_broken_02",8,23,3,0,"dungeon_wall_broken_02_4")
+spawn("dungeon_cave_in",12,13,1,0,"dungeon_cave_in_3")
+spawn("mine_ceiling_pit_light",13,13,1,1,"mine_ceiling_pit_light_5")
+spawn("dungeon_wall_height_difference",13,13,3,1,"dungeon_wall_height_difference_17")
+spawn("dungeon_secret_door",10,16,0,0,"dungeon_secret_door_8")
+spawn("dungeon_secret_button_small",10,14,3,0,"dungeon_secret_button_small_3")
+dungeon_secret_button_small_3.button:setDisableSelf(false)
+dungeon_secret_button_small_3.detectedtimer:setTimerInterval(0)
+dungeon_secret_button_small_3.detectedtimer:setDisableSelf(false)
+dungeon_secret_button_small_3.detectedtimer:setTriggerOnStart(true)
+dungeon_secret_button_small_3.detectedtimer:setCurrentLevelOnly(true)
+spawn("dungeon_door_iron",13,16,3,0,"dungeon_door_iron_1")
+spawn("lock_round",12,17,1,0,"lock_round_2")
+lock_round_2.lock:setOpenedBy("round_key")
+lock_round_2.lock:addConnector("onActivate", "dungeon_door_iron_1", "open")
+spawn("dungeon_cave_in",15,13,3,0,"dungeon_cave_in_4")
+spawn("mine_ceiling_pit_light",14,13,1,1,"mine_ceiling_pit_light_6")
+spawn("dungeon_wall_height_difference",14,13,1,1,"dungeon_wall_height_difference_18")
+spawn("dungeon_cave_in",20,22,3,0,"dungeon_cave_in_5")
+spawn("mine_ceiling_pit_light",19,22,1,1,"mine_ceiling_pit_light_7")
+spawn("dungeon_wall_height_difference",19,22,1,1,"dungeon_wall_height_difference_19")
+spawn("dungeon_wall_grating",6,7,1,1,"dungeon_wall_grating_10")
+spawn("dungeon_wall_open",6,7,1,1,"dungeon_wall_open_4")
+spawn("dungeon_wall_grating",6,6,1,1,"dungeon_wall_grating_11")
+spawn("dungeon_wall_open",6,6,1,1,"dungeon_wall_open_5")
+spawn("dungeon_pillar",7,8,0,1,"dungeon_pillar_3")
+spawn("dungeon_pillar",7,7,0,1,"dungeon_pillar_4")
+spawn("starting_location",15,24,2,0,"starting_location_1")
+spawn("dungeon_door_iron",12,10,0,0,"dungeon_door_iron_2")
+spawn("dungeon_door_iron",12,10,2,0,"dungeon_door_iron_3")
+spawn("skeleton_trooper",12,9,2,0,"skeleton_trooper_2")
+skeleton_trooper_2.monster:setAIState("guard")
+skeleton_trooper_2.detectedtimer:setTimerInterval(0)
+skeleton_trooper_2.detectedtimer:setDisableSelf(false)
+skeleton_trooper_2.detectedtimer:setTriggerOnStart(true)
+skeleton_trooper_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("skeleton_archer",12,11,0,0,"skeleton_archer_1")
+skeleton_archer_1.monster:setAIState("guard")
+skeleton_archer_1.detectedtimer:setTimerInterval(0)
+skeleton_archer_1.detectedtimer:setDisableSelf(false)
+skeleton_archer_1.detectedtimer:setTriggerOnStart(true)
+skeleton_archer_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("dungeon_pillar",13,10,3,0,"dungeon_pillar_6")
+spawn("dungeon_pillar",14,10,3,0,"dungeon_pillar_7")
+spawn("dungeon_pillar",14,11,2,0,"dungeon_pillar_8")
+spawn("dungeon_pillar",13,11,2,0,"dungeon_pillar_9")
+spawn("dungeon_door_iron",15,10,0,0,"dungeon_door_iron_4")
+spawn("dungeon_door_iron",15,10,2,0,"dungeon_door_iron_5")
+spawn("dungeon_alcove",18,6,0,0,"dungeon_alcove_7")
+spawn("round_key",18,6,0,0,"round_key_1")
+round_key_1.detectedtimer:setTimerInterval(0)
+round_key_1.detectedtimer:setDisableSelf(false)
+round_key_1.detectedtimer:setTriggerOnStart(true)
+round_key_1.detectedtimer:setCurrentLevelOnly(true)
+dungeon_alcove_7.surface:addItem(round_key_1.item)
+dungeon_alcove_7.surface:addConnector("onRemoveItem", "dungeon_door_iron_2", "open")
+dungeon_alcove_7.surface:addConnector("onRemoveItem", "dungeon_door_iron_4", "open")
+dungeon_alcove_7.surface:addConnector("onRemoveItem", "dungeon_door_iron_5", "open")
+dungeon_alcove_7.surface:addConnector("onRemoveItem", "dungeon_door_iron_3", "open")
+dungeon_alcove_7.surface:addConnector("onRemoveItem", "script_entity_31", "disableFakeSkeletons")
+spawn("forest_bridge",18,7,1,1,"forest_bridge_15")
+spawn("mine_support_beam_floor_double",18,7,0,0,"mine_support_beam_floor_double_358")
+spawn("mine_support_beam_floor_double",18,8,0,0,"mine_support_beam_floor_double_359")
+spawn("mine_support_pillar_01_half",18,8,3,1,"mine_support_pillar_01_half_52")
+spawn("mine_support_pillar_01_half",19,8,3,1,"mine_support_pillar_01_half_53")
+spawn("mine_support_pillar_01_half",19,7,2,1,"mine_support_pillar_01_half_54")
+spawn("mine_support_pillar_01_half",18,7,1,1,"mine_support_pillar_01_half_55")
+spawn("forest_ruins_wall_02",13,10,0,0,"forest_ruins_wall_02_73")
+forest_ruins_wall_02_73.model:disable()
+spawn("dungeon_pillar",15,10,3,0,"dungeon_pillar_10")
+spawn("dungeon_pillar",15,11,2,0,"dungeon_pillar_11")
+spawn("floor_trigger",16,10,3,0,"floor_trigger_53")
+floor_trigger_53.floortrigger:setTriggeredByParty(true)
+floor_trigger_53.floortrigger:setTriggeredByMonster(false)
+floor_trigger_53.floortrigger:setTriggeredByItem(false)
+floor_trigger_53.floortrigger:setTriggeredByDigging(false)
+floor_trigger_53.floortrigger:setDisableSelf(false)
+floor_trigger_53.floortrigger:addConnector("onActivate", "script_entity_31", "fakeSkeleton1")
+spawn("floor_trigger",14,10,1,0,"floor_trigger_54")
+floor_trigger_54.floortrigger:setTriggeredByParty(true)
+floor_trigger_54.floortrigger:setTriggeredByMonster(false)
+floor_trigger_54.floortrigger:setTriggeredByItem(false)
+floor_trigger_54.floortrigger:setTriggeredByDigging(false)
+floor_trigger_54.floortrigger:setDisableSelf(false)
+floor_trigger_54.floortrigger:addConnector("onActivate", "script_entity_31", "fakeSkeleton1")
+spawn("floor_trigger",13,10,1,0,"floor_trigger_55")
+floor_trigger_55.floortrigger:setTriggeredByParty(true)
+floor_trigger_55.floortrigger:setTriggeredByMonster(false)
+floor_trigger_55.floortrigger:setTriggeredByItem(false)
+floor_trigger_55.floortrigger:setTriggeredByDigging(false)
+floor_trigger_55.floortrigger:setDisableSelf(false)
+floor_trigger_55.floortrigger:addConnector("onActivate", "script_entity_31", "fakeSkeleton2")
+spawn("floor_trigger",11,10,3,0,"floor_trigger_56")
+floor_trigger_56.floortrigger:setTriggeredByParty(true)
+floor_trigger_56.floortrigger:setTriggeredByMonster(false)
+floor_trigger_56.floortrigger:setTriggeredByItem(false)
+floor_trigger_56.floortrigger:setTriggeredByDigging(false)
+floor_trigger_56.floortrigger:setDisableSelf(false)
+floor_trigger_56.floortrigger:addConnector("onActivate", "script_entity_31", "fakeSkeleton2")
+spawn("script_entity",16,9,0,0,"script_entity_31")
+script_entity_31.script:setSource("function fakeSkeleton1()\
+\9skeleton_trooper_2:setPosition(15,9,2,0,self.go.level)\
+\9skeleton_archer_1:setPosition(15,11,0,0,self.go.level)\
+end\
+\
+function fakeSkeleton2()\
+\9skeleton_trooper_2:setPosition(12,9,2,0,self.go.level)\
+\9skeleton_archer_1:setPosition(12,11,0,0,self.go.level)\
+end\
+\
+function disableFakeSkeletons()\
+\9floor_trigger_53.floortrigger:disable()\
+\9floor_trigger_54.floortrigger:disable()\
+\9floor_trigger_55.floortrigger:disable()\
+\9floor_trigger_56.floortrigger:disable()\
+\9dungeon_alcove_7.surface:removeConnector(self.go.id, \"script_entity_31\", \"disableFakeSkeletons\")\
+end")
+spawn("forest_ruins_wall_02",13,11,0,0,"forest_ruins_wall_02_74")
+forest_ruins_wall_02_74.model:disable()
+spawn("dungeon_wall_01",13,11,0,0,"dungeon_wall_01_7")
+spawn("dungeon_wall_01",13,10,2,0,"dungeon_wall_01_5")
+spawn("dungeon_wall_01",14,9,2,0,"dungeon_wall_01_2")
+spawn("forest_ruins_wall_02",14,9,2,0,"forest_ruins_wall_02_75")
+forest_ruins_wall_02_75.model:disable()
+spawn("dungeon_wall_01",14,11,0,0,"dungeon_wall_01_3")
+spawn("dungeon_wall_01",14,10,2,0,"dungeon_wall_01_8")
+spawn("forest_ruins_wall_02",14,10,2,0,"forest_ruins_wall_02_76")
+forest_ruins_wall_02_76.model:disable()
+spawn("dungeon_wall_01",13,10,0,0,"dungeon_wall_01_1")
+spawn("dungeon_wall_01",13,9,2,0,"dungeon_wall_01_6")
+spawn("forest_bridge",17,10,2,1,"forest_bridge_16")
+spawn("mine_support_beam_floor_double",17,10,1,0,"mine_support_beam_floor_double_360")
+spawn("mine_support_pillar_01_half",18,10,3,1,"mine_support_pillar_01_half_56")
+spawn("mine_support_pillar_01_half",18,11,3,1,"mine_support_pillar_01_half_57")
+spawn("torch_holder",14,17,3,0,"torch_holder_59")
+torch_holder_59.controller:setHasTorch(true)
+spawn("dungeon_wall_grating",18,17,2,0,"dungeon_wall_grating_12")
+spawn("dungeon_door_portcullis",20,20,1,0,"dungeon_door_portcullis_12")
+spawn("dungeon_pressure_plate",19,20,3,0,"dungeon_pressure_plate_1")
+dungeon_pressure_plate_1.floortrigger:setTriggeredByParty(true)
+dungeon_pressure_plate_1.floortrigger:setTriggeredByMonster(true)
+dungeon_pressure_plate_1.floortrigger:setTriggeredByItem(true)
+dungeon_pressure_plate_1.floortrigger:setTriggeredByDigging(false)
+dungeon_pressure_plate_1.floortrigger:setDisableSelf(false)
+spawn("dungeon_pit_trapdoor",22,17,3,0,"dungeon_pit_trapdoor_1")
+dungeon_pit_trapdoor_1.pit:setState("open")
+dungeon_pit_trapdoor_1.platform:disable()
+spawn("dungeon_pit",22,17,1,0,"dungeon_pit_2")
+spawn("dungeon_pit_trapdoor",22,18,3,0,"dungeon_pit_trapdoor_2")
+dungeon_pit_trapdoor_2.pit:setState("open")
+dungeon_pit_trapdoor_2.platform:disable()
+spawn("dungeon_pit",22,18,1,0,"dungeon_pit_3")
+spawn("dungeon_pit_trapdoor",22,19,3,0,"dungeon_pit_trapdoor_3")
+dungeon_pit_trapdoor_3.pit:setState("open")
+dungeon_pit_trapdoor_3.platform:disable()
+spawn("dungeon_pit",22,19,1,0,"dungeon_pit_4")
+spawn("dungeon_pit_trapdoor",22,21,3,0,"dungeon_pit_trapdoor_4")
+spawn("dungeon_pit",22,21,1,0,"dungeon_pit_5")
+spawn("wall_button",18,18,3,0,"wall_button_3")
+wall_button_3.button:setDisableSelf(false)
+wall_button_3.button:addConnector("onActivate", "dungeon_pit_trapdoor_1", "close")
+spawn("mine_ceiling_pit_light",19,20,1,1,"mine_ceiling_pit_light_8")
+spawn("scroll_ice_shards",18,6,0,0,"scroll_ice_shards_1")
+scroll_ice_shards_1.detectedtimer:setTimerInterval(0)
+scroll_ice_shards_1.detectedtimer:setDisableSelf(false)
+scroll_ice_shards_1.detectedtimer:setTriggerOnStart(true)
+scroll_ice_shards_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("dungeon_pit",15,27,3,0,"dungeon_pit_6")
+spawn("mine_counterweight_chains",15,27,2,0,"mine_counterweight_chains_2")
+spawn("mine_ceiling_pit_light",15,27,0,1,"mine_ceiling_pit_light_9")
+spawn("dungeon_wall_height_difference",15,27,2,1,"dungeon_wall_height_difference_20")
+spawn("dungeon_wall_height_difference",15,27,1,1,"dungeon_wall_height_difference_21")
+spawn("dungeon_wall_height_difference",15,27,0,1,"dungeon_wall_height_difference_22")
+spawn("dungeon_door_wooden",18,27,3,0,"dungeon_door_wooden_1")
+dungeon_door_wooden_1.door:setPullChain(true)
+spawn("rat_swarm",19,27,3,0,"rat_swarm_3")
+rat_swarm_3.monster:setHealth(100)
+rat_swarm_3.detectedtimer:setTimerInterval(0)
+rat_swarm_3.detectedtimer:setDisableSelf(false)
+rat_swarm_3.detectedtimer:setTriggerOnStart(true)
+rat_swarm_3.detectedtimer:setCurrentLevelOnly(true)
+spawn("dungeon_pillar_lantern_01",21,28,3,0,"dungeon_pillar_lantern_01_7")
+spawn("dungeon_wall_broken_01",18,27,0,0,"dungeon_wall_broken_01_8")
+spawn("dungeon_wall_broken_02",14,29,3,0,"dungeon_wall_broken_02_5")
+spawn("dungeon_wall_ivy_01",20,28,1,0,"dungeon_wall_ivy_01_4")
+spawn("dungeon_wall_broken_02",19,28,2,0,"dungeon_wall_broken_02_6")
+spawn("dungeon_wall_ivy_02",20,27,0,0,"dungeon_wall_ivy_02_3")
+spawn("dungeon_wall_ivy_02",20,27,1,0,"dungeon_wall_ivy_02_4")
+spawn("dungeon_wall_chains_02",15,30,2,0,"dungeon_wall_chains_02_1")
+spawn("dungeon_wall_broken_01",14,26,3,0,"dungeon_wall_broken_01_9")
+spawn("dungeon_wall_broken_02",14,27,2,0,"dungeon_wall_broken_02_7")
+spawn("dungeon_wall_ivy_02",15,28,3,0,"dungeon_wall_ivy_02_5")
+spawn("dungeon_wall_height_difference",15,27,3,1,"dungeon_wall_height_difference_23")
+spawn("floor_dirt",14,30,1,0,"floor_dirt_1")
+spawn("floor_dirt",19,27,1,0,"floor_dirt_2")
+spawn("dungeon_secret_button_large",19,28,3,0,"dungeon_secret_button_large_3")
+dungeon_secret_button_large_3.button:setDisableSelf(true)
+dungeon_secret_button_large_3.button:addConnector("onActivate", "dungeon_secret_door_11", "open")
+dungeon_secret_button_large_3.detectedtimer:setTimerInterval(0)
+dungeon_secret_button_large_3.detectedtimer:setDisableSelf(false)
+dungeon_secret_button_large_3.detectedtimer:setTriggerOnStart(true)
+dungeon_secret_button_large_3.detectedtimer:setCurrentLevelOnly(true)
+spawn("dungeon_wall_broken_02",18,29,0,0,"dungeon_wall_broken_02_8")
+spawn("dungeon_wall_ivy_02",18,29,0,0,"dungeon_wall_ivy_02_6")
+spawn("dungeon_secret_door",16,30,3,0,"dungeon_secret_door_9")
+spawn("dungeon_secret_button_small",19,30,0,0,"dungeon_secret_button_small_4")
+dungeon_secret_button_small_4.button:setDisableSelf(true)
+dungeon_secret_button_small_4.button:addConnector("onActivate", "dungeon_secret_door_9", "open")
+dungeon_secret_button_small_4.button:addConnector("onActivate", "spawner_19", "activate")
+dungeon_secret_button_small_4.detectedtimer:setTimerInterval(0)
+dungeon_secret_button_small_4.detectedtimer:setDisableSelf(false)
+dungeon_secret_button_small_4.detectedtimer:setTriggerOnStart(true)
+dungeon_secret_button_small_4.detectedtimer:setCurrentLevelOnly(true)
+spawn("floor_dirt",17,29,1,0,"floor_dirt_3")
+spawn("floor_dirt",19,30,1,0,"floor_dirt_4")
+spawn("dungeon_pit",18,30,3,0,"dungeon_pit_7")
+spawn("mine_ceiling_pit_light",18,30,0,1,"mine_ceiling_pit_light_10")
+spawn("dungeon_wall_height_difference",18,30,1,1,"dungeon_wall_height_difference_24")
+spawn("dungeon_wall_height_difference",18,30,0,1,"dungeon_wall_height_difference_25")
+spawn("dungeon_wall_height_difference",18,30,3,1,"dungeon_wall_height_difference_26")
+spawn("mine_counterweight_chains",18,30,3,0,"mine_counterweight_chains_3")
+spawn("dungeon_secret_door",20,29,0,0,"dungeon_secret_door_11")
+spawn("skeleton_trooper2",20,29,0,0,"skeleton_trooper2_1")
+skeleton_trooper2_1.monster:setAIState("guard")
+skeleton_trooper2_1.detectedtimer:setTimerInterval(0)
+skeleton_trooper2_1.detectedtimer:setDisableSelf(false)
+skeleton_trooper2_1.detectedtimer:setTriggerOnStart(true)
+skeleton_trooper2_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("dungeon_secret_door",15,25,0,0,"dungeon_secret_door_10")
+dungeon_secret_door_10.door:setDoorState("open")
+spawn("dungeon_pressure_plate_dirt_floor",15,26,0,0,"dungeon_pressure_plate_dirt_floor_1")
+dungeon_pressure_plate_dirt_floor_1.floortrigger:setTriggeredByParty(true)
+dungeon_pressure_plate_dirt_floor_1.floortrigger:setTriggeredByMonster(false)
+dungeon_pressure_plate_dirt_floor_1.floortrigger:setTriggeredByItem(false)
+dungeon_pressure_plate_dirt_floor_1.floortrigger:setTriggeredByDigging(false)
+dungeon_pressure_plate_dirt_floor_1.floortrigger:setDisableSelf(true)
+dungeon_pressure_plate_dirt_floor_1.floortrigger:addConnector("onActivate", "dungeon_secret_door_10", "close")
+spawn("spawner",15,29,0,0,"spawner_19")
+spawner_19.spawner:setSpawnedEntity("skeleton_archer")
+spawner_19.spawner:setMonsterLevel(1)
+spawner_19.spawner:setCooldown(0)
+spawner_19.spawner:setDisableSelf(true)
+
+--- level 4 ---
 
 newMap{
 	name = "Second Beach (Present)",
@@ -3505,8 +4685,8 @@ loadLayer("tiles", {
 	8,7,8,8,8,6,2,2,2,2,5,5,5,5,5,5,5,5,1,1,1,1,1,1,2,1,5,5,5,5,5,5,
 	8,7,6,6,2,2,2,2,2,2,1,5,5,5,5,5,5,5,5,5,5,5,1,2,2,2,5,5,5,5,5,5,
 	8,2,6,6,6,2,6,6,2,2,1,5,5,5,1,1,1,1,1,3,1,1,2,2,2,1,5,5,5,5,5,5,
-	8,7,6,6,6,6,6,6,2,1,1,5,5,3,3,1,1,5,5,5,5,5,2,1,2,1,5,5,5,5,5,5,
-	8,7,8,6,6,2,2,2,2,1,1,1,5,1,1,3,1,1,5,5,5,5,1,1,2,1,1,3,3,1,1,4,
+	8,7,6,6,6,6,6,6,2,1,1,5,5,3,3,1,1,5,5,5,5,1,2,1,2,1,5,5,5,5,5,5,
+	8,7,8,6,6,2,2,2,2,1,1,1,5,1,1,3,1,1,5,5,5,1,1,1,2,1,1,3,3,1,1,4,
 	8,7,8,6,6,2,2,2,1,1,1,5,5,1,3,1,1,1,5,5,5,5,1,1,1,5,5,1,5,5,1,4,
 	8,7,2,2,6,6,2,2,1,1,1,5,5,1,5,5,1,5,5,5,5,5,5,1,5,5,5,5,5,5,1,4,
 	8,7,2,8,2,2,2,2,1,1,1,5,5,1,5,5,5,5,5,1,1,5,1,1,5,5,5,5,5,5,1,4,
@@ -4547,7 +5727,7 @@ spawn("beach_rock_3x1",19,7,1,0,"beach_rock_3x1_37")
 spawn("beach_rock_3x1",21,10,3,0,"beach_rock_3x1_38")
 spawn("beach_rock_spire",19,10,2,0,"beach_rock_spire_11")
 spawn("beach_rock_2x1",19,12,1,0,"beach_rock_2x1_43")
-spawn("beach_rock_arch_small",21,12,2,0,"beach_rock_arch_small_124")
+spawn("beach_rock_arch_small",20,12,2,0,"beach_rock_arch_small_124")
 spawn("beach_rock_floor_decoration",20,10,2,0,"beach_rock_floor_decoration_9")
 spawn("beach_crab",29,4,0,0,"beach_crab_5")
 spawn("beach_crab",28,5,3,0,"beach_crab_6")
@@ -4677,7 +5857,7 @@ spawn("beach_rock_spire",14,13,1,0,"beach_rock_spire_15")
 spawn("beach_rock_spire",14,13,0,0,"beach_rock_spire_16")
 spawn("beach_rock_spire",14,13,2,0,"beach_rock_spire_17")
 spawn("teleporter",16,14,2,0,"teleporter_17")
-teleporter_17.teleporter:setTeleportTarget(3,9,25,0)
+teleporter_17.teleporter:setTeleportTarget(4,9,25,0)
 teleporter_17.teleporter:setSpin("east")
 teleporter_17.teleporter:setTriggeredByParty(true)
 teleporter_17.teleporter:setTriggeredByMonster(true)
@@ -4685,7 +5865,7 @@ teleporter_17.teleporter:setTriggeredByItem(false)
 teleporter_17.teleporter:setTriggeredBySpell(false)
 teleporter_17.controller:setInitialState("deactivate")
 spawn("teleporter",8,25,2,0,"teleporter_18")
-teleporter_18.teleporter:setTeleportTarget(3,16,13,0)
+teleporter_18.teleporter:setTeleportTarget(4,16,13,0)
 teleporter_18.teleporter:setSpin("south")
 teleporter_18.teleporter:setTriggeredByParty(true)
 teleporter_18.teleporter:setTriggeredByMonster(true)
@@ -5025,7 +6205,6 @@ spawn("beach_rock_3x2",16,7,2,0,"beach_rock_3x2_9")
 spawn("crystal_area",22,11,2,0,"crystal_area_3")
 spawn("crystal_area",22,11,0,0,"crystal_area_4")
 spawn("crystal_area_inside",22,11,1,0,"crystal_area_inside_1")
-spawn("beach_rock_floor_decoration",20,11,1,0,"beach_rock_floor_decoration_30")
 spawn("script_entity",10,14,2,0,"script_entity_10")
 script_entity_10.script:setSource("function spawnCrowern()\
 \9local m = self.go:spawn(\"crowern\")\
@@ -5198,7 +6377,7 @@ spawn("forest_spruce_sapling_pillar",3,12,0,1,"forest_spruce_sapling_pillar_1")
 spawn("forest_spruce_sapling_pillar",3,11,3,1,"forest_spruce_sapling_pillar_3")
 spawn("script_entity",3,12,1,0,"script_entity_16")
 script_entity_16.script:setSource("function sandWarg()\
-\9spawn(\"sand_warg_boss\", 1, 2, 11, 1, 1, \"boss\")\
+\9spawn(\"sand_warg_boss\", self.go.level, 2, 11, 1, 1, \"boss\")\
 \9boss.brain:disable()\
 \9boss.monster:setExp(250)\
 \9delayedCall(self.go.id, 0.1, \"moveForward\")\
@@ -5290,7 +6469,7 @@ function spawnAide(x,y)\
 \9\9else\
 \9\9\9delayedCall(self.go.id, 0, \"caveDisable\")\
 \9\9\9aideCount = aideCount + 1\
-\9\9\9local aide = spawn(\"fjeld_warg\", 1, x, y, 1, 1, \"bossAide_\"..aideCount)\
+\9\9\9local aide = spawn(\"fjeld_warg\", self.go.level, x, y, 1, 1, \"bossAide_\"..aideCount)\
 \9\9\9aide.monster:addConnector(\"onDie\", \"script_entity_16\", \"aideDie\")\
 \9\9\9aide.monster:addConnector(\"onDamage\", \"script_entity_16\", \"aideDamage\")\
 \9\9\9aide.monster:setExp(0)\
@@ -5336,11 +6515,7 @@ spawn("forest_border_rocks_01",6,14,1,1,"forest_border_rocks_01_6")
 spawn("forest_border_rocks_01",4,9,2,1,"forest_border_rocks_01_7")
 spawn("forest_border_rocks_01",3,13,3,1,"forest_border_rocks_01_8")
 spawn("beach_rock_blocker_01",2,15,3,1,"beach_rock_blocker_01_27")
-spawn("forest_grass_01",3,15,1,1,"forest_grass_01_11")
-spawn("forest_grass_01",3,11,1,1,"forest_grass_01_21")
 spawn("forest_grass_01",5,9,1,1,"forest_grass_01_22")
-spawn("forest_grass_01",5,11,1,1,"forest_grass_01_23")
-spawn("forest_grass_01",6,15,1,1,"forest_grass_01_24")
 spawn("forest_spruce_smallest_01",6,16,2,1,"forest_spruce_smallest_01_1")
 spawn("forest_spruce_smallest_01",2,18,3,1,"forest_spruce_smallest_01_2")
 spawn("beach_rock_2x1",1,17,0,1,"beach_rock_2x1_92")
@@ -5411,7 +6586,6 @@ spawn("swamp_heather_low",2,5,2,1,"swamp_heather_low_2")
 spawn("swamp_heather_low",2,2,2,1,"swamp_heather_low_3")
 spawn("forest_grass_01",4,7,1,1,"forest_grass_01_27")
 spawn("forest_grass_01",1,4,1,1,"forest_grass_01_28")
-spawn("forest_grass_01",5,4,1,1,"forest_grass_01_29")
 spawn("forest_ruins_wall_02",5,2,0,1,"forest_ruins_wall_02_2")
 spawn("forest_ruins_wall_01",6,2,0,1,"forest_ruins_wall_01_2")
 spawn("forest_ruins_wall_end_left",4,2,0,1,"forest_ruins_wall_end_left_3")
@@ -5532,7 +6706,6 @@ spawn("beach_rock_2x1",6,8,1,1,"beach_rock_2x1_105")
 spawn("forest_border_rocks_01",6,6,1,1,"forest_border_rocks_01_15")
 spawn("forest_grass_01",6,5,1,1,"forest_grass_01_30")
 spawn("forest_spruce_smallest_01",6,6,3,1,"forest_spruce_smallest_01_4")
-spawn("forest_spruce_sapling_pillar",5,8,0,1,"forest_spruce_sapling_pillar_7")
 spawn("swamp_heather_low",6,6,2,1,"swamp_heather_low_4")
 spawn("forest_grass_01",6,7,1,1,"forest_grass_01_31")
 spawn("forest_ruins_wall_ivy_02",6,3,2,0,"forest_ruins_wall_ivy_02_3")
@@ -5616,7 +6789,6 @@ throwing_knife_4.detectedtimer:setTimerInterval(0)
 throwing_knife_4.detectedtimer:setDisableSelf(false)
 throwing_knife_4.detectedtimer:setTriggerOnStart(true)
 throwing_knife_4.detectedtimer:setCurrentLevelOnly(true)
-spawn("forest_grass_01",6,13,1,1,"forest_grass_01_32")
 spawn("grass_planes_01",2,12,2,1,"grass_planes_01_2")
 spawn("forest_border_rocks_01",6,7,0,1,"forest_border_rocks_01_16")
 spawn("forest_exit",0,4,3,1,"forest_exit_1")
@@ -5628,8 +6800,44 @@ spawn("forest_lantern",2,4,2,1,"forest_lantern_6")
 spawn("forest_lantern",6,2,1,1,"forest_lantern_20")
 spawn("beach_rock_spire",6,1,0,1,"beach_rock_spire_1")
 spawn("forest_spruce_01",5,1,2,1,"forest_spruce_01_1")
+spawn("dungeon_wall_ivy_01",23,9,0,0,"dungeon_wall_ivy_01_3")
+spawn("forest_grass_01",3,14,1,1,"forest_grass_01_39")
+spawn("forest_grass_01",5,15,1,1,"forest_grass_01_41")
+spawn("forest_grass_01",7,12,1,1,"forest_grass_01_44")
+spawn("forest_grass_01",3,10,1,1,"forest_grass_01_48")
+spawn("grass_planes_01",6,13,2,1,"grass_planes_01_4")
+spawn("grass_planes_01",6,14,2,1,"grass_planes_01_5")
+spawn("grass_planes_01",6,15,2,1,"grass_planes_01_6")
+spawn("grass_planes_01",5,10,2,1,"grass_planes_01_7")
+spawn("grass_planes_01",5,11,2,1,"grass_planes_01_8")
+spawn("grass_planes_01",4,10,2,1,"grass_planes_01_9")
+spawn("grass_planes_01",4,11,2,1,"grass_planes_01_10")
+spawn("grass_planes_01",4,12,2,1,"grass_planes_01_11")
+spawn("grass_planes_01",4,13,2,1,"grass_planes_01_12")
+spawn("grass_planes_01",4,15,2,1,"grass_planes_01_13")
+spawn("grass_planes_01",4,14,2,1,"grass_planes_01_14")
+spawn("grass_planes_01",6,12,2,1,"grass_planes_01_15")
+spawn("grass_planes_01",6,11,2,1,"grass_planes_01_16")
+spawn("grass_planes_01",3,15,2,1,"grass_planes_01_17")
+spawn("grass_planes_01",4,16,2,1,"grass_planes_01_18")
+spawn("grass_planes_01",4,17,2,1,"grass_planes_01_19")
+spawn("grass_planes_01",3,18,2,1,"grass_planes_01_20")
+spawn("forest_grass_01",5,12,1,1,"forest_grass_01_11")
+spawn("forest_grass_01",7,11,1,1,"forest_grass_01_21")
+spawn("forest_grass_01",3,11,1,1,"forest_grass_01_23")
+spawn("grass_planes_01",5,8,2,1,"grass_planes_01_21")
+spawn("grass_planes_01",5,7,2,1,"grass_planes_01_22")
+spawn("grass_planes_01",5,6,2,1,"grass_planes_01_23")
+spawn("grass_planes_01",5,5,2,1,"grass_planes_01_24")
+spawn("grass_planes_01",4,5,2,1,"grass_planes_01_25")
+spawn("grass_planes_01",4,6,2,1,"grass_planes_01_26")
+spawn("grass_planes_01",3,5,2,1,"grass_planes_01_27")
+spawn("grass_planes_01",3,4,2,1,"grass_planes_01_28")
+spawn("grass_planes_01",4,4,2,1,"grass_planes_01_29")
+spawn("grass_planes_01",2,4,2,1,"grass_planes_01_30")
+spawn("grass_planes_01",5,4,2,1,"grass_planes_01_31")
 
---- level 4 ---
+--- level 5 ---
 
 newMap{
 	name = "Minute Grotto (Present)",
@@ -6321,7 +7529,7 @@ xafi_shemagh_1.detectedtimer:setDisableSelf(false)
 xafi_shemagh_1.detectedtimer:setTriggerOnStart(true)
 xafi_shemagh_1.detectedtimer:setCurrentLevelOnly(true)
 
---- level 5 ---
+--- level 6 ---
 
 newMap{
 	name = "Magic Cave",
@@ -6749,7 +7957,7 @@ wall_button_1.button:addConnector("onActivate", "teleporter_14", "activate")
 wall_button_1.button:addConnector("onActivate", "teleporter_15", "activate")
 wall_button_1.button:addConnector("onActivate", "teleporter_16", "activate")
 spawn("teleporter",13,25,0,0,"teleporter_1")
-teleporter_1.teleporter:setTeleportTarget(6,15,25,0)
+teleporter_1.teleporter:setTeleportTarget(7,15,25,0)
 teleporter_1.teleporter:setSpin("none")
 teleporter_1.teleporter:setTriggeredByParty(true)
 teleporter_1.teleporter:setTriggeredByMonster(true)
@@ -6830,14 +8038,14 @@ timer_2.timer:addConnector("onActivate", "spawner_3", "activate")
 spawn("daemon_head",8,17,2,0,"daemon_head_1")
 spawn("daemon_head",8,17,0,0,"daemon_head_2")
 spawn("teleporter",11,1,2,-7,"teleporter_2")
-teleporter_2.teleporter:setTeleportTarget(6,15,15,7)
+teleporter_2.teleporter:setTeleportTarget(7,15,15,7)
 teleporter_2.teleporter:setSpin("none")
 teleporter_2.teleporter:setTriggeredByParty(true)
 teleporter_2.teleporter:setTriggeredByMonster(true)
 teleporter_2.teleporter:setTriggeredByItem(true)
 teleporter_2.teleporter:setTriggeredBySpell(true)
 spawn("teleporter",5,30,0,0,"teleporter_3")
-teleporter_3.teleporter:setTeleportTarget(6,5,2,0)
+teleporter_3.teleporter:setTeleportTarget(7,5,2,0)
 teleporter_3.teleporter:setSpin("none")
 teleporter_3.teleporter:setTriggeredByParty(true)
 teleporter_3.teleporter:setTriggeredByMonster(true)
@@ -6845,7 +8053,7 @@ teleporter_3.teleporter:setTriggeredByItem(true)
 teleporter_3.teleporter:setTriggeredBySpell(true)
 teleporter_3.controller:setInitialState("deactivate")
 spawn("teleporter",5,1,0,0,"teleporter_4")
-teleporter_4.teleporter:setTeleportTarget(6,5,29,0)
+teleporter_4.teleporter:setTeleportTarget(7,5,29,0)
 teleporter_4.teleporter:setSpin("none")
 teleporter_4.teleporter:setTriggeredByParty(true)
 teleporter_4.teleporter:setTriggeredByMonster(true)
@@ -6853,7 +8061,7 @@ teleporter_4.teleporter:setTriggeredByItem(true)
 teleporter_4.teleporter:setTriggeredBySpell(true)
 teleporter_4.controller:setInitialState("deactivate")
 spawn("teleporter",30,3,0,0,"teleporter_5")
-teleporter_5.teleporter:setTeleportTarget(6,8,1,0)
+teleporter_5.teleporter:setTeleportTarget(7,8,1,0)
 teleporter_5.teleporter:setSpin("none")
 teleporter_5.teleporter:setTriggeredByParty(true)
 teleporter_5.teleporter:setTriggeredByMonster(true)
@@ -6861,7 +8069,7 @@ teleporter_5.teleporter:setTriggeredByItem(true)
 teleporter_5.teleporter:setTriggeredBySpell(true)
 teleporter_5.controller:setInitialState("deactivate")
 spawn("teleporter",7,1,0,0,"teleporter_6")
-teleporter_6.teleporter:setTeleportTarget(6,29,3,0)
+teleporter_6.teleporter:setTeleportTarget(7,29,3,0)
 teleporter_6.teleporter:setSpin("none")
 teleporter_6.teleporter:setTriggeredByParty(true)
 teleporter_6.teleporter:setTriggeredByMonster(true)
@@ -6869,7 +8077,7 @@ teleporter_6.teleporter:setTriggeredByItem(true)
 teleporter_6.teleporter:setTriggeredBySpell(true)
 teleporter_6.controller:setInitialState("deactivate")
 spawn("teleporter",19,30,0,0,"teleporter_7")
-teleporter_7.teleporter:setTeleportTarget(6,18,1,0)
+teleporter_7.teleporter:setTeleportTarget(7,18,1,0)
 teleporter_7.teleporter:setSpin("none")
 teleporter_7.teleporter:setTriggeredByParty(true)
 teleporter_7.teleporter:setTriggeredByMonster(true)
@@ -6877,7 +8085,7 @@ teleporter_7.teleporter:setTriggeredByItem(true)
 teleporter_7.teleporter:setTriggeredBySpell(true)
 teleporter_7.controller:setInitialState("deactivate")
 spawn("teleporter",19,1,0,0,"teleporter_8")
-teleporter_8.teleporter:setTeleportTarget(6,20,30,0)
+teleporter_8.teleporter:setTeleportTarget(7,20,30,0)
 teleporter_8.teleporter:setSpin("none")
 teleporter_8.teleporter:setTriggeredByParty(true)
 teleporter_8.teleporter:setTriggeredByMonster(true)
@@ -6885,7 +8093,7 @@ teleporter_8.teleporter:setTriggeredByItem(true)
 teleporter_8.teleporter:setTriggeredBySpell(true)
 teleporter_8.controller:setInitialState("deactivate")
 spawn("teleporter",23,30,0,0,"teleporter_9")
-teleporter_9.teleporter:setTeleportTarget(6,26,1,0)
+teleporter_9.teleporter:setTeleportTarget(7,26,1,0)
 teleporter_9.teleporter:setSpin("none")
 teleporter_9.teleporter:setTriggeredByParty(true)
 teleporter_9.teleporter:setTriggeredByMonster(true)
@@ -6893,7 +8101,7 @@ teleporter_9.teleporter:setTriggeredByItem(true)
 teleporter_9.teleporter:setTriggeredBySpell(true)
 teleporter_9.controller:setInitialState("deactivate")
 spawn("teleporter",27,1,0,0,"teleporter_10")
-teleporter_10.teleporter:setTeleportTarget(6,24,30,0)
+teleporter_10.teleporter:setTeleportTarget(7,24,30,0)
 teleporter_10.teleporter:setSpin("none")
 teleporter_10.teleporter:setTriggeredByParty(true)
 teleporter_10.teleporter:setTriggeredByMonster(true)
@@ -6901,7 +8109,7 @@ teleporter_10.teleporter:setTriggeredByItem(true)
 teleporter_10.teleporter:setTriggeredBySpell(true)
 teleporter_10.controller:setInitialState("deactivate")
 spawn("teleporter",27,29,0,0,"teleporter_11")
-teleporter_11.teleporter:setTeleportTarget(6,1,29,0)
+teleporter_11.teleporter:setTeleportTarget(7,1,29,0)
 teleporter_11.teleporter:setSpin("none")
 teleporter_11.teleporter:setTriggeredByParty(true)
 teleporter_11.teleporter:setTriggeredByMonster(true)
@@ -6909,7 +8117,7 @@ teleporter_11.teleporter:setTriggeredByItem(true)
 teleporter_11.teleporter:setTriggeredBySpell(true)
 teleporter_11.controller:setInitialState("deactivate")
 spawn("teleporter",1,30,0,0,"teleporter_12")
-teleporter_12.teleporter:setTeleportTarget(6,27,30,0)
+teleporter_12.teleporter:setTeleportTarget(7,27,30,0)
 teleporter_12.teleporter:setSpin("none")
 teleporter_12.teleporter:setTriggeredByParty(true)
 teleporter_12.teleporter:setTriggeredByMonster(true)
@@ -6917,7 +8125,7 @@ teleporter_12.teleporter:setTriggeredByItem(true)
 teleporter_12.teleporter:setTriggeredBySpell(true)
 teleporter_12.controller:setInitialState("deactivate")
 spawn("teleporter",30,23,0,0,"teleporter_13")
-teleporter_13.teleporter:setTeleportTarget(6,1,24,0)
+teleporter_13.teleporter:setTeleportTarget(7,1,24,0)
 teleporter_13.teleporter:setSpin("none")
 teleporter_13.teleporter:setTriggeredByParty(true)
 teleporter_13.teleporter:setTriggeredByMonster(true)
@@ -6925,7 +8133,7 @@ teleporter_13.teleporter:setTriggeredByItem(true)
 teleporter_13.teleporter:setTriggeredBySpell(true)
 teleporter_13.controller:setInitialState("deactivate")
 spawn("teleporter",1,25,0,0,"teleporter_14")
-teleporter_14.teleporter:setTeleportTarget(6,30,24,0)
+teleporter_14.teleporter:setTeleportTarget(7,30,24,0)
 teleporter_14.teleporter:setSpin("none")
 teleporter_14.teleporter:setTriggeredByParty(true)
 teleporter_14.teleporter:setTriggeredByMonster(true)
@@ -6933,7 +8141,7 @@ teleporter_14.teleporter:setTriggeredByItem(true)
 teleporter_14.teleporter:setTriggeredBySpell(true)
 teleporter_14.controller:setInitialState("deactivate")
 spawn("teleporter",30,13,0,0,"teleporter_15")
-teleporter_15.teleporter:setTeleportTarget(6,16,17,0)
+teleporter_15.teleporter:setTeleportTarget(7,16,17,0)
 teleporter_15.teleporter:setSpin("none")
 teleporter_15.teleporter:setTriggeredByParty(true)
 teleporter_15.teleporter:setTriggeredByMonster(true)
@@ -6941,7 +8149,7 @@ teleporter_15.teleporter:setTriggeredByItem(true)
 teleporter_15.teleporter:setTriggeredBySpell(true)
 teleporter_15.controller:setInitialState("deactivate")
 spawn("teleporter",17,17,0,0,"teleporter_16")
-teleporter_16.teleporter:setTeleportTarget(6,29,13,0)
+teleporter_16.teleporter:setTeleportTarget(7,29,13,0)
 teleporter_16.teleporter:setSpin("none")
 teleporter_16.teleporter:setTriggeredByParty(true)
 teleporter_16.teleporter:setTriggeredByMonster(true)
@@ -6999,7 +8207,7 @@ script_entity_2.script:setSource("do\
 \9--item.containeritem:addItem(loot.item)\
 end")
 
---- level 6 ---
+--- level 7 ---
 
 newMap{
 	name = "Second Beach (Past)",
@@ -7838,7 +9046,7 @@ rock_3.detectedtimer:setDisableSelf(false)
 rock_3.detectedtimer:setTriggerOnStart(true)
 rock_3.detectedtimer:setCurrentLevelOnly(true)
 
---- level 7 ---
+--- level 8 ---
 
 newMap{
 	name = "Minute Grotto (Past)",

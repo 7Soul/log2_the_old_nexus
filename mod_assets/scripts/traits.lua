@@ -31,9 +31,9 @@ defineTrait{
 	icon = 27,
 	description = "A monk who has trained in the path of light to achieve inner balance.",
 	gameEffect = [[
-	- Health 70 (+5 per level)
-	- Energy 60 (+5 per level)
-	- Starts with every stat at 5 and gain +1 to all stats per level (No race bonus).
+	- Health 70 (+1 per level)
+	- Energy 60 (+1 per level)
+	- Starts with every stat at 9 and gain +1 to all stats per level.
 	- Food consumption reduced by 25%
 	
 	Healing Light: Gain bonus regeneration when you deliver a killing blow (6 seconds duration).
@@ -43,42 +43,50 @@ defineTrait{
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
-			champion:addStatModifier("max_health", 70 + (level-1) * 5)
-			champion:addStatModifier("max_energy", 60 + (level-1) * 5)
+			champion:addStatModifier("max_health", 70 + (level-1) * 4)
+			champion:addStatModifier("max_energy", 60 + (level-1) * 4)
+			champion:addStatModifier("food_rate", -25)
 			local strength = champion:getBaseStat("strength")
 			local dexterity = champion:getBaseStat("dexterity")
 			local vitality = champion:getBaseStat("vitality")
 			local willpower = champion:getBaseStat("willpower")
 			champion:addStatModifier("food_rate", -25)
-			if champion:getRace() == "ratling" then
-				champion:addStatModifier("strength", 4)
-				champion:addStatModifier("dexterity", -2)
-			end			
-			if champion:getRace() == "minotaur" then
-				champion:addStatModifier("strength", -5)
-				champion:addStatModifier("dexterity", 4)
-				champion:addStatModifier("vitality", -4)
-				champion:addStatModifier("willpower", 3)
+			-- if champion:getRace() == "ratling" then
+				-- champion:addStatModifier("strength", 4)
+				-- champion:addStatModifier("dexterity", -2)
+			-- end			
+			-- if champion:getRace() == "minotaur" then
+				-- champion:addStatModifier("strength", -5)
+				-- champion:addStatModifier("dexterity", 4)
+				-- champion:addStatModifier("vitality", -4)
+				-- champion:addStatModifier("willpower", 3)
+			-- end
+			-- if champion:getRace() == "insectoid" then
+				-- champion:addStatModifier("strength", -1)
+				-- champion:addStatModifier("dexterity", 2)
+				-- champion:addStatModifier("vitality", 1)
+				-- champion:addStatModifier("willpower", -2)
+			-- end
+			-- if champion:getRace() == "lizardman" then
+				-- champion:addStatModifier("dexterity", -2)
+				-- champion:addStatModifier("willpower", 2)
+			-- end
+			if Dungeon.getMaxLevels() ~= 0 then
+				local str = functions.script.get_c("monkstrength", champion:getOrdinal()) and functions.script.get_c("monkstrength", champion:getOrdinal()) or 0
+				local dex = functions.script.get_c("monkdexterity", champion:getOrdinal()) and functions.script.get_c("monkdexterity", champion:getOrdinal()) or 0
+				local vit = functions.script.get_c("monkvitality", champion:getOrdinal()) and functions.script.get_c("monkvitality", champion:getOrdinal()) or 0
+				local wil = functions.script.get_c("monkwillpower", champion:getOrdinal()) and functions.script.get_c("monkwillpower", champion:getOrdinal()) or 0
+				champion:addStatModifier("strength", -strength + 9 + str)
+				champion:addStatModifier("dexterity", -dexterity + 9 + dex)
+				champion:addStatModifier("vitality", -vitality + 9 + vit)
+				champion:addStatModifier("willpower", -willpower + 9 + wil)
+			else
+				champion:addStatModifier("strength", -strength + 9)
+				champion:addStatModifier("dexterity", -dexterity + 9)
+				champion:addStatModifier("vitality", -vitality + 9)
+				champion:addStatModifier("willpower", -willpower + 9)
 			end
-			if champion:getRace() == "insectoid" then
-				champion:addStatModifier("strength", -1)
-				champion:addStatModifier("dexterity", 2)
-				champion:addStatModifier("vitality", 1)
-				champion:addStatModifier("willpower", -2)
-			end
-			if champion:getRace() == "lizardman" then
-				champion:addStatModifier("dexterity", -2)
-				champion:addStatModifier("willpower", 2)
-			end
-			champion:addStatModifier("strength", -strength + 5)
-			champion:addStatModifier("dexterity", -dexterity + 5)
-			champion:addStatModifier("vitality", -vitality + 5)
-			champion:addStatModifier("willpower", -willpower + 5)
 		end	
-	end,
-	
-	onComputeCooldown = function(champion, weapon, attack, attackType, level)
-		if level > 0 then return 0.95 end
 	end,
 }
 
@@ -345,15 +353,15 @@ defineTrait{
 	description = "The Druid draws from the earth by carrying a Blooddrop Cap.",
 	gameEffect = [[
 	- Strength +1 per level.
-	- Fire resistance +5 per level.
-	- Increased Fire damage by 10%.
+	- Fire resistance +5 (+2 per level).
+	- Increased Fire damage by 20%.
 	- Gain extra action speed and melee accuracy when hit 
-	by or when using a Fire attack (Duration 18 seconds).]],
+	by or when using a Fire spell (Duration 18 seconds).]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
 			champion:addStatModifier("strength", level)
-			champion:addStatModifier("resist_fire", level * 5)
+			champion:addStatModifier("resist_fire", 5 + (level * 2))
 		end
 	end,
 }
@@ -384,14 +392,14 @@ defineTrait{
 	description = "The Druid draws from the earth by carrying an Etherweed.",
 	gameEffect = [[
 	- Willpower +1 per level.
-	- Cold resistance +5 per level.
-	- Increased Cold damage by 20%.
-	- Recover 50% of missing Energy when hit by a Cold attack.]],
+	- Cold resistance +5 (+2 per level).
+	- Increased Cold damage by 30%.
+	- Recover 50% of missing Energy when hit by a Cold spell.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
 			champion:addStatModifier("willpower", level)
-			champion:addStatModifier("resist_cold", level * 5)
+			champion:addStatModifier("resist_cold", 5 + (level * 2))
 		end	
 	end,	
 }
@@ -402,16 +410,16 @@ defineTrait{
 	icon = 88,
 	description = "The Druid draws from the earth by carrying a Mudwort.",
 	gameEffect = [[
-	- Poison resistance + 5 per level.
+	- Poison resistance +5 (+2 per level).
 	- Immune to disease.
 	- Increased Poison damage by 40%.
 	- Also affects party (check their traits).]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
-			champion:addStatModifier("resist_poison", level * 2)
+			champion:addStatModifier("resist_poison", 5 + (level * 2))
 			for i=1,4 do
-				party.party:getChampion(i):addStatModifier("resist_poison", level * 3)
+				party.party:getChampion(i):addStatModifier("resist_poison", level * 2)
 			end
 		end	
 	end,
@@ -428,12 +436,12 @@ defineTrait{
 	icon = 88,
 	description = "The Druid draws from the earth by carrying a Mudwort.",
 	gameEffect = [[
-	- Poison resistance +3 per level.
+	- Poison resistance +2 per level.
 	- Disease resistance +50%.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
-			champion:addStatModifier("resist_poison", level * 3)
+			champion:addStatModifier("resist_poison", level * 2)
 		end	
 	end,
 	onReceiveCondition = function(champion, cond, level)
@@ -451,13 +459,13 @@ defineTrait{
 	description = "The Druid draws from the earth by carrying a Falconskyre.",
 	gameEffect = [[
 	- Dexterity +1 per level.
-	- Shock resistance +5 per level.
-	- Increased Air damage by 20%.]],
+	- Shock resistance +5 (+2 per level).
+	- Increased Shock damage by 20%.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
 			champion:addStatModifier("dexterity", level)
-			champion:addStatModifier("resist_shock", level * 5)
+			champion:addStatModifier("resist_shock", 5 + (level * 2))
 		end	
 	end,
 }
@@ -505,7 +513,8 @@ defineTrait{
 	Weapons:
 	- Accuracy | Weapons gain an accuracy bonus.
 	- Critical | Weapons gain a critical chance bonus.
-	- Firearms | Increase base damage of Firearms.
+	- Firearms | Increase damage of Firearms.
+	- Ranged Weapons | Increase damage of Missile and Throwing weapons.
 	- Heavy Weapons | Adds bleeding chance.
 	- Light Weapons | Adds reduced cooldowns.
 	
@@ -513,10 +522,7 @@ defineTrait{
 	- Block | Adds extra evasion to a shield.
 	- Heavy Armor | Adds protection.
 	- Light Armor | Adds evasion.
-	- Elemental Magic | Adds a random elemental resistance.
-	
-	Accessories:
-	- Adds stats based on the relevant skill. Ex: If an item gives Energy, it will be increased based on your Magic Training skill.]],
+	- Elemental Magic | Adds a random elemental resistance.]],
 }
 
 defineTrait{
@@ -546,7 +552,7 @@ defineTrait{
 			local item = nil
 			for i=1,2 do
 				item = champion:getItem(i)
-				if item and (item.go.firearmattack or item.go.meleeattack) and item.go.equipmentitem then 
+				if item and (item.go.firearmattack or item.go.meleeattack or item.go.throwattack) and item.go.equipmentitem then 
 					if item.go.equipmentitem:getResistFire() then champion:addStatModifier("resist_fire", item.go.equipmentitem:getResistFire()) end
 					if item.go.equipmentitem:getResistShock() then champion:addStatModifier("resist_shock", item.go.equipmentitem:getResistShock()) end
 					if item.go.equipmentitem:getResistCold() then champion:addStatModifier("resist_cold", item.go.equipmentitem:getResistCold()) end
@@ -560,18 +566,18 @@ defineTrait{
 	name = "minotaur",
 	uiName = "Minotaur",
 	icon = 38,
-	description = "As a minotaur you are bulky, simple and quick to anger. Your incredible stubborness is tolerated by others only because of your incredible prowess in combat.\n- Strength and Vitality +4\n- Dexterity and Willpower -3.\n- Your food consumption rate is 25% higher than normal.",
+	description = "As a minotaur you are bulky, simple and quick to anger. Your incredible stubbornness is tolerated by others only because of your incredible prowess in combat.\n- Your food consumption rate is 25% higher than normal.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			champion:addStatModifier("strength", 4)
-			champion:addStatModifier("dexterity", -3)
-			champion:addStatModifier("vitality", 4)
-			champion:addStatModifier("willpower", -3)
-			champion:addStatModifier("food_rate", 25)
+			-- champion:addStatModifier("strength", 4)
+			-- champion:addStatModifier("dexterity", -3)
+			-- champion:addStatModifier("vitality", 4)
+			-- champion:addStatModifier("willpower", -3)
+			-- champion:addStatModifier("food_rate", 25)
 			local item = nil
 			for i=1,2 do
 				item = champion:getItem(i)
-				if item and (item.go.firearmattack or item.go.meleeattack) and item.go.equipmentitem then 
+				if item and (item.go.firearmattack or item.go.meleeattack or item.go.throwattack) and item.go.equipmentitem then 
 					if item.go.equipmentitem:getResistFire() then champion:addStatModifier("resist_fire", item.go.equipmentitem:getResistFire()) end
 					if item.go.equipmentitem:getResistShock() then champion:addStatModifier("resist_shock", item.go.equipmentitem:getResistShock()) end
 					if item.go.equipmentitem:getResistCold() then champion:addStatModifier("resist_cold", item.go.equipmentitem:getResistCold()) end
@@ -585,19 +591,19 @@ defineTrait{
 	name = "lizardman",
 	uiName = "Lizardman",
 	icon = 40,
-	description = "As a lizardman you are a social outcast and are mistrusted by other races because of your capricious and deceitful nature. What you lack in social skills you greatly make up for in stealth and dexterity.\n- Dexterity +2, Willpower -2.\n- Resist All +20%.",
+	description = "As a lizardman you are a social outcast and are mistrusted by other races because of your capricious and deceitful nature. What you lack in social skills you greatly make up for in stealth and dexterity.\n- Resist All +12%.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			champion:addStatModifier("dexterity", 2)
-			champion:addStatModifier("willpower", -2)
-			champion:addStatModifier("resist_fire", 20)
-			champion:addStatModifier("resist_cold", 20)
-			champion:addStatModifier("resist_poison", 20)
-			champion:addStatModifier("resist_shock", 20)
+			-- champion:addStatModifier("dexterity", 2)
+			-- champion:addStatModifier("willpower", -2)
+			champion:addStatModifier("resist_fire", 12)
+			champion:addStatModifier("resist_cold", 12)
+			champion:addStatModifier("resist_poison", 12)
+			champion:addStatModifier("resist_shock", 12)
 			local item = nil
 			for i=1,2 do
 				item = champion:getItem(i)
-				if item and (item.go.firearmattack or item.go.meleeattack) and item.go.equipmentitem then 
+				if item and (item.go.firearmattack or item.go.meleeattack or item.go.throwattack) and item.go.equipmentitem then 
 					if item.go.equipmentitem:getResistFire() then champion:addStatModifier("resist_fire", item.go.equipmentitem:getResistFire()) end
 					if item.go.equipmentitem:getResistShock() then champion:addStatModifier("resist_shock", item.go.equipmentitem:getResistShock()) end
 					if item.go.equipmentitem:getResistCold() then champion:addStatModifier("resist_cold", item.go.equipmentitem:getResistCold()) end
@@ -611,17 +617,17 @@ defineTrait{
 	name = "insectoid",
 	uiName = "Insectoid",
 	icon = 39,
-	description = "As an insectoid, your thoughts are completely alien to other races. Your knowledge of the arcane is unrivaled. Insectoids come in many shapes and sizes but most often their bodies are covered with a thick shell.\n- Strength +1, Dexterity -2, Vitality -1, Willpower +2.\n- Your chance of getting body parts injured is reduced by 50%.",
+	description = "As an insectoid, your thoughts are completely alien to other races. Your knowledge of the arcane is unrivaled. Insectoids come in many shapes and sizes but most often their bodies are covered with a thick shell.\n- Your chance of getting body parts injured is reduced by 50%.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			champion:addStatModifier("strength", 1)
-			champion:addStatModifier("dexterity", -2)
-			champion:addStatModifier("vitality", -1)
-			champion:addStatModifier("willpower", 2)
+			-- champion:addStatModifier("strength", 1)
+			-- champion:addStatModifier("dexterity", -3)
+			-- champion:addStatModifier("vitality", -1)
+			-- champion:addStatModifier("willpower", 2)
 			local item = nil
 			for i=1,2 do
 				item = champion:getItem(i)
-				if item and (item.go.firearmattack or item.go.meleeattack) and item.go.equipmentitem then 
+				if item and (item.go.firearmattack or item.go.meleeattack or item.go.throwattack) and item.go.equipmentitem then 
 					if item.go.equipmentitem:getResistFire() then champion:addStatModifier("resist_fire", item.go.equipmentitem:getResistFire()) end
 					if item.go.equipmentitem:getResistShock() then champion:addStatModifier("resist_shock", item.go.equipmentitem:getResistShock()) end
 					if item.go.equipmentitem:getResistCold() then champion:addStatModifier("resist_cold", item.go.equipmentitem:getResistCold()) end
@@ -640,17 +646,17 @@ defineTrait{
 	name = "ratling",
 	uiName = "Ratling",
 	icon = 41,
-	description = "As a ratling you may seem weak and disease ridden on the surface, but you are actually one of the most adaptable and hardy creatures in the world. You are a hoarder by nature and greatly enjoy fiddling with mechanical contraptions.\n- Strength -4, Dexterity +2.\n- Evasion +2.\n- Max Load +15kg.\n- You are immune to diseases.",
+	description = "As a ratling you may seem weak and disease ridden on the surface, but you are actually one of the most adaptable and hardy creatures in the world. You are a hoarder by nature and greatly enjoy fiddling with mechanical contraptions.\n- You are immune to diseases.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			champion:addStatModifier("strength", -4)
-			champion:addStatModifier("dexterity", 2)
-			champion:addStatModifier("evasion", 2)
-			champion:addStatModifier("max_load", level * 15)
+			-- champion:addStatModifier("strength", -4)
+			-- champion:addStatModifier("dexterity", 2)
+			-- champion:addStatModifier("evasion", 2)
+			-- champion:addStatModifier("max_load", 15)
 			local item = nil
 			for i=1,2 do
 				item = champion:getItem(i)
-				if item and (item.go.firearmattack or item.go.meleeattack) and item.go.equipmentitem then 
+				if item and (item.go.firearmattack or item.go.meleeattack or item.go.throwattack) and item.go.equipmentitem then 
 					if item.go.equipmentitem:getResistFire() then champion:addStatModifier("resist_fire", item.go.equipmentitem:getResistFire()) end
 					if item.go.equipmentitem:getResistShock() then champion:addStatModifier("resist_shock", item.go.equipmentitem:getResistShock()) end
 					if item.go.equipmentitem:getResistCold() then champion:addStatModifier("resist_cold", item.go.equipmentitem:getResistCold()) end
@@ -677,7 +683,7 @@ defineTrait{
 	icon = 39,
 	charGen = true,
 	requiredRace = "human",
-	description = "Scrolls weight nothing and you gain +1% Increased Experience Gain per scroll, plus 1 Willpower for every 5 scrolls. Bags and Boxes full of scrolls also weight nothing.",
+	description = "Spell Scrolls weight nothing and you gain +1% Increased Experience Gain per scroll, plus 1 Willpower for every 5 scrolls. Bags and Boxes full of scrolls also weight nothing.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			-- count scrolls
@@ -714,7 +720,7 @@ defineTrait{
 	icon = 40,
 	charGen = true,
 	requiredRace = "human",
-	description = "Gain + 2 to your lowest stat and +25% to your lowest resistance. If two are tied, the on at the bottom takes priority.",
+	description = "Gain +2 to your lowest stat and +25% to your lowest resistance (If two are tied, the one at the bottom takes priority).\nGain experience 5% slower.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			local stats = { "strength", "dexterity", "vitality", "willpower" }
@@ -733,6 +739,7 @@ defineTrait{
 				end
 			end
 			champion:addStatModifier(stats[lowest], 25)
+			champion:addStatModifier("exp_rate", -5)
 		end
 	end,
 }
@@ -744,7 +751,11 @@ defineTrait{
 	icon = 41,
 	charGen = true,
 	requiredRace = "human",
-	description = "Start the game with a bottle of rum. When you take a drink, you lose a point in Dexterity, Vitality and Willpower (a different stat each time) permanently, but gain 50% extra experience gain for 5 minutes. You regain half those stats back when you empty the bottle, which holds 12 drinks.",
+	description = "Start the game with a bottle of rum. When you take a drink, you lose a point in Dexterity, Vitality or Willpower (in order) permanently, but gain 50% extra experience gain for 5 minutes. You regain half those stats back when you empty the bottle, which holds 12 drinks.",onRecomputeStats = function(champion, level)
+		if level > 0 then
+			--champion:addStatModifier("dexterity", 15)
+		end
+	end
 }
 
 defineTrait{
@@ -754,7 +765,12 @@ defineTrait{
 	icon = 42,
 	charGen = true,
 	requiredRace = "minotaur",
-	description = "Increases chances of finding meat when defeating beasts. Eating red meat increases your Strength by 4 and Health and Energy regeneration rate by 25% for 1 minute. You can't eat non-meat foods, like bread, bugs or even fish.",
+	description = "Increases chances of finding meat when defeating beasts. Eating red meat increases your Strength by 4 and Health and Energy regeneration rate by 25% for 1 minute. You can't eat non-meat foods, like bread, bugs or even fish.\nYour food consumption rate is 15% higher.",
+	onRecomputeStats = function(champion, level)
+		if level > 0 then
+			champion:addStatModifier("food_rate", 15)
+		end
+	end
 }
 
 defineTrait{
@@ -764,10 +780,25 @@ defineTrait{
 	icon = 43,
 	charGen = true,
 	requiredRace = "minotaur",
-	description = "Melee attacks deal an extra 1% damage per Strength point but you also take 1% more damage. Every 3 levels you gain + 1 to Strength.",
+	description = "All melee attacks deal an extra 1% damage per Strength point but you also take 1% more damage per point. Every 3 levels you gain +1 to Strength.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			champion:addStatModifier("strength", math.floor(level/3))
+		end
+	end,
+}
+
+defineTrait{
+	name = "zzz",
+	uiName = "",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 43,
+	charGen = true,
+	requiredRace = "minotaur",
+	description = "",
+	onRecomputeStats = function(champion, level)
+		if level > 0 then
+			
 		end
 	end,
 }
@@ -779,16 +810,18 @@ defineTrait{
 	icon = 45,
 	charGen = true,
 	requiredRace = "lizardman",
-	description = "Your blood is warm during the day, giving you +2 Strength and +25% Fire Resist. Your skin is cold during the night, giving you +2 Willpower and +25% Cold Resist.",
+	description = "Your blood is warm during the day, giving you +2 Strength and +25 Fire Resist but -10 Cold Resist.\n\nYour skin is cold during the night, giving you +2 Willpower and +25 Cold Resist but -10 Fire Resist.",
 	onRecomputeStats = function(champion, level)
-		if level > 0 and Dungeon.getMaxLevels() == 0 then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 then
 			local curTime = GameMode.getTimeOfDay()
 			if curTime > 0 and curTime < 1.01 then
 				champion:addStatModifier("strength", 2)
 				champion:addStatModifier("resist_fire", 25)
+				champion:addStatModifier("resist_cold", -10)
 			else
 				champion:addStatModifier("willpower", 2)
-				champion:addStatModifier("resist_cold", 25)			
+				champion:addStatModifier("resist_cold", 25)	
+				champion:addStatModifier("resist_fire", -10)
 			end
 		end
 	end,
@@ -801,7 +834,53 @@ defineTrait{
 	icon = 46,
 	charGen = true,
 	requiredRace = "lizardman",
-	description = "You can see attacks coming from all directions, giving you +5 evasion for each monsters that is behind or beside you.",
+	description = "You can see attacks coming from all directions, warning your companions of danger.\n\nFor each monster next to you, you gain +5 evasion, and your party gains +3 evasion.",
+	onRecomputeStats = function(champion, level)
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 then
+			local stat = functions.script.get_c("wide_vision", champion:getOrdinal())
+			if not stat then return end
+			champion:addStatModifier("evasion", stat * 5)
+			for i=1,4 do
+				local c = party.party:getChampionByOrdinal(i)
+				if c ~= champion then
+					c:addTrait("wide_vision_minor")
+				end
+			end
+		end
+	end,
+}
+
+defineTrait{
+	name = "wide_vision_minor",
+	uiName = "Wide Vision (Minor)",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 46,
+	description = "A companion Lizardman is warning you of danger. You gain +3 evasion for each monster next to you.",
+	onRecomputeStats = function(champion, level)
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 then
+			for i=1,4 do
+				local c = party.party:getChampionByOrdinal(i)
+				if c:hasTrait("wide_vision") then
+					local stat = functions.script.get_c("wide_vision", c:getOrdinal())
+					if not stat then return end
+					champion:addStatModifier("evasion", stat * 3)
+				end
+			end
+		end
+	end,
+}
+
+defineTrait{
+	name = "bite",
+	uiName = "Bite",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 47,
+	charGen = true,
+	requiredRace = "lizardman",
+	description = "When attacking with a melee weapon, you perform a bite attack. This action has a 16 second cooldown, which goes down with levels.\n\nThe damage is based on your combined Strength and Dexterity.",
+	onRecomputeStats = function(champion, level)
+	
+	end,
 }
 
 defineTrait{
@@ -811,7 +890,7 @@ defineTrait{
 	icon = 48,
 	charGen = true,
 	requiredRace = "insectoid",
-	description = "Increases melee damage by 4% for each point in Willpower. Increases magic damage by 4% for each point in Strength.",
+	description = "Increases melee damage by 4% for each point in Willpower.\nIncreases magic damage by 4% for each point in Strength.",
 }
 
 defineTrait{
@@ -858,13 +937,23 @@ defineTrait{
 }
 
 defineTrait{
+	name = "collector",
+	uiName = "Trinket Collector",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 51,
+	charGen = true,
+	requiredRace = "ratling",
+	description = "",
+}
+
+defineTrait{
 	name = "built_resistance",
 	uiName = "Built Resistance",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 52,
 	charGen = true,
 	requiredRace = "ratling",
-	description = "Poison resistance + 50%, other resistances -10%. You gain 1 Maximum Health for each extra point of poison resistance (goes past 100).",
+	description = "Poison resistance +50%, other resistances -10%. You gain 1 Maximum Health for each extra point of poison resistance (goes past 100).",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			champion:addStatModifier("resist_poison", 50)
@@ -958,7 +1047,8 @@ defineTrait{
 defineTrait{
 	name = "armored_up",
 	uiName = "Armored Up",
-	icon = 72,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 75, 
 	description = "Gain +2 Protection per level if wearing heavy armor in all 5 slots",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
@@ -974,7 +1064,8 @@ defineTrait{
 defineTrait{
 	name = "armor_training",
 	uiName = "Armor Training",
-	icon = 73,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 76,
 	description = "Heavy Armor weights nothing if wearing all heavy armor.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
@@ -998,14 +1089,16 @@ defineTrait{
 defineTrait{
 	name = "heavy_conditioning",
 	uiName = "Heavy Conditioning",
-	icon = 41,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 77,
 	description = "Heavy Armor weights 75% less while in your inventory.",
 }
 
 defineTrait{
 	name = "light_wear",
 	uiName = "Light Wear",
-	icon = 41,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 72,
 	description = "Gain +5 Evasion if wearing light armor in all 5 slots",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
@@ -1020,7 +1113,8 @@ defineTrait{
 defineTrait{
 	name = "reflective",
 	uiName = "Reflective",
-	icon = 41,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 73,
 	description = "Gain +20 resist all if wearing all light armor.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
@@ -1038,7 +1132,8 @@ defineTrait{
 defineTrait{
 	name = "nimble",
 	uiName = "Nimble",
-	icon = 41,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 74,
 	description = "Reduces action timers by 15% if wearing all light armor.",
 	onComputeCooldown = function(champion, weapon, attack, attackType, level)
 		if level > 0 then
@@ -1057,19 +1152,30 @@ defineTrait{
 	description = "25% Chance to pierce 10 armor with attacks.",
 }
 
+-- Melee Weapons Skills Traits
+
+defineTrait{
+	name = "double_attack",
+	uiName = "Double Attack",
+	icon = 1,
+	description = "You gain 25% chance to attack twice with Light Weapons.",
+}
+
 -- Ranged Weapons Skills Traits
 
 defineTrait{
 	name = "metal_slug",
 	uiName = "Metal Slug",
-	icon = 41,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 84,
 	description = "Small chance to not spend a pellet to fire (firing still requires at least 1 pellet in the inventory).",
 }
 
 defineTrait{
 	name = "fast_fingers",
 	uiName = "Fast Fingers",
-	icon = 41,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 86,
 	description = "Reduce firearm reload time.",
 	onComputeCooldown = function(champion, weapon, attack, attackType, level)
 		if weapon ~= nil and weapon:hasTrait("firearm") then
@@ -1081,7 +1187,8 @@ defineTrait{
 defineTrait{
 	name = "bullseye",
 	uiName = "Bullseye",
-	icon = 41,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 87,
 	description = "Gain 15 accuracy with ranged attacks.",
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
 		if level > 0 then 
@@ -1095,14 +1202,16 @@ defineTrait{
 defineTrait{
 	name = "magic_missile",
 	uiName = "Magic Missile",
-	icon = 41,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 88,
 	description = "You launch a magical projectile with your attacks. It does 1/3 the damage of your attack and pierces half the target's protection.",
 }
 
 defineTrait{
 	name = "double_shot",
 	uiName = "Double Shot",
-	icon = 41,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 89,
 	description = "You attack twice when using Missile Weapons, Throwing Weapons and Firearms.",
 }
 
@@ -1111,56 +1220,64 @@ defineTrait{
 defineTrait{
 	name = "spell_slinger",
 	uiName = "Spell Slinger",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 101,
 	description = "Cast a basic spell to memorize it. You'll automatically cast this spell with melee attacks at 10% chance.",
 }
 
 defineTrait{
 	name = "fireburst_memo",
 	uiName = "Memorized Spell",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 101,
 	description = "You memorized the Fireburst spell.",
 }
 
 defineTrait{
 	name = "frost_burst_memo",
 	uiName = "Memorized Spell",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 101,
 	description = "You memorized the Frost Burst spell.",
 }
 
 defineTrait{
 	name = "shock_memo",
 	uiName = "Memorized Spell",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 101,
 	description = "You memorized the Shock spell.",
 }
 
 defineTrait{
 	name = "poison_cloud_memo",
 	uiName = "Memorized Spell",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 101,
 	description = "You memorized the Poison Cloud spell.",
 }
 
 defineTrait{
 	name = "elemental_exploitation",
 	uiName = "Elemental Exploitation",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 104,
 	description = "Deal 25% more damage if the enemy is vulnerable to that element.",
 }
 
 defineTrait{
 	name = "mage_strike",
 	uiName = "Mage Strike",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 102,
 	description = "You can hit critical strikes with your spells.",
 }
 
 defineTrait{
 	name = "elemental_armor",
 	uiName = "Elemental Armor",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 105,
 	description = "+ 20% Resist Fire, Shock and Cold.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
@@ -1174,14 +1291,16 @@ defineTrait{
 defineTrait{
 	name = "venomancer",
 	uiName = "Venomancer",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 106,
 	description = "You gain 20% chance to poison enemies with both melee and ranged attacks.",
 }
 
 defineTrait{
 	name = "antivenom",
 	uiName = "Anti-venom",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 107,
 	description = "+35% Resist Poison and immunity to being poisoned.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
@@ -1212,6 +1331,7 @@ defineTrait{
 defineTrait{
 	name = "green_thumb",
 	uiName = "Green Thumb",
-	 
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 118,
 	description = "Herbs multiply while in your inventory. Spreading the herbs out or having multiple alchemists don't affect the multiplication.",
 }    

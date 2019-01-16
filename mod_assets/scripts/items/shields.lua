@@ -48,29 +48,6 @@ defineObject{
 	},
 }
 
--- defineObject{
--- 	name = "legionary_shield",
--- 	baseObject = "base_item",
--- 	components = {
--- 		{
--- 			class = "Model",
--- 			model = "assets/models/items/skeleton_shield.fbx",
--- 		},
--- 		{
--- 			class = "Item",
--- 			uiName = "Legionary Shield",
--- 			gfxIndex = 207,
--- 			weight = 6.5,
--- 			traits = { "shield", "upgradable" },
--- 		},
--- 		{
--- 			class = "EquipmentItem",
--- 			slot = "Weapon",
--- 			evasion = 5,
--- 		},
--- 	},
--- }
-
 defineObject{
 	name = "round_shield",
 	baseObject = "base_item",
@@ -162,37 +139,52 @@ defineObject{
 			class = "EquipmentItem",
 			slot = "Weapon",
 			evasion = 7,
-			resistAll = 15,
+			resistFire = 15,
+			resistCold = 15,
+			resistShock = 15,
 		},
 	},
 }
 
--- defineObject{
--- 	name = "shield_valor",
--- 	baseObject = "base_item",
--- 	components = {
--- 		{
--- 			class = "Model",
--- 			model = "assets/models/items/shield_valor.fbx",
--- 		},
--- 		{
--- 			class = "Item",
--- 			uiName = "Shield of Valor",
--- 			description = "It was rumored that even a dragon could not harm the emperor of Malan Tael when he carried this shield.",
--- 			gfxIndex = 106,
--- 			armorSet = "valor",
--- 			weight = 6.5,
--- 			traits = { "shield", "upgradable" },
--- 		},
--- 		{
--- 			class = "EquipmentItem",
--- 			slot = "Weapon",
--- 			evasion = 10,
--- 			strength = 2,
--- 			resistFire = 20,
--- 		},
--- 	},
--- }
+defineObject{
+	name = "shield_valor",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/shield_valor.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Shield of Valor",
+			description = "It was rumored that even a dragon could not harm the emperor of Malan Tael when he carried this shield.",
+			gfxIndex = 106,
+			armorSet = "valor",
+			weight = 6.5,
+			traits = { "shield", "upgradable" },
+			gameEffect = [[Special: Increases Strength of the party by 1 (+1 per 2 levels) for 45 seconds.
+			
+			Valor Set: Duration +45 seconds.]],
+			secondaryAction = "valor",
+		},
+		{
+			class = "EquipmentItem",
+			slot = "Weapon",
+			evasion = 10,
+			strength = 2,
+		},
+		{
+			class = "CastSpell",
+			name = "valor",
+			uiName = "Valor",
+			charges = 9,
+			buildup = 1.5,
+			energyCost = 40,
+			spell = "valor",
+			requirements = { "block", 3 },
+		},
+	},
+}
 
 defineObject{
 	name = "pearl_shield",
@@ -209,12 +201,24 @@ defineObject{
 			gfxIndex = 236,
 			weight = 4.1,
 			traits = { "shield", "upgradable" },
+			gameEffect = [[Special: Heals the party completely.]],
+			secondaryAction = "heal",
 		},
 		{
 			class = "EquipmentItem",
 			slot = "Weapon",
 			evasion = 5,
 			energy = 25,
+		},
+		{
+			class = "CastSpell",
+			name = "heal",
+			uiName = "Heal",
+			charges = 9,
+			buildup = 2,
+			energyCost = 50,
+			spell = "heal",
+			requirements = { "concentration", 2 },
 		},
 	},
 }
@@ -236,9 +240,11 @@ defineObject{
 			gfxIndexArmorSet = 475,		
 			gfxIndexPowerAttack = 204,
 			weight = 3.5,
-			secondaryAction = "heal",
+			secondaryAction = "anticurse",
 			traits = { "shield", "epic" },
-			gameEffect = "Wearer gains immunity to petrify condition.",
+			gameEffect = [[Wearer gains immunity to petrify condition.
+			
+			Special: Gives petrify immunity to the entire party for 45 seconds.]],
 		},
 		{
 			class = "EquipmentItem",
@@ -248,12 +254,12 @@ defineObject{
 		},
 		{
 			class = "CastSpell",
-			name = "heal",
-			uiName = "Heal",
+			name = "anticurse",
+			uiName = "Anti-Curse",
 			charges = 9,
-			buildup = 2,
-			energyCost = 50,
-			spell = "heal",
+			buildup = 1.25,
+			energyCost = 30,
+			spell = "anticurse",
 			requirements = { "concentration", 2 },
 		},
 	},
@@ -293,7 +299,7 @@ defineObject{
 			buildup = 2,
 			energyCost = 30,
 			spell = "fire_shield",
-			requirements = { "concentration", 2 },
+			requirements = { "elemental_magic", 2 },
 		},
 	},
 }

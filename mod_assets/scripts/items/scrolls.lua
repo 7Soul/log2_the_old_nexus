@@ -158,7 +158,7 @@ defineObject{
 		},
 		{
 			class = "Item",
-			uiName = "Note",
+			uiName = "Pirate's Note",
 			gfxIndex = 114,
 			weight = 0.1,
 		},
@@ -166,6 +166,31 @@ defineObject{
 			class = "UsableItem",
 			onUseItem = function(self)
 				GameMode.showImage("mod_assets/textures/gui/paper_2.dds")
+				return false
+			end,
+		},
+	},
+}
+
+defineObject{
+	name = "note_2",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/note.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Sketch",
+			description = "Some strange square symbols.",
+			gfxIndex = 112,
+			weight = 0.1,
+		},
+		{
+			class = "UsableItem",
+			onUseItem = function(self)
+				GameMode.showImage("mod_assets/textures/gui/paper_3.dds")
 				return false
 			end,
 		},

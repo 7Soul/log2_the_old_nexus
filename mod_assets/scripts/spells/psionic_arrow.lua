@@ -30,10 +30,7 @@ defineObject{
 			onProjectileHit = function(self, what, entity)
 				local hit = self.go:spawn("psionic_arrow_blast")
 				hit.tiledamager:setCastByChampion(self:getCastByChampion())
-				local damage = functions.script.getDamage(self:getCastByChampion(), "missile_weapon")
-				if damage == nil or damage == 0 then
-					damage = functions.script.getDamage(self:getCastByChampion(), "throwing_weapon")
-				end
+				local damage = functions.script.get_c("psionic_damage", self:getCastByChampion())
 				damage = damage * 0.33
 				local protection = 0
 				if entity and entity.monster ~= nil then
@@ -86,7 +83,7 @@ defineObject{
 			end,
 			onHitMonster = function(self, monster)			
 				local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
-				local accuracy = functions.script.getAccuracy(champion:getOrdinal())
+				local accuracy = functions.script.get_c("psionic_accuracy", self:getCastByChampion())
 				local evasion = monster:getEvasion()
 				local protection = monster:getProtection()
 				local hitChance = math.clamp(60 + accuracy - evasion, 5, 95) / 100

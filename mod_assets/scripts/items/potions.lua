@@ -62,7 +62,8 @@ defineObject{
 			sound = "consume_potion",
 			onUseItem = function(self, champion)
 				local mult = iff(champion:hasTrait("fast_metabolism"), 2, 1)
-				champion:regainHealth(75*mult)
+				local hp = champion:getCurrentStat("vitality") * 2
+				champion:regainHealth((50 + hp) * mult)
 				champion:removeCondition("head_wound")
 				champion:removeCondition("chest_wound")
 				champion:removeCondition("leg_wound")
@@ -139,13 +140,12 @@ defineObject{
 			sound = "consume_potion",
 			onUseItem = function(self, champion)
 				local mult = iff(champion:hasTrait("arcane_extraction"), 2, 1)
-				champion:regainHealth(75*mult)
+				local en = champion:getCurrentStat("willpower") * 2
+				champion:regainEnergy((50 + en) * mult)
 				champion:playHealingIndicator()
 				if champion:hasTrait("refreshed") then
 					champion:setConditionValue("refreshed", 30)
 				end
-				champion:regainEnergy(75*mult)
-				champion:playHealingIndicator()
 			end,
 		},
 	},
@@ -443,7 +443,13 @@ defineObject{
 		{
 			class = "UsableItem",
 			sound = "level_up",
-			onUseItem = function(self, champion)
+			onUseItem = function(self, champion)				
+				if champion:getClass() == "monk" then
+					hudPrint("Can't be used by a Champion.")
+					return false
+					--local stat = functions.script.get_c("monkstrength", champion:getOrdinal()) and functions.script.get_c("monkstrength", champion:getOrdinal()) or 0
+					--functions.script.set_c("monkstrength", champion:getOrdinal(), stat + 1)
+				end
 				champion:upgradeBaseStat("strength", 1)
 			end,
 		},
@@ -476,6 +482,12 @@ defineObject{
 			class = "UsableItem",
 			sound = "level_up",
 			onUseItem = function(self, champion)
+				if champion:getClass() == "monk" then
+					hudPrint("Can't be used by a Champion.")
+					return false
+					-- local stat = functions.script.get_c("monkdexterity", champion:getOrdinal()) and functions.script.get_c("monkdexterity", champion:getOrdinal()) or 0
+					-- functions.script.set_c("monkdexterity", champion:getOrdinal(), stat + 1)
+				end
 				champion:upgradeBaseStat("dexterity", 1)
 			end,
 		},
@@ -508,6 +520,12 @@ defineObject{
 			class = "UsableItem",
 			sound = "level_up",
 			onUseItem = function(self, champion)
+				if champion:getClass() == "monk" then
+					hudPrint("Can't be used by a Champion.")
+					return false
+					-- local stat = functions.script.get_c("monkvitality", champion:getOrdinal()) and functions.script.get_c("monkvitality", champion:getOrdinal()) or 0
+					-- functions.script.set_c("monkvitality", champion:getOrdinal(), stat + 1)
+				end
 				champion:upgradeBaseStat("vitality", 1)
 			end,
 		},
@@ -540,6 +558,12 @@ defineObject{
 			class = "UsableItem",
 			sound = "level_up",
 			onUseItem = function(self, champion)
+				if champion:getClass() == "monk" then
+					hudPrint("Can't be used by a Champion.")
+					return false
+					-- local stat = functions.script.get_c("monkwillpower", champion:getOrdinal()) and functions.script.get_c("monkwillpower", champion:getOrdinal()) or 0
+					-- functions.script.set_c("monkwillpower", champion:getOrdinal(), stat + 1)
+				end
 				champion:upgradeBaseStat("willpower", 1)
 			end,
 		},

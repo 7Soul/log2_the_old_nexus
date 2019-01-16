@@ -209,6 +209,75 @@ defineObject{
 }
 
 defineObject{
+	name = "tattered_shirt",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/torn_breeches.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Tattered Shirt",
+			gfxIndex = 270,
+			weight = 0.3,
+			traits = { "clothes", "chest_armor" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 1,
+		},
+	},
+	tags = { "armor_clothes" },
+}
+
+defineObject{
+	name = "torn_breeches",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/torn_breeches.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Torn Breeches",
+			gfxIndex = 271,
+			weight = 0.3,
+			traits = { "clothes", "leg_armor" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 1,
+		},
+	},
+	tags = { "armor_clothes" },
+}
+
+defineObject{
+	name = "shoes",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/shoes.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Shoes",
+			gfxIndex = 272,
+			weight = 1.0,
+			traits = { "clothes", "boots" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 1,
+		},
+	},
+	tags = { "armor_clothes" },
+}
+
+defineObject{
 	name = "flarefeather_cap",
 	baseObject = "base_item",
 	components = {
@@ -234,31 +303,6 @@ defineObject{
 }
 
 defineObject{
-	name = "conjurers_hat",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/conjurers_hat.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Conjurer's Hat",
-			description = "This old, worn hat has been used by numerous wizards. The felt still has residues of energy and knowledge from its previous owners.",
-			gfxIndex = 70,
-			weight = 0.5,
-			traits = { "clothes", "helmet" },
-		},
-		{
-			class = "EquipmentItem",
-			protection = 1,
-			willpower = 2,
-		},
-	},
-	tags = { "armor_clothes" },
-}
-
-defineObject{
 	name = "circlet_war",
 	baseObject = "base_item",
 	components = {
@@ -278,107 +322,6 @@ defineObject{
 			class = "EquipmentItem",
 			protection = 1,
 			strength = 3,
-		},
-	},
-	tags = { "armor_clothes" },
-}
-
-defineObject{
-	name = "lurker_pants",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/lurker_clothes.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Lurker Pants",
-			description = "A pair of pants woven from fine, lightweight thread.",
-			armorSet = "lurker",
-			gfxIndex = 39,
-			weight = 0.5,
-			traits = { "clothes", "leg_armor" },
-		},
-		{
-			class = "EquipmentItem",
-			evasion = 5,
-		},
-	},
-	tags = { "armor_clothes" },
-}
-
-defineObject{
-	name = "lurker_vest",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/lurker_clothes.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Lurker Vest",
-			description = "A vest made from a material that seems to blend into surrounding shadows.",
-			armorSet = "lurker",
-			armorSetPieces = 4,
-			gfxIndex = 40,
-			weight = 0.75,
-			traits = { "clothes", "chest_armor" },
-		},
-		{
-			class = "EquipmentItem",
-			evasion = 5,
-		},
-	},
-	tags = { "armor_clothes" },
-}
-
-defineObject{
-	name = "lurker_hood",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/lurker_clothes_small.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Lurker Hood",
-			description = "A dark hood that covers the head.",
-			armorSet = "lurker",
-			gfxIndex = 41,
-			weight = 0.25,
-			traits = { "clothes", "helmet" },
-		},
-		{
-			class = "EquipmentItem",
-			evasion = 5,
-		},
-	},
-	tags = { "armor_clothes" },
-}
-
-defineObject{
-	name = "lurker_boots",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/lurker_boots.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Lurker Boots",
-			description = "A skilled thief can move completely silently when wearing these boots.",
-			armorSet = "lurker",
-			gfxIndex = 141,
-			weight = 0.25,
-			traits = { "clothes", "boots" },
-		},
-		{
-			class = "EquipmentItem",
-			evasion = 5,
 		},
 	},
 	tags = { "armor_clothes" },
@@ -529,6 +472,141 @@ defineObject{
 }
 
 defineObject{
+	name = "conjurers_hat",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/conjurers_hat.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Conjurer's Hat",
+			description = "This old, worn hat has been used by numerous wizards. The felt still has residues of energy and knowledge from its previous owners.",
+			gfxIndex = 70,
+			weight = 0.5,
+			traits = { "clothes", "helmet" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 1,
+			willpower = 2,
+		},
+	},
+	tags = { "armor_clothes" },
+}
+
+-- Lurker set 
+
+defineObject{
+	name = "lurker_pants",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/lurker_clothes.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Lurker Pants",
+			description = "A pair of pants woven from fine, lightweight thread.",
+			armorSet = "lurker",
+			gfxIndex = 39,
+			weight = 0.5,
+			armorSetPieces = 4,
+			gameEffect = [[Lurker Set: Invisibility spell costs half to cast.]],
+			traits = { "clothes", "leg_armor" },
+		},
+		{
+			class = "EquipmentItem",
+			evasion = 5,
+		},
+	},
+	tags = { "armor_clothes" },
+}
+
+defineObject{
+	name = "lurker_vest",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/lurker_clothes.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Lurker Vest",
+			description = "A vest made from a material that seems to blend into surrounding shadows.",
+			armorSet = "lurker",
+			armorSetPieces = 4,
+			gameEffect = [[Lurker Set: Invisibility spell costs half to cast.]],
+			gfxIndex = 40,
+			weight = 0.75,
+			traits = { "clothes", "chest_armor" },
+		},
+		{
+			class = "EquipmentItem",
+			evasion = 5,
+		},
+	},
+	tags = { "armor_clothes" },
+}
+
+defineObject{
+	name = "lurker_hood",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/lurker_clothes_small.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Lurker Hood",
+			description = "A dark hood that covers the head.",
+			armorSet = "lurker",
+			gfxIndex = 41,
+			gameEffect = [[Lurker Set: Invisibility spell costs half to cast.]],
+			weight = 0.25,
+			traits = { "clothes", "helmet" },
+		},
+		{
+			class = "EquipmentItem",
+			evasion = 5,
+		},
+	},
+	tags = { "armor_clothes" },
+}
+
+defineObject{
+	name = "lurker_boots",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/lurker_boots.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Lurker Boots",
+			description = "A skilled thief can move completely silently when wearing these boots.",
+			armorSet = "lurker",
+			gfxIndex = 141,
+			weight = 0.25,
+			gameEffect = [[Lurker Set: Invisibility spell costs half to cast.]],
+			traits = { "clothes", "boots" },
+		},
+		{
+			class = "EquipmentItem",
+			evasion = 5,
+		},
+	},
+	tags = { "armor_clothes" },
+}
+
+-- Embalmer's set
+
+defineObject{
 	name = "embalmers_boots",
 	baseObject = "base_item",
 	components = {
@@ -542,12 +620,19 @@ defineObject{
 			description = "Infused with smelly ointments and herbs, these boots help keep an embalmer's feet from tiring out during lengthy rituals.",
 			gfxIndex = 246,
 			weight = 1.2,
+			armorSet = "embalmers",
+			gameEffect = [[Embalmer's Set: Poison Resist and Poison Damage +15%.]],
 			traits = { "clothes", "boots" },
 		},
 		{
 			class = "EquipmentItem",
 			protection = 2,
 			vitality = 1,
+			onRecomputeStats = function(self, champion)
+				if champion:isArmorSetEquipped("embalmers") then
+					champion:addStatModifier("resist_poison", 15)
+				end
+			end,
 		},
 	},
 	tags = { "armor_clothes" },
@@ -567,6 +652,8 @@ defineObject{
 			description = "An ornate hat worn by the conclave of Xafi embalmers.",
 			gfxIndex = 247,
 			weight = 0.5,
+			armorSet = "embalmers",
+			gameEffect = [[Embalmer's Set: Poison Resist and Poison Damage +15%.]],
 			traits = { "clothes", "helmet" },
 		},
 		{
@@ -592,6 +679,8 @@ defineObject{
 			description = "A ceremonial robe with numerous hidden pockets filled with tiny vials of putrid smelling chemicals.",
 			gfxIndex = 244,
 			weight = 0.5,
+			armorSet = "embalmers",
+			gameEffect = [[Embalmer's Set: Poison Resist and Poison Damage +15%.]],
 			traits = { "clothes", "chest_armor" },
 		},
 		{
@@ -617,6 +706,8 @@ defineObject{
 			description = "Various talismans and fragrant herbs used in secret embalming rituals hang off the belt.",
 			gfxIndex = 245,
 			weight = 0.5,
+			armorSet = "embalmers",
+			gameEffect = [[Embalmer's Set: Poison Resist and Poison Damage +15%.]],
 			traits = { "clothes", "leg_armor" },
 		},
 		{
@@ -628,74 +719,7 @@ defineObject{
 	tags = { "armor_clothes" },
 }
 
-defineObject{
-	name = "tattered_shirt",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/torn_breeches.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Tattered Shirt",
-			gfxIndex = 270,
-			weight = 0.3,
-			traits = { "clothes", "chest_armor" },
-		},
-		{
-			class = "EquipmentItem",
-			protection = 1,
-		},
-	},
-	tags = { "armor_clothes" },
-}
-
-defineObject{
-	name = "torn_breeches",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/torn_breeches.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Torn Breeches",
-			gfxIndex = 271,
-			weight = 0.3,
-			traits = { "clothes", "leg_armor" },
-		},
-		{
-			class = "EquipmentItem",
-			protection = 1,
-		},
-	},
-	tags = { "armor_clothes" },
-}
-
-defineObject{
-	name = "shoes",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/shoes.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Shoes",
-			gfxIndex = 272,
-			weight = 1.0,
-			traits = { "clothes", "boots" },
-		},
-		{
-			class = "EquipmentItem",
-			protection = 1,
-		},
-	},
-	tags = { "armor_clothes" },
-}
+-- Archmage set
 
 defineObject{
 	name = "archmage_mantle",
@@ -814,6 +838,8 @@ defineObject{
 	},
 	tags = { "armor_clothes" },
 }
+
+-- Rogue set
 
 defineObject{
 	name = "rogue_pants",

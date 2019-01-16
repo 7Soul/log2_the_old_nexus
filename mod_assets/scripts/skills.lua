@@ -233,8 +233,9 @@ defineSkill{
 	
 	Perks:
 	- Level 3 | You can dual wield Light Weapons as long one of them is a dagger.
+	- Level 4 | You gain 25% chance to attack twice.
 	- Level 5 | You can dual wield any Light Weapons. When dual wielding you suffer a 40% penalty to weapon damage.]],
-	traits = { [3] = "dual_wield", [5] = "improved_dual_wield" },
+	traits = { [3] = "dual_wield", [4] = "double_attack", [5] = "improved_dual_wield" },
 }
 
 defineSkill{

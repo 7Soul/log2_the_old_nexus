@@ -56,7 +56,7 @@ defineObject{
 	components = {
 		{
 			class = "Model",
-			model = "assets/models/items/hardstone_bracelet.fbx",
+			model = "assets/models/items/brace_fortitude.fbx",
 		},
 		{
 			class = "Item",
@@ -115,8 +115,7 @@ defineObject{
 			class = "Item",
 			uiName = "Frostbite Necklace",
 			description = "This necklace, made out of Ice Lizard teeth, freezes everything it lays on but feels warm to touch.",
-			gameEffect = [[Cold damage +20%
-			Adds cold resistance to the entire party +15%.]],
+			gameEffect = [[Adds cold resistance to the entire party +15.]],
 			gfxIndex = 26,
 			weight = 0.2,
 			traits = { "necklace", "upgradable" },
@@ -125,28 +124,6 @@ defineObject{
 			class = "EquipmentItem",
 			resistCold = 15,
 			resistFire = -10,
-		},
-	},
-	tags = { "accessory" },
-}
-
-defineObject{
-	name = "bone_amulet",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/bone_amulet.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Bone Amulet",
-			description = "A primitive amulet made out of bones that are bound together with string.",
-			gameEffect = [[You gain 5% chance to recover a pellet 
-			when firing with firearms.]],
-			gfxIndex = 65,
-			weight = 0.2,
-			traits = { "necklace", "upgradable" },
 		},
 	},
 	tags = { "accessory" },
@@ -174,6 +151,54 @@ defineObject{
 			class = "EquipmentItem",
 			resistFire = 15,
 			resistCold = -10,
+		},
+	},
+	tags = { "accessory" },
+}
+
+defineObject{
+	name = "storm_amulet",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/storm_amulet.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Storm Amulet",
+			description = "",
+			gameEffect = [[Shock damage +20%
+			Adds shock resistance to the entire party +15%.]],
+			gfxIndex = 302,
+			weight = 0.4,
+			traits = { "necklace", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			resistShock = 15,
+		},
+	},
+	tags = { "accessory" },
+}
+
+defineObject{
+	name = "bone_amulet",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/bone_amulet.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Bone Amulet",
+			description = "A primitive amulet made out of bones that are bound together with string.",
+			gameEffect = [[You gain 5% chance to recover a pellet 
+			when firing with firearms.]],
+			gfxIndex = 65,
+			weight = 0.2,
+			traits = { "necklace", "upgradable" },
 		},
 	},
 	tags = { "accessory" },
@@ -502,32 +527,6 @@ defineObject{
 }
 
 defineObject{
-	name = "storm_amulet",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/storm_amulet.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Storm Amulet",
-			description = "",
-			gameEffect = [[Shock damage +20%
-			Adds shock resistance to the entire party +15%.]],
-			gfxIndex = 302,
-			weight = 0.4,
-			traits = { "necklace", "upgradable" },
-		},
-		{
-			class = "EquipmentItem",
-			resistShock = 15,
-		},
-	},
-	tags = { "accessory" },
-}
-
-defineObject{
 	name = "runestone_necklace",
 	baseObject = "base_item",
 	components = {
@@ -692,7 +691,7 @@ defineObject{
 		{
 			class = "EquipmentItem",
 			strength = 1,
-			protection = 1,
+			protection = 5,
 		},
 	},
 	tags = { "accessory" },
@@ -713,11 +712,11 @@ defineObject{
 			weight = 0.6,
 			traits = { "bracers", "upgradable" },
 			description = "The surface of this wristband is covered with tiny runes which are almost too faint to be seen with the naked eye.",
-			gameEffect = "Critical Chance +3%",
+			gameEffect = "Critical Chance +6%",
 		},
 		{
 			class = "EquipmentItem",
-			criticalChance = 3,
+			criticalChance = 6,
 			resistShock = -20,
 		},
 	},
@@ -792,7 +791,7 @@ defineObject{
 		},
 		{
 			class = "EquipmentItem",
-			evasion = 5,
+			evasion = 8,
 			strength = -2,
 		},
 	},
@@ -841,7 +840,7 @@ defineObject{
 		},
 		{
 			class = "EquipmentItem",
-			protection = 5,
+			protection = 1,
 			strength = 2,
 			dexterity = 2,
 		},

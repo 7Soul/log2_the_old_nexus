@@ -21,7 +21,7 @@ function start()
 		end
 		party:setPosition(startx, starty, party.facing, party.elevation, party.level)
 	end
-	local no_mobs = false
+	local no_mobs = true
 	if no_mobs then
 		for entity in Dungeon.getMap(party.level):allEntities() do
 			if entity.monster then
@@ -110,7 +110,7 @@ function start()
 
 	-- Time Device altar (present only)
 	forest_altar_1:setWorldPosition(forest_altar_1:getWorldPosition() + vec(0,0,1.0))
-	enchanted_timepiece_1:setWorldPosition(enchanted_timepiece_1:getWorldPosition() + vec(0.5,0,1.0))
+	--enchanted_timepiece_1:setWorldPosition(enchanted_timepiece_1:getWorldPosition() + vec(0.5,0,1.0))
 	timenote_1_1:setWorldPosition(timenote_1_1:getWorldPosition() + vec(0,0,1.2))
 	beach_lock_ornate_1:setWorldPosition(beach_lock_ornate_1:getWorldPosition() + vec(0.12,-0.64,0.32))
 	beach_lock_ornate_1:setWorldRotationAngles(16,25,9.6)
@@ -170,17 +170,25 @@ function start()
 	beach_lock_gold_2:createComponent("Door")
 	
 	for i=1,4 do
-		findEntity("demo_pillar_"..i):setWorldPosition(vec(81,0,59.4 + (i*3) - 3))
-		findEntity("demo_button_"..i):setWorldPosition(vec(80.87,0,59.4 + (i*3) - 3))
+		findEntity("demo_pillar_"..i):setWorldPosition(vec(81, 0, 59.4 + (i*3) - 3))
+		findEntity("demo_button_"..i):setWorldPosition(vec(80.87, 0, 59.4 + (i*3) - 3))
+		findEntity("gate_demo_"..i.."_bot"):setWorldPosition(findEntity("gate_demo_"..i.."_top"):getWorldPosition() + vec(0,-0.5,0))
 	end
+	beach_wall_button_5:setWorldPosition(vec(78.4, 0, 64.5))
 	
-	local pos = demo_button_1:getWorldPosition()
+	--------------------
+	--  Unnamed Cave  --
+	--------------------
+	blowpipe_1:setWorldPosition(vec(5.5,0.51,30.19))
+	blowpipe_1:setWorldRotationAngles(0,5.6,104)
+	
+	local pos = blowpipe_1:getWorldPosition()
 	posx = pos.x
 	posy = pos.y
 	posz = pos.z
 end
 
-objname = "demo_button_1"
+objname = "blowpipe_1"
 
 function move(x,y,z)
 	xx = xx + x*1

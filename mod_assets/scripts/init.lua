@@ -11,6 +11,7 @@ import "mod_assets/scripts/objects/sky.lua"
 -- import the spells pack
 import "mod_assets/spells_pack/init.lua"   -- the spells pack
 import "mod_assets/scripts/spells/psionic_arrow.lua"
+import "mod_assets/scripts/spells/bite.lua"
 -- import custom assets
 import "mod_assets/scripts/objects/base.lua"
 import "mod_assets/scripts/defineObject.lua"
@@ -125,12 +126,12 @@ defineObject{
 		-----------------------------------------------------------
 		onAttack = function(party, champion, action, slot)
 			print(champion:getName(), "is attacking with", action.go.name)
-			if champion:getClass() == "hunter" then
-				if action.go.item:hasTrait("missile_weapon") or action.go.name == "crossbow" then
-					functions.script.hunter_timer[champion:getOrdinal()] = 3
-				end
-			end
-			return spells_functions.script.onAttack(champion, action, slot)
+			-- if champion:getClass() == "hunter" then
+				-- if action.go.item:hasTrait("missile_weapon") or action.go.name == "crossbow" then
+					-- functions.script.hunter_timer[champion:getOrdinal()] = 3
+				-- end
+			-- end
+			-- return spells_functions.script.onAttack(champion, action, slot)
 		end,
 		-----------------------------------------------------------
 		-- On Damage Taken
@@ -150,12 +151,18 @@ defineObject{
 					playSound("heal_party")
 				end
 			end
+			
 			if champion:isAlive() and champion:hasTrait("blooddrop_cap") then
 				if damageType == "fire" then
 					champion:setCondition("blooddrop_rage")
 					champion:addTrait("blooddrop_rage")
 					playSound("heal_party")
 				end
+			end
+			
+			if champion:hasTrait("brutalizer") and damageType ~= "brutalizer" then
+				local str = champion:getCurrentStat("strength")
+				champion:damage(damage * str * 0.01, "brutalizer")
 			end
 		end,
 		
@@ -457,6 +464,8 @@ defineObject{
 		end, 
 
 		onDrawSkills = function(self, context, champion)
+			local customSkills = true
+			if customSkills then
 			local w, h, r = context.width, 		context.height, 	context.width / context.height
 			local f = (r < 1.3 and 0.8 or r < 1.4 and 0.9 or 1) * context.height/1080
 			local f2 = (context.height/1080)
@@ -594,14 +603,16 @@ defineObject{
 					if context.mouseDown(5) and functions.script.partySkillTemp[champion:getOrdinal()][j] > 0 then
 						functions.script.removeSkillTemp(champion, j)						
 					end
+					-- Draw description
 					local f3 = math.min(f2 + 0.1, 1)
 					local yAdd = 0
 					if MY > 358 then yAdd = -368 else yAdd = 32	end
-					context.drawImage2("mod_assets/textures/gui/skill_description.dds", math.min(MX - (285*f2), w - (569)), MY + yAdd, ((j-1)%4)*569, math.floor((j-1)/4)*337, 569, 337, 569*f3, 337*f3)
+					context.drawImage2("mod_assets/textures/gui/skill_description.dds", w - (1240 * f2), MY - 110, ((j-1)%4)*569, math.floor((j-1)/4)*337, 569, 337, 569*f3, 337*f3)
 					-- Draw icon
-					context.drawImage2("mod_assets/textures/gui/skills.dds", math.min(MX - (269 * f2), w - 585+32), MY + yAdd + 16, ((j-1)%13)*75, math.floor((j-1)/13)*75, 75, 75, 75*f3, 75*f3)
+					context.drawImage2("mod_assets/textures/gui/skills.dds", w - (1228*f2), MY - 110 + 16, ((j-1)%13)*75, math.floor((j-1)/13)*75, 75, 75, 75*f3, 75*f3)
 					break
 				end			
+			end
 			end
 		end, 
 		
@@ -700,6 +711,26 @@ defineObject{
 					end
 				end
 			end
+			
+			for i=1,4 do
+				local champion = party.party:getChampionByOrdinal(i)
+				functions.script.set_c("wide_vision", i, nil)
+				if champion:hasTrait("wide_vision") then
+					local monsterCount = 0
+					for d=1,4 do
+						local dir = (party.facing + d) % 4
+						local dx,dy = getForward(dir)
+						for e in Dungeon.getMap(party.level):entitiesAt(party.x + dx, party.y + dy) do
+							if e.monster then
+								monsterCount = monsterCount + 1
+							end
+						end
+					end
+					if monsterCount > 0 then
+						functions.script.set_c("wide_vision", i, monsterCount)
+					end
+				end
+			end
 		end
 	},
 	{
@@ -727,6 +758,19 @@ defineObject{
 					functions2.script.updateTimeTravelTimer(-1)
 				end
 			end
+			for i=1,4 do
+				local champion = party.party:getChampionByOrdinal(i)
+				if champion:hasTrait("bite") then
+					local biteTimer = functions.script.get_c("bite", champion:getOrdinal())
+					if biteTimer and biteTimer > 0 then
+						functions.script.set_c("bite", champion:getOrdinal(), math.max(biteTimer - 1, 0))
+					end
+				end
+			end
+			
+			functions:setPosition(0, 0, 0, 0, party.level)
+			functions2:setPosition(1, 0, 0, 0, party.level)
+			spells_functions:setPosition(2, 0, 0, 0, party.level)
 		end
 	},
 	{

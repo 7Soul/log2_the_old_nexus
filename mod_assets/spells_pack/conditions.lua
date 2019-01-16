@@ -134,17 +134,16 @@ defineCondition
 -- earth & fire magic
 
 defineCondition
-{ name = "berserk",
-  uiName = "Berserk",
-  description = "Grants you strength and vitality equal to your level and converts food level into health and energy over time.",
+{ name = "valor",
+  uiName = "Valor",
+  description = "Grants you +1 Strength (+1 per 2 levels).",
   icon = 0,
-  iconAtlas = path.."textures/gui/conditions/berserk.tga",
+  iconAtlas = path.."textures/gui/conditions/valor.tga",
   beneficial = true,
   harmful = false,
   tickInterval = 0,
   onRecomputeStats = function(self, champion)
-    champion:addStatModifier("strength", champion:getLevel())
-    champion:addStatModifier("vitality", champion:getLevel())
+    champion:addStatModifier("strength", math.floor(champion:getLevel() / 2) + 1)
   end,
 }
 

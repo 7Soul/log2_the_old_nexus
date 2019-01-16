@@ -29,6 +29,25 @@ defOrdered =
   end
 },
 
+{
+  name = "liz_bite",
+  uiName = "Bite",
+  gesture = 0,
+  manaCost = 10,
+  skill = "",
+  requirements = {  },
+  icon = 61,
+  spellIcon = 7,
+  hidden = true,
+  description = "",
+  onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
+    local ord = champion:getOrdinal()
+    local power = functions.script.get_c("bite_damage", ord) * (math.random() + 0.5)
+    spells_functions.script.frontAttack("liz_bite", power, ord)
+    spells_functions.script.stopInvisibility()
+  end
+},
+
 -- concentration
 
 {
@@ -112,7 +131,7 @@ defOrdered =
   requirements = {"concentration", 2},
   icon = 58,
   spellIcon = 18,
-  description = "Conjures a dancing ball of light that illuminates your path. The color depends on your magic skills levels, and brightness on Concentration. Stops the Darkness spell effect.\n- Cost : 35 energy\n- Duration : 5 minutes\n\n[Knight]:\nDeals moderate damage, blinds ennemies and force undeads to flee on cast.",
+  description = "Conjures a dancing ball of light that illuminates your path.\n- Cost : 35 energy\n- Duration : 5 minutes",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
     playSound("light")
     local duration = spells_functions.script.getPower(300, champion, "concentration", "neutral")
@@ -131,15 +150,6 @@ defOrdered =
     r=r/m g=g/m b=b/m
     local brightness = 10*(1+c)/(3+c)
     spells_functions.script.partyLight("light_spell", duration, vec(r, g, b), brightness)
-    if champion:hasTrait("monk") then
-      -- spawns <effects> around entity <centerID> up to <range> tiles on xy plan,
-      -- and elevation if <sphere> is true, in <duration> seconds,
-      -- with <power> decreasing with squared distance, cast by <ordinal> champion,
-      -- checking line of fire if <checkMode> ~= "NA".
-      -- function zoneEffects(effects, centerID, range, sphere, duration, power, ordinal, checkMode)
-      spells_functions.script.zoneEffects("holy_light", "party", 5*(1+c)/(2+c), false, 0, 5+c, champion:getOrdinal())
-      spells_functions.script.partyLight("holy_light", 1, vec(r, g, b), brightness*10)
-    end
     spells_functions.script.stopInvisibility()
     spells_functions.script.removeEffectIcons("darkness")
     spells_functions.script.maxEffectIcons("light", duration)
@@ -163,7 +173,7 @@ defOrdered =
     GameMode.fadeIn(0, 1)
     spells_functions.script.partyLightStopAll("light_spell")
     spells_functions.script.darknessStart(duration)
-    if champion:hasTrait("evasive") then spells_functions.script.addConditionValue("invisibility", duration/10) end
+    --if champion:hasTrait("evasive") then spells_functions.script.addConditionValue("invisibility", duration/10) end
     spells_functions.script.removeEffectIcons("light")
     spells_functions.script.maxEffectIcons("darkness", duration)
   end
@@ -299,7 +309,7 @@ defOrdered =
   gesture = 1,
   manaCost = 25,
   skill = "elemental_magic",
-  requirements = { "elemental_magic", 1 },
+  requirements = { },
   icon = 60,
   spellIcon = 1,
   description = "Conjures a blast of fire that deals fire damage to all foes directly in front of you.\n- Cost : 25 energy\n- Power : 22",
@@ -314,23 +324,23 @@ defOrdered =
   end
 },
 
-{
-  name = "fire_wall",
-  uiName = "Fire Wall",
-  skill = "elemental_magic",
-  requirements = {"elemental_magic", 2},
-  gesture = 14,
-  manaCost = 30,
-  description = "Burns the ground hitting your opponents in a line.\n- Cost : 30 energy\n- Power : 20\n- Range : Elemental Magic + 2 tiles",
-  onCast = function(champion, x, y, direction, elevation, skillLevel)
-    local range = spells_functions.script.quantum(2 + 5*spells_functions.script.getSkillPower(champion, "elemental_magic"))
-    local power = spells_functions.script.getPower(4, champion, "elemental_magic", "fire") -- 4 damage x 5 ticks
-    local spl = spells_functions.script.frontAttack("fire_wall", power, champion:getOrdinal())
-    spl.iceshards:setRange(range)
-    if not spl.tiledamager:isEnabled() then playSound("spell_fizzle") spl:destroy() end
-    spells_functions.script.stopInvisibility()
-  end
-},
+-- {
+  -- name = "fire_wall",
+  -- uiName = "Fire Wall",
+  -- skill = "elemental_magic",
+  -- requirements = {"elemental_magic", 2},
+  -- gesture = 14,
+  -- manaCost = 30,
+  -- description = "Burns the ground hitting your opponents in a line.\n- Cost : 30 energy\n- Power : 20\n- Range : Elemental Magic + 2 tiles",
+  -- onCast = function(champion, x, y, direction, elevation, skillLevel)
+    -- local range = spells_functions.script.quantum(2 + 5*spells_functions.script.getSkillPower(champion, "elemental_magic"))
+    -- local power = spells_functions.script.getPower(4, champion, "elemental_magic", "fire") -- 4 damage x 5 ticks
+    -- local spl = spells_functions.script.frontAttack("fire_wall", power, champion:getOrdinal())
+    -- spl.iceshards:setRange(range)
+    -- if not spl.tiledamager:isEnabled() then playSound("spell_fizzle") spl:destroy() end
+    -- spells_functions.script.stopInvisibility()
+  -- end
+-- },
 
 {
   name = "fireball",
@@ -373,7 +383,7 @@ defOrdered =
   uiName = "Fire Aura",
   skill = "elemental_magic",
   requirements = {"elemental_magic", 4, "concentration", 2},
-  gesture = 1458,
+  gesture = 0,
   manaCost = 70,
   description = "Burns enemies in melee range.\n- Cost : 70 energy\n- Power : 4 damage per second on nearest tiles\n- Duration : 45 seconds\n\n[Spellblade]:\nDuration increased by 5 seconds per skill point.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -418,8 +428,8 @@ defOrdered =
   uiName = "Shock",
   gesture = 3,
   manaCost = 20,
-  skill = "air_magic",
-  requirements = { "elemental_magic", 1 },
+  skill = "elemental_magic",
+  requirements = { },
   icon = 64,
   spellIcon = 6,
   description = "Conjures a blast of electricity that deals shock damage to all foes directly in front of you.\n- Cost : 20 energy\n- Power : 19",
@@ -436,13 +446,13 @@ defOrdered =
   uiName = "Wind Rider",
   skill = "elemental_magic",
   requirements = {"elemental_magic", 2},
-  gesture = 36,
+  gesture = 0,
   manaCost = 30,
   description = "Increases running speed and protects against falling damage. Also cleans the air around you. This spell is not cumulative.\n- Cost : 30 energy\n- Duration : 45 seconds\n\n[Agile]:\nRunning Speed increased by 10%.\n\n[Endurance]:\nDuration increased by 45 seconds.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
     playSound("magical_breathing")
     local power = spells_functions.script.getPower(1, champion, "elemental_magic", "shock")
-    local duration = (champion:hasTrait("endurance") and 90 or 45) * power
+    local duration = 45 * power
     spells_functions.script.partySound("wind_howl_strong", 5, 1, 3)
     spells_functions.script.partyLight("air", duration, vec(0, 1, 1), 5, 1)
     spells_functions.script.setWindRider(power*(champion:hasTrait("agile") and 0.11 or 0.1), duration)
@@ -473,7 +483,7 @@ defOrdered =
   name = "invisibility",
   uiName = "Invisibility",
   gesture = 3658,
-  manaCost = 45,
+  manaCost = 0,
   skill = "concentration",
   requirements = { "concentration", 3 },
   icon = 74,
@@ -481,10 +491,16 @@ defOrdered =
   description = "Turns yourself and your friends invisible.\n- Cost : 45 energy\n- Duration : 25 seconds",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
     playSound("generic_spell")
+	local cost = champion:isArmorSetEquipped("lurker") and 25 or 45
+    spells_functions.script.paySpellCost(champion, cost)
     local duration = spells_functions.script.getPower(25, champion, "concentration", "shock")
     spells_functions.script.maxConditionValue("invisibility", duration)
     spells_functions.script.maxEffectIcons("invisibility", duration)
-  end
+  end,
+  preCast = function(champion, x, y, direction, elevation, skillLevel)
+    local cost = champion:isArmorSetEquipped("lurker") and 25 or 45
+    if champion:getEnergy() < cost then return false,"no_energy" end
+  end,
 },
 
 {
@@ -524,7 +540,7 @@ defOrdered =
   name = "frost_burst",
   uiName = "Frostburst",
   skill = "elemental_magic",
-  requirements = {"elemental_magic", 1},
+  requirements = { },
   gesture = 9,
   manaCost = 25,
   description = "Conjures ice that deals damage to all foes directly in front of you and freezes them.\n- Cost : 25 energy\n- Power : 11",
@@ -541,7 +557,7 @@ defOrdered =
   uiName = "Regeneration",
   skill = "water_magic",
   requirements = {"water_magic", 1, "concentration", 1},
-  gesture = 9652,
+  gesture = 0,
   manaCost = 0,
   description = "Heals the most wounded party member over time.\n- Cost : 20% maximum energy\n- Power : 20% maximum energy\n- Duration : 15 seconds\n\n[Accuracy 3]:\nAffects all champions.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -581,31 +597,12 @@ defOrdered =
   spellIcon = 3,
   description = "Deathly sharp spikes of ice thrust from the ground hitting your opponents in a line.\n- Cost : 30 energy\n- Power : 18\n- Range : Water Magic + 2 tiles",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
-    local range = spells_functions.script.quantum(2 + 5*spells_functions.script.getSkillPower(champion, "elemental_magic"))
+    local range = spells_functions.script.quantum(2 + 5*spells_functions.script.getSkillPower(champion, "elemental_magic", "cold"))
     local power = spells_functions.script.getPower(18, champion, "elemental_magic", "cold")
     local spl = spells_functions.script.frontAttack("ice_shards", power, champion:getOrdinal())
     spl.iceshards:setRange(range)
     if not spl.tiledamager:isEnabled() then playSound("spell_fizzle") end
     spells_functions.script.stopInvisibility()
-  end
-},
-
-{
-  name = "osmosis",
-  uiName = "Osmosis",
-  skill = "water_magic",
-  requirements = {"water_magic", 2, "concentration", 1},
-  gesture = 69854,
-  manaCost = 50,
-  description = "Gradually transfers health and energy between you and your friends, trying to keep everyone at the same proportional health and energy.\n- Cost : 50 energy\n- Duration : 15 seconds\n\n[Battle Mage]:\nDuration increased by 5 seconds.",
-  onCast = function(champion, x, y, direction, elevation, skillLevel)
-    playSound("heal_party")
-    local ratio = spells_functions.script.getPower(1, champion, "water_magic")
-    local power = 0.01 + 0.49*(ratio-1)/ratio
-    local duration = (champion:hasTrait("battle_mage") and 20 or 15) * ratio
-    spells_functions.script.osmosis(power, duration)
-    spells_functions.script.partyLight("water", duration, vec(0, 0, 1), 7)
-    spells_functions.script.maxEffectIcons("osmosis", duration)
   end
 },
 
@@ -649,7 +646,7 @@ defOrdered =
   uiName = "Freeze Rune",
   skill = "elemental_magic",
   requirements = {"elemental_magic", 4},
-  gesture = 965,
+  gesture = 0,
   manaCost = 50,
   description = "Creates a rune trap that freezes anyone who steps on it. You can have up to 1 + Concentration traps at any time.\n- Cost : 50 energy\n- Power : 10",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -682,7 +679,7 @@ defOrdered =
   uiName = "Ice Storm",
   skill = "elemental_magic",
   requirements = {"elemental_magic", 5, "concentration", 3},
-  gesture = 9654,
+  gesture = 96547,
   manaCost = 69,
   description = "Unleashes a devastating storm of ice on your foes.\n- Cost : 69 energy\n- Power : 15 per bolt",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -894,43 +891,43 @@ defOrdered =
 
 -- air & water magic
 
-{
-  name = "shadowlands_vision",
-  uiName = "Shadowlands Vision",
-  requirements = {"air_magic", 1, "water_magic", 1},
-  gesture = 369,
-  manaCost = 5,
-  description = "You can see undeads, elementals and constructs positions through walls.\n- Cost : 5 energy\n- Duration : 2 minutes\n\n[Lizardman]:\nDuration is doubled.",
-  onCast = function(champion, x, y, direction, elevation, skillLevel)
-    playSound("generic_spell")
-    local duration = spells_functions.script.getPower(champion:hasTrait("lizardman") and 240 or 120, champion, "air_magic", "water_magic")
-    spells_functions.script.partyLight("air_water", 1, vec(0.25, 0.25, 1), 30)
-    spells_functions.script.maxEffectIcons("shadowlands_vision", duration)
-  end
-},
+-- {
+  -- name = "shadowlands_vision",
+  -- uiName = "Shadowlands Vision",
+  -- requirements = {"air_magic", 1, "water_magic", 1},
+  -- gesture = 369,
+  -- manaCost = 5,
+  -- description = "You can see undeads, elementals and constructs positions through walls.\n- Cost : 5 energy\n- Duration : 2 minutes\n\n[Lizardman]:\nDuration is doubled.",
+  -- onCast = function(champion, x, y, direction, elevation, skillLevel)
+    -- playSound("generic_spell")
+    -- local duration = spells_functions.script.getPower(champion:hasTrait("lizardman") and 240 or 120, champion, "air_magic", "water_magic")
+    -- spells_functions.script.partyLight("air_water", 1, vec(0.25, 0.25, 1), 30)
+    -- spells_functions.script.maxEffectIcons("shadowlands_vision", duration)
+  -- end
+-- },
 
-{
-  name = "water_breathing",
-  uiName = "Water Breathing",
-  requirements = {"air_magic", 2, "water_magic", 2},
-  gesture = 2369,
-  manaCost = 30,
-  description = "Gives you and your friends the ability to breathe under water.\n- Cost : 30 energy\n- Duration : 15 seconds\n\n[Athletics X]:\nDuration increased by X seconds.\n\n[Cold-blooded]:\nDuration is doubled.",
-  onCast = function(champion, x, y, direction, elevation, skillLevel)
-    playSound("generic_spell")
-    local duration = (15 + champion:getSkillLevel("athletics"))*(champion:hasTrait("cold_resistant") and 2 or 1)
-    duration = spells_functions.script.getPower(duration, champion, "air_magic", "water_magic")
-    spells_functions.script.maxConditionValue("water_breathing", duration)
-    spells_functions.script.partyLight("air_water", 1, vec(0.5, 0.75, 1), 30)
-    spells_functions.script.maxEffectIcons("water_breathing", duration)
-  end,
-},
+-- {
+  -- name = "water_breathing",
+  -- uiName = "Water Breathing",
+  -- requirements = {"air_magic", 2, "water_magic", 2},
+  -- gesture = 2369,
+  -- manaCost = 30,
+  -- description = "Gives you and your friends the ability to breathe under water.\n- Cost : 30 energy\n- Duration : 15 seconds\n\n[Athletics X]:\nDuration increased by X seconds.\n\n[Cold-blooded]:\nDuration is doubled.",
+  -- onCast = function(champion, x, y, direction, elevation, skillLevel)
+    -- playSound("generic_spell")
+    -- local duration = (15 + champion:getSkillLevel("athletics"))*(champion:hasTrait("cold_resistant") and 2 or 1)
+    -- duration = spells_functions.script.getPower(duration, champion, "air_magic", "water_magic")
+    -- spells_functions.script.maxConditionValue("water_breathing", duration)
+    -- spells_functions.script.partyLight("air_water", 1, vec(0.5, 0.75, 1), 30)
+    -- spells_functions.script.maxEffectIcons("water_breathing", duration)
+  -- end,
+-- },
 
 {
   name = "blizzard_shield",
   uiName = "Blizzard Mage Armor",
   requirements = {"air_magic", 3, "water_magic", 3},
-  gesture = 5236985,
+  gesture = 0,
   manaCost = 0,
   description = "Creates a Mage Armor enhancing your magical power and draining all your energy, or cancels it if it is already active. You can only have one Mage Armor active at any time.\nSpells power per level:\nAir & Water +3%\nEarth & Fire -3%\n- Cost : 0 energy\n- Duration : until canceled",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -943,7 +940,7 @@ defOrdered =
   name = "blizzard",
   uiName = "Blizzard",
   requirements = {"air_magic", 4, "water_magic", 4},
-  gesture = 32589,
+  gesture = 0,
   manaCost = 67,
   description = "Unleashes a devastating storm of ice and thunder on your foes.\n- Cost : 67 energy\n- Power : 27 per lightning bolt, 15 per frost bolt",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -957,7 +954,7 @@ defOrdered =
   name = "psychic_shield",
   uiName = "Psychic Shield",
   requirements = {"air_magic", 5, "water_magic", 5},
-  gesture = 23698,
+  gesture = 0,
   manaCost = 42,
   description = "Doubles all champions energy regeneration rate. Damage dealt to you and your friends reduces energy before health. Only duration is cumulative.\n- Cost : 42 energy\n- Duration : 30 seconds\n\n[Wizard]:\nDuration increased by 10 seconds.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -974,7 +971,7 @@ defOrdered =
   name = "health_shield",
   uiName = "Health Shield",
   requirements = {"water_magic", 2, "earth_magic", 2},
-  gesture = 47896,
+  gesture = 0,
   manaCost = 60,
   description = "Heals champions when they receive damage or when the spell expires.\n- Cost : 60 energy\n- Power : 80\n- Duration : 20 seconds\n\n[Endurance]:\nDuration increased by 10 seconds.\n\n[Athletics 2]:\nHeal power increased by 20.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -992,7 +989,7 @@ defOrdered =
   name = "fever_shield",
   uiName = "Fever Mage Armor",
   requirements = {"water_magic", 3, "earth_magic", 3},
-  gesture = 5478965,
+  gesture = 0,
   manaCost = 0,
   description = "Creates a Mage Armor enhancing your magical power and draining all your energy, or cancels it if it is already active. You can only have one Mage Armor active at any time.\nSpells power per level:\nWater & Earth +3%\nFire & Air -3%\n- Cost : 0 energy\n- Duration : until canceled",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1005,7 +1002,7 @@ defOrdered =
   name = "cold_fever",
   uiName = "Cold Fever",
   requirements = {"water_magic", 4, "earth_magic", 4},
-  gesture = 74569,
+  gesture = 0,
   manaCost = 65,
   description = "Unleashes a devastating storm of ice and poison on your foes.\n- Cost : 65 energy\n- Power : 15 per frost bolt, 15 per poison bolt",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1019,7 +1016,7 @@ defOrdered =
   name = "feast",
   uiName = "Feast",
   requirements = {"elemental_magic", 5, "elemental_magic", 5},
-  gesture = 7896,
+  gesture = 0,
   manaCost = 0,
   description = "Feeds the party.\n- Cost : 150 energy\n- Duration : 5 seconds\n\n[Farmer]:\nThis spell costs 75 energy instead.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1043,7 +1040,7 @@ defOrdered =
   name = "explosion",
   uiName = "Explosion",
   requirements = {"earth_magic", 1, "fire_magic", 1},
-  gesture = 741,
+  gesture = 0,
   manaCost = 50,
   description = "Burns and hits all adjacent foes and knockback them.\n- Cost : 50 energy\n- Power : 20\n\n[Aggressive]:\nDeals 20% more damage.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1070,33 +1067,10 @@ defOrdered =
 },
 
 {
-  name = "berserk",
-  uiName = "Berserk",
-  requirements = {"earth_magic", 2, "fire_magic", 2},
-  gesture = 7412,
-  manaCost = 0,
-  description = "Grants champions strength and vitality equal to their level and converts food level into health and energy over time.\n- Cost : 80 energy\n- Duration : 25 seconds\n\n[Barbarian]:\nThis spell costs 20 energy instead.\n\n[Fast Metabolism]:\nDoubles the conversion rate for you, whoever casts the spell.",
-  onCast = function(champion, x, y, direction, elevation, skillLevel)
-    playSound("generic_spell")
-    local cost = champion:hasTrait("barbarian") and 20 or 80
-    spells_functions.script.paySpellCost(champion, cost)
-    local duration = spells_functions.script.getPower(25, champion, "earth_magic", "fire_magic")
-    spells_functions.script.maxConditionValue("berserk", duration)
-    spells_functions.script.durationEffects(0, duration, "metabolism", {0.5, true, true})
-    spells_functions.script.partyLight("earth_fire", duration, vec(1, 1, 0), 3)
-    spells_functions.script.maxEffectIcons("berserk", duration)
-  end,
-  preCast = function(champion, x, y, direction, elevation, skillLevel)
-    local cost = champion:hasTrait("barbarian") and 20 or 80
-    if champion:getEnergy() < cost then return false,"no_energy" end
-  end,
-},
-
-{
   name = "volcanic_shield",
   uiName = "Volcanic Mage Armor",
   requirements = {"earth_magic", 3, "fire_magic", 3},
-  gesture = 5874125,
+  gesture = 0,
   manaCost = 0,
   description = "Creates a Mage Armor enhancing your magical power and draining all your energy, or cancels it if it is already active. You can only have one Mage Armor active at any time.\nSpells power per level:\nEarth & Fire +3%\nAir & Water -3%\n- Cost : 0 energy\n- Duration : until canceled",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1109,7 +1083,7 @@ defOrdered =
   name = "volcano",
   uiName = "Volcano",
   requirements = {"earth_magic", 4, "fire_magic", 4},
-  gesture = 78521,
+  gesture = 0,
   manaCost = 70,
   description = "Unleashes a devastating storm of fire and toxic smoke on your foes.\n- Cost : 92 energy\n- Power : 30 per fireball, 15 per poison bolt",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1123,7 +1097,7 @@ defOrdered =
   name = "eruption",
   uiName = "Eruption",
   requirements = {"earth_magic", 5, "fire_magic", 5},
-  gesture = 8741,
+  gesture = 0,
   manaCost = 100,
   description = "A wave of volcanic eruption surges around you, burning and poisoning your foes.\n- Cost : 100 energy\n- Power : 30\n- Range : 1\n\n[Battle Mage, Dodge 2]:\nA second wave surges 1 second later, with half power and half range.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1149,7 +1123,7 @@ defOrdered =
   name = "force_of_will",
   uiName = "Force of Will",
   requirements = {"fire_magic", 1, "water_magic", 1},
-  gesture = 14589,
+  gesture = 0,
   manaCost = 50,
   description = "You are immune to head wounds.\n- Cost : 50 energy\n- Duration : 5 minutes\n\n[Strong Mind]:\nDuration is doubled.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1165,7 +1139,7 @@ defOrdered =
   name = "antipode",
   uiName = "Antipode",
   requirements = {"fire_magic", 2, "water_magic", 2},
-  gesture = 12569,
+  gesture = 0,
   manaCost = 0,
   description = "You hurl two bolts of fire and icy death dealing ranged damage and freezing your opponents.\n- Cost : 80 energy\n- Power : 30 fire damage, 15 cold damage\n\n[Endure Elements]:\nThis spell costs 40 energy instead.\n\n[Firearms 3]:\nFor the next 15 seconds, your next firearm attack also triggers this spell for free.",
   onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
@@ -1190,7 +1164,7 @@ defOrdered =
   name = "frostfire_shield",
   uiName = "Frostfire Mage Armor",
   requirements = {"fire_magic", 3, "water_magic", 3},
-  gesture = 541258965,
+  gesture = 0,
   manaCost = 0,
   description = "Creates a Mage Armor enhancing your magical power and draining all your energy, or cancels it if it is already active. You can only have one Mage Armor active at any time.\nSpells power per level:\nFire & Water +3%\nAir & Earth -3%\n- Cost : 0 energy\n- Duration : until canceled",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1203,7 +1177,7 @@ defOrdered =
   name = "fire_and_ice",
   uiName = "Fire & Ice",
   requirements = {"fire_magic", 4, "water_magic", 4},
-  gesture = 14569,
+  gesture = 0,
   manaCost = 75,
   description = "Unleashes a devastating storm of fire and ice on your foes.\n- Cost : 75 energy\n- Power : 30 per fireball, 15 per frost bolt",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1217,7 +1191,7 @@ defOrdered =
   name = "negentropy",
   uiName = "Negentropy",
   requirements = {"elemental_magic", 5, "elemental_magic", 5},
-  gesture = 12589,
+  gesture = 0,
   manaCost = 100,
   description = "Burns and freezes enemies around you.\n- Cost : 100 energy\n- Power : 2 damage per second on nearest tiles\n- Range : 3 tiles\n- Duration : 30 seconds\n\n[Aura]:\nDeals 10% more damage.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1243,7 +1217,7 @@ defOrdered =
   name = "copycat",
   uiName = "Copycat",
   requirements = {"air_magic", 1, "earth_magic", 1},
-  gesture = 78523,
+  gesture = 0,
   manaCost = 0,
   description = "Copies the last spell cast. You regain 15% of its energy cost over 15 seconds.\n\n[Human]:\nYou regain 20% of its energy cost over 15 seconds instead.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1261,7 +1235,7 @@ defOrdered =
   name = "magic_bridge",
   uiName = "Magic Bridge",
   requirements = {"air_magic", 2, "earth_magic", 2},
-  gesture = 2365478,
+  gesture = 0,
   manaCost = 80,
   description = "Conjure a magical platform for a brief time in front of the party.\n- Cost : 80 energy.\n- Duration : 3 seconds\n\n[Wizard]:\nDuration is doubled.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1274,7 +1248,7 @@ defOrdered =
   name = "acid_storm_shield",
   uiName = "Acid Storm Mage Armor",
   requirements = {"air_magic", 3, "earth_magic", 3},
-  gesture = 523654785,
+  gesture = 0,
   manaCost = 0,
   description = "Creates a Mage Armor enhancing your magical power and draining all your energy, or cancels it if it is already active. You can only have one Mage Armor active at any time.\nSpells power per level:\nAir & Earth +3%\nFire & Water -3%\n- Cost : 0 energy\n- Duration : until canceled",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1287,7 +1261,7 @@ defOrdered =
   name = "acid_storm",
   uiName = "Acid Storm",
   requirements = {"air_magic", 4, "earth_magic", 4},
-  gesture = 74563,
+  gesture = 0,
   manaCost = 63,
   description = "Unleashes a devastating storm of thunder and poison on your foes.\n- Cost : 73 energy\n- Power : 27 per lightning bolt, 10 per rock",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1301,7 +1275,7 @@ defOrdered =
   name = "angelic_shield",
   uiName = "Angelic Shield",
   requirements = {"air_magic", 5, "earth_magic", 5},
-  gesture = 32547,
+  gesture = 0,
   manaCost = 60,
   description = "Reduces all damage on you and your friends.\n- Cost : 60 energy\n- Power : up to 20% damage reduction\n- Duration : 30 seconds\n\n[Fighter]:\nDuration increased by 10 seconds.\n\n[Knight]:\nReduces damage by up to 40% instead.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1321,7 +1295,7 @@ defOrdered =
   name = "detect_life",
   uiName = "Detect Life",
   requirements = {"air_magic", 1, "water_magic", 1, "earth_magic", 1},
-  gesture = 236987,
+  gesture = 0,
   manaCost = 20,
   description = "You can see enemies positions through walls.\n- Cost : 20 energy\n- Duration : 2 minutes\n\n[Farmer]:\nDuration is doubled.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1336,7 +1310,7 @@ defOrdered =
   name = "nature_shield",
   uiName = "Nature Mage Armor",
   requirements = {"air_magic", 2, "water_magic", 2, "earth_magic", 2},
-  gesture = 547896325,
+  gesture = 0,
   manaCost = 0,
   description = "Creates a Mage Armor enhancing your magical power and draining all your energy, or cancels it if it is already active. You can only have one Mage Armor active at any time.\nSpells power per level:\nAir, Water & Earth +2%\nFire -6%\n- Cost : 0 energy\n- Duration : until canceled",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1349,7 +1323,7 @@ defOrdered =
   name = "wrath_of_nature",
   uiName = "Wrath of Nature",
   requirements = {"air_magic", 3, "water_magic", 3, "earth_magic", 3},
-  gesture = 36987,
+  gesture = 0,
   manaCost = 65,
   description = "Unleashes a devastating storm of lightning, ice and poison on your foes.\n- Cost : 65 energy\n- Power : 27 per lightning bolt, 15 per frost bolt, 15 per poison bolt",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1363,7 +1337,7 @@ defOrdered =
   name = "nature_grace",
   uiName = "Nature Grace",
   requirements = {"air_magic", 4, "water_magic", 4, "earth_magic", 4},
-  gesture = 369874,
+  gesture = 0,
   manaCost = 50,
   description = "Cures negative conditions from champions over time.\n- Cost : 50 energy\n- Duration : 6 seconds\n\n[Natural Armor]:\nDuration increased by 3 seconds.\n\n[Alchemist]:\nDuration increased by 3 seconds.\n\n[Ratling]:\nInstantly cures disease.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1383,7 +1357,7 @@ defOrdered =
   name = "drain_life_bolt",
   uiName = "Drain Life Bolt",
   requirements = {"air_magic", 5, "water_magic", 5, "earth_magic", 5},
-  gesture = 2369874,
+  gesture = 0,
   manaCost = 80,
   description = "You hurl a bolt draining health and healing all champions over time.\n- Cost : 80 energy\n- Power : 30\n- Duration : 10 seconds\n\n[Healthy]:\nDrains 10% more health.\n\n[Firearms 3]:\nFor the next 15 seconds, your next firearm attack also triggers this spell for free.",
   onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
@@ -1404,7 +1378,7 @@ defOrdered =
   name = "oracle",
   uiName = "Oracle",
   requirements = {"water_magic", 1, "earth_magic", 1, "fire_magic", 1},
-  gesture = 987412,
+  gesture = 0,
   manaCost = 50,
   description = "You can see items and secret buttons positions through walls.\n- Cost : 50 energy\n- Duration : 2 minutes\n\n[Rogue]:\nDuration is doubled.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1419,7 +1393,7 @@ defOrdered =
   name = "asphyxia_shield",
   uiName = "Asphyxia Mage Armor",
   requirements = {"water_magic", 2, "earth_magic", 2, "fire_magic", 2},
-  gesture = 569874125,
+  gesture = 0,
   manaCost = 0,
   description = "Creates a Mage Armor enhancing your magical power and draining all your energy, or cancels it if it is already active. You can only have one Mage Armor active at any time.\nSpells power per level:\nWater, Earth & Fire +2%\nAir -6%\n- Cost : 0 energy\n- Duration : until canceled",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1432,7 +1406,7 @@ defOrdered =
   name = "asphyxia",
   uiName = "Asphyxia",
   requirements = {"water_magic", 3, "earth_magic", 3, "fire_magic", 3},
-  gesture = 98741,
+  gesture = 0,
   manaCost = 70,
   description = "Unleashes a devastating storm of ice, poison and fire on your foes.\n- Cost : 70 energy\n- Power : 15 per frost bolt, 15 per poison bolt, 30 per fireball",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1446,7 +1420,7 @@ defOrdered =
   name = "vengeance",
   uiName = "Vengeance",
   requirements = {"water_magic", 4, "earth_magic", 4, "fire_magic", 4},
-  gesture = 698741,
+  gesture = 0,
   manaCost = 0,
   description = "Whenever you or your friends receive damage, you gain strength, dexterity and willpower equal to that damage. These bonuses can never be more than 10% of the champion's maximum health, are cumulative and decrease with time.\n- Cost : 100 energy\n- Duration : 30 seconds\n\n[Barbarian]:\nThis spell costs 25 energy instead.\n\n[Fighter]:\nDuration increased by 10 seconds.\n\n[Chitin Armor]:\nDuration increased by 10 seconds.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1471,7 +1445,7 @@ defOrdered =
   name = "all_shall_fall",
   uiName = "All Shall Fall",
   requirements = {"water_magic", 5, "earth_magic", 5, "fire_magic", 5},
-  gesture = 9874521,
+  gesture = 0,
   manaCost = 100,
   description = "Burns, freezes, knocks back enemies and makes them loose flying for a short time around you.\n- Cost : 100 energy\n- Power : 2 damage per second on nearest tiles\n- Range : 3.5 tiles\nDuration : 25 seconds\n\n[Aura]:\nDuration increased by 5 seconds.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1498,7 +1472,7 @@ defOrdered =
   name = "misdirection",
   uiName = "Misdirection",
   requirements = {"earth_magic", 1, "fire_magic", 1, "air_magic", 1},
-  gesture = 741236,
+  gesture = 0,
   manaCost = 30,
   description = "Redirects all damage received to the most healthy (on cast) among you and your friends. Grants this champion a magical shield.\n- Cost : 30 energy\n- Duration : 15 seconds\n- Power : up to 20% damage reduction\n\n[Knight]:\nRedirects damage to you and reduces it by up to 40% instead.\n\n[Fighter]:\nDuration increased by 5 seconds.\n\n[Martial Training]:\nDuration increased by 5 seconds.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1520,7 +1494,7 @@ defOrdered =
   name = "desolation_shield",
   uiName = "Desolation Mage Armor",
   requirements = {"earth_magic", 2, "fire_magic", 2, "air_magic", 2},
-  gesture = 587412365,
+  gesture = 0,
   manaCost = 0,
   description = "Creates a Mage Armor enhancing your magical power and draining all your energy, or cancels it if it is already active. You can only have one Mage Armor active at any time.\nSpells power per level:\nEarth, Fire & Air +2%\nWater -6%\n- Cost : 0 energy\n- Duration : until canceled",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1533,7 +1507,7 @@ defOrdered =
   name = "desolation",
   uiName = "Desolation",
   requirements = {"earth_magic", 3, "fire_magic", 3, "air_magic", 3},
-  gesture = 74123,
+  gesture = 0,
   manaCost = 68,
   description = "Unleashes a devastating storm of poison, fire and ligthning on your foes.\n- Cost : 68 energy\nPower : 15 per poison bolt, 30 per fireball, 27 per lightning bolt",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1547,7 +1521,7 @@ defOrdered =
   name = "swap",
   uiName = "Swap",
   requirements = {"earth_magic", 4, "fire_magic", 4, "air_magic", 4},
-  gesture = 7854123,
+  gesture = 0,
   manaCost = 0,
   description = "Launches a pure magical bolt which deals no damage but swaps the party's position if it hits a living obstacle.\n- Cost : 250 energy\n\n[Head Hunter or Mutation]:\nThis spell costs 125 energy instead.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1565,7 +1539,7 @@ defOrdered =
   name = "life_steal_bolt",
   uiName = "Vampiric Bolt",
   requirements = {"earth_magic", 5, "fire_magic", 5, "air_magic", 5},
-  gesture = 8741236,
+  gesture = 0,
   manaCost = 120,
   description = "You hurl a bolt stealing health and healing all champions.\n- Cost : 120 energy\n- Power : 40\n\n[Tough]:\nDrains 10% more health.\n\n[Firearms 3]:\nFor the next 15 seconds, your next firearm attack also triggers this spell for free.",
   onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
@@ -1583,7 +1557,7 @@ defOrdered =
   name = "cure_petrify",
   uiName = "Flow of Mind",
   requirements = {"fire_magic", 1, "air_magic", 1, "water_magic", 1},
-  gesture = 412369,
+  gesture = 0,
   manaCost = 25,
   description = "You and your friends are immune to petrified and paralyzed conditions. Duration is cumulative.\n- Cost : 25 energy\n- Duration : 20 seconds\n\n[Poison Resistant]:\nDuration is doubled.\n\n[Poison Immunity]:\nDuration is doubled.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1600,7 +1574,7 @@ defOrdered =
   name = "sky_shield",
   uiName = "Sky Mage Armor",
   requirements = {"fire_magic", 2, "air_magic", 2, "water_magic", 2},
-  gesture = 541236985,
+  gesture = 0,
   manaCost = 0,
   description = "Creates a Mage Armor enhancing your magical power and draining all your energy, or cancels it if it is already active. You can only have one Mage Armor active at any time.\nSpells power per level:\nFire, Air & Water +2%\nEarth -6%\n- Cost : 0 energy\n- Duration : until canceled",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1613,7 +1587,7 @@ defOrdered =
   name = "wrath_of_the_sky",
   uiName = "Wrath of the Sky",
   requirements = {"fire_magic", 3, "air_magic", 3, "water_magic", 3},
-  gesture = 12369,
+  gesture = 0,
   manaCost = 68,
   description = "Unleashes a devastating storm of fire, ligthning and ice on your foes.\n- Cost : 68 energy\nPower : 30 per fireball, 27 per lightning bolt, 15 per frost bolt",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1627,7 +1601,7 @@ defOrdered =
   name = "transfer",
   uiName = "Transfer",
   requirements = {"fire_magic", 4, "air_magic", 4, "water_magic", 4},
-  gesture = 1236589,
+  gesture = 0,
   manaCost = 0,
   description = "Launches a pure magical bolt which deals no damage but teleports the party if it hits a lifeless obstacle.\n- Cost : 250 energy\n\n[Skilled]:\nThis spell costs 125 energy instead.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1645,7 +1619,7 @@ defOrdered =
   name = "energy_whirl",
   uiName = "Energy Whirl",
   requirements = {"fire_magic", 5, "air_magic", 5, "water_magic", 5},
-  gesture = 41236985,
+  gesture = 0,
   manaCost = 10,
   description = "For the duration, each spell cast by you or your friends restores 75% of its energy cost over 15 seconds. Only duration is cumulative.\n- Cost : 10 energy\n- Duration : 30 seconds\n\n[Wizard]:\nDuration is doubled.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1661,7 +1635,7 @@ defOrdered =
   name = "elemental_shield",
   uiName = "Elemental Mage Armor",
   requirements = {"fire_magic", 1, "air_magic", 1, "water_magic", 1, "earth_magic", 1},
-  gesture = 236987412,
+  gesture = 0,
   manaCost = 0,
   description = "Creates a Mage Armor enhancing your magical power and draining all your energy, or cancels it if it is already active. You can only have one Mage Armor active at any time.\nSpells power per level:\nFire, Air, Water & Earth +1.5%\nConcentration -6%\n- Cost : 0 energy\n- Duration : until canceled",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1674,7 +1648,7 @@ defOrdered =
   name = "elemental_storm",
   uiName = "Elemental Storm",
   requirements = {"fire_magic", 2, "air_magic", 2, "water_magic", 2, "earth_magic", 2},
-  gesture = 1478963,
+  gesture = 0,
   manaCost = 69,
   description = "Unleashes a devastating storm of fire, ligthning, ice and poison on your foes.\n- Cost : 69 energy\nPower : 30 per fireball, 27 per lightning bolt, 15 per frost bolt, 15 per poison bolt\n\n[Wizard]:\nFor 15 seconds, you gain Concentration spells power +100%.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1691,7 +1665,7 @@ defOrdered =
   name = "immortal",
   uiName = "Immortal",
   requirements = {"fire_magic", 3, "air_magic", 3, "water_magic", 3, "earth_magic", 3},
-  gesture = 7412369,
+  gesture = 0,
   manaCost = 200,
   description = "Protects you and your alive friends from death once. Regained health depends on spell power and number of champions protected. This spell is not cumulative.\n- Cost : 200 energy\n- Power : 100\n- Duration : 30 seconds\n\n[Battle Mage]:\nDuration increased by 10 seconds.\n\n[Athletics 2]:\nPower increased by 50.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1713,7 +1687,7 @@ defOrdered =
   name = "might",
   uiName = "Might",
   requirements = {"fire_magic", 4, "air_magic", 4, "water_magic", 4, "earth_magic", 4},
-  gesture = 1236987,
+  gesture = 0,
   manaCost = 0,
   description = "Doubles strength, agility, vitality and willpower of all champions. Only duration is cumulative.\n- Cost : 120 energy\n- Duration : 15 seconds\n\n[Fighter]:\nThis spell costs 60 energy instead.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1735,7 +1709,7 @@ defOrdered =
   name = "alter_time",
   uiName = "Alter Time",
   requirements = {"fire_magic", 5, "air_magic", 5, "water_magic", 5, "earth_magic", 5},
-  gesture = 3214789,
+  gesture = 0,
   manaCost = 150,
   description = "Slows the flowing of time and gives you and your friends haste and running speed to compensate. The duration of the spell from your point of view is affected by the time dilation. This spell is not cumulative.\n- Cost : 150 energy\n- Duration : 5 seconds\n\n[Rogue]:\nDuration increased by 2 seconds.\n\n[Evasive]:\nTime dilation increased by 22%.",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1831,6 +1805,41 @@ defOrdered =
   hidden = true,
 },
 
+{
+  name = "anticurse",
+  uiName = "Anti-Curse",
+  gesture = 0,
+  manaCost = 50,
+  onCast = "anticurse",
+  skill = "concentration",
+  requirements = { "concentration", 3 },
+  icon = 33,
+  spellIcon = 0,
+  description = "",
+  hidden = true,
+  onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
+    for i=1,4 do
+		spells_functions.script.addEffectIcons("cure_petrify", 45, i)
+	end
+  end
+},
+
+{
+  name = "valor",
+  uiName = "Valor",
+  requirements = { },
+  gesture = 0,
+  manaCost = 0,
+  description = "Grants champions strength equal to their level.\n- Cost : 80 energy\n- Duration : 45 seconds",
+  onCast = function(champion, x, y, direction, elevation, skillLevel)
+    playSound("generic_spell")
+    local duration = champion:isArmorSetEquipped("valor") and 90 or 45
+    spells_functions.script.maxConditionValue("valor", duration)
+    spells_functions.script.partyLight("earth_fire", duration, vec(1, 1, 0), 3)
+    spells_functions.script.maxEffectIcons("valor", duration)
+  end,
+},
+
 }
 
 for i,def in pairs(defOrdered) do
@@ -1877,11 +1886,11 @@ function getSkillPower(champion, skill)
   end
   local power,t = get(skill..ord) or {}, party.gametime:getValue()
   for i = #power,1,-1 do if t > power[i][2] then table.remove(power,i) else result = result + power[i][1]/100 end end
-  local armor = get("mage_armor"..ord)
-  if armor then
-    armor = armor and mageArmors[armor]
-    if armor then result = result + (armor[skill] or 0)*champion:getLevel()/100 end
-  end
+  -- local armor = get("mage_armor"..ord)
+  -- if armor then
+    -- armor = armor and mageArmors[armor]
+    -- if armor then result = result + (armor[skill] or 0)*champion:getLevel()/100 end
+  -- end
   return result>0 and result or 0
 end
 
@@ -1901,26 +1910,44 @@ function getSpellCriticalChance(champion)
 end
 
 function getPower(base, champion, skill, element)
-	local f = getSkillPower(champion, skill1) + champion:getCurrentStat("willpower")/50 + 1
+	local f = getSkillPower(champion, skill) + champion:getCurrentStat("willpower")/50 + 1
 	if champion:hasTrait("persistence") then
 		f = f * (1.00 + (champion:getCurrentStat("strength") * 0.04))
 	end	
 	if element == "poison" then
-		if champion:getItem(ItemSlot.Bracers) and hampion:getItem(ItemSlot.Bracers).name == "serpent_bracer" then
+		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).name == "serpent_bracer" then
 			f = f * 1.2
 		end
+		if isArmorSetEquipped("embalmers") then
+			f = f * 1.15
+		end
+		if champion:getClass() == "druid" and champion:hasTrait("mudwort") then
+			f = f * 1.4
+		end
 	elseif element == "fire" then
-		if champion:getItem(ItemSlot.Bracers) and hampion:getItem(ItemSlot.Bracers).name == "forestfire_bracer" then
+		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).name == "forestfire_bracer" then
+			f = f * 1.2
+		end
+		if champion:getClass() == "druid" and champion:hasTrait("blooddrop_cap") then
 			f = f * 1.2
 		end
 	elseif element == "cold" then
-		if champion:getItem(ItemSlot.Bracers) and hampion:getItem(ItemSlot.Bracers).name == "coldspike_bracelet" then
-			f = f * 1.2
-		end		
-	elseif element == "shock" then
-		if champion:getItem(ItemSlot.Bracers) and hampion:getItem(ItemSlot.Bracers).name == "torment_bracer" then
+		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).name == "coldspike_bracelet" then
 			f = f * 1.2
 		end	
+		if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).name == "nomad_mittens" then
+			f = f * 1.05
+		end	
+		if champion:getClass() == "druid" and champion:hasTrait("etherweed") then
+			f = f * 1.3
+		end
+	elseif element == "shock" then
+		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).name == "torment_bracer" then
+			f = f * 1.2
+		end	
+		if champion:getClass() == "druid" and champion:hasTrait("falconskyre") then
+			f = f * 1.2
+		end
 	end
 	return base * f * (get("crit") and 2 or 1)
 end
