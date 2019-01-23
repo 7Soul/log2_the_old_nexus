@@ -81,7 +81,7 @@ function teststart()
 		party.party:getChampionByOrdinal(1):setClass("fighter")
 		party.party:getChampionByOrdinal(2):setClass("corsair")
 		party.party:getChampionByOrdinal(3):setClass("monk")
-		party.party:getChampionByOrdinal(4):setClass("hunter")
+		party.party:getChampionByOrdinal(4):setClass("elementalist")
 		party.party:getChampionByOrdinal(1):setRace("lizardman")
 		party.party:getChampionByOrdinal(2):setRace("minotaur")
 		party.party:getChampionByOrdinal(3):setRace("insectoid")
@@ -345,7 +345,6 @@ function onEquipItem(self, champion, slot)
 	if self.go.name == "enchanted_timepiece" then
 		getTimepiece()
 	end
-	self.go.data.set("poisoned", false)
 end
 
 function onUnequipItem(self, champion, slot)
@@ -463,9 +462,9 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 	
 	if math.random() <= 0.25 and champion:hasTrait("precision") then
 		if not self:getPierce() then	
-			self:setPierce(supertable[4][self.go.id] + 10)
+			self:setPierce(supertable[4][self.go.id] + (math.random() * 10 + 5))
 		else
-			self:setPierce(self:getPierce() + 10)
+			self:setPierce(self:getPierce() + (math.random() * 10 + 5))
 		end		
 	end
 	
@@ -709,9 +708,9 @@ function onFirearmAttack(self, champion, slot)
 	
 	if math.random() <= 0.25 and champion:hasTrait("precision") then
 		if not self:getPierce() then	
-			self:setPierce(supertable[4][self.go.id] + 10)
+			self:setPierce(supertable[4][self.go.id] + (math.random() * 10 + 5))
 		else
-			self:setPierce(self:getPierce() + 10)
+			self:setPierce(self:getPierce() + (math.random() * 10 + 5))
 		end	
 	end
 	

@@ -976,7 +976,7 @@ defineTrait{
 -- Skill traits
 ---------------------------------------------------------------------------------
 
-
+-- Athletics
 defineTrait{
 	name = "pack_mule",
 	uiName = "Pack Mule",
@@ -989,6 +989,7 @@ defineTrait{
 		end
 	end,
 }
+
 defineTrait{
 	name = "endurance",
 	uiName = "Endurance",
@@ -1005,16 +1006,7 @@ defineTrait{
 	description = "You gain +100% Health Regeneration Rate for 30 seconds after drinking a healing potion.",
 }
 
-defineTrait{
-	name = "weapons_specialist",
-	uiName = "Weapons Specialist",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 68,
-	description = "You gain double critical chance from items.",
-}
-
--- Defensive Skills Traits
-
+-- Block
 defineTrait{
 	name = "block",
 	uiName = "Block",
@@ -1044,56 +1036,7 @@ defineTrait{
 	description = "Bashes the enemy for 150% of the damage received when you block an attack.",
 }
 
-defineTrait{
-	name = "armored_up",
-	uiName = "Armored Up",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 75, 
-	description = "Gain +2 Protection per level if wearing heavy armor in all 5 slots",
-	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			level = champion:getLevel()
-			local all_heavy = functions.script.wearingAll(champion, "heavy_armor")
-			if all_heavy then
-				champion:addStatModifier("protection", level * 2)
-			end
-		end
-	end,
-}
-
-defineTrait{
-	name = "armor_training",
-	uiName = "Armor Training",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 76,
-	description = "Heavy Armor weights nothing if wearing all heavy armor.",
-	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			local all_heavy = functions.script.wearingAll(champion, "heavy_armor")
-			if all_heavy then
-				local equip_slots = {3,4,5,6,9}
-				for i, v in pairs(equip_slots) do
-					local item = champion:getItem(v)
-					if item ~= nil and item:getWeight() > 0 then
-						if item:hasTrait("heavy_armor") then
-							functions.script.supertable[5][item.go.id] = item:getWeight()
-							item:setWeight(0)
-						end
-					end
-				end
-			end
-		end
-	end,
-}
-
-defineTrait{
-	name = "heavy_conditioning",
-	uiName = "Heavy Conditioning",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 77,
-	description = "Heavy Armor weights 75% less while in your inventory.",
-}
-
+-- Light Armor
 defineTrait{
 	name = "light_wear",
 	uiName = "Light Wear",
@@ -1145,24 +1088,119 @@ defineTrait{
 	end,
 }
 
+-- Heavy Armor
+defineTrait{
+	name = "armored_up",
+	uiName = "Armored Up",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 75, 
+	description = "Gain +2 Protection per level if wearing heavy armor in all 5 slots",
+	onRecomputeStats = function(champion, level)
+		if level > 0 then
+			level = champion:getLevel()
+			local all_heavy = functions.script.wearingAll(champion, "heavy_armor")
+			if all_heavy then
+				champion:addStatModifier("protection", level * 2)
+			end
+		end
+	end,
+}
+
+defineTrait{
+	name = "armor_training",
+	uiName = "Armor Training",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 76,
+	description = "Heavy Armor weights nothing if wearing all heavy armor.",
+	onRecomputeStats = function(champion, level)
+		if level > 0 then
+			local all_heavy = functions.script.wearingAll(champion, "heavy_armor")
+			if all_heavy then
+				local equip_slots = {3,4,5,6,9}
+				for i, v in pairs(equip_slots) do
+					local item = champion:getItem(v)
+					if item ~= nil and item:getWeight() > 0 then
+						if item:hasTrait("heavy_armor") then
+							functions.script.supertable[5][item.go.id] = item:getWeight()
+							item:setWeight(0)
+						end
+					end
+				end
+			end
+		end
+	end,
+}
+
+defineTrait{
+	name = "heavy_conditioning",
+	uiName = "Heavy Conditioning",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 77,
+	description = "Heavy Armor weights 75% less while in your inventory.",
+}
+
+-- Accuracy
+defineTrait{
+	name = "reach",
+	uiName = "Reach",
+	icon = 1,
+	description = "",
+}
+
+defineTrait{
+	name = "clutch",
+	uiName = "Clutch",
+	icon = 1,
+	description = "Gain up to +100 accuracy based on how much health the party is missing.",
+	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
+		if level > 0
+			local hpMaxTotal = 0
+			local hpTotal = 0
+			for i=1,4 do
+				local champ = party.party:getChampionByOrdinal(i)
+				hpMaxTotal = hpMaxTotal + champ:getMaxHealth()
+				hpTotal = hpTotal + champ:getHealth()
+			end
+			local hpRate = 1 - (hpTotal / hpMaxTotal)
+			print(champion:getName())
+			return 100 * hpRate
+		end
+	end,
+}
+
 defineTrait{
 	name = "precision",
 	uiName = "Precision",
 	icon = 1,
-	description = "25% Chance to pierce 10 armor with attacks.",
+	description = "25% Chance to pierce 5 to 15 armor with melee and firearm attacks.",
 }
 
--- Melee Weapons Skills Traits
+-- Critical
+defineTrait{
+	name = "backstab",
+	uiName = "Backstab",
+	icon = 103,
+	description = "You do triple damage when you successfully backstab an enemy with a dagger.",
+	-- hardcoded skill
+}
 
 defineTrait{
-	name = "double_attack",
-	uiName = "Double Attack",
-	icon = 1,
-	description = "You gain 25% chance to attack twice with Light Weapons.",
+	name = "weapons_specialist",
+	uiName = "Weapons Specialist",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 68,
+	description = "You gain double critical chance from items.",
 }
 
--- Ranged Weapons Skills Traits
+defineTrait{
+	name = "assassin",
+	uiName = "Assassin",
+	icon = 104,
+	description = "You can backstab with any Light Weapon.",
+	-- hardcoded skill
+}
 
+-- Firearms
 defineTrait{
 	name = "metal_slug",
 	uiName = "Metal Slug",
@@ -1178,12 +1216,13 @@ defineTrait{
 	icon = 86,
 	description = "Reduce firearm reload time.",
 	onComputeCooldown = function(champion, weapon, attack, attackType, level)
-		if weapon ~= nil and weapon:hasTrait("firearm") then
+		if level > 0 and weapon ~= nil and weapon:hasTrait("firearm") then
 			return 0.75
 		end
 	end
 }
 
+-- Ranged Weapons
 defineTrait{
 	name = "bullseye",
 	uiName = "Bullseye",
@@ -1215,8 +1254,56 @@ defineTrait{
 	description = "You attack twice when using Missile Weapons, Throwing Weapons and Firearms.",
 }
 
--- Magic Skills Traits
+-- Alchemy
+defineTrait{
+	name = "green_thumb",
+	uiName = "Green Thumb",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 118,
+	description = "Herbs multiply while in your inventory. Spreading the herbs out or having multiple alchemists don't affect the multiplication.",
+}
 
+defineTrait{
+	name = "improved_alchemy",
+	uiName = "Improved Alchemy",
+	icon = 53,
+	description = "Healing and energy potions you brew are stronger.",
+}
+
+defineTrait{
+	name = "bomb_expert",
+	uiName = "Bomb Expert",
+	icon = 22,
+	description = "When crafting bombs you get three bombs instead of one.",
+}
+
+-- Light Weapons
+defineTrait{
+	name = "dual_wield",
+	uiName = "Dual Wielding",
+	icon = 19,
+	description = "You can attack separately with Light Weapons in either hand. One of the weapons must be a dagger. Both weapons suffer a 40% penalty to the items' base damage when dual wielding.",
+	-- hardcoded skill
+}
+
+defineTrait{
+	name = "double_attack",
+	uiName = "Double Attack",
+	icon = 1,
+	description = "You gain 25% chance to attack twice with Light Weapons.",
+}
+
+defineTrait{
+	name = "improved_dual_wield",
+	uiName = "Dual Wield Mastery",
+	icon = 107,
+	description = "You can dual wield any two Light Weapons. Both weapons still suffer a 40% penalty to the items' base damage when dual wielding.",
+	-- hardcoded skill
+}
+
+-- Heavy Weapons
+
+-- Spellblade
 defineTrait{
 	name = "spell_slinger",
 	uiName = "Spell Slinger",
@@ -1258,6 +1345,15 @@ defineTrait{
 }
 
 defineTrait{
+	name = "mage_strike",
+	uiName = "Mage Strike",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 102,
+	description = "Your spells gain double the critical chance from the Critical skill and a flat +6%.",
+}
+
+-- Elemental Magic
+defineTrait{
 	name = "elemental_exploitation",
 	uiName = "Elemental Exploitation",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
@@ -1266,19 +1362,11 @@ defineTrait{
 }
 
 defineTrait{
-	name = "mage_strike",
-	uiName = "Mage Strike",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 102,
-	description = "You can hit critical strikes with your spells.",
-}
-
-defineTrait{
 	name = "elemental_armor",
 	uiName = "Elemental Armor",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 105,
-	description = "+ 20% Resist Fire, Shock and Cold.",
+	description = "You gain +20% Resist Fire, Shock and Cold.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			champion:addStatModifier("resist_fire", 20)
@@ -1288,6 +1376,7 @@ defineTrait{
 	end,
 }
 
+-- Poison Mastery
 defineTrait{
 	name = "venomancer",
 	uiName = "Venomancer",
@@ -1314,6 +1403,7 @@ defineTrait{
 	end,
 }
 
+-- Magic Training
 defineTrait{
 	name = "meditation",
 	uiName = "Meditation",
@@ -1327,11 +1417,3 @@ defineTrait{
 	icon = 1,
 	description = "",
 }
-
-defineTrait{
-	name = "green_thumb",
-	uiName = "Green Thumb",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 118,
-	description = "Herbs multiply while in your inventory. Spreading the herbs out or having multiple alchemists don't affect the multiplication.",
-}    

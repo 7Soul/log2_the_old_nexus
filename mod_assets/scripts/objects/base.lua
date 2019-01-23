@@ -378,15 +378,13 @@ defineObject{
 		{
 			class = "Script",
 			name = "data",
-			source = [[
-				data = {}
-				function get(name)
-					return self.data[name]
-				end
-				function set(name,value)
-					self.data[name] = value
-				end
-			]],
+			source = [[data = {}
+function get(self,name)
+	return self.data[name]
+end
+function set(self,name,value)
+	self.data[name] = value
+end]],
 		},
 	},
 }

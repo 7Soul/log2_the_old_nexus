@@ -34,7 +34,7 @@ do
 			rotationSpeed = 0.1,
 			blendMode = "Additive",
 			depthBias = 0.1,
-			objectSpace = true,			
+			objectSpace = true,		
 		}
 	end
 

@@ -66,7 +66,7 @@ defineSkill{
 	- Level 2 | Gain +5 Evasion if wearing light armor in all 5 slots.
 	- Level 4 | Gain +20 resist all if wearing all light armor.
 	- Level 5 | Reduces action timers by 15% if wearing all light armor.]],
-	traits = { [2] = "light_wear", [4] = "reflective", [5]="nimble" },
+	traits = { [2] = "light_wear", [4] = "reflective", [5] = "nimble" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 and functions ~= nil and Time.currentTime() > 3 then
 			local armor = "light_armor"
@@ -142,12 +142,15 @@ defineSkill{
 	description = [[Increases your Accuracy by 10 for each skill point.
 	
 	Perks:
-	- Level 2 | You can perform melee attacks from the back row.
-	- Level 5 | 25% Chance to pierce 10 armor with attacks.	]],
+	- Level 1 | You can perform melee attacks from the back row.
+	- Level 4 | Gain up to +100 accuracy based on how much health the party is missing.
+	- Level 5 | 25% Chance to pierce 5 to 15 armor with melee and firearm attacks.]],
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
-		return level * 10
+		if level > 0 then
+			return level * 10
+		end
 	end,
-	traits = { [2] = "reach", [5] = "precision" },
+	traits = { [1] = "reach",  [4] = "clutch", [5] = "precision" },
 }
 
 defineSkill{
@@ -155,16 +158,16 @@ defineSkill{
 	uiName = "Critical",
 	priority = 70,
 	icon = 10,
-	description = [[Improves your chance of scoring a critical hit with melee, ranged, throwing or firearm attacks by 3% for each skill point. 
+	description = [[Increases critical chance with physical attacks by 3% and spells by 1% for each skill point.
 	
 	Perks:
-	- Level 3 | You can backstab an enemy with a dagger and deal triple damage.
-	- Level 4 | You can backstab with any Light Weapon.
-	- Level 5 | You gain double critical chance from items.]],
+	- Level 2 | You can backstab an enemy with a dagger and deal triple damage.
+	- Level 4 | You gain double critical chance from items.
+	- Level 5 | You can backstab with any Light Weapon.]],
 	onComputeCritChance = function(champion, weapon, attack, attackType, level)
 		return level * 3
 	end,
-	traits = { [3] = "backstab", [4] = "assassin", [5] = "weapons_specialist" },
+	traits = { [2] = "backstab", [5] = "assassin", [4] = "weapons_specialist" },
 }
 
 defineSkill{
@@ -261,7 +264,7 @@ defineSkill{
 	
 	Perks:
 	- Level 2 | Cast a basic spell to memorize it. You'll automatically cast this spell with melee attacks at 10% chance.
-	- Level 5 | Your spells gain Critical Chance from your equipment and skills.]],
+	- Level 5 | Your spells gain double the critical chance from the Critical skill and a flat +6%.]],
 	traits = { [2] = "spell_slinger", [5] = "mage_strike" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 and Time.currentTime() > 3 then
@@ -297,7 +300,7 @@ defineSkill{
 	
 	Perks:
 	- Level 4 | Deal 25% more damage if the enemy is vulnerable to that element.
-	- Level 5 | + 25% Resist Fire, Shock and Cold.]],
+	- Level 5 | You gain +25% Resist Fire, Shock and Cold.]],
 	traits = { [4] = "elemental_exploitation", [5] = "elemental_armor" },
 }
 
@@ -310,7 +313,7 @@ defineSkill{
 	
 	Perks:
 	- Level 2 | 20% chance to poison enemies with melee, ranged and throwing attacks.
-	- Level 5 | + 50% Resist Poison.]],
+	- Level 5 | +50% Resist Poison.]],
 	traits = { [2] = "venomancer", [5] = "antivenom" },
 }
 

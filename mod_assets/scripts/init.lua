@@ -58,7 +58,6 @@ import "mod_assets/scripts/items/tomes.lua"
 import "mod_assets/scripts/particles/blooddrop.lua"
 import "mod_assets/scripts/particles/soundGate.lua"
 
-
 defineObject{
 	name = "party",
 	baseObject = "party",
@@ -98,11 +97,8 @@ defineObject{
 								champion:insertItem(slot, spawn(insertHerb).item)
 								break
 							else
-								print(champion:getItem(slot).go.name)
-								print(insertHerb)
 								if champion:getItem(slot).go.name == insertHerb then
 									herbSlot = slot
-									print(herbSlot)
 								end
 								slotsFilled = slotsFilled + 1
 							end
@@ -112,6 +108,17 @@ defineObject{
 						end
 					end
 					break
+				end
+				for slot=1,32 do
+					local item = champion:getItem(slot)
+					if item and item:hasTrait("magic_gem") and item.go.data:get("charges") then
+						if item.go.data:get("burnout") == nil then item.go.data:set("burnout", 0) end
+						item.go.data:set("burnout", math.min(item.go.data:get("burnout") + 1, 4500))
+						if item.go.data:get("burnout") == 4500 then
+							champion:removeItem(item)
+							champion:insertItem(slot, spawn("coal").item)
+						end
+					end
 				end
 			end
 		end,
@@ -670,14 +677,19 @@ defineObject{
 			local v = self.go.partycounter:getValue()
 			print ("A day has passed.")
 			for i=1,4 do
-				if party.party:getChampionByOrdinal(i):getClass() == "stalker" then
-					local bonus = math.floor(party.party:getChampionByOrdinal(i):getLevel() / 4)
+				local champion = party.party:getChampionByOrdinal(i)
+				if champion:getClass() == "stalker" then
+					local bonus = math.floor(champion:getLevel() / 4)
 					functions.script.night_stalker[i] = 1 + bonus
-					hudPrint(party.party:getChampionByOrdinal(i):getName() .. ", the Stalker, has recovered " .. (1 + bonus) .. " charges of Invisibility")
+					hudPrint(champion:getName() .. ", the Stalker, has recovered " .. (1 + bonus) .. " charges of Invisibility")
 				end
 			end
 			--return hudPrint("Time = "..v.."")
 		end
+	},
+	{
+		class = "Counter",
+		name = "gametime2",
 	},
 	{
 		class = "Timer",
@@ -685,8 +697,7 @@ defineObject{
 		timerInterval = 0,
 		triggerOnStart = true,
 		onActivate = function(self)
-			self.go.gametime2:setValue(self.go.gametime2:getValue()+Time.deltaTime())
-			--local v = self.go.gametime2:getValue()
+			self.go.gametime2:increment()
 			local t = GameMode.getTimeOfDay()
 			functions2.script.updateSky(t)
 			
@@ -735,17 +746,15 @@ defineObject{
 	},
 	{
 		class = "Counter",
-		name = "gametime2",
-	},
+		name = "timetraveltimer",
+	},	
 	{
 		class = "Timer",
 		name = "timetravel",
 		timerInterval = 1,
 		triggerOnStart = true,
 		onActivate = function(self)
-			--self.go.timetraveltimer:setValue(self.go.timetraveltimer:getValue()+Time.deltaTime())
-			--local v = self.go.timetraveltimer:getValue()
-			--local t = GameMode.getTimeOfDay()
+			self.go.timetraveltimer:increment()
 			if functions2.script.timeTravelTimer > 0 then
 				local has_area = false
 				for entity in Dungeon.getMap(party.level):entitiesAt(party.x, party.y) do
@@ -775,7 +784,34 @@ defineObject{
 	},
 	{
 		class = "Counter",
-		name = "timetraveltimer",
+		name = "hours",
+	},	
+	{
+		class = "Timer",
+		name = "partyhours",
+		timerInterval = 1.0, -- will be 8.33 for hours
+		triggerOnStart = true,
+		onActivate = function(self)
+			self.go.hours:increment()
+			local v = self.go.hours:getValue()
+			for i=1,4 do
+				local champion = party.party:getChampionByOrdinal(i)
+				for j=1,32 do
+					local item = champion:getItem(j)
+					if item and item:hasTrait("magic_gem") and item.go.data:get("charges") then
+						local icon = item.go.data:get("icon")
+						if icon == nil then return end
+						item.go.data:set("charges", math.min(item.go.data:get("charges") + 1, 24))						
+						if item.go.data:get("charges") == 23 then
+							item.go.item:setGfxIndex(icon + 1)
+						elseif item.go.data:get("charges") == 24 then
+							item.go.item:setGfxIndex(icon)
+						end
+					end
+				end
+			end
+			--return hudPrint("Time = "..v.."")
+		end
 	},
 	},
 }

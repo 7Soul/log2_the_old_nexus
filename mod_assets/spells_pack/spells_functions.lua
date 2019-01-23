@@ -48,6 +48,40 @@ defOrdered =
   end
 },
 
+{ 
+  name = "mage_spark",
+  uiName = "Mage Spark",
+  gesture = 5,
+  manaCost = 20,
+  skill = "elemental_magic",
+  requirements = { },
+  icon = 60,
+  spellIcon = 1,
+  description = "The most basic of offensive spells. Conjures a random elemental burst of energy in front of you.\n- Cost : 20 energy\n- Power : 18",
+  onCast = function(champion, x, y, direction, elevation, skillLevel)
+	local element_list = { "fire", "cold", "shock" }
+	local element = element_list[math.ceil(math.random() * 3)]
+	local id = champion:getOrdinal()
+	if functions.script.get_c("ruby_charges", id) and functions.script.get_c("ruby_charges", id) > 0 then
+		element = "fire"
+	elseif functions.script.get_c("aquamarine_charges", id) and functions.script.get_c("aquamarine_charges", id) > 0 then
+		element = "cold"
+	elseif functions.script.get_c("topaz_charges", id) and functions.script.get_c("topaz_charges", id) > 0 then
+		element = "shock"
+	end
+	
+    local power = spells_functions.script.getPower(18, champion, "elemental_magic", element)
+	if element == "fire" then
+		spells_functions.script.frontAttack("fireburst", power, champion:getOrdinal())
+	elseif element == "cold" then	
+		spells_functions.script.frontAttack("frostburst_cast", power, champion:getOrdinal())
+	else
+		spells_functions.script.frontAttack("shockburst", power, champion:getOrdinal())
+	end
+    spells_functions.script.stopInvisibility()
+  end
+},
+
 -- concentration
 
 {
@@ -236,7 +270,7 @@ defOrdered =
   uiName = "Arcane Nova",
   skill = "concentration",
   requirements = {"concentration", 4},
-  gesture = 5,
+  gesture = 0,
   manaCost = 11,
   description = "Damages enemies around you. Arcane Nova deals 50% more damage and its range increases by one tile per arcanic power stacked. Consumes one charge of arcanic power.\n- Cost : 11 energy\n- Power : 11 on nearest tiles\n- Range : 2",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -309,16 +343,12 @@ defOrdered =
   gesture = 1,
   manaCost = 25,
   skill = "elemental_magic",
-  requirements = { },
+  requirements = { "elemental_magic", 1, "concentration", 1 },
   icon = 60,
   spellIcon = 1,
   description = "Conjures a blast of fire that deals fire damage to all foes directly in front of you.\n- Cost : 25 energy\n- Power : 22",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
     local power = spells_functions.script.getPower(22, champion, "elemental_magic", "fire")
-	
-	spells_functions.script.druidPower(champion, power)
-	spells_functions.script.elementalistPower("fire", champion, power)
-
     spells_functions.script.frontAttack("fireburst", power, champion:getOrdinal())
     spells_functions.script.stopInvisibility()
   end
@@ -429,13 +459,12 @@ defOrdered =
   gesture = 3,
   manaCost = 20,
   skill = "elemental_magic",
-  requirements = { },
+  requirements = { "elemental_magic", 1, "concentration", 1 },
   icon = 64,
   spellIcon = 6,
-  description = "Conjures a blast of electricity that deals shock damage to all foes directly in front of you.\n- Cost : 20 energy\n- Power : 19",
+  description = "Conjures a blast of electricity that deals shock damage to all foes directly in front of you.\n- Cost : 25 energy\n- Power : 23",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
-    local power = spells_functions.script.getPower(19, champion, "elemental_magic", "shock")
-	spells_functions.script.elementalistPower("air", champion, power)
+    local power = spells_functions.script.getPower(23, champion, "elemental_magic", "shock")
     spells_functions.script.frontAttack("shockburst", power, champion:getOrdinal())
     spells_functions.script.stopInvisibility()
   end
@@ -540,13 +569,12 @@ defOrdered =
   name = "frost_burst",
   uiName = "Frostburst",
   skill = "elemental_magic",
-  requirements = { },
+  requirements = { "elemental_magic", 1, "concentration", 1 },
   gesture = 9,
   manaCost = 25,
-  description = "Conjures ice that deals damage to all foes directly in front of you and freezes them.\n- Cost : 25 energy\n- Power : 11",
+  description = "Conjures ice that deals damage to all foes directly in front of you and freezes them.\n- Cost : 25 energy\n- Power : 15",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
-    local power = spells_functions.script.getPower(11, champion, "elemental_magic", "cold")
-	spells_functions.script.elementalistPower("cold", champion, power)
+    local power = spells_functions.script.getPower(15, champion, "elemental_magic", "cold")
     spells_functions.script.frontAttack("frostburst_cast", power, champion:getOrdinal())
     spells_functions.script.stopInvisibility()
   end
@@ -1763,19 +1791,19 @@ defOrdered =
   hidden = true,
 },
 
-{
-  name = "balance",
-  uiName = "Balance",
-  gesture = 0,
-  manaCost = 10,
-  onCast = "balance",
-  skill = "concentration",
-  requirements = {},
-  icon = 59,
-  spellIcon = 0,
-  description = "",
-  hidden = true,
-},
+-- {
+  -- name = "balance",
+  -- uiName = "Balance",
+  -- gesture = 0,
+  -- manaCost = 10,
+  -- onCast = "balance",
+  -- skill = "concentration",
+  -- requirements = {},
+  -- icon = 59,
+  -- spellIcon = 0,
+  -- description = "",
+  -- hidden = true,
+-- },
 
 {
   name = "cause_fear",
@@ -1895,58 +1923,108 @@ function getSkillPower(champion, skill)
 end
 
 function getSpellCriticalChance(champion)
-  local chance = 0
-  if champion:hasTrait("mage_strike") then
-	  chance = chance + (3 * champion:getSkillLevel("critical"))
-	  for slot = 1,ItemSlot.Bracers do
+	local chance = 0
+	chance = champion:getSkillLevel("critical")	
+	if champion:hasTrait("mage_strike") then
+		chance = chance * 2
+		chance = chance + 6
+	end
+	for slot = 1,ItemSlot.Bracers do
 		local item = champion:getItem(slot)
 		if item and item.equipmentitem then
-		  local crit = item.equipmentitem:getCriticalChance()
-		  if crit and crit ~= 0 then chance = chance + crit end
+			local crit = item.equipmentitem:getCriticalChance() * 2
+			if crit and crit ~= 0 then chance = chance + crit end
 		end
-	  end
-  end
-  return chance
+	end
+	if champion:getSkillLevel("critical") == 1 then
+		chance = chance + 1
+	end
+	return chance
 end
 
 function getPower(base, champion, skill, element)
 	local f = getSkillPower(champion, skill) + champion:getCurrentStat("willpower")/50 + 1
+	if champion:getClass() == "elementalist" then
+		f = spells_functions.script.elementalistPower(element, champion, f)
+	end
+	
 	if champion:hasTrait("persistence") then
 		f = f * (1.00 + (champion:getCurrentStat("strength") * 0.04))
 	end	
+	
 	if element == "poison" then
 		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).name == "serpent_bracer" then
 			f = f * 1.2
 		end
+		
 		if isArmorSetEquipped("embalmers") then
 			f = f * 1.15
 		end
-		if champion:getClass() == "druid" and champion:hasTrait("mudwort") then
-			f = f * 1.4
+		
+		if champion:getClass() == "druid" then
+			if champion:hasTrait("mudwort") then
+				f = f * 1.4
+			end
 		end
 	elseif element == "fire" then
 		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).name == "forestfire_bracer" then
 			f = f * 1.2
 		end
-		if champion:getClass() == "druid" and champion:hasTrait("blooddrop_cap") then
-			f = f * 1.2
+		
+		if champion:getClass() == "druid" then
+			if champion:hasTrait("blooddrop_cap") then
+				f = f * 1.2
+				champion:setCondition("blooddrop_rage")
+				champion:addTrait("blooddrop_rage")
+			end
+		end
+		
+		local gem_charges = functions.script.get_c("ruby_charges", champion:getOrdinal())
+		if gem_charges and gem_charges > 0 then
+			f = f * functions.script.get_c("ruby_power", champion:getOrdinal())
+			functions.script.set_c("ruby_charges", champion:getOrdinal(), gem_charges - 1)
+		elseif gem_charges == 0 then
+			functions.script.set_c("ruby_charges", champion:getOrdinal(), nil)
 		end
 	elseif element == "cold" then
 		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).name == "coldspike_bracelet" then
 			f = f * 1.2
 		end	
+		
 		if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).name == "nomad_mittens" then
 			f = f * 1.05
 		end	
-		if champion:getClass() == "druid" and champion:hasTrait("etherweed") then
-			f = f * 1.3
+		
+		if champion:getClass() == "druid" then
+			if champion:hasTrait("etherweed") then
+				f = f * 1.3
+			end
+		end
+		
+		local gem_charges = functions.script.get_c("aquamarine_charges", champion:getOrdinal())
+		if gem_charges and gem_charges > 0 then
+			f = f * functions.script.get_c("aquamarine_power", champion:getOrdinal())
+			functions.script.set_c("aquamarine_charges", champion:getOrdinal(), gem_charges - 1)
+		elseif gem_charges == 0 then
+			functions.script.set_c("aquamarine_charges", champion:getOrdinal(), nil)
 		end
 	elseif element == "shock" then
 		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).name == "torment_bracer" then
 			f = f * 1.2
 		end	
-		if champion:getClass() == "druid" and champion:hasTrait("falconskyre") then
-			f = f * 1.2
+		
+		if champion:getClass() == "druid" then
+			if champion:hasTrait("falconskyre") then
+				f = f * 1.2
+			end
+		end
+		
+		local gem_charges = functions.script.get_c("topaz_charges", champion:getOrdinal())
+		if gem_charges and gem_charges > 0 then
+			f = f * functions.script.get_c("topaz_power", champion:getOrdinal())
+			functions.script.set_c("topaz_charges", champion:getOrdinal(), gem_charges - 1)
+		elseif gem_charges == 0 then
+			functions.script.set_c("topaz_charges", champion:getOrdinal(), nil)
 		end
 	end
 	return base * f * (get("crit") and 2 or 1)
@@ -4593,7 +4671,7 @@ function elementalistPower(element, champion, power)
 			champion:removeCondition("elemental_balance_fire")
 			champion:removeCondition("elemental_balance_air")
 			spells_functions.script.elementalShieldSingle(shield_dur, champion, false, false, true, false)
-		elseif element == "air" then
+		elseif element == "shock" then
 			spells_functions.script.addConditionValue("elemental_balance_air", 15, champion:getOrdinal())
 			if champion:hasCondition("elemental_balance_cold") or champion:hasCondition("elemental_balance_fire") then
 				power = power * 1.3
@@ -4603,13 +4681,6 @@ function elementalistPower(element, champion, power)
 			champion:removeCondition("elemental_balance_fire")
 			spells_functions.script.elementalShieldSingle(shield_dur, champion, false, true, false, false)
 		end
-	end
-end
-
-function druidPower(champion, power)
-	if champion:getClass() == "druid" and champion:hasTrait("blooddrop_cap") then
-		power = power * 1.2
-		champion:setCondition("blooddrop_rage")
-		champion:addTrait("blooddrop_rage")
+		return power
 	end
 end

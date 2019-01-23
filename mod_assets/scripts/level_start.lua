@@ -167,7 +167,7 @@ function start()
 	--castle_pressure_plate_1:setWorldPosition(vec(17.75,-0.01,73.5))
 	--wall_button_2:setWorldPosition(vec(18.41,-0.96,72.75))
 	--beach_lock_gold_2:setWorldPosition(vec(18.41,-0.96,72.75))
-	beach_lock_gold_2:createComponent("Door")
+	--beach_lock_gold_2:createComponent("Door")
 	
 	for i=1,4 do
 		findEntity("demo_pillar_"..i):setWorldPosition(vec(81, 0, 59.4 + (i*3) - 3))
@@ -177,18 +177,31 @@ function start()
 	beach_wall_button_5:setWorldPosition(vec(78.4, 0, 64.5))
 	
 	--------------------
+	--  Ruined City   --
+	--------------------
+	mine_ceiling_lantern_6:setWorldPosition(vec(7.5,-0.25,39))
+	
+	--------------------
 	--  Unnamed Cave  --
 	--------------------
 	blowpipe_1:setWorldPosition(vec(5.5,0.51,30.19))
 	blowpipe_1:setWorldRotationAngles(0,5.6,104)
 	
-	local pos = blowpipe_1:getWorldPosition()
+	
+	------------------------
+	--  Castle Courtyard  --
+	------------------------
+	forest_fountain_1:setWorldPosition(vec(45,0,66))
+	
+	--turtle_2:setWorldRotation(mat(0.5,0.5,0.5,0.5))
+	
+	local pos = forest_fountain_1:getWorldPosition()
 	posx = pos.x
 	posy = pos.y
 	posz = pos.z
 end
 
-objname = "blowpipe_1"
+objname = "forest_fountain_1"
 
 function move(x,y,z)
 	xx = xx + x*1

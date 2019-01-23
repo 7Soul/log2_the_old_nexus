@@ -794,3 +794,449 @@ defineObject{
 	},
 	tags = { "item_misc" }
 }
+
+defineObject{
+	name = "magic_ruby",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/red_gem.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Ruby of Specks",
+			description = "An enchanted ruby that possesses the power of the fire element.",
+			gameEffect = [[Increases fire damage by 20% (+5% per 5 Strength) for 5 spell casts.
+			- Magic Spark spell casts Fire for this duration.			
+			- Takes 1 day to recharge.
+			- This gem burns out after a few days.]],
+			gfxAtlas = "mod_assets/textures/gui/items.dds",
+			gfxIndex = 43,
+			weight = 0.1,
+			traits = { "magic_gem" },
+		},
+		{
+			class = "UsableItem",
+			onUseItem = function(self, champion)
+				if self.go.data:get("charges") == 24 then
+					local id = champion:getOrdinal()
+					local power = 1.2 + (math.floor(champion:getCurrentStat("strength") / 5) * 0.05)
+					functions.script.set_c("ruby_power", id, power)
+					functions.script.set_c("ruby_charges",  id, 5)
+					self.go.data:set("charges", 0)
+					self.go.data:set("icon", self.go.item:getGfxIndex())
+					playSound("generic_spell")
+					self.go.item:setGfxIndex(self.go.item:getGfxIndex() + 2)
+				else
+					hudPrint("The gem needs to recharge.")
+				end
+				return false
+			end,
+		},
+		{
+			class = "Particle",
+			particleSystem = "magic_ruby",
+		},	
+	},
+}
+
+defineParticleSystem{
+	name = "magic_ruby",
+	emitters = {
+		-- smoke
+		{
+			emissionRate = 3,
+			emissionTime = 0,
+			maxParticles = 50,
+			boxMin = {-0.1, 0.1, -0.1},
+			boxMax = { 0.1, 0.1,  0.1},
+			sprayAngle = {0,30},
+			velocity = {0.1,0.5},
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {1,1.75},
+			color0 = {0.15, 0.15, 0.15},
+			opacity = 0.75,
+			fadeIn = 0.5,
+			fadeOut = 0.5,
+			size = {0.1, 0.3},
+			gravity = {0,0,0},
+			airResistance = 0.1,
+			rotationSpeed = 0.6,
+			blendMode = "Translucent",
+		},
+
+		-- flames
+		{
+			emissionRate = 10,
+			emissionTime = 0,
+			maxParticles = 100,
+			boxMin = {-0.1, 0,  -0.1},
+			boxMax = { 0.1, 0.1, 0.1},
+			sprayAngle = {0,10},
+			velocity = {0.1, 0.1},
+			texture = "assets/textures/particles/torch_flame.tga",
+			frameRate = 35,
+			frameSize = 64,
+			frameCount = 16,
+			lifetime = {0.25, 0.85},
+			colorAnimation = true,
+			color0 = {2, 2, 2},
+			color1 = {1.0, 1.0, 1.0},
+			color2 = {1.0, 0.5, 0.25},
+			color3 = {1.0, 0.3, 0.1},
+			opacity = 1,
+			fadeIn = 0.15,
+			fadeOut = 0.3,
+			size = {0.035, 0.01},
+			gravity = {0,1,0},
+			airResistance = 1.0,
+			rotationSpeed = 0,
+			blendMode = "Additive",
+			depthBias = 0.1,
+		},
+	}
+}
+
+
+defineObject{
+	name = "magic_aquamarine",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/blue_gem.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Aquamarine of Cold",
+			description = "An enchanted aquamarine that possesses the power of the ice element.",
+			gameEffect = [[Increases cold damage by 20% (+5% per 5 Willpower) for 5 spell casts.
+			- Magic Spark spell casts Ice for this duration.			
+			- Takes 1 day to recharge.
+			- This gem burns out after a few days.]],
+			gfxAtlas = "mod_assets/textures/gui/items.dds",
+			gfxIndex = 46,
+			weight = 0.1,
+			traits = { "magic_gem" },
+		},
+		{
+			class = "UsableItem",
+			onUseItem = function(self, champion)
+				if self.go.data:get("charges") == 24 then
+					local id = champion:getOrdinal()
+					local power = 1.2 + (math.floor(champion:getCurrentStat("willpower") / 5) * 0.05)
+					functions.script.set_c("aquamarine_power", id, power)
+					functions.script.set_c("aquamarine_charges",  id, 5)
+					self.go.data:set("charges", 0)
+					self.go.data:set("icon", self.go.item:getGfxIndex())
+					playSound("generic_spell")
+					self.go.item:setGfxIndex(self.go.item:getGfxIndex() + 2)
+				else
+					hudPrint("The gem needs to recharge.")
+				end
+				return false
+			end,
+		},
+		{
+			class = "Particle",
+			particleSystem = "magic_aquamarine",
+		},	
+	},
+}
+
+defineParticleSystem{
+	name = "magic_aquamarine",
+	emitters = {
+		-- smoke
+		{
+			emissionRate = 4,
+			emissionTime = 0,
+			maxParticles = 50,
+			boxMin = {-0.1, 0.1, -0.1},
+			boxMax = { 0.1, 0.1,  0.1},
+			sprayAngle = {0,30},
+			velocity = {0.01,0.1},
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {1,1.75},
+			color0 = {0.9, 1.25, 1.5},
+			opacity = 0.75,
+			fadeIn = 0.5,
+			fadeOut = 0.5,
+			size = {0.1, 0.3},
+			gravity = {0,-0.2,0},
+			airResistance = 0.1,
+			rotationSpeed = 0.6,
+			blendMode = "Translucent",
+		},
+
+		-- cold
+		{
+			emissionRate = 10,
+			emissionTime = 0,
+			maxParticles = 100,
+			boxMin = {-0.1, 0,  -0.1},
+			boxMax = { 0.1, 0.1, 0.1},
+			sprayAngle = {0,10},
+			velocity = {0.1, 0.1},
+			texture = "assets/textures/particles/torch_flame.tga",
+			frameRate = 35,
+			frameSize = 64,
+			frameCount = 16,
+			lifetime = {0.25, 0.85},
+			colorAnimation = true,
+			color0 = {0.25, 1, 2},
+			color1 = {0.25, 1.0, 2.0},
+			color2 = {0.25, 0.5, 1.0},
+			color3 = {0.1, 0.3, 1.0},
+			opacity = 1,
+			fadeIn = 0.15,
+			fadeOut = 0.3,
+			size = {0.035, 0.01},
+			gravity = {0,0.5,0},
+			airResistance = 1.0,
+			rotationSpeed = 0,
+			blendMode = "Additive",
+			depthBias = 0.1,
+		},
+	}
+}
+
+defineObject{
+	name = "magic_topaz",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/green_gem.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Topaz of Sparks",
+			description = "An enchanted topaz that possesses the power of the shock element.",
+			gameEffect = [[Increases shock damage by 20% (+5% per 5 Dexterity) for 5 spell casts.
+			- Magic Spark spell casts Shock for this duration.			
+			- Takes 1 day to recharge.
+			- This gem burns out after a few days.]],
+			gfxAtlas = "mod_assets/textures/gui/items.dds",
+			gfxIndex = 49,
+			weight = 0.1,
+			traits = { "magic_gem" },
+		},
+		{
+			class = "UsableItem",
+			onUseItem = function(self, champion)
+				if self.go.data:get("charges") == 24 then
+					local id = champion:getOrdinal()
+					local power = 1.2 + (math.floor(champion:getCurrentStat("dexterity") / 5) * 0.05)
+					functions.script.set_c("topaz_power", id, power)
+					functions.script.set_c("topaz_charges",  id, 5)
+					self.go.data:set("charges", 0)
+					self.go.data:set("icon", self.go.item:getGfxIndex())
+					playSound("generic_spell")
+					self.go.item:setGfxIndex(self.go.item:getGfxIndex() + 2)
+				else
+					hudPrint("The gem needs to recharge.")
+				end
+				return false
+			end,
+		},
+		{
+			class = "Particle",
+			particleSystem = "magic_topaz",
+		},	
+	},
+}
+
+defineParticleSystem{
+	name = "magic_topaz",
+	emitters = {
+		-- smoke bright
+		{
+			emissionRate = 3,
+			emissionTime = 0,
+			maxParticles = 50,
+			boxMin = {-0.1, 0.1, -0.1},
+			boxMax = { 0.1, 0.1,  0.1},
+			sprayAngle = {0,30},
+			velocity = {0.01,0.1},
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {1,1.75},
+			color0 = {0.9, 1.25, 1.5},
+			opacity = 0.75,
+			fadeIn = 0.5,
+			fadeOut = 0.5,
+			size = {0.1, 0.3},
+			gravity = {0,0,0},
+			airResistance = 0.1,
+			rotationSpeed = 0.6,
+			blendMode = "Translucent",
+		},
+		
+		-- smoke dark
+		{
+			emissionRate = 3,
+			emissionTime = 0,
+			maxParticles = 50,
+			boxMin = {-0.1, 0.1, -0.1},
+			boxMax = { 0.1, 0.1,  0.1},
+			sprayAngle = {0,30},
+			velocity = {0.01,0.1},
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {1,1.75},
+			color0 = {0.25, 0.25, 0.25},
+			opacity = 0.75,
+			fadeIn = 0.5,
+			fadeOut = 0.5,
+			size = {0.1, 0.3},
+			gravity = {0,0,0},
+			airResistance = 0.1,
+			rotationSpeed = 0.6,
+			blendMode = "Translucent",
+		},
+
+		-- shock
+		{
+			emissionRate = 5,
+			emissionTime = 0,
+			maxParticles = 100,
+			boxMin = {-0.15, 0,  -0.15},
+			boxMax = { 0.15, 0.1, 0.15},
+			sprayAngle = {0,10},
+			velocity = {0.1, 0.1},
+			texture = "assets/textures/particles/lightning01.tga",
+			frameRate = 35,
+			frameSize = 64,
+			frameCount = 32,
+			lifetime = {0.25, 1.0},
+			colorAnimation = true,
+			color0 = {0.25, 2, 1},
+			color1 = {0.25, 2, 1},
+			color2 = {0.25, 0.5, 1},
+			color3 = {0.1, 0.3, 1},
+			opacity = 1,
+			fadeIn = 0.15,
+			fadeOut = 0.3,
+			size = {0.05, 0.02},
+			gravity = {0,0.1,0},
+			airResistance = 1.0,
+			rotationSpeed = 0,
+			blendMode = "Additive",
+			depthBias = 0.1,
+		},
+	}
+}
+
+defineObject{
+	name = "magic_quartz",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/green_gem.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Quartz of Toxins",
+			description = "An enchanted quartz that possesses the power of poison.",
+			gameEffect = [[Increases poison damage by 20% (+5% per 5 Vitality) for 5 spell casts.			
+			- Takes 1 day to recharge.
+			- This gem burns out after a few days.]],
+			gfxAtlas = "mod_assets/textures/gui/items.dds",
+			gfxIndex = 52,
+			weight = 0.1,
+			traits = { "magic_gem" },
+		},
+		{
+			class = "UsableItem",
+			onUseItem = function(self, champion)
+				if self.go.data:get("charges") == 24 then
+					local id = champion:getOrdinal()
+					local power = 1.2 + (math.floor(champion:getCurrentStat("vitality") / 5) * 0.05)
+					functions.script.set_c("topaz_power", id, power)
+					functions.script.set_c("topaz_charges",  id, 5)
+					self.go.data:set("charges", 0)
+					self.go.data:set("icon", self.go.item:getGfxIndex())
+					playSound("generic_spell")
+					self.go.item:setGfxIndex(self.go.item:getGfxIndex() + 2)
+				else
+					hudPrint("The gem needs to recharge.")
+				end
+				return false
+			end,
+		},
+		{
+			class = "Particle",
+			particleSystem = "magic_quartz",
+		},
+	},
+}
+
+defineParticleSystem{
+	name = "magic_quartz",
+	emitters = {
+		-- smoke
+		{
+			emissionRate = 3,
+			emissionTime = 0,
+			maxParticles = 50,
+			boxMin = {-0.1, -0.05, -0.1},
+			boxMax = { 0.1, 0.1,  0.1},
+			sprayAngle = {0,30},
+			velocity = {0.01,0.1},
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {1,1.75},
+			color0 = {0.2, 0.2, 0.2},
+			opacity = 0.75,
+			fadeIn = 0.5,
+			fadeOut = 0.5,
+			size = {0.1, 0.4},
+			gravity = {0,0,0},
+			airResistance = 0.1,
+			rotationSpeed = 0.6,
+			blendMode = "Translucent",
+		},
+		
+		-- smoke
+		{
+			emissionRate = 3,
+			emissionTime = 0,
+			maxParticles = 50,
+			boxMin = {-0.05, -0.05, -0.05},
+			boxMax = { 0.05, 0.1,  0.05},
+			sprayAngle = {0,30},
+			velocity = {0.01,0.02},
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {1,1.75},
+			color0 = {0.2, 1.25, 0.2},
+			opacity = 0.75,
+			fadeIn = 0.5,
+			fadeOut = 0.5,
+			size = {0.1, 0.4},
+			gravity = {0,0,0},
+			airResistance = 0.1,
+			rotationSpeed = 0.6,
+			blendMode = "Translucent",
+		},
+	}
+}
+
+defineObject{
+	name = "coal",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/rock.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Lump of Coal",
+			description = "This used to be an enchanted gem but now it's nothing but a useless little lump of coal.",
+			gfxAtlas = "mod_assets/textures/gui/items.dds",
+			gfxIndex = 42,
+			weight = 0.1,
+			stackable = true,
+		},
+	},
+}
