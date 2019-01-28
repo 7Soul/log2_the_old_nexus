@@ -733,6 +733,14 @@ defineObject{
 			offset = vec(0, 1.5, 0),
 			size = vec(1.6, 2, 1.6),
 			maxDistance = 1,
+			-- onClick = function(self)
+				-- local m = self.go:getWorldRotation()
+				-- m.x = m.x * 0.5
+				-- m.y = m.y * 0.5
+				-- m.z = m.z * 0.5
+				-- self.go:setWorldRotation(m)
+				-- print(self.go:getWorldRotation())
+			-- end,
 		},
 		{
 			class = "Obstacle",
@@ -1392,4 +1400,79 @@ defineParticleSystem{
 			depthBias = 0.1,
 		},
 	}
+}
+
+defineObject{
+	name = "deco_sword",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/long_sword.fbx",
+		},
+	},
+	placement = "floor",
+	editorIcon = 24,
+	tags = { "decoration" }
+}
+
+
+defineObject{
+	name = "dead_crystal",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/env/healing_crystal.fbx",
+			castShadow = false,
+			offset = vec(-0.4, -1.2, 0),
+			rotation = vec(0, 45, 18),
+		},
+		{
+			class = "Particle",
+			particleSystem = "crystal",
+		},
+		{
+			class = "Light",
+			offset = vec(0,1,0),
+			color = vec(39/255, 90/255, 205/255),
+			range = 5,
+			shadowMapSize = 128,
+			castShadow = true,
+			staticShadows = true,
+		},
+		{
+			class = "Sound",
+			offset = vec(0, 1.5, 0),
+			sound = "crystal_ambient",
+		},
+		-- {
+			-- class = "Animation",
+			-- animations = {
+				-- spin = "assets/animations/env/healing_crystal_spin.fbx",
+			-- },
+		-- },
+		-- {
+			-- class = "Clickable",
+			-- offset = vec(0, 1.5, 0),
+			-- size = vec(1.6, 2, 1.6),
+			-- maxDistance = 1,
+		-- },
+		{
+			class = "Obstacle",
+		},
+		{
+			class = "ProjectileCollider",
+		},
+		{
+			class = "Crystal",
+			cooldown = math.huge,
+			onInit = function(self)
+				self:setCooldown(math.huge)
+				self:deactivate()
+			end,
+		},
+	},
+	placement = "floor",
+	editorIcon = 60,
+	automapIcon = 104,
+	automapIconLayer = 1,
 }

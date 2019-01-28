@@ -29,10 +29,10 @@ function stepCountIncrease()
 	stepCount = stepCount + 1
 end
 
-champSkillTemp1, champSkillTemp2 = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
-champSkillTemp3, champSkillTemp4 = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+champSkillTemp1, champSkillTemp2 = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+champSkillTemp3, champSkillTemp4 = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 partySkillTemp = {champSkillTemp1, champSkillTemp2, champSkillTemp3, champSkillTemp4 } 
-skillNames = { "athletics", "block", "light_armor", "heavy_armor", "accuracy", "critical", "firearms", "throwing", "alchemy", "ranged_weapons", "light_weapons", "heavy_weapons", "spellblade", "elemental_magic", "poison_mastery", "concentration" }
+skillNames = { "athletics", "block", "light_armor", "heavy_armor", "accuracy", "critical", "firearms", "seafaring", "alchemy", "ranged_weapons", "light_weapons", "heavy_weapons", "spellblade", "elemental_magic", "poison_mastery", "concentration", "witchcraft", "tinkering" }
 
 function addSkillTemp(champion, skill)
 	local champ = champion:getOrdinal()
@@ -48,7 +48,7 @@ end
 
 function clearSkillTemp(champion)
 	local champ = champion:getOrdinal()
-	for i=1,16 do
+	for i=1,18 do
 		while partySkillTemp[champ][i] > 0 do
 			partySkillTemp[champ][i] = partySkillTemp[champ][i] - 1
 			champion:addSkillPoints(1)
@@ -58,7 +58,7 @@ end
 
 function performSkillTemp(champion)
 	local champ = champion:getOrdinal()
-	for i=1,16 do
+	for i=1,18 do
 		while partySkillTemp[champ][i] > 0 do
 			partySkillTemp[champ][i] = partySkillTemp[champ][i] - 1
 			champion:trainSkill(skillNames[i], 1, false)
@@ -69,7 +69,7 @@ end
 function countAllSkills(champion)
 	local champ = champion:getOrdinal()
 	local result = 0
-	for i=1,16 do
+	for i=1,18 do
 		result = result + champion:getSkillLevel(skillNames[i])
 	end
 	return result
@@ -80,7 +80,7 @@ function teststart()
 	if Editor.isRunning() then
 		party.party:getChampionByOrdinal(1):setClass("fighter")
 		party.party:getChampionByOrdinal(2):setClass("corsair")
-		party.party:getChampionByOrdinal(3):setClass("monk")
+		party.party:getChampionByOrdinal(3):setClass("druid")
 		party.party:getChampionByOrdinal(4):setClass("elementalist")
 		party.party:getChampionByOrdinal(1):setRace("lizardman")
 		party.party:getChampionByOrdinal(2):setRace("minotaur")
@@ -95,7 +95,7 @@ function teststart()
 				champion:insertItem(21,spawn("enchanted_timepiece").item)
 			end
 			if champion:getClass() == "druid" then
-				for s=13,18 do
+				for s=13,19 do
 					champion:removeItemFromSlot(s)
 				end
 				champion:insertItem(13,spawn("blooddrop_cap").item)
@@ -104,6 +104,7 @@ function teststart()
 				champion:insertItem(16,spawn("falconskyre").item)
 				champion:insertItem(17,spawn("blackmoss").item)
 				champion:insertItem(18,spawn("crystal_flower").item)
+				champion:insertItem(19,spawn("mortar").item)
 			end
 			if champion:getClass() == "corsair" then
 				for s=13,15 do
@@ -1241,72 +1242,6 @@ function tinkererUpgrade(self, champion, container, slot, button)
 						item.go.equipmentitem:setResistCold(math.ceil(champion:getSkillLevel("elemental_magic") * (2 + (level * 0.1)) + boost))
 					end
 				end
-				return
-			end
-			
-			-- Upgrade accessories
-			if item.go.name == "spirit_mirror_pendant" then -- done
-				equipItem:setExpRate(math.ceil(20 * (1.05 + (level * 0.06)) + 1))
-				item:setGameEffect("Item is upgraded to grant a total ".. equipItem:getExpRate() .."% more exp.")
-				return
-			elseif item.go.name == "frostbite_necklace" then
-				equipItem:setResistCold(math.ceil(50 * (1.05 + (level * 0.05)) + 1))
-				equipItem:setEvasion(math.ceil(2 * (1.05 + (level * 0.05)) + 1))
-				return
-			elseif item.go.name == "fire_torc" then
-				equipItem:setResistFire(math.ceil(50 * (1.05 + (level * 0.05)) + 1))
-				equipItem:setEvasion(math.ceil(2 * (1.05 + (level * 0.05)) + 1))
-				return
-			elseif item.go.name == "hardstone_bracelet" then
-				equipItem:setProtection(math.ceil(3 * (1.05 + (level * 0.05)) + 1))
-				equipItem:setAccuracy(math.ceil(10 * (1.05 + (level * 0.05)) + 1))
-				return
-			elseif item.go.name == "bracelet_tirin" then
-				equipItem:setProtection(math.ceil(1 * (1.05 + (level * 0.05)) + 1))
-				equipItem:setCooldownRate(math.ceil(15 * (1.02 + (level * 0.05)) + 0.5))
-				return
-			elseif item.go.name == "brace_fortitude" then
-				equipItem:setStrength(math.ceil(1 * (1.1 + (level * 0.2)) + 0.5))
-				equipItem:setHealthRegenerationRate(math.ceil(20 * (1.02 + (level * 0.05)) + 0.5))
-				return
-			elseif item.go.name == "serpent_bracer" then
-				equipItem:setProtection(math.ceil(2 * (1.05 + (level * 0.05)) + 0.2))
-				equipItem:setResistPoison(math.ceil(50 * (1.02 + (level * 0.05)) + 0.2))
-				return
-			elseif item.go.name == "gear_necklace" then -- done
-				bonus = getBonus(champion:getSkillLevel("athletics"), 0.05)
-				equipItem:setHealth(math.ceil(15 * (1.05 + (level * 0.05 * bonus)) + 0.5))
-				bonus = getBonus(champion:getSkillLevel("concentration"), 0.05)
-				equipItem:setEnergy(math.ceil(15 * (1.05 + (level * 0.05 * bonus)) + 0.5))
-				return
-			elseif item.go.name == "storm_amulet" then -- done
-				bonus = getBonus(champion:getSkillLevel("elemental_magic"), 0.5)
-				equipItem:setResistShock(math.ceil(50 * (1.05 + (level * 0.025)) + (1 * bonus)))
-				equipItem:setWillpower(math.ceil(2 * (1.05 + (level * 0.1)) + 0.5))
-				return
-			elseif item.go.name == "runestone_necklace" then -- done
-				equipItem:setWillpower(math.ceil(1 * (1.1 + (level * 0.2)) + 1))
-				return
-			elseif item.go.name == "jewel_pendant" then -- done
-				equipItem:setWillpower(math.ceil(2 * (1.4 + (level * 0.3)) + 1))
-				return
-			elseif item.go.name == "spiritwalker_pendant" then
-				equipItem:setEnergy(math.ceil(50 * (1.1 + (level * 0.04)) + 1))
-				equipItem:setWillpower(math.ceil(2 * (1.4 + (level * 0.3)) + 1))
-				return
-			elseif item.go.name == "leafbond_bracelet" then
-				equipItem:setEnergyRegenerationRate(math.ceil(20 * (1.1 + (level * 0.04)) + 1))
-				return
-			elseif item.go.name == "steel_armband" then -- done
-				equipItem:setStrength(math.ceil(1 * (1.1 + (level * 0.2)) + 0.7))
-				equipItem:setProtection(math.ceil(1 * (1.1 + (level * 0.2)) + 0.7))
-				return
-			elseif item.go.name == "bronze_brace" then -- done
-				bonus = getBonus(champion:getSkillLevel("critical"), 0.05)
-				equipItem:setCriticalChance((math.ceil(3 * 10 * (1.05 + (level * 0.04 * bonus)) + 0.4)) / 10)
-				bonus = getBonus(champion:getSkillLevel("elemental_magic"), 0.2)
-				equipItem:setResistShock(math.ceil(-20 + (level * 0.2 * bonus) + 1))
-				item:setGameEffect("Critical Chance +" .. equipItem:getCriticalChance() .. "%")
 				return
 			end
 			

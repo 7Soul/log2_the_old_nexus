@@ -3208,7 +3208,7 @@ function checkIceBlock(o, deltaTime)
   local vz = o.data:get("vz") or 0
   local fix_top = false
   if ground ~= o.elevation then
-    vz = vz + 9.81 * deltaTime            -- earth gravity force at altitude 0 is ~9,81 m/s²
+    vz = vz + 9.81 * deltaTime            -- earth gravity force at altitude 0 is ~9,81 m/s
     local dz = vz * deltaTime / 3         -- the distance unit is 3 meters long
     if dz ~= 0 then
       fix_top = true

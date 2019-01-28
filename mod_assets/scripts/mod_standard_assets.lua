@@ -2,7 +2,7 @@ import "assets/scripts/objects/base.lua"
 
 import "assets/scripts/tiles.lua"
 import "assets/scripts/spells.lua"
-import "assets/scripts/recipes.lua"
+--import "assets/scripts/recipes.lua"
 import "assets/scripts/sounds.lua"
 import "assets/scripts/ambient_tracks.lua"
 import "assets/scripts/races.lua"

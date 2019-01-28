@@ -51,6 +51,7 @@ defineObject{
 		{
 			class = "Item",
 			uiName = "Healing Potion",
+			description = "Heals 50 Health over 16 seconds, healing wounds over time.",
 			gfxIndex = 146,
 			weight = 0.6,
 			stackable = true,
@@ -58,22 +59,11 @@ defineObject{
 		},
 		{
 			class = "UsableItem",
-			--emptyItem = "flask",
+			emptyItem = "flask",
 			sound = "consume_potion",
 			onUseItem = function(self, champion)
-				local mult = iff(champion:hasTrait("fast_metabolism"), 2, 1)
-				local hp = champion:getCurrentStat("vitality") * 2
-				champion:regainHealth((50 + hp) * mult)
-				champion:removeCondition("head_wound")
-				champion:removeCondition("chest_wound")
-				champion:removeCondition("leg_wound")
-				champion:removeCondition("feet_wound")
-				champion:removeCondition("right_hand_wound")
-				champion:removeCondition("left_hand_wound")
+				champion:setConditionValue("healing_potion", 16)
 				champion:playHealingIndicator()
-				if champion:hasTrait("refreshed") then
-					champion:setConditionValue("refreshed", 30)
-				end
 			end,
 		},
 	},
@@ -91,27 +81,19 @@ defineObject{
 		{
 			class = "Item",
 			uiName = "Greater Healing Potion",
+			description = "Heals 150 Health over 8 seconds, healing wounds over time.",
 			gfxIndex = 409,
-			weight = 1.1,
+			weight = 1.0,
 			stackable = true,
 			traits = { "potion" },
 		},
 		{
 			class = "UsableItem",
-			--emptyItem = "flask",
+			emptyItem = "flask",
 			sound = "consume_potion",
 			onUseItem = function(self, champion)
-				champion:regainHealth(150)
-				champion:removeCondition("head_wound")
-				champion:removeCondition("chest_wound")
-				champion:removeCondition("leg_wound")
-				champion:removeCondition("feet_wound")
-				champion:removeCondition("right_hand_wound")
-				champion:removeCondition("left_hand_wound")
+				champion:setConditionValue("healing_potion2", 8)
 				champion:playHealingIndicator()
-				if champion:hasTrait("refreshed") then
-					champion:setConditionValue("refreshed", 30)
-				end
 			end,
 		},
 	},
@@ -129,6 +111,7 @@ defineObject{
 		{
 			class = "Item",
 			uiName = "Energy Potion",
+			description = "Recovers 60 Energy over 16 seconds.",
 			gfxIndex = 145,
 			weight = 0.6,
 			stackable = true,
@@ -136,16 +119,11 @@ defineObject{
 		},
 		{
 			class = "UsableItem",
-			--emptyItem = "flask",
+			emptyItem = "flask",
 			sound = "consume_potion",
 			onUseItem = function(self, champion)
-				local mult = iff(champion:hasTrait("arcane_extraction"), 2, 1)
-				local en = champion:getCurrentStat("willpower") * 2
-				champion:regainEnergy((50 + en) * mult)
+				champion:setConditionValue("energy_potion", 16)
 				champion:playHealingIndicator()
-				if champion:hasTrait("refreshed") then
-					champion:setConditionValue("refreshed", 30)
-				end
 			end,
 		},
 	},
@@ -163,6 +141,7 @@ defineObject{
 		{
 			class = "Item",
 			uiName = "Greater Energy Potion",
+			description = "Recovers 120 Energy over 8 seconds.",
 			gfxIndex = 410,
 			weight = 1.1,
 			stackable = true,
@@ -170,10 +149,10 @@ defineObject{
 		},
 		{
 			class = "UsableItem",
-			--emptyItem = "flask",
+			emptyItem = "flask",
 			sound = "consume_potion",
 			onUseItem = function(self, champion)
-				champion:regainEnergy(150)
+				champion:setConditionValue("energy_potion2", 8)
 				champion:playHealingIndicator()
 			end,
 		},

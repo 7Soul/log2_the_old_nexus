@@ -2,9 +2,9 @@ defineCondition{
 	name = "berserker_rage",
 	uiName = "Berserker Rage",
 	description = [[
-	Gains combat stats that fade out over 20 seconds.
-	- Protection +4 to +1 per level (+bonus per 5 levels).
-	- Strength +2 to +1 per level.]],
+	Gains combat stats that fade slowly over 20 seconds.
+	- Protection up to +4 per level (+8 per 5 levels).
+	- Strength up to +2 (+1 per 3 levels).]],
 	icon = 1,
 	--iconAtlas = "mod_assets/textures/conditions.tga",
 	beneficial = true,
@@ -22,7 +22,7 @@ defineCondition{
 		local dur = math.max(champion:getConditionValue("berserker_rage"), 5)
 		if level > 0 then
 			champion:addStatModifier("protection", math.ceil(level * 0.2 * dur) + math.ceil(level2 * 0.4 * dur))
-			champion:addStatModifier("strength", math.ceil(level * 0.1 * dur))
+			champion:addStatModifier("strength", math.ceil((level + math.floor(level/3)) * 0.1 * dur))
 		end
 	end,
 	onTick = function(self, champion)
@@ -34,9 +34,9 @@ defineCondition{
 	name = "berserker_revenge",
 	uiName = "Berserker Revenge",
 	description = [[
-	Gains combat stats that fade out over 20 seconds.
-	- Protection +8 to +2 per level (+bonus per 5 levels).
-	- Strength +4 to +2 per level.]],
+	Gains combat stats that fade slowly over 20 seconds.
+	- Protection up to +8 per level (+16 per 5 levels).
+	- Strength up to +4 (+1 per 3 levels).]],
 	icon = 1,
 	--iconAtlas = "mod_assets/textures/conditions.tga",
 	beneficial = true,
@@ -54,7 +54,7 @@ defineCondition{
 		local dur = math.max(champion:getConditionValue("berserker_rage"), 5)
 		if level > 0 then
 			champion:addStatModifier("protection", math.ceil(level * 0.4 * dur) + math.ceil(level2 * 0.8 * dur))
-			champion:addStatModifier("strength", math.ceil(level * 0.2 * dur))
+			champion:addStatModifier("strength", math.ceil((level + math.floor(level/3)) * 0.2 * dur))
 		end
 	end,
 	onTick = function(self, champion)
@@ -182,7 +182,7 @@ defineCondition{
 	icon = 0,
 	description = "Cold and Air spells +40% damage.",
 	gameEffect = [[
-	- Energy Regeneration Rate +125%.	
+	- Energy Regeneration Rate +50%.	
 	]],
 	onRecomputeStats = function(self, champion)
 		champion:addStatModifier("energy_regeneration_rate", 50)
@@ -195,7 +195,7 @@ defineCondition{
 	icon = 0,
 	description = "Fire and Cold spells +40% damage.",
 	gameEffect = [[
-	- Energy Regeneration Rate +125%.	
+	- Energy Regeneration Rate +50%.	
 	]],
 	onRecomputeStats = function(self, champion)
 		champion:addStatModifier("energy_regeneration_rate", 50)
@@ -208,7 +208,7 @@ defineCondition{
 	icon = 0,
 	description = "Fire and Air spells +40% damage.",
 	gameEffect = [[
-	- Energy Regeneration Rate +125%.	
+	- Energy Regeneration Rate +50%.	
 	]],
 	onRecomputeStats = function(self, champion)
 		champion:addStatModifier("energy_regeneration_rate", 50)
@@ -266,5 +266,131 @@ defineCondition{
 		champion:addStatModifier("energy_regeneration_rate", 25)
 	end,
 	onTick = function(self, champion)
+	end,	
+}
+
+defineCondition{
+	name = "healing_potion",
+	uiName = "Healing",
+	description = "Healing potion in effect.",
+	icon = 1,
+	--iconAtlas = "mod_assets/textures/conditions.tga",
+	beneficial = true,
+	harmful = false,
+	tickInterval = 1,
+	onStart = function(self, champion)
+		if champion:hasTrait("arcane_extraction") then
+			champion:regainEnergy(25)
+		end
+		if champion:hasTrait("refreshed") then
+			champion:regainHealth(12)
+		end
+	end,
+	onStop = function(self, champion)
+	end,
+	onRecomputeStats = function(self, champion)
+	end,
+	onTick = function(self, champion)
+		local heal = champion:hasTrait("refreshed") and 3.9 or 3.125
+		champion:regainHealth(heal)
+		local cond = { "head_wound", "chest_wound", "leg_wound", "feet_wound", "right_hand_wound", "left_hand_wound" }
+		local recoverChance = champion:hasTrait("refreshed") and 0.2 or 0.1
+		local recoverStart = champion:hasTrait("refreshed") and 12 or 8
+		for i=1,#cond do
+			if self:getDuration() <= recoverStart and champion:hasCondition(cond[i]) then
+				if math.random() < recoverChance then
+					champion:removeCondition(cond[i])
+				end
+			end
+			if self:getDuration() <= 1 and champion:hasCondition(cond[i]) then
+				champion:removeCondition(cond[i])
+			end
+		end
+	end,	
+}
+
+defineCondition{
+	name = "healing_potion2",
+	uiName = "Healing",
+	description = "Healing potion in effect.",
+	icon = 1,
+	--iconAtlas = "mod_assets/textures/conditions.tga",
+	beneficial = true,
+	harmful = false,
+	tickInterval = 1,
+	onStart = function(self, champion)
+		if champion:hasTrait("arcane_extraction") then
+			champion:regainEnergy(25)
+		end
+		if champion:hasTrait("refreshed") then
+			champion:regainHealth(37)
+		end
+	end,
+	onStop = function(self, champion)
+	end,
+	onRecomputeStats = function(self, champion)
+	end,
+	onTick = function(self, champion)
+		local heal = champion:hasTrait("refreshed") and 23.4375 or 18.75
+		champion:regainHealth(heal)
+		local cond = { "head_wound", "chest_wound", "leg_wound", "feet_wound", "right_hand_wound", "left_hand_wound" }
+		local recoverChance = champion:hasTrait("refreshed") and 0.2 or 0.1
+		local recoverStart = champion:hasTrait("refreshed") and 12 or 8
+		for i=1,#cond do
+			if self:getDuration() <= recoverStart and champion:hasCondition(cond[i]) then
+				if math.random() < recoverChance then
+					champion:removeCondition(cond[i])
+				end
+			end
+			if self:getDuration() <= 1 and champion:hasCondition(cond[i]) then
+				champion:removeCondition(cond[i])
+			end
+		end
+	end,	
+}
+
+defineCondition{
+	name = "energy_potion",
+	uiName = "Energy Recovery",
+	description = "Energy potion in effect.",
+	icon = 1,
+	--iconAtlas = "mod_assets/textures/conditions.tga",
+	beneficial = true,
+	harmful = false,
+	tickInterval = 1,
+	onStart = function(self, champion)
+		if champion:hasTrait("arcane_extraction") then
+			champion:regainHealth(25)
+		end
+	end,
+	onStop = function(self, champion)
+	end,
+	onRecomputeStats = function(self, champion)
+	end,
+	onTick = function(self, champion)
+		champion:regainEnergy(champion:hasTrait("arcane_extraction") and 4.6875 or 3.75)
+	end,	
+}
+
+defineCondition{
+	name = "energy_potion2",
+	uiName = "Energy Recovery",
+	description = "Energy potion in effect.",
+	icon = 1,
+	--iconAtlas = "mod_assets/textures/conditions.tga",
+	beneficial = true,
+	harmful = false,
+	tickInterval = 1,
+	onStart = function(self, champion)
+		if champion:hasTrait("arcane_extraction") then
+			champion:regainHealth(25)
+		end
+	end,
+	onStop = function(self, champion)
+	end,
+	onRecomputeStats = function(self, champion)
+	end,
+	onTick = function(self, champion)
+		champion:regainEnergy(champion:hasTrait("arcane_extraction") and 18.75 or 15)
 	end,	
 }

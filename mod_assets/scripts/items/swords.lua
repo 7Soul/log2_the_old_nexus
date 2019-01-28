@@ -81,7 +81,6 @@ defineObject{
 			cooldown = 3.7,
 			swipe = "horizontal",
 			requirements = { "light_weapons", 1 },
-			
 		},
 	},
 	tags = { "weapon_sword", "weapon_light" },

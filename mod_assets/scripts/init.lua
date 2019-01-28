@@ -28,9 +28,11 @@ import "mod_assets/scripts/skills.lua"
 import "mod_assets/scripts/traits.lua"
 import "mod_assets/scripts/conditions.lua"
 -- Monsters
+import "mod_assets/scripts/monsters/ash_elemental.lua"
 import "mod_assets/scripts/monsters/turtle.lua"
 import "mod_assets/scripts/monsters/sand_warg.lua"
 import "mod_assets/scripts/monsters/twigroot.lua"
+import "mod_assets/scripts/monsters/xeloroid.lua"
 -- Items
 import "mod_assets/scripts/items/accessories.lua"
 import "mod_assets/scripts/items/armors.lua"
@@ -163,6 +165,14 @@ defineObject{
 				if damageType == "fire" then
 					champion:setCondition("blooddrop_rage")
 					champion:addTrait("blooddrop_rage")
+					playSound("heal_party")
+				end
+			end
+			
+			if champion:isAlive() and champion:hasTrait("etherweed") then
+				if damageType == "cold" then
+					champion:setCondition("etherweed_rage")
+					champion:addTrait("etherweed_rage")
 					playSound("heal_party")
 				end
 			end
@@ -478,8 +488,8 @@ defineObject{
 			local f2 = (context.height/1080)
 			local MX, MY = context.mouseX, context.mouseY
 			-- Cover original skill window up
-			context.drawImage2("mod_assets/textures/gui/skills_bg.dds", w - (548 * f2), 307 * f2, 0, 0, 510, 261, 510*f2, 261*f2)
-			local dummy1, dummy2 = context.button("dummy",w - (556), 307, 510, 261)
+			context.drawImage2("mod_assets/textures/gui/skills_back.dds", w - (548 * f2), 287 * f2, 0, 0, 510, 292, 510*f2, 292*f2)
+			local dummy1, dummy2 = context.button("dummy",w - (556), 287, 510, 292)
 			-- Variables
 			local skill_x, skill_y = 0, 0
 			local val1, val2, valX, valY = {}, {}, {}, {}
@@ -487,39 +497,41 @@ defineObject{
 			local skill2_p = { 2,4,5 } -- block
 			local skill3_p = { 2,4,5 } -- light armor
 			local skill4_p = { 2,4,5 } -- heavy armor
-			local skill5_p = { 2,5 } -- accuracy
-			local skill6_p = { 3,4,5 } -- critical
-			local skill7_p = { 2,4,5 } -- firearms
-			local skill8_p = { 5 } -- throwing
+			local skill5_p = { 1,4,5 } -- accuracy
+			local skill6_p = { 2,4,5 } -- critical
+			local skill7_p = { 3,4,5 } -- firearms
+			local skill8_p = { 2,4,5 } -- seafaring
 			local skill9_p = { 1,4,5 } -- alchemy
 			local skill10_p = { 2,4,5 } -- ranged weapons
-			local skill11_p = { 3,5 } -- light weapons
-			local skill12_p = { 3,5 } -- heavy weapons
-			local skill13_p = { 2,5 } -- spellblade
+			local skill11_p = { 3,4,5 } -- light weapons
+			local skill12_p = { 3,4,5 } -- heavy weapons
+			local skill13_p = { 1,2,4,5 } -- spellblade
 			local skill14_p = { 4,5 } -- elemental
-			local skill15_p = { 2,5 } -- poison
-			local skill16_p = { 3,5 } -- concentration
-			local skill_perks = { skill1_p, skill2_p, skill3_p, skill4_p, skill5_p, skill6_p, skill7_p, skill8_p, skill9_p, skill10_p, skill11_p, skill12_p, skill13_p, skill14_p, skill15_p, skill16_p }
-			-- Draw skills tabs
-			for i=1,16 do
-				skill_x = math.floor((i-1) / 8)
-				skill_y = (i-1) % 8
-				context.drawImage2("mod_assets/textures/gui/skill_slots.dds", w - ((369 - (skill_x * 252)) * f2), (316 + (skill_y * 31)) * f2, 1, 1, 70, 21, 70*f2, 21*f2)
-				val1[i], val2[i] = context.button("skill_info"..i, w - (548 - (skill_x * 252)), 310 + (skill_y * 31), 252, 31)
+			local skill15_p = { 2,4,5 } -- poison
+			local skill16_p = { 3,4,5 } -- concentration
+			local skill17_p = { 1,4,5 } -- witchcraft
+			local skill18_p = { 3,4,5 } -- tinkering
+			local skill_perks = { skill1_p, skill2_p, skill3_p, skill4_p, skill5_p, skill6_p, skill7_p, skill8_p, skill9_p, skill10_p, skill11_p, skill12_p, skill13_p, skill14_p, skill15_p, skill16_p, skill17_p, skill18_p }
+			-- Draw skills slots
+			for i=1,18 do
+				skill_x = math.floor((i-1) / 9)
+				skill_y = (i-1) % 9
+				context.drawImage2("mod_assets/textures/gui/skill_slots.dds", w - ((369 - (skill_x * 252)) * f2), (298 + (skill_y * 31)) * f2, 1, 1, 70, 21, 70*f2, 21*f2)
+				val1[i], val2[i] = context.button("skill_info"..i, w - (548 - (skill_x * 252)), 292 + (skill_y * 31), 252, 31)
 				valX[i] = 369 - (skill_x * 252)
-				valY[i] = 316 + (skill_y * 31)
+				valY[i] = 298 + (skill_y * 31)
 			end
-			-- Draw skills tabs (hover)
-			for i=1,16 do	
+			-- Draw skills slots (hover)
+			for i=1,18 do	
 				if val2[i] then
 					context.drawImage2("mod_assets/textures/gui/skill_slots.dds", w - ((valX[i] + 1) * f2), (valY[i] - 1) * f2, 0, 23, 72, 23, 72*f2, 23*f2)
 					break
 				end
 			end
 			-- Draw skill pegs
-			for i=1,16 do				
-				skill_x = math.floor((i-1) / 8)
-				skill_y = (i-1) % 8
+			for i=1,18 do
+				skill_x = math.floor((i-1) / 9)
+				skill_y = (i-1) % 9
 				local xpositions = {0,0,0,5,10}
 				local tickX = 0				
 				-- Draw green pegs
@@ -529,7 +541,7 @@ defineObject{
 					if tempLevel > 0 and skillLevel < 5 then
 						for j=skillLevel+1,tempLevel do
 							tickX = ((j-1) * 11) + xpositions[j]
-							context.drawImage2("mod_assets/textures/gui/skill_slots.dds", w - ((366 - (skill_x * 252) - tickX) * f2), (319 + (skill_y * 31)) * f2, 10, 46, 10, 15, 10*f2, 15*f2)
+							context.drawImage2("mod_assets/textures/gui/skill_slots.dds", w - ((366 - (skill_x * 252) - tickX) * f2), (301 + (skill_y * 31)) * f2, 10, 46, 10, 15, 10*f2, 15*f2)
 						end
 					end	
 				end
@@ -539,7 +551,7 @@ defineObject{
 				if skillLevel > 0 then
 					for j=1,skillLevel do
 						tickX = ((j-1) * 11) + xpositions[j]
-						context.drawImage2("mod_assets/textures/gui/skill_slots.dds", w - ((366 - (skill_x * 252) - tickX) * f2), (319 + (skill_y * 31)) * f2, 0, 46, 10, 15, 10*f2, 15*f2)
+						context.drawImage2("mod_assets/textures/gui/skill_slots.dds", w - ((366 - (skill_x * 252) - tickX) * f2), (301 + (skill_y * 31)) * f2, 0, 46, 10, 15, 10*f2, 15*f2)
 					end
 				end
 				
@@ -551,18 +563,18 @@ defineObject{
 						got = 7
 					end
 					if skill_perks[i][j] < 4 then
-						context.drawImage2("mod_assets/textures/gui/skill_slots.dds", w - ((363 - (skill_x * 252) - tickX) * f2), (324 + (skill_y * 31)) * f2, 72, got, 4, 5, 4*f2, 5*f2)
+						context.drawImage2("mod_assets/textures/gui/skill_slots.dds", w - ((363 - (skill_x * 252) - tickX) * f2), (306 + (skill_y * 31)) * f2, 72, got, 4, 5, 4*f2, 5*f2)
 					elseif skill_perks[i][j] == 4 then
-						context.drawImage2("mod_assets/textures/gui/skill_slots.dds", w - ((364 - (skill_x * 252) - tickX) * f2), (323 + (skill_y * 31)) * f2, 76, got, 6, 6, 6*f2, 6*f2)
+						context.drawImage2("mod_assets/textures/gui/skill_slots.dds", w - ((364 - (skill_x * 252) - tickX) * f2), (305 + (skill_y * 31)) * f2, 76, got, 6, 6, 6*f2, 6*f2)
 					else
-						context.drawImage2("mod_assets/textures/gui/skill_slots.dds", w - ((364 - (skill_x * 252) - tickX) * f2), (323 + (skill_y * 31)) * f2, 82, got, 6, 7, 6*f2, 7*f2)
+						context.drawImage2("mod_assets/textures/gui/skill_slots.dds", w - ((364 - (skill_x * 252) - tickX) * f2), (305 + (skill_y * 31)) * f2, 82, got, 6, 7, 6*f2, 7*f2)
 					end
 				end				
 			end
 			-- Draw confirm and clear buttons
 			local confirm1, confirm2 = context.button("confirm", w - (270), 584, 108, 32)
 			local clear1, clear2 = context.button("clear", w - (270-125), 584, 108, 32)
-			for i=1,16 do
+			for i=1,18 do
 				if functions.script.partySkillTemp[champion:getOrdinal()][i] > 0 then
 					context.drawGuiItem2("ButtonAccept", w - (274*f2), 583*f2, 0, 0, 108, 32, 108*f2, 32*f2)
 					context.drawGuiItem2("ButtonClear", w - ((274-125)*f2), 583*f2, 0, 0, 108, 32, 108*f2, 32*f2)
@@ -582,7 +594,7 @@ defineObject{
 				end
 			end
 			-- Draw description overlay and icon
-			for j=1,16 do
+			for j=1,18 do
 				if val2[j] then	
 					-- Click skill --
 					local points = champion:getSkillPoints()
@@ -612,8 +624,6 @@ defineObject{
 					end
 					-- Draw description
 					local f3 = math.min(f2 + 0.1, 1)
-					local yAdd = 0
-					if MY > 358 then yAdd = -368 else yAdd = 32	end
 					context.drawImage2("mod_assets/textures/gui/skill_description.dds", w - (1240 * f2), MY - 110, ((j-1)%4)*569, math.floor((j-1)/4)*337, 569, 337, 569*f3, 337*f3)
 					-- Draw icon
 					context.drawImage2("mod_assets/textures/gui/skills.dds", w - (1228*f2), MY - 110 + 16, ((j-1)%13)*75, math.floor((j-1)/13)*75, 75, 75, 75*f3, 75*f3)

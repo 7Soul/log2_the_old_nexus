@@ -16,9 +16,11 @@ function hit(self, what, entity)
     e.tiledamager:setCastByChampion(self:getCastByChampion() or 1)
     if attackPower then e.tiledamager:setAttackPower(attackPower) end
 	-- Add elemental exploitation tag
-	if party.party:getChampionByOrdinal(self:getCastByChampion()):hasTrait("elemental_exploitation") then
-		functions.script.set_c("elemental_exploitation", self:getCastByChampion(), true)
-	end	
+	if self:getCastByChampion() then
+		if party.party:getChampionByOrdinal(self:getCastByChampion()):hasTrait("elemental_exploitation") then
+			functions.script.set_c("elemental_exploitation", self:getCastByChampion(), true)
+		end	
+	end
   end
   if e.cloudspell then
     e.cloudspell:setCastByChampion(self:getCastByChampion() or 1)
@@ -733,7 +735,7 @@ defineObject{
         data = {hitEffect = "lightning_bolt_greater_blast", attackPower=27}
         function get(self,name) return self.data[name] end
         function set(self,name,value) self.data[name] = value end
-      ]],      
+      ]],
     },
     {
       class = "Projectile",

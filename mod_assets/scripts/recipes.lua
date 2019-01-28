@@ -84,34 +84,46 @@ defineRecipe{
 	ingredients = 45,
 }
 
+defineRecipe{
+	potion = "potion_healing_greater",
+	level = 1,
+	ingredients = 111,
+}
+
+defineRecipe{
+	potion = "potion_energy_greater",
+	level = 1,
+	ingredients = 222,
+}
+
 -- Level 5
 
 defineRecipe{
 	potion = "potion_resurrection",
 	level = 5,
-	ingredients = 55,
+	ingredients = 1255,
 }
 
 defineRecipe{
 	potion = "potion_strength",
 	level = 5,
-	ingredients = 16,
+	ingredients = 166,
 }
 
 defineRecipe{
 	potion = "potion_dexterity",
 	level = 5,
-	ingredients = 46,
+	ingredients = 466,
 }
 
 defineRecipe{
 	potion = "potion_willpower",
 	level = 5,
-	ingredients = 26,
+	ingredients = 266,
 }
 
 defineRecipe{
 	potion = "potion_vitality",
 	level = 5,
-	ingredients = 36,
+	ingredients = 366,
 }

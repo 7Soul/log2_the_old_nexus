@@ -21,7 +21,7 @@ function start()
 		end
 		party:setPosition(startx, starty, party.facing, party.elevation, party.level)
 	end
-	local no_mobs = true
+	local no_mobs = false
 	if no_mobs then
 		for entity in Dungeon.getMap(party.level):allEntities() do
 			if entity.monster then
@@ -187,21 +187,54 @@ function start()
 	blowpipe_1:setWorldPosition(vec(5.5,0.51,30.19))
 	blowpipe_1:setWorldRotationAngles(0,5.6,104)
 	
-	
 	------------------------
 	--  Castle Courtyard  --
 	------------------------
 	forest_fountain_1:setWorldPosition(vec(45,0,66))
 	
-	--turtle_2:setWorldRotation(mat(0.5,0.5,0.5,0.5))
+	for i=1,72 do
+		local sword = findEntity("deco_sword_"..i) 
+		if sword then
+		local pos = sword:getWorldPosition()
+		if sword.facing == 0 or sword.facing == 2 then
+			pos.x = pos.x - 1.4 + (math.random() * 2.8)
+			pos.z = math.floor((pos.z - 0.0 + (math.random() * 3)) / 3) * 3
+		else
+			pos.z = pos.z - 1.4 + (math.random() * 2.8)
+			pos.x = math.floor((pos.x - 0.0 + (math.random() * 3)) / 3) * 3
+		end
+		--for entity in Dungeon.getMap(sword.level):entitiesAt(sword.x, sword.y) do
+			--while sword.x == entity.x and sword.y == entity.y do 
+				--findEntity("deco_sword_"..i):setWorldPosition(vec(math.floor((57 + math.random() * 30) / 3) * 3, 0.11 + math.random() * 0.45, math.floor((50 + math.random() * 30) / 3) * 3))
+				sword:setWorldPosition(pos.x, pos.y + math.random() * 0.4, pos.z)
+				sword:setWorldRotationAngles(math.random() * 360, -15 + math.random() * 30, 75 + math.random() * 30)
+				local m = sword:getWorldRotation()
+				local scale = 1 + (math.random() * 0.5)
+				m.x = m.x * scale
+				m.y = m.y * scale
+				m.z = m.z * scale
+				m.w = m.w * scale
+				sword:setWorldRotation(m)
+			--end
+		--end
+		end
+	end
+	local m = dead_crystal_1:getWorldRotation()
+	local scale = 1 + 0.6
+	m.x = m.x * scale
+	m.y = m.y * scale
+	m.z = m.z * scale
+	m.w = m.w * scale
+	dead_crystal_1:setWorldRotation(m)
 	
-	local pos = forest_fountain_1:getWorldPosition()
+	
+	local pos = deco_sword_1:getWorldPosition()
 	posx = pos.x
 	posy = pos.y
 	posz = pos.z
 end
 
-objname = "forest_fountain_1"
+objname = "deco_sword_1"
 
 function move(x,y,z)
 	xx = xx + x*1
