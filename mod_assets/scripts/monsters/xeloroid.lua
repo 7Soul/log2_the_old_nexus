@@ -3,17 +3,6 @@ defineObject{
 	baseObject = "base_monster",
 	components = {
 		{
-			class = "Script",
-			name = "data",
-			source = [[data = {}
-function get(self,name)
-	return self.data[name]
-end
-function set(self,name,value)
-	self.data[name] = value
-end]],
-		},
-		{
 			class = "Model",
 			model = "assets/models/monsters/xeloroid.fbx",
 			storeSourceData = true,

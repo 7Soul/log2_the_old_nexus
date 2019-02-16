@@ -331,7 +331,11 @@ defineObject{
 			--emptyItem = "flask",
 			sound = "consume_potion",
 			onUseItem = function(self, champion)
-				champion:setCondition("haste")
+				if champion:getItem(ItemSlot.Feet) and champion:getItem(ItemSlot.Feet).go.name == "rogue_boots_2" then
+					champion:setConditionValue("haste", 100)
+				else
+					champion:setCondition("haste")
+				end
 			end,
 		},
 	},

@@ -30,8 +30,10 @@ function start()
 		end
 	end
 	
-	
-	-- scenery
+	-------------------
+	-- Second Beach ---
+	-------------------
+	if beach_ocean_2 then
 	findEntity("beach_rock_1x1_low_6"):getComponent("model"):setOffset(vec(-1.5,-0.8,0))
 	findEntity("beach_rock_spire_4"):getComponent("model"):setOffset(vec(-20,0,0))
 	findEntity("beach_rock_1x1_4"):getComponent("model"):setOffset(vec(-20,1,-10))
@@ -124,10 +126,12 @@ function start()
 	
 	daemon_head_3:setWorldPosition(daemon_head_3:getWorldPosition() + vec(-0.27,0,0.0))
 	mine_ceiling_lantern_4:setWorldPosition(mine_ceiling_lantern_4:getWorldPosition() + vec(-1.5,-0.7,0.9))
+	end
 	
 	-------------------
 	-- Minute Grotto --
 	-------------------
+	if note_1 then
 	for i=27,36 do
 		findEntity("beach_rock_3x1_"..i):setWorldPosition(findEntity("beach_rock_3x1_"..i):getWorldPosition() + vec(-5,5,-2.7))
 		findEntity("beach_rock_3x1_"..i):setWorldRotationAngles(104,0,96)
@@ -146,10 +150,12 @@ function start()
 	note_1:setWorldRotationAngles(87.2,26.4,-2.4)
 	iron_key_1:setWorldPosition(vec(36.05,-0.14,70.51))
 	iron_key_1:setWorldRotationAngles(33,62,23)
-
+	end
+	
 	--------------------
 	-- Bridge of Ages --
 	--------------------
+	if short_bow_1 then
 	short_bow_1:setWorldPosition(vec(73.55,0.76,32.91))
 	short_bow_1:setWorldRotationAngles(101,-2.4,72)
 	short_bow_1.gravity:disable()	
@@ -163,78 +169,91 @@ function start()
 	arrow_3:setWorldRotationAngles(55.2,127.2,268)
 	arrow_3.gravity:disable()
 	
-	castle_pressure_plate_1:setWorldPositionY(-0.01)
-	--castle_pressure_plate_1:setWorldPosition(vec(17.75,-0.01,73.5))
-	--wall_button_2:setWorldPosition(vec(18.41,-0.96,72.75))
-	--beach_lock_gold_2:setWorldPosition(vec(18.41,-0.96,72.75))
-	--beach_lock_gold_2:createComponent("Door")
-	
 	for i=1,4 do
 		findEntity("demo_pillar_"..i):setWorldPosition(vec(81, 0, 59.4 + (i*3) - 3))
 		findEntity("demo_button_"..i):setWorldPosition(vec(80.87, 0, 59.4 + (i*3) - 3))
 		findEntity("gate_demo_"..i.."_bot"):setWorldPosition(findEntity("gate_demo_"..i.."_top"):getWorldPosition() + vec(0,-0.5,0))
 	end
 	beach_wall_button_5:setWorldPosition(vec(78.4, 0, 64.5))
+	end
 	
 	--------------------
 	--  Ruined City   --
 	--------------------
+	if mine_ceiling_lantern_6 then
 	mine_ceiling_lantern_6:setWorldPosition(vec(7.5,-0.25,39))
+	
+	castle_pressure_plate_1:setWorldPositionY(-0.01)
+	--castle_pressure_plate_1:setWorldPosition(vec(17.75,-0.01,73.5))
+	--wall_button_2:setWorldPosition(vec(18.41,-0.96,72.75))
+	--beach_lock_gold_2:setWorldPosition(vec(18.41,-0.96,72.75))
+	--beach_lock_gold_2:createComponent("Door")
+	end
 	
 	--------------------
 	--  Unnamed Cave  --
 	--------------------
+	if blowpipe_1 then
 	blowpipe_1:setWorldPosition(vec(5.5,0.51,30.19))
 	blowpipe_1:setWorldRotationAngles(0,5.6,104)
+	end
 	
 	------------------------
 	--  Castle Courtyard  --
 	------------------------
+	if forest_fountain_1 then
 	forest_fountain_1:setWorldPosition(vec(45,0,66))
-	
-	for i=1,72 do
-		local sword = findEntity("deco_sword_"..i) 
-		if sword then
-		local pos = sword:getWorldPosition()
-		if sword.facing == 0 or sword.facing == 2 then
-			pos.x = pos.x - 1.4 + (math.random() * 2.8)
-			pos.z = math.floor((pos.z - 0.0 + (math.random() * 3)) / 3) * 3
-		else
-			pos.z = pos.z - 1.4 + (math.random() * 2.8)
-			pos.x = math.floor((pos.x - 0.0 + (math.random() * 3)) / 3) * 3
-		end
-		--for entity in Dungeon.getMap(sword.level):entitiesAt(sword.x, sword.y) do
-			--while sword.x == entity.x and sword.y == entity.y do 
-				--findEntity("deco_sword_"..i):setWorldPosition(vec(math.floor((57 + math.random() * 30) / 3) * 3, 0.11 + math.random() * 0.45, math.floor((50 + math.random() * 30) / 3) * 3))
-				sword:setWorldPosition(pos.x, pos.y + math.random() * 0.4, pos.z)
-				sword:setWorldRotationAngles(math.random() * 360, -15 + math.random() * 30, 75 + math.random() * 30)
-				local m = sword:getWorldRotation()
-				local scale = 1 + (math.random() * 0.5)
-				m.x = m.x * scale
-				m.y = m.y * scale
-				m.z = m.z * scale
-				m.w = m.w * scale
-				sword:setWorldRotation(m)
-			--end
-		--end
-		end
+	forest_plant_cluster_01_67.model:setEmissiveColor(vec(0.05,-0.02,-0.01))
+	forest_spruce_sapling_01_16.model:setEmissiveColor(vec(0.05,-0.02,-0.01))
 	end
-	local m = dead_crystal_1:getWorldRotation()
-	local scale = 1 + 0.6
-	m.x = m.x * scale
-	m.y = m.y * scale
-	m.z = m.z * scale
-	m.w = m.w * scale
-	dead_crystal_1:setWorldRotation(m)
 	
+	-------------------------
+	-- Century Battlefield --
+	-------------------------
+	if deco_sword_1 then
+		for i=1,72 do
+			local sword = findEntity("deco_sword_"..i) 
+			if sword then
+			local pos = sword:getWorldPosition()
+			if sword.facing == 0 or sword.facing == 2 then
+				pos.x = pos.x - 1.4 + (math.random() * 2.8)
+				pos.z = math.floor((pos.z - 0.0 + (math.random() * 3)) / 3) * 3
+			else
+				pos.z = pos.z - 1.4 + (math.random() * 2.8)
+				pos.x = math.floor((pos.x - 0.0 + (math.random() * 3)) / 3) * 3
+			end
+			--for entity in Dungeon.getMap(sword.level):entitiesAt(sword.x, sword.y) do
+				--while sword.x == entity.x and sword.y == entity.y do 
+					--findEntity("deco_sword_"..i):setWorldPosition(vec(math.floor((57 + math.random() * 30) / 3) * 3, 0.11 + math.random() * 0.45, math.floor((50 + math.random() * 30) / 3) * 3))
+					sword:setWorldPosition(pos.x, pos.y + math.random() * 0.4, pos.z)
+					sword:setWorldRotationAngles(math.random() * 360, -15 + math.random() * 30, 75 + math.random() * 30)
+					local m = sword:getWorldRotation()
+					local scale = 1 + (math.random() * 0.5)
+					m.x = m.x * scale
+					m.y = m.y * scale
+					m.z = m.z * scale
+					m.w = m.w * scale
+					sword:setWorldRotation(m)
+				--end
+			--end
+			end
+		end
+		local m = dead_crystal_1:getWorldRotation()
+		local scale = 1 + 0.6
+		m.x = m.x * scale
+		m.y = m.y * scale
+		m.z = m.z * scale
+		m.w = m.w * scale
+		dead_crystal_1:setWorldRotation(m)
+	end
 	
-	local pos = deco_sword_1:getWorldPosition()
+	local pos = dungeon_cave_in_small_1:getWorldPosition()
 	posx = pos.x
 	posy = pos.y
 	posz = pos.z
 end
 
-objname = "deco_sword_1"
+objname = "dungeon_cave_in_small_1"
 
 function move(x,y,z)
 	xx = xx + x*1
@@ -311,17 +330,19 @@ function teleportParty(level)
 end
 
 function updateSky(t)
-	local sky = findEntity("forest_day_sky_2").sky
+	local sky = nil
 	local fog_base = 440
 	local fog_var = 350
-	if party.level == 1 then
+	if party.level == 8 then
 		sky = findEntity("forest_day_sky_2").sky
 		fog_base = 470
 		fog_var = 350
-	elseif  party.level == 2 then
+	elseif  party.level == 5 then
 		sky = findEntity("beach_day_sky_2").sky
 		fog_base = 420
 		fog_var = 350
+	else
+		return
 	end
 	
 	if skyMode == "normal" then

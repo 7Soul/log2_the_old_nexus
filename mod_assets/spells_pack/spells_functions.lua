@@ -22,7 +22,7 @@ defOrdered =
   hidden = true,
   description = "",
   onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
-    local power = spells_functions.script.getPower(1, champion, "missile_weapons", "neutral")	
+    local power = spells_functions.script.getPower(1, champion, "missile_weapons", "neutral", 1)	
     local ord = champion:getOrdinal()
     spells_functions.script.missile("psionic_arrow", ord, power, nil, true)
     spells_functions.script.stopInvisibility()
@@ -70,7 +70,7 @@ defOrdered =
 		element = "shock"
 	end
 	
-    local power = spells_functions.script.getPower(18, champion, "elemental_magic", element)
+    local power = spells_functions.script.getPower(18, champion, "elemental_magic", element, 1)
 	if element == "fire" then
 		spells_functions.script.frontAttack("fireburst", power, champion:getOrdinal())
 	elseif element == "cold" then	
@@ -445,7 +445,7 @@ defOrdered =
   spellIcon = 8,
   description = "Unleashes a devastating storm of meteors on your foes.\n- Cost : 80 energy\n- Power : 30 per meteor",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
-    local power = spells_functions.script.getPower(2.5, champion, "elemental_magic", "fire")
+    local power = spells_functions.script.getPower(2.5, champion, "elemental_magic", "fire", 3)
     spells_functions.script.missiles(power, {"fireball_large_cast"}, champion:getOrdinal(), 1, true)
     spells_functions.script.stopInvisibility()
   end
@@ -1942,8 +1942,11 @@ function getSpellCriticalChance(champion)
 	return chance
 end
 
-function getPower(base, champion, skill, element)
+function getPower(base, champion, skill, element, tier)
+	if element == nil then element = "neutral" end
+	if tier == nil then tier = 1 end
 	local f = getSkillPower(champion, skill) + champion:getCurrentStat("willpower")/50 + 1
+	local arcaneWarrior = 0
 	if champion:getClass() == "elementalist" then
 		f = spells_functions.script.elementalistPower(element, champion, f)
 	end
@@ -1957,7 +1960,7 @@ function getPower(base, champion, skill, element)
 			f = f * 1.2
 		end
 		
-		if isArmorSetEquipped("embalmers") then
+		if champion:isArmorSetEquipped("embalmers") then
 			f = f * 1.15
 		end
 		
@@ -1966,6 +1969,7 @@ function getPower(base, champion, skill, element)
 				f = f * 1.4
 			end
 		end
+		
 	elseif element == "fire" then
 		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).name == "forestfire_bracer" then
 			f = f * 1.2
@@ -1986,6 +1990,7 @@ function getPower(base, champion, skill, element)
 		elseif gem_charges == 0 then
 			functions.script.set_c("ruby_charges", champion:getOrdinal(), nil)
 		end
+		
 	elseif element == "cold" then
 		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).name == "coldspike_bracelet" then
 			f = f * 1.2
@@ -2008,6 +2013,7 @@ function getPower(base, champion, skill, element)
 		elseif gem_charges == 0 then
 			functions.script.set_c("aquamarine_charges", champion:getOrdinal(), nil)
 		end
+		
 	elseif element == "shock" then
 		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).name == "torment_bracer" then
 			f = f * 1.2
@@ -2026,8 +2032,21 @@ function getPower(base, champion, skill, element)
 		elseif gem_charges == 0 then
 			functions.script.set_c("topaz_charges", champion:getOrdinal(), nil)
 		end
+		
+	elseif element == "neutral" then
+		
 	end
-	return base * f * (get("crit") and 2 or 1)
+	
+	if tier < 3 then
+		if champion:hasTrait("arcane_warrior") then
+			local ap1, acc1 = 0, 0
+			ap = functions.script.getDamage(champion:getOrdinal()) * 0.1
+			acc = functions.script.getAccuracy(champion:getOrdinal()) * 0.1
+			arcaneWarrior = ap + acc
+		end
+	end
+	
+	return (base * f * (get("crit") and 2 or 1)) + arcaneWarrior
 end
 
 function quantumPower(base, champion, skill1, skill2, skill3, skill4, skill5)
@@ -2357,35 +2376,38 @@ function frontAttack(attack, power, ordinal)
 	if party.party:getChampionByOrdinal(ordinal):hasTrait("elemental_exploitation") then
 		functions.script.set_c("elemental_exploitation", ordinal, true)
 	end
-		if attack == "poison_cloud_large" then
-		local success = 0
-		for e in party.map:entitiesAt(dx, dy) do
-			if e ~= nil then			
-				local herb_items = {"blooddrop_cap", "blooddrop_cap", "etherweed", "etherweed", "mudwort", "mudwort", "blackmoss", "falconskyre", "falconskyre"}
-				local herb = herb_items[math.random(#herb_items)]
-				if e.name == "borra" then	
-					spawn(herb, 1, e.x, e.y, e.facing, e.elevation)
-					success = success + 1
-					e:destroy()
-				elseif e.name == "bread" then
-					spawn(herb, 1, e.x, e.y, e.facing, e.elevation)
-					success = success + 1
-					e:destroy()
-				elseif e.name == "pitroot_bread" then
-					spawn(herb, 1, e.x, e.y, e.facing, e.elevation)
-					success = success + 1
-					e:destroy()
-				elseif e.name == "baked_maggot" then
-					spawn(herb, 1, e.x, e.y, e.facing, e.elevation)
-					success = success + 1
-					e:destroy()
-				end
-			end		
-		end
-		if success > 0 then
-			hudPrint("The caustic fumes caused herbs to sprout from the food...")
-		end
-	end
+	if party.party:getChampionByOrdinal(ordinal):hasTrait("ritual") then
+		functions.script.set_c("ritual", ordinal, true)
+	end	
+	-- if attack == "poison_cloud_large" then
+		-- local success = 0
+		-- for e in party.map:entitiesAt(dx, dy) do
+			-- if e ~= nil then			
+				-- local herb_items = {"blooddrop_cap", "blooddrop_cap", "etherweed", "etherweed", "mudwort", "mudwort", "blackmoss", "falconskyre", "falconskyre"}
+				-- local herb = herb_items[math.random(#herb_items)]
+				-- if e.name == "borra" then	
+					-- spawn(herb, 1, e.x, e.y, e.facing, e.elevation)
+					-- success = success + 1
+					-- e:destroy()
+				-- elseif e.name == "bread" then
+					-- spawn(herb, 1, e.x, e.y, e.facing, e.elevation)
+					-- success = success + 1
+					-- e:destroy()
+				-- elseif e.name == "pitroot_bread" then
+					-- spawn(herb, 1, e.x, e.y, e.facing, e.elevation)
+					-- success = success + 1
+					-- e:destroy()
+				-- elseif e.name == "baked_maggot" then
+					-- spawn(herb, 1, e.x, e.y, e.facing, e.elevation)
+					-- success = success + 1
+					-- e:destroy()
+				-- end
+			-- end		
+		-- end
+		-- if success > 0 then
+			-- hudPrint("The caustic fumes caused herbs to sprout from the food...")
+		-- end
+	-- end
 	if a.tiledamager then a.tiledamager:setCastByChampion(ordinal) a.tiledamager:setAttackPower(power) end
 	if a.cloudspell then a.cloudspell:setCastByChampion(ordinal) a.cloudspell:setAttackPower(power) end
 	if a.forcefield then delayedCall(a.id, power, "deactivate") delayEffects(power+3, destroy, {a.id}) end

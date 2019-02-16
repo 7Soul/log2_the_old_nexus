@@ -1164,7 +1164,7 @@ defineTrait{
 				hpTotal = hpTotal + champ:getHealth()
 			end
 			local hpRate = 1 - (hpTotal / hpMaxTotal)
-			print(champion:getName())
+			functions.script.set_c("clutch", champion:getOrdinal(), 100 * hpRate)
 			return 100 * hpRate
 		end
 	end,
@@ -1211,9 +1211,9 @@ defineTrait{
 	description = "7% chance to not spend a pellet to fire.",
 }
 
-defineTrait{ -- to do
-	name = "quickshot",
-	uiName = "Quickshot",
+defineTrait{
+	name = "silver_bullet",
+	uiName = "Silver Bullet",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 84,
 	description = "Every 6th shot does double damage.",
@@ -1274,19 +1274,19 @@ defineTrait{
 }
 
 defineTrait{
+	name = "",
+	uiName = "",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 118,
+	description = "Cannon balls in your inventory weight 50% less.",
+}
+
+defineTrait{
 	name = "broadside",
 	uiName = "Broadside",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 118,
 	description = "Pellets and cannon balls have a 40% chance to create shrapnel on impact, doing half damage to the enemy behind your target.",
-}
-
-defineTrait{
-	name = "",
-	uiName = "Sea Dog",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 118,
-	description = "Cannon balls in your inventory weight 80% less.",
 }
 
 -- Alchemy
@@ -1356,6 +1356,14 @@ defineTrait{
 }
 
 defineTrait{
+	name = "mage_spark_memo",
+	uiName = "Memorized Spell",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 101,
+	description = "You memorized the Mage Spark spell.",
+}
+
+defineTrait{
 	name = "fireburst_memo",
 	uiName = "Memorized Spell",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
@@ -1387,12 +1395,12 @@ defineTrait{
 	description = "You memorized the Poison Cloud spell.",
 }
 
-defineTrait{ -- to do
+defineTrait{
 	name = "arcane_warrior",
 	uiName = "Arcane Warrior",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 102,
-	description = "Non-ultimate level spells gain damage equal to 10% of the current weapon damage plus 10% of your accuracy.",
+	description = "Non-ultimate level spells gain damage equal to 10% of your melee weapon damage and accuracy.",
 }
 
 defineTrait{
@@ -1484,11 +1492,11 @@ defineTrait{
 }
 
 -- Witchcraft
-defineTrait{ -- to do
+defineTrait{
 	name = "ritual",
 	uiName = "Ritual",
 	icon = 1,
-	description = "Heals the party for 10% of the damage done with spells.",
+	description = "Heals the party for 10% of the damage done with spells.", -- (not dot)
 }
 
 defineTrait{ -- to do

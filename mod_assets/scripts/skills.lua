@@ -8,7 +8,7 @@ defineSkill{
 	Perks:
 	- Level 2 | Your carrying capacity is increased by 10 kg.
 	- Level 4 | Increases resistance to leg wounds by 10%, plus 10% if wearing Light Armor boots or 20% if wearing Heavy Armor boots.
-	- Level 5 | You gain +100% Health Regeneration Rate for 30 seconds after drinking a healing potion.]],
+	- Level 5 | Healing potions heal 25% more, with some extra healing applied instantly.]],
 	traits = { [2] = "pack_mule", [4] = "endurance", [5] = "refreshed" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
@@ -25,7 +25,7 @@ defineSkill{
 					bonus = 0.2
 				else
 					bonus = 0.1
-				end				
+				end
 			end
 			if cond == "leg_wound" and math.random() <= 0.1 + bonus then
 				return false
@@ -181,7 +181,7 @@ defineSkill{
 	- Level 3 | 7% chance to not spend a pellet to fire.
 	- Level 4 | Every 6th shot does double damage.
 	- Level 5 | Reload time reduced by 25%.]],
-	traits = { [3] = "metal_slug", [5] = "fast_fingers" },
+	traits = { [3] = "metal_slug", [4] = "silver_bullet", [5] = "fast_fingers" },
 }
 
 defineSkill{
@@ -193,9 +193,9 @@ defineSkill{
 	
 	Perks:
 	- Level 2 | You deal 30% more melee damage from the backline and 30% more firearm damage from the frontline.
-	- Level 4 | Pellets and cannon balls have a 40% chance to create shrapnel on impact, doing half damage to the enemy behind your target.
-	- Level 5 | Cannon balls in your inventory weight 80% less.]],
-	traits = { [2] = "sea_dog", [4] = "broadside", [5] = "baller" },
+	- Level 4 | Cannon balls in your inventory weight 80% less.
+	- Level 5 | Pellets and cannon balls have a 40% chance to create shrapnel on impact, doing half damage to the enemy behind your target.]],
+	traits = { [2] = "sea_dog", [4] = "baller", [5] = "broadside" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 then			
 		end
@@ -336,7 +336,7 @@ defineSkill{
 	Perks:
 	- Level 3 | Your Energy regeneration rate is increased by 25% while resting.
 	- Level 4 | Non-elemental and non-poison spells deal 35% more damage.
-	- Level 5 | Energy Potions have double the effect.]],
+	- Level 5 | Energy potions recover 25% more, while also regenerating 25 health. At the same time, healing potions recover 25 energy.]],
 	onRecomputeStats = function(champion, level)
 		champion:addStatModifier("max_energy", level * 20)
 	end,

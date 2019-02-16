@@ -20,6 +20,9 @@ function hit(self, what, entity)
 		if party.party:getChampionByOrdinal(self:getCastByChampion()):hasTrait("elemental_exploitation") then
 			functions.script.set_c("elemental_exploitation", self:getCastByChampion(), true)
 		end	
+		if party.party:getChampionByOrdinal(self:getCastByChampion()):hasTrait("ritual") then
+			functions.script.set_c("ritual", self:getCastByChampion(), true)
+		end	
 	end
   end
   if e.cloudspell then
@@ -31,6 +34,9 @@ function hit(self, what, entity)
 	if party.party:getChampionByOrdinal(self:getCastByChampion()):hasTrait("elemental_exploitation") then
 		functions.script.set_c("elemental_exploitation", self:getCastByChampion(), true)
 	end
+	if party.party:getChampionByOrdinal(self:getCastByChampion()):hasTrait("ritual") then
+		functions.script.set_c("ritual", self:getCastByChampion(), true)
+	end	
   end
 end
 

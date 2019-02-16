@@ -973,6 +973,36 @@ defineObject{
 }
 
 defineObject{
+	name = "ladder_broken",
+	baseObject = "base_floor_decoration",
+	components = {
+		{
+			class = "Model",
+			model = "mod_assets/models/env/ladder_broken.fbx",
+			offset = vec(0,0,1),
+		},
+	},
+	editorIcon = 248,
+	--automapIcon = 140,
+	tags = { "level_design" },
+}
+
+defineObject{
+	name = "ladder_broken_2",
+	baseObject = "base_wall_decoration",
+	components = {
+		{
+			class = "Model",
+			model = "mod_assets/models/env/ladder_broken_2.fbx",
+			offset = vec(0,0,-0.4),
+		},
+	},
+	editorIcon = 248,
+	automapIcon = 140,
+	tags = { "level_design" },
+}
+
+defineObject{
 	name = "ladder_metal",
 	baseObject = "base_wall_decoration",
 	components = {
@@ -1444,18 +1474,6 @@ defineObject{
 			offset = vec(0, 1.5, 0),
 			sound = "crystal_ambient",
 		},
-		-- {
-			-- class = "Animation",
-			-- animations = {
-				-- spin = "assets/animations/env/healing_crystal_spin.fbx",
-			-- },
-		-- },
-		-- {
-			-- class = "Clickable",
-			-- offset = vec(0, 1.5, 0),
-			-- size = vec(1.6, 2, 1.6),
-			-- maxDistance = 1,
-		-- },
 		{
 			class = "Obstacle",
 		},
@@ -1475,4 +1493,22 @@ defineObject{
 	editorIcon = 60,
 	automapIcon = 104,
 	automapIconLayer = 1,
+}
+
+defineObject{
+	name = "patcher",
+	components = {
+		{
+			class = "Light",
+			onInit = function(self)
+				if self.go.id == "patcher_1" then
+					if self.go.x == 0 and self.go.y == 0 then
+						--do stuff
+						self.go.setPosition(1, self.go.y, self.go.facing, self.go.elevation, self.go.level)
+					end
+				end
+			end
+		},
+	},
+	minimalSaveState = true,
 }

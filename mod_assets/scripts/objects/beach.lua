@@ -131,7 +131,6 @@ defineObject{
 	},
 	automapTile = "rocky_wall",
 	minimalSaveState = true,
-	tags = { "level_design" },
 }
 
 defineObject{

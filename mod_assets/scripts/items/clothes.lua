@@ -947,6 +947,33 @@ defineObject{
 }
 
 defineObject{
+	name = "rogue_boots_2",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/rogue_boots.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Merv's Rogue Boots",
+			description = "These boots once belonged to the fastest man alive.",
+			gameEffect = "Speed potions last twice as long while you wear these boots.",
+			armorSet = "rogue",
+			gfxIndex = 361,
+			weight = 0.3,
+			traits = { "clothes", "boots" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 5,
+			dexterity = 1,
+		},
+	},
+	tags = { "armor_clothes" },
+}
+
+defineObject{
 	name = "rogue_gloves",
 	baseObject = "base_item",
 	components = {

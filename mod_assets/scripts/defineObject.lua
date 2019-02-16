@@ -33,13 +33,15 @@ local onPostAttack = function(self, champion, slot)
 end
 
 local onFirearmAttack = function(self, champion, slot)
-	functions.script.onFirearmAttack(self, champion, slot)
+	local item = self.go.item
+	functions.script.onFirearmAttack(self, champion, slot, item)
 end
 
 local onFirearmPostAttack = function(self, champion, slot)
 	local secondary2 = functions.script.secondary
-	functions.script.onPostFirearmAttack(self, champion, slot, secondary2)
-	functions.script.reset_attack(self, champion, slot)
+	local item = self.go.item
+	functions.script.onPostFirearmAttack(self, champion, slot, secondary2, item)
+	functions.script.reset_attack(self, champion, slot, secondary2, item)
 end
 
 local onThrowAttack = function(self, champion, slot, chainIndex)

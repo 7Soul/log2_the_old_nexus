@@ -1665,6 +1665,64 @@ defineObject{
 }
 
 defineObject{
+	name = "forest_lantern_blue",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/env/forest_lantern.fbx",
+			staticShadow = true,
+		},
+		{
+			class = "Light",
+			offset = vec(0, 1.1, 0),
+			range = 6,
+			color = math.saturation(vec(0.1, 0.5, 1.0), 0.8),
+			brightness = 8,
+			castShadow = true,
+			shadowMapSize = 64,
+			staticShadows = true,
+			staticShadowDistance = 0,	-- use static shadows always
+			onInit = function(self)
+				-- optimization: disable casting light towards -Y
+				self:setClipDistance(3, 0)
+			end,
+			onUpdate = function(self)
+				local noise = math.noise(Time.currentTime()*3 + 123) * 0.5 + 0.9
+				self:setBrightness(noise * 10)
+			end,
+		},
+		{
+			class = "Particle",
+			particleSystem = "forest_lantern_blue",
+			offset = vec(0, 1.18, 0),
+		},
+		{
+			class = "Controller",
+			onActivate = function(self)
+				self.go.light:enable()
+				self.go.particle:enable()
+			end,
+			onDeactivate = function(self)
+				self.go.light:disable()
+				self.go.particle:disable()
+			end,
+			onToggle = function(self)
+				if self.go.light:isEnabled() then
+					self.go.light:disable()
+					self.go.particle:disable()
+				else
+					self.go.light:enable()
+					self.go.particle:enable()
+				end
+			end,
+		},
+	},
+	placement = "wall",
+	editorIcon = 88,
+	tags = { "level_decoration" },
+}
+
+defineObject{
 	name = "forest_pit",
 	baseObject = "base_pit",
 	components = {

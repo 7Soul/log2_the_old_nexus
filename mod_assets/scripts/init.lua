@@ -6,12 +6,17 @@ import "mod_assets/scripts/objects/generic.lua"
 import "mod_assets/scripts/objects/beach.lua"
 import "mod_assets/scripts/objects/forest.lua"
 import "mod_assets/scripts/objects/mine.lua"
+import "mod_assets/scripts/objects/tomb.lua"
+import "mod_assets/scripts/objects/breakable.lua"
+import "mod_assets/scripts/objects/dungeon.lua"
+import "mod_assets/scripts/materials/tomb.lua"
 import "mod_assets/scripts/objects/stone_philosophers.lua"
 import "mod_assets/scripts/objects/sky.lua"
 -- import the spells pack
 import "mod_assets/spells_pack/init.lua"   -- the spells pack
 import "mod_assets/scripts/spells/psionic_arrow.lua"
 import "mod_assets/scripts/spells/bite.lua"
+import "mod_assets/scripts/spells/ash.lua"
 -- import custom assets
 import "mod_assets/scripts/objects/base.lua"
 import "mod_assets/scripts/defineObject.lua"
@@ -59,6 +64,7 @@ import "mod_assets/scripts/items/tomes.lua"
 -- Other
 import "mod_assets/scripts/particles/blooddrop.lua"
 import "mod_assets/scripts/particles/soundGate.lua"
+import "mod_assets/scripts/particles/forest_lantern2.lua"
 
 defineObject{
 	name = "party",
@@ -639,11 +645,12 @@ defineObject{
 		onCastSpell = function(party, champion, spellName) 
 			print(champion:getName(),'is using',spellName) 
 			if champion:hasTrait("spell_slinger") then
+				champion:removeTrait("mage_spark_memo")
 				champion:removeTrait("fireburst_memo")
 				champion:removeTrait("frost_burst_memo")
 				champion:removeTrait("shock_memo")
 				champion:removeTrait("poison_cloud_memo")
-				if spellName == "fireburst" or spellName == "frost_burst" or spellName == "shock" or spellName == "poison_cloud" then
+				if spellName == "fireburst" or spellName == "frost_burst" or spellName == "shock" or spellName == "poison_cloud" or spellName == "mage_spark" then
 					champion:addTrait(spellName.."_memo")
 					functions.script.spellSlinger[champion:getOrdinal()] = spellName
 				end

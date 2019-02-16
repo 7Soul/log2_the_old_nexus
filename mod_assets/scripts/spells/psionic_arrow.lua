@@ -31,6 +31,7 @@ defineObject{
 				local hit = self.go:spawn("psionic_arrow_blast")
 				hit.tiledamager:setCastByChampion(self:getCastByChampion())
 				local damage = functions.script.get_c("psionic_damage", self:getCastByChampion())
+				damage = damage - (damage * 0.5) + (damage * math.random())
 				damage = damage * 0.33
 				local protection = 0
 				if entity and entity.monster ~= nil then

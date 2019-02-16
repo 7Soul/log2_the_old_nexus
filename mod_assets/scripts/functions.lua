@@ -89,7 +89,7 @@ function teststart()
 		for i=1,4 do
 			local champion = party.party:getChampionByOrdinal(i)
 			if not champion:getItem(32) then champion:insertItem(32,spawn("torch").item) end
-			champion:addSkillPoints(8)
+			champion:addSkillPoints(15)
 			if i == 1 then
 				champion:removeItemFromSlot(21)
 				champion:insertItem(21,spawn("enchanted_timepiece").item)
@@ -272,11 +272,15 @@ function onEquipItem(self, champion, slot)
 			supertable[12][self.go.id] = self.go.item:getWeight()
 			self.go.item:setWeight(self.go.item:getWeight() * 0.25)
 		end
+		if champion:hasTrait("heavy_conditioning") and self:hasTrait("heavy_armor") then
+			supertable[12][self.go.id] = self.go.item:getWeight()
+			self.go.item:setWeight(self.go.item:getWeight() * 0.25)
+		end
 	else
 		if (slot >= 3 and slot <= 6) or slot == 9 then
 			
 		end
-		-- Corsair firearms powerup		
+			
 		if slot == ItemSlot.Weapon or slot == ItemSlot.OffHand then
 			local item2 = champion:getOtherHandItem(slot)
 			local slots = {2,1}
@@ -299,22 +303,7 @@ function onEquipItem(self, champion, slot)
 			if self.go.equipmentitem then supertable[7][name] = self.go.equipmentitem:getResistFire() end
 			if self.go.equipmentitem then supertable[8][name] = self.go.equipmentitem:getResistShock() end
 			if self.go.equipmentitem then supertable[9][name] = self.go.equipmentitem:getResistCold() end
-			
-			if champion:getClass() == "corsair" then
-				if self ~= nil and self:hasTrait("firearm") then
-					local attackPower = self.go.firearmattack:getAttackPower()
-					if tinker_item[1][name] then attackPower = tinker_item[1][name] end
-					self.go.firearmattack:setAttackPower(math.floor(attackPower * (1.05 + (champion:getLevel() * 0.02))))
-					self.go.firearmattack:setRange(self.go.firearmattack:getRange() + champion:getSkillLevel("firearms"))
-				end
-				if self ~= nil and self.go.name == "flintlock" then
-					self.go.firearmattack:setAttackPower(math.floor(self.go.firearmattack:getAttackPower() * (1.1 + (champion:getLevel() * 0.1))))
-					local cooldown = self.go.firearmattack:getCooldown()
-					if tinker_item[2][name] then cooldown = tinker_item[2][name] end
-					self.go.firearmattack:setCooldown(math.floor(cooldown * (0.8 - (champion:getLevel() * 0.02))))
-				end				
-			end
-			
+
 			if champion:hasTrait("weapons_specialist") then
 				self.go.equipmentitem:setCriticalChance(supertable[6][name] * 2)
 				if self.go.name == "scythe" then
@@ -386,10 +375,7 @@ function onUnequipItem(self, champion, slot)
 	end
 	
 	functions.script.resetItem(self, name)
-	-- if supertable[12][name] ~= nil then
-		-- self.go.item:setWeight(supertable[12][name])
-		-- supertable[12][name] = nil
-	-- end
+	functions.script.clearSupertable(self, name)
 end
 
 function resetItem(self, name)
@@ -398,21 +384,22 @@ function resetItem(self, name)
 	if self.go.meleeattack then item = self.go.meleeattack end
 	if self.go.throwattack then item = self.go.throwattack end
 	if self.go.rangedattack then item = self.go.rangedattack end
+	
 	if supertable[1][name] ~= nil then
 		local real_ap = 0
 		if tinker_item[1][name] then real_ap = tinker_item[1][name] else real_ap = supertable[1][name] end
 		item:setAttackPower(real_ap)
-		supertable[1][name] = nil		
+		--supertable[1][name] = nil		
 	end
 	if supertable[2][name] ~= nil then
 		local real_cooldown = 0
 		if tinker_item[2][name] then real_cooldown = tinker_item[2][name] else real_cooldown = supertable[2][name] end
 		item:setCooldown(real_cooldown)
-		supertable[2][name] = nil
+		--supertable[2][name] = nil
 	end
 	if supertable[3][name] ~= nil then
 		if item == self.go.firearmattack then item:setRange(supertable[3][name]) end
-		supertable[3][name] = nil
+		--supertable[3][name] = nil
 	end
 	if supertable[4][name] ~= nil then
 		local real_pierce = 0
@@ -425,29 +412,35 @@ function resetItem(self, name)
 		end
 		if item == self.go.firearmattack then item:setPierce(real_pierce) end
 		if item == self.go.meleeattack then item:setPierce(real_pierce) end
-		supertable[4][name] = nil
+		--supertable[4][name] = nil
 	end
 	if supertable[5][name] ~= nil then
 		item:setAccuracy(supertable[5][name])
-		supertable[5][name] = nil
+		--supertable[5][name] = nil
 	end
 	if supertable[6][name] ~= nil then
 		local real_crit = 0
 		if tinker_item[6][name] then real_crit = tinker_item[6][name] else real_crit = supertable[6][name] end
 		if self.go.equipmentitem then self.go.equipmentitem:setCriticalChance(real_crit) end
-		supertable[6][name] = nil
+		--supertable[6][name] = nil
 	end
 	if supertable[7][name] ~= nil then
 		if self.go.equipmentitem then self.go.equipmentitem:setResistFire(supertable[7][name]) end
-		supertable[7][name] = nil
+		--supertable[7][name] = nil
 	end
 	if supertable[8][name] ~= nil then
 		if self.go.equipmentitem then self.go.equipmentitem:setResistShock(supertable[8][name]) end
-		supertable[8][name] = nil
+		--supertable[8][name] = nil
 	end
 	if supertable[9][name] ~= nil then
 		if self.go.equipmentitem then self.go.equipmentitem:setResistCold(supertable[9][name]) end
-		supertable[9][name] = nil
+		--supertable[9][name] = nil
+	end
+end
+
+function clearSupertable(self, name)
+	for i=1,12 do
+		supertable[i][name] = nil
 	end
 end
 -------------------------------------------------------------------------------------------------------
@@ -532,7 +525,6 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 end
 
 function bite(id)
-	print("bite!")
 	local champion = party.party:getChampionByOrdinal(id)
 	local spell = spells_functions.script.defByName["liz_bite"]
 	spell.onCast(champion, party.x, party.y, party.facing, party.elevation)
@@ -557,7 +549,7 @@ function onThrowAttack(self, champion, slot, chainIndex, item)
 	
 	local id = champion:getOrdinal()
 	if champion:hasTrait("magic_missile") then
-		set_c("psionic_damage", id, getDamage(id, "throwing_weapon"))
+		set_c("psionic_damage", id, getDamage(id))
 		set_c("psionic_accuracy", id, getAccuracy(id))
 		delayedCall("functions", 0.1, "psionicArrow", id)
 	end
@@ -603,7 +595,7 @@ function onMissileAttack(self, champion, slot, chainIndex, item)
 	end
 	local id = champion:getOrdinal()
 	if champion:hasTrait("magic_missile") then
-		set_c("psionic_damage", id, getDamage(id, "missile_weapon"))
+		set_c("psionic_damage", id, getDamage(id))
 		set_c("psionic_accuracy", id, getAccuracy(id))
 		delayedCall("functions", 0.1, "psionicArrow", id)
 	end
@@ -631,15 +623,28 @@ end
 function getAccuracy(id)
 	local champion = party.party:getChampionByOrdinal(id)
 	local acc = 0
+	local add = 0
 	for slot = 1,ItemSlot.Bracers do
 		local item = champion:getItem(slot)
 		if item and item.equipmentitem then
-			local add = item.equipmentitem:getAccuracy()
+			add = item.equipmentitem:getAccuracy()
 			if add and add ~= 0 then acc = acc + add end
+		end
+		if item then
+			if item.meleeattack then
+				add = item.meleeattack:getAccuracy()
+				if add and add ~= 0 then acc = acc + add end
+			end
+			if item:hasTrait("mage_weapon") then
+				acc = acc + (champion:getSkillLevel("spellblade") * 3)
+			end
 		end
 	end
 	acc = acc + (champion:getSkillLevel("accuracy") * 10)
-	acc = acc + ((champion:getCurrentStat("dexterity") - 10) * 2)
+	acc = acc + math.max(((champion:getCurrentStat("dexterity") - 10) * 2), 0)
+	if get_c("clutch", id) then
+		acc = acc + get_c("clutch", id)
+	end
 	return acc
 end
 
@@ -657,28 +662,35 @@ function getCrit(id)
 	return crit
 end
 
-function getDamage(id, weapon)
+function getDamage(id, slot)
 	local champion = party.party:getChampionByOrdinal(id)
-	local item = nil
-	local item1 = champion:getItem(ItemSlot.Weapon)
-	local item2 = champion:getItem(ItemSlot.OffHand)
-	if item1 and item1:hasTrait(weapon) then
-		item = champion:getItem(ItemSlot.Weapon)
-	elseif item2 and item2:hasTrait(weapon) then
-		item = champion:getItem(ItemSlot.OffHand)
-	end
+	if slot == nil then slot = ItemSlot.Weapon end
+	local item = champion:getItem(slot)
+	
 	local dmg = 0
 	if item and item.go.rangedattack then
 		dmg = item.go.rangedattack:getAttackPower() or 0
-		dmg = dmg * (1 + (champion:getCurrentStat("dexterity") * 0.04))
+		dmg = dmg + math.max(((champion:getCurrentStat(item.go.rangedattack:getBaseDamageStat()) - 10) * 1.5), 0)
+		dmg = dmg * (champion:getSkillLevel("ranged_attack") * 0.2 + 1)
 	elseif item and item.go.throwattack then
 		dmg = item.go.throwattack:getAttackPower() or 0	
-		dmg = dmg * (1 + (champion:getCurrentStat("dexterity") * 0.04))
+		dmg = dmg + math.max(((champion:getCurrentStat(item.go.throwattack:getBaseDamageStat()) - 10) * 1.5), 0)
+		dmg = dmg * (champion:getSkillLevel("ranged_attack") * 0.2 + 1)
+	elseif item and item.go.firearmattack then
+		dmg = item.go.firearmattack:getAttackPower() or 0	
+		dmg = dmg + math.max(((champion:getCurrentStat(item.go.firearmattack:getBaseDamageStat()) - 10) * 1.5), 0)
+		dmg = dmg * (champion:getSkillLevel("firearms") * 0.2 + 1)
 	elseif item and item.go.meleeattack then
 		dmg = item.go.meleeattack:getAttackPower() or 0	
-		dmg = dmg * (1 + (champion:getCurrentStat("strength") * 0.04))
+		dmg = dmg + math.max(((champion:getCurrentStat(item.go.meleeattack:getBaseDamageStat()) - 10) * 1.5), 0)
+		if item:hasTrait("heavy_weapon") then
+			dmg = dmg * (champion:getSkillLevel("heavy_weapons") * 0.2 + 1)
+		else
+			dmg = dmg * (champion:getSkillLevel("heavy_weapons") * 0.2 + 1)
+		end
 	end
-	dmg = dmg - (dmg * 0.5) + (dmg * math.random() * 1)
+	
+	--dmg = dmg - (dmg * 0.5) + (dmg * math.random() * 1)
 	return dmg
 end
 
@@ -715,6 +727,16 @@ function onFirearmAttack(self, champion, slot)
 		end	
 	end
 	
+	if champion:hasTrait("silver_bullet") then
+		if get_c("silver_bullet", champion:getOrdinal()) == nil then
+			set_c("silver_bullet", champion:getOrdinal(), -1)
+		end
+		set_c("silver_bullet", champion:getOrdinal(), (get_c("silver_bullet", champion:getOrdinal()) + 1) % 6 )
+		if get_c("silver_bullet", champion:getOrdinal()) == 5 then
+			self:setAttackPower(self:getAttackPower() * 2.0)
+		end
+	end
+	
 	if champion:hasTrait("fleshbore") then
 		if not self:getPierce() then	
 			self:setPierce(supertable[4][self.go.id] + 10)
@@ -730,6 +752,20 @@ function onFirearmAttack(self, champion, slot)
 		local otherslot = slots[slot]
 		local pellets = nil
 		local pelletsSlot = nil
+		
+		-- Firearms power up
+		if item ~= nil and item:hasTrait("firearm") then
+			local attackPower = self:getAttackPower()
+			if tinker_item[1][name] then attackPower = tinker_item[1][name] end
+			self:setAttackPower(math.floor(attackPower * (1.05 + (champion:getLevel() * 0.02))))
+			self:setRange(self:getRange() + champion:getSkillLevel("firearms"))
+		end
+		if item ~= nil and item.go.name == "flintlock" then
+			self:setAttackPower(math.floor(self:getAttackPower() * (1.1 + (champion:getLevel() * 0.1))))
+			local cooldown = self:getCooldown()
+			if tinker_item[2][name] then cooldown = tinker_item[2][name] end
+			self:setCooldown(math.floor(cooldown * (0.8 - (champion:getLevel() * 0.02))))
+		end	
 		
 		if item.go.name ~= "revolver" then
 			for i=1,32 do
@@ -777,7 +813,7 @@ function onFirearmAttack(self, champion, slot)
 end
 
 function onPostFirearmAttack(self, champion, slot, secondary2)
-	local item = champion:getItem(slot)
+	local item = self.go.item
 	if champion:getClass() == "corsair" then
 		local slots = {2, 1}
 		local otherslot = slots[slot]		
@@ -889,26 +925,8 @@ function reloadAfter(id, cItem, slot, pelletsSlot)
 end
 
 function reset_attack(self, champion, slot, secondary2, item)
-	-- Attack twice
-	-- local otherItem = nil
-	-- local otherSlotList = {2,1}
-	-- if secondary2 == 0 then
-		-- if champion:hasTrait("double_shot") and (self.go.rangedattack or self.go.throwattack) then
-			-- secondary = 1
-			-- if champion:getItem(slot):hasTrait("throwing_weapon") then
-				-- local otherItem = champion:getOtherHandItem(slot)
-				-- if otherItem and otherItem:hasTrait("throwing_weapon") then
-					-- slot = otherSlotList[slot]
-				-- end
-			-- end
-			-- delayedCall("functions", 0.25, "secondShot", champion:getOrdinal(), slot)
-		-- end
-	-- else
-		-- secondary = 0
-	-- end
-	
 	if supertable[1][item.go.id] == nil then return end	
-	functions.script.resetItem(self, self.go.id)	
+	functions.script.resetItem(self, self.go.id)
 end
 
 function doubleAttack(self, item, champion, slot, chainIndex, secondary2)
@@ -974,7 +992,7 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 		end
 	end
 	
-	-- Killin blow effects
+	-- Killing blow effects
 	if monster:getHealth() - damage <= 0 then
 		if champion:hasTrait("assassination") and tside == 2 then
 			champion:removeTrait("assassination")
@@ -1072,6 +1090,15 @@ function onDamageMonster(self, damage, damageType)
 		if functions.script.get_c("elemental_exploitation", i) and party.party:getChampionByOrdinal(i):hasTrait("elemental_exploitation") and resistances == "weak" then
 			delayedCall("functions", 0.25, "hitMonster", self.go.id, math.ceil(damage * 0.25), "FF0000", nil, damageType)
 			functions.script.set_c("elemental_exploitation", i, nil)
+		end
+		if functions.script.get_c("ritual", i) and party.party:getChampionByOrdinal(i):hasTrait("ritual") then
+			for j=1,4 do
+				local c = party.party:getChampionByOrdinal(j)
+				if c:isAlive() then
+					c:regainHealth(math.ceil(damage * 0.1))
+				end
+			end
+			functions.script.set_c("ritual", i, nil)
 		end
 	end
 end
