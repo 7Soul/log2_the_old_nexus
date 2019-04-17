@@ -1,18 +1,46 @@
 defineTrait{
+	name = "assassin_class",
+	uiName = "Assassin",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 30,
+	description = "A contract killer who can improve their technique with each kill.",
+	gameEffect = [[
+	- Health 44 (+4 per level)
+	- Energy 30 (+7 per level)
+	- Dual Wielding damage penalty reduced to 25% (normally 40%)
+	
+	Assassination: Once per level, when you kill an enemy from behind you get an Assassination stack.
+	- Increases a random stat by 1 and gives extra scaling exp.
+	- Dual Wield and Ranged Damage increased by 5% per assassination.
+	- Attacking from behind saps 2% of a target's health (+0.5% per assassination).]],
+	onRecomputeStats = function(champion, level)
+		if level > 0 then
+			level = champion:getLevel()
+			champion:addStatModifier("max_health", 44 + (level-1) * 4)
+			champion:addStatModifier("max_energy", 30 + (level-1) * 7)
+		end	
+	end,
+}
+
+defineTrait{
 	name = "fighter",
 	uiName = "Berserker",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 26,
-	description = "A prideful warrior of the tribes of the Red Hills.",
+	description = "A prideful warrior of the Red Hills.",
 	gameEffect = [[
 	- Health 80 (+5 per level, +5 per 5 strength and +15 per 10 strength)
 	- Energy 20 (+5 per level)
 	- Armor is for babies.
 	
-	Becomes enraged if the party gets attacked, gaining Protection and Strength per level.
-	- Gain 'Berserker Rage' if party gets attacked.
-	- Gain 'Berserker Revenge' if a party member dies.
-]],
+	Berserker Rage: Gain a buff that fades over 20 seconds if party gets attacked.
+	- Protection up to +4 per level (+6 per 3 levels).
+	- Strength up to +2 (+1 per 3 levels).
+	
+	Berserker Revenge: Gain a buff that fades over 60 seconds if a party member dies.
+	- Protection up to +6 per level (+8 per 3 levels).
+	- Strength up to +4 (+1 per 3 levels).
+	- Health Regeneration +500%.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
@@ -34,18 +62,19 @@ defineTrait{
 	- Health 70 (+1 per level)
 	- Energy 60 (+1 per level)
 	- Starts with every stat at 9 and gain +1 to all stats per level.
-	- Food consumption reduced by 25%
 	
-	Healing Light: Gain bonus regeneration when you deliver a killing blow (6 seconds duration).
-	- Duration +2 seconds for every 3 levels.
-	- The light also touches your companions.
-]],
+	Healing Light: Damaging enemies charge a 500% Health Regen and 300% Energy Regen buff. It affects the party at half the effect.
+	- Duration is 12 seconds (+3 seconds per 4 levels).
+	- Deal the killing blow for a bonus charge.
+	
+	Holy Light: You gain a random bonus of 0 to 3 to all stats (+1 max per 3 levels, 1 minute duration).
+	- It begins when Healing Light ends. Duration +30 seconds per 4 levels.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
 			champion:addStatModifier("max_health", 70 + (level-1) * 1)
 			champion:addStatModifier("max_energy", 60 + (level-1) * 1)
-			champion:addStatModifier("food_rate", -25)
+			--champion:addStatModifier("food_rate", -25)
 			local strength = champion:getBaseStat("strength")
 			local dexterity = champion:getBaseStat("dexterity")
 			local vitality = champion:getBaseStat("vitality")
@@ -128,60 +157,41 @@ defineTrait{
 	uiName = "Spell Thief",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 29,
-	description = "The most silent and deadly predator, who has become a living shadow.",
+	description = "A rogue-ish spell-caster specialist in covert attacks.",
 	gameEffect = [[
 	- Health 50 (+4 per level)
-	- Energy 40 (+4 per level)
-	- Evasion and Critical Chance +3.
-	- Neutral spells gain 1% damage per point in Dexterity (+10% per 7 points).
-	- Neutral spells cost 33% less energy.
-	- Energy regeneration rate -100%.
+	- Energy 60 (+4 per level)
+	- Evasion, Accuracy and Critical Chance +2 (+1 per level).
+	- Energy Regeneration Rate -99%.
 	
-	Night Stalker: Gain Night Stalker buff after leaving invisibility.
-	- 10 seconds duration (+4 per 2 levels).
-	- Doubles your class bonuses.]],
+	Shadow Magicks: Neutral spells cost 33% less energy.
+	- Neutral spells gain 1% damage per Dexterity (+10% per 7 points).
+	- Once per day you may cast Invisibility for free. Gain more casts every 3 levels.
+	
+	Night Stalker: Gains a buff while invisible and for a few seconds after. Duration is 6 seconds (+4 per 3 levels).
+	- Doubles all your class bonuses.]],
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
 		if level > 0 then 
-			--return champion:getSkillLevel("concentration") * 2
+			level = champion:getLevel() - 1
+			return level + 2
 		end
 	end,
 	onComputeCritChance = function(champion, weapon, attack, attackType, level)
 		if level > 0 then 
-			--return champion:getSkillLevel("concentration") * 2
+			level = champion:getLevel() - 1
+			return level + 2
 		end
 	end,
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
-			champion:addStatModifier("max_health", 50 + (level-1) * 4)
-			champion:addStatModifier("max_energy", 40 + (level-1) * 4)
-			champion:addStatModifier("energy_regeneration_rate", -100)
+			champion:addStatModifier("max_health", 50 + (level - 1) * 4)
+			champion:addStatModifier("max_energy", 60 + (level - 1) * 4)
+			champion:addStatModifier("energy_regeneration_rate", -99)
+			champion:addStatModifier("evasion", 2 + (level - 1))
+			--champion:addTrait("shadow_magicks")
 		end	
 	end	
-}
-
-defineTrait{
-	name = "assassin",
-	uiName = "Assassin",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 30,
-	description = "The Assassin is always looking for their next target.",
-	gameEffect = [[
-	- Health 60 (+6 per level)
-	- Energy 40 (+5 per level)
-	- Dual Wielding damage penalty reduced to 25% (normally 40%)
-	
-	Assassination: Kill an enemy from the back to complete an assassination. This effect can happen once per level.
-	- Assassinations increase a random stat by 1 and give you 50 exp (+150 per level).
-	- Thrown Weapon damage increased by 3 points per assassination.
-	- Dual wield damage increased by 5% per assassination.]],
-	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			level = champion:getLevel()
-			champion:addStatModifier("max_health", 60 + (level-1) * 6)
-			champion:addStatModifier("max_energy", 40 + (level-1) * 5)
-		end	
-	end,
 }
 
 defineTrait{
@@ -189,10 +199,10 @@ defineTrait{
 	uiName = "Elementalist",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 31,
-	description = "Master of the elements, they can control Fire, Ice and Thunder.",
+	description = "Master of the elements who can control Fire, Ice and Thunder.",
 	gameEffect = [[
 	- Health 35 (+5 per level)
-	- Energy 60 (+8 per level)
+	- Energy 60 (+9 per level)
 	- Casting basic elemental magic will shield the user from that element for 10 seconds (+5 per 5 levels).
 	
 	Elemental Balance: Casting one element increases damage with other elements by 30%.
@@ -202,7 +212,7 @@ defineTrait{
 		if level > 0 then
 			level = champion:getLevel()
 			champion:addStatModifier("max_health", 35 + (level-1) * 5)
-			champion:addStatModifier("max_energy", 60 + (level-1) * 8)
+			champion:addStatModifier("max_energy", 60 + (level-1) * 9)
 		end	
 	end,
 }
@@ -215,19 +225,22 @@ defineTrait{
 	description = "A member of the hunting tribes of the Xaae Jungle.",
 	gameEffect = [[
 	- Health 35 (+5 per level)
-	- Energy 60 (+8 per level)
-	- Attacks with daggers pierce 10 armor.
+	- Energy 40 (+9 per level)
 	
-	Thrill of the Hunt: Stack a temporary Crit Chance buff after shooting an enemy (6 seconds duration)
-	- Stacks go away every 3 seconds.
-	- Critical Chance +2 per stack (+1 every 3 levels).]],
+	Wisdom of the Tribe: Gains bonuses when fighting animals, beasts and insects.
+	- Your attacks and spells are empowered by your Willpower (with diminishing returns).
+	- You heal 5% missing health per attack.
+	
+	Thrill of the Hunt: Stack a temporary buff after hitting an enemy (6 seconds duration).
+	- Critical Chance and Willpower +1 per stack.
+	- Stacks go away every 3 seconds after initial buff duration.
+	- Duration +1 second per level.]],
 	onComputeCritChance = function(champion, weapon, attack, attackType, level)
 		if level > 0 then
 			level = champion:getLevel()
 			if not functions then return end
-			local inc = math.floor(level / 3)
 			if functions.script.hunter_crit[champion:getOrdinal()] > 0 then
-				return functions.script.hunter_crit[champion:getOrdinal()] * (2 + inc)
+				return functions.script.hunter_crit[champion:getOrdinal()]
 			end
 		end
 	end,
@@ -235,7 +248,12 @@ defineTrait{
 		if level > 0 then
 			level = champion:getLevel()
 			champion:addStatModifier("max_health", 35 + (level-1) * 5)
-			champion:addStatModifier("max_energy", 60 + (level-1) * 8)
+			champion:addStatModifier("max_energy", 40 + (level-1) * 9)
+			
+			if not functions then return end
+			if functions.script.hunter_crit[champion:getOrdinal()] > 0 then
+				champion:addStatModifier("willpower", functions.script.hunter_crit[champion:getOrdinal()])
+			end
 		end	
 	end,
 }
@@ -271,32 +289,34 @@ defineTrait{
 	uiName = "Tinkerer",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 34,
-	description = "With the simplest set of tools this humble artificer is able to alter the properties of objects to improve on their qualities.",
+	description = "A technician capable of weaving magic into their tools through use of thaumaturgy.",
 	gameEffect = [[
-	- Health 50 (+5 per level)
-	- Energy 40 (+6 per level)
-	- Can unlock chests for free.
+	- Health 70 (+5 per level)
+	- Energy 40 (+5 per level)
 	
-	Tinkerer's Touch: You gain +1 to all stats per upgraded item equipped.
-	- Upgraded items' weight is increase by only half the normal amount.
+	Craftsman Expertise: Apply extra bonus effects when you upgrade an item.
+	- You gain one craft bonus usage per level.
 	
-	Dismantler: You can dismantle items into extra lockpicks.]],
+	Elemental Surge: Fire and Shock damage is increased based on your Fire and Shock resistances.
+	- Converts 50% of your Firearm damage to Fire.
+	- Converts 50% of your Melee damage to Shock.]],
+	-- todo: all the things
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
-			champion:addStatModifier("max_health", 50 + (level-1) * 5)
-			champion:addStatModifier("max_energy", 40 + (level-1) * 6)
-			local upgItems = 0
-			for i=1,ItemSlot.Bracers do
-				local item = champion:getItem(i)
-				if item and item:hasTrait("upgraded") then upgItems = upgItems + 1 end
-			end
-			champion:addStatModifier("strength", upgItems)
-			champion:addStatModifier("dexterity", upgItems)
-			champion:addStatModifier("vitality", upgItems)
-			champion:addStatModifier("willpower", upgItems)
-			champion:addTrait("tinkerer_toolbox")
-			champion:addTrait("dismantler")
+			champion:addStatModifier("max_health", 70 + (level-1) * 5)
+			champion:addStatModifier("max_energy", 40 + (level-1) * 5)
+			-- local upgItems = 0
+			-- for i=1,ItemSlot.Bracers do
+				-- local item = champion:getItem(i)
+				-- if item and item:hasTrait("upgraded") then upgItems = upgItems + 1 end
+			-- end
+			-- champion:addStatModifier("strength", upgItems)
+			-- champion:addStatModifier("dexterity", upgItems)
+			-- champion:addStatModifier("vitality", upgItems)
+			-- champion:addStatModifier("willpower", upgItems)
+			champion:addStatModifier("protection", 2 + level)
+			champion:addTrait("elemental_surge")
 		end	
 	end,
 }
@@ -310,24 +330,22 @@ defineTrait{
 	uiName = "Night Stalker",
 	icon = 74,
 	description = "You are stalking your prey",
-	gameEffect = [[
-	- Evasion + 4 (+2 per level).
-	- Melee Critical and Accuracy + 5.
-	- Health and Energy regeneration rate increased.	
-	]],
+	gameEffect = [[Evasion, Accuracy and Critical Chance +2 (+1 per level)]],
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
-		if level > 0 and attackType == "melee" then return 5 end
+		if level > 0 then 
+			level = champion:getLevel() - 1
+			return level + 2
+		end
 	end,
 	onComputeCritChance = function(champion, weapon, attack, attackType, level)
-		if level > 0 and attackType == "melee" then return 5 end
+		if level > 0 then 
+			level = champion:getLevel() - 1
+			return level + 2
+		end
 	end,
 	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			level = champion:getLevel()
-			champion:addStatModifier("evasion", 4 + ((level-1) * 2))
-			champion:addStatModifier("health_regeneration_rate", 400)
-			champion:addStatModifier("energy_regeneration_rate", 200)
-		end
+		level = champion:getLevel()
+		champion:addStatModifier("evasion", 2 + level - 1)
 	end,
 }
 
@@ -336,7 +354,7 @@ defineTrait{
 	uiName = "Assassination",
 	icon = 16,
 	description = "You're looking for your target...",
-	gameEffect = [[- Deal the killing blow with a backstab.]],
+	gameEffect = [[Kill an enemy from the back to complete the assassination.]],
 	onRecomputeStats = function(champion, level)
 	end,
 }
@@ -488,18 +506,18 @@ defineTrait{
 	uiName = "Crystal Flower Boon",
 	icon = 88,
 	description = "The Druid draws from the earth by carrying a Crystal Flower.",
-	gameEffect = [[- Protection +1 per level.
+	gameEffect = [[- Protection +2 (+2 per level).
 	- All resistances +2 per level.
-	- Increases Health Regeneration by 20%.]],
+	- Increases Health Regeneration by 25%.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
-			champion:addStatModifier("protection", level)
+			champion:addStatModifier("protection", 2 + (level * 2))
 			champion:addStatModifier("resist_fire", level * 2)
 			champion:addStatModifier("resist_poison", level * 2)
 			champion:addStatModifier("resist_cold", level * 2)
 			champion:addStatModifier("resist_shock", level * 2)
-			champion:addStatModifier("health_regeneration_rate", 20)
+			champion:addStatModifier("health_regeneration_rate", 25)
 		end	
 	end,
 }
@@ -536,6 +554,17 @@ defineTrait{
 	gameEffect = [[
 	- Put 9 dismantle-able items into a container and right-click the container.
 	- Dismantle-able items have a red hammer icon on them (when in the Tinkerer's inventory).]],
+}
+
+defineTrait{
+	name = "elemental_surge",
+	uiName = "Elemental Surge",
+	iconAtlas = "mod_assets/textures/gui/dismantle.dds",
+	icon = 0,
+	description = "You can dismantle items into extra lockpicks.",
+	gameEffect = [[Fire and Shock damage is increased based on your Fire and Shock resistances.
+	- Firearm attacks have 50% of their damage converted to Fire.
+	- Melee attacks have 50% of their damage converted to Shock.]],
 }
 
 ---------------------------------------------------------------------------------
@@ -685,7 +714,7 @@ defineTrait{
 	icon = 39,
 	charGen = true,
 	requiredRace = "human",
-	description = "Spell Scrolls weight nothing and you gain +1% Increased Experience Gain per scroll, plus 1 Willpower for every 5 scrolls. Bags and Boxes full of scrolls also weight nothing.",
+	description = "Carrying Spell Scrolls give you +1% Increased Experience Gain per scroll, plus 1 Willpower for every 4 scrolls.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			-- count scrolls
@@ -693,7 +722,7 @@ defineTrait{
 			for i=1,ItemSlot.MaxSlots do
 				local item = champion:getItem(i)
 				if item then
-					if item:hasTrait("scroll") then
+					if item:hasTrait("spell_scroll") then
 						scrolls = scrolls + 1
 					else
 						local container = item.go.containeritem
@@ -701,7 +730,7 @@ defineTrait{
 							local capacity = container:getCapacity()
 							for j=1,capacity do
 								local item2 = container:getItem(j)
-								if item2 and item2:hasTrait("scroll") then
+								if item2 and item2:hasTrait("spell_scroll") then
 									scrolls = scrolls + 1
 								end
 							end
@@ -710,7 +739,7 @@ defineTrait{
 				end
 			end
 			champion:addStatModifier("exp_rate", scrolls)
-			champion:addStatModifier("willpower", math.floor(scrolls/5))
+			champion:addStatModifier("willpower", math.floor(scrolls/4))
 		end
 	end,
 }
@@ -748,12 +777,17 @@ defineTrait{
 
 defineTrait{
 	name = "drinker",
-	uiName = "Seasoned Drinker",
+	uiName = "Drown Your Sorrows",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 41,
 	charGen = true,
 	requiredRace = "human",
-	description = "Start the game with a bottle of rum. When you take a drink, you lose a point in Dexterity, Vitality or Willpower (in order) permanently, but gain 50% extra experience gain for 5 minutes. You regain half those stats back when you empty the bottle, which holds 12 drinks.",onRecomputeStats = function(champion, level)
+	--description = "Start the game with a bottle of rum. When you take a drink, you lose a point in Dexterity, Vitality or Willpower (in order) permanently, but gain 50% extra experience gain for 5 minutes. You regain half those stats back when you empty the bottle, which holds 12 drinks.",
+	description = [[When you activate this skill, you drink from a small flask, kept hidden under your vest.
+	
+	- Gain +5 Protection and recover all wounds over a period of 15 seconds.
+	- Reduces Experience Gain by 15% for 1 day.]],
+	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			--champion:addStatModifier("dexterity", 15)
 		end
@@ -767,7 +801,11 @@ defineTrait{
 	icon = 42,
 	charGen = true,
 	requiredRace = "minotaur",
-	description = "Increases chances of finding meat when defeating beasts. Eating red meat increases your Strength by 4 and Health and Energy regeneration rate by 25% for 1 minute. You can't eat non-meat foods, like bread, bugs or even fish.\nYour food consumption rate is 15% higher.",
+	description = [[Increases chances of finding meat when defeating beasts. 
+	- Eating red meat increases your Strength by 4 and Health and Energy regeneration rate by 25% for 1 minute (+1 minute at levels 8 and 12).
+	
+	- You can't eat non-meat foods, like bread, bugs or even fish.	
+	- Your food consumption rate is 15% higher.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			champion:addStatModifier("food_rate", 15)
@@ -791,13 +829,15 @@ defineTrait{
 }
 
 defineTrait{
-	name = "zzz",
-	uiName = "",
+	name = "ancestral_charge",
+	uiName = "Ancestral Charge",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 43,
 	charGen = true,
 	requiredRace = "minotaur",
-	description = "",
+	description = [[You can summon a warrior spirit to charge and stun an enemy.
+	- Costs 25 Energy to use.
+	- Charges for 8 tiles and deals damage based on your Willpower and Vitality.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			
@@ -912,20 +952,23 @@ defineTrait{
 	end,
 	onComputeCooldown = function(champion, weapon, attack, attackType, level)
 		if level > 0 then 
-			local food = (champion:getFood()-500) / 500			
+			local food = (champion:getFood()-500) / 500
 			return 1 - (0.15 * food)
 		end
 	end,
 }
 
 defineTrait{
-	name = "limb_regeneration",
-	uiName = "Limb Regeneration",
+	name = "intensify_spell",
+	uiName = "Intensify Spell",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 50,
 	charGen = true,
 	requiredRace = "insectoid",
-	description = "Once per day you heal back to full if you fall below 20%.",
+	description = [[After casting a spell, you can choose to empower it, so that the next time it is cast it does increased damage while costing more energy.
+	
+	- Damage +25% (+10% per 4 levels).
+	- Energy cost +40% (-10% per 4 levels).	]],
 }
 
 defineTrait{
@@ -939,13 +982,16 @@ defineTrait{
 }
 
 defineTrait{
-	name = "collector",
-	uiName = "Trinket Collector",
+	name = "sneak_attack",
+	uiName = "Sneak Attack",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 51,
 	charGen = true,
 	requiredRace = "ratling",
-	description = "",
+	description = [[Activate your class ability to gain 100 Evasion, losing it upon performing an action.
+	
+	- Costs 15 Energy to use.
+	- Your first physical attack will do 5% extra damage (+10% at levels 8 and 12), with a 50% chance to poison the target.]],
 }
 
 defineTrait{
@@ -957,20 +1003,15 @@ defineTrait{
 	requiredRace = "ratling",
 	description = "Poison resistance +50%, other resistances -10%. You gain 1 Maximum Health for each extra point of poison resistance (goes past 100).",
 	onRecomputeStats = function(champion, level)
-		if level > 0 then
+		--if level > 0 then
 			champion:addStatModifier("resist_poison", 50)
 			champion:addStatModifier("resist_fire", -10)
 			champion:addStatModifier("resist_cold", -10)
 			champion:addStatModifier("resist_shock",-10)
-			local health = math.max(champion:getResistance("poison") - 50, 0)
-			
+			local health = math.max(champion:getCurrentStat("resist_poison") - 50, 0) + math.max((champion:getCurrentStat("vitality") - 10) * 2, 0)
 			champion:addStatModifier("max_health", health)
 			champion:addStatModifier("health", health)
-			
-			local resist = math.max(math.min(champion:getResistance("poison"), 85), 0)
-			champion:addStatModifier("resist_poison", (champion:getResistance("poison") * -1) - ((champion:getCurrentStat("vitality") - 10) * 2))
-			champion:addStatModifier("resist_poison", resist)
-		end
+		--end
 	end,
 }
 
@@ -1044,12 +1085,13 @@ defineTrait{
 	uiName = "Light Wear",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 72,
-	description = "Gain +5 Evasion if wearing light armor in all 5 slots",
+	description = "Gain +5 Evasion and +1 Dexterity if wearing light armor in all 5 slots",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			local all_light = functions.script.wearingAll(champion, "light_armor", "clothes")
 			if all_light then
 				champion:addStatModifier("evasion", 5)
+				champion:addStatModifier("dexterity", 1)
 			end
 		end
 	end,
@@ -1096,38 +1138,14 @@ defineTrait{
 	uiName = "Armored Up",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 75, 
-	description = "Gain +2 Protection per level if wearing heavy armor in all 5 slots",
+	description = "Gain +5 Protection and +1 Strength when wearing heavy armor in all 5 slots.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
 			local all_heavy = functions.script.wearingAll(champion, "heavy_armor")
 			if all_heavy then
-				champion:addStatModifier("protection", level * 2)
-			end
-		end
-	end,
-}
-
-defineTrait{
-	name = "armor_training",
-	uiName = "Armor Training",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 76,
-	description = "Heavy Armor weights nothing if wearing all heavy armor.",
-	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			local all_heavy = functions.script.wearingAll(champion, "heavy_armor")
-			if all_heavy then
-				local equip_slots = {3,4,5,6,9}
-				for i, v in pairs(equip_slots) do
-					local item = champion:getItem(v)
-					if item ~= nil and item:getWeight() > 0 then
-						if item:hasTrait("heavy_armor") then
-							functions.script.supertable[5][item.go.id] = item:getWeight()
-							item:setWeight(0)
-						end
-					end
-				end
+				champion:addStatModifier("protection", 5)
+				champion:addStatModifier("strength", 1)
 			end
 		end
 	end,
@@ -1138,7 +1156,15 @@ defineTrait{
 	uiName = "Heavy Conditioning",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 77,
-	description = "Heavy Armor weights 75% less while in your inventory.",
+	description = "Heavy Armor weights 75% less.",
+}
+
+defineTrait{
+	name = "armor_training",
+	uiName = "Armor Training",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 76,
+	description = "You're still wearing 'all heavy armor' even if your Helmet and Gloves are not heavy armor.",
 }
 
 -- Accuracy
@@ -1146,7 +1172,7 @@ defineTrait{
 	name = "reach",
 	uiName = "Reach",
 	icon = 1,
-	description = "",
+	description = "You can use melee attacks from the backline.",
 }
 
 defineTrait{
@@ -1270,15 +1296,15 @@ defineTrait{
 	uiName = "Sea Dog",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 118,
-	description = "You deal 30% more melee damage from the backline and 30% more firearm damage from the frontline.",
+	description = "You deal 30% more melee damage from the backline and 30% more firearm damage from the frontline."
 }
 
 defineTrait{
-	name = "",
-	uiName = "",
+	name = "freebooter",
+	uiName = "Freebooter",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 118,
-	description = "Cannon balls in your inventory weight 50% less.",
+	description = "Cannon balls in your inventory weight 80% less.",
 }
 
 defineTrait{
@@ -1286,7 +1312,7 @@ defineTrait{
 	uiName = "Broadside",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 118,
-	description = "Pellets and cannon balls have a 40% chance to create shrapnel on impact, doing half damage to the enemy behind your target.",
+	description = "Pellets and cannon balls have a 40% chance to create shrapnel on impact, doing half damage to a 3-tile area behind the target.",
 }
 
 -- Alchemy
@@ -1299,10 +1325,10 @@ defineTrait{
 }
 
 defineTrait{
-	name = "",
-	uiName = "",
+	name = "bomb_multiplication",
+	uiName = "Bomb Multiplication",
 	icon = 53,
-	description = "",
+	description = "When throwing a bomb, there's a 10% chance you alchemically clone it on the spot.\n\n- Chance increases by 0.5% per Dexterity per point.",
 }
 
 defineTrait{
@@ -1337,6 +1363,26 @@ defineTrait{
 }
 
 -- Heavy Weapons
+defineTrait{
+	name = "rend",
+	uiName = "Rend",
+	icon = 1,
+	description = "Power attacks have a 30% chance to cause enemies to bleed.",
+}
+
+defineTrait{
+	name = "power_grip",
+	uiName = "Power Grip",
+	icon = 1,
+	description = "Heavy Weapon attacks gain 1% more damage per 5 points of health you have, plus 10% per 100 health.",
+}
+
+defineTrait{
+	name = "two_handed_mastery",
+	uiName = "Two-Handed Mastery",
+	icon = 1,
+	description = "You can wield two-handed weapons in one hand.",
+}
 
 -- Spellblade
 defineTrait{ -- to do
@@ -1441,7 +1487,7 @@ defineTrait{
 	uiName = "Venomancer",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 106,
-	description = "You gain 20% chance to poison enemies with both melee and ranged attacks.",
+	description = "10% chance to poison enemies with melee, missile and throwing attacks.",
 }
 defineTrait{ -- to do
 	name = "plague",
@@ -1459,7 +1505,7 @@ defineTrait{
 	description = "+35% Resist Poison and immunity to being poisoned.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			champion:addStatModifier("resist_poison", 45)
+			champion:addStatModifier("resist_poison", 35)
 		end
 	end,
 	onReceiveCondition = function(champion, cond, level)
@@ -1481,7 +1527,7 @@ defineTrait{ -- to do
 	name = "imperium_arcana",
 	uiName = "Imperium Arcana",
 	icon = 1,
-	description = "Non-elemental and non-poison spells deal 35% more damage.",
+	description = "For every 100 Max Energy, neutral spells deal 30% more damage and others deal 15% more.",
 }
 
 defineTrait{

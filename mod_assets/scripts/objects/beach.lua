@@ -247,7 +247,7 @@ defineObject{
 defineObject{
 	name = "beach_door_portcullis",
 	baseObject = "base_double_door_sparse",
-	components = {
+	components = {	
 		{
 			class = "Model",
 			model = "assets/models/env/beach_gate_portcullis.fbx",
@@ -255,11 +255,61 @@ defineObject{
 		{
 			class = "Model",
 			name = "frame",
-			model = "assets/models/env/beach_gate.fbx",
+			model = "assets/models/env/beach_gate.fbx",			
 			staticShadow = true,
+		},
+		{
+			class = "Particle",
+			particleSystem = "portcullis",
+			emitterMesh = "assets/models/env/beach_gate_portcullis.fbx",
+		},
+		{
+			class = "Light",
+			range = 0,
+			color = vec(1, 1, 1),
+			brightness = 0,
+			castShadow = false,
+			staticShadows = false,
+			fadeOut = 0,
+			onUpdate = function(self)
+				if self.go.door:isOpening() or self.go.door:isClosing() then
+					self.go.particle:restart()
+				end
+			end,
 		},
 	},
 	tags = { "puzzle" },
+}
+
+defineParticleSystem{
+	name = "portcullis",
+	emitters = {
+		-- fog
+		{
+			emitterShape = "MeshShape",
+			emissionRate = 600,
+			emissionTime = 0,
+			maxParticles = 1000,
+			--boxMin = {-1.5,-0.5,-0.15},
+			--boxMax = { 1.5, 2.5, 0.0},
+			sprayAngle = {0,360},
+			--velocity = {0.05, 0.25},
+			velocity = {0, 0},
+			objectSpace = false,
+			texture = "assets/textures/particles/teleporter.tga",
+			lifetime = {1,5},
+			color0 = {0.5, 1, 1.5},
+			opacity = 0.55,
+			fadeIn = 0.2,
+			fadeOut = 0.2,
+			size = {0.01, 0.3},
+			gravity = {0,0,0},
+			airResistance = 0.1,
+			rotationSpeed = 2,
+			blendMode = "Additive",
+			depthBias = 0.1,
+		},
+	}
 }
 
 defineObject{

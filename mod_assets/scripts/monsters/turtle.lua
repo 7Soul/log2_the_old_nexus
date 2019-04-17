@@ -47,9 +47,6 @@ defineObject{
 			onDie = function(self)
 				-- maybe do something?
 			end,
-			onProjectileHit = function(self, item, damage, damageType)
-				functions.script.checkHunterHit(item)
-			end
 		},
 		{
 			class = "TurtleBrain",

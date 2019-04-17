@@ -8,27 +8,28 @@ hook_framework = false           -- if you use the Hook framework, set this to t
 -- This file must also be set as the source of a script entity in your dungeon with the specific id: spells_functions.
 import (path.."spells_functions.lua")
 for _,def in pairs(defOrdered) do
-  defineSpell(def)
-  defineObject{
-    name = "scroll_"..def.name,
-    baseObject = "base_item",
-    components = {
-      {
-        class = "Model",
-        model = "assets/models/items/scroll_spell.fbx",
-      },
-      {
-        class = "Item",
-        uiName = "Scroll of "..def.uiName,
-        gfxIndex = 113,
-        weight = 0.3,
-      },
-      {
-        class = "SpellScrollItem",
-        spell = def.name,
-      },
-    },
-  }
+	defineSpell(def)
+	defineObject{
+		name = "scroll_"..def.name,
+		baseObject = "base_item",
+		components = {
+			{
+				class = "Model",
+				model = "assets/models/items/scroll_spell.fbx",
+			},
+			{
+				class = "Item",
+				uiName = "Scroll of "..def.uiName,
+				gfxIndex = 113,
+				weight = 0.03,
+				traits = { "spell_scroll" },
+			},
+			{
+				class = "SpellScrollItem",
+				spell = def.name,
+			},
+		},
+	}
 end
 
 -- Required assets for the spells. If you remove a spell from the pack, you can search thoses files and remove the unused assets.

@@ -40,3 +40,48 @@ defineObject{
 		},
 	},
 }
+
+defineObject{
+	name = "broadside",
+	baseObject = "base_spell",
+	components = {
+		{ 
+			class = "Script",
+			name = "data",
+			source = [[
+					data = {}
+					function get(self,name) return self.data[name] end
+					function set(self,name,value) self.data[name] = value end
+					]],      
+		},
+		{
+			class = "Particle",
+			particleSystem = "hit_firearm",
+			offset = vec(0, 1.2, 0),
+			destroyObject = true,
+		},
+		{
+			class = "Light",
+			color = vec(0.75, 0.4, 0.25),
+			brightness = 40,
+			range = 4,
+			offset = vec(0, 1.2, 0),
+			fadeOut = 0.75,
+			disableSelf = true,
+		},
+		{
+			class = "TileDamager",
+			attackPower = 1,
+			damageType = "physical",
+			sound = "fireburst",
+			damageFlags = DamageFlags.NoLingeringEffects,
+			onHitChampion = function(self, champion)
+				return false
+			end,
+		},
+		{
+			class = "Sound",
+			sound = "fireburst",
+		},
+	},
+}

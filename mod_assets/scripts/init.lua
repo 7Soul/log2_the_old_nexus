@@ -9,9 +9,11 @@ import "mod_assets/scripts/objects/mine.lua"
 import "mod_assets/scripts/objects/tomb.lua"
 import "mod_assets/scripts/objects/breakable.lua"
 import "mod_assets/scripts/objects/dungeon.lua"
-import "mod_assets/scripts/materials/tomb.lua"
+import "mod_assets/scripts/objects/castle.lua"
 import "mod_assets/scripts/objects/stone_philosophers.lua"
 import "mod_assets/scripts/objects/sky.lua"
+import "mod_assets/scripts/materials/tomb.lua"
+import "mod_assets/scripts/materials/generic.lua"
 -- import the spells pack
 import "mod_assets/spells_pack/init.lua"   -- the spells pack
 import "mod_assets/scripts/spells/psionic_arrow.lua"
@@ -141,12 +143,26 @@ defineObject{
 		-----------------------------------------------------------
 		onAttack = function(party, champion, action, slot)
 			print(champion:getName(), "is attacking with", action.go.name)
-			-- if champion:getClass() == "hunter" then
-				-- if action.go.item:hasTrait("missile_weapon") or action.go.name == "crossbow" then
-					-- functions.script.hunter_timer[champion:getOrdinal()] = 3
-				-- end
-			-- end
-			-- return spells_functions.script.onAttack(champion, action, slot)
+			--print(champion:getName(), "used the action", action)
+			if action.go.bombitem then
+				if champion:hasTrait("bomb_multiplication") then
+					local item = champion:getItem(slot)
+					local chance = 0.1 + (champion:getCurrentStat("dexterity") / 200)
+					if item and item == action.go.item and math.random() <= chance then
+						item:setStackSize(item:getStackSize() + 1)
+					end
+				end
+			end
+			
+			for i=1,4 do
+				local c = party:getChampionByOrdinal(i)				
+				if c ~= champion then
+					--functions.script.set_c("attackedWith", c:getOrdinal(), nil)
+					--functions.script.set_c("attacked", c:getOrdinal(), nil)
+				end
+			end
+			functions.script.set_c("attackedWith", champion:getOrdinal(), action.go.name)
+			functions.script.set_c("attacked", champion:getOrdinal(), champion:getOrdinal())
 		end,
 		-----------------------------------------------------------
 		-- On Damage Taken
@@ -196,10 +212,10 @@ defineObject{
 		
 		-- WORKS
 		onDie = function(party,champion) 
-			print(party.go.id,champion:getName(),'died') 
+			--print(party.go.id,champion:getName(),'died') 
 			for i=1,4 do
 				if party:getChampion(i):getClass() == "fighter" and party:getChampion(i):isAlive() then
-					party:getChampion(i):setConditionValue("berserker_revenge", 20)
+					party:getChampion(i):setConditionValue("berserker_revenge", 60)
 					if party:getChampion(i):hasCondition("berserker_rage") then
 						party:getChampion(i):removeCondition("berserker_rage")
 					end
@@ -217,13 +233,14 @@ defineObject{
 		onWakeUp = function(party) 
 			print(party.go.id,'woke up') 
 			for i=1,4 do
-				if party:getChampionByOrdinal(i):getClass() == "stalker" then
+				if party:getChampionByOrdinal(i):getClass() == "stalker____" then
 					local night_stalker_charges = functions.script.night_stalker[i]
-					print(party.go.partycounter:getValue())
+					--print(party.go.partycounter:getValue())
 					if night_stalker_charges > 0 then
-						print(functions.script.night_stalker[i])
-						local bonus = math.min(party:getChampion(i):getLevel() * 2, 22)
-						spells_functions.script.addConditionValue("invisibility", 8 + bonus)
+						--print(functions.script.night_stalker[i])
+						local bonus = 22 + ((party:getChampion(i):getLevel()-1) * 2)
+						spells_functions.script.maxConditionValue("invisibility", 8 + bonus)
+						spells_functions.script.maxEffectIcons("invisibility", 8 + bonus)
 						functions.script.night_stalker[i] = functions.script.night_stalker[i] - 1
 						if night_stalker_charges == 1 then
 							hudPrint(party:getChampionByOrdinal(i):getName() .. " has run out of casts of Invisibility.")
@@ -371,7 +388,9 @@ defineObject{
 		onDrawAttackPanel = function(self, champion, context, x, y)
 			local w, h, r = context.width, 		context.height, 	context.width / context.height
 			local f = (r < 1.3 and 0.8 or r < 1.4 and 0.9 or 1) * context.height/1080
+			local f2 = context.height/1080
 			local MX, MY = context.mouseX, context.mouseY
+			local mLeft, mRight = context.mouseDown(0), context.mouseDown(2)
 			if f > 0.9 then
 				context.font("large")
 			elseif f > 0.5 then
@@ -381,9 +400,20 @@ defineObject{
 			elseif f < 0.2 then
 				context.font("tiny")
 			end
-			if champion:getClass() == "monk" and champion:hasCondition("healing_light") then
-				context.drawImage2("mod_assets/textures/gui/healing_light.dds", x-22, y-70, 0, 0, 64, 64, 68, 68)
+			
+			if champion:getClass() == "monk" then
+				local healingLight = functions.script.get_c("healinglight", champion:getOrdinal())
+				local healingMax = 400 + ((champion:getLevel() ^ 2) * 75)
+				if healingLight then
+					context.font("small")
+					--context.drawText("" .. healingLight, x+18, y-8)
+					context.drawImage2("mod_assets/textures/gui/bar.dds", x-19, y-9, 0, 0, 64, 64, math.min(healingLight / healingMax * 59, 59), 3)
+				end
+				if champion:hasCondition("healing_light") then
+					context.drawImage2("mod_assets/textures/gui/healing_light.dds", x-22, y-70, 0, 0, 64, 64, 68, 68)
+				end
 			end
+			
 			if champion:getClass() == "hunter" then
 				if functions.script.hunter_crit[champion:getOrdinal()] > 0 then
 					context.font("small")
@@ -391,13 +421,13 @@ defineObject{
 					local posx = 0
 					local posy = 0
 					context.color(225, 225, 195, 255)
-					if champion:getItem(ItemSlot.Weapon) and champion:getItem(ItemSlot.Weapon):hasTrait("missile_weapon") then
+					if champion:getItem(ItemSlot.Weapon) then
 						x2 = 0
 						posx = (x + 18) + (x2 * 80)
 						posy = y + 28
 						context.drawText("" .. functions.script.hunter_crit[champion:getOrdinal()], posx, posy)
 						context.drawImage2("mod_assets/textures/gui/bar.dds", posx-6, posy+2, 0, 0, 64, 64, champion:getConditionValue("hunter_crit") / functions.script.hunter_max[champion:getOrdinal()] * 24, 3)
-					elseif champion:getItem(ItemSlot.OffHand) and champion:getItem(ItemSlot.OffHand):hasTrait("missile_weapon") then
+					elseif champion:getItem(ItemSlot.OffHand) then
 						x2 = 1
 						posx = (x + 18) + (x2 * 80)
 						posy = y + 28
@@ -410,7 +440,7 @@ defineObject{
 						context.drawText(text, posx - (context.getTextWidth(text) / 2), posy - 20)
 					end
 				end
-			end
+			end	
 			--return false
 		end,
 		
@@ -450,6 +480,7 @@ defineObject{
 					functions2.script.move(0,0,0.01*multi)
 				end
 			end
+			
 			if context.keyDown("P") then
 				local text = "ROTATING"
 				context.drawText(text, 	w - (f2 * (w / 2  + context.getTextWidth(text))), h - (f2 * h / 2))
@@ -463,6 +494,74 @@ defineObject{
 					functions2.script.rotate(0,0,0.1*multi)
 				end
 			end
+			
+			-- Display class skill buttons
+			
+			local area1, area2, areaX, areaY = {}, {}, {}, {}
+			local ancestral_charge = { cost = 25, name = "ancestral_charge", uiName = "Ancestral Charge" }
+			local intensify_spell = { cost = 0, name = "intensify_spell", uiName = "Intensify Spell" }
+			local sneak_attack = { cost = 15, name = "sneak_attack", uiName = "Sneak Attack" }
+			local drinker = { cost = 0, name = "drinker", uiName = "Drown Your Sorrows" }
+			local skills = { ancestral_charge, intensify_spell, sneak_attack, drinker }
+			local champions = { }
+			local orderedSkills = { }
+			
+			for i=1,4 do
+				local champion = party.party:getChampionByOrdinal(i)
+				for index, t in pairs(skills) do
+					if champion:hasTrait(t.name) then
+						table.insert(champions, champion:getOrdinal())
+						table.insert(orderedSkills, skills[index] )
+					end
+				end
+			end
+			
+			for index, icon in pairs(orderedSkills) do
+				-- draw button
+				context.drawImage2("mod_assets/textures/gui/healing_light.dds", w - (520 * f2), (662 + ((index - 1) * 52)) * f2, 0, 0, 64, 64, 48 * f2, 48 * f2)
+				area1[index], area2[index] = context.button("class_skill"..index, w - (520 * f2), (662 + ((index - 1) * 52)) * f2, 48 * f2, 48 * f2)
+				context.drawRect(w - (520 * f2), (662 + ((index - 1) * 52)) * f2, 48 * f2, 48 * f2) -- temp
+			end
+			
+			for index, icon in pairs(orderedSkills) do
+				local champion = party.party:getChampionByOrdinal(champions[index])
+				if area2[index] then
+					-- draw hover button
+					context.drawImage2("mod_assets/textures/gui/healing_light.dds", w - (520 * f2), (662 + ((index - 1) * 52)) * f2, 0, 0, 64, 64, 48 * f2, 48 * f2)
+					context.color(0, 255, 0, 255)
+					context.drawRect(w - (520 * f2), (662 + ((index - 1) * 52)) * f2, 48 * f2, 48 * f2)
+					-- black rect behind text
+					local title = champion:getName() .. "'s " .. orderedSkills[champions[index]].uiName
+					context.color(0, 0, 0, 168)
+					context.drawRect(MX - 56, MY - 50, string.len(title) * 10, 45)
+					
+					context.color(255, 255, 255, 255)
+					context.drawText(title, MX - 50, MY - 32)
+					context.drawText("Cost: " .. tostring(orderedSkills[champions[index]].cost), MX - 50, MY - 10)
+						
+					if context.mouseDown(3) then
+						playSound("click_down")
+						if champion:isAlive() and champion:isReadyToAttack(0) and not champion:hasCondition("recharging") then
+							-- draw click button
+							context.drawImage2("mod_assets/textures/gui/healing_light.dds", w - (520 * f2), (662 + ((index - 1) * 52)) * f2, 0, 0, 64, 64, 48 * f2, 48 * f2)
+							context.color(0, 0, 255, 255)
+							context.drawRect(w - (520 * f2), (662 + ((index - 1) * 52)) * f2, 48 * f2, 48 * f2)
+							if champion:getEnergy() > orderedSkills[champions[index]].cost then
+								functions.script.class_skill(orderedSkills[champions[index]].name, champion)
+								champion:regainEnergy(orderedSkills[champions[index]].cost * -1)
+								champion:playHealingIndicator()
+								playSound("generic_spell")
+							else
+								hudPrint("Not enough energy for this action.")
+								playSound("spell_out_of_energy")
+							end
+						else
+							hudPrint("Champion is not ready.")
+						end
+					end
+				end
+			end
+			
 		end,
 		
 		onDrawStats = function(self, context, champion)	
@@ -481,8 +580,11 @@ defineObject{
 			elseif f2 < 0.5 then
 				context.font("tiny")
 			end
-			if champion:getClass() == "assassin" then
+			if champion:getClass() == "assassin_class" then
 				context.drawText("Assassinations: " .. functions.script.assassinations[champion:getOrdinal()], w - (530 * f2), 618 * f2)
+			end
+			if champion:getClass() == "stalker" then
+				context.drawText("Invisibility Casts: " .. functions.script.night_stalker[champion:getOrdinal()], w - (530 * f2), 618 * f2)
 			end
 		end, 
 
@@ -666,19 +768,21 @@ defineObject{
 		onLevelUp = function(party,champion) 
 			--print(party.go.id,champion:getName(),'leveled up!') 
 			-- Assassin's gets 'assassination' on level up
-			if champion:getClass() == "assassin" then
+			if champion:getClass() == "assassin_class" then
 				if not champion:hasTrait("assassination") then
 					champion:addTrait("assassination")
 				end
 			end
 		end,
-		onPickUpItem = function(party,item)
+		onPickUpItem = function(party, item)
 			if item.go.model then
 				item.go.model:setOffset(vec(0,0,0))
 				item.go.model:setRotationAngles(0,0,0)
 			end
 			functions2.script.checkIronKeyBurn(party,item)
-		end
+		end,
+		onGetPortrait = function(self,champion)
+		end,
 	},
 	{
 		class = "Counter",
@@ -696,9 +800,9 @@ defineObject{
 			for i=1,4 do
 				local champion = party.party:getChampionByOrdinal(i)
 				if champion:getClass() == "stalker" then
-					local bonus = math.floor(champion:getLevel() / 4)
+					local bonus = math.floor(champion:getLevel() / 3)
 					functions.script.night_stalker[i] = 1 + bonus
-					hudPrint(champion:getName() .. ", the Stalker, has recovered " .. (1 + bonus) .. " charges of Invisibility")
+					hudPrint(champion:getName() .. ", the Spell Thief, has recovered " .. (1 + bonus) .. " charges of Invisibility")
 				end
 			end
 			--return hudPrint("Time = "..v.."")
@@ -742,8 +846,15 @@ defineObject{
 			
 			for i=1,4 do
 				local champion = party.party:getChampionByOrdinal(i)
+				functions.script.checkWeights(i)
+				if champion:isReadyToAttack(0) then
+					functions.script.set_c("attackedWith", i, nil)
+					functions.script.set_c("attacked", i, nil)
+				end
+				
 				functions.script.set_c("wide_vision", i, nil)
-				if champion:hasTrait("wide_vision") then
+				functions.script.set_c("sea_faring", i, nil)
+				if champion:hasTrait("wide_vision") or champion:getSkillLevel("sea_faring") > 0 then
 					local monsterCount = 0
 					for d=1,4 do
 						local dir = (party.facing + d) % 4
@@ -754,8 +865,35 @@ defineObject{
 							end
 						end
 					end
+					--print(monsterCount)
 					if monsterCount > 0 then
-						functions.script.set_c("wide_vision", i, monsterCount)
+						if champion:hasTrait("wide_vision") then
+							functions.script.set_c("wide_vision", i, monsterCount)
+						end
+						if champion:getSkillLevel("sea_faring") > 0 then
+							functions.script.set_c("sea_faring", i, monsterCount)
+						end
+					end
+				end
+				
+				if champion:hasTrait("drinker") and champion:hasCondition("drown_sorrows_exp") then
+					local resetTimer = functions.script.get_c("drown_sorrows_exp", champion:getOrdinal())
+					if resetTimer ~= nil and GameMode.getTimeOfDay() < resetTimer and GameMode.getTimeOfDay() >= resetTimer - 0.002 then
+						champion:removeCondition("drown_sorrows_exp")
+						functions.script.set_c("drown_sorrows_exp", champion:getOrdinal(), nil)
+						hudPrint(champion:getName().. " drinking EXP Penalty was removed.")
+					end
+				end
+				
+				-- Drain the Healing Light charge bar
+				if champion:getClass() == "monk" then
+					if champion:getConditionValue("healing_light") > 0 then
+						local healingLight = functions.script.get_c("healinglight", champion:getOrdinal())
+						local healingMax = 400 + ((champion:getLevel() ^ 2) * 75)
+						if not healingLight then healingLight = 0 end
+						local bonus = math.floor(champion:getLevel() / 4) * 3
+						healingLight = healingMax * champion:getConditionValue("healing_light") / (12 + bonus)
+						functions.script.set_c("healinglight", champion:getOrdinal(), healingLight)
 					end
 				end
 			end
@@ -784,6 +922,7 @@ defineObject{
 					functions2.script.updateTimeTravelTimer(-1)
 				end
 			end
+				
 			for i=1,4 do
 				local champion = party.party:getChampionByOrdinal(i)
 				if champion:hasTrait("bite") then

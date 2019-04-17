@@ -7,7 +7,7 @@ defineSkill{
 
 	Perks:
 	- Level 2 | Your carrying capacity is increased by 10 kg.
-	- Level 4 | Increases resistance to leg wounds by 10%, plus 10% if wearing Light Armor boots or 20% if wearing Heavy Armor boots.
+	- Level 4 | Increases resistance to leg wounds by 10%, plus 10% if wearing Light Armor boots or 30% if wearing Heavy Armor boots.
 	- Level 5 | Healing potions heal 25% more, with some extra healing applied instantly.]],
 	traits = { [2] = "pack_mule", [4] = "endurance", [5] = "refreshed" },
 	onRecomputeStats = function(champion, level)
@@ -22,7 +22,7 @@ defineSkill{
 			local item = champion:getItem(6)
 			if item then
 				if item:hasTrait("heavy_armor") then
-					bonus = 0.2
+					bonus = 0.3
 				else
 					bonus = 0.1
 				end
@@ -63,27 +63,12 @@ defineSkill{
 	description = [[Each point reduces the evasion penalties from wearing Light Armor by 20% and increases the protection they provide by 5% per level.
 	
 	Perks:
-	- Level 2 | Gain +5 Evasion if wearing light armor in all 5 slots.
+	- Level 2 | Gain +5 Evasion and +1 Dexterity if wearing light armor in all 5 slots.
 	- Level 4 | Gain +20 resist all if wearing all light armor.
 	- Level 5 | Reduces action timers by 15% if wearing all light armor.]],
 	traits = { [2] = "light_wear", [4] = "reflective", [5] = "nimble" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 and functions ~= nil and Time.currentTime() > 3 then
-			local armor = "light_armor"
-			local armor2 = "clothes"
-			if armor2 == nil then armor2 = armor end
-			local all_light = true
-			local equip_slots = {3,4,5,6,9}
-			for i, v in pairs(equip_slots) do
-				if champion:getItem(v) ~= nil then
-					if (not champion:getItem(v):hasTrait(armor)) and (not champion:getItem(v):hasTrait(armor2)) then	
-						all_light = false
-					end
-				else
-					all_light = false
-				end
-			end
-	
 			local equip_slots = {3,4,5,6,9}
 			for i, v in pairs(equip_slots) do
 				if champion:getItem(v) and champion:getItem(v):hasTrait("light_armor") then
@@ -103,26 +88,12 @@ defineSkill{
 	description = [[Each point reduces the evasion penalties from wearing Heavy Armor by 20% and increases the protection they provide by 5% per level.
 	
 	Perks:
-	- Level 2 | Gain +5 Protection if wearing heavy armor in all 5 slots.
-	- Level 4 | Heavy Armor weights 75% less while in your inventory.
-	- Level 5 | Heavy Armor weights nothing if wearing all heavy armor.]],
+	- Level 2 | Gain +5 Protection and +1 Strength when wearing heavy armor in all 5 slots.
+	- Level 4 | Heavy Armor weights 75% less.
+	- Level 5 | You're still wearing 'all heavy armor' even if your Helmet and Gloves are not heavy armor.]],
 	traits = { [2] = "armored_up", [4] = "heavy_conditioning", [5]="armor_training" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 and functions ~= nil and Time.currentTime() > 3 then
-			local armor = "heavy_armor"
-			local armor2 = "heavy_armor"
-			local all_light = true
-			local equip_slots = {3,4,5,6,9}
-			for i, v in pairs(equip_slots) do
-				if champion:getItem(v) ~= nil then
-					if (not champion:getItem(v):hasTrait(armor)) and (not champion:getItem(v):hasTrait(armor2)) then	
-						all_light = false
-					end
-				else
-					all_light = false
-				end
-			end
-			
 			local equip_slots = {3,4,5,6,9}
 			for i, v in pairs(equip_slots) do
 				if champion:getItem(v) and champion:getItem(v):hasTrait("heavy_armor") then
@@ -167,7 +138,7 @@ defineSkill{
 	onComputeCritChance = function(champion, weapon, attack, attackType, level)
 		return level * 3
 	end,
-	traits = { [2] = "backstab", [5] = "assassin", [4] = "weapons_specialist" },
+	traits = { [2] = "backstab", [5] = "slayer", [4] = "weapons_specialist" },
 }
 
 defineSkill{
@@ -189,15 +160,18 @@ defineSkill{
 	uiName = "Seafaring",
 	priority = 80,
 	icon = 20,
-	description = [[Increases melee and ranged damage when fighting multiple foes by 20% for each skill point.
+	description = [[Increases evasion by 3 point per skill level when fighting multiple foes.
 	
 	Perks:
 	- Level 2 | You deal 30% more melee damage from the backline and 30% more firearm damage from the frontline.
 	- Level 4 | Cannon balls in your inventory weight 80% less.
 	- Level 5 | Pellets and cannon balls have a 40% chance to create shrapnel on impact, doing half damage to the enemy behind your target.]],
-	traits = { [2] = "sea_dog", [4] = "baller", [5] = "broadside" },
+	traits = { [2] = "sea_dog", [4] = "freebooter", [5] = "broadside" },
 	onRecomputeStats = function(champion, level)
-		if level > 0 then			
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 then
+			local stat = functions.script.get_c("seafaring", champion:getOrdinal())
+			if not stat then return end
+			champion:addStatModifier("evasion", stat * 3)
 		end
 	end,
 }
@@ -211,9 +185,9 @@ defineSkill{
 	
 	Perks:
 	- Level 1 | Herbs multiply while in your inventory.
-	- Level 4 | 
+	- Level 4 | When throwing a bomb, there's a 10% chance you alchemically clone it on the spot. Chance increases by 0.5% per Dexterity per point..
 	- Level 5 | When you craft bombs you get three bombs instead of one.]],
-	traits = { [1] = "green_thumb", [4] = "", [5] = "bomb_expert" },
+	traits = { [1] = "green_thumb", [4] = "bomb_multiplication", [5] = "bomb_expert" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 		end
@@ -257,9 +231,9 @@ defineSkill{
 	
 	Perks:
 	- Level 3 | Power attacks have a 30% chance to cause enemies to bleed.
-	- Level 4 | Attacks gain 1% more damage per 5 points of health you have, plus 10% per 60 health.
+	- Level 4 | Melee attacks gain 1% more damage per 5 points of health you have, plus 10% per 100 health.
 	- Level 5 | You can wield two-handed weapons in one hand.]],
-	traits = { [3] = "", [4] = "power_grip", [5] = "two_handed_mastery" },
+	traits = { [3] = "rend", [4] = "power_grip", [5] = "two_handed_mastery" },
 }
 
 defineSkill{
@@ -322,7 +296,7 @@ defineSkill{
 	Perks:
 	- Level 2 | 10% chance to poison enemies with melee, missile and throwing attacks.
 	- Level 4 | Your poison spells have a larger area of effect and can't damage your party.
-	- Level 5 | +50% Resist Poison.]],
+	- Level 5 | +35% Resist Poison and immunity to being poisoned.]],
 	traits = { [2] = "venomancer", [4] = "plague", [5] = "antivenom" },
 }
 

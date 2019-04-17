@@ -122,6 +122,7 @@ defineObject = function(def)
 			if c.class == "FirearmAttack" then
 				c.onAttack = onFirearmAttack
 				c.onPostAttack = onFirearmPostAttack
+				c.onHitMonster = onHitMonster
 				c.onInit = onWInit
 			end
 			if c.class == "ThrowAttack" then

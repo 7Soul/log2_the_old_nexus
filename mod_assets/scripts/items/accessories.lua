@@ -93,7 +93,7 @@ defineObject{
 			melee and ranged attacks.]],
 			gfxIndex = 29,
 			weight = 0.5,
-			traits = { "bracers", "upgradable" },
+			traits = { "bracers", "upgradable", "venomancer" },
 		},
 		{
 			class = "EquipmentItem",

@@ -271,6 +271,7 @@ defineObject{
 			projectileRotationSpeed = 10,
 			projectileRotationZ = -30,
 			weight = 1.0,
+			traits = { "cannon_ball" },
 		},
 		{
 			class = "AmmoItem",

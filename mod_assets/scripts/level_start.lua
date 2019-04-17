@@ -182,7 +182,8 @@ function start()
 	--------------------
 	if mine_ceiling_lantern_6 then
 	mine_ceiling_lantern_6:setWorldPosition(vec(7.5,-0.25,39))
-	
+	forest_lantern_blue_4:setWorldPosition(vec(14.6,-3,46.5))
+	turnButton:setWorldPosition(vec(51.3,0,70.5))
 	castle_pressure_plate_1:setWorldPositionY(-0.01)
 	--castle_pressure_plate_1:setWorldPosition(vec(17.75,-0.01,73.5))
 	--wall_button_2:setWorldPosition(vec(18.41,-0.96,72.75))
@@ -247,13 +248,13 @@ function start()
 		dead_crystal_1:setWorldRotation(m)
 	end
 	
-	local pos = dungeon_cave_in_small_1:getWorldPosition()
+	local pos = forest_fireflies_4:getWorldPosition()
 	posx = pos.x
 	posy = pos.y
 	posz = pos.z
 end
 
-objname = "dungeon_cave_in_small_1"
+objname = "forest_fireflies_4"
 
 function move(x,y,z)
 	xx = xx + x*1

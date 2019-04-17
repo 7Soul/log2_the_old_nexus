@@ -3,7 +3,7 @@ defineCondition{
 	uiName = "Berserker Rage",
 	description = [[
 	Gains combat stats that fade slowly over 20 seconds.
-	- Protection up to +4 per level (+8 per 5 levels).
+	- Protection up to +4 per level (+6 per 3 levels).
 	- Strength up to +2 (+1 per 3 levels).]],
 	icon = 1,
 	--iconAtlas = "mod_assets/textures/conditions.tga",
@@ -18,11 +18,12 @@ defineCondition{
 	end,
 	onRecomputeStats = function(self, champion)
 		local level = champion:getLevel()
-		local level2 = math.floor(champion:getLevel() / 5)
-		local dur = math.max(champion:getConditionValue("berserker_rage"), 5)
+		local level2 = math.floor((champion:getLevel()-1)/ 3)
+		local dur = math.max(champion:getConditionValue("berserker_rage"), 5 + math.floor(champion:getLevel() / 5)) -- every 5 levels it clamps to a higher time
+		dur = math.min(dur * dur / 324, 1) -- 324 to give 2 seconds where the stats stay at max
 		if level > 0 then
-			champion:addStatModifier("protection", math.ceil(level * 0.2 * dur) + math.ceil(level2 * 0.4 * dur))
-			champion:addStatModifier("strength", math.ceil((level + math.floor(level/3)) * 0.1 * dur))
+			champion:addStatModifier("protection", math.ceil(((level * 4) + (level2 * 6)) * dur))
+			champion:addStatModifier("strength", math.ceil((2 + level2) * 1 * dur))
 		end
 	end,
 	onTick = function(self, champion)
@@ -34,9 +35,10 @@ defineCondition{
 	name = "berserker_revenge",
 	uiName = "Berserker Revenge",
 	description = [[
-	Gains combat stats that fade slowly over 20 seconds.
-	- Protection up to +8 per level (+16 per 5 levels).
-	- Strength up to +4 (+1 per 3 levels).]],
+	Gains combat stats that fade slowly over 60 seconds.
+	- Protection up to +6 per level (+8 per 3 levels).
+	- Strength up to +4 (+1 per 3 levels).
+	- Health Regeneration +500%.]],
 	icon = 1,
 	--iconAtlas = "mod_assets/textures/conditions.tga",
 	beneficial = true,
@@ -50,11 +52,13 @@ defineCondition{
 	end,
 	onRecomputeStats = function(self, champion)
 		local level = champion:getLevel()
-		local level2 = math.floor(champion:getLevel() / 5)
-		local dur = math.max(champion:getConditionValue("berserker_rage"), 5)
+		local level2 = math.floor(champion:getLevel() / 3)
+		local dur = math.max(champion:getConditionValue("berserker_rage"), 12 + math.floor(champion:getLevel() / 5)) -- every 5 levels it clamps to a higher time
+		dur = math.min(dur * dur / 3136, 1) -- 3136 to give 4 seconds where the stats stay at max
 		if level > 0 then
-			champion:addStatModifier("protection", math.ceil(level * 0.4 * dur) + math.ceil(level2 * 0.8 * dur))
-			champion:addStatModifier("strength", math.ceil((level + math.floor(level/3)) * 0.2 * dur))
+			champion:addStatModifier("protection",  math.ceil(((level * 6) + (level2 * 8)) * dur))
+			champion:addStatModifier("strength", math.ceil((4 + level2) * 1 * dur))
+			champion:addStatModifier("health_regeneration_rate", math.ceil(500 * dur))
 		end
 	end,
 	onTick = function(self, champion)
@@ -95,11 +99,59 @@ defineCondition{
 	onStart = function(self, champion)
 		playSound("light")
 	end,
-	onStop = function(self, champion)		
+	onStop = function(self, champion)	
+		champion:setConditionValue("holy_light", 60 + (math.floor(champion:getLevel() / 4) * 30))
 	end,
 	onRecomputeStats = function(self, champion)
 		champion:addStatModifier("health_regeneration_rate", 500)
-		champion:addStatModifier("energy_regeneration_rate", 250)
+		champion:addStatModifier("energy_regeneration_rate", 300)
+	end,
+	onTick = function(self, champion)
+	end,	
+}
+
+defineCondition{
+	name = "holy_light",
+	uiName = "Holy Light",
+	description = [[
+	- Random bonus to all stats.]],
+	icon = 1,
+	--iconAtlas = "mod_assets/textures/conditions.tga",
+	beneficial = true,
+	harmful = false,
+	tickInterval = 1,
+	onStart = function(self, champion)
+		playSound("light")
+		local bonusS, bonusD, bonusW, bonusV = 0, 0, 0, 0
+		local maxBonus = 3 + (math.floor(champion:getLevel() / 3))
+		while (bonusS + bonusD + bonusW + bonusV < maxBonus*1.75) or (bonusS + bonusD + bonusW + bonusV > maxBonus*3) do
+			bonusS = math.random(0, maxBonus)
+			bonusD = math.random(0, maxBonus)
+			bonusW = math.random(0, maxBonus)
+			bonusV = math.random(0, maxBonus)
+		end
+		functions.script.set_c("holyLightRandW", champion:getOrdinal(), bonusW)
+		functions.script.set_c("holyLightRandS", champion:getOrdinal(), bonusS)
+		functions.script.set_c("holyLightRandD", champion:getOrdinal(), bonusD)
+		functions.script.set_c("holyLightRandV", champion:getOrdinal(), bonusV)
+	end,
+	onStop = function(self, champion)
+		functions.script.set_c("holyLightRandW", champion:getOrdinal(), nil)
+		functions.script.set_c("holyLightRandS", champion:getOrdinal(), nil)
+		functions.script.set_c("holyLightRandD", champion:getOrdinal(), nil)
+		functions.script.set_c("holyLightRandV", champion:getOrdinal(), nil)
+	end,
+	onRecomputeStats = function(self, champion)
+		if functions.script.get_c("holyLightRandS", champion:getOrdinal()) then
+			local bonusS = functions.script.get_c("holyLightRandS", champion:getOrdinal())
+			local bonusD = functions.script.get_c("holyLightRandD", champion:getOrdinal())
+			local bonusW = functions.script.get_c("holyLightRandW", champion:getOrdinal())
+			local bonusV = functions.script.get_c("holyLightRandV", champion:getOrdinal())
+			champion:addStatModifier("strength", bonusS)
+			champion:addStatModifier("dexterity", bonusD)
+			champion:addStatModifier("willpower", bonusW)
+			champion:addStatModifier("vitality", bonusV)
+		end
 	end,
 	onTick = function(self, champion)
 	end,	
@@ -120,8 +172,8 @@ defineCondition{
 	onStop = function(self, champion)		
 	end,
 	onRecomputeStats = function(self, champion)
-		champion:addStatModifier("health_regeneration_rate", 200)
-		champion:addStatModifier("energy_regeneration_rate", 100)
+		champion:addStatModifier("health_regeneration_rate", 250)
+		champion:addStatModifier("energy_regeneration_rate", 150)
 	end,
 	onTick = function(self, champion)
 	end,	
@@ -148,7 +200,7 @@ defineCondition{
 	onTick = function(self, champion)
 		local dur = math.floor(champion:getLevel() / 4) * 3
 		if champion:getClass() == "stalker" then
-			champion:setConditionValue("night_stalker", 8 + dur)
+			champion:setConditionValue("night_stalker", 6 + dur)
 		end
 	end,	
 }
@@ -224,7 +276,7 @@ defineCondition{
 	onStart = function(self, champion)
 	end,
 	onStop = function(self, champion)
-	local stacks = functions.script.hunter_crit[champion:getOrdinal()]
+		local stacks = functions.script.hunter_crit[champion:getOrdinal()]
 		if stacks > 0 then
 			local id = champion:getOrdinal()
 			delayedCall("functions", 0.1, "hunterCrit", id, -1, 3)
@@ -392,5 +444,76 @@ defineCondition{
 	end,
 	onTick = function(self, champion)
 		champion:regainEnergy(champion:hasTrait("arcane_extraction") and 18.75 or 15)
+	end,	
+}
+
+defineCondition{
+	name = "recharging",
+	uiName = "Recharging",
+	description = "Champion is recharging.",
+	icon = 1,
+	--iconAtlas = "mod_assets/textures/conditions.tga",
+	beneficial = true,
+	harmful = false,
+	tickInterval = 1,
+	onStart = function(self, champion)
+	end,
+	onStop = function(self, champion)
+	end,
+	onRecomputeStats = function(self, champion)
+	end,
+	onTick = function(self, champion)
+	end,	
+}
+
+defineCondition{
+	name = "drown_sorrows",
+	uiName = "Drown Your Sorrows",
+	description = "Numb the pain.",
+	icon = 1,
+	--iconAtlas = "mod_assets/textures/conditions.tga",
+	beneficial = true,
+	harmful = false,
+	tickInterval = 1,
+	onStart = function(self, champion)
+	end,
+	onStop = function(self, champion)
+	end,
+	onRecomputeStats = function(self, champion)
+		champion:addStatModifier("protection", 5)
+	end,
+	onTick = function(self, champion)
+		local cond = { "head_wound", "chest_wound", "leg_wound", "feet_wound", "right_hand_wound", "left_hand_wound" }
+		local recoverChance = 0.1
+		for i=1,#cond do
+			if champion:hasCondition(cond[i]) then
+				if math.random() < recoverChance then
+					champion:removeCondition(cond[i])
+				end
+			end
+			if self:getDuration() <= 1 and champion:hasCondition(cond[i]) then
+				champion:removeCondition(cond[i])
+			end
+		end
+	end,	
+}
+
+defineCondition{
+	name = "drown_sorrows_exp",
+	uiName = "Reduced Experience Gain",
+	description = "Gaining less experience after drinking a little too much.",
+	icon = 1,
+	--iconAtlas = "mod_assets/textures/conditions.tga",
+	beneficial = true,
+	harmful = false,
+	tickInterval = 1,
+	onStart = function(self, champion)
+	end,
+	onStop = function(self, champion)
+	end,
+	onRecomputeStats = function(self, champion)
+		champion:addStatModifier("exp_rate", -15)
+	end,
+	onTick = function(self, champion)
 	end,	
 }

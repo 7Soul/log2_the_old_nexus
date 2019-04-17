@@ -46,12 +46,12 @@ defineCharClass{
 
 defineCharClass{
 	name = "stalker",
-	uiName = "Stalker",
+	uiName = "Spell Thief",
 	optionalTraits = 1,
 }
 
 defineCharClass{
-	name = "assassin",
+	name = "assassin_class",
 	uiName = "Assassin",
 	optionalTraits = 1,
 }

@@ -97,9 +97,19 @@ defOrdered =
   onCast = function(champion, x, y, direction, elevation, skillLevel)
     playSound("generic_spell")
     local duration = spells_functions.script.getPower(40, champion, "concentration", "neutral")
+	
+	local cost = 35
+	cost = functions.script.manacost(champion, cost, "neutral")
+	spells_functions.script.paySpellCost(champion, cost)
+	
     spells_functions.script.addConditionValue("protective_shield", duration, champion:getSkillLevel("accuracy") < 3 and champion:getOrdinal())
     spells_functions.script.setConditionIcons("protective_shield", "shield")
-  end
+  end,
+  preCast = function(champion, x, y, direction, elevation, skillLevel)
+    local cost = 35
+	cost = functions.script.manacost(champion, cost, "neutral")
+    if champion:getEnergy() < cost then return false,"no_energy" end
+  end,
 },
 
 {
@@ -113,30 +123,20 @@ defOrdered =
   spellIcon = 13,
   description = "Shoots a ray that damages elementals. \n- Cost : 42 energy\n- Power : 25",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
-    -- local item = getMouseItem()
-    -- if item then
-      -- if item:hasTrait("epic") then
-        -- playSound("spell_fizzle")
-        -- hudPrint("Epic items cannot be disenchanted.")
-        -- return false
-      -- end
-      -- if item.go.equipmentitem or item.go.firearmattack or item.go.meleeattack or item.go.rangedattack then
-        -- playSound("generic_spell")
-        -- local power = spells_functions.script.quantumPower(1, champion, "concentration")
-        -- local item = spawn("crystal_shard_enchantment").item
-        -- item:setStackSize(power)
-        -- setMouseItem(item)
-      -- else
-        -- playSound("spell_fizzle")
-        -- hudPrint("This item cannot be disenchanted.")
-        -- return false
-      -- end
-    -- else
 	local power = spells_functions.script.getPower(25, champion, "concentration", "neutral")
+	
+	local cost = 42
+	cost = functions.script.manacost(champion, cost, "neutral")
+	spells_functions.script.paySpellCost(champion, cost)
+	
 	spells_functions.script.missile("dispel_cast", champion:getOrdinal(), power)
 	spells_functions.script.stopInvisibility()
-    -- end
-  end
+  end,
+  preCast = function(champion, x, y, direction, elevation, skillLevel)
+    local cost = 42
+	cost = functions.script.manacost(champion, cost, "neutral")
+    if champion:getEnergy() < cost then return false,"no_energy" end
+  end,
 },
 
 {
@@ -151,9 +151,19 @@ defOrdered =
   description = "Creates a magical barrier that blocks all movement.\n- Cost : 35 energy\n- Duration : 12 seconds",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
     local duration = spells_functions.script.getPower(12, champion, "concentration", "neutral")
+	
+	local cost = 35
+	cost = functions.script.manacost(champion, cost, "neutral")
+	spells_functions.script.paySpellCost(champion, cost)
+	
     spells_functions.script.frontAttack("force_field", duration, champion:getOrdinal(), false)
     spells_functions.script.insertEffectIcons("force_field", duration)
-  end
+  end,
+  preCast = function(champion, x, y, direction, elevation, skillLevel)
+    local cost = 35
+	cost = functions.script.manacost(champion, cost, "neutral")
+    if champion:getEnergy() < cost then return false,"no_energy" end
+  end,
 },
 
 {
@@ -169,6 +179,11 @@ defOrdered =
   onCast = function(champion, x, y, direction, elevation, skillLevel)
     playSound("light")
     local duration = spells_functions.script.getPower(300, champion, "concentration", "neutral")
+	
+	local cost = 35
+	cost = functions.script.manacost(champion, cost, "neutral")
+	spells_functions.script.paySpellCost(champion, cost)
+	
     GameMode.fadeOut(0xFFFFFF, 0)
     GameMode.fadeIn(0xFFFFFF, 1)
     spells_functions.script.darknessStop()
@@ -187,7 +202,12 @@ defOrdered =
     spells_functions.script.stopInvisibility()
     spells_functions.script.removeEffectIcons("darkness")
     spells_functions.script.maxEffectIcons("light", duration)
-  end
+  end,
+  preCast = function(champion, x, y, direction, elevation, skillLevel)
+    local cost = 35
+	cost = functions.script.manacost(champion, cost, "neutral")
+    if champion:getEnergy() < cost then return false,"no_energy" end
+  end,
 },
 
 {
@@ -203,6 +223,11 @@ defOrdered =
   onCast = function(champion, x, y, direction, elevation, skillLevel)
     playSound("generic_spell")
     local duration = spells_functions.script.getPower(300, champion, "concentration", "neutral")
+	
+	local cost = 25
+	cost = functions.script.manacost(champion, cost, "neutral")
+	spells_functions.script.paySpellCost(champion, cost)
+	
     GameMode.fadeOut(0, 0)
     GameMode.fadeIn(0, 1)
     spells_functions.script.partyLightStopAll("light_spell")
@@ -210,7 +235,12 @@ defOrdered =
     --if champion:hasTrait("evasive") then spells_functions.script.addConditionValue("invisibility", duration/10) end
     spells_functions.script.removeEffectIcons("light")
     spells_functions.script.maxEffectIcons("darkness", duration)
-  end
+  end,
+  preCast = function(champion, x, y, direction, elevation, skillLevel)
+    local cost = 25
+	cost = functions.script.manacost(champion, cost, "neutral")
+    if champion:getEnergy() < cost then return false,"no_energy" end
+  end,
 },
 
 {
@@ -225,6 +255,11 @@ defOrdered =
   description = "Shoots a ray that engulfs the target in magical darkness.\n- Cost : 25 energy\n- Power : 13",
   onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
     local power = spells_functions.script.getPower(13, champion, "concentration", "neutral")
+	
+	local cost = 25
+	cost = functions.script.manacost(champion, cost, "neutral")
+	spells_functions.script.paySpellCost(champion, cost)
+	
     local ord = champion:getOrdinal()
     if champion:getSkillLevel("missile_weapons") > 2 and not trigger then spells_functions.script.maxEffectIcons("darkbolt", 15, ord) end
     if spells_functions.script.darknessUntil then
@@ -236,7 +271,12 @@ defOrdered =
       spells_functions.script.stopInvisibility()
       spells_functions.script.darknessStart(1)
     end
-  end
+  end,
+  preCast = function(champion, x, y, direction, elevation, skillLevel)
+    local cost = 25
+	cost = functions.script.manacost(champion, cost, "neutral")
+    if champion:getEnergy() < cost then return false,"no_energy" end
+  end,
 },
 
 {
@@ -328,10 +368,10 @@ defOrdered =
   requirements = {"concentration", 5},
   gesture = 452,
   manaCost = 0,
-  description = "Swaps your health and energy in proportion of their maximum.\n- Cost : 0 energy\n\n[Accuracy 3]:\nAffects all champions.",
-  onCast = function(champion, x, y, direction, elevation, skillLevel)
+  description = "Swaps your health and energy in proportion of their maximum.\n- Cost : 0 energy",
+  onCast = function(champion, x, y, direction, elevation, skillLevel) 
     playSound("heal_party")
-    spells_functions.script.mirror(champion:getSkillLevel("accuracy") < 3 and champion:getOrdinal())
+    spells_functions.script.mirror(champion:getOrdinal())
   end
 },
 
@@ -517,17 +557,33 @@ defOrdered =
   requirements = { "concentration", 3 },
   icon = 74,
   spellIcon = 15,
-  description = "Turns yourself and your friends invisible.\n- Cost : 45 energy\n- Duration : 25 seconds",
+  description = "Turns yourself and your friends invisible.\n- Cost : 45 energy\n- Duration : 20 seconds (+2 per level)",
   onCast = function(champion, x, y, direction, elevation, skillLevel)
     playSound("generic_spell")
 	local cost = champion:isArmorSetEquipped("lurker") and 25 or 45
+	cost = cost * (champion:getClass() == "stalker" and (champion:hasTrait("night_stalker") and 0.33 or 0.66) or 1)
+	
+	local night_stalker_charges = functions.script.night_stalker[champion:getOrdinal()]
+	if not night_stalker_charges then night_stalker_charges = 0 end
+	cost = cost * (night_stalker_charges > 0 and 0 or 1)
+	if night_stalker_charges > 0 then
+		functions.script.night_stalker[champion:getOrdinal()] = functions.script.night_stalker[champion:getOrdinal()] - 1
+	end
+	
     spells_functions.script.paySpellCost(champion, cost)
-    local duration = spells_functions.script.getPower(25, champion, "concentration", "shock")
+
+    local duration = 22 + ((champion:getLevel()-1) * 2)
     spells_functions.script.maxConditionValue("invisibility", duration)
     spells_functions.script.maxEffectIcons("invisibility", duration)
   end,
   preCast = function(champion, x, y, direction, elevation, skillLevel)
     local cost = champion:isArmorSetEquipped("lurker") and 25 or 45
+	cost = cost * (champion:getClass() == "stalker" and (champion:hasTrait("night_stalker") and 0.33 or 0.66) or 1)
+	
+	local night_stalker_charges = functions.script.night_stalker[champion:getOrdinal()]
+	if not night_stalker_charges then night_stalker_charges = 0 end
+	cost = cost * (night_stalker_charges > 0 and 0 or 1)
+	
     if champion:getEnergy() < cost then return false,"no_energy" end
   end,
 },
@@ -1935,6 +1991,11 @@ function getSpellCriticalChance(champion)
 			local crit = item.equipmentitem:getCriticalChance() * 2
 			if crit and crit ~= 0 then chance = chance + crit end
 		end
+		if champion:getClass() == "hunter" then
+			if functions.script.hunter_crit[champion:getOrdinal()] > 0 then
+				chance = chance + (functions.script.hunter_crit[champion:getOrdinal()] * 0.01)
+			end
+		end
 	end
 	if champion:getSkillLevel("critical") == 1 then
 		chance = chance + 1
@@ -1947,95 +2008,13 @@ function getPower(base, champion, skill, element, tier)
 	if tier == nil then tier = 1 end
 	local f = getSkillPower(champion, skill) + champion:getCurrentStat("willpower")/50 + 1
 	local arcaneWarrior = 0
-	if champion:getClass() == "elementalist" then
-		f = spells_functions.script.elementalistPower(element, champion, f)
-	end
+	
 	
 	if champion:hasTrait("persistence") then
 		f = f * (1.00 + (champion:getCurrentStat("strength") * 0.04))
 	end	
 	
-	if element == "poison" then
-		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).name == "serpent_bracer" then
-			f = f * 1.2
-		end
-		
-		if champion:isArmorSetEquipped("embalmers") then
-			f = f * 1.15
-		end
-		
-		if champion:getClass() == "druid" then
-			if champion:hasTrait("mudwort") then
-				f = f * 1.4
-			end
-		end
-		
-	elseif element == "fire" then
-		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).name == "forestfire_bracer" then
-			f = f * 1.2
-		end
-		
-		if champion:getClass() == "druid" then
-			if champion:hasTrait("blooddrop_cap") then
-				f = f * 1.2
-				champion:setCondition("blooddrop_rage")
-				champion:addTrait("blooddrop_rage")
-			end
-		end
-		
-		local gem_charges = functions.script.get_c("ruby_charges", champion:getOrdinal())
-		if gem_charges and gem_charges > 0 then
-			f = f * functions.script.get_c("ruby_power", champion:getOrdinal())
-			functions.script.set_c("ruby_charges", champion:getOrdinal(), gem_charges - 1)
-		elseif gem_charges == 0 then
-			functions.script.set_c("ruby_charges", champion:getOrdinal(), nil)
-		end
-		
-	elseif element == "cold" then
-		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).name == "coldspike_bracelet" then
-			f = f * 1.2
-		end	
-		
-		if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).name == "nomad_mittens" then
-			f = f * 1.05
-		end	
-		
-		if champion:getClass() == "druid" then
-			if champion:hasTrait("etherweed") then
-				f = f * 1.3
-			end
-		end
-		
-		local gem_charges = functions.script.get_c("aquamarine_charges", champion:getOrdinal())
-		if gem_charges and gem_charges > 0 then
-			f = f * functions.script.get_c("aquamarine_power", champion:getOrdinal())
-			functions.script.set_c("aquamarine_charges", champion:getOrdinal(), gem_charges - 1)
-		elseif gem_charges == 0 then
-			functions.script.set_c("aquamarine_charges", champion:getOrdinal(), nil)
-		end
-		
-	elseif element == "shock" then
-		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).name == "torment_bracer" then
-			f = f * 1.2
-		end	
-		
-		if champion:getClass() == "druid" then
-			if champion:hasTrait("falconskyre") then
-				f = f * 1.2
-			end
-		end
-		
-		local gem_charges = functions.script.get_c("topaz_charges", champion:getOrdinal())
-		if gem_charges and gem_charges > 0 then
-			f = f * functions.script.get_c("topaz_power", champion:getOrdinal())
-			functions.script.set_c("topaz_charges", champion:getOrdinal(), gem_charges - 1)
-		elseif gem_charges == 0 then
-			functions.script.set_c("topaz_charges", champion:getOrdinal(), nil)
-		end
-		
-	elseif element == "neutral" then
-		
-	end
+	f = functions.script.empowerElement(champion, element, f)
 	
 	if tier < 3 then
 		if champion:hasTrait("arcane_warrior") then
@@ -2373,12 +2352,17 @@ function frontAttack(attack, power, ordinal)
 	local x,y = getFrontTarget()
 	local dx,dy = getFrontTarget()
 	local a = spawn(attack, party.level, x, y, party.facing, party.elevation)
-	if party.party:getChampionByOrdinal(ordinal):hasTrait("elemental_exploitation") then
+	local champion = party.party:getChampionByOrdinal(ordinal)
+	functions.script.set_c("championUsedMagic", ordinal, true)
+	if champion:hasTrait("elemental_exploitation") then
 		functions.script.set_c("elemental_exploitation", ordinal, true)
 	end
-	if party.party:getChampionByOrdinal(ordinal):hasTrait("ritual") then
+	if champion:hasTrait("ritual") then
 		functions.script.set_c("ritual", ordinal, true)
-	end	
+	end
+	if champion:getClass() == "hunter" then
+		functions.script.set_c("wisdom_of_the_tribe", ordinal, true)
+	end
 	-- if attack == "poison_cloud_large" then
 		-- local success = 0
 		-- for e in party.map:entitiesAt(dx, dy) do
@@ -4670,39 +4654,4 @@ function locateSpellbook()
   if book then
     return book,champion,container,slot
   end
-end
-
-function elementalistPower(element, champion, power)
-	if champion:getClass() == "elementalist" then
-		local shield_dur = 10 + (math.floor(champion:getLevel() / 5) * 5)
-		if element == "fire" then
-			spells_functions.script.addConditionValue("elemental_balance_fire", 15, champion:getOrdinal())
-			if champion:hasCondition("elemental_balance_cold") or champion:hasCondition("elemental_balance_air") then
-				power = power * 1.3
-				--print("fire spell power up")
-			end
-			champion:removeCondition("elemental_balance_cold")
-			champion:removeCondition("elemental_balance_air")
-			spells_functions.script.elementalShieldSingle(shield_dur, champion, true, false, false, false)
-		elseif element == "cold" then
-			spells_functions.script.addConditionValue("elemental_balance_cold", 15, champion:getOrdinal())
-			if champion:hasCondition("elemental_balance_fire") or champion:hasCondition("elemental_balance_air") then
-				power = power * 1.3
-				--print("cold spell power up")
-			end
-			champion:removeCondition("elemental_balance_fire")
-			champion:removeCondition("elemental_balance_air")
-			spells_functions.script.elementalShieldSingle(shield_dur, champion, false, false, true, false)
-		elseif element == "shock" then
-			spells_functions.script.addConditionValue("elemental_balance_air", 15, champion:getOrdinal())
-			if champion:hasCondition("elemental_balance_cold") or champion:hasCondition("elemental_balance_fire") then
-				power = power * 1.3
-				--print("shock spell power up")
-			end
-			champion:removeCondition("elemental_balance_cold")
-			champion:removeCondition("elemental_balance_fire")
-			spells_functions.script.elementalShieldSingle(shield_dur, champion, false, true, false, false)
-		end
-		return power
-	end
 end

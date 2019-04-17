@@ -12,17 +12,23 @@ function hit(self, what, entity)
   local e = self.go:spawn(self.go.data:get("hitEffect"))
   e:setWorldPosition(self.go:getWorldPosition())
   local attackPower = self.go.data:get("attackPower")
+  
   if e.tiledamager then
     e.tiledamager:setCastByChampion(self:getCastByChampion() or 1)
     if attackPower then e.tiledamager:setAttackPower(attackPower) end
-	-- Add elemental exploitation tag
 	if self:getCastByChampion() then
-		if party.party:getChampionByOrdinal(self:getCastByChampion()):hasTrait("elemental_exploitation") then
+		local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
+		functions.script.set_c("championUsedMagic", ordinal, true)
+		-- Add elemental exploitation tag
+		if champion:hasTrait("elemental_exploitation") then			
 			functions.script.set_c("elemental_exploitation", self:getCastByChampion(), true)
 		end	
-		if party.party:getChampionByOrdinal(self:getCastByChampion()):hasTrait("ritual") then
+		if champion:hasTrait("ritual") then
 			functions.script.set_c("ritual", self:getCastByChampion(), true)
 		end	
+		if champion:getClass() == "hunter" then
+			functions.script.set_c("wisdom_of_the_tribe", self:getCastByChampion(), true)
+		end
 	end
   end
   if e.cloudspell then
@@ -31,12 +37,17 @@ function hit(self, what, entity)
     local duration = self.go.data:get("duration")
     if duration then e.cloudspell:setDuration(duration) end
 	-- Add elemental exploitation tag
-	if party.party:getChampionByOrdinal(self:getCastByChampion()):hasTrait("elemental_exploitation") then
+	local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
+	functions.script.set_c("championUsedMagic", ordinal, true)
+	if champion:hasTrait("elemental_exploitation") then
 		functions.script.set_c("elemental_exploitation", self:getCastByChampion(), true)
 	end
-	if party.party:getChampionByOrdinal(self:getCastByChampion()):hasTrait("ritual") then
+	if champion:hasTrait("ritual") then
 		functions.script.set_c("ritual", self:getCastByChampion(), true)
 	end	
+	if champion:getClass() == "hunter" then
+		functions.script.set_c("wisdom_of_the_tribe", self:getCastByChampion(), true)
+	end
   end
 end
 
