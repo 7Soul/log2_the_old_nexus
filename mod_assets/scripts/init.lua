@@ -254,31 +254,55 @@ defineObject{
 		
 		onClickItemSlot = function(self, champion, container, slot, button)
 			--if champion:getItem(slot) then print(champion:getItem(slot).go.id) end
-			if champion then	
+			if champion then
+				local mouseItem = getMouseItem()				
+				if mouseItem and mouseItem:hasTrait("herb") and champion:getClass() == "druid" then
+					if slot == ItemSlot.Bracers then
+						local prevItem = functions.script.get_c("druid_item", champion:getOrdinal())
+						functions.script.set_c("druid_item", champion:getOrdinal(), mouseItem.go.name)
+						if prevItem then
+							setMouseItem(spawn(prevItem).item)
+						else
+							setMouseItem(nil)
+						end
+					end
+				end
+				if not mouseItem and button == 2 and champion:getClass() == "druid" then
+					if slot == ItemSlot.Bracers then
+						local prevItem = functions.script.get_c("druid_item", champion:getOrdinal())
+						functions.script.set_c("druid_item", champion:getOrdinal(), nil)
+						if prevItem then
+							setMouseItem(spawn(prevItem).item)
+						else
+							setMouseItem(nil)
+						end
+					end
+				end
 				local item = champion:getItem(slot)
 				if item then
-					if champion:getClass() == "tinkerer" then
+					if champion:hasTrait("tinkering") then
 						if getMouseItem()  and getMouseItem().go.name == "lock_pick" and button == 2 and item:hasTrait("upgradable") then
 							functions.script.tinkererUpgrade(self, champion, container, slot, button)
 						end
-						
-						local dismantle = 0
-						local container = item.go.containeritem
-						if container then
-							local capacity = container:getCapacity()
-							for j=1,capacity do
-								local item2 = container:getItem(j)
-								if item2 and item2:hasTrait("dismantle") then
-									dismantle = dismantle + 1
+						if champion:hasTrait("dismantler") then
+							local dismantle = 0
+							local container = item.go.containeritem
+							if container then
+								local capacity = container:getCapacity()
+								for j=1,capacity do
+									local item2 = container:getItem(j)
+									if item2 and item2:hasTrait("dismantle") then
+										dismantle = dismantle + 1
+									end
 								end
 							end
-						end
-								
-						if button == 5 and dismantle == 9 then
-							if slot >= 13 and slot <= 32 then
-								local posx = 553 - (((slot-1) % 4) * 63)
-								local posy = (297 + ((math.floor((slot-13) / 4)) * 63))
-								functions.script.tinkererDismantle(true, posx, posy, slot, champion:getOrdinal())
+							
+							if button == 2 and dismantle == 9 then
+								if slot >= 13 and slot <= 32 then
+									local posx = 553 - (((slot-1) % 4) * 63)
+									local posy = (297 + ((math.floor((slot-13) / 4)) * 63))
+									functions.script.tinkererDismantle(true, posx, posy, slot, champion:getOrdinal())
+								end
 							end
 						end
 					end
@@ -294,7 +318,7 @@ defineObject{
 			local f2 = (context.height/1080)
 			local MX, MY = context.mouseX, context.mouseY
 
-			if champion:getClass() == "tinkerer" then
+			if champion:hasTrait("tinkering") then
 				if Editor.isRunning() and context.keyDown("T") then 
 					functions.script.tinkering_level[champion:getOrdinal()] = functions.script.tinkering_level[champion:getOrdinal()] + 1
 				end
@@ -315,7 +339,7 @@ defineObject{
 					end
 				end	
 				
-				-- Show tinkering level and upgradable icon while lockpick is in hand
+				-- Show tinkering level and upgradable icon while lock-pick is in hand
 				if getMouseItem() and getMouseItem().go.name == "lock_pick" then
 					local posx, posy = 0, 0
 					for i=13,ItemSlot.BackpackLast do
@@ -331,55 +355,130 @@ defineObject{
 				
 				-- Dismantle prompt
 				if functions.script.dismantlePrompt then
-				context.drawImage2("mod_assets/textures/gui/tinkerer_dismantle.dds", w - (functions.script.dismantleX + 113 - 25) * f2, (functions.script.dismantleY - 44 + 35) * f2, 0, 0, 226, 88, 226 * f2, 88 * f2)
-				local val1, val2 = context.button("dismantle", w - (functions.script.dismantleX + 115), (functions.script.dismantleY - 42 + 35), 222, 84)
-				
-				context.drawGuiItem2("ButtonYes", w - (functions.script.dismantleX + 115 - 48) * f2, (functions.script.dismantleY - 42 + 70) * f2, 0, 0, 73, 32, 73 * f2, 32 * f2)
-				local yes1, yes2 = context.button("yes", w - (functions.script.dismantleX + 115 - 48), (functions.script.dismantleY - 42 + 70), 73, 32)
-				if yes1 or yes2 then
-					context.drawGuiItem2("ButtonYesHover", w - (functions.script.dismantleX + 115 - 48) * f2, (functions.script.dismantleY - 42 + 70) * f2, 0, 0, 73, 32, 73 * f2, 32 * f2)
-					if context.mouseDown(0) then
-						functions.script.tinkererDismantleAction(functions.script.dismantleChampion, functions.script.dismantleItemSlot)
+					context.drawImage2("mod_assets/textures/gui/tinkerer_dismantle.dds", w - (functions.script.dismantleX + 113 - 25) * f2, (functions.script.dismantleY - 44 + 35) * f2, 0, 0, 226, 88, 226 * f2, 88 * f2)
+					local val1, val2 = context.button("dismantle", w - (functions.script.dismantleX + 115), (functions.script.dismantleY - 42 + 35), 222, 84)
+					
+					context.drawGuiItem2("ButtonYes", w - (functions.script.dismantleX + 115 - 48) * f2, (functions.script.dismantleY - 42 + 70) * f2, 0, 0, 73, 32, 73 * f2, 32 * f2)
+					local yes1, yes2 = context.button("yes", w - (functions.script.dismantleX + 115 - 48), (functions.script.dismantleY - 42 + 70), 73, 32)
+					if yes1 or yes2 then
+						context.drawGuiItem2("ButtonYesHover", w - (functions.script.dismantleX + 115 - 48) * f2, (functions.script.dismantleY - 42 + 70) * f2, 0, 0, 73, 32, 73 * f2, 32 * f2)
+						if context.mouseDown(0) then
+							functions.script.tinkererDismantleAction(functions.script.dismantleChampion, functions.script.dismantleItemSlot)
+							functions.script.tinkererDismantle(false, functions.script.dismantleX, functions.script.dismantleY, 0, 0)
+						end
+					end
+					
+					context.drawGuiItem2("ButtonNo", w - (functions.script.dismantleX + 115 - 159) * f2, (functions.script.dismantleY - 42 + 70) * f2, 0, 0, 73, 32, 73 * f2, 32 * f2)
+					local no1, no2 = context.button("no", w - (functions.script.dismantleX + 115 - 159), (functions.script.dismantleY - 42 + 70), 73, 32)
+					if no1 or no2 then
+						context.drawGuiItem2("ButtonNoHover", w - (functions.script.dismantleX + 115 - 159) * f2, (functions.script.dismantleY - 42 + 70) * f2, 0, 0, 73, 32, 73 * f2, 32 * f2)
+						if context.mouseDown(0) then
+							functions.script.tinkererDismantle(false, functions.script.dismantleX, functions.script.dismantleY, 0, 0)
+						end
+					end
+					
+					if val1 == nil then
 						functions.script.tinkererDismantle(false, functions.script.dismantleX, functions.script.dismantleY, 0, 0)
 					end
 				end
-				
-				context.drawGuiItem2("ButtonNo", w - (functions.script.dismantleX + 115 - 159) * f2, (functions.script.dismantleY - 42 + 70) * f2, 0, 0, 73, 32, 73 * f2, 32 * f2)
-				local no1, no2 = context.button("no", w - (functions.script.dismantleX + 115 - 159), (functions.script.dismantleY - 42 + 70), 73, 32)
-				if no1 or no2 then
-					context.drawGuiItem2("ButtonNoHover", w - (functions.script.dismantleX + 115 - 159) * f2, (functions.script.dismantleY - 42 + 70) * f2, 0, 0, 73, 32, 73 * f2, 32 * f2)
-					if context.mouseDown(0) then
-						functions.script.tinkererDismantle(false, functions.script.dismantleX, functions.script.dismantleY, 0, 0)
-					end
-				end
-				
-				if val1 == nil then
-					functions.script.tinkererDismantle(false, functions.script.dismantleX, functions.script.dismantleY, 0, 0)
-				end
-			end
 			end
 			
-			if champion:getClass() == "fighter" then
-				if getMouseItem() and getMouseItem().go:getComponent("equipmentitem") then
-					local item = getMouseItem().go
-					local i = nil
-					if item.item:hasTrait("helmet") then
-						i = 0
-					elseif item.item:hasTrait("chest_armor") then
-						i = 1
-					elseif item.item:hasTrait("leg_armor") then
-						i = 2
-					elseif item.item:hasTrait("boots") then
-						i = 3
-					elseif item.item:hasTrait("gloves") then
-						i = 4
-					end
-					if i ~= nil then
-						if i < 4 then
-							context.drawImage2("mod_assets/textures/gui/berserker_equip_block.dds", w - (208 * f2), (78 * f2 * i) + 293 * f2, 0, 0, 64, 64, 80 * f2, 80 * f2)
-						else
-							context.drawImage2("mod_assets/textures/gui/berserker_equip_block.dds", w - (300 * f2), 526 * f2, 0, 0, 64, 64, 80 * f2, 80 * f2)
+			-- if champion:getClass() == "fighter" then
+				-- local item = getMouseItem()				
+				-- if item and item.go:getComponent("equipmentitem") then
+					-- local i = nil
+					-- local slots = { "helmet", "chest_armor", "leg_armor", "boots", "gloves" }
+					-- for index, slot in ipairs(slots) do
+						-- if item:hasTrait(slot) then
+							-- i = index - 1
+						-- end
+					-- end
+					
+					-- if i then
+						-- if i < 4 then
+							-- context.color(255, 255, 255, 168)
+							-- context.drawRect(w - (208 * f2), ((78 * i) + 293) * f2, 80 * f2, 80 * f2)
+							-- local m1, m2 = context.button("noEquip", w - (208 * f2), ((78 * i) + 293) * f2, 80 * f2, 80 * f2)
+						-- else
+							-- local m1, m2 = context.button("noEquip", w - (300 * f2), 526 * f2, 80 * f2, 80 * f2)
+						-- end
+					
+						-- if m1 or m2 then
+							-- local equipSlots = {3,4,5,6,9}
+							-- for j=13,32 do
+								-- if champion:getItem(j) == nil then champion:insertItem(j, item) break end
+								-- if j == 32 and champion:getItem(j) ~= nil then party:spawn(item.go.name) break end
+							-- end
+							-- hudPrint(champion:getName() .. ", the Berserker, refuses to wear armor.")
+							-- champion:removeItemFromSlot(slot)
+						-- end
+					-- end
+				-- end				
+				
+			-- end
+			
+			-- Druid equippable herbs
+			-- Display herb over bracers slot
+			if champion:getClass() == "druid" then
+				local druidItem = functions.script.get_c("druid_item", champion:getOrdinal())
+				if druidItem then
+					local icons = { {name = "blooddrop_cap", id=57}, {name = "etherweed", id=76}, {name = "mudwort", id=77}, {name = "falconskyre", id=78}, {name = "blackmoss", id=79}, {name = "crystal_flower", id=80} }
+					for i=1,#icons do
+						if druidItem == icons[i].name then
+							local id = icons[i].id
+							local icon_x = (id % 13) * 75
+							local icon_y = math.floor(id / 13) * 75
+							context.drawImage2("assets/textures/gui/items.dds", w - (82 * f2), 510 * f2, icon_x, icon_y, 75, 75, 60 * f2, 60 * f2)
 						end
+					end	
+				end				
+			end
+			-- Update herb description
+			local item = getMouseItem()
+			if item and item:hasTrait("herb") then
+				if champion:getClass() == "druid" then
+					context.color(255, 255, 255, 40)
+					context.drawImage2("mod_assets/textures/gui/slotHighlight.dds", w - (113 * f2), 529 * f2, 0, 0, 69, 69, 75 * f2, 75 * f2)
+					local herbEffects = { 
+						{ 
+						name = "blooddrop_cap", 
+						effect = "- Converts 20% of physical damage to Poison.\n- Strength +2.\n- Regain 25% of poison damage dealt as Health." 
+						},
+						{ 
+						name = "etherweed", 
+						effect = "- Converts 20% of physical damage to Poison.\n- Willpower +2.\n- Regain 25% of poison damage dealt as Energy." 
+						},
+						{ 
+						name = "mudwort", 
+						effect = "- Converts 40% of physical damage to Poison.\n- Vitality +2.\n- 5% chance to poison foes (+1% per level).\n- Melee power attacks deal 30% more damage to poisoned foes." 
+						},
+						{ 
+						name = "falconskyre", 
+						effect = "- Converts 20% of physical damage to Poison.\n- Dexterity +2.\n- Poison Resist +10 (+1 per level) and can't be Diseased or Poisoned." 
+						},
+						{ 
+						name = "blackmoss", 
+						effect = "- Converts 20% of physical damage to Poison.\n- 5% chance to poison foes.\n- Poison Damage +15% (+1% per level)." 
+						},
+						{ 
+						name = "crystal_flower", 
+						effect = "- All spell damage is converted to poison.\n- Poison Damage +6% (+1% per level)." 
+						}
+					}
+					if not item:hasTrait("druid") then
+						item:addTrait("druid")
+						local gameEffectString = "Druid bonus:\n"
+						for i=1,#herbEffects do
+							if item.go.name == herbEffects[i].name then
+								gameEffectString = gameEffectString .. herbEffects[i].effect
+								item:setGameEffect(gameEffectString)
+							end
+						end
+					end
+				else
+					if item:hasTrait("druid") then
+						item:removeTrait("druid")
+						item:setGameEffect(nil)
 					end
 				end
 			end
@@ -405,13 +504,11 @@ defineObject{
 				local healingLight = functions.script.get_c("healinglight", champion:getOrdinal())
 				local healingMax = 400 + ((champion:getLevel() ^ 2) * 75)
 				if healingLight then
-					context.font("small")
-					--context.drawText("" .. healingLight, x+18, y-8)
 					context.drawImage2("mod_assets/textures/gui/bar.dds", x-19, y-9, 0, 0, 64, 64, math.min(healingLight / healingMax * 59, 59), 3)
 				end
-				if champion:hasCondition("healing_light") then
-					context.drawImage2("mod_assets/textures/gui/healing_light.dds", x-22, y-70, 0, 0, 64, 64, 68, 68)
-				end
+				-- if champion:hasCondition("healing_light") then
+					-- context.drawImage2("mod_assets/textures/gui/healing_light.dds", x-22, y-70, 0, 0, 64, 64, 68, 68)
+				-- end
 			end
 			
 			if champion:getClass() == "hunter" then
@@ -498,57 +595,83 @@ defineObject{
 			-- Display class skill buttons
 			
 			local area1, area2, areaX, areaY = {}, {}, {}, {}
-			local ancestral_charge = { cost = 25, name = "ancestral_charge", uiName = "Ancestral Charge" }
-			local intensify_spell = { cost = 0, name = "intensify_spell", uiName = "Intensify Spell" }
-			local sneak_attack = { cost = 15, name = "sneak_attack", uiName = "Sneak Attack" }
-			local drinker = { cost = 0, name = "drinker", uiName = "Drown Your Sorrows" }
+			local ancestral_charge = { cost = 25, name = "ancestral_charge", uiName = "Ancestral Charge", icon = 44 }
+			local intensify_spell = { cost = 0, name = "intensify_spell", uiName = "Intensify Spell", icon = 50 }
+			local sneak_attack = { cost = 15, name = "sneak_attack", uiName = "Sneak Attack", icon = 52 }
+			local drinker = { cost = 0, name = "drinker", uiName = "Drown Your Sorrows", icon = 41 }
 			local skills = { ancestral_charge, intensify_spell, sneak_attack, drinker }
 			local champions = { }
 			local orderedSkills = { }
 			
 			for i=1,4 do
 				local champion = party.party:getChampionByOrdinal(i)
-				for index, t in pairs(skills) do
+				for index, t in pairs(skills) do					
 					if champion:hasTrait(t.name) then
-						table.insert(champions, champion:getOrdinal())
+						--print("champion = " .. i .. " has skill = " .. index)
+						table.insert(champions, i)
 						table.insert(orderedSkills, skills[index] )
+						break
+					end
+					if index == 4 and not champion:hasTrait(t.name) then
+						--print("champion = " .. i .. " doesnt have any skills")
+						table.insert(champions, nil)
+						table.insert(orderedSkills, nil)
 					end
 				end
 			end
 			
-			for index, icon in pairs(orderedSkills) do
+			for index, v in pairs(orderedSkills) do
+				if v == nil then
+					table.remove(orderedSkills, v)
+				end
+			end 
+			
+			for index, v in pairs(champions) do
+				if v == nil then
+					table.remove(champions, v)
+				end
+			end 
+			
+			for index, skill in pairs(orderedSkills) do
 				-- draw button
-				context.drawImage2("mod_assets/textures/gui/healing_light.dds", w - (520 * f2), (662 + ((index - 1) * 52)) * f2, 0, 0, 64, 64, 48 * f2, 48 * f2)
-				area1[index], area2[index] = context.button("class_skill"..index, w - (520 * f2), (662 + ((index - 1) * 52)) * f2, 48 * f2, 48 * f2)
-				context.drawRect(w - (520 * f2), (662 + ((index - 1) * 52)) * f2, 48 * f2, 48 * f2) -- temp
+				context.color(255, 255, 255, 168)
+				context.drawImage2("mod_assets/textures/gui/class_skill_button.dds", w - (524 * f2), (662 + ((index - 1) * 62)) * f2, 0, 0, 52, 52, 52 * f2, 52 * f2)
+				local icon_x = (skill.icon % 13) * 75
+				local icon_y = math.floor(skill.icon / 13) * 75
+				context.drawImage2("mod_assets/textures/gui/skills.dds", w - (524 * f2), (662 + ((index - 1) * 62)) * f2, icon_x, icon_y, 75, 75, 52 * f2, 52 * f2)
+				area1[index], area2[index] = context.button("class_skill"..index, w - (524 * f2), (662 + ((index - 1) * 62)) * f2, 52 * f2, 52 * f2)
 			end
 			
 			for index, icon in pairs(orderedSkills) do
 				local champion = party.party:getChampionByOrdinal(champions[index])
 				if area2[index] then
-					-- draw hover button
-					context.drawImage2("mod_assets/textures/gui/healing_light.dds", w - (520 * f2), (662 + ((index - 1) * 52)) * f2, 0, 0, 64, 64, 48 * f2, 48 * f2)
-					context.color(0, 255, 0, 255)
-					context.drawRect(w - (520 * f2), (662 + ((index - 1) * 52)) * f2, 48 * f2, 48 * f2)
-					-- black rect behind text
-					local title = champion:getName() .. "'s " .. orderedSkills[champions[index]].uiName
+					--draw hover button
+					context.color(255, 255, 255, 255)
+					context.drawImage2("mod_assets/textures/gui/class_skill_button.dds", w - (524 * f2), (662 + ((index - 1) * 62)) * f2, 52, 0, 52, 52, 52 * f2, 52 * f2)
+					local icon_x = (icon.icon % 13) * 75
+					local icon_y = math.floor(icon.icon / 13) * 75
+					context.drawImage2("mod_assets/textures/gui/skills.dds", w - (524 * f2), (662 + ((index - 1) * 62)) * f2, icon_x, icon_y, 75, 75, 52 * f2, 52 * f2)					
+					
+					--black rect behind text
+					local title = champion:getName() .. "'s " .. icon.uiName
+					local txt_w = string.len(title) * 10
 					context.color(0, 0, 0, 168)
-					context.drawRect(MX - 56, MY - 50, string.len(title) * 10, 45)
+					context.drawRect(MX - (txt_w / 2) - 6, MY - 60, string.len(title) * 10, 45)
 					
 					context.color(255, 255, 255, 255)
-					context.drawText(title, MX - 50, MY - 32)
-					context.drawText("Cost: " .. tostring(orderedSkills[champions[index]].cost), MX - 50, MY - 10)
+					context.drawText(title, MX - (txt_w / 2), MY - 42)
+					context.drawText("Cost: " .. tostring(icon.cost), MX - (txt_w / 2), MY - 20)
 						
 					if context.mouseDown(3) then
 						playSound("click_down")
 						if champion:isAlive() and champion:isReadyToAttack(0) and not champion:hasCondition("recharging") then
-							-- draw click button
-							context.drawImage2("mod_assets/textures/gui/healing_light.dds", w - (520 * f2), (662 + ((index - 1) * 52)) * f2, 0, 0, 64, 64, 48 * f2, 48 * f2)
-							context.color(0, 0, 255, 255)
-							context.drawRect(w - (520 * f2), (662 + ((index - 1) * 52)) * f2, 48 * f2, 48 * f2)
-							if champion:getEnergy() > orderedSkills[champions[index]].cost then
-								functions.script.class_skill(orderedSkills[champions[index]].name, champion)
-								champion:regainEnergy(orderedSkills[champions[index]].cost * -1)
+							--draw click button
+							context.color(255, 255, 255, 255)
+							context.drawImage2("mod_assets/textures/gui/class_skill_button.dds", w - (524 * f2), (662 + ((index - 1) * 62)) * f2, 104, 0, 52, 52, 52 * f2, 52 * f2)
+							context.drawImage2("mod_assets/textures/gui/skills.dds", w - (524 * f2), (662 + ((index - 1) * 62)) * f2, icon_x, icon_y, 75, 75, 52 * f2, 52 * f2)
+							if champion:getEnergy() > icon.cost then
+								functions.script.class_skill(icon.name, champion)
+								champion:regainEnergy(icon.cost * -1)
 								champion:playHealingIndicator()
 								playSound("generic_spell")
 							else
@@ -618,7 +741,7 @@ defineObject{
 			local skill15_p = { 2,4,5 } -- poison
 			local skill16_p = { 3,4,5 } -- concentration
 			local skill17_p = { 1,4,5 } -- witchcraft
-			local skill18_p = { 3,4,5 } -- tinkering
+			local skill18_p = { 2,4,5 } -- tinkering
 			local skill_perks = { skill1_p, skill2_p, skill3_p, skill4_p, skill5_p, skill6_p, skill7_p, skill8_p, skill9_p, skill10_p, skill11_p, skill12_p, skill13_p, skill14_p, skill15_p, skill16_p, skill17_p, skill18_p }
 			-- Draw skills slots
 			for i=1,18 do
@@ -791,20 +914,33 @@ defineObject{
 	{
 		class = "Timer",
 		name = "partytimer",
-		timerInterval = 200.0,
+		timerInterval = 2.0,
 		triggerOnStart = true,
 		onActivate = function(self)
 			self.go.partycounter:increment()
 			local v = self.go.partycounter:getValue()
-			print ("A day has passed.")
-			for i=1,4 do
-				local champion = party.party:getChampionByOrdinal(i)
-				if champion:getClass() == "stalker" then
-					local bonus = math.floor(champion:getLevel() / 3)
-					functions.script.night_stalker[i] = 1 + bonus
-					hudPrint(champion:getName() .. ", the Spell Thief, has recovered " .. (1 + bonus) .. " charges of Invisibility")
+			print(v)
+			for entity in Dungeon.getMap(party.level):allEntities() do
+				if entity.monster then
+					local monster = entity.monster
+					if monster and monster:hasTrait("bleeding") and monster:isAlive() then
+						if math.random() < 0.05 then
+							monster:removeTrait("bleeding")
+							monster.go.model:setEmissiveColor(vec(0,0,0))
+						end
+						functions.script.hitMonster(monster.go.id, math.random(monster:getHealth() * 0.005, monster:getHealth() * 0.01), "FF0000", nil, "physical", 1)
+					end
 				end
 			end
+			-- print ("A day has passed.")
+			-- for i=1,4 do
+				-- local champion = party.party:getChampionByOrdinal(i)
+				-- if champion:getClass() == "stalker" then
+					-- local bonus = math.floor(champion:getLevel() / 3)
+					-- functions.script.night_stalker[i] = 1 + bonus
+					-- hudPrint(champion:getName() .. ", the Spell Thief, has recovered " .. (1 + bonus) .. " charges of Invisibility")
+				-- end
+			-- end
 			--return hudPrint("Time = "..v.."")
 		end
 	},
@@ -844,6 +980,16 @@ defineObject{
 				end
 			end
 			
+			for entity in Dungeon.getMap(party.level):allEntities() do
+				if entity.monster then
+					local monster = entity.monster
+					if monster and monster:hasTrait("bleeding") then
+						local wave = math.abs(math.sin(self.go.gametime2:getValue() * 0.05))
+						monster.go.model:setEmissiveColor(vec(0.05,-.02,-.02) * wave)
+					end
+				end
+			end
+			
 			for i=1,4 do
 				local champion = party.party:getChampionByOrdinal(i)
 				functions.script.checkWeights(i)
@@ -854,7 +1000,9 @@ defineObject{
 				
 				functions.script.set_c("wide_vision", i, nil)
 				functions.script.set_c("sea_faring", i, nil)
-				if champion:hasTrait("wide_vision") or champion:getSkillLevel("sea_faring") > 0 then
+				functions.script.set_c("duelist", i, nil)
+				
+				if champion:hasTrait("wide_vision") or champion:getSkillLevel("sea_faring") > 0 or champion:getClass() == "corsair" then
 					local monsterCount = 0
 					for d=1,4 do
 						local dir = (party.facing + d) % 4
@@ -866,14 +1014,29 @@ defineObject{
 						end
 					end
 					--print(monsterCount)
-					if monsterCount > 0 then
+					if monsterCount then
 						if champion:hasTrait("wide_vision") then
 							functions.script.set_c("wide_vision", i, monsterCount)
 						end
 						if champion:getSkillLevel("sea_faring") > 0 then
 							functions.script.set_c("sea_faring", i, monsterCount)
 						end
+						if champion:getClass() == "corsair" then
+							functions.script.set_c("duelist", i, monsterCount)
+						end
 					end
+				end
+				
+				if champion:getClass() == "druid" then
+					local poisonedMonster = nil
+					local dir = party.facing
+					local dx,dy = getForward(dir)
+					for e in Dungeon.getMap(party.level):entitiesAt(party.x + dx, party.y + dy) do
+						if e.monster and e.monster.go.poisoned then
+							poisonedMonster = e.id
+						end
+					end
+					functions.script.set_c("poisonedMonster", i, poisonedMonster)
 				end
 				
 				if champion:hasTrait("drinker") and champion:hasCondition("drown_sorrows_exp") then

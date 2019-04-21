@@ -1,12 +1,12 @@
 defineCondition{
 	name = "berserker_rage",
-	uiName = "Berserker Rage",
+	uiName = "Berserker Frenzy",
 	description = [[
 	Gains combat stats that fade slowly over 20 seconds.
 	- Protection up to +4 per level (+6 per 3 levels).
 	- Strength up to +2 (+1 per 3 levels).]],
-	icon = 1,
-	--iconAtlas = "mod_assets/textures/conditions.tga",
+	icon = 21,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
 	harmful = false,
 	tickInterval = 1,
@@ -19,7 +19,7 @@ defineCondition{
 	onRecomputeStats = function(self, champion)
 		local level = champion:getLevel()
 		local level2 = math.floor((champion:getLevel()-1)/ 3)
-		local dur = math.max(champion:getConditionValue("berserker_rage"), 5 + math.floor(champion:getLevel() / 5)) -- every 5 levels it clamps to a higher time
+		local dur = math.max(champion:getConditionValue("berserker_rage"), 5 + math.floor(level / 5)) -- every 5 levels it clamps to a higher time
 		dur = math.min(dur * dur / 324, 1) -- 324 to give 2 seconds where the stats stay at max
 		if level > 0 then
 			champion:addStatModifier("protection", math.ceil(((level * 4) + (level2 * 6)) * dur))
@@ -33,14 +33,14 @@ defineCondition{
 
 defineCondition{
 	name = "berserker_revenge",
-	uiName = "Berserker Revenge",
+	uiName = "Berserker Reprisal",
 	description = [[
 	Gains combat stats that fade slowly over 60 seconds.
 	- Protection up to +6 per level (+8 per 3 levels).
 	- Strength up to +4 (+1 per 3 levels).
 	- Health Regeneration +500%.]],
-	icon = 1,
-	--iconAtlas = "mod_assets/textures/conditions.tga",
+	icon = 22,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
 	harmful = false,
 	tickInterval = 1,
@@ -53,7 +53,7 @@ defineCondition{
 	onRecomputeStats = function(self, champion)
 		local level = champion:getLevel()
 		local level2 = math.floor(champion:getLevel() / 3)
-		local dur = math.max(champion:getConditionValue("berserker_rage"), 12 + math.floor(champion:getLevel() / 5)) -- every 5 levels it clamps to a higher time
+		local dur = math.max(champion:getConditionValue("berserker_revenge"), 12 + math.floor(level / 5)) -- every 5 levels it clamps to a higher time
 		dur = math.min(dur * dur / 3136, 1) -- 3136 to give 4 seconds where the stats stay at max
 		if level > 0 then
 			champion:addStatModifier("protection",  math.ceil(((level * 6) + (level2 * 8)) * dur))
@@ -62,23 +62,29 @@ defineCondition{
 		end
 	end,
 	onTick = function(self, champion)
+		local missing = 1 - (champion:getHealth() / champion:getMaxHealth())
+		if missing > 0.5 then
+			champion:regainHealth(missing * missing * 5.0)
+		elseif missing <= 0.5 and missing > 0.25 then
+			if math.random() < 0.5 then
+				champion:regainHealth(missing * missing * 5.0)
+			end
+		end
 	end,	
 }
 
 defineCondition{
 	name = "blooddrop_rage",
-	uiName = "Blood Drop Fire Rage",
-	description = [[
-	- Attack cooldowns are 15% faster.
-	- Lasts 18 seconds.]],
+	uiName = "Blooddrop Fire Rage",
+	description = "",
 	icon = 1,
+	hidden = true,
 	--iconAtlas = "mod_assets/textures/conditions.tga",
 	beneficial = true,
 	harmful = false,
 	tickInterval = 1,
 	onStart = function(self, champion)
-		playSound("dark_bolt")
-		self:setDuration(18)
+		--playSound("dark_bolt")
 	end,
 	onStop = function(self, champion)
 		hudPrint(champion:getName().."'s Blooddrop Fire Rage is over.")
@@ -87,20 +93,41 @@ defineCondition{
 }
 
 defineCondition{
+	name = "etherweed_rage",
+	uiName = "Etherweed Cold Rage",
+	description = "",
+	icon = 1,
+	hidden = true,
+	--iconAtlas = "mod_assets/textures/conditions.tga",
+	beneficial = true,
+	harmful = false,
+	tickInterval = 1,
+	onStart = function(self, champion)
+		--playSound("dark_bolt")
+	end,
+	onStop = function(self, champion)
+		hudPrint(champion:getName().."'s Etherweed Cold Rage is over.")
+		champion:removeTrait("etherweed_rage")
+	end,	
+}
+
+defineCondition{
 	name = "healing_light",
 	uiName = "Healing Light",
 	description = [[
 	- Big boost to health and energy reneration rate.]],
-	icon = 1,
-	--iconAtlas = "mod_assets/textures/conditions.tga",
+	icon = 25,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
 	harmful = false,
 	tickInterval = 1,
 	onStart = function(self, champion)
 		playSound("light")
 	end,
-	onStop = function(self, champion)	
-		champion:setConditionValue("holy_light", 60 + (math.floor(champion:getLevel() / 4) * 30))
+	onStop = function(self, champion)
+		if champion:getClass() == "monk" then
+			champion:setConditionValue("holy_light", 60 + (math.floor(champion:getLevel() / 4) * 30))
+		end
 	end,
 	onRecomputeStats = function(self, champion)
 		champion:addStatModifier("health_regeneration_rate", 500)
@@ -115,8 +142,8 @@ defineCondition{
 	uiName = "Holy Light",
 	description = [[
 	- Random bonus to all stats.]],
-	icon = 1,
-	--iconAtlas = "mod_assets/textures/conditions.tga",
+	icon = 26,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
 	harmful = false,
 	tickInterval = 1,
@@ -162,8 +189,8 @@ defineCondition{
 	uiName = "Healing Light",
 	description = [[
 	- Small boost to health and energy reneration rate.]],
-	icon = 1,
-	--iconAtlas = "mod_assets/textures/conditions.tga",
+	icon = 25,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
 	harmful = false,
 	tickInterval = 1,
@@ -209,8 +236,8 @@ defineCondition{
 	name = "night_stalker",
 	uiName = "Night Stalker",
 	description = "Stalking your prey.",
-	icon = 16,
-	--iconAtlas = "mod_assets/textures/conditions.tga",
+	icon = 27,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
 	harmful = false,
 	tickInterval = 1,
@@ -231,47 +258,48 @@ defineCondition{
 defineCondition{
 	name = "elemental_balance_fire",
 	uiName = "Elemental Balance (Fire)",
-	icon = 0,
+	icon = 29,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	description = "Cold and Air spells +40% damage.",
 	gameEffect = [[
-	- Energy Regeneration Rate +50%.	
-	]],
+	- Energy Regeneration Rate +50%.]],
 	onRecomputeStats = function(self, champion)
-		champion:addStatModifier("energy_regeneration_rate", 50)
+		--champion:addStatModifier("energy_regeneration_rate", 50)
 	end,
 }
 
 defineCondition{
 	name = "elemental_balance_air",
 	uiName = "Elemental Balance (Air)",
-	icon = 0,
+	icon = 30,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	description = "Fire and Cold spells +40% damage.",
 	gameEffect = [[
-	- Energy Regeneration Rate +50%.	
-	]],
+	- Energy Regeneration Rate +50%.]],
 	onRecomputeStats = function(self, champion)
-		champion:addStatModifier("energy_regeneration_rate", 50)
+		--champion:addStatModifier("energy_regeneration_rate", 50)
 	end,
 }
 
 defineCondition{
 	name = "elemental_balance_cold",
 	uiName = "Elemental Balance (Cold)",
-	icon = 0,
+	icon = 31,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	description = "Fire and Air spells +40% damage.",
 	gameEffect = [[
-	- Energy Regeneration Rate +50%.	
-	]],
+	- Energy Regeneration Rate +50%.]],
 	onRecomputeStats = function(self, champion)
-		champion:addStatModifier("energy_regeneration_rate", 50)
+		--champion:addStatModifier("energy_regeneration_rate", 50)
 	end,
 }
 
 defineCondition{
 	name = "hunter_crit",
 	uiName = "Thrill of the Hunt",
-	icon = 2,
+	icon = 0,
 	description = "Increases critical chance.",
+	hidden = true,
 	tickInterval = 1,
 	onStart = function(self, champion)
 	end,
@@ -284,27 +312,12 @@ defineCondition{
 	end,
 }
 
--- Skills
-
-defineCondition{
-	name = "refreshed",
-	uiName = "Refreshed",
-	icon = 0,
-	description = "Increaed health regeneration rate.",
-	gameEffect = [[
-	- Energy Regeneration Rate +125%.	
-	]],
-	onRecomputeStats = function(self, champion)
-		champion:addStatModifier("energy_regeneration_rate", 100)
-	end,
-}
-
 defineCondition{
 	name = "carnivorous",
 	uiName = "Carnivorous",
 	description = "Eating meat increases your Strength by 4 and Health and Energy regeneration rate by 25% for 1 minute.",
-	icon = 1,
-	--iconAtlas = "mod_assets/textures/conditions.tga",
+	icon = 28,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
 	harmful = false,
 	tickInterval = 1,
@@ -319,6 +332,20 @@ defineCondition{
 	end,
 	onTick = function(self, champion)
 	end,	
+}
+
+-- Skills
+
+defineCondition{
+	name = "refreshed",
+	uiName = "Refreshed",
+	icon = 0,
+	description = "Increased health regeneration rate.",
+	gameEffect = [[
+	- Energy Regeneration Rate +125%.]],
+	onRecomputeStats = function(self, champion)
+		champion:addStatModifier("energy_regeneration_rate", 100)
+	end,
 }
 
 defineCondition{
@@ -455,6 +482,7 @@ defineCondition{
 	--iconAtlas = "mod_assets/textures/conditions.tga",
 	beneficial = true,
 	harmful = false,
+	hidden = true,
 	tickInterval = 1,
 	onStart = function(self, champion)
 	end,
@@ -506,6 +534,7 @@ defineCondition{
 	--iconAtlas = "mod_assets/textures/conditions.tga",
 	beneficial = true,
 	harmful = false,
+	hidden = true,
 	tickInterval = 1,
 	onStart = function(self, champion)
 	end,
@@ -515,5 +544,26 @@ defineCondition{
 		champion:addStatModifier("exp_rate", -15)
 	end,
 	onTick = function(self, champion)
+	end,	
+}
+
+defineCondition{
+	name = "bleeding",
+	uiName = "Bleeding",
+	description = "You damage over time and when moving.",
+	icon = 17,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
+	beneficial = true,
+	harmful = false,
+	tickInterval = 1,
+	onStart = function(self, champion)
+		--playSound("dark_bolt")
+	end,
+	onStop = function(self, champion)
+	end,
+	onRecomputeStats = function(self, champion)
+	end,
+	onTick = function(self, champion)
+		champion:regainHealth(champion:getMaxHealth() * 0.05)
 	end,	
 }

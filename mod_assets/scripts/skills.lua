@@ -2,7 +2,8 @@ defineSkill{
 	name = "athletics",
 	uiName = "Athletics",
 	priority = 10,
-	icon = 12,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 1,
 	description = [[Increases your health by 20 and carrying capacity by 1kg for each skill point. 
 
 	Perks:
@@ -38,7 +39,8 @@ defineSkill{
 	name = "block",
 	uiName = "Block",
 	priority = 20,
-	icon = 12,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 2,
 	description = [[Increases all resistances by 2 per skill level when holding a shield. 
 		
 	Perks:
@@ -59,7 +61,8 @@ defineSkill{
 	name = "light_armor",
 	uiName = "Light Armor",
 	priority = 30,
-	icon = 12,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 3,
 	description = [[Each point reduces the evasion penalties from wearing Light Armor by 20% and increases the protection they provide by 5% per level.
 	
 	Perks:
@@ -84,7 +87,8 @@ defineSkill{
 	name = "heavy_armor",
 	uiName = "Heavy Armor",
 	priority = 40,
-	icon = 12,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 4,
 	description = [[Each point reduces the evasion penalties from wearing Heavy Armor by 20% and increases the protection they provide by 5% per level.
 	
 	Perks:
@@ -109,7 +113,8 @@ defineSkill{
 	name = "accuracy",
 	uiName = "Accuracy",
 	priority = 50,
-	icon = 86,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 5,
 	description = [[Increases your Accuracy by 10 for each skill point.
 	
 	Perks:
@@ -128,7 +133,8 @@ defineSkill{
 	name = "critical",
 	uiName = "Critical",
 	priority = 60,
-	icon = 10,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 6,
 	description = [[Increases critical chance with physical attacks by 3% and spells by 1% for each skill point.
 	
 	Perks:
@@ -145,7 +151,8 @@ defineSkill{
 	name = "firearms",
 	uiName = "Firearms",
 	priority = 70,
-	icon = 90,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 7,
 	description = [[Increases range of firearm attacks by 1 square for each skill point, decreases the chance of a firearm malfunctioning and gives 10% chance per level to pierce 5 armor.
 	
 	Perks:
@@ -159,7 +166,8 @@ defineSkill{
 	name = "seafaring",
 	uiName = "Seafaring",
 	priority = 80,
-	icon = 20,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 8,
 	description = [[Increases evasion by 3 point per skill level when fighting multiple foes.
 	
 	Perks:
@@ -180,7 +188,8 @@ defineSkill{
 	name = "alchemy",
 	uiName = "Alchemy",
 	priority = 90,
-	icon = 20,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 9,
 	description = [[A higher skill level in Alchemy allows you to brew a wider range of potions. To craft potions you also need herbs and a Mortar and Pestle.
 	
 	Perks:
@@ -198,7 +207,8 @@ defineSkill{
 	name = "ranged_weapons",
 	uiName = "Ranged Weapons",
 	priority = 100,
-	icon = 17,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 10,
 	description = [[Increases damage of Missiles and Throwing Weapons attacks by 20% for each skill point. 
 	
 	Perks:
@@ -212,7 +222,8 @@ defineSkill{
 	name = "light_weapons",
 	uiName = "Light Weapons",
 	priority = 110,
-	icon = 106,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 11,
 	description = [[Increases damage of Light Weapons by 20% for each skill point. 
 	
 	Perks:
@@ -226,7 +237,8 @@ defineSkill{
 	name = "heavy_weapons",
 	uiName = "Heavy Weapons",
 	priority = 120,
-	icon = 105,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 12,
 	description = [[Increases damage of Heavy Weapons by 20% for each skill point. 
 	
 	Perks:
@@ -240,7 +252,8 @@ defineSkill{
 	name = "spellblade",
 	uiName = "Spellblade",
 	priority = 130,
-	icon = 12,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 13,
 	description = [[Increase Protection and Accuracy by 3 for each skill point when holding a staff.
 	
 	Perks:
@@ -277,20 +290,23 @@ defineSkill{
 	name = "elemental_magic",
 	uiName = "Elemental Magic",
 	priority = 140,
-	icon = 29,
-	description = [[Increases damage of elemental spells by 20% for each skill point.
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 14,
+	description = [[Increases all elemental damage by 20% for each skill point.
 	
 	Perks:
+	- Level 2 | Hitting a monster with an element it resists will buff your next hit of that element by 20%.
 	- Level 4 | Deal 25% more damage if the enemy is vulnerable to that element.
 	- Level 5 | You gain +25% Resist Fire, Shock and Cold.]],
-	traits = { [4] = "elemental_exploitation", [5] = "elemental_armor" },
+	traits = { [2] = "aggregate", [4] = "elemental_exploitation", [5] = "elemental_armor" },
 }
 
 defineSkill{
 	name = "poison_mastery",
 	uiName = "Poison Mastery",
 	priority = 150,
-	icon = 31,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 15,
 	description = [[Increases damage of poison spells by 20% for each skill point.
 	
 	Perks:
@@ -304,7 +320,8 @@ defineSkill{
 	name = "concentration",
 	uiName = "Magic Training",
 	priority = 160,
-	icon = 26,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 16,
 	description = [[Increases your energy by 20 for each skill point. 
 	
 	Perks:
@@ -325,7 +342,8 @@ defineSkill{
 	name = "witchcraft",
 	uiName = "Witchcraft",
 	priority = 170,
-	icon = 20,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 17,
 	description = [[Increases the damage and effect of witchcraft spells by 20% for each skill point.
 	
 	Perks:
@@ -343,19 +361,24 @@ defineSkill{
 	name = "tinkering",
 	uiName = "Tinkering",
 	priority = 180,
-	icon = 20,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 18,
 	description = [[Allows you to upgrade equipments, increasing their stats. Requires a Tinkerer's Toolbox and crafting materials.
 	- Raises your tinkering level after 3 successful upgrades and after leveling this skill.
 	- Each skill point increases the stats by an additional 5%.
-	- Upgraded items weight 5kg more (-0.5kg per level).
+	- Upgraded items weight 5kg more (-0.5kg per skill level).
 	
 	Perks:
-	- Level 3 | You can dismantle items into materials.
-	- Level 4 | You can craft bombs and pellets.
-	- Level 5 | Upgraded items gain extra stats based on your skill levels.]],
-	traits = { [3] = "dismantler", [4] = "metalworks", [5] = "mastersmith" },
+	- Level 2 | You can craft bombs and pellets.
+	- Level 4 | Unlock chests without a lockpick, at the cost of Energy.
+	- Level 5 | You can upgrade Epic items.]],
+	traits = { [3] = "pyrotechnician", [4] = "multipurpose", [5] = "mastersmith" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
+			if not champion:hasTrait("dismantler") then
+				champion:addTrait("dismantler")
+				champion:addTrait("tinkering")
+			end
 		end
 	end,
 }

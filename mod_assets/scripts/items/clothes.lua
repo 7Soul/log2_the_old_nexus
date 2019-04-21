@@ -81,7 +81,7 @@ defineObject{
 			armorSet = "leather",
 			gfxIndex = 35,
 			weight = 2.6,
-			traits = { "clothes", "boots" },
+			traits = { "clothes", "boots", "dismantle" },
 		},
 		{
 			class = "EquipmentItem",

@@ -5891,32 +5891,183 @@ blooddrop_cap_8.detectedtimer:setTimerInterval(0)
 blooddrop_cap_8.detectedtimer:setDisableSelf(false)
 blooddrop_cap_8.detectedtimer:setTriggerOnStart(true)
 blooddrop_cap_8.detectedtimer:setCurrentLevelOnly(true)
-spawn("turtle",15,14,1,0,"turtle_1")
-turtle_1.detectedtimer:setTimerInterval(0)
-turtle_1.detectedtimer:setDisableSelf(false)
-turtle_1.detectedtimer:setTriggerOnStart(true)
-turtle_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("turtle",12,10,2,0,"turtle_4")
-turtle_4.detectedtimer:setTimerInterval(0)
-turtle_4.detectedtimer:setDisableSelf(false)
-turtle_4.detectedtimer:setTriggerOnStart(true)
-turtle_4.detectedtimer:setCurrentLevelOnly(true)
-spawn("turtle",15,10,2,0,"turtle_5")
-turtle_5.detectedtimer:setTimerInterval(0)
-turtle_5.detectedtimer:setDisableSelf(false)
-turtle_5.detectedtimer:setTriggerOnStart(true)
-turtle_5.detectedtimer:setCurrentLevelOnly(true)
 spawn("starting_location",9,14,1,0,"starting_location_1")
-spawn("turtle",15,17,1,0,"turtle_6")
-turtle_6.detectedtimer:setTimerInterval(0)
-turtle_6.detectedtimer:setDisableSelf(false)
-turtle_6.detectedtimer:setTriggerOnStart(true)
-turtle_6.detectedtimer:setCurrentLevelOnly(true)
 spawn("turtle",20,19,2,0,"turtle_7")
 turtle_7.detectedtimer:setTimerInterval(0)
 turtle_7.detectedtimer:setDisableSelf(false)
 turtle_7.detectedtimer:setTriggerOnStart(true)
 turtle_7.detectedtimer:setCurrentLevelOnly(true)
+spawn("tinkering_toolbox",10,14,3,0,"tinkering_toolbox_1")
+tinkering_toolbox_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+spawn("dagger",10,14,3,0,"dagger_2")
+dagger_2.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+dagger_2.detectedtimer:setTimerInterval(0)
+dagger_2.detectedtimer:setDisableSelf(false)
+dagger_2.detectedtimer:setTriggerOnStart(true)
+dagger_2.detectedtimer:setCurrentLevelOnly(true)
+tinkering_toolbox_1.containeritem:addItem(dagger_2.item)
+spawn("dagger",10,14,3,0,"dagger_3")
+dagger_3.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+dagger_3.detectedtimer:setTimerInterval(0)
+dagger_3.detectedtimer:setDisableSelf(false)
+dagger_3.detectedtimer:setTriggerOnStart(true)
+dagger_3.detectedtimer:setCurrentLevelOnly(true)
+tinkering_toolbox_1.containeritem:addItem(dagger_3.item)
+spawn("dagger",10,14,3,0,"dagger_4")
+dagger_4.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+dagger_4.detectedtimer:setTimerInterval(0)
+dagger_4.detectedtimer:setDisableSelf(false)
+dagger_4.detectedtimer:setTriggerOnStart(true)
+dagger_4.detectedtimer:setCurrentLevelOnly(true)
+tinkering_toolbox_1.containeritem:addItem(dagger_4.item)
+spawn("dagger",10,14,3,0,"dagger_5")
+dagger_5.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+dagger_5.detectedtimer:setTimerInterval(0)
+dagger_5.detectedtimer:setDisableSelf(false)
+dagger_5.detectedtimer:setTriggerOnStart(true)
+dagger_5.detectedtimer:setCurrentLevelOnly(true)
+tinkering_toolbox_1.containeritem:addItem(dagger_5.item)
+spawn("dagger",10,14,3,0,"dagger_6")
+dagger_6.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+dagger_6.detectedtimer:setTimerInterval(0)
+dagger_6.detectedtimer:setDisableSelf(false)
+dagger_6.detectedtimer:setTriggerOnStart(true)
+dagger_6.detectedtimer:setCurrentLevelOnly(true)
+tinkering_toolbox_1.containeritem:addItem(dagger_6.item)
+spawn("dagger",10,14,3,0,"dagger_7")
+dagger_7.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+dagger_7.detectedtimer:setTimerInterval(0)
+dagger_7.detectedtimer:setDisableSelf(false)
+dagger_7.detectedtimer:setTriggerOnStart(true)
+dagger_7.detectedtimer:setCurrentLevelOnly(true)
+tinkering_toolbox_1.containeritem:addItem(dagger_7.item)
+spawn("plate_greaves",10,14,3,0,"plate_greaves_1")
+plate_greaves_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+plate_greaves_1.detectedtimer:setTimerInterval(0)
+plate_greaves_1.detectedtimer:setDisableSelf(false)
+plate_greaves_1.detectedtimer:setTriggerOnStart(true)
+plate_greaves_1.detectedtimer:setCurrentLevelOnly(true)
+tinkering_toolbox_1.containeritem:addItem(plate_greaves_1.item)
+spawn("leather_boots",10,14,3,0,"leather_boots_3")
+leather_boots_3.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+leather_boots_3.detectedtimer:setTimerInterval(0)
+leather_boots_3.detectedtimer:setDisableSelf(false)
+leather_boots_3.detectedtimer:setTriggerOnStart(true)
+leather_boots_3.detectedtimer:setCurrentLevelOnly(true)
+tinkering_toolbox_1.containeritem:addItem(leather_boots_3.item)
+spawn("plate_cuirass",10,14,3,0,"plate_cuirass_1")
+plate_cuirass_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+plate_cuirass_1.detectedtimer:setTimerInterval(0)
+plate_cuirass_1.detectedtimer:setDisableSelf(false)
+plate_cuirass_1.detectedtimer:setTriggerOnStart(true)
+plate_cuirass_1.detectedtimer:setCurrentLevelOnly(true)
+tinkering_toolbox_1.containeritem:addItem(plate_cuirass_1.item)
+tinkering_toolbox_1.detectedtimer:setTimerInterval(0)
+tinkering_toolbox_1.detectedtimer:setDisableSelf(false)
+tinkering_toolbox_1.detectedtimer:setTriggerOnStart(true)
+tinkering_toolbox_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("full_helmet",9,13,1,0,"full_helmet_1")
+full_helmet_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+full_helmet_1.detectedtimer:setTimerInterval(0)
+full_helmet_1.detectedtimer:setDisableSelf(false)
+full_helmet_1.detectedtimer:setTriggerOnStart(true)
+full_helmet_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("turtle",11,14,1,0,"turtle_1")
+turtle_1.monster:setHealth(900)
+turtle_1.detectedtimer:setTimerInterval(0)
+turtle_1.detectedtimer:setDisableSelf(false)
+turtle_1.detectedtimer:setTriggerOnStart(true)
+turtle_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("brace_fortitude",10,14,3,0,"brace_fortitude_2")
+brace_fortitude_2.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+brace_fortitude_2.detectedtimer:setTimerInterval(0)
+brace_fortitude_2.detectedtimer:setDisableSelf(false)
+brace_fortitude_2.detectedtimer:setTriggerOnStart(true)
+brace_fortitude_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("pickaxe",10,14,3,0,"pickaxe_1")
+pickaxe_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+pickaxe_1.detectedtimer:setTimerInterval(0)
+pickaxe_1.detectedtimer:setDisableSelf(false)
+pickaxe_1.detectedtimer:setTriggerOnStart(true)
+pickaxe_1.detectedtimer:setCurrentLevelOnly(true)
 
 --- level 4 ---
 

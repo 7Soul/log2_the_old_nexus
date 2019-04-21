@@ -2,7 +2,7 @@ defineTrait{
 	name = "assassin_class",
 	uiName = "Assassin",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 30,
+	icon = 26,
 	description = "A contract killer who can improve their technique with each kill.",
 	gameEffect = [[
 	- Health 44 (+4 per level)
@@ -26,27 +26,25 @@ defineTrait{
 	name = "fighter",
 	uiName = "Berserker",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 26,
+	icon = 27,
 	description = "A prideful warrior of the Red Hills.",
 	gameEffect = [[
-	- Health 80 (+5 per level, +5 per 5 strength and +15 per 10 strength)
+	- Health 80 (+5 per level, +15 per 10 Strength)
 	- Energy 20 (+5 per level)
-	- Armor is for babies.
+	- Can't wear armor, except for light helmets, boots and gloves.
 	
-	Berserker Rage: Gain a buff that fades over 20 seconds if party gets attacked.
+	Berserker Frenzy: Gain a buff that fades over 20 seconds if party gets attacked.
 	- Protection up to +4 per level (+6 per 3 levels).
 	- Strength up to +2 (+1 per 3 levels).
 	
-	Berserker Revenge: Gain a buff that fades over 60 seconds if a party member dies.
-	- Protection up to +6 per level (+8 per 3 levels).
-	- Strength up to +4 (+1 per 3 levels).
-	- Health Regeneration +500%.]],
+	Berserker Reprisal: Gain a buff that fades over 60 seconds if a party member dies.
+	- Increased Frenzy effects and extra healing at low health.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
-			local str_add = math.floor(champion:getCurrentStat("strength") / 5) * 5
+			--local str_add = math.floor(champion:getCurrentStat("strength") / 5) * 5
 			local str_add_more = math.floor(champion:getCurrentStat("strength") / 10) * 15
-			champion:addStatModifier("max_health", 80 + ((level-1) * 5) + str_add + str_add_more)
+			champion:addStatModifier("max_health", 80 + ((level-1) * 5) + str_add_more)
 			champion:addStatModifier("max_energy", 20 + (level-1) * 5)
 		end
 	end,
@@ -54,9 +52,9 @@ defineTrait{
 
 defineTrait{
 	name = "monk",
-	uiName = "Champion of Light",
+	uiName = "Champion",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 27,
+	icon = 28,
 	description = "A monk who has trained in the path of light to achieve inner balance.",
 	gameEffect = [[
 	- Health 70 (+1 per level)
@@ -120,78 +118,110 @@ defineTrait{
 }
 
 defineTrait{
+	name = "corsair",
+	uiName = "Corsair",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 29,
+	description = "A sailor of the Serpent Sea, a master duelist and firearms specialist.",
+	gameEffect = [[
+	- Health 70 (+7 per level)
+	- Energy 30 (+4 per level)
+	- Flintlock Pistols do 10% more damage (+10% per level).
+	
+	Pistolero: Your reloading times are 40% slower (-1.5% per level) when dual wielding with a pistol.
+	- Can dual wield Pistols, firing both in quick succession.
+	- Can dual wield a Light Weapon and a Pistol, attacking with both.
+	
+	Duelist: Melee attacks gain +10 Accuracy and +5% Critical Chance when fighting a single foe.]],
+	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
+		if level > 0 and attackType == "melee" then 
+			if not functions then return end
+			if functions.script.get_c("duelist", champion:getOrdinal()) == 1 then
+				level = champion:getLevel() - 1
+				return 10
+			end
+		end
+	end,
+	onComputeCritChance = function(champion, weapon, attack, attackType, level)
+		if level > 0 and attackType == "melee" then 
+			if not functions then return end
+			if functions.script.get_c("duelist", champion:getOrdinal()) == 1 then
+				level = champion:getLevel() - 1
+				return 5
+			end
+		end
+	end,
+	onComputeCooldown = function(champion, weapon, attack, attackType, level)
+		if level > 0 then
+			local item1 = champion:getItem(ItemSlot.Weapon)
+			local item2 = champion:getItem(ItemSlot.OffHand)
+			if (item1 and item1.go.firearmattack) and (item2 and item2.go.firearmattack) then
+				level = champion:getLevel()
+				return 1.4 - (level * 0.015)
+			end
+		end
+	end,
+	onRecomputeStats = function(champion, level)
+		if level > 0 then
+			level = champion:getLevel()
+			champion:addStatModifier("max_health", 70 + (level-1) * 7)
+			champion:addStatModifier("max_energy", 30 + (level-1) * 4)
+		end	
+	end,
+}
+
+defineTrait{
 	name = "druid",
 	uiName = "Druid",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 28,
+	icon = 30,
 	description = "The caretaker of the most ancient forests unknown to man.",
 	gameEffect = [[
 	- Health 50 (+5 per level)
 	- Energy 50 (+6 per level)
 	
-	Forest Caretaker: Gains unique powers when carrying a herb on your offhand.
-	- Blooddrop Cap: Fighting bonuses and Fire damage.
-	- Etherweed: Casting bonuses and Cold damage.
-	- Mudwort: Poison damage. Resistance to disease and poison for the party.
-	- Falconskyre: Dexterity and Shock damage.
-	- Blackmoss: Powerful bomb usage.
-	- Crystal Flower: Defenses and Regeneration.]],
+	Herbologist: You can attach a herb to your accessory slot, gaining unique effects.
+	- All herbs convert 20% of your damage to Poison.
+	
+	- Blooddrop Cap: Strength +2. Gain health by dealing poison damage.
+	- Etherweed: Willpower +2. Gain energy by dealing poison damage.
+	- Mudwort: Vitality + 2. Conversion rate 40%. Chance to poison. More damage to poisoned foes.
+	- Falconskyre: Dexterity + 2. Chance to poison. Poison and Disease resistance.
+	- Blackmoss: Chance to poison. Bonus to all poison damage (high).
+	- Crystal Flower: Converts all spells to poison. Bonus to all poison damage. ]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
 			champion:addStatModifier("max_health", 50 + ((level-1) * 5))
 			champion:addStatModifier("max_energy", 50 + (level-1) * 6)
-			
-			local t = GameMode:getTimeOfDay()
-			t = math.floor((t*12+9)%24)
-			if t >= 6 and t <= 18 then
-				champion:addStatModifier("health_regeneration_rate", 10)
-				champion:addStatModifier("energy_regeneration_rate", 10)
+			if not functions then return end
+			local druidItem = functions.script.get_c("druid_item", champion:getOrdinal())
+			if druidItem then
+				if druidItem == "blooddrop_cap" then
+					champion:addStatModifier("strength", 2)
+				elseif druidItem == "etherweed" then
+					champion:addStatModifier("willpower", 2)
+				elseif druidItem == "mudwort" then
+					champion:addStatModifier("vitality", 2)
+				elseif druidItem == "falconskyre" then
+					champion:addStatModifier("dexterity", 2)
+					champion:addStatModifier("resist_poison", 10 + (level - 1))
+				end
 			end
 		end			
 	end,
-}
-
-defineTrait{
-	name = "stalker",
-	uiName = "Spell Thief",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 29,
-	description = "A rogue-ish spell-caster specialist in covert attacks.",
-	gameEffect = [[
-	- Health 50 (+4 per level)
-	- Energy 60 (+4 per level)
-	- Evasion, Accuracy and Critical Chance +2 (+1 per level).
-	- Energy Regeneration Rate -99%.
 	
-	Shadow Magicks: Neutral spells cost 33% less energy.
-	- Neutral spells gain 1% damage per Dexterity (+10% per 7 points).
-	- Once per day you may cast Invisibility for free. Gain more casts every 3 levels.
-	
-	Night Stalker: Gains a buff while invisible and for a few seconds after. Duration is 6 seconds (+4 per 3 levels).
-	- Doubles all your class bonuses.]],
-	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
-		if level > 0 then 
-			level = champion:getLevel() - 1
-			return level + 2
-		end
-	end,
-	onComputeCritChance = function(champion, weapon, attack, attackType, level)
-		if level > 0 then 
-			level = champion:getLevel() - 1
-			return level + 2
-		end
-	end,
-	onRecomputeStats = function(champion, level)
+	onReceiveCondition = function(champion, cond, level)
 		if level > 0 then
-			level = champion:getLevel()
-			champion:addStatModifier("max_health", 50 + (level - 1) * 4)
-			champion:addStatModifier("max_energy", 60 + (level - 1) * 4)
-			champion:addStatModifier("energy_regeneration_rate", -99)
-			champion:addStatModifier("evasion", 2 + (level - 1))
-			--champion:addTrait("shadow_magicks")
-		end	
-	end	
+			if not functions then return end
+			local druidItem = functions.script.get_c("druid_item", champion:getOrdinal())
+			if druidItem and druidItem == "falconskyre" then
+				if cond == "diseased" or cond == "poisoned" then
+					return false
+				end
+			end
+		end
+	end,
 }
 
 defineTrait{
@@ -203,17 +233,17 @@ defineTrait{
 	gameEffect = [[
 	- Health 35 (+5 per level)
 	- Energy 60 (+9 per level)
-	- Casting basic elemental magic will shield the user from that element for 10 seconds (+5 per 5 levels).
 	
-	Elemental Balance: Casting one element increases damage with other elements by 30%.
-	- Duration is 10 seconds.
-	- Gain +50% Energy Regeneration Rate.]],
+	Trine Aegis: Casting elemental magic will shield the user from that element for 10 seconds (+3 per 3 levels).
+	
+	Elemental Balance: Casting one element increases damage with other elements by 25% for 10 seconds.
+	- You regain 5% Max Energy (+1% per 10 Willpower) when using this bonus.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
 			champion:addStatModifier("max_health", 35 + (level-1) * 5)
 			champion:addStatModifier("max_energy", 60 + (level-1) * 9)
-		end	
+		end
 	end,
 }
 
@@ -259,29 +289,45 @@ defineTrait{
 }
 
 defineTrait{
-	name = "corsair",
-	uiName = "Corsair",
+	name = "stalker",
+	uiName = "Spell Thief",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 33,
-	description = "A sailor of the Serpent Sea, a master duelist and firearms specialist.",
+	description = "A rogue-ish spell-caster specialist in covert attacks.",
 	gameEffect = [[
-	- Health 70 (+7 per level)
-	- Energy 30 (+4 per level)
-	- Firearms can use pellets from the inventory and do +2% damage per level.
-	- Flintlock Pistols also do 10% more damage (+10% per level).
+	- Health 50 (+4 per level)
+	- Energy 60 (+4 per level)
+	- Evasion, Accuracy and Critical Chance +2 (+1 per level).
+	- Energy Regeneration Rate -99%.
 	
-	Pistolero: Can dual wield Flintlock Pistols, firing both in quick succession.
-	- Gain 20% faster actions (+2% per level).
+	Shadow Magicks: Neutral spells cost 33% less energy.
+	- Neutral spells gain 1% damage per Dexterity (+10% per 7 points).
+	- Once per day you may cast Invisibility for free. Gain more casts every 3 levels.
 	
-	Duelist: Can carry a Light Weapon on one hand and a Firearm on the other. 
-	- Attacking with the melee weapon also fires the gun.]],
+	Night Stalker: Gains a buff while invisible and for a few seconds after. Duration is 6 seconds (+4 per 3 levels).
+	- Doubles all your class bonuses.]],
+	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
+		if level > 0 then 
+			level = champion:getLevel() - 1
+			return level + 2
+		end
+	end,
+	onComputeCritChance = function(champion, weapon, attack, attackType, level)
+		if level > 0 then 
+			level = champion:getLevel() - 1
+			return level + 2
+		end
+	end,
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
-			champion:addStatModifier("max_health", 70 + (level-1) * 7)
-			champion:addStatModifier("max_energy", 30 + (level-1) * 4)
+			champion:addStatModifier("max_health", 50 + (level - 1) * 4)
+			champion:addStatModifier("max_energy", 60 + (level - 1) * 4)
+			champion:addStatModifier("energy_regeneration_rate", -99)
+			champion:addStatModifier("evasion", 2 + (level - 1))
+			--champion:addTrait("shadow_magicks")
 		end	
-	end,
+	end	
 }
 
 defineTrait{
@@ -326,9 +372,21 @@ defineTrait{
 ---------------------------------------------------------------------------------
 
 defineTrait{
+	name = "assassination",
+	uiName = "Assassination",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 130,
+	description = "You're looking for your target...",
+	gameEffect = [[Kill an enemy from the back to complete the assassination.]],
+	onRecomputeStats = function(champion, level)
+	end,
+}
+
+defineTrait{
 	name = "night_stalker",
 	uiName = "Night Stalker",
-	icon = 74,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 131,
 	description = "You are stalking your prey",
 	gameEffect = [[Evasion, Accuracy and Critical Chance +2 (+1 per level)]],
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
@@ -350,24 +408,15 @@ defineTrait{
 }
 
 defineTrait{
-	name = "assassination",
-	uiName = "Assassination",
-	icon = 16,
-	description = "You're looking for your target...",
-	gameEffect = [[Kill an enemy from the back to complete the assassination.]],
-	onRecomputeStats = function(champion, level)
-	end,
-}
-
-defineTrait{
 	name = "blooddrop_cap",
 	uiName = "Blooddrop Boon",
-	icon = 88,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 132,
 	description = "The Druid draws from the earth by carrying a Blooddrop Cap.",
 	gameEffect = [[- Strength +1 per 2 levels.
 	- Fire resistance +5 (+2 per level).
 	- Fire damage increased by 20%.
-	- Gain extra action speed and accuracy when hit 
+	- Gain extra strength, action speed and accuracy when hit 
 	by or when using a Fire spell (Duration 18 seconds).]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
@@ -381,15 +430,17 @@ defineTrait{
 defineTrait{
 	name = "blooddrop_rage",
 	uiName = "Blooddrop Fire Rage",
-	icon = 60,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 133,
 	description = "Fire damage causes you to attack with burning strength.",
-	gameEffect = [[- Strength +4.
+	gameEffect = [[- Strength +4, Melee Accuracy + 6, 
+	- Action Cooldowns are 15% Faster.
 	- Lasts 18 seconds.]],
 	onComputeCooldown = function(champion, weapon, attack, attackType, level)
 		if level > 0 then return 0.85 end
 	end,
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
-		if level > 0 then return 6 end
+		if level > 0 and attackType == "melee" then return 6 end
 	end,
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
@@ -401,7 +452,8 @@ defineTrait{
 defineTrait{
 	name = "etherweed",
 	uiName = "Etherweed Boon",
-	icon = 88,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 134,
 	description = "The Druid draws from the earth by carrying an Etherweed.",
 	gameEffect = [[- Willpower +1 per 2 levels.
 	- Cold resistance +5 (+2 per level).
@@ -419,9 +471,18 @@ defineTrait{
 defineTrait{
 	name = "etherweed_rage",
 	uiName = "Etherweed Cold Rage",
-	icon = 60,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 135,
 	description = "Cold damage causes you to cast spells with a refreshed mind.",
-	gameEffect = [[- Willpower +4.]],
+	gameEffect = [[- Willpower +4, Ranged Accuracy + 6.
+	- Action Cooldowns are 15% Faster.
+	- Lasts 18 seconds.]],
+	onComputeCooldown = function(champion, weapon, attack, attackType, level)
+		if level > 0 then return 0.85 end
+	end,
+	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
+		if level > 0 and (attackType == "missile" or attackType == "thrown" or attackType == "firearm") then return 6 end
+	end,
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			champion:addStatModifier("willpower", 4)
@@ -432,7 +493,8 @@ defineTrait{
 defineTrait{
 	name = "mudwort",
 	uiName = "Mudwort Boon",
-	icon = 88,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 136,
 	description = "The Druid draws from the earth by carrying a Mudwort.",
 	gameEffect = [[- Poison resistance +5 (+2 per level).
 	- Immune to disease.
@@ -457,7 +519,8 @@ defineTrait{
 defineTrait{
 	name = "lesser_mudwort",
 	uiName = "Lesser Mudwort Boon",
-	icon = 88,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 137,
 	description = "The Druid draws from the earth by carrying a Mudwort.",
 	gameEffect = [[- Poison resistance +2 per level.
 	- Disease resistance +50%.]],
@@ -478,7 +541,8 @@ defineTrait{
 defineTrait{
 	name = "falconskyre",
 	uiName = "Falconskyre Boon",
-	icon = 88,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 138,
 	description = "The Druid draws from the earth by carrying a Falconskyre.",
 	gameEffect = [[- Dexterity +1 per level.
 	- Shock resistance +5 (+2 per level).
@@ -495,7 +559,8 @@ defineTrait{
 defineTrait{
 	name = "blackmoss",
 	uiName = "Blackmoss Boon",
-	icon = 88,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 140,
 	description = "The Druid draws from the earth by carrying a Blackmoss.",
 	gameEffect = [[- Doubles Bomb damage.
 	- Bombs in your inventory multiply.]],
@@ -504,7 +569,8 @@ defineTrait{
 defineTrait{
 	name = "crystal_flower",
 	uiName = "Crystal Flower Boon",
-	icon = 88,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 142,
 	description = "The Druid draws from the earth by carrying a Crystal Flower.",
 	gameEffect = [[- Protection +2 (+2 per level).
 	- All resistances +2 per level.
@@ -523,47 +589,12 @@ defineTrait{
 }
 
 defineTrait{
-	name = "tinkerer_toolbox",
-	uiName = "Tinkerer's Toolbox",
-	icon = 88,
-	description = "Items can gain effects based on your skills. These bonuses are greater if the skill is level 5.",
-	gameEffect = [[
-	- Athletics | Final item weight is lower.
-	
-	Weapons:
-	- Accuracy | Weapons gain an accuracy bonus.
-	- Critical | Weapons gain a critical chance bonus.
-	- Firearms | Increase damage of Firearms.
-	- Ranged Weapons | Increase damage of Missile and Throwing weapons.
-	- Heavy Weapons | Adds bleeding chance.
-	- Light Weapons | Adds reduced cooldowns.
-	
-	Shields and Armor:
-	- Block | Adds extra evasion to a shield.
-	- Heavy Armor | Adds protection.
-	- Light Armor | Adds evasion.
-	- Elemental Magic | Adds a random elemental resistance.]],
-}
-
-defineTrait{
-	name = "dismantler",
-	uiName = "Dismantler",
-	iconAtlas = "mod_assets/textures/gui/dismantle.dds",
-	icon = 0,
-	description = "You can dismantle items into extra lockpicks.",
-	gameEffect = [[
-	- Put 9 dismantle-able items into a container and right-click the container.
-	- Dismantle-able items have a red hammer icon on them (when in the Tinkerer's inventory).]],
-}
-
-defineTrait{
 	name = "elemental_surge",
 	uiName = "Elemental Surge",
-	iconAtlas = "mod_assets/textures/gui/dismantle.dds",
-	icon = 0,
-	description = "You can dismantle items into extra lockpicks.",
-	gameEffect = [[Fire and Shock damage is increased based on your Fire and Shock resistances.
-	- Firearm attacks have 50% of their damage converted to Fire.
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 144,	
+	description = "Fire and Shock damage is increased based on your Fire and Shock resistances.",
+	gameEffect = [[- Firearm attacks have 50% of their damage converted to Fire.
 	- Melee attacks have 50% of their damage converted to Shock.]],
 }
 
@@ -587,6 +618,7 @@ defineTrait{
 					if item.go.equipmentitem:getResistFire() then champion:addStatModifier("resist_fire", item.go.equipmentitem:getResistFire()) end
 					if item.go.equipmentitem:getResistShock() then champion:addStatModifier("resist_shock", item.go.equipmentitem:getResistShock()) end
 					if item.go.equipmentitem:getResistCold() then champion:addStatModifier("resist_cold", item.go.equipmentitem:getResistCold()) end
+					if item.go.equipmentitem:getResistPoison() then champion:addStatModifier("resist_poison", item.go.equipmentitem:getResistPoison()) end
 				end
 			end
 		end
@@ -612,6 +644,7 @@ defineTrait{
 					if item.go.equipmentitem:getResistFire() then champion:addStatModifier("resist_fire", item.go.equipmentitem:getResistFire()) end
 					if item.go.equipmentitem:getResistShock() then champion:addStatModifier("resist_shock", item.go.equipmentitem:getResistShock()) end
 					if item.go.equipmentitem:getResistCold() then champion:addStatModifier("resist_cold", item.go.equipmentitem:getResistCold()) end
+					if item.go.equipmentitem:getResistPoison() then champion:addStatModifier("resist_poison", item.go.equipmentitem:getResistPoison()) end
 				end
 			end
 		end
@@ -638,6 +671,7 @@ defineTrait{
 					if item.go.equipmentitem:getResistFire() then champion:addStatModifier("resist_fire", item.go.equipmentitem:getResistFire()) end
 					if item.go.equipmentitem:getResistShock() then champion:addStatModifier("resist_shock", item.go.equipmentitem:getResistShock()) end
 					if item.go.equipmentitem:getResistCold() then champion:addStatModifier("resist_cold", item.go.equipmentitem:getResistCold()) end
+					if item.go.equipmentitem:getResistPoison() then champion:addStatModifier("resist_poison", item.go.equipmentitem:getResistPoison()) end
 				end
 			end
 		end
@@ -662,6 +696,7 @@ defineTrait{
 					if item.go.equipmentitem:getResistFire() then champion:addStatModifier("resist_fire", item.go.equipmentitem:getResistFire()) end
 					if item.go.equipmentitem:getResistShock() then champion:addStatModifier("resist_shock", item.go.equipmentitem:getResistShock()) end
 					if item.go.equipmentitem:getResistCold() then champion:addStatModifier("resist_cold", item.go.equipmentitem:getResistCold()) end
+					if item.go.equipmentitem:getResistPoison() then champion:addStatModifier("resist_poison", item.go.equipmentitem:getResistPoison()) end
 				end
 			end
 		end
@@ -691,6 +726,7 @@ defineTrait{
 					if item.go.equipmentitem:getResistFire() then champion:addStatModifier("resist_fire", item.go.equipmentitem:getResistFire()) end
 					if item.go.equipmentitem:getResistShock() then champion:addStatModifier("resist_shock", item.go.equipmentitem:getResistShock()) end
 					if item.go.equipmentitem:getResistCold() then champion:addStatModifier("resist_cold", item.go.equipmentitem:getResistCold()) end
+					if item.go.equipmentitem:getResistPoison() then champion:addStatModifier("resist_poison", item.go.equipmentitem:getResistPoison()) end
 				end
 			end			
 		end
@@ -782,7 +818,6 @@ defineTrait{
 	icon = 41,
 	charGen = true,
 	requiredRace = "human",
-	--description = "Start the game with a bottle of rum. When you take a drink, you lose a point in Dexterity, Vitality or Willpower (in order) permanently, but gain 50% extra experience gain for 5 minutes. You regain half those stats back when you empty the bottle, which holds 12 drinks.",
 	description = [[When you activate this skill, you drink from a small flask, kept hidden under your vest.
 	
 	- Gain +5 Protection and recover all wounds over a period of 15 seconds.
@@ -832,7 +867,7 @@ defineTrait{
 	name = "ancestral_charge",
 	uiName = "Ancestral Charge",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 43,
+	icon = 44,
 	charGen = true,
 	requiredRace = "minotaur",
 	description = [[You can summon a warrior spirit to charge and stun an enemy.
@@ -985,7 +1020,7 @@ defineTrait{
 	name = "sneak_attack",
 	uiName = "Sneak Attack",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 51,
+	icon = 52,
 	charGen = true,
 	requiredRace = "ratling",
 	description = [[Activate your class ability to gain 100 Evasion, losing it upon performing an action.
@@ -998,7 +1033,7 @@ defineTrait{
 	name = "built_resistance",
 	uiName = "Built Resistance",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 52,
+	icon = 53,
 	charGen = true,
 	requiredRace = "ratling",
 	description = "Poison resistance +50%, other resistances -10%. You gain 1 Maximum Health for each extra point of poison resistance (goes past 100).",
@@ -1155,7 +1190,7 @@ defineTrait{
 	name = "heavy_conditioning",
 	uiName = "Heavy Conditioning",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 77,
+	icon = 76,
 	description = "Heavy Armor weights 75% less.",
 }
 
@@ -1163,7 +1198,7 @@ defineTrait{
 	name = "armor_training",
 	uiName = "Armor Training",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 76,
+	icon = 77,
 	description = "You're still wearing 'all heavy armor' even if your Helmet and Gloves are not heavy armor.",
 }
 
@@ -1171,14 +1206,16 @@ defineTrait{
 defineTrait{
 	name = "reach",
 	uiName = "Reach",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 78,
 	description = "You can use melee attacks from the backline.",
 }
 
 defineTrait{
 	name = "clutch",
 	uiName = "Clutch",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 79,
 	description = "Gain up to +100 accuracy based on how much health the party is missing.",
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
 		if level > 0 then
@@ -1199,7 +1236,8 @@ defineTrait{
 defineTrait{
 	name = "precision",
 	uiName = "Precision",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 80,
 	description = "25% Chance to pierce 5 to 15 armor with melee and firearm attacks.",
 }
 
@@ -1207,7 +1245,8 @@ defineTrait{
 defineTrait{
 	name = "backstab",
 	uiName = "Backstab",
-	icon = 103,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 81,
 	description = "You do triple damage when you successfully backstab an enemy with a dagger.",
 	-- hardcoded skill
 }
@@ -1216,14 +1255,14 @@ defineTrait{
 	name = "weapons_specialist",
 	uiName = "Weapons Specialist",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 68,
+	icon = 82,
 	description = "You gain double critical chance from items.",
 }
 
 defineTrait{
 	name = "assassin",
 	uiName = "Assassin",
-	icon = 104,
+	icon = 83,
 	description = "You can backstab with any Light Weapon.",
 	-- hardcoded skill
 }
@@ -1241,7 +1280,7 @@ defineTrait{
 	name = "silver_bullet",
 	uiName = "Silver Bullet",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 84,
+	icon = 85,
 	description = "Every 6th shot does double damage.",
 }
 
@@ -1295,7 +1334,7 @@ defineTrait{
 	name = "sea_dog",
 	uiName = "Sea Dog",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 118,
+	icon = 90,
 	description = "You deal 30% more melee damage from the backline and 30% more firearm damage from the frontline."
 }
 
@@ -1303,7 +1342,7 @@ defineTrait{
 	name = "freebooter",
 	uiName = "Freebooter",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 118,
+	icon = 91,
 	description = "Cannon balls in your inventory weight 80% less.",
 }
 
@@ -1311,7 +1350,7 @@ defineTrait{
 	name = "broadside",
 	uiName = "Broadside",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 118,
+	icon = 92,
 	description = "Pellets and cannon balls have a 40% chance to create shrapnel on impact, doing half damage to a 3-tile area behind the target.",
 }
 
@@ -1320,21 +1359,23 @@ defineTrait{
 	name = "green_thumb",
 	uiName = "Green Thumb",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 118,
+	icon = 93,
 	description = "Herbs multiply while in your inventory. Spreading the herbs out or having multiple alchemists don't affect the multiplication.",
 }
 
 defineTrait{
 	name = "bomb_multiplication",
 	uiName = "Bomb Multiplication",
-	icon = 53,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 94,
 	description = "When throwing a bomb, there's a 10% chance you alchemically clone it on the spot.\n\n- Chance increases by 0.5% per Dexterity per point.",
 }
 
 defineTrait{
 	name = "bomb_expert",
 	uiName = "Bomb Expert",
-	icon = 22,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 95,
 	description = "When crafting bombs you get three bombs instead of one.",
 }
 
@@ -1342,7 +1383,8 @@ defineTrait{
 defineTrait{
 	name = "dual_wield",
 	uiName = "Dual Wielding",
-	icon = 19,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 96,
 	description = "You can attack separately with Light Weapons in either hand. One of the weapons must be a dagger. Both weapons suffer a 40% penalty to the items' base damage when dual wielding.",
 	-- hardcoded skill
 }
@@ -1350,14 +1392,16 @@ defineTrait{
 defineTrait{
 	name = "double_attack",
 	uiName = "Double Attack",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 97,
 	description = "You gain 25% chance to attack twice with Light Weapons.",
 }
 
 defineTrait{
 	name = "improved_dual_wield",
 	uiName = "Dual Wield Mastery",
-	icon = 107,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 98,
 	description = "You can dual wield any two Light Weapons. Both weapons still suffer a 40% penalty to the items' base damage when dual wielding.",
 	-- hardcoded skill
 }
@@ -1366,21 +1410,24 @@ defineTrait{
 defineTrait{
 	name = "rend",
 	uiName = "Rend",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 99,
 	description = "Power attacks have a 30% chance to cause enemies to bleed.",
 }
 
 defineTrait{
 	name = "power_grip",
 	uiName = "Power Grip",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 100,
 	description = "Heavy Weapon attacks gain 1% more damage per 5 points of health you have, plus 10% per 100 health.",
 }
 
 defineTrait{
 	name = "two_handed_mastery",
 	uiName = "Two-Handed Mastery",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 101,
 	description = "You can wield two-handed weapons in one hand.",
 }
 
@@ -1389,7 +1436,7 @@ defineTrait{ -- to do
 	name = "staff_fighter",
 	uiName = "Staff Fighter",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 101,
+	icon = 102,
 	description = "You can hold a staff in one hand.",
 }
 
@@ -1397,7 +1444,7 @@ defineTrait{
 	name = "spell_slinger",
 	uiName = "Spell Slinger",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 101,
+	icon = 103,
 	description = "Cast a basic spell to memorize it. You'll automatically cast this spell with melee attacks at 10% chance.",
 }
 
@@ -1405,7 +1452,7 @@ defineTrait{
 	name = "mage_spark_memo",
 	uiName = "Memorized Spell",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 101,
+	icon = 104,
 	description = "You memorized the Mage Spark spell.",
 }
 
@@ -1413,7 +1460,7 @@ defineTrait{
 	name = "fireburst_memo",
 	uiName = "Memorized Spell",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 101,
+	icon = 105,
 	description = "You memorized the Fireburst spell.",
 }
 
@@ -1421,7 +1468,7 @@ defineTrait{
 	name = "frost_burst_memo",
 	uiName = "Memorized Spell",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 101,
+	icon = 106,
 	description = "You memorized the Frost Burst spell.",
 }
 
@@ -1429,7 +1476,7 @@ defineTrait{
 	name = "shock_memo",
 	uiName = "Memorized Spell",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 101,
+	icon = 107,
 	description = "You memorized the Shock spell.",
 }
 
@@ -1437,7 +1484,7 @@ defineTrait{
 	name = "poison_cloud_memo",
 	uiName = "Memorized Spell",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 101,
+	icon = 108,
 	description = "You memorized the Poison Cloud spell.",
 }
 
@@ -1445,7 +1492,7 @@ defineTrait{
 	name = "arcane_warrior",
 	uiName = "Arcane Warrior",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 102,
+	icon = 109,
 	description = "Non-ultimate level spells gain damage equal to 10% of your melee weapon damage and accuracy.",
 }
 
@@ -1453,16 +1500,24 @@ defineTrait{
 	name = "mage_strike",
 	uiName = "Mage Strike",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 102,
+	icon = 110,
 	description = "Your spells gain double the critical chance from the Critical skill and a flat +6%.",
 }
 
 -- Elemental Magic
 defineTrait{
+	name = "aggregate",
+	uiName = "Aggregate",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 111,
+	description = "Hitting a monster with an element it resists will buff your next hit of that element by 20%.",
+}
+
+defineTrait{
 	name = "elemental_exploitation",
 	uiName = "Elemental Exploitation",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 104,
+	icon = 112,
 	description = "Deal 25% more damage if the enemy is vulnerable to that element.",
 }
 
@@ -1470,7 +1525,7 @@ defineTrait{
 	name = "elemental_armor",
 	uiName = "Elemental Armor",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 105,
+	icon = 113,
 	description = "You gain +20% Resist Fire, Shock and Cold.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
@@ -1486,14 +1541,14 @@ defineTrait{
 	name = "venomancer",
 	uiName = "Venomancer",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 106,
+	icon = 114,
 	description = "10% chance to poison enemies with melee, missile and throwing attacks.",
 }
 defineTrait{ -- to do
 	name = "plague",
 	uiName = "Plague",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 106,
+	icon = 115,
 	description = "Your poison spells have a larger area of effect and can't damage your party.",
 }
 
@@ -1501,7 +1556,7 @@ defineTrait{
 	name = "antivenom",
 	uiName = "Anti-venom",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 107,
+	icon = 116,
 	description = "+35% Resist Poison and immunity to being poisoned.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
@@ -1519,21 +1574,24 @@ defineTrait{
 defineTrait{
 	name = "meditation",
 	uiName = "Meditation",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 117,
 	description = "Your Energy regeneration rate is increased by 25% while resting.",
 }
 
 defineTrait{ -- to do
 	name = "imperium_arcana",
 	uiName = "Imperium Arcana",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 118,
 	description = "For every 100 Max Energy, neutral spells deal 30% more damage and others deal 15% more.",
 }
 
 defineTrait{
 	name = "arcane_extraction",
 	uiName = "Arcane Extraction",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 119,
 	description = "Energy potions recover 25% more, while also regenerating 25 health. At the same time, healing potions recover 25 energy.",
 }
 
@@ -1541,20 +1599,91 @@ defineTrait{
 defineTrait{
 	name = "ritual",
 	uiName = "Ritual",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 120,
 	description = "Heals the party for 10% of the damage done with spells.", -- (not dot)
 }
 
 defineTrait{ -- to do
 	name = "moon_rites",
 	uiName = "Moon Rites",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 121,
 	description = "Energy regeneration rate increased by 50% during the night.",
 }
 
 defineTrait{ -- to do
 	name = "voodoo",
 	uiName = "Voodoo",
-	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 122,
 	description = "You can obtain voodoo dolls of monsters by slaying them.",
+}
+
+-- Tinkering
+defineTrait{
+	name = "tinkering",
+	uiName = "Tinkering",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 123,
+	description = "All upgrades require 1 Lockpick.",
+	gameEffect = [[
+	~ 1-Handed Weapons and Missile ~
+	2 Common Metal
+	
+	~ 2-Handed Weapons ~
+	3 All-Purpose Metal
+	
+	~ Firearms ~
+	2 Explosive Core
+	
+	~ Light Armor ~
+	2 Leather Strip
+	
+	~ Heavy Armor and Shields ~
+	2 All-Purpose Metal ]],
+}
+
+defineTrait{
+	name = "dismantler",
+	uiName = "Dismantler",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 124,
+	description = "You can dismantle items into extra lockpicks.",
+	gameEffect = [[
+	- Put 9 dismantle-able items into a container and right-click the container.
+	- Dismantle-able items have a red hammer icon on them (when in the Tinkerer's inventory).]],
+}
+
+defineTrait{
+	name = "pyrotechnician",
+	uiName = "Pyrotechnician",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 125,
+	description = "You can craft bombs and pellets.",
+}
+
+defineTrait{
+	name = "multipurpose",
+	uiName = "Multipurpose",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 126,
+	description = "Unlock chests without a lockpick, at the cost of Energy.",
+}
+
+defineTrait{ -- to do
+	name = "mastersmith",
+	uiName = "Mastersmith",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 127,
+	description = "You can upgrade Epic items.",
+}
+
+defineTrait{ 
+	name = "bleeding",
+	uiName = "Bleeding",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 1,
+	hidden = true,
+	description = "",
 }

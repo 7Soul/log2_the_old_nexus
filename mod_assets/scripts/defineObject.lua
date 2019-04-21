@@ -66,6 +66,10 @@ local onDamage = function(self, damage, damageType)
 	functions.script.onDamageMonster(self, damage, damageType)
 end
 
+local onAnimationEvent = function(self, event)
+	functions.script.onAnimationEvent(self, event)
+end
+
 local onWInit = function(self)
 	if self.go.item:hasTrait("flurry") then
 		local c = self.go:createComponent("MeleeAttack","flurry")
@@ -142,6 +146,9 @@ defineObject = function(def)
 				c.onDie = onMonsterDie
 				c.onDamage = onDamageMonster
 				c.onProjectileHit = onProjectileHitMonster
+			end
+			if c.class == "Animation" then
+				c.onAnimationEvent = onAnimationEvent
 			end
 		end
 	end

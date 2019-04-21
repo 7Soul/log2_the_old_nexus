@@ -10,77 +10,77 @@ starting_spells_level = 0        -- The maximum total requirements of the starti
 defOrdered =
 { 
 
-{
-  name = "psionic_arrow",
-  uiName = "Psionic Arrow",
-  gesture = 0,
-  manaCost = 10,
-  skill = "missile_weapons",
-  requirements = {  },
-  icon = 61,
-  spellIcon = 7,
-  hidden = true,
-  description = "",
-  onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
-    local power = spells_functions.script.getPower(1, champion, "missile_weapons", "neutral", 1)	
-    local ord = champion:getOrdinal()
-    spells_functions.script.missile("psionic_arrow", ord, power, nil, true)
-    spells_functions.script.stopInvisibility()
-  end
-},
+	{
+		name = "psionic_arrow",
+		uiName = "Psionic Arrow",
+		gesture = 0,
+		manaCost = 10,
+		skill = "missile_weapons",
+		requirements = {  },
+		icon = 61,
+		spellIcon = 7,
+		hidden = true,
+		description = "",
+		onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
+			local power = spells_functions.script.getPower(1, champion, "missile_weapons", "neutral", 1)	
+			local ord = champion:getOrdinal()
+			spells_functions.script.missile("psionic_arrow", ord, power, nil, true)
+			spells_functions.script.stopInvisibility()
+		end
+	},
 
-{
-  name = "liz_bite",
-  uiName = "Bite",
-  gesture = 0,
-  manaCost = 10,
-  skill = "",
-  requirements = {  },
-  icon = 61,
-  spellIcon = 7,
-  hidden = true,
-  description = "",
-  onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
-    local ord = champion:getOrdinal()
-    local power = functions.script.get_c("bite_damage", ord) * (math.random() + 0.5)
-    spells_functions.script.frontAttack("liz_bite", power, ord)
-    spells_functions.script.stopInvisibility()
-  end
-},
+	{
+		name = "liz_bite",
+		uiName = "Bite",
+		gesture = 0,
+		manaCost = 10,
+		skill = "",
+		requirements = {  },
+		icon = 61,
+		spellIcon = 7,
+		hidden = true,
+		description = "",
+		onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
+			local ord = champion:getOrdinal()
+			local power = functions.script.get_c("bite_damage", ord) * (math.random() + 0.5)
+			spells_functions.script.frontAttack("liz_bite", power, ord)
+			spells_functions.script.stopInvisibility()
+		end
+	},
 
-{ 
-  name = "mage_spark",
-  uiName = "Mage Spark",
-  gesture = 5,
-  manaCost = 20,
-  skill = "elemental_magic",
-  requirements = { },
-  icon = 60,
-  spellIcon = 1,
-  description = "The most basic of offensive spells. Conjures a random elemental burst of energy in front of you.\n- Cost : 20 energy\n- Power : 18",
-  onCast = function(champion, x, y, direction, elevation, skillLevel)
-	local element_list = { "fire", "cold", "shock" }
-	local element = element_list[math.ceil(math.random() * 3)]
-	local id = champion:getOrdinal()
-	if functions.script.get_c("ruby_charges", id) and functions.script.get_c("ruby_charges", id) > 0 then
-		element = "fire"
-	elseif functions.script.get_c("aquamarine_charges", id) and functions.script.get_c("aquamarine_charges", id) > 0 then
-		element = "cold"
-	elseif functions.script.get_c("topaz_charges", id) and functions.script.get_c("topaz_charges", id) > 0 then
-		element = "shock"
-	end
-	
-    local power = spells_functions.script.getPower(18, champion, "elemental_magic", element, 1)
-	if element == "fire" then
-		spells_functions.script.frontAttack("fireburst", power, champion:getOrdinal())
-	elseif element == "cold" then	
-		spells_functions.script.frontAttack("frostburst_cast", power, champion:getOrdinal())
-	else
-		spells_functions.script.frontAttack("shockburst", power, champion:getOrdinal())
-	end
-    spells_functions.script.stopInvisibility()
-  end
-},
+	{ 
+		name = "mage_spark",
+		uiName = "Mage Spark",
+		gesture = 5,
+		manaCost = 20,
+		skill = "elemental_magic",
+		requirements = { },
+		icon = 60,
+		spellIcon = 1,
+		description = "The most basic of offensive spells. Conjures a random elemental burst of energy in front of you.\n- Cost : 20 energy\n- Power : 18",
+		onCast = function(champion, x, y, direction, elevation, skillLevel)
+			local element_list = { "fire", "cold", "shock" }
+			local element = element_list[math.ceil(math.random() * 3)]
+			local id = champion:getOrdinal()
+			if functions.script.get_c("ruby_charges", id) and functions.script.get_c("ruby_charges", id) > 0 then
+				element = "fire"
+			elseif functions.script.get_c("aquamarine_charges", id) and functions.script.get_c("aquamarine_charges", id) > 0 then
+				element = "cold"
+			elseif functions.script.get_c("topaz_charges", id) and functions.script.get_c("topaz_charges", id) > 0 then
+				element = "shock"
+			end
+
+			local power = spells_functions.script.getPower(18, champion, "elemental_magic", element, 1)
+			if element == "fire" then
+				spells_functions.script.frontAttack("fireburst", power, champion:getOrdinal())
+			elseif element == "cold" then	
+				spells_functions.script.frontAttack("frostburst_cast", power, champion:getOrdinal())
+			else
+				spells_functions.script.frontAttack("shockburst", power, champion:getOrdinal())
+			end
+			spells_functions.script.stopInvisibility()
+		end
+	},
 
 -- concentration
 
@@ -378,20 +378,20 @@ defOrdered =
 -- fire magic
 
 { 
-  name = "fireburst",
-  uiName = "Fireburst",
-  gesture = 1,
-  manaCost = 25,
-  skill = "elemental_magic",
-  requirements = { "elemental_magic", 1, "concentration", 1 },
-  icon = 60,
-  spellIcon = 1,
-  description = "Conjures a blast of fire that deals fire damage to all foes directly in front of you.\n- Cost : 25 energy\n- Power : 22",
-  onCast = function(champion, x, y, direction, elevation, skillLevel)
-    local power = spells_functions.script.getPower(22, champion, "elemental_magic", "fire")
-    spells_functions.script.frontAttack("fireburst", power, champion:getOrdinal())
-    spells_functions.script.stopInvisibility()
-  end
+	name = "fireburst",
+	uiName = "Fireburst",
+	gesture = 1,
+	manaCost = 25,
+	skill = "elemental_magic",
+	requirements = { "elemental_magic", 1, "concentration", 1 },
+	icon = 60,
+	spellIcon = 1,
+	description = "Conjures a blast of fire that deals fire damage to all foes directly in front of you.\n- Cost : 25 energy\n- Power : 22",
+	onCast = function(champion, x, y, direction, elevation, skillLevel)
+		local power = spells_functions.script.getPower(22, champion, "elemental_magic", "fire")
+		spells_functions.script.frontAttack("fireburst", power, champion:getOrdinal())
+		spells_functions.script.stopInvisibility()
+	end
 },
 
 -- {
@@ -2357,11 +2357,23 @@ function frontAttack(attack, power, ordinal)
 	if champion:hasTrait("elemental_exploitation") then
 		functions.script.set_c("elemental_exploitation", ordinal, true)
 	end
+	
 	if champion:hasTrait("ritual") then
 		functions.script.set_c("ritual", ordinal, true)
 	end
+	
 	if champion:getClass() == "hunter" then
 		functions.script.set_c("wisdom_of_the_tribe", ordinal, true)
+	end
+	
+	if champion:getClass() == "druid" then
+		local druidItem = functions.script.get_c("druid_item", champion:getOrdinal())
+		if druidItem then
+			if druidItem == "crystal_flower" then
+				if a.tiledamager then a.tiledamager:setDamageType("poison") end
+				if a.cloudspell then a.cloudspell:setDamageType("poison") end
+			end
+		end
 	end
 	-- if attack == "poison_cloud_large" then
 		-- local success = 0
