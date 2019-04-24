@@ -85,6 +85,7 @@ defineObject{
 			impactSound = "impact_blade",
 			weight = 2.4,
 			traits = { "heavy_weapon", "axe", "upgradable", "dismantle", "chop" },
+			secondaryAction = "chop",
 		},
 		{
 			class = "MeleeAttack",
@@ -92,7 +93,18 @@ defineObject{
 			accuracy = 0,
 			cooldown = 4.5,
 			swipe = "vertical",
-			attackSound = "swipe",
+			attackSound = "swipe"
+		},
+		{
+			class = "MeleeAttack",
+			name = "chop",
+			onHitMonster = function(self, monster, tside, damage, champion)
+				local secondary2 = functions.script.secondary
+				local item = self.go.item
+				functions.script.monster_attacked(self, monster, tside, damage, champion)
+				functions.script.reset_attack(self, champion, slot, secondary2, item) -- (when hit)
+			end
+			
 		},
 	},
 	tags = { "weapon", "weapon_heavy", "weapon_axe" },

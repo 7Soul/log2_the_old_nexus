@@ -592,7 +592,7 @@ defineTrait{
 	name = "elemental_surge",
 	uiName = "Elemental Surge",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 144,	
+	icon = 132,	
 	description = "Fire and Shock damage is increased based on your Fire and Shock resistances.",
 	gameEffect = [[- Firearm attacks have 50% of their damage converted to Fire.
 	- Melee attacks have 50% of their damage converted to Shock.]],
@@ -1073,7 +1073,20 @@ defineTrait{
 	uiName = "Endurance",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 66,
-	description = "Increases resistance to leg wounds by 10%, plus 10% if wearing Light Armor pants or 20% if wearing Heavy Armor pants.",
+	description = "Increases resistance to feet and leg wounds by 20%. Wearing Heavy boots doubles that effect.",
+	onReceiveCondition = function(champion, cond, level)
+		if level > 0 then
+			local bonus = 0.2
+			local item = champion:getItem(6)
+			if item and item:hasTrait("heavy_armor") then
+				bonus = 0.4
+			end
+			
+			if cond == ("leg_wound" or cond == "feet_wound") and math.random() <= bonus then
+				return false
+			end
+		end
+	end,
 }
 
 defineTrait{
@@ -1090,7 +1103,7 @@ defineTrait{
 	uiName = "Block",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 69,
-	description = "Gain +10% chance to block a physical attack with a shield.",
+	description = "Gain 10% chance to block a physical attack with a shield.",
 }
 
 defineTrait{
@@ -1179,8 +1192,9 @@ defineTrait{
 			level = champion:getLevel()
 			local all_heavy = functions.script.wearingAll(champion, "heavy_armor")
 			if all_heavy then
-				champion:addStatModifier("protection", 5)
-				champion:addStatModifier("strength", 1)
+				local multi = champion:hasTrait("armor_training") and 2 or 1
+				champion:addStatModifier("protection", 5 * multi)
+				champion:addStatModifier("strength", 2 * multi)
 			end
 		end
 	end,
@@ -1191,7 +1205,17 @@ defineTrait{
 	uiName = "Heavy Conditioning",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 76,
-	description = "Heavy Armor weights 75% less.",
+	description = "Increase Health by 50 when wearing all heavy armor.",
+	onRecomputeStats = function(champion, level)
+		if level > 0 then
+			level = champion:getLevel()
+			local all_heavy = functions.script.wearingAll(champion, "heavy_armor")
+			if all_heavy then
+				local multi = champion:hasTrait("armor_training") and 100 or 50
+				champion:addStatModifier("max_health", 50 * multi)
+			end
+		end
+	end,
 }
 
 defineTrait{
@@ -1199,7 +1223,18 @@ defineTrait{
 	uiName = "Armor Training",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 77,
-	description = "You're still wearing 'all heavy armor' even if your Helmet and Gloves are not heavy armor.",
+	description = [['All heavy armor' bonuses are doubled and work even if your Helmet and Gloves are not heavy armor. Light armor in those slots gain an extra 10% protection per level.]],
+	-- onReceiveCondition = function(champion, cond, level)
+		-- if level > 0 then
+			-- level = champion:getLevel()
+			-- local all_heavy = functions.script.wearingAll(champion, "heavy_armor")
+			-- if all_heavy then
+				-- if (cond == "bleeding" or cond == "stun") and math.random() <= 0.5 then
+					-- return false
+				-- end
+			-- end
+		-- end
+	-- end,
 }
 
 -- Accuracy

@@ -72,30 +72,32 @@ end
 
 local onWInit = function(self)
 	if self.go.item:hasTrait("flurry") then
-		local c = self.go:createComponent("MeleeAttack","flurry")
-		functions.script.updateSecondary(self, c, "flurry")		
+		local c = self.go:createComponent("MeleeAttack", "flurry")
+		functions.script.updateSecondary(self, c, "flurry")	
 	end
 	
 	if self.go.item:hasTrait("cleave") then
-		local c = self.go:createComponent("MeleeAttack","cleave")
+		local c = self.go:createComponent("MeleeAttack", "cleave")
 		functions.script.updateSecondary(self, c, "cleave")		
 	end
 	
 	if self.go.item:hasTrait("stun") then
-		local c = self.go:createComponent("MeleeAttack","stun")
+		local c = self.go:createComponent("MeleeAttack", "stun")
 		functions.script.updateSecondary(self, c, "stun")
 	end
 	
-	if self.go.item:hasTrait("chop") then
-		functions.script.derp()
+	if self.go.item:hasTrait("chop") and self:getName() ~= "meleeattack" then
 		if functions.script then
-			local c = self.go:createComponent("MeleeAttack","chop")
+			local c = self.go:getComponent("chop")
+			if not c then
+				c = self.go:createComponent("MeleeAttack", "chop")
+			end
 			functions.script.updateSecondary(self, c, "chop")
 		end
 	end
 	
 	if self.go.item:hasTrait("devastate") then
-		local c = self.go:createComponent("MeleeAttack","devastate")
+		local c = self.go:createComponent("MeleeAttack", "devastate")
 		functions.script.updateSecondary(self, c, "devastate")
 	end
 	
@@ -105,7 +107,7 @@ local onWInit = function(self)
 	end
 	
 	if self.go.item:hasTrait("volley") then
-		local c = self.go:createComponent("RangedAttack","volley")
+		local c = self.go:createComponent("RangedAttack", "volley")
 		functions.script.updateSecondary(self, c, "volley")
 	end
 end

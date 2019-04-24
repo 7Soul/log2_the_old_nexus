@@ -279,8 +279,8 @@ function checkWeights(id)
 			resetItemWeight(item, "spell_scroll")
 		end
 		
-		if champion:hasTrait("heavy_conditioning") then
-			setWeight(item, "heavy_armor", 0.25)
+		if champion:getSkillLevel("heavy_armor") > 0 then
+			setWeight(item, "heavy_armor", 1 - (champion:getSkillLevel("heavy_armor") * 0.15)) 
 		else
 			resetItemWeight(item, "heavy_armor")
 		end	
@@ -1218,19 +1218,22 @@ end
 function onMonsterDealDamage(self, champion, damage)
 	local item1 = champion:getItem(ItemSlot.Weapon)
 	local item2 = champion:getOtherHandItem(ItemSlot.Weapon)
+	local monster = self
 	-- Shield bash and blocking
 	if (item1 and item1:hasTrait("shield")) or (item2 and item2:hasTrait("shield")) then
-		if champion:hasTrait("block") and math.random() <= 0.1 then
+		local addedChance = math.max(champion:getSkillLevel("block") - 3, 0) / 50
+		if champion:hasTrait("block") and math.random() <= 0.9 + addedChance then
 			champion:setHealth(champion:getHealth() + math.ceil(damage * 0.5))
 			if champion:hasTrait("shield_bash") then
 				local dx,dy = getForward(party.facing)
 				local flags = DamageFlags.CameraShake
 				champion:playDamageSound()
-				if math.random() <= 0.5 then self.go.animation:play("getHitFrontRight") else self.go.animation:play("getHitFrontLeft") end
-				self.go.monster:showDamageText("" .. math.ceil(damage * 1.5), "FFFFFF", "Shield Bash!")
-				self.go.monster:setHealth(self.go.monster:getHealth() - math.ceil(damage * 1.5))
-				party.party:onDrawAttackPanel(self, champion, context, x, y)
-				context.drawImage2("mod_assets/textures/gui/block.dds", x+48, y-68, 0, 0, 128, 75, 128, 75)
+				delayedCall("functions", 0.15, "hitMonster", monster.go.id, math.ceil(damage * 1.5), "CCCCCC", "Shield Bash!", "physical", champion:getOrdinal())
+				--if math.random() <= 0.5 then self.go.animation:play("getHitFrontRight") else self.go.animation:play("getHitFrontLeft") end
+				--self.go.monster:showDamageText("" .. math.ceil(damage * 1.5), "FFFFFF", "Shield Bash!")
+				--self.go.monster:setHealth(self.go.monster:getHealth() - math.ceil(damage * 1.5))
+				--party.party:onDrawAttackPanel(self, champion, context, x, y)
+				--context.drawImage2("mod_assets/textures/gui/block.dds", x+48, y-68, 0, 0, 128, 75, 128, 75)
 			end
 		end
 	end
@@ -1271,14 +1274,12 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 		end
 	end
 	
-	monster:addTrait("bleeding")
-	monster.go.model:setEmissiveColor(vec(0.05,-.01,-.01))
-	
-	if champion:hasTrait("rend") and self.name == self.go.item:getSecondaryAction() then
+	print(self:getName())
+	print(self.go.item:getSecondaryAction())
+	if champion:hasTrait("rend") and self.go:getComponent(self.go.item:getSecondaryAction()):getName() == self.go.item:getSecondaryAction() then
 		local secondary = self.go:getComponent(self.go.item:getSecondaryAction() and self.go.item:getSecondaryAction() or "")
-		if secondary == self and math.random() <= 0.3 then
+		if secondary == self and math.random() <= 1 then
 			monster:addTrait("bleeding")
-			monster.go.model:setEmissiveColor(vec(0.01,-.01,-.01))
 		end
 	end	
 	
@@ -1508,8 +1509,13 @@ function onAnimationEvent(self, name)
 			monster:removeTrait("bleeding")
 			monster.go.model:setEmissiveColor(vec(0,0,0))
 		end
-		if name == "footstep" then
-			hitMonster(monster.go.id, math.random(monster:getHealth() * 0.01, monster:getHealth() * 0.03), "FF0000", nil, "physical", 1)
+		if name == "footstep" and math.random() <= 0.5 then
+			hitMonster(monster.go.id, math.random(monster:getHealth() * 0.015, monster:getHealth() * 0.03), "FF0000", nil, "physical", 1)
+			
+			monster.go:createComponent("Particle", "splatter")
+			monster.go.splatter:setOffset(vec(math.random() - 0.4, math.random() - 0.4 + 1, math.random() - 0.4))
+			monster.go.splatter:setParticleSystem("hit_blood")
+			monster.go.splatter:setDestroySelf(true)
 		end
 	end
 end
@@ -1543,7 +1549,7 @@ function hitMonster(id, damage, color, flair, damageType, championId)
 	
 	damage = empowerElement(champion, damageType, damage)
 	
-	if resistances == "weak" then
+	if resistances == "weak" and damageType ~= "physical" then
 		color = "FF0000"
 	else
 		color = "CCCCCC"
@@ -1699,18 +1705,14 @@ function regainEnergy(id, amount)
 	champion:regainEnergy(amount)
 end
 
-function manacost(champion, cost, element)
-	if element == "neutral" then
-		cost = cost * (champion:getClass() == "stalker" and (champion:hasTrait("night_stalker") and 0.33 or 0.66) or 1)
-		
-		local night_stalker_charges = functions.script.night_stalker[champion:getOrdinal()]
-		if not night_stalker_charges then night_stalker_charges = 0 end
-		cost = cost * (night_stalker_charges > 0 and 0 or 1)
-	end
-	
-	return cost
+function championBleed(champion, action)
+	local multi = { 0.01, 0.03 }
+	if action == "moving" then multi = { 0.03, 0.1 } end
+	if action == "attacking" then multi = { 0.05, 0.1 } end
+	champion:damage(math.random(champion:getMaxHealth() * multi[1], champion:getMaxHealth() * multi[2]), "bleed")
+	champion:playDamageSound()
 end
-
+	
 function class_skill(skill, champion)
 	if skill == "sneak_attack" then
 		print("skill sneak_attack")
@@ -1722,6 +1724,12 @@ function class_skill(skill, champion)
 	
 	elseif skill == "intensify_spell" then
 		print("skill intensify_spell")
+		if get_c("lastSpell", champion:getOrdinal()) then
+			set_c("intensifySpell", champion:getOrdinal(), get_c("lastSpell", champion:getOrdinal()))
+			print("set intensify_spell to " .. get_c("lastSpell", champion:getOrdinal()))
+		else
+			--no spell to intensify
+		end
 		champion:setConditionValue("recharging", 2)
 	
 	elseif skill == "drinker" then
@@ -1845,7 +1853,7 @@ function empowerElement(champion, element, damage)
 			f = f * bonus
 		end
 	end
-	
+	print(f)
 	return math.ceil(f)
 end
 

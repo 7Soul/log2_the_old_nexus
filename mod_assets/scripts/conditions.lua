@@ -550,20 +550,25 @@ defineCondition{
 defineCondition{
 	name = "bleeding",
 	uiName = "Bleeding",
-	description = "You damage over time and when moving.",
+	description = "Take damage over time, doubled when moving and tripled when attacking.",
 	icon = 17,
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
-	beneficial = true,
-	harmful = false,
-	tickInterval = 1,
+	beneficial = false,
+	harmful = true,
+	tickInterval = 3,
 	onStart = function(self, champion)
-		--playSound("dark_bolt")
+		champion:setConditionValue("bleeding", 60)
 	end,
 	onStop = function(self, champion)
 	end,
 	onRecomputeStats = function(self, champion)
 	end,
 	onTick = function(self, champion)
-		champion:regainHealth(champion:getMaxHealth() * 0.05)
+		champion:damage(math.random(champion:getMaxHealth() * 0.01, champion:getMaxHealth() * 0.03), "bleed")
+		champion:playDamageSound()
+		local chance = champion:getConditionValue("bleeding") < 30 and 0.05 or 0.01
+		if math.random() <= chance then
+			champion:removeCondition("bleeding")
+		end
 	end,	
 }

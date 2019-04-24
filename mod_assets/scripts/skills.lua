@@ -3,36 +3,20 @@ defineSkill{
 	uiName = "Athletics",
 	priority = 10,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 1,
-	description = [[Increases your health by 20 and carrying capacity by 1kg for each skill point. 
+	icon = 0,
+	description = [[Increases your Health by 20 and weigth limit by 1kg for each skill point. 
 
 	Perks:
-	- Level 2 | Your carrying capacity is increased by 10 kg.
-	- Level 4 | Increases resistance to leg wounds by 10%, plus 10% if wearing Light Armor boots or 30% if wearing Heavy Armor boots.
-	- Level 5 | Healing potions heal 25% more, with some extra healing applied instantly.]],
+	- Level 2 | Your weigth limit is increased by 10kg.
+	- Level 4 | Increases resistance to feet and leg wounds by 20%. Wearing Heavy boots doubles that effect.
+	- Level 5 | Healing potions heal 25% more, with extra healing applied instantly.]],
 	traits = { [2] = "pack_mule", [4] = "endurance", [5] = "refreshed" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			champion:addStatModifier("max_health", level * 20)
 			champion:addStatModifier("max_load", level)
 		end
-	end,
-	onReceiveCondition = function(champion, cond, level)
-		if level > 0 then
-			local bonus = 0
-			local item = champion:getItem(6)
-			if item then
-				if item:hasTrait("heavy_armor") then
-					bonus = 0.3
-				else
-					bonus = 0.1
-				end
-			end
-			if cond == "leg_wound" and math.random() <= 0.1 + bonus then
-				return false
-			end
-		end
-	end,
+	end	
 }
 
 defineSkill{
@@ -40,13 +24,13 @@ defineSkill{
 	uiName = "Block",
 	priority = 20,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 2,
-	description = [[Increases all resistances by 2 per skill level when holding a shield. 
+	icon = 1,
+	description = [[When holding a shield, increases protection and resistances by 2 for each skill point. 
 		
 	Perks:
 	- Level 2 | Gain 10% chance to block an attack.
-	- Level 4 | Immunity against hand and chest wounds.
-	- Level 5 | Bashes the enemy for 150% of the damage received when you block an attack.]],
+	- Level 4 | Immunity against hand and chest wounds. Block chance +2%.
+	- Level 5 | Bashes the enemy for 150% of the damage received when you block an attack. Block chance +2%.]],
 	traits = { [2] = "block", [4] = "shield_bearer", [5] = "shield_bash" },
 	onRecomputeStats = function(champion, level)
 		local skillLevel = champion:getSkillLevel("block")
@@ -54,6 +38,7 @@ defineSkill{
 		champion:addStatModifier("resist_cold", 2 * skillLevel)
 		champion:addStatModifier("resist_poison", 2 * skillLevel)
 		champion:addStatModifier("resist_shock", 2 * skillLevel)
+		champion:addStatModifier("protection", 2 * skillLevel)
 	end,
 }
 
@@ -62,7 +47,7 @@ defineSkill{
 	uiName = "Light Armor",
 	priority = 30,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 3,
+	icon = 2,
 	description = [[Each point reduces the evasion penalties from wearing Light Armor by 20% and increases the protection they provide by 5% per level.
 	
 	Perks:
@@ -88,13 +73,14 @@ defineSkill{
 	uiName = "Heavy Armor",
 	priority = 40,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 4,
+	icon = 3,
 	description = [[Each point reduces the evasion penalties from wearing Heavy Armor by 20% and increases the protection they provide by 5% per level.
+	Reduces the weigth of armor in your inventory by 15% per point.
 	
 	Perks:
-	- Level 2 | Gain +5 Protection and +1 Strength when wearing heavy armor in all 5 slots.
-	- Level 4 | Heavy Armor weights 75% less.
-	- Level 5 | You're still wearing 'all heavy armor' even if your Helmet and Gloves are not heavy armor.]],
+	- Level 2 | Gain +5 Protection and +2 Strength when wearing heavy armor in all 5 slots.
+	- Level 4 | Increases Health by 50 when wearing all heavy armor.
+	- Level 5 | 'All heavy armor' bonuses are doubled and work even if your Helmet and Gloves are not heavy armor. Light armor in those slots gain an extra 10% protection per level.]],
 	traits = { [2] = "armored_up", [4] = "heavy_conditioning", [5]="armor_training" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 and functions ~= nil and Time.currentTime() > 3 then
@@ -103,6 +89,9 @@ defineSkill{
 				if champion:getItem(v) and champion:getItem(v):hasTrait("heavy_armor") then
 					champion:addStatModifier("evasion", champion:getSkillLevel("heavy_armor") * 2)
 					champion:addStatModifier("protection", champion:getItem(v).go.equipmentitem:getProtection() * 0.05 * champion:getSkillLevel("heavy_armor"))
+				elseif champion:getItem(v) and champion:hasTrait("armor_training") and (champion:getItem(v):hasTrait("light_armor") or champion:getItem(v):hasTrait("clothes")) then
+					champion:addStatModifier("evasion", champion:getSkillLevel("heavy_armor") * 2)
+					champion:addStatModifier("protection", champion:getItem(v).go.equipmentitem:getProtection() * 0.15 * champion:getSkillLevel("heavy_armor"))
 				end
 			end
 		end
@@ -114,7 +103,7 @@ defineSkill{
 	uiName = "Accuracy",
 	priority = 50,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 5,
+	icon = 4,
 	description = [[Increases your Accuracy by 10 for each skill point.
 	
 	Perks:
@@ -134,7 +123,7 @@ defineSkill{
 	uiName = "Critical",
 	priority = 60,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 6,
+	icon = 5,
 	description = [[Increases critical chance with physical attacks by 3% and spells by 1% for each skill point.
 	
 	Perks:
@@ -152,7 +141,7 @@ defineSkill{
 	uiName = "Firearms",
 	priority = 70,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 7,
+	icon = 6,
 	description = [[Increases range of firearm attacks by 1 square for each skill point, decreases the chance of a firearm malfunctioning and gives 10% chance per level to pierce 5 armor.
 	
 	Perks:
@@ -167,13 +156,13 @@ defineSkill{
 	uiName = "Seafaring",
 	priority = 80,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 8,
+	icon = 7,
 	description = [[Increases evasion by 3 point per skill level when fighting multiple foes.
 	
 	Perks:
 	- Level 2 | You deal 30% more melee damage from the backline and 30% more firearm damage from the frontline.
 	- Level 4 | Cannon balls in your inventory weight 80% less.
-	- Level 5 | Pellets and cannon balls have a 40% chance to create shrapnel on impact, doing half damage to the enemy behind your target.]],
+	- Level 5 | Pellets and cannon balls have a 40% chance to create shrapnel on impact, doing half damage to a 3-tile area behind the target.]],
 	traits = { [2] = "sea_dog", [4] = "freebooter", [5] = "broadside" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 then
@@ -189,7 +178,7 @@ defineSkill{
 	uiName = "Alchemy",
 	priority = 90,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 9,
+	icon = 8,
 	description = [[A higher skill level in Alchemy allows you to brew a wider range of potions. To craft potions you also need herbs and a Mortar and Pestle.
 	
 	Perks:
@@ -208,7 +197,7 @@ defineSkill{
 	uiName = "Ranged Weapons",
 	priority = 100,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 10,
+	icon = 9,
 	description = [[Increases damage of Missiles and Throwing Weapons attacks by 20% for each skill point. 
 	
 	Perks:
@@ -223,7 +212,7 @@ defineSkill{
 	uiName = "Light Weapons",
 	priority = 110,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 11,
+	icon = 10,
 	description = [[Increases damage of Light Weapons by 20% for each skill point. 
 	
 	Perks:
@@ -238,7 +227,7 @@ defineSkill{
 	uiName = "Heavy Weapons",
 	priority = 120,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 12,
+	icon = 11,
 	description = [[Increases damage of Heavy Weapons by 20% for each skill point. 
 	
 	Perks:
@@ -253,7 +242,7 @@ defineSkill{
 	uiName = "Spellblade",
 	priority = 130,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 13,
+	icon = 12,
 	description = [[Increase Protection and Accuracy by 3 for each skill point when holding a staff.
 	
 	Perks:
@@ -291,7 +280,7 @@ defineSkill{
 	uiName = "Elemental Magic",
 	priority = 140,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 14,
+	icon = 13,
 	description = [[Increases all elemental damage by 20% for each skill point.
 	
 	Perks:
@@ -306,13 +295,13 @@ defineSkill{
 	uiName = "Poison Mastery",
 	priority = 150,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 15,
-	description = [[Increases damage of poison spells by 20% for each skill point.
+	icon = 14,
+	description = [[Increases all poison damage by 20% for each skill point.
 	
 	Perks:
 	- Level 2 | 10% chance to poison enemies with melee, missile and throwing attacks.
-	- Level 4 | Your poison spells have a larger area of effect and can't damage your party.
-	- Level 5 | +35% Resist Poison and immunity to being poisoned.]],
+	- Level 4 | Poison spreads between enemies. +5% Chance to poison.
+	- Level 5 | Enemies take increased damage from the poison status, an effect which also heals you.]],
 	traits = { [2] = "venomancer", [4] = "plague", [5] = "antivenom" },
 }
 
@@ -321,7 +310,7 @@ defineSkill{
 	uiName = "Magic Training",
 	priority = 160,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 16,
+	icon = 15,
 	description = [[Increases your energy by 20 for each skill point. 
 	
 	Perks:
@@ -343,7 +332,7 @@ defineSkill{
 	uiName = "Witchcraft",
 	priority = 170,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 17,
+	icon = 16,
 	description = [[Increases the damage and effect of witchcraft spells by 20% for each skill point.
 	
 	Perks:
@@ -362,7 +351,7 @@ defineSkill{
 	uiName = "Tinkering",
 	priority = 180,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 18,
+	icon = 17,
 	description = [[Allows you to upgrade equipments, increasing their stats. Requires a Tinkerer's Toolbox and crafting materials.
 	- Raises your tinkering level after 3 successful upgrades and after leveling this skill.
 	- Each skill point increases the stats by an additional 5%.

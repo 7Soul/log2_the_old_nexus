@@ -59,11 +59,13 @@ defineObject{
 		},
 		{
 			class = "UsableItem",
-			emptyItem = "flask",
+			--emptyItem = "flask",
 			sound = "consume_potion",
 			onUseItem = function(self, champion)
 				champion:setConditionValue("healing_potion", 16)
 				champion:playHealingIndicator()
+				party.party.onDrawAttackPanel(self, champion, context, x, y)
+				context.drawImage2("mod_assets/textures/gui/block.dds", x+48, y-68, 0, 0, 128, 75, 128, 75)
 			end,
 		},
 	},
@@ -89,7 +91,7 @@ defineObject{
 		},
 		{
 			class = "UsableItem",
-			emptyItem = "flask",
+			--emptyItem = "flask",
 			sound = "consume_potion",
 			onUseItem = function(self, champion)
 				champion:setConditionValue("healing_potion2", 8)
@@ -119,7 +121,7 @@ defineObject{
 		},
 		{
 			class = "UsableItem",
-			emptyItem = "flask",
+			--emptyItem = "flask",
 			sound = "consume_potion",
 			onUseItem = function(self, champion)
 				champion:setConditionValue("energy_potion", 16)
@@ -149,7 +151,7 @@ defineObject{
 		},
 		{
 			class = "UsableItem",
-			emptyItem = "flask",
+			--emptyItem = "flask",
 			sound = "consume_potion",
 			onUseItem = function(self, champion)
 				champion:setConditionValue("energy_potion2", 8)

@@ -5897,7 +5897,7 @@ turtle_7.detectedtimer:setTimerInterval(0)
 turtle_7.detectedtimer:setDisableSelf(false)
 turtle_7.detectedtimer:setTriggerOnStart(true)
 turtle_7.detectedtimer:setCurrentLevelOnly(true)
-spawn("tinkering_toolbox",10,14,3,0,"tinkering_toolbox_1")
+spawn("tinkering_toolbox",10,13,3,0,"tinkering_toolbox_1")
 tinkering_toolbox_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -5905,7 +5905,7 @@ end\
 function set(self,name,value)\
 \9self.data[name] = value\
 end")
-spawn("dagger",10,14,3,0,"dagger_2")
+spawn("dagger",10,13,3,0,"dagger_2")
 dagger_2.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -5918,7 +5918,7 @@ dagger_2.detectedtimer:setDisableSelf(false)
 dagger_2.detectedtimer:setTriggerOnStart(true)
 dagger_2.detectedtimer:setCurrentLevelOnly(true)
 tinkering_toolbox_1.containeritem:addItem(dagger_2.item)
-spawn("dagger",10,14,3,0,"dagger_3")
+spawn("dagger",10,13,3,0,"dagger_3")
 dagger_3.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -5931,7 +5931,7 @@ dagger_3.detectedtimer:setDisableSelf(false)
 dagger_3.detectedtimer:setTriggerOnStart(true)
 dagger_3.detectedtimer:setCurrentLevelOnly(true)
 tinkering_toolbox_1.containeritem:addItem(dagger_3.item)
-spawn("dagger",10,14,3,0,"dagger_4")
+spawn("dagger",10,13,3,0,"dagger_4")
 dagger_4.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -5944,7 +5944,7 @@ dagger_4.detectedtimer:setDisableSelf(false)
 dagger_4.detectedtimer:setTriggerOnStart(true)
 dagger_4.detectedtimer:setCurrentLevelOnly(true)
 tinkering_toolbox_1.containeritem:addItem(dagger_4.item)
-spawn("dagger",10,14,3,0,"dagger_5")
+spawn("dagger",10,13,3,0,"dagger_5")
 dagger_5.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -5957,7 +5957,7 @@ dagger_5.detectedtimer:setDisableSelf(false)
 dagger_5.detectedtimer:setTriggerOnStart(true)
 dagger_5.detectedtimer:setCurrentLevelOnly(true)
 tinkering_toolbox_1.containeritem:addItem(dagger_5.item)
-spawn("dagger",10,14,3,0,"dagger_6")
+spawn("dagger",10,13,3,0,"dagger_6")
 dagger_6.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -5970,7 +5970,7 @@ dagger_6.detectedtimer:setDisableSelf(false)
 dagger_6.detectedtimer:setTriggerOnStart(true)
 dagger_6.detectedtimer:setCurrentLevelOnly(true)
 tinkering_toolbox_1.containeritem:addItem(dagger_6.item)
-spawn("dagger",10,14,3,0,"dagger_7")
+spawn("dagger",10,13,3,0,"dagger_7")
 dagger_7.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -5983,7 +5983,7 @@ dagger_7.detectedtimer:setDisableSelf(false)
 dagger_7.detectedtimer:setTriggerOnStart(true)
 dagger_7.detectedtimer:setCurrentLevelOnly(true)
 tinkering_toolbox_1.containeritem:addItem(dagger_7.item)
-spawn("plate_greaves",10,14,3,0,"plate_greaves_1")
+spawn("plate_greaves",10,13,3,0,"plate_greaves_1")
 plate_greaves_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -5996,7 +5996,7 @@ plate_greaves_1.detectedtimer:setDisableSelf(false)
 plate_greaves_1.detectedtimer:setTriggerOnStart(true)
 plate_greaves_1.detectedtimer:setCurrentLevelOnly(true)
 tinkering_toolbox_1.containeritem:addItem(plate_greaves_1.item)
-spawn("leather_boots",10,14,3,0,"leather_boots_3")
+spawn("leather_boots",10,13,3,0,"leather_boots_3")
 leather_boots_3.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6009,7 +6009,7 @@ leather_boots_3.detectedtimer:setDisableSelf(false)
 leather_boots_3.detectedtimer:setTriggerOnStart(true)
 leather_boots_3.detectedtimer:setCurrentLevelOnly(true)
 tinkering_toolbox_1.containeritem:addItem(leather_boots_3.item)
-spawn("plate_cuirass",10,14,3,0,"plate_cuirass_1")
+spawn("plate_cuirass",10,13,3,0,"plate_cuirass_1")
 plate_cuirass_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6026,48 +6026,36 @@ tinkering_toolbox_1.detectedtimer:setTimerInterval(0)
 tinkering_toolbox_1.detectedtimer:setDisableSelf(false)
 tinkering_toolbox_1.detectedtimer:setTriggerOnStart(true)
 tinkering_toolbox_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("full_helmet",9,13,1,0,"full_helmet_1")
-full_helmet_1.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-full_helmet_1.detectedtimer:setTimerInterval(0)
-full_helmet_1.detectedtimer:setDisableSelf(false)
-full_helmet_1.detectedtimer:setTriggerOnStart(true)
-full_helmet_1.detectedtimer:setCurrentLevelOnly(true)
 spawn("turtle",11,14,1,0,"turtle_1")
 turtle_1.monster:setHealth(900)
 turtle_1.detectedtimer:setTimerInterval(0)
 turtle_1.detectedtimer:setDisableSelf(false)
 turtle_1.detectedtimer:setTriggerOnStart(true)
 turtle_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("brace_fortitude",10,14,3,0,"brace_fortitude_2")
-brace_fortitude_2.data:setSource("data = {}\
+spawn("potion_healing",10,14,3,0,"potion_healing_4")
+potion_healing_4.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
 end\
 function set(self,name,value)\
 \9self.data[name] = value\
 end")
-brace_fortitude_2.detectedtimer:setTimerInterval(0)
-brace_fortitude_2.detectedtimer:setDisableSelf(false)
-brace_fortitude_2.detectedtimer:setTriggerOnStart(true)
-brace_fortitude_2.detectedtimer:setCurrentLevelOnly(true)
-spawn("pickaxe",10,14,3,0,"pickaxe_1")
-pickaxe_1.data:setSource("data = {}\
+potion_healing_4.detectedtimer:setTimerInterval(0)
+potion_healing_4.detectedtimer:setDisableSelf(false)
+potion_healing_4.detectedtimer:setTriggerOnStart(true)
+potion_healing_4.detectedtimer:setCurrentLevelOnly(true)
+spawn("round_shield",10,14,3,0,"round_shield_1")
+round_shield_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
 end\
 function set(self,name,value)\
 \9self.data[name] = value\
 end")
-pickaxe_1.detectedtimer:setTimerInterval(0)
-pickaxe_1.detectedtimer:setDisableSelf(false)
-pickaxe_1.detectedtimer:setTriggerOnStart(true)
-pickaxe_1.detectedtimer:setCurrentLevelOnly(true)
+round_shield_1.detectedtimer:setTimerInterval(0)
+round_shield_1.detectedtimer:setDisableSelf(false)
+round_shield_1.detectedtimer:setTriggerOnStart(true)
+round_shield_1.detectedtimer:setCurrentLevelOnly(true)
 
 --- level 4 ---
 
