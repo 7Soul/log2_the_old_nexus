@@ -1060,7 +1060,7 @@ defineTrait{
 	uiName = "Pack Mule",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 65,
-	description = "Increases carrying capacity by 10kg.",
+	description = "Weight Limit +10kg.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			champion:addStatModifier("max_load", 10)
@@ -1073,13 +1073,13 @@ defineTrait{
 	uiName = "Endurance",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 66,
-	description = "Increases resistance to feet and leg wounds by 20%. Wearing Heavy boots doubles that effect.",
+	description = "25% Resistance to feet and leg wounds. Wearing Heavy boots doubles that effect.",
 	onReceiveCondition = function(champion, cond, level)
 		if level > 0 then
-			local bonus = 0.2
+			local bonus = 0.25
 			local item = champion:getItem(6)
 			if item and item:hasTrait("heavy_armor") then
-				bonus = 0.4
+				bonus = 0.5
 			end
 			
 			if cond == ("leg_wound" or cond == "feet_wound") and math.random() <= bonus then
@@ -1094,7 +1094,7 @@ defineTrait{
 	uiName = "Refreshed",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 67,
-	description = "Healing potions heal 25% more, with some extra healing applied instantly.",
+	description = "Healing potions heal 25% more, with extra healing applied instantly.",
 }
 
 -- Block
@@ -1133,13 +1133,13 @@ defineTrait{
 	uiName = "Light Wear",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 72,
-	description = "Gain +5 Evasion and +1 Dexterity if wearing light armor in all 5 slots",
+	description = "Gain +5 Evasion and +2 Dexterity if wearing light armor in all 5 slots",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			local all_light = functions.script.wearingAll(champion, "light_armor", "clothes")
 			if all_light then
 				champion:addStatModifier("evasion", 5)
-				champion:addStatModifier("dexterity", 1)
+				champion:addStatModifier("dexterity", 2)
 			end
 		end
 	end,
@@ -1324,10 +1324,10 @@ defineTrait{
 	uiName = "Fast Fingers",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 86,
-	description = "Reload time reduced by 25%.",
+	description = "Reload time reduced by 15%. Silver Bullet triggers one shot sooner for every 20 Dexterity.",
 	onComputeCooldown = function(champion, weapon, attack, attackType, level)
 		if level > 0 and weapon ~= nil and weapon:hasTrait("firearm") then
-			return 0.75
+			return 0.85
 		end
 	end
 }

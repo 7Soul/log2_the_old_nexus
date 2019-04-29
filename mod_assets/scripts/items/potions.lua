@@ -51,7 +51,7 @@ defineObject{
 		{
 			class = "Item",
 			uiName = "Healing Potion",
-			description = "Heals 50 Health over 16 seconds, healing wounds over time.",
+			description = "Heals 50 Health over 16 seconds, healing cuts and wounds over time.",
 			gfxIndex = 146,
 			weight = 0.6,
 			stackable = true,
@@ -83,7 +83,7 @@ defineObject{
 		{
 			class = "Item",
 			uiName = "Greater Healing Potion",
-			description = "Heals 150 Health over 8 seconds, healing wounds over time.",
+			description = "Heals 150 Health over 8 seconds, healing cuts and wounds over time.",
 			gfxIndex = 409,
 			weight = 1.0,
 			stackable = true,

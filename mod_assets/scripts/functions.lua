@@ -20,6 +20,10 @@ function stepCountIncrease()
 	stepCount = stepCount + 1
 end
 
+--------------------------------------------------------------------------
+-- Custom Skill Gui                                                     --
+--------------------------------------------------------------------------
+
 champSkillTemp1, champSkillTemp2 = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 champSkillTemp3, champSkillTemp4 = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 partySkillTemp = {champSkillTemp1, champSkillTemp2, champSkillTemp3, champSkillTemp4 } 
@@ -66,6 +70,30 @@ function countAllSkills(champion)
 	return result
 end
 
+--------------------------------------------------------------------------
+-- Test Stuff                                                           --
+--------------------------------------------------------------------------
+
+keydown = {}
+
+function resetKeydown(key)
+	keydown[key] = nil
+	print("set keydown to nil")
+end
+
+function setKeydown(key)
+	keydown[key] = key
+	print("set keydown to ".. tostring(key))
+end
+
+function getKeydown(key)
+	if key == keydown[key] then
+		return true 
+	else 
+		return false 
+	end
+end
+
 function teststart()
 	functions2.script.start()
 	if Editor.isRunning() then
@@ -82,8 +110,22 @@ function teststart()
 			if not champion:getItem(32) then champion:insertItem(32,spawn("torch").item) end
 			champion:addSkillPoints(15)
 			if i == 1 then
-				champion:removeItemFromSlot(21)
-				champion:insertItem(21,spawn("enchanted_timepiece").item)
+				champion:removeItemFromSlot(31)
+				champion:insertItem(31,spawn("enchanted_timepiece").item)
+			end
+			
+			if champion:getClass() == "fighter" then
+				for s=13,18 do champion:removeItemFromSlot(s) end
+				champion:insertItem(13,spawn("great_axe").item)
+				champion:insertItem(14,spawn("potion_strength").item)
+				champion:getItem(14):setStackSize(20)
+				champion:insertItem(15,spawn("short_bow").item)
+				champion:insertItem(16,spawn("arrow").item)
+				champion:getItem(16):setStackSize(20)
+				champion:insertItem(17,spawn("dagger").item)
+				champion:insertItem(18,spawn("throwing_knife").item)
+				champion:getItem(18):setStackSize(20)
+				champion:insertItem(19,spawn("round_shield").item)
 			end
 			
 			if champion:getClass() == "assassin_class" then
@@ -91,12 +133,9 @@ function teststart()
 				champion:insertItem(13,spawn("short_bow").item)
 				champion:insertItem(14,spawn("arrow").item)
 				champion:getItem(14):setStackSize(20)
-				champion:insertItem(15,spawn("crossbow").item)
-				champion:insertItem(16,spawn("quarrel").item)
+				champion:insertItem(15,spawn("dagger").item)
+				champion:insertItem(16,spawn("throwing_knife").item)
 				champion:getItem(16):setStackSize(20)
-				champion:insertItem(17,spawn("dagger").item)
-				champion:insertItem(18,spawn("throwing_knife").item)
-				champion:getItem(18):setStackSize(20)
 			end
 			
 			if champion:getClass() == "monk" then
@@ -128,6 +167,7 @@ function teststart()
 				champion:insertItem(14,spawn("flintlock").item)
 				champion:insertItem(15,spawn("pellet_box").item)
 				champion:getItem(15):setStackSize(100)
+				champion:insertItem(16,spawn("rapier").item)
 			end
 			
 			if champion:getClass() == "elementalist" then
@@ -160,7 +200,7 @@ function teststart()
 				champion:addTrait("lore_master")
 				champion:addTrait("drinker")
 				champion:addTrait("average_joe")
-				for s=21,31 do champion:removeItemFromSlot(s) champion:insertItem(s,spawn("dagger").item) end
+				--for s=21,31 do champion:removeItemFromSlot(s) champion:insertItem(s,spawn("dagger").item) end
 			end
 			
 			if champion:getRace() == "minotaur" then
@@ -631,7 +671,12 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 		self:setAttackPower(self:getAttackPower() * (bonus + 1))
 	end	
 	
-	
+	-- Ratling's Sneak Attack
+	if functions.script.get_c("sneak_attack", champion:getOrdinal()) then
+		local bonus = 1.05 + (champion:getLevel() >= 8 and 0.1 or 0) + (champion:getLevel() >= 12 and 0.1 or 0)
+		self:setAttackPower(self:getAttackPower() * bonus)		
+		print("damage obnus")
+	end
 	
 	-- Fire Gauntlets damage is amplified by other sources of + fire damage
 	if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).name == "fire_gauntlets" then
@@ -724,6 +769,12 @@ function onThrowAttack(self, champion, slot, chainIndex, item)
 	if champion:getClass() == "assassin_class" then
 		self:setAttackPower(self:getAttackPower() * (1 + (assassinations[champion:getOrdinal()] * 0.05)))
 	end
+	
+	-- Ratling's Sneak Attack
+	if functions.script.get_c("sneak_attack", champion:getOrdinal()) then
+		local bonus = 1.05 + (champion:getLevel() >= 8 and 0.1 or 0) + (champion:getLevel() >= 12 and 0.1 or 0)
+		self:setAttackPower(self:getAttackPower() * bonus)
+	end
 
 	local id = champion:getOrdinal()
 	if champion:hasTrait("magic_missile") then
@@ -799,6 +850,12 @@ function onMissileAttack(self, champion, slot, chainIndex, item)
 	
 	if champion:getClass() == "assassin_class" then
 		self:setAttackPower(self:getAttackPower() * (1 + (assassinations[champion:getOrdinal()] * 0.05 )))
+	end
+	
+	-- Ratling's Sneak Attack
+	if functions.script.get_c("sneak_attack", champion:getOrdinal()) then
+		local bonus = 1.05 + (champion:getLevel() >= 8 and 0.1 or 0) + (champion:getLevel() >= 12 and 0.1 or 0)
+		self:setAttackPower(self:getAttackPower() * bonus)
 	end
 	
 	local id = champion:getOrdinal()
@@ -915,12 +972,10 @@ corsairItem = nil
 corsairItemId = nil
 
 function onFirearmAttack(self, champion, slot)
-	if math.random() > 0.75 + champion:getSkillLevel("firearms") * 0.05 then
-		if supertable[1][self.go.id] then
-			self:setAttackPower(supertable[1][self.go.id] * 0.2)
-		else
-			self:setAttackPower(self:getAttackPower() * 0.2)
-		end
+	functions.script.set_c("grazed_bullet", champion:getOrdinal(), false)
+	if math.random() < 0.25 - (champion:getSkillLevel("firearms") * 0.05) then
+		self:setAttackPower(self:getAttackPower() * 0.2)
+		functions.script.set_c("grazed_bullet", champion:getOrdinal(), true)
 	end
 	
 	if math.random() <= 0.25 and champion:hasTrait("precision") then
@@ -1222,7 +1277,7 @@ function onMonsterDealDamage(self, champion, damage)
 	-- Shield bash and blocking
 	if (item1 and item1:hasTrait("shield")) or (item2 and item2:hasTrait("shield")) then
 		local addedChance = math.max(champion:getSkillLevel("block") - 3, 0) / 50
-		if champion:hasTrait("block") and math.random() <= 0.9 + addedChance then
+		if champion:hasTrait("block") and math.random() <= 0.1 + addedChance then
 			champion:setHealth(champion:getHealth() + math.ceil(damage * 0.5))
 			if champion:hasTrait("shield_bash") then
 				local dx,dy = getForward(party.facing)
@@ -1253,7 +1308,8 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 	end
 	
 	-- Venomancer for melee attacks
-	if (champion:hasTrait("venomancer") and math.random() <= 0.1) or ((champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers):hasTrait("venomancer")) and math.random() <= 0.1) then	
+	if (champion:hasTrait("venomancer") and math.random() <= 0.1 + (champion:hasTrait("plague") and 0.05 or 0)) 
+	or ((champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers):hasTrait("venomancer")) and math.random() <= 0.1) then	
 		monster:setCondition("poisoned", 25)
 		if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
 	end	
@@ -1273,15 +1329,22 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 			end
 		end
 	end
-	
-	print(self:getName())
-	print(self.go.item:getSecondaryAction())
+
 	if champion:hasTrait("rend") and self.go:getComponent(self.go.item:getSecondaryAction()):getName() == self.go.item:getSecondaryAction() then
 		local secondary = self.go:getComponent(self.go.item:getSecondaryAction() and self.go.item:getSecondaryAction() or "")
 		if secondary == self and math.random() <= 1 then
 			monster:addTrait("bleeding")
 		end
 	end	
+	
+	-- Ratling's Sneak Attack
+	if functions.script.get_c("sneak_attack", champion:getOrdinal()) then
+		if math.random() <= 0.5 then
+			monster:setCondition("poisoned", 25)
+			if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
+		end
+		functions.script.set_c("sneak_attack", champion:getOrdinal(), false)
+	end
 	
 	-- Hunter
 	if champion:getClass() == "hunter" then
@@ -1394,6 +1457,15 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 				hitMonster(monster.go.id, damage * multiplier, "33CC33", nil, "poison", champion:getOrdinal())
 			end
 		end
+	end
+	
+	-- Ratling's Sneak Attack
+	if functions.script.get_c("sneak_attack", champion:getOrdinal()) then
+		if math.random() <= 0.5 then
+			monster:setCondition("poisoned", 25)
+			if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
+		end
+		functions.script.set_c("sneak_attack", champion:getOrdinal(), false)
 	end
 	
 	if self:getHealth() - damage <= 0 then
@@ -1716,6 +1788,8 @@ end
 function class_skill(skill, champion)
 	if skill == "sneak_attack" then
 		print("skill sneak_attack")
+		set_c("sneak_attack", champion:getOrdinal(), false)
+		champion:setConditionValue("sneak_attack", 100)
 		champion:setConditionValue("recharging", 2)
 		
 	elseif skill == "ancestral_charge" then
@@ -1723,10 +1797,10 @@ function class_skill(skill, champion)
 		champion:setConditionValue("recharging", 2)
 	
 	elseif skill == "intensify_spell" then
-		print("skill intensify_spell")
+		--print("skill intensify_spell")
 		if get_c("lastSpell", champion:getOrdinal()) then
 			set_c("intensifySpell", champion:getOrdinal(), get_c("lastSpell", champion:getOrdinal()))
-			print("set intensify_spell to " .. get_c("lastSpell", champion:getOrdinal()))
+			--print("set intensify_spell to " .. get_c("lastSpell", champion:getOrdinal()))
 		else
 			--no spell to intensify
 		end

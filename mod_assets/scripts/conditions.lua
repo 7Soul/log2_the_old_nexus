@@ -352,8 +352,8 @@ defineCondition{
 	name = "healing_potion",
 	uiName = "Healing",
 	description = "Healing potion in effect.",
-	icon = 1,
-	--iconAtlas = "mod_assets/textures/conditions.tga",
+	icon = 33,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
 	harmful = false,
 	tickInterval = 1,
@@ -372,7 +372,7 @@ defineCondition{
 	onTick = function(self, champion)
 		local heal = champion:hasTrait("refreshed") and 3.9 or 3.125
 		champion:regainHealth(heal)
-		local cond = { "head_wound", "chest_wound", "leg_wound", "feet_wound", "right_hand_wound", "left_hand_wound" }
+		local cond = { "head_wound", "chest_wound", "leg_wound", "feet_wound", "right_hand_wound", "left_hand_wound", "bleeding" }
 		local recoverChance = champion:hasTrait("refreshed") and 0.2 or 0.1
 		local recoverStart = champion:hasTrait("refreshed") and 12 or 8
 		for i=1,#cond do
@@ -392,8 +392,8 @@ defineCondition{
 	name = "healing_potion2",
 	uiName = "Healing",
 	description = "Healing potion in effect.",
-	icon = 1,
-	--iconAtlas = "mod_assets/textures/conditions.tga",
+	icon = 35,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
 	harmful = false,
 	tickInterval = 1,
@@ -412,7 +412,7 @@ defineCondition{
 	onTick = function(self, champion)
 		local heal = champion:hasTrait("refreshed") and 23.4375 or 18.75
 		champion:regainHealth(heal)
-		local cond = { "head_wound", "chest_wound", "leg_wound", "feet_wound", "right_hand_wound", "left_hand_wound" }
+		local cond = { "head_wound", "chest_wound", "leg_wound", "feet_wound", "right_hand_wound", "left_hand_wound", "bleeding" }
 		local recoverChance = champion:hasTrait("refreshed") and 0.2 or 0.1
 		local recoverStart = champion:hasTrait("refreshed") and 12 or 8
 		for i=1,#cond do
@@ -432,8 +432,8 @@ defineCondition{
 	name = "energy_potion",
 	uiName = "Energy Recovery",
 	description = "Energy potion in effect.",
-	icon = 1,
-	--iconAtlas = "mod_assets/textures/conditions.tga",
+	icon = 34,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
 	harmful = false,
 	tickInterval = 1,
@@ -455,8 +455,8 @@ defineCondition{
 	name = "energy_potion2",
 	uiName = "Energy Recovery",
 	description = "Energy potion in effect.",
-	icon = 1,
-	--iconAtlas = "mod_assets/textures/conditions.tga",
+	icon = 36,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
 	harmful = false,
 	tickInterval = 1,
@@ -498,8 +498,8 @@ defineCondition{
 	name = "drown_sorrows",
 	uiName = "Drown Your Sorrows",
 	description = "Numb the pain.",
-	icon = 1,
-	--iconAtlas = "mod_assets/textures/conditions.tga",
+	icon = 37,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds", 
 	beneficial = true,
 	harmful = false,
 	tickInterval = 1,
@@ -531,7 +531,7 @@ defineCondition{
 	uiName = "Reduced Experience Gain",
 	description = "Gaining less experience after drinking a little too much.",
 	icon = 1,
-	--iconAtlas = "mod_assets/textures/conditions.tga",
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
 	harmful = false,
 	hidden = true,
@@ -551,7 +551,7 @@ defineCondition{
 	name = "bleeding",
 	uiName = "Bleeding",
 	description = "Take damage over time, doubled when moving and tripled when attacking.",
-	icon = 17,
+	icon = 23,
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = false,
 	harmful = true,
@@ -570,5 +570,27 @@ defineCondition{
 		if math.random() <= chance then
 			champion:removeCondition("bleeding")
 		end
+	end,	
+}
+
+defineCondition{
+	name = "sneak_attack",
+	uiName = "",
+	description = "",
+	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
+	beneficial = true,
+	harmful = false,
+	hidden = true,
+	tickInterval = 1,
+	onStart = function(self, champion)
+	end,
+	onStop = function(self, champion)
+	end,
+	onRecomputeStats = function(self, champion)
+		champion:addStatModifier("evasion", 100)
+	end,
+	onTick = function(self, champion)
+		champion:setConditionValue("sneak_attack", 100)
 	end,	
 }

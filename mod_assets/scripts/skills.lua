@@ -4,11 +4,11 @@ defineSkill{
 	priority = 10,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 0,
-	description = [[Increases your Health by 20 and weigth limit by 1kg for each skill point. 
+	description = [[Health +20 and Weight Limit +1kg per point. 
 
 	Perks:
-	- Level 2 | Your weigth limit is increased by 10kg.
-	- Level 4 | Increases resistance to feet and leg wounds by 20%. Wearing Heavy boots doubles that effect.
+	- Level 2 | Weight Limit +10kg.
+	- Level 4 | 25% Resistance to feet and leg wounds. Wearing Heavy boots doubles that effect.
 	- Level 5 | Healing potions heal 25% more, with extra healing applied instantly.]],
 	traits = { [2] = "pack_mule", [4] = "endurance", [5] = "refreshed" },
 	onRecomputeStats = function(champion, level)
@@ -25,11 +25,11 @@ defineSkill{
 	priority = 20,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 1,
-	description = [[When holding a shield, increases protection and resistances by 2 for each skill point. 
+	description = [[Protection and All Resistances +2 per point. 
 		
-	Perks:
-	- Level 2 | Gain 10% chance to block an attack.
-	- Level 4 | Immunity against hand and chest wounds. Block chance +2%.
+	Perks (when holding a shield):
+	- Level 2 | 10% chance to block an attack.
+	- Level 4 | Immunity to hand and chest wounds. Block chance +2%.
 	- Level 5 | Bashes the enemy for 150% of the damage received when you block an attack. Block chance +2%.]],
 	traits = { [2] = "block", [4] = "shield_bearer", [5] = "shield_bash" },
 	onRecomputeStats = function(champion, level)
@@ -48,12 +48,12 @@ defineSkill{
 	priority = 30,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 2,
-	description = [[Each point reduces the evasion penalties from wearing Light Armor by 20% and increases the protection they provide by 5% per level.
+	description = [[Each point reduces the evasion penalties from wearing Light Armor by 20%.
 	
-	Perks:
-	- Level 2 | Gain +5 Evasion and +1 Dexterity if wearing light armor in all 5 slots.
-	- Level 4 | Gain +20 resist all if wearing all light armor.
-	- Level 5 | Reduces action timers by 15% if wearing all light armor.]],
+	Perks (when wearing light armor in all 5 slots):
+	- Light Wear | +5 Evasion and +2 Dexterity.
+	- Reflective | +20 All Resists.
+	- Nimble     | Action timers reduced by 15%.]],
 	traits = { [2] = "light_wear", [4] = "reflective", [5] = "nimble" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 and functions ~= nil and Time.currentTime() > 3 then
@@ -74,13 +74,12 @@ defineSkill{
 	priority = 40,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 3,
-	description = [[Each point reduces the evasion penalties from wearing Heavy Armor by 20% and increases the protection they provide by 5% per level.
-	Reduces the weigth of armor in your inventory by 15% per point.
+	description = [[Each point reduces the evasion penalties from wearing Heavy Armor by 20% and their weigth by 10%.
 	
-	Perks:
-	- Level 2 | Gain +5 Protection and +2 Strength when wearing heavy armor in all 5 slots.
-	- Level 4 | Increases Health by 50 when wearing all heavy armor.
-	- Level 5 | 'All heavy armor' bonuses are doubled and work even if your Helmet and Gloves are not heavy armor. Light armor in those slots gain an extra 10% protection per level.]],
+	Perks when wearing heavy armor in all 5 slots:
+	- Armored Up | +5% Protection and +2 Strength.
+	- Heavy Conditioning | +50 Health and +10% Protection.
+	- Armor Training | Bonuses are doubled and work even if your Helmet and Gloves are not heavy armor. Other armor in those slots gain an extra 10% protection.]],
 	traits = { [2] = "armored_up", [4] = "heavy_conditioning", [5]="armor_training" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 and functions ~= nil and Time.currentTime() > 3 then
@@ -91,7 +90,7 @@ defineSkill{
 					champion:addStatModifier("protection", champion:getItem(v).go.equipmentitem:getProtection() * 0.05 * champion:getSkillLevel("heavy_armor"))
 				elseif champion:getItem(v) and champion:hasTrait("armor_training") and (champion:getItem(v):hasTrait("light_armor") or champion:getItem(v):hasTrait("clothes")) then
 					champion:addStatModifier("evasion", champion:getSkillLevel("heavy_armor") * 2)
-					champion:addStatModifier("protection", champion:getItem(v).go.equipmentitem:getProtection() * 0.15 * champion:getSkillLevel("heavy_armor"))
+					champion:addStatModifier("protection", champion:getItem(v).go.equipmentitem:getProtection() * 0.15 * 5)
 				end
 			end
 		end
@@ -107,15 +106,15 @@ defineSkill{
 	description = [[Increases your Accuracy by 10 for each skill point.
 	
 	Perks:
-	- Level 1 | You can perform melee attacks from the back row.
-	- Level 4 | Gain up to +100 accuracy based on how much health the party is missing.
-	- Level 5 | 25% Chance to pierce 5 to 15 armor with melee and firearm attacks.]],
+	- Reach | You can perform melee attacks from the back row.
+	- Clutch | Gain up to +100 accuracy based on how much health the party is missing.
+	- Deadly Aim | 15% Chance to cause Bleeding with all attacks.]],
+	traits = { [1] = "reach",  [4] = "clutch", [5] = "precision" },
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
 		if level > 0 then
 			return level * 10
 		end
 	end,
-	traits = { [1] = "reach",  [4] = "clutch", [5] = "precision" },
 }
 
 defineSkill{
@@ -130,10 +129,10 @@ defineSkill{
 	- Level 2 | You can backstab an enemy with a dagger and deal triple damage.
 	- Level 4 | You gain double critical chance from items.
 	- Level 5 | You can backstab with any Light Weapon.]],
+	traits = { [2] = "backstab", [5] = "slayer", [4] = "weapons_specialist" },
 	onComputeCritChance = function(champion, weapon, attack, attackType, level)
 		return level * 3
 	end,
-	traits = { [2] = "backstab", [5] = "slayer", [4] = "weapons_specialist" },
 }
 
 defineSkill{
@@ -142,12 +141,12 @@ defineSkill{
 	priority = 70,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 6,
-	description = [[Increases range of firearm attacks by 1 square for each skill point, decreases the chance of a firearm malfunctioning and gives 10% chance per level to pierce 5 armor.
+	description = [[Each point increases range by 1 and reduces the chance of grazing a shot by 5%.
 	
 	Perks:
-	- Level 3 | 7% chance to not spend a pellet to fire.
-	- Level 4 | Every 6th shot does double damage.
-	- Level 5 | Reload time reduced by 25%.]],
+	- Metal Slug | 7% chance to not spend a pellet to fire.
+	- Silver Bullet | Every 6th shot does double damage.
+	- Fast Fingers | Reload time reduced by 15%. Silver Bullet triggers one shot sooner for every 20 Dexterity.]],
 	traits = { [3] = "metal_slug", [4] = "silver_bullet", [5] = "fast_fingers" },
 }
 
@@ -160,9 +159,9 @@ defineSkill{
 	description = [[Increases evasion by 3 point per skill level when fighting multiple foes.
 	
 	Perks:
-	- Level 2 | You deal 30% more melee damage from the backline and 30% more firearm damage from the frontline.
-	- Level 4 | Cannon balls in your inventory weight 80% less.
-	- Level 5 | Pellets and cannon balls have a 40% chance to create shrapnel on impact, doing half damage to a 3-tile area behind the target.]],
+	- Sea Dog | You deal 25% more Melee damage from the backline and 25% more Firearm damage from the frontline.
+	- Freebooter | Cannon balls in your inventory weight 80% less.
+	- Broadside | Pellets and Cannon Balls have a 40% chance to create shrapnel on impact, doing half damage to a 3-tile area behind the target.]],
 	traits = { [2] = "sea_dog", [4] = "freebooter", [5] = "broadside" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 then
@@ -182,9 +181,9 @@ defineSkill{
 	description = [[A higher skill level in Alchemy allows you to brew a wider range of potions. To craft potions you also need herbs and a Mortar and Pestle.
 	
 	Perks:
-	- Level 1 | Herbs multiply while in your inventory.
-	- Level 4 | When throwing a bomb, there's a 10% chance you alchemically clone it on the spot. Chance increases by 0.5% per Dexterity per point..
-	- Level 5 | When you craft bombs you get three bombs instead of one.]],
+	- Green Thumb | Herbs multiply while in your inventory.
+	- Bomb Multiplication | When throwing a bomb, there's a 10% chance you alchemically clone it on the spot. Chance +0.5% per Willpower point.
+	- Bomb Expert | When you craft bombs you get three bombs instead of one.]],
 	traits = { [1] = "green_thumb", [4] = "bomb_multiplication", [5] = "bomb_expert" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 then

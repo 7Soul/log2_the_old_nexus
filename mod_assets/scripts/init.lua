@@ -163,6 +163,12 @@ defineObject{
 				functions.script.championBleed(champion, "attacking")
 			end
 			
+			if champion:hasTrait("sneak_attack") and champion:hasCondition("sneak_attack") then
+				champion:removeCondition("sneak_attack")
+				functions.script.set_c("sneak_attack", champion:getOrdinal(), true)
+				print("sneak_attack set")
+			end
+			
 			for i=1,4 do
 				local c = party:getChampionByOrdinal(i)				
 				if c ~= champion then
@@ -182,29 +188,6 @@ defineObject{
 			for i=1,4 do
 				if party:getChampion(i):getClass() == "fighter" and party:getChampion(i):isAlive() and not party:getChampion(i):hasCondition("berserker_revenge") then
 					party:getChampion(i):setConditionValue("berserker_rage", 20)
-				end
-			end
-			
-			if champion:isAlive() and champion:hasTrait("etherweed") then
-				if damageType == "cold" then
-					champion:setEnergy(champion:getEnergy() + ((champion:getMaxEnergy() - champion:getEnergy()) * 0.5))
-					playSound("heal_party")
-				end
-			end
-			
-			if champion:isAlive() and champion:hasTrait("blooddrop_cap") then
-				if damageType == "fire" then
-					champion:setCondition("blooddrop_rage")
-					champion:addTrait("blooddrop_rage")
-					playSound("heal_party")
-				end
-			end
-			
-			if champion:isAlive() and champion:hasTrait("etherweed") then
-				if damageType == "cold" then
-					champion:setCondition("etherweed_rage")
-					champion:addTrait("etherweed_rage")
-					playSound("heal_party")
 				end
 			end
 			
@@ -563,6 +546,28 @@ defineObject{
 			else
 				multi = 1
 			end
+			
+			
+			
+			local keyset = { "T", "1", "2", "3" }
+			for i=1, #keyset do
+				if functions.script.getKeydown(keyset[i]) then
+					print("key " .. keyset[i] .. " pressed")
+					functions.script.resetKeydown(keyset[i])
+				end
+			
+				if context.keyDown(keyset[i]) and not functions.script.getKeydown(keyset[i]) then
+					functions.script.setKeydown(keyset[i])
+				end
+				
+				if not context.keyDown(keyset[i]) then
+					functions.script.resetKeydown(keyset[i])
+				end
+			end
+			
+			
+			
+			
 			if context.keyDown("1") then
 				party:setPosition(party.x, party.y, party.facing, 0, party.level)
 			end
@@ -922,9 +927,15 @@ defineObject{
 					functions.script.spellSlinger[champion:getOrdinal()] = spellName
 				end
 			end
+			
 			if champion:hasTrait("intensify_spell") then
 				functions.script.set_c("lastSpell", champion:getOrdinal(), spellName)
 				print("set last spell to "..spellName)
+			end
+			
+			if champion:hasCondition("sneak_attack") then
+				champion:removeCondition("sneak_attack")
+				functions.script.set_c("sneak_attack", champion:getOrdinal(), false)
 			end
 		end,
 		
@@ -1099,6 +1110,10 @@ defineObject{
 						end
 					end
 					functions.script.set_c("poisonedMonster", i, poisonedMonster)
+				end
+				
+				if champion:hasTrait("sneak_attack") and (champion:isReadyToAttack(0) or champion:isReadyToAttack(1)) and functions.script.get_c("sneak_attack", champion:getOrdinal()) then
+					functions.script.set_c("sneak_attack", champion:getOrdinal(), false)
 				end
 				
 				if champion:hasTrait("drinker") and champion:hasCondition("drown_sorrows_exp") then
