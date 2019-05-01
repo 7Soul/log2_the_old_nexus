@@ -25,10 +25,10 @@ defineSkill{
 	priority = 20,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 1,
-	description = [[Protection and All Resistances +2 per point. 
+	description = [[Protection and Block Chance +2 per point.
 		
 	Perks (when holding a shield):
-	- Level 2 | 10% chance to block an attack.
+	- Level 2 | 8% chance to block an attack.
 	- Level 4 | Immunity to hand and chest wounds. Block chance +2%.
 	- Level 5 | Bashes the enemy for 150% of the damage received when you block an attack. Block chance +2%.]],
 	traits = { [2] = "block", [4] = "shield_bearer", [5] = "shield_bash" },
@@ -87,10 +87,10 @@ defineSkill{
 			for i, v in pairs(equip_slots) do
 				if champion:getItem(v) and champion:getItem(v):hasTrait("heavy_armor") then
 					champion:addStatModifier("evasion", champion:getSkillLevel("heavy_armor") * 2)
-					champion:addStatModifier("protection", champion:getItem(v).go.equipmentitem:getProtection() * 0.05 * champion:getSkillLevel("heavy_armor"))
+					--champion:addStatModifier("protection", champion:getItem(v).go.equipmentitem:getProtection() * 0.05 * champion:getSkillLevel("heavy_armor"))
 				elseif champion:getItem(v) and champion:hasTrait("armor_training") and (champion:getItem(v):hasTrait("light_armor") or champion:getItem(v):hasTrait("clothes")) then
 					champion:addStatModifier("evasion", champion:getSkillLevel("heavy_armor") * 2)
-					champion:addStatModifier("protection", champion:getItem(v).go.equipmentitem:getProtection() * 0.15 * 5)
+					champion:addStatModifier("protection", champion:getItem(v).go.equipmentitem:getProtection() * 0.25)
 				end
 			end
 		end
@@ -108,7 +108,7 @@ defineSkill{
 	Perks:
 	- Reach | You can perform melee attacks from the back row.
 	- Clutch | Gain up to +100 accuracy based on how much health the party is missing.
-	- Deadly Aim | 15% Chance to cause Bleeding with all attacks.]],
+	- Deadly Aim | Melee and Firearm attacks pierce 5 to 15 armor, while Ranged attacks deal 5 to 20 extra damage.]],
 	traits = { [1] = "reach",  [4] = "clutch", [5] = "precision" },
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
 		if level > 0 then
@@ -156,10 +156,10 @@ defineSkill{
 	priority = 80,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 7,
-	description = [[Increases evasion by 3 point per skill level when fighting multiple foes.
+	description = [[Each point increases evasion by 3 when fighting multiple foes.
 	
 	Perks:
-	- Sea Dog | You deal 25% more Melee damage from the backline and 25% more Firearm damage from the frontline.
+	- Sea Dog | You deal 25% more Melee damage from the backline and 25% more Ranged and Firearms damage from the frontline.
 	- Freebooter | Cannon balls in your inventory weight 80% less.
 	- Broadside | Pellets and Cannon Balls have a 40% chance to create shrapnel on impact, doing half damage to a 3-tile area behind the target.]],
 	traits = { [2] = "sea_dog", [4] = "freebooter", [5] = "broadside" },
@@ -182,7 +182,7 @@ defineSkill{
 	
 	Perks:
 	- Green Thumb | Herbs multiply while in your inventory.
-	- Bomb Multiplication | When throwing a bomb, there's a 10% chance you alchemically clone it on the spot. Chance +0.5% per Willpower point.
+	- Bomb Multiplication | When throwing a bomb, there's a 10% chance you alchemically clone it on the spot. Chance increases by 2% per 10 Willpower.
 	- Bomb Expert | When you craft bombs you get three bombs instead of one.]],
 	traits = { [1] = "green_thumb", [4] = "bomb_multiplication", [5] = "bomb_expert" },
 	onRecomputeStats = function(champion, level)
@@ -197,12 +197,12 @@ defineSkill{
 	priority = 100,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 9,
-	description = [[Increases damage of Missiles and Throwing Weapons attacks by 20% for each skill point. 
+	description = [[Increases damage of Ranged Weapons by 20% for each skill point. 
 	
 	Perks:
-	- Level 2 | Gain 15 accuracy with Ranged Weapons.
-	- Level 4 | You launch a magical projectile with your attacks. It does 1/3 the damage of your attack and pierces half the target's protection.
-	- Level 5 | You attack twice when using Ranged Weapons.]],
+	- Bullseye | +15 Accuracy.
+	- Magic Missile | You launch a magical projectile with your attacks. It does 1/3 your damage and increases based on the target's protection.
+	- Double Shot | You attack twice when using Ranged Weapons.]],
 	traits = { [2] = "bullseye", [4] = "magic_missile", [5] = "double_shot" },
 }
 
@@ -215,9 +215,9 @@ defineSkill{
 	description = [[Increases damage of Light Weapons by 20% for each skill point. 
 	
 	Perks:
-	- Level 3 | You can dual wield Light Weapons as long one of them is a dagger.
-	- Level 4 | You gain 25% chance to attack twice.
-	- Level 5 | You can dual wield any Light Weapons. When dual wielding you suffer a 40% penalty to weapon damage.]],
+	- Dual Wield | You can dual wield Light Weapons as long one of them is a dagger.
+	- Double Attack | You gain 25% chance to attack twice.
+	- Dexterous | You can dual wield any Light Weapons. When dual wielding you suffer a 40% penalty to weapon damage.]],
 	traits = { [3] = "dual_wield", [4] = "double_attack", [5] = "improved_dual_wield" },
 }
 
@@ -230,9 +230,9 @@ defineSkill{
 	description = [[Increases damage of Heavy Weapons by 20% for each skill point. 
 	
 	Perks:
-	- Level 3 | Power attacks have a 30% chance to cause enemies to bleed.
-	- Level 4 | Melee attacks gain 1% more damage per 5 points of health you have, plus 10% per 100 health.
-	- Level 5 | You can wield two-handed weapons in one hand.]],
+	- Rend | Power attacks have a 30% chance to cause enemies to bleed.
+	- Power Grip | Melee attacks gain 1% more damage per 5 points of health you have, plus 10% per 100 health.
+	- Heavy Hander | You can wield two-handed weapons in one hand.]],
 	traits = { [3] = "rend", [4] = "power_grip", [5] = "two_handed_mastery" },
 }
 
@@ -245,10 +245,10 @@ defineSkill{
 	description = [[Increase Protection and Accuracy by 3 for each skill point when holding a staff.
 	
 	Perks:
-	- Level 1 | You can hold a staff in one hand.
-	- Level 2 | Cast a basic spell to memorize it. You'll automatically cast this spell with melee attacks at 10% chance.
-	- Level 4 | Non-ultimate level spells gain damage equal to 10% of the current weapon damage plus 10% of your accuracy.
-	- Level 5 | Your spells gain double the critical chance from the Critical skill plus a flat +6%.]],
+	- Staff Fighter | You can hold a staff in one hand.
+	- Spell Slinger | Cast a basic spell to memorize it. Melee attacks have a 10% chance to cast it again.
+	- Arcane Warrior | Non-ultimate level spells gain damage equal to 10% of your physical damage and accuracy.
+	- Mage Strike | Your spells gain double the bonuses from the Critical skill plus 1% Critical per 10 points in Willpower.]],
 	traits = { [1] = "staff_fighter", [2] = "spell_slinger", [4] = "arcane_warrior", [5] = "mage_strike" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 and Time.currentTime() > 3 then
@@ -283,10 +283,10 @@ defineSkill{
 	description = [[Increases all elemental damage by 20% for each skill point.
 	
 	Perks:
-	- Level 2 | Hitting a monster with an element it resists will buff your next hit of that element by 20%.
-	- Level 4 | Deal 25% more damage if the enemy is vulnerable to that element.
-	- Level 5 | You gain +25% Resist Fire, Shock and Cold.]],
-	traits = { [2] = "aggregate", [4] = "elemental_exploitation", [5] = "elemental_armor" },
+	- Aggregate | Hitting a foe with an element it resists will buff your next hit with that element by 20%.
+	- Elemental Armor | +25% Resist Fire, Shock and Cold.
+	- Exploitation| Deal 25% more damage if the target is vulnerable to that element.]],
+	traits = { [2] = "aggregate", [4] = "elemental_armor", [5] = "elemental_exploitation" },
 }
 
 defineSkill{
@@ -298,9 +298,9 @@ defineSkill{
 	description = [[Increases all poison damage by 20% for each skill point.
 	
 	Perks:
-	- Level 2 | 10% chance to poison enemies with melee, missile and throwing attacks.
-	- Level 4 | Poison spreads between enemies. +5% Chance to poison.
-	- Level 5 | Enemies take increased damage from the poison status, an effect which also heals you.]],
+	- Venomancer| 10% chance to poison enemies with melee, missile and throwing attacks.
+	- Plague | Poison spreads between enemies. +5% Chance to poison.
+	- Bane | Enemies take increased damage from the poison status, an effect which also heals you.]],
 	traits = { [2] = "venomancer", [4] = "plague", [5] = "antivenom" },
 }
 
@@ -313,9 +313,9 @@ defineSkill{
 	description = [[Increases your energy by 20 for each skill point. 
 	
 	Perks:
-	- Level 3 | Your Energy regeneration rate is increased by 25% while resting.
-	- Level 4 | Non-elemental and non-poison spells deal 35% more damage.
-	- Level 5 | Energy potions recover 25% more, while also regenerating 25 health. At the same time, healing potions recover 25 energy.]],
+	- Meditation | Your Energy regeneration rate is increased by 25% while resting.
+	- Imperium Arcana | Non-elemental and non-poison spells deal 35% more damage.
+	- Extraction | Energy potions recover 25% more, while also regenerating 25 health. At the same time, healing potions recover 25 energy.]],
 	onRecomputeStats = function(champion, level)
 		champion:addStatModifier("max_energy", level * 20)
 	end,
@@ -335,9 +335,9 @@ defineSkill{
 	description = [[Increases the damage and effect of witchcraft spells by 20% for each skill point.
 	
 	Perks:
-	- Level 1 | Heals the party for 10% of the damage done with spells.
-	- Level 4 | Your Energy regeneration rate is increased by 50% during the night.
-	- Level 5 | You can obtain voodoo dolls of monsters by slaying them.]],
+	- Ritual | Heals the party for 10% of the damage done with spells.
+	- Moon Rites | Your Energy regeneration rate is increased by 50% during the night.
+	- Voodoo | You can obtain voodoo dolls of monsters by slaying them.]],
 	traits = { [1] = "ritual", [4] = "moon_rites", [5] = "voodoo" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 then			
@@ -357,9 +357,9 @@ defineSkill{
 	- Upgraded items weight 5kg more (-0.5kg per skill level).
 	
 	Perks:
-	- Level 2 | You can craft bombs and pellets.
-	- Level 4 | Unlock chests without a lockpick, at the cost of Energy.
-	- Level 5 | You can upgrade Epic items.]],
+	- Pyrotechnician | You can craft bombs and pellets.
+	- Multipurpose | Unlock chests without a lockpick, at the cost of Energy.
+	- Mastersmith | You can upgrade Epic items.]],
 	traits = { [3] = "pyrotechnician", [4] = "multipurpose", [5] = "mastersmith" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 then

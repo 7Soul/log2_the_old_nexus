@@ -581,7 +581,6 @@ defineCondition{
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
 	harmful = false,
-	hidden = true,
 	tickInterval = 1,
 	onStart = function(self, champion)
 	end,
@@ -592,5 +591,24 @@ defineCondition{
 	end,
 	onTick = function(self, champion)
 		champion:setConditionValue("sneak_attack", 100)
+	end,	
+}
+
+defineCondition{
+	name = "ancestral_charge",
+	uiName = "Ancestral Boon",
+	description = "Heavy Armor and Block skills' base bonuses and perks increased by 50%",
+	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
+	beneficial = true,
+	harmful = false,
+	tickInterval = 1,
+	onStart = function(self, champion)
+	end,
+	onStop = function(self, champion)
+	end,
+	onRecomputeStats = function(self, champion)
+	end,
+	onTick = function(self, champion)
 	end,	
 }

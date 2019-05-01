@@ -16,9 +16,10 @@ import "mod_assets/scripts/materials/tomb.lua"
 import "mod_assets/scripts/materials/generic.lua"
 -- import the spells pack
 import "mod_assets/spells_pack/init.lua"   -- the spells pack
-import "mod_assets/scripts/spells/psionic_arrow.lua"
-import "mod_assets/scripts/spells/bite.lua"
 import "mod_assets/scripts/spells/ash.lua"
+import "mod_assets/scripts/spells/ancestral_charge.lua"
+import "mod_assets/scripts/spells/bite.lua"
+import "mod_assets/scripts/spells/psionic_arrow.lua"
 -- import custom assets
 import "mod_assets/scripts/objects/base.lua"
 import "mod_assets/scripts/defineObject.lua"
@@ -119,7 +120,10 @@ defineObject{
 					end
 					break
 				end
-				
+			end
+			
+			for i=1,4 do
+				local champion = party:getChampionByOrdinal(i)
 				for slot=1,32 do
 					local item = champion:getItem(slot)
 					if item and item:hasTrait("magic_gem") and item.go.data:get("charges") then
@@ -549,21 +553,21 @@ defineObject{
 			
 			
 			
-			local keyset = { "T", "1", "2", "3" }
-			for i=1, #keyset do
-				if functions.script.getKeydown(keyset[i]) then
-					print("key " .. keyset[i] .. " pressed")
-					functions.script.resetKeydown(keyset[i])
-				end
+			-- local keyset = { "T", "1", "2", "3" }
+			-- for i=1, #keyset do
+				-- if functions.script.getKeydown(keyset[i]) then
+					-- print("key " .. keyset[i] .. " pressed")
+					-- functions.script.resetKeydown(keyset[i])
+				-- end
 			
-				if context.keyDown(keyset[i]) and not functions.script.getKeydown(keyset[i]) then
-					functions.script.setKeydown(keyset[i])
-				end
+				-- if context.keyDown(keyset[i]) and not functions.script.getKeydown(keyset[i]) then
+					-- functions.script.setKeydown(keyset[i])
+				-- end
 				
-				if not context.keyDown(keyset[i]) then
-					functions.script.resetKeydown(keyset[i])
-				end
-			end
+				-- if not context.keyDown(keyset[i]) then
+					-- functions.script.resetKeydown(keyset[i])
+				-- end
+			-- end
 			
 			
 			

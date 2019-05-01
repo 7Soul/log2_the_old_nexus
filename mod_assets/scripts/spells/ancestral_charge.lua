@@ -1,10 +1,10 @@
 defineObject{
-	name = "psionic_arrow",
+	name = "ancestral_charge",
 	baseObject = "base_spell",
 	components = {
 		{
 			class = "Particle",
-			particleSystem = "psionic_arrow",
+			particleSystem = "ancestral_charge",
 		},
 		{ 
 			class = "Script",
@@ -28,17 +28,9 @@ defineObject{
 			velocity = 10,
 			radius = 0.1,
 			onProjectileHit = function(self, what, entity)
-				local hit = self.go:spawn("psionic_arrow_blast")
+				local hit = self.go:spawn("ancestral_charge_blast")
 				hit.tiledamager:setCastByChampion(self:getCastByChampion())
 				local damage = self.go.data:get("attackPower")
-				damage = damage - (damage * 0.5) + (damage * math.random())
-				damage = damage * 0.33
-				local protection = 0
-				if entity and entity.monster ~= nil then
-					protection = entity.monster:getProtection()
-					protection = (protection * 0.5) + (protection * math.random())
-				end				
-				damage = damage - (protection / 2)
 				hit.tiledamager:setAttackPower(math.ceil(damage))
 			end
 		},
@@ -55,12 +47,12 @@ defineObject{
 }
 
 defineObject{
-	name = "psionic_arrow_blast",
+	name = "ancestral_charge_blast",
 	baseObject = "base_spell",
 	components = {
 		{
 			class = "Particle",
-			particleSystem = "psionic_arrow_blast",
+			particleSystem = "ancestral_charge_blast",
 			destroyObject = true,
 		},
 		{
@@ -82,24 +74,17 @@ defineObject{
 			onHitChampion = function(self, champion)
 				return false
 			end,
-			onHitMonster = function(self, monster)			
+			onHitMonster = function(self, monster)
 				local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
-				local accuracy = functions.script.get_c("psionic_accuracy", self:getCastByChampion())
-				local evasion = monster:getEvasion()
-				local hitChance = math.clamp(60 + accuracy - evasion, 5, 95) / 100
-				if math.random() > hitChance then
-					monster:showDamageText("miss", "AAAAAA")
-					return false
-				else
-					return true
-				end
+				monster:setCondition("stunned", 10)
+				champion:setConditionValue("ancestral_charge", 20)
 			end
 		},
 	},
 }
 
 defineParticleSystem{
-	name = "psionic_arrow",
+	name = "ancestral_charge",
 	emitters = {
 		-- smoke
 		{
@@ -217,7 +202,7 @@ defineParticleSystem{
 }
 
 defineParticleSystem{
-	name = "psionic_arrow_blast",
+	name = "ancestral_charge_blast",
 	emitters = {
 		-- smoke
 		-- {

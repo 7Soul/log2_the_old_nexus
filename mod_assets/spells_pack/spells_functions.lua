@@ -11,10 +11,31 @@ defOrdered =
 { 
 
 {
+	name = "ancestral_charge",
+	uiName = "Ancestral Charge",
+	gesture = 0,
+	manaCost = 0,
+	skill = "missile_weapons",
+	requirements = {	},
+	icon = 61,
+	spellIcon = 1,
+	hidden = true,
+	description = "",
+	onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
+		local ord = champion:getOrdinal()
+		local base = (champion:getLevel() * 2) + functions.script.getDamage(ord, nil)
+		local power = spells_functions.script.getPower(base, champion, nil, "neutral", 3, "ancestral_charge")
+		
+		spells_functions.script.missile("ancestral_charge", ord, power, nil, true)
+		spells_functions.script.stopInvisibility()
+	end
+},
+
+{
 	name = "psionic_arrow",
 	uiName = "Psionic Arrow",
 	gesture = 0,
-	manaCost = 10,
+	manaCost = 0,
 	skill = "missile_weapons",
 	requirements = {	},
 	icon = 61,
@@ -22,7 +43,8 @@ defOrdered =
 	hidden = true,
 	description = "",
 	onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
-		local power = spells_functions.script.getPower(1, champion, "missile_weapons", "neutral", 1)	
+		local base = functions.script.getDamage(ord, nil) + functions.script.getAccuracy(ord, nil)
+		local power = spells_functions.script.getPower(base, champion, "missile_weapons", "neutral", 1)	
 		local ord = champion:getOrdinal()
 		spells_functions.script.missile("psionic_arrow", ord, power, nil, true)
 		spells_functions.script.stopInvisibility()
@@ -2113,14 +2135,18 @@ end
 function getPower(base, champion, skill, element, tier, spellName)
 	if not element then element = "neutral" end
 	if not tier then tier = 1 end
-	local f = getSkillPower(champion, skill) + champion:getCurrentStat("willpower")/50 + 1
+	local f = 1
+	if skill then
+		f = getSkillPower(champion, skill) + champion:getCurrentStat("willpower")/50 + 1
+	end
+	
 	local arcaneWarrior = 0
 	
 	if champion:hasTrait("persistence") then
 		f = f * (1.00 + (champion:getCurrentStat("strength") * 0.04))
 	end	
 	
-	base = functions.script.empowerElement(champion, element, f)
+	f = functions.script.empowerElement(champion, element, f)
 	
 	if tier < 3 then
 		if champion:hasTrait("arcane_warrior") then
@@ -2137,6 +2163,14 @@ function getPower(base, champion, skill, element, tier, spellName)
 			local multi = 1.25 + (math.floor(champion:getLevel() / 4) * 0.1)
 			f = f * multi
 		end
+	end
+	
+	if champion:hasTrait("ancestral_charge") and spellName == "ancestral_charge" then
+		local power1 = champion:getSkillLevel("heavy_armor") / 20
+		local power2 = champion:getSkillLevel("block") / 20
+		local power3 = champion:getSkillLevel("athletics") / 20
+		local multi = 1 + power1 + power2 + power3
+		f = f * multi
 	end
 	
 	return (base * f) + arcaneWarrior

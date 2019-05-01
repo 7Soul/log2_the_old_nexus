@@ -181,7 +181,7 @@ defineTrait{
 	- Energy 50 (+6 per level)
 	
 	Herbologist: You can attach a herb to your accessory slot, gaining unique effects.
-	- All herbs convert 20% of your damage to Poison.
+	- All herbs convert 20% of your physical damage to Poison.
 	
 	- Blooddrop Cap: Strength +2. Gain health by dealing poison damage.
 	- Etherweed: Willpower +2. Gain energy by dealing poison damage.
@@ -855,10 +855,10 @@ defineTrait{
 	icon = 43,
 	charGen = true,
 	requiredRace = "minotaur",
-	description = "All melee attacks deal an extra 1% damage per Strength point but you also take 1% more damage per point. Every 3 levels you gain +1 to Strength.",
+	description = "All melee attacks deal an extra 1% damage per Strength point but you also take 0.5% more damage per point. Every 2 levels you gain +1 to Strength.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			champion:addStatModifier("strength", math.floor(level/3))
+			champion:addStatModifier("strength", math.floor(level/2))
 		end
 	end,
 }
@@ -870,9 +870,10 @@ defineTrait{
 	icon = 44,
 	charGen = true,
 	requiredRace = "minotaur",
-	description = [[You can summon a warrior spirit to charge and stun an enemy.
-	- Costs 25 Energy to use.
-	- Charges for 8 tiles and deals damage based on your Willpower and Vitality.]],
+	description = [[You can summon a warrior spirit to charge and stun an enemy. This is a neutral type, ultimate tier spell.
+	- Costs 25 Energy to use and has a range of 6 tiles.
+	- Base damage equal double your level plus your attack power.	
+	- Hitting an enemy boosts your Heavy Armor and Block skills' base bonuses and perks by 50% for 20 seconds.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			
@@ -967,7 +968,7 @@ defineTrait{
 	icon = 48,
 	charGen = true,
 	requiredRace = "insectoid",
-	description = "Increases melee damage by 4% for each point in Willpower.\nIncreases magic damage by 4% for each point in Strength.",
+	description = "Increases physical damage by 4% for each point in Willpower.\nIncreases magic damage by 4% for each point in Strength.",
 }
 
 defineTrait{
@@ -1186,15 +1187,25 @@ defineTrait{
 	uiName = "Armored Up",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 75, 
-	description = "Gain +5 Protection and +1 Strength when wearing heavy armor in all 5 slots.",
+	description = "+5% Protection and +2 Strength.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
 			local all_heavy = functions.script.wearingAll(champion, "heavy_armor")
 			if all_heavy then
 				local multi = champion:hasTrait("armor_training") and 2 or 1
-				champion:addStatModifier("protection", 5 * multi)
-				champion:addStatModifier("strength", 2 * multi)
+				if champion:hasCondition("ancestral_charge") then multi = multi + 0.5 end
+				champion:addStatModifier("strength", math.floor(2 * multi))
+				
+				local bonusProt = 0
+				local equip_slots = {3,4,5,6,9}
+				for i, v in pairs(equip_slots) do
+					if champion:getItem(v) then
+						bonusProt = bonusProt + champion:getItem(v):getProtection()
+					end
+				end
+				bonusProt = bonusProt * 0.1
+				champion:addStatModifier("protection", math.ceil(bonusProt * multi))
 			end
 		end
 	end,
@@ -1205,14 +1216,25 @@ defineTrait{
 	uiName = "Heavy Conditioning",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 76,
-	description = "Increase Health by 50 when wearing all heavy armor.",
+	description = "+30 Health and +10% Protection.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
 			local all_heavy = functions.script.wearingAll(champion, "heavy_armor")
 			if all_heavy then
-				local multi = champion:hasTrait("armor_training") and 100 or 50
-				champion:addStatModifier("max_health", 50 * multi)
+				local multi = champion:hasTrait("armor_training") and 2 or 1
+				if champion:hasCondition("ancestral_charge") then multi = multi + 0.5 end
+				champion:addStatModifier("max_health", math.ceil(30 * multi))
+				
+				local bonusProt = 0
+				local equip_slots = {3,4,5,6,9}
+				for i, v in pairs(equip_slots) do
+					if champion:getItem(v) then
+						bonusProt = bonusProt + champion:getItem(v):getProtection()
+					end
+				end
+				bonusProt = bonusProt * 0.1
+				champion:addStatModifier("protection", math.ceil(bonusProt * multi))
 			end
 		end
 	end,
@@ -1223,18 +1245,7 @@ defineTrait{
 	uiName = "Armor Training",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 77,
-	description = [['All heavy armor' bonuses are doubled and work even if your Helmet and Gloves are not heavy armor. Light armor in those slots gain an extra 10% protection per level.]],
-	-- onReceiveCondition = function(champion, cond, level)
-		-- if level > 0 then
-			-- level = champion:getLevel()
-			-- local all_heavy = functions.script.wearingAll(champion, "heavy_armor")
-			-- if all_heavy then
-				-- if (cond == "bleeding" or cond == "stun") and math.random() <= 0.5 then
-					-- return false
-				-- end
-			-- end
-		-- end
-	-- end,
+	description = [[Bonuses are doubled and work even if your Helmet and Gloves are not heavy armor. Other armor in those slots gain an extra 25% protection.]],
 }
 
 -- Accuracy
@@ -1417,7 +1428,7 @@ defineTrait{
 -- Light Weapons
 defineTrait{
 	name = "dual_wield",
-	uiName = "Dual Wielding",
+	uiName = "Dual Wield",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 96,
 	description = "You can attack separately with Light Weapons in either hand. One of the weapons must be a dagger. Both weapons suffer a 40% penalty to the items' base damage when dual wielding.",
@@ -1434,7 +1445,7 @@ defineTrait{
 
 defineTrait{
 	name = "improved_dual_wield",
-	uiName = "Dual Wield Mastery",
+	uiName = "Dextrous",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 98,
 	description = "You can dual wield any two Light Weapons. Both weapons still suffer a 40% penalty to the items' base damage when dual wielding.",
@@ -1460,7 +1471,7 @@ defineTrait{
 
 defineTrait{
 	name = "two_handed_mastery",
-	uiName = "Two-Handed Mastery",
+	uiName = "Heavy Hander",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 101,
 	description = "You can wield two-handed weapons in one hand.",
@@ -1584,15 +1595,15 @@ defineTrait{ -- to do
 	uiName = "Plague",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 115,
-	description = "Your poison spells have a larger area of effect and can't damage your party.",
+	description = "Poison spreads between enemies. +5% Chance to poison.",
 }
 
 defineTrait{
 	name = "antivenom",
-	uiName = "Anti-venom",
+	uiName = "Bane",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 116,
-	description = "+35% Resist Poison and immunity to being poisoned.",
+	description = "Enemies take increased damage from the poison status, an effect which also heals you.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			champion:addStatModifier("resist_poison", 35)
@@ -1624,7 +1635,7 @@ defineTrait{ -- to do
 
 defineTrait{
 	name = "arcane_extraction",
-	uiName = "Arcane Extraction",
+	uiName = "Extraction",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 119,
 	description = "Energy potions recover 25% more, while also regenerating 25 health. At the same time, healing potions recover 25 energy.",
