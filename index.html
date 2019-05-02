@@ -1,0 +1,293 @@
+<html>
+<head>
+<style>
+
+body {
+	background-color: #666;
+	font-family: 'Palatino Linotype';
+	font-size: 18px;
+	font-weight: bold;
+	letter-spacing: 0.2px;
+	color: white;
+	padding: 0;
+	margin: 0;
+	text-shadow:
+     -1px -1px 0 #000,  
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+       1px 1px 0 #000;
+}
+
+h1 {
+	font-size: 24px;
+	display: block;
+	margin-left: 105px;
+	margin-bottom: 0;
+	padding-top: 16px;
+}
+
+h2 {
+	font-size: 18px;
+	display: block;
+	margin-left: 105px;
+	margin-top: 0;
+	/*margin-bottom: 32px;*/
+	color: #a2b7ce;
+}
+
+hr {
+	border: none;
+	border-top: solid 2px gray;
+	margin: 0 16px;
+}
+
+hr::after {
+	content: "Perks";
+    display: inline;
+    position: absolute;
+    left: 45%;
+    margin-top: -14px;
+    padding: 0 4px;
+    color: rgba(255,255,255,0.85);
+}
+
+.main {
+	border-radius: 8px;
+	/*border: solid 2px rgba(255,255,255,0.95);*/
+	background-color: rgba(0,0,0,0.95);
+	width: 549px;
+	height: auto;
+	position:relative;
+	padding-bottom: 4px;
+	margin: 10px auto;
+}
+
+.icon {
+	background-image: url('C:/Users/User/Documents/Almost Human/legend of grimrock 2/Dungeons/log2_the_old_nexus/mod_assets/textures/gui/skills.png');
+	width: 75px;
+    height: 75px;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+	float: left;
+    margin-left: 13px;
+	margin-top: 16px;
+}
+
+.perks {
+	display: flex;
+	width: fit-content;
+	height: auto;
+	margin: 16px 13px;
+	position:relative;
+	flex-direction: column;
+	margin-bottom: 0;
+}
+
+.main > p {
+	font-size: 13px;
+	color: rgba(187,187,187);	
+	font-style: italic;
+	margin: 2px 13px;
+}
+
+.perk b {
+	margin-left: 0;
+	padding-bottom: 6px;
+	color: #99f47c;
+	padding-right: 8px;
+}
+
+.perk em {
+    display: inline;
+    position: absolute;
+	left: -5px;
+	margin-top: -6px;
+	font-size: 10px;
+	color: rgba(187,187,187);
+	font-style: italic;
+}
+
+.perk p {
+	display: inline-flex;
+    border-left: solid 1px #708091;
+    padding-left: 10px;
+	margin: 0;
+	max-width: 384px;
+}
+.perks > .perk {
+	margin-bottom: 6px;
+}
+
+.perks > .perk > div {
+	width: auto;
+	display: inline-flex;
+}
+
+.top {
+	min-height: 94px;
+}
+
+</style>
+</head>
+
+<body>
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: 0 0;"></div>
+		<h1>Athletics</h1>
+		<h2>Health +20 and Weight Limit +1kg per skill point.</h2>
+	</div>
+	<hr/>
+	<div class="perks">
+		<div class="perk">
+			<div style="margin-right: 1px"><em>Level 2</em><b>Pack Mule</b></div>
+			<p>Weight Limit +10kg.</p>
+		</div>
+		
+		<div class="perk">
+			<div style="margin-right: 0px"><em>Silver Tier</em><b>Endurance</b></div>
+			<p>25% Resistance to leg and feet wounds. Wearing heavy boots doubles that effect.</p>
+		</div>
+		
+		<div class="perk">
+			<div style="margin-right: 4px"><em>Gold Tier</em><b>Refreshed</b></div>
+			<p>Healing potions heal 25% more, with some extra healing applied instantly.</p>
+		</div>
+	</div>	
+	
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: -75px 0;"></div>
+		<h1>Block</h1>
+		<h2>Protection and Block Chance +2 per point.</h2>
+	</div>
+	<hr/>
+	<div class="perks">
+		<div class="perk">
+			<div style="margin-right: 66px"><em>Level 2</em><b>Block</b></div>
+			<p>8% chance to block* an attack.</p>
+		</div>
+		
+		<div class="perk">
+			<div style="margin-right: 16px"><em>Silver Tier</em><b>Power Bash</b></div>
+			<p>When blocking, you bash your attacker, doing damage based on your Protection.</p>
+		</div>
+		
+		<div class="perk">
+			<div style="margin-right: 0px"><em>Gold Tier</em><b>Shield Bearer</b></div>
+			<p>Taking damage gives 2 Protection and 1% Block Chance. This effect stacks until you block an attack.</p>
+		</div>
+	</div>	
+	
+	<p>Perks take effect when holding a shield</p>
+	<p>*Blocking negates 50% of melee damage.</p>
+	
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: -150px 0;"></div>
+		<h1>Light Armor</h1>
+		<h2>Each point reduces the Evasion penalties from wearing Light Armor by 20%.</h2>
+	</div>
+	<hr/>
+	<div class="perks">
+		<div class="perk">
+			<div style="margin-right: 0px"><em>Level 2</em><b>Light Wear</b></div>
+			<p>+5 Evasion and +2 Dexterity.</p>
+		</div>
+		
+		<div class="perk">
+			<div style="margin-right: 7px"><em>Silver Tier</em><b>Reflective</b></div>
+			<p>The first attack from an enemy is absorbed as Health and Energy over 5 seconds.</p>
+		</div>
+		
+		<div class="perk">
+			<div style="margin-right: 28px"><em>Gold Tier</em><b>Nimble</b></div>
+			<p>Action timers reduced by 15%.</p>
+		</div>
+	</div>
+	<p>Perks take effect when wearing Light Armor in all 5 slots</p>
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: -225px 0;"></div>
+		<h1>Heavy Armor</h1>
+		<h2>Each point reduces the Evasion penalties from wearing Heavy Armor by 20% and Weight by 10%.</h2>
+	</div>
+	<hr/>
+	<div class="perks">
+		<div class="perk">
+			<div style="margin-right: 28px"><em>Level 2</em><b>Armored Up</b></div>
+			<p>+5% Protection and +2 Strength.</p>
+		</div>
+		
+		<div class="perk">
+			<div style="margin-right: 20px"><em>Silver Tier</em><b>Conditioning</b></div>
+			<p>+40 Health and +10% Protection.</p>
+		</div>
+		
+		<div class="perk">
+			<div style="margin-right: 0px"><em>Gold Tier</em><b>Armor Training</b></div>
+			<p style="max-width: 360px;">Bonuses are doubled and work even if your Helmet and Gloves are not heavy armor. Other armor in those slots gain an extra 10% protection.</p>
+		</div>
+	</div>
+	<p>Perks take effect when wearing Heavy Armor in all 5 slots</p>
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: -525px 0;"></div>
+		<h1>Seafaring</h1>
+		<h2>Each point increases evasion by 3 when fighting multiple* foes.</h2>
+	</div>
+	<hr/>
+	<div class="perks">
+		<div class="perk">
+			<div style="margin-right: 20px"><em>Level 2</em><b>Sea Dog</b></div>
+			<p>You deal 25% more Melee damage from the backline and 25% more Ranged and Firearms damage from the frontline.</p>
+		</div>
+		
+		<div class="perk">
+			<div><em>Silver Tier</em><b>Freebooter</b></div>
+			<p>Pellets and Cannon Balls in your inventory weight 75% less.</p>
+		</div>
+		
+		<div class="perk">
+			<div style="margin-right: 5px"><em>Gold Tier</em><b>Broadside</b></div>
+			<p>Pellets and Cannon Balls have a 40% chance to create shrapnel on impact, doing half damage to a 3-tile area behind the target.</p>
+		</div>
+	</div>	
+	<p>*Having more than one foe adjacent to you.</p>
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: -75px -75px;"></div>
+		<h1>Poison Mastery</h1>
+		<h2>Increases all Poison damage by 20% per point.</h2>
+	</div>
+	<hr/>
+	<div class="perks">
+		<div class="perk">
+			<div style="margin-right: 0px"><em>Level 2</em><b>Venomancer</b></div>
+			<p>10% chance to poison enemies with attacks and spells.</p>
+		</div>
+		
+		<div class="perk">
+			<div style="margin-right: 48px"><em>Silver Tier</em><b>Plague</b></div>
+			<p>Poison spreads* between enemies.</p>
+		</div>
+		
+		<div class="perk">
+			<div style="margin-right: 63px"><em>Gold Tier</em><b>Bane</b></div>
+			<p>Enemies take increased damage from the poison status, an effect which also heals you.<br/>+5% Chance to poison.</p>
+		</div>
+	</div>
+	<p>*Poisons adjecent monsters at 30% chance per second.</p>
+</div>
+</body>
+</html>

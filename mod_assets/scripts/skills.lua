@@ -28,9 +28,9 @@ defineSkill{
 	description = [[Protection and Block Chance +2 per point.
 		
 	Perks (when holding a shield):
-	- Level 2 | 8% chance to block an attack.
-	- Level 4 | Immunity to hand and chest wounds. Block chance +2%.
-	- Level 5 | Bashes the enemy for 150% of the damage received when you block an attack. Block chance +2%.]],
+	- Level 2 | 10% chance to block an attack.
+	- Level 4 | Bashes your attacker for 150% of the damage received when you block.
+	- Level 5 | Every time you are attacked, you gain 2 Protection and 1% Block Chance. This effect stacks until you block an attack.]],
 	traits = { [2] = "block", [4] = "shield_bearer", [5] = "shield_bash" },
 	onRecomputeStats = function(champion, level)
 		local skillLevel = champion:getSkillLevel("block")
@@ -74,11 +74,11 @@ defineSkill{
 	priority = 40,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 3,
-	description = [[Each point reduces the evasion penalties from wearing Heavy Armor by 20% and their weigth by 10%.
+	description = [[Each point reduces the evasion penalties from wearing Heavy Armor by 20% and weight by 10%.
 	
 	Perks when wearing heavy armor in all 5 slots:
 	- Armored Up | +5% Protection and +2 Strength.
-	- Heavy Conditioning | +50 Health and +10% Protection.
+	- Heavy Conditioning | +40 Health and +10% Protection.
 	- Armor Training | Bonuses are doubled and work even if your Helmet and Gloves are not heavy armor. Other armor in those slots gain an extra 10% protection.]],
 	traits = { [2] = "armored_up", [4] = "heavy_conditioning", [5]="armor_training" },
 	onRecomputeStats = function(champion, level)
@@ -295,7 +295,7 @@ defineSkill{
 	priority = 150,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 14,
-	description = [[Increases all poison damage by 20% for each skill point.
+	description = [[Poison damage +20% per skill point.
 	
 	Perks:
 	- Venomancer| 10% chance to poison enemies with melee, missile and throwing attacks.

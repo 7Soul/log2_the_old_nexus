@@ -1216,7 +1216,7 @@ defineTrait{
 	uiName = "Heavy Conditioning",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 76,
-	description = "+30 Health and +10% Protection.",
+	description = "+40 Health and +10% Protection.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
@@ -1224,7 +1224,7 @@ defineTrait{
 			if all_heavy then
 				local multi = champion:hasTrait("armor_training") and 2 or 1
 				if champion:hasCondition("ancestral_charge") then multi = multi + 0.5 end
-				champion:addStatModifier("max_health", math.ceil(30 * multi))
+				champion:addStatModifier("max_health", math.ceil(40 * multi))
 				
 				local bonusProt = 0
 				local equip_slots = {3,4,5,6,9}

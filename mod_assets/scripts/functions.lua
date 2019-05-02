@@ -320,15 +320,17 @@ function checkWeights(id)
 		end
 		
 		if champion:getSkillLevel("heavy_armor") > 0 then
-			setWeight(item, "heavy_armor", 1 - (champion:getSkillLevel("heavy_armor") * 0.15)) 
+			setWeight(item, "heavy_armor", 1 - (champion:getSkillLevel("heavy_armor") * 0.1)) 
 		else
 			resetItemWeight(item, "heavy_armor")
 		end	
 		
 		if champion:hasTrait("freebooter") then
-			setWeight(item, "cannon_ball", 0.2)
+			setWeight(item, "cannon_ball", 0.25)
+			setWeight(item, "pellet_box", 0.25)
 		else
 			resetItemWeight(item, "cannon_ball")
+			resetItemWeight(item, "pellet_box")
 		end	
 	end
 end
@@ -1826,7 +1828,7 @@ function empowerAttackType(champion, attackType, multi)
 		end	
 		
 		if champion:getClass() == "assassin_class" then
-			f = f * (1 + (assassinations[ord] * 0.05)))
+			f = f * (1 + (assassinations[ord] * 0.05))
 		end	
 	end
 	
