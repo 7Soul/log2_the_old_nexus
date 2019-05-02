@@ -1299,7 +1299,7 @@ defineTrait{
 
 defineTrait{
 	name = "weapons_specialist",
-	uiName = "Weapons Specialist",
+	uiName = "Slayer",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 82,
 	description = "You gain double critical chance from items.",
