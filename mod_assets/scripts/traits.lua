@@ -229,7 +229,7 @@ defineTrait{
 	uiName = "Elementalist",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 31,
-	description = "Master of the elements who can control Fire, Ice and Thunder.",
+	description = "Sage of the elements who can control Fire, Ice and Thunder.",
 	gameEffect = [[
 	- Health 35 (+5 per level)
 	- Energy 60 (+9 per level)
@@ -257,7 +257,7 @@ defineTrait{
 	- Health 35 (+5 per level)
 	- Energy 40 (+9 per level)
 	
-	Wisdom of the Tribe: Gains bonuses when fighting animals, beasts and insects.
+	Wisdom of the Tribe: Gain bonuses when fighting animals, beasts and insects.
 	- Your attacks and spells are empowered by your Willpower (with diminishing returns).
 	- You heal 5% missing health per attack.
 	

@@ -1714,9 +1714,9 @@ function empowerElement(champion, element, multi)
 			local druidItem = functions.script.get_c("druid_item", ord)
 			if druidItem then
 				if druidItem == "crystal_flower" then
-					f = f * 1.15 + ((champion:getLevel() - 1) * 0.01)
-				elseif druidItem == "blackmoss" then
 					f = f * 1.06 + ((champion:getLevel() - 1) * 0.01)
+				elseif druidItem == "blackmoss" then
+					f = f * 1.15 + ((champion:getLevel() - 1) * 0.01)
 				end
 			end
 		end
