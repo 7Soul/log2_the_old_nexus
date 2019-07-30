@@ -284,7 +284,7 @@ defineSkill{
 	
 	Perks:
 	- Aggregate | Hitting a foe with an element it resists will buff your next hit with that element by 20%.
-	- Elemental Armor | +25% Resist Fire, Shock and Cold.
+	- Elemental Armor | +25% Resist Fire, Shock and Cold. You gain 15% of you maximum energy when hit by one of those elements.
 	- Exploitation| Deal 25% more damage if the target is vulnerable to that element.]],
 	traits = { [2] = "aggregate", [4] = "elemental_armor", [5] = "elemental_exploitation" },
 }
@@ -310,16 +310,16 @@ defineSkill{
 	priority = 160,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 15,
-	description = [[Increases your energy by 20 for each skill point. 
+	description = [[Increases your Energy by 20 and Energy Regeneration while resting by 5% for each skill point.
 	
 	Perks:
-	- Meditation | Your Energy regeneration rate is increased by 25% while resting.
+	- Meditation | +5 Protection. You regain 1% to 5% of you energy when taking damage.
 	- Imperium Arcana | Non-elemental and non-poison spells deal 35% more damage.
-	- Extraction | Energy potions recover 25% more, while also regenerating 25 health. At the same time, healing potions recover 25 energy.]],
+	- Extraction | Energy potions recover 25% more, while also regenerating 25 health. Healing potions also recover 25 energy. Allies benefit from this at 1/3 the power.]],
 	onRecomputeStats = function(champion, level)
 		champion:addStatModifier("max_energy", level * 20)
 	end,
-	traits = { [3] = "meditation", [4] = "imperium_arcana", [5] = "arcane_extraction" },
+	traits = { [2] = "meditation", [4] = "imperium_arcana", [5] = "arcane_extraction" },
 }
 
 defineSkill{
@@ -335,9 +335,9 @@ defineSkill{
 	description = [[Increases the damage and effect of witchcraft spells by 20% for each skill point.
 	
 	Perks:
-	- Ritual | Heals the party for 10% of the damage done with spells.
-	- Moon Rites | Your Energy regeneration rate is increased by 50% during the night.
-	- Voodoo | You can obtain voodoo dolls of monsters by slaying them.]],
+	- Ritual | Heals the party for 10% of the damage done with spells. You heal for twice as much.
+	- Moon Rites | During the night, your Energy regeneration rate is increased by 50% and your spell damage by 10%.
+	- Voodoo | Hitting one enemy with a spell also affects nearby enemies* in a range of 2 tiles.]],
 	traits = { [1] = "ritual", [4] = "moon_rites", [5] = "voodoo" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 then			
@@ -357,8 +357,8 @@ defineSkill{
 	- Upgraded items weight 5kg more (-0.5kg per skill level).
 	
 	Perks:
-	- Pyrotechnician | You can craft bombs and pellets.
-	- Multipurpose | Unlock chests without a lockpick, at the cost of Energy.
+	- Pyrotechnician | You can craft bombs and pellets. +5% Fire and Shock damage dealt per upgraded item you have equipped.
+	- Multipurpose | Unlock chests without a lockpick, at the cost of Energy. You gain +1 to a random stat when you do it.
 	- Mastersmith | You can upgrade Epic items.]],
 	traits = { [3] = "pyrotechnician", [4] = "multipurpose", [5] = "mastersmith" },
 	onRecomputeStats = function(champion, level)
