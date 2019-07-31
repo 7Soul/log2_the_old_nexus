@@ -574,6 +574,38 @@ defineCondition{
 }
 
 defineCondition{
+	name = "chewing",
+	uiName = "Chewing",
+	description = "You are chewing on a herb.",
+	icon = 3,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
+	beneficial = true,
+	harmful = false,
+	tickInterval = 1,
+	onStart = function(self, champion)
+		champion:addTrait("rodent_chewing")
+	end,
+	onStop = function(self, champion)
+		for slot=13,32 do
+			if champion:getItem(slot) == nil then
+				champion:insertItem(slot, spawn("fiber_ball_good").item)
+				local item = champion:getItem(slot)
+				if item.go.data:get("parent") == nil then item.go.data:set("parent", champion:getOrdinal()) end
+				break
+			end
+			if slot == 32 and champion:getItem(slot) ~= nil then
+				
+			end
+		end
+		champion:removeTrait("rodent_chewing")
+	end,
+	onRecomputeStats = function(self, champion)
+	end,
+	onTick = function(self, champion)
+	end,	
+}
+
+defineCondition{
 	name = "sneak_attack",
 	uiName = "",
 	description = "",

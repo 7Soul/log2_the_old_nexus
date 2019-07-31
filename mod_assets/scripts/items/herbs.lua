@@ -18,7 +18,29 @@ defineObject{
 		{
 			class = "Particle",
 			particleSystem = "blooddrop",
-		},	
+		},
+		{
+			class = "UsableItem",
+			onUseItem = function(self, champion)
+				if champion:hasTrait("rodent") then
+					
+				end
+				
+				if self.go.data:get("charges") == 24 then
+					local id = champion:getOrdinal()
+					local power = 1.2 + (math.floor(champion:getCurrentStat("dexterity") / 5) * 0.05)
+					functions.script.set_c("topaz_power", id, power)
+					functions.script.set_c("topaz_charges",  id, 5)
+					self.go.data:set("charges", 0)
+					self.go.data:set("icon", self.go.item:getGfxIndex())
+					playSound("generic_spell")
+					self.go.item:setGfxIndex(self.go.item:getGfxIndex() + 2)
+				else
+					hudPrint("The gem needs to recharge.")
+				end
+				return false
+			end,
+		},
 	},
 	tags = { "herb" },
 }
@@ -130,4 +152,52 @@ defineObject{
 		},
 	},
 	tags = { "herb" },
+}
+
+defineObject{
+	name = "fiber_ball_good",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/falconskyre.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Fermented Fiber Ball",
+			description = "A herb fermented with a certain kind of Ratling digestive enzyme. Its vapors help other herbs grow faster, and can be used to cure disease and poisons. It will dry out with time, becoming useless.",
+			gameEffect = [[Keep in your inventory to increase herb growth. Has to be in the same inventory as the herbs and stacks up from 5% at 1 to a 15% increase at 10 stacks.]],
+			gfxIndex = 77,
+			stackable = true,
+			weight = 0.01,
+		},
+		{
+			class = "UsableItem",
+			onUseItem = function(self, champion)
+				champion:removeCondition("poison")
+				champion:removeCondition("diseased")
+				champion:playHealingIndicator()
+				return false
+			end
+		},
+	},
+}
+
+defineObject{
+	name = "fiber_ball_bad",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/falconskyre.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Dry Fiber Ball",
+			description = "A dry ball of fiber. Can be used as ignition material on the creation of bombs.",
+			gfxIndex = 77,
+			stackable = true,
+			weight = 0.01,
+		},
+	},
 }

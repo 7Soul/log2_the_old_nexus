@@ -204,15 +204,29 @@ hr::after {
 	color: #99f47c;
 }
 
+.main .top h1 em {
+	font-size: 0.5em;
+	color: #CCC;
+	float: right;
+	margin-right: 115px;
+}
+
+
+h2 em {
+	font-size: 0.8em;
+}
+
 </style>
 </head>
 
 <body>
 <h1>/// Classes ///</h1>
+<p style="clear:both;display:block;text-align:center;width:100%;">These replace all the original classes.</p>
+
 <div class="main">
 	<div class="top">
 		<div class="icon" style="background-position: 0 -150px;"></div>
-		<h1>Assassin</h1>
+		<h1>Assassin <em>Tags: Dual Wielder, Ranged, Backstabber</em></h1>
 		<h2>A contract killer who can improve their technique with each kill.</h2>
 	</div>
 	<div class="class_base">
@@ -235,7 +249,7 @@ hr::after {
 <div class="main">
 	<div class="top">
 		<div class="icon" style="background-position: -75px -150px;"></div>
-		<h1>Berserker</h1>
+		<h1>Berserker <em>Tags: Tank, Strength User</em></h1>
 		<h2>A prideful warrior of the Red Hills</h2>
 	</div>
 	<div class="class_base">
@@ -264,7 +278,7 @@ hr::after {
 <div class="main">
 	<div class="top">
 		<div class="icon" style="background-position: -150px -150px;"></div>
-		<h1>Champion</h1>
+		<h1>Champion <em>Tags: Healer, Jack of all Trades</em></h1>
 		<h2>A monk who has trained in the path of light to achieve inner balance.</h2>
 	</div>
 	<div class="class_base">
@@ -294,7 +308,7 @@ hr::after {
 <div class="main">
 	<div class="top">
 		<div class="icon" style="background-position: -225px -150px;"></div>
-		<h1>Corsair</h1>
+		<h1>Corsair <em>Tags: Firearms, Melee, Backline, Dual Wielder</em></h1>
 		<h2>A sailor of the Serpent Sea, a master duelist and firearms specialist.</h2>
 	</div>
 	<div class="class_base">
@@ -320,7 +334,7 @@ hr::after {
 <div class="main">
 	<div class="top">
 		<div class="icon" style="background-position: -300px -150px;"></div>
-		<h1>Druid</h1>
+		<h1>Druid <em>Tags: Poison, Caster, Jack of all Trades</em></h1>
 		<h2>The caretaker of the most ancient forests unknown to man.</h2>
 	</div>
 	<div class="class_base">
@@ -346,7 +360,7 @@ hr::after {
 <div class="main">
 	<div class="top">
 		<div class="icon" style="background-position: -375px -150px;"></div>
-		<h1>Elementalist</h1>
+		<h1>Elementalist <em>Tags: Caster, Elemental</em></h1>
 		<h2>Sage of the elements who can control Fire, Ice and Thunder.</h2>
 	</div>
 	<div class="class_base">
@@ -370,7 +384,7 @@ hr::after {
 <div class="main">
 	<div class="top">
 		<div class="icon" style="background-position: -450px -150px;"></div>
-		<h1>Hunter</h1>
+		<h1>Hunter <em>Tags: DPS, Specialist, Willpower User</em></h1>
 		<h2>A member of the hunting tribes of the Xaae Jungle.</h2>
 	</div>
 	<div class="class_base">
@@ -400,7 +414,7 @@ hr::after {
 <div class="main">
 	<div class="top">
 		<div class="icon" style="background-position: -525px -150px;"></div>
-		<h1>Spell Thief</h1>
+		<h1>Spell Thief <em>Tags: Neutral Caster, Invisibility, Dex User</em></h1>
 		<h2>A rogue-ish spell-caster specialist in covert attacks.</h2>
 	</div>
 	<div class="class_base">
@@ -432,7 +446,7 @@ hr::after {
 <div class="main">
 	<div class="top">
 		<div class="icon" style="background-position: -600px -150px;"></div>
-		<h1>Tinkerer</h1>
+		<h1>Tinkerer <em>Tags: Fire, Shock, Tinkering, Firearms, Melee</em></h1>
 		<h2>A technician capable of weaving magic into their tools through use of thaumaturgy.</h2>
 	</div>
 	<div class="class_base">
@@ -456,6 +470,179 @@ hr::after {
 		</ul>
 	</div>
 </div>
+
+<h1>/// Racial Traits ///</h1>
+<p style="clear:both;display:block;text-align:center;width:100%;">There are no general traits at character creation, instead, you choose 1 trait based on your race.</p>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: 0px -225px;"></div>
+		<h1>Lore Master<em>Human</em></h1>
+		<h2>Carrying Spell Scrolls give you +1% Increased Experience Gain per scroll, plus 1 Willpower for every 4 scrolls.</h2>
+	</div>
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: -75px -225px;"></div>
+		<h1>Average Joe<em>Human</em></h1>
+		<h2>Gain +2 to your lowest stat and +25% to your lowest resistance <em>(if two are tied, the one at the bottom takes priority)</em>.</h2>
+		<h2>Also gain Energy or Health if the other is higher. The amount is 1/4 the difference between the two.<h2>
+		<h2>Gain experience 5% slower.<h2>
+	</div>
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: -150px -225px;"></div>
+		<h1>Drown Your Sorrows<em>Human</em></h1>
+		<h2>When you activate this skill, you drink from a small flask, kept hidden under your vest.</h2>
+		<div class="class_trait">
+			<ul>
+			<li>Gain +5 Protection and recover all wounds over a period of 15 seconds.</li>
+			<li>Reduces Experience Gain by 15% for 1 day.</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: -225px -225px;"></div>
+		<h1>Carnivorous<em>Minotaur</em></h1>
+		<h2>Increases chances of finding meat when defeating beasts.</h2>
+		<div class="class_trait">
+			<ul>
+			<li>Eating red meat increases your Strength by 4 and Health and Energy regeneration rate by 25% for 1 minute <em>(+1 minute at levels 8 and 12)</em></li>
+			<li>You can't eat non-meat foods, like bread, bugs or even fish.</li>
+			<li>Your food consumption rate is 15% higher.</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: -300px -225px;"></div>
+		<h1>Brutalizer<em>Minotaur</em></h1>
+		<h2>All melee attacks deal an extra 1% damage per Strength point but you also take 0.5% more damage per point.<br/>Every 2 levels you gain +1 to Strength.</h2>
+	</div>
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: -375px -225px;"></div>
+		<h1>Ancestral Charge<em>Minotaur</em></h1>
+		<h2>You can summon a warrior spirit to charge and stun an enemy. This is a neutral type, ultimate tier spell.</h2>
+		<div class="class_trait">
+			<ul>
+			<li>Costs 25 Energy to use and has a range of 6 tiles.</li>
+			<li>Base damage equal double your level plus your attack power.</li>
+			<li>Hitting an enemy boosts your Heavy Armor and Block skills' base bonuses and perks by 50% for 20 seconds.</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: -450px -225px;"></div>
+		<h1>Lizard Blood<em>Lizardman</em></h1>
+		<h2>Your blood is warm during the day, giving you +2 Strength and +25 Fire Resist but -10 Cold Resist.<br/><br/>Your skin is cold during the night, giving you +2 Willpower and +25 Cold Resist but -10 Fire Resist.</h2>
+		<h2>You gain an extra +2 to all stats for each of the two resistances that reaches 100.</h2>
+	</div>
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: -525px -225px;"></div>
+		<h1>Wide Vision<em>Lizardman</em></h1>
+		<h2>You can see attacks coming from all directions, warning your companions of danger.<br/><br/>For each monster next* to you:</h2>
+		<div class="class_trait">
+			<ul>
+			<li>You gain +10 Evasion, +5 Accuracy and +3% Critical Chance.</li>
+			<li>Your party gain +2 Evasion and +2 Accuracy and +1% Critical Chance.</li>
+			</ul>
+		</div>
+	</div>
+	<p>*In the 3x3 area around your party.</p>
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: -600px -225px;"></div>
+		<h1>Bite<em>Lizardman</em></h1>
+		<h2>When attacking with a melee weapon, you perform a bite attack. This action has a 16 second cooldown, which goes down with levels.<br/><br/>The damage is based on your combined Strength and Dexterity</h2>
+	</div>
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: -675px -225px;"></div>
+		<h1>Persistence<em>Insectoid</em></h1>
+		<h2>Increases physical and magical damage by 4% for each point in Vitality <em>(has diminishing returns)</em></h2>
+		<h2>Gain +1 Vitality per 25 Energy.</em></h2>
+	</div>
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: -750px -225px;"></div>
+		<h1>Chemical Processing<em>Insectoid</em></h1>
+		<h2>You are up to 15% faster when well-fed <em>(above 50% of hunger bar filled)</em>, but you get hungry 25% faster if your health is below half.</h2>
+	</div>
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: -825px -225px;"></div>
+		<h1>Intensify Spell<em>Insectoid</em></h1>
+		<h2>After casting a spell, you can choose to empower it, so that the next time it is cast it does increased damage while costing more energy.</h2>
+	</div>
+	<div class="class_trait">
+		<ul>
+		<li>Damage +25% (+10% per 4 levels).</li>
+		<li>Energy cost +40% (-10% per 4 levels).</li>
+		</ul>
+	</div>
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: -900px -225px;"></div>
+		<h1>Rodent<em>Ratling</em></h1>
+		<h2>You can chew herbs <em>(but not Crystal Flowers and Blackmoss)</em>, reducing spell costs and cooldowns by 10% for 3 minutes.</h2>
+	</div>
+	<div class="class_trait">
+		<ul>
+		<li>When you are done chewing, you produce a Fermented Fiber Ball, which increases herb multiplication rate and can be used to heal diseases and poisoning.</li>
+		<li>The Fiber Ball dries out and loses its properties after a certain time, which is longer based on your level.</li>
+		</ul>
+	</div>
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: 0px -300px;"></div>
+		<h1>Sneak Attack<em>Ratling</em></h1>
+		<h2>Activate your class ability to gain 100 Evasion, which you lose upon performing an action.</h2>
+	</div>
+	<div class="class_trait">
+		<ul>
+		<li>Costs 15 Energy to use.</li>
+		<li>Your first physical attack will do 5% extra damage <em>(+10% at levels 8 and 12)</em>, with a 50% chance to poison the target.</li>
+		</ul>
+	</div>
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: -75px -300px;"></div>
+		<h1>Built Resistance<em>Ratling</em></h1>
+		<h2>Poison resistance +50%, other resistances -10%. You gain 1 Maximum Health for each extra point of poison resistance (even if you get more than 100%).</h2>
+	</div>
+</div>
+
 
 <h1>/// Skills ///</h1>
 
@@ -916,7 +1103,7 @@ hr::after {
 	<div class="perks">
 		<div class="perk">
 			<div style="margin-right: 0px"><em>Level 3</em><b>Pyrotechnician</b></div>
-			<p style="max-width: 370px;">You can craft bombs and pellets.<br/>+5% Fire and Shock damage dealt per upgraded item you have equipped.</p>
+			<p style="max-width: 370px;">You can craft bombs and pellets.<br/>+5% Fire and Shock resistance per upgraded item you have equipped.</p>
 		</div>
 		
 		<div class="perk">

@@ -787,7 +787,10 @@ defineTrait{
 	icon = 40,
 	charGen = true,
 	requiredRace = "human",
-	description = "Gain +2 to your lowest stat and +25% to your lowest resistance (If two are tied, the one at the bottom takes priority).\nGain experience 5% slower.",
+	description = [[Gain +2 to your lowest stat and +25% to your lowest resistance (If two are tied, the one at the bottom takes priority).
+	Also gain Energy or Health if the other is higher. The amount is 1/4 the difference between the two.
+	
+	Gain experience 5% slower.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			local stats = { "strength", "dexterity", "vitality", "willpower" }
@@ -807,6 +810,17 @@ defineTrait{
 			end
 			champion:addStatModifier(stats[lowest], 25)
 			champion:addStatModifier("exp_rate", -5)
+			
+			local hp = champion:getCurrentStat("max_health")
+			local en = champion:getCurrentStat("max_energy")
+			if hp > en then
+				champion:addStatModifier("max_energy", math.floor((hp - en) / 4))
+			elseif en < hp then
+				champion:addStatModifier("max_health", math.floor((en - hp) / 4))
+			else
+				champion:addStatModifier("max_health", math.floor(en / 8))
+				champion:addStatModifier("max_energy", math.floor(hp / 8))
+			end
 		end
 	end,
 }
@@ -888,7 +902,9 @@ defineTrait{
 	icon = 45,
 	charGen = true,
 	requiredRace = "lizardman",
-	description = "Your blood is warm during the day, giving you +2 Strength and +25 Fire Resist but -10 Cold Resist.\n\nYour skin is cold during the night, giving you +2 Willpower and +25 Cold Resist but -10 Fire Resist.",
+	description = [[Your blood is warm during the day, giving you +2 Strength and +25 Fire Resist but -10 Cold Resist.\n\nYour skin is cold during the night, giving you +2 Willpower and +25 Cold Resist but -10 Fire Resist.
+	
+	You gain an extra +2 to all stats for each of the two resistances that reaches 100.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 then
 			local curTime = GameMode.getTimeOfDay()
@@ -901,6 +917,21 @@ defineTrait{
 				champion:addStatModifier("resist_cold", 25)	
 				champion:addStatModifier("resist_fire", -10)
 			end
+			
+			local fire = champion:getCurrentStat("resist_fire")
+			local cold = champion:getCurrentStat("resist_cold")
+			if cold >= 100 then
+				champion:addStatModifier("strength", 2)
+				champion:addStatModifier("willpower", 2)
+				champion:addStatModifier("dexterity", 2)
+				champion:addStatModifier("vitality", 2)
+			end
+			if fire >= 100 then
+				champion:addStatModifier("strength", 2)
+				champion:addStatModifier("willpower", 2)
+				champion:addStatModifier("dexterity", 2)
+				champion:addStatModifier("vitality", 2)
+			end
 		end
 	end,
 }
@@ -912,18 +943,33 @@ defineTrait{
 	icon = 46,
 	charGen = true,
 	requiredRace = "lizardman",
-	description = "You can see attacks coming from all directions, warning your companions of danger.\n\nFor each monster next to you, you gain +5 evasion, and your party gains +3 evasion.",
+	description = "You can see attacks coming from all directions, warning your companions of danger.\n\nFor each monster next to you, you gain +10 Evasion, +5 Accuracy and +3% Critical. Your party gains smaller bonuses too.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 then
 			local stat = functions.script.get_c("wide_vision", champion:getOrdinal())
 			if not stat then return end
-			champion:addStatModifier("evasion", stat * 5)
+			champion:addStatModifier("evasion", stat * 10)
+			champion:addStatModifier("accuracy", stat * 10)
 			for i=1,4 do
 				local c = party.party:getChampionByOrdinal(i)
 				if c ~= champion then
 					c:addTrait("wide_vision_minor")
 				end
 			end
+		end
+	end,
+	onComputeAccuracy = function(champion, level)
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 then
+			local stat = functions.script.get_c("wide_vision", champion:getOrdinal())
+			if not stat then return end
+			return stat * 5
+		end
+	end,
+	onComputeCritChance = function(champion, weapon, attack, attackType, level)
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 then
+			local stat = functions.script.get_c("wide_vision", champion:getOrdinal())
+			if not stat then return end
+			return stat * 3
 		end
 	end,
 }
@@ -933,7 +979,7 @@ defineTrait{
 	uiName = "Wide Vision (Minor)",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 46,
-	description = "A companion Lizardman is warning you of danger. You gain +3 evasion for each monster next to you.",
+	description = "A companion Lizardman is warning you of danger. You gain +2 Evasion, +2 Accuracy and +1% Critical for each monster next to you.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 then
 			for i=1,4 do
@@ -941,7 +987,31 @@ defineTrait{
 				if c:hasTrait("wide_vision") then
 					local stat = functions.script.get_c("wide_vision", c:getOrdinal())
 					if not stat then return end
-					champion:addStatModifier("evasion", stat * 3)
+					champion:addStatModifier("evasion", stat * 2)
+				end
+			end
+		end
+	end,
+	onComputeAccuracy = function(champion, level)
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 then
+			for i=1,4 do
+				local c = party.party:getChampionByOrdinal(i)
+				if c:hasTrait("wide_vision") then
+					local stat = functions.script.get_c("wide_vision", c:getOrdinal())
+					if not stat then return end
+					return stat * 2
+				end
+			end
+		end
+	end,
+	onComputeCritChance = function(champion, weapon, attack, attackType, level)
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 then
+			for i=1,4 do
+				local c = party.party:getChampionByOrdinal(i)
+				if c:hasTrait("wide_vision") then
+					local stat = functions.script.get_c("wide_vision", c:getOrdinal())
+					if not stat then return end
+					return stat * 1
 				end
 			end
 		end
@@ -968,7 +1038,13 @@ defineTrait{
 	icon = 48,
 	charGen = true,
 	requiredRace = "insectoid",
-	description = "Increases physical damage by 4% for each point in Willpower.\nIncreases magic damage by 4% for each point in Strength.",
+	description = "Increases physical and magical damage by 4% for each point in Vitality (has diminishing returns).\n\nGain +1 Vitality per 25 Energy.",
+	onRecomputeStats = function(champion, level)
+		if level > 0 then
+			local addVit = math.floor(champion:getCurrentStat("max_energy") / 25)
+			champion:addStatModifier("vitality", addVit)
+		end
+	end,
 }
 
 defineTrait{
@@ -1014,7 +1090,24 @@ defineTrait{
 	icon = 51,
 	charGen = true,
 	requiredRace = "ratling",
-	description = "You can eat herbs (but not Crystal Flowers and Blackmoss), which in addition to feeding you, reduces spell costs and cooldowns by 10% for 3 minutes.",
+	description = [[You can chew herbs (but not Crystal Flowers and Blackmoss), reducing spell costs and cooldowns by 10% for 3 minutes.
+	
+	When you are done chewing, you produce a Fermented Fiber Ball, which increases herb multiplication rate and can be used to heal diseases and poisoning.
+	The Fiber Ball dries out and loses its properties after a certain time, which is longer based on your level.]],
+}
+
+
+defineTrait{
+	name = "rodent_chewing",
+	uiName = "Chewing (Rodent)",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 51,
+	description = [[Spell costs and cooldowns reduced by 10%.]],
+	onComputeCooldown = function(champion, weapon, attack, attackType, level)
+		if level > 0 then
+			return 0.90
+		end
+	end,
 }
 
 defineTrait{
@@ -1024,7 +1117,7 @@ defineTrait{
 	icon = 52,
 	charGen = true,
 	requiredRace = "ratling",
-	description = [[Activate your class ability to gain 100 Evasion, losing it upon performing an action.
+	description = [[Activate your class ability to gain 100 Evasion, which you lose upon performing an action.
 	
 	- Costs 15 Energy to use.
 	- Your first physical attack will do 5% extra damage (+10% at levels 8 and 12), with a 50% chance to poison the target.]],
@@ -1037,7 +1130,7 @@ defineTrait{
 	icon = 53,
 	charGen = true,
 	requiredRace = "ratling",
-	description = "Poison resistance +50%, other resistances -10%. You gain 1 Maximum Health for each extra point of poison resistance (goes past 100).",
+	description = "Poison resistance +50%, other resistances -10%. You gain 1 Maximum Health for each extra point of poison resistance (even if you get more than 100%).",
 	onRecomputeStats = function(champion, level)
 		--if level > 0 then
 			champion:addStatModifier("resist_poison", 50)
@@ -1349,11 +1442,18 @@ defineTrait{
 	uiName = "Bullseye",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 87,
-	description = "Gain 15 accuracy with ranged attacks.",
+	description = "Gain +15 accuracy and +3% Critical Chance with ranged attacks.",
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
 		if level > 0 then 
 			if attackType == "missile" or attackType == "throw" then
 				return 15
+			end
+		end
+	end,
+	onComputeCritChance = function(champion, weapon, attack, attackType, level)
+		if level > 0 then 
+			if attackType == "missile" or attackType == "throw" then
+				return 3
 			end
 		end
 	end,

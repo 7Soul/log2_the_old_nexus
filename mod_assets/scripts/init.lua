@@ -90,12 +90,25 @@ defineObject{
 		onMove = function(party, dir, arg1) 
 			functions.script.stepCountIncrease()
 			-- Herb multiply
+			local fiberBalls = 0
 			for i=1,4 do
 				local champion = party:getChampionByOrdinal(i)
+				
+				for slot,item in champion:carriedItems() do
+					if item.go.name == "fiber_ball_good" then
+						fiberBalls = fiberBalls + 1
+					end
+				end
+				
 				local insertHerb = nil
+				
 				if champion:getSkillLevel("alchemy") > 0 then
 					local herb_items = {["blooddrop_cap"] = 450, ["etherweed"] = 930, ["mudwort"] = 1950, ["falconskyre"] = 2500, ["blackmoss"] = 3700, ["crystal_flower"] = 4500}
 					for herb,count in pairs(herb_items) do
+						if fiberBalls > 0 then
+							local multipliers = {1,0.95,0.94,0.93,0.93,0.92,0.92,0.91,0.9,0.88,0.85}
+							count = math.floor(count * multipliers[math.min(fiberBalls, 10)])
+						end
 						if functions.script.stepCount % count == 0 and party:isCarrying(herb) then
 							insertHerb = herb
 						end
@@ -129,9 +142,26 @@ defineObject{
 					if item and item:hasTrait("magic_gem") and item.go.data:get("charges") then
 						if item.go.data:get("burnout") == nil then item.go.data:set("burnout", 0) end
 						item.go.data:set("burnout", math.min(item.go.data:get("burnout") + 1, 4500))
-						if item.go.data:get("burnout") == 4500 then
+						if item.go.data:get("burnout") >= 4500 then
 							champion:removeItem(item)
 							champion:insertItem(slot, spawn("coal").item)
+						end
+						if item.go.data:get("burnout") % 450 == 0 then
+							print("Item", item.go.name, "reached a burnout of", item.go.data:get("burnout"), "out of a max", 4500)
+						end
+					end
+					if item and item.go.name == "fiber_ball_good" then
+						if item.go.data:get("burnout") == nil then item.go.data:set("burnout", 0) end
+						local parent = party:getChampionByOrdinal(item.go.data:get("parent"))
+						local b_timer = 1000 + (parent:getLevel() - 1) * 135
+						
+						item.go.data:set("burnout", math.min(item.go.data:get("burnout") + 1, b_timer))
+						if item.go.data:get("burnout") >= b_timer then
+							champion:removeItem(item)
+							champion:insertItem(slot, spawn("fiber_ball_bad").item)
+						end
+						if item.go.data:get("burnout") % 200 == 0 then
+							print("Item", item.go.name, "reached a burnout of", item.go.data:get("burnout"), "out of a max", b_timer)
 						end
 					end
 				end
@@ -275,6 +305,21 @@ defineObject{
 					end
 				end
 				local item = champion:getItem(slot)
+				if item and champion:hasTrait("rodent") and item:hasTrait("herb") then
+					if button == 2 then
+						if not champion:hasCondition("chewing") then
+							hudPrint("The ratling ate the herb.")
+							champion:setConditionValue("chewing", 5)
+							if item:getStackSize() > 1 then
+								item:setStackSize(item:getStackSize() - 1)
+							else
+								champion:removeItemFromSlot(slot)
+							end
+						else
+							hudPrint("The ratling is already chewing something.")
+						end
+					end					
+				end
 				if item then
 					if champion:hasTrait("tinkering") then
 						if getMouseItem()  and getMouseItem().go.name == "lock_pick" and button == 2 and item:hasTrait("upgradable") then

@@ -2143,7 +2143,10 @@ function getPower(base, champion, skill, element, tier, spellName)
 	local arcaneWarrior = 0
 	
 	if champion:hasTrait("persistence") then
-		f = f * (1.00 + (champion:getCurrentStat("strength") * 0.04))
+		local strength = champion:getCurrentStat("vitality")
+		local addStrength = ((strength+1)^(1-0.95) - 1) / (1-0.95) * 0.95
+		addStrength = addStrength + (champion:getCurrentStat("vitality") * 0.005)
+		f = f * (1.00 + (addStrength * 0.1))
 	end	
 	
 	f = functions.script.empowerElement(champion, element, f)
@@ -2192,6 +2195,10 @@ function getCost(champion, base, element, spellName)
 		local night_stalker_charges = functions.script.night_stalker[champion:getOrdinal()]
 		if not night_stalker_charges then night_stalker_charges = 0 end
 		base = base * (night_stalker_charges > 0 and 0 or 1)
+	end
+	
+	if champion:hasTrait("rodent_chewing") and spellName and not defByName[spellName].hidden then
+		base = base * 0.9
 	end
 	
 	return base

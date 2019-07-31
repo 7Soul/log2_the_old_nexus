@@ -153,9 +153,13 @@ function teststart()
 					champion:removeItemFromSlot(s)
 				end
 				champion:insertItem(13,spawn("blooddrop_cap").item)
+				champion:getItem(13):setStackSize(5)
 				champion:insertItem(14,spawn("etherweed").item)
+				champion:getItem(14):setStackSize(5)
 				champion:insertItem(15,spawn("mudwort").item)
+				champion:getItem(15):setStackSize(5)
 				champion:insertItem(16,spawn("falconskyre").item)
+				champion:getItem(16):setStackSize(5)
 				champion:insertItem(17,spawn("blackmoss").item)
 				champion:insertItem(18,spawn("crystal_flower").item)
 				champion:insertItem(19,spawn("mortar").item)
@@ -1369,8 +1373,11 @@ function onDamageMonster(self, damage, damageType)
 				for j=1,4 do
 					local c = party.party:getChampionByOrdinal(j)
 					if c:isAlive() then
-						c:regainHealth(math.ceil(damage * 0.1))
+						c:regainHealth(math.ceil(damage * 0.05))
 					end
+				end
+				if champion:isAlive() then
+					champion:regainHealth(math.ceil(damage * 0.05))
 				end
 				functions.script.set_c("ritual", i, nil)
 			end
@@ -1810,7 +1817,10 @@ function empowerElement(champion, element, multi)
 		end
 		
 		if champion:hasTrait("persistence") then
-			f = f * (1.00 + (champion:getCurrentStat("willpower") * 0.04))
+			local vitality = champion:getCurrentStat("vitality")
+			local addVitality = ((vitality+1)^(1-0.95) - 1) / (1-0.95) * 0.95	
+			addVitality = addVitality + (champion:getCurrentStat("vitality") * 0.005)			
+			f = f * (1.00 + (addVitality * 0.1))
 		end	
 
 	end
