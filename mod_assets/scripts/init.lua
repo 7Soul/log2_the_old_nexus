@@ -217,7 +217,7 @@ defineObject{
 		-- On Damage Taken
 		-----------------------------------------------------------
 		onDamage = function(party, champion, damage, damageType)
-			print(party.go.id, champion:getName(), 'received', damage, 'damage,', damageType, 'type') 
+			--print(party.go.id, champion:getName(), 'received', damage, 'damage,', damageType, 'type') 
 			
 			for i=1,4 do
 				if party:getChampion(i):getClass() == "fighter" and party:getChampion(i):isAlive() and not party:getChampion(i):hasCondition("berserker_revenge") then
@@ -225,9 +225,19 @@ defineObject{
 				end
 			end
 			
-			if champion:hasTrait("brutalizer") and damageType ~= "brutalizer" then
+			if champion:hasTrait("brutalizer") and damageType ~= "pure" then
 				local str = champion:getCurrentStat("strength")
-				champion:damage(damage * str * 0.01, "brutalizer")
+				champion:damage(damage * str * 0.005, "pure")
+			end
+			
+			if champion:hasTrait("elemental_armor") then
+				if damageType == "fire" or damageType == "cold" or damageType == "shock" then
+					chamption:regainEnergy(math.ceil(champion:getMaxEnergy() * 0.15))
+				end
+			end
+			
+			if champion:hasTrait("meditation") then
+				champion:regainEnergy(math.ceil(champion:getMaxEnergy() * math.random(1,5) * 0.01))
 			end
 		end,
 		
@@ -281,18 +291,39 @@ defineObject{
 		onClickItemSlot = function(self, champion, container, slot, button)
 			--if champion:getItem(slot) then print(champion:getItem(slot).go.id) end
 			if champion then
-				local mouseItem = getMouseItem()				
+				local mouseItem = getMouseItem()
 				if mouseItem and mouseItem:hasTrait("herb") and champion:getClass() == "druid" then
 					if slot == ItemSlot.Bracers then
 						local prevItem = functions.script.get_c("druid_item", champion:getOrdinal())
 						functions.script.set_c("druid_item", champion:getOrdinal(), mouseItem.go.name)
+						
 						if prevItem then
-							setMouseItem(spawn(prevItem).item)
+							if prevItem ~= mouseItem.go.name then
+								if mouseItem:getStackSize() > 1 then
+									mouseItem:setStackSize(mouseItem:getStackSize() - 1)
+									
+									for j=13,32 do
+										if champion:getItem(j) == nil then 
+											champion:insertItem(j, spawn(prevItem).item)
+											break 
+										end
+										if j == 32 and champion:getItem(j) ~= nil then party:spawn(item.go.name) break end
+									end
+								else
+									setMouseItem(spawn(prevItem).item)
+								end	
+								
+							end
 						else
-							setMouseItem(nil)
+							if mouseItem:getStackSize() > 1 then
+								mouseItem:setStackSize(mouseItem:getStackSize() - 1)
+							else
+								setMouseItem(nil)
+							end	
 						end
 					end
 				end
+				
 				if not mouseItem and button == 2 and champion:getClass() == "druid" then
 					if slot == ItemSlot.Bracers then
 						local prevItem = functions.script.get_c("druid_item", champion:getOrdinal())
@@ -304,6 +335,7 @@ defineObject{
 						end
 					end
 				end
+				
 				local item = champion:getItem(slot)
 				if item and champion:hasTrait("rodent") and item:hasTrait("herb") then
 					if button == 2 then
@@ -320,6 +352,7 @@ defineObject{
 						end
 					end					
 				end
+				
 				if item then
 					if champion:hasTrait("tinkering") then
 						if getMouseItem()  and getMouseItem().go.name == "lock_pick" and button == 2 and item:hasTrait("upgradable") then
@@ -1047,9 +1080,36 @@ defineObject{
 					local monster = entity.monster
 					if monster and monster.go.poisoned and monster:isAlive() then
 						functions.script.hitMonster(monster.go.id, math.random(monster:getHealth() * 0.005, monster:getHealth() * 0.01), "009900", nil, "poison", 1)
-						if monster.go.poisoned:getCausedByChampion() and math.random() <= 0.5 then
-						champion = party.party:getChampionByOrdinal(monster.go.poisoned:getCausedByChampion())
-						champion:regainHealth(math.random(1,5))
+						if monster.go.poisoned:getCausedByChampion() and champion:hasTrait("venomancer") and math.random() <= 0.45 then
+							local champion = party.party:getChampionByOrdinal(monster.go.poisoned:getCausedByChampion())
+							champion:regainHealth(math.random(1,5))
+						end
+						-- Plague spread
+						if monster.go.poisoned:getCausedByChampion() and math.random() <= 0.33 then
+							local champion = party.party:getChampionByOrdinal(monster.go.poisoned:getCausedByChampion())
+							if champion:hasTrait("plague") then
+								local mList = {}
+								for d=1,9 do
+									local dx = math.floor(d / 3) - 1
+									local dy = ((d-1) % 3) - 1
+									for e in Dungeon.getMap(party.level):entitiesAt(monster.go.x + dx, monster.go.y + dy) do
+										if e.monster and e.monster ~= monster then
+											table.insert(mList, e.monster)
+										end
+									end
+								end
+								if #mList > 0 then
+									local value = mList[ math.random( #mList ) ]
+									if value then
+										if not value.go.poisoned then
+											value:setCondition("poisoned", math.random(10,20))
+										end
+										if value.go.poisoned then 
+											value.go.poisoned:setCausedByChampion(champion:getOrdinal())
+										end
+									end
+								end
+							end
 						end
 					end
 				end

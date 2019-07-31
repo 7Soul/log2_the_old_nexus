@@ -1691,6 +1691,10 @@ function empowerElement(champion, element, multi)
 		f = functions.script.elementalistPower(element, champion, f)
 	end
 	
+	if element ~= "physical" and champion:hasTrait("moon_rites") and curTime > 1.01 then
+		f = f * 1.1
+	end
+	
 	if champion:getClass() == "druid" and element == "physical" then
 		local druidItem = functions.script.get_c("druid_item", champion:getOrdinal())
 		if druidItem then

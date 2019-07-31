@@ -790,10 +790,25 @@ defineObject{
 				local champion = nil
 				for i=1,4 do
 					champion = party.party:getChampion(i)
-					if champion:getClass() == "tinkerer" and self.go.chest:getLocked() then
-						if champion:isAlive() then				
-							champion:regainEnergy(champion:getEnergy() * -0.25)
+					if champion:hasTrait("multipurpose") and self.go.chest:getLocked() then
+						if champion:isAlive() and champion:getEnergy() == champion:getMaxEnergy() then
+							champion:regainEnergy(champion:getEnergy() * -0.99)
 							self.go.chest:setLocked(false)
+							
+							local stat = math.random(1,4)
+							if stat == 1 then
+								champion:addStatModifier("strength", 1)
+								hudPrint(champion:getName() .. " gained +1 Strength.")		
+							elseif stat == 2 then
+								champion:addStatModifier("dexterity", 1)
+								hudPrint(champion:getName() .. " gained +1 Dexterity.")
+							elseif stat == 3 then
+								champion:addStatModifier("vitality", 1)
+								hudPrint(champion:getName() .. " gained +1 Vitality.")
+							elseif stat == 4 then
+								champion:addStatModifier("willpower", 1)
+								hudPrint(champion:getName() .. " gained +1 Willpower.")
+							end
 							break
 						else
 							-- if tinkerer is dead and you're trying to use a lock pick, use it normally

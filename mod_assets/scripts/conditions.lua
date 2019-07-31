@@ -242,12 +242,14 @@ defineCondition{
 	harmful = false,
 	tickInterval = 1,
 	onStart = function(self, champion)
-		if not champion:hasTrait("night_stalker") then
-			champion:addTrait("night_stalker")
+		if champion:hasTrait("night_stalker") then
+			champion:removeTrait("night_stalker")
+			champion:addTrait("night_stalker2")
 		end
 	end,
 	onStop = function(self, champion)
-		champion:removeTrait("night_stalker")
+		champion:removeTrait("night_stalker2")
+		champion:addTrait("night_stalker")
 	end,
 	onRecomputeStats = function(self, champion)
 	end,
@@ -358,11 +360,20 @@ defineCondition{
 	harmful = false,
 	tickInterval = 1,
 	onStart = function(self, champion)
-		if champion:hasTrait("arcane_extraction") then
-			champion:regainEnergy(25)
-		end
 		if champion:hasTrait("refreshed") then
 			champion:regainHealth(12)
+		end
+		-- Party Arcane Extraction
+		for i=1,4 do
+			local c = party.party:getChampionByOrdinal(i)
+			if c:hasTrait("arcane_extraction") then
+				if c ~= champion then
+					champion:regainEnergy(8)
+				else
+					champion:regainEnergy(25)
+				end
+				break
+			end
 		end
 	end,
 	onStop = function(self, champion)
@@ -398,11 +409,20 @@ defineCondition{
 	harmful = false,
 	tickInterval = 1,
 	onStart = function(self, champion)
-		if champion:hasTrait("arcane_extraction") then
-			champion:regainEnergy(25)
-		end
 		if champion:hasTrait("refreshed") then
 			champion:regainHealth(37)
+		end
+		-- Party Arcane Extraction
+		for i=1,4 do
+			local c = party.party:getChampionByOrdinal(i)
+			if c:hasTrait("arcane_extraction") then
+				if c ~= champion then
+					champion:regainEnergy(8)
+				else
+					champion:regainEnergy(25)
+				end
+				break
+			end
 		end
 	end,
 	onStop = function(self, champion)
@@ -438,8 +458,17 @@ defineCondition{
 	harmful = false,
 	tickInterval = 1,
 	onStart = function(self, champion)
-		if champion:hasTrait("arcane_extraction") then
-			champion:regainHealth(25)
+		-- Party Arcane Extraction
+		for i=1,4 do
+			local c = party.party:getChampionByOrdinal(i)
+			if c:hasTrait("arcane_extraction") then
+				if c ~= champion then
+					champion:regainHealth(8)
+				else
+					champion:regainHealth(25)
+				end
+				break
+			end
 		end
 	end,
 	onStop = function(self, champion)
@@ -447,7 +476,20 @@ defineCondition{
 	onRecomputeStats = function(self, champion)
 	end,
 	onTick = function(self, champion)
-		champion:regainEnergy(champion:hasTrait("arcane_extraction") and 4.6875 or 3.75)
+		-- Party Arcane Extraction
+		local regen = 3.75
+		for i=1,4 do
+			local c = party.party:getChampionByOrdinal(i)
+			if c:hasTrait("arcane_extraction") then
+				if c ~= champion then
+					regen = regen + (regen * 0.25 * 0.33)
+				else
+					regen = regen + (regen * 0.25)
+				end
+				break
+			end
+		end
+		champion:regainEnergy(regen)
 	end,	
 }
 
@@ -461,8 +503,17 @@ defineCondition{
 	harmful = false,
 	tickInterval = 1,
 	onStart = function(self, champion)
-		if champion:hasTrait("arcane_extraction") then
-			champion:regainHealth(25)
+		-- Party Arcane Extraction
+		for i=1,4 do
+			local c = party.party:getChampionByOrdinal(i)
+			if c:hasTrait("arcane_extraction") then
+				if c ~= champion then
+					champion:regainHealth(8)
+				else
+					champion:regainHealth(25)
+				end
+				break
+			end
 		end
 	end,
 	onStop = function(self, champion)
@@ -470,7 +521,20 @@ defineCondition{
 	onRecomputeStats = function(self, champion)
 	end,
 	onTick = function(self, champion)
-		champion:regainEnergy(champion:hasTrait("arcane_extraction") and 18.75 or 15)
+		-- Party Arcane Extraction
+		local regen = 15
+		for i=1,4 do
+			local c = party.party:getChampionByOrdinal(i)
+			if c:hasTrait("arcane_extraction") then
+				if c ~= champion then
+					regen = regen + (regen * 0.25 * 0.33)
+				else
+					regen = regen + (regen * 0.25)
+				end
+				break
+			end
+		end
+		champion:regainEnergy(regen)
 	end,	
 }
 

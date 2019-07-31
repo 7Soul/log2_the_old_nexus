@@ -297,12 +297,13 @@ defineTrait{
 	gameEffect = [[
 	- Health 50 (+4 per level)
 	- Energy 60 (+4 per level)
-	- Evasion, Accuracy and Critical Chance +2 (+1 per level).
+	- Once per day you may cast Invisibility for free. Gain more casts every 3 levels.
+	
 	- Energy Regeneration Rate -99%.
 	
 	Shadow Magicks: Neutral spells cost 33% less energy.
 	- Neutral spells gain 1% damage per Dexterity (+10% per 7 points).
-	- Once per day you may cast Invisibility for free. Gain more casts every 3 levels.
+	- Evasion, Accuracy and Critical Chance +2 (+1 per level).
 	
 	Night Stalker: Gains a buff while invisible and for a few seconds after. Duration is 6 seconds (+4 per 3 levels).
 	- Doubles all your class bonuses.]],
@@ -402,8 +403,33 @@ defineTrait{
 		end
 	end,
 	onRecomputeStats = function(champion, level)
-		level = champion:getLevel()
-		champion:addStatModifier("evasion", 2 + level - 1)
+		level = champion:getLevel() - 1
+		champion:addStatModifier("evasion", 2 + level)
+	end,
+}
+
+defineTrait{
+	name = "night_stalker2",
+	uiName = "Night Stalker",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 131,
+	description = "You are stalking your prey",
+	gameEffect = [[Evasion, Accuracy and Critical Chance +4 (+2 per level)]],
+	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
+		if level > 0 then 
+			level = champion:getLevel() - 1
+			return (level * 2) + 4
+		end
+	end,
+	onComputeCritChance = function(champion, weapon, attack, attackType, level)
+		if level > 0 then 
+			level = champion:getLevel() - 1
+			return (level * 2) + 4
+		end
+	end,
+	onRecomputeStats = function(champion, level)
+		level = champion:getLevel() - 1
+		champion:addStatModifier("evasion", 4 + (level * 2))
 	end,
 }
 
@@ -958,7 +984,7 @@ defineTrait{
 			end
 		end
 	end,
-	onComputeAccuracy = function(champion, level)
+	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 then
 			local stat = functions.script.get_c("wide_vision", champion:getOrdinal())
 			if not stat then return end
@@ -992,7 +1018,7 @@ defineTrait{
 			end
 		end
 	end,
-	onComputeAccuracy = function(champion, level)
+	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 then
 			for i=1,4 do
 				local c = party.party:getChampionByOrdinal(i)
@@ -1472,7 +1498,7 @@ defineTrait{
 	uiName = "Double Shot",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 89,
-	description = "You attack twice when using Missile Weapons, Throwing Weapons and Firearms.",
+	description = "You attack twice when using Missile Weapons and Throwing Weapons.",
 }
 
 -- Seafaring
@@ -1672,12 +1698,12 @@ defineTrait{
 	uiName = "Elemental Armor",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 113,
-	description = "You gain +20% Resist Fire, Shock and Cold.",
+	description = "+25% Resist Fire, Shock and Cold. You regain 15% of you maximum energy when hit by one of those elements.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			champion:addStatModifier("resist_fire", 20)
-			champion:addStatModifier("resist_cold", 20)
-			champion:addStatModifier("resist_shock", 20)
+			champion:addStatModifier("resist_fire", 25)
+			champion:addStatModifier("resist_cold", 25)
+			champion:addStatModifier("resist_shock", 25)
 		end
 	end,
 }
@@ -1690,6 +1716,7 @@ defineTrait{
 	icon = 114,
 	description = "10% chance to poison enemies with melee, missile and throwing attacks.",
 }
+
 defineTrait{ -- to do
 	name = "plague",
 	uiName = "Plague",
@@ -1704,16 +1731,6 @@ defineTrait{
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 116,
 	description = "Enemies take increased damage from the poison status, an effect which also heals you.",
-	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			champion:addStatModifier("resist_poison", 35)
-		end
-	end,
-	onReceiveCondition = function(champion, cond, level)
-		if level > 0 and cond == "poison" then
-			return false
-		end
-	end,
 }
 
 -- Magic Training
@@ -1722,7 +1739,12 @@ defineTrait{
 	uiName = "Meditation",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 117,
-	description = "Your Energy regeneration rate is increased by 25% while resting.",
+	description = "+5 Protection. You regain 1% to 5% of you energy when taking damage.",
+	onRecomputeStats = function(champion, level)
+		if level > 0 then
+			champion:addStatModifier("protection", 5)
+		end
+	end,
 }
 
 defineTrait{ -- to do
@@ -1738,7 +1760,7 @@ defineTrait{
 	uiName = "Extraction",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 119,
-	description = "Energy potions recover 25% more, while also regenerating 25 health. At the same time, healing potions recover 25 energy.",
+	description = "Energy potions recover 25% more, while also regenerating 25 health. Healing potions also recover 25 energy.\nAllies benefit from this at 1/3 the power.",
 }
 
 -- Witchcraft
@@ -1747,7 +1769,7 @@ defineTrait{
 	uiName = "Ritual",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 120,
-	description = "Heals the party for 10% of the damage done with spells.", -- (not dot)
+	description = "Heals the party for 5% of the damage done with spells. You heal for twice as much.", -- (not dot)
 }
 
 defineTrait{ -- to do
@@ -1755,7 +1777,14 @@ defineTrait{ -- to do
 	uiName = "Moon Rites",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 121,
-	description = "Energy regeneration rate increased by 50% during the night.",
+	description = "During the night, your Energy regeneration rate is increased by 50% and your spell damage by 10%.",
+	onRecomputeStats = function(champion, level)
+		if level > 0 then
+			if curTime > 1.01 then
+				champion:addStatModifier("energy_regeneration_rate", 50)
+			end
+		end
+	end,
 }
 
 defineTrait{ -- to do
@@ -1763,7 +1792,7 @@ defineTrait{ -- to do
 	uiName = "Voodoo",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 122,
-	description = "You can obtain voodoo dolls of monsters by slaying them.",
+	description = "Hitting one enemy with a spell also affects nearby enemies* in a range of 2 tiles.",
 }
 
 -- Tinkering
@@ -1806,7 +1835,7 @@ defineTrait{
 	uiName = "Pyrotechnician",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 125,
-	description = "You can craft bombs and pellets.",
+	description = "You can craft bombs and pellets. +5% Fire and Shock resistance per upgraded item you have equipped.",
 }
 
 defineTrait{
@@ -1814,7 +1843,7 @@ defineTrait{
 	uiName = "Multipurpose",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 126,
-	description = "Unlock chests without a lockpick, at the cost of Energy.",
+	description = "Unlock chests without a lockpick, at the cost of Energy. You gain +1 to a random stat when you do it.",
 }
 
 defineTrait{ -- to do
