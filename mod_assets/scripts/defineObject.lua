@@ -150,7 +150,7 @@ defineObject = function(def)
 				c.onProjectileHit = onProjectileHitMonster
 			end
 			if c.class == "Animation" then
-				c.onAnimationEvent = onAnimationEvent
+				--c.onAnimationEvent = onAnimationEvent
 			end
 		end
 	end

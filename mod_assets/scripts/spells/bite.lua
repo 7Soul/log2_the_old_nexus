@@ -85,3 +85,27 @@ defineObject{
 		},
 	},
 }
+
+defineObject{
+	name = "voodoo",
+	baseObject = "base_spell",
+	components = {
+		{
+			class = "TileDamager",
+			attackPower = 1,
+			damageType = "physical",
+			sound = "turtle_attack",
+			damageFlags = DamageFlags.NoLingeringEffects,
+			onHitChampion = function(self, champion)
+				return false
+			end,
+			onHitMonster = function(self, monster)
+				monster:addTrait("bleeding")
+			end
+		},
+		{
+			class = "Sound",
+			sound = "turtle_attack",
+		},
+	},
+}

@@ -998,6 +998,22 @@ function onPostFirearmAttack(self, champion, slot, secondary2)
 			end
 		end
 	end
+	
+	if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).name == "bone_amulet" then
+		local pelletsSlot = nil
+		local pellets = nil
+		if math.random() >= 0.95 then
+			for i=1,32 do
+				if champion:getItem(i) ~= nil and champion:getItem(i).go.name == "pellet_box" then
+					pellets = champion:getItem(i)
+					pelletsSlot = i
+					local stack = pellets:getStackSize()
+					pellets:setStackSize(stack+1)
+					break
+				end
+			end
+		end
+	end
 end
 
 function secondShot(id, slot)
@@ -1153,6 +1169,15 @@ function onMonsterDealDamage(self, champion, damage)
 		end
 	end
 	
+	if champion:hasTrait("reflective") then
+		local all_light = functions.script.wearingAll(champion, "light_armor", "clothes")
+		if all_light and not functions.script.get_c("reflective_monster_" .. monster.go.id, champion:getOrdinal()) then
+			functions.script.set_c("reflective_damage", champion:getOrdinal(), damage)
+			functions.script.set_c("reflective_monster_" .. monster.go.id, champion:getOrdinal(), true)
+			champion:setConditionValue("reflective", 5)
+		end
+	end
+	
 end
 
 -------------------------------------------------------------------------------------------------------
@@ -1190,12 +1215,20 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 		end
 	end
 
-	if champion:hasTrait("rend") and self.go:getComponent(self.go.item:getSecondaryAction()):getName() == self.go.item:getSecondaryAction() then
+	if champion:hasTrait("rend") and self.go.item:getSecondaryAction() and self.go:getComponent(self.go.item:getSecondaryAction()):getName() == self.go.item:getSecondaryAction() then
 		local secondary = self.go:getComponent(self.go.item:getSecondaryAction() and self.go.item:getSecondaryAction() or "")
-		if secondary == self and math.random() <= 1 then
+		if secondary == self and math.random() <= 0.3 then
 			monster:addTrait("bleeding")
 		end
 	end	
+	
+	-- Bearclaw Gauntlets - Increases power attack damage by 15%
+	if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "bearclaw_gauntlets" then
+		local secondary = self.go:getComponent(self.go.item:getSecondaryAction() and self.go.item:getSecondaryAction() or "")
+		if secondary == self then
+			--secondary:setAttackPower(self:getAttackPower() * 20)
+		end
+	end
 	
 	-- Ratling's Sneak Attack
 	if functions.script.get_c("sneak_attack", champion:getOrdinal()) then
@@ -1410,7 +1443,7 @@ function onDamageMonster(self, damage, damageType)
 					end
 				end
 			end
-	
+			
 			functions.script.set_c("championUsedMagic", i, nil)
 		end	
 	end
@@ -1436,15 +1469,19 @@ function onMonsterDie(self)
 	end
 end
 
-function onAnimationEvent(self, name)
+function onAnimationEvent(self, event)
 	local monster = self.go.monster
 	if not monster then return end
+	
+end
+
+function bleed(monster)
 	if monster:hasTrait("bleeding") and monster:isAlive() then
 		if math.random() < 0.05 then
 			monster:removeTrait("bleeding")
 			monster.go.model:setEmissiveColor(vec(0,0,0))
 		end
-		if name == "footstep" and math.random() <= 0.5 then
+		if event == "footstep" and math.random() <= 0.5 then
 			hitMonster(monster.go.id, math.random(monster:getHealth() * 0.015, monster:getHealth() * 0.03), "FF0000", nil, "physical", 1)
 			
 			monster.go:createComponent("Particle", "splatter")
@@ -1691,7 +1728,7 @@ function empowerElement(champion, element, multi)
 		f = functions.script.elementalistPower(element, champion, f)
 	end
 	
-	if element ~= "physical" and champion:hasTrait("moon_rites") and curTime > 1.01 then
+	if element ~= "physical" and champion:hasTrait("moon_rites") and GameMode.getTimeOfDay() > 1.01 then
 		f = f * 1.1
 	end
 	

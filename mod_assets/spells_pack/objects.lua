@@ -32,6 +32,28 @@ function hit(self, what, entity)
 		end
 	end
 	
+	if self:getCastByChampion() and entity.monster then
+		local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
+		if champion:hasTrait("voodoo") then
+			spells_functions.script.voodoo(self, champion, entity)
+		end
+		
+		if e.tiledamager:getDamageType() == "shock" then
+			spells_functions.script.shock_arc(self, champion, entity.monster)
+		end
+		
+		if e.tiledamager:getDamageType() == "fire" then
+			local skillLevel = champion:getSkillLevel("elemental_magic")
+			if monster:isAlive() and skillLevel >= 3 and math.random() <= 0.3 then
+				monster:setCondition("burning", skillLevel * 5)
+				-- mark condition so that exp is awarded if monster is killed by the condition
+				local burning = monster.go.burning
+				local ordinal = self:getCastByChampion()
+				if burning and ordinal then burning:setCausedByChampion(ordinal) end
+			end
+		end
+	end
+	
 	if e.cloudspell then
 		e.cloudspell:setCastByChampion(self:getCastByChampion() or 1)
 		if attackPower then e.cloudspell:setAttackPower(attackPower) end
@@ -558,8 +580,14 @@ defineObject{
 			attackPower = 4,
 			damageType = "fire",
 			damageFlags = DamageFlags.DamageSourceIceShards,
-			repeatCount = 5,
-			repeatDelay = 4.3/5,
+			repeatCount = 16,
+			repeatDelay = 0.25,
+			onHitChampion = function(self, champion)
+				self.go.iceshards:grantTemporaryImmunity(party, 1.2)
+			end,
+			onHitMonster = function(self, monster)
+				self.go.iceshards:grantTemporaryImmunity(monster.go, 1.8)
+			end,
 		},
 		{
 			class = "IceShards",
@@ -574,20 +602,59 @@ defineObject{
 	components = {
 		{
 			class = "TileDamager",
-			attackPower = 20,
-			damageType = "fire",
-			sound = "fireburst",
-			screenEffect = "fireball_screen",			
-			--cameraShake = true,
 			onHitMonster = function(self, monster)
 				local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
 				local skillLevel = champion:getSkillLevel("elemental_magic")
-				if monster:isAlive() and skillLevel >= 3 then
-					monster:setCondition("burning", skillLevel * 5)
+				local chance = 0.3 * (1 + (champion:getResistance("fire") * 0.02))
+				if monster:isAlive() and skillLevel >= 3 and math.random() <= chance then
+					local duration = skillLevel * 3
+					if chance > 1 then
+						duration = duration * chance
+					end
+					monster:setCondition("burning", duration)
 					-- mark condition so that exp is awarded if monster is killed by the condition
 					local burning = monster.go.burning
 					local ordinal = self:getCastByChampion()
 					if burning and ordinal then burning:setCausedByChampion(ordinal) end
+				end
+				if champion:hasTrait("voodoo") then
+					spells_functions.script.voodoo(self, champion, monster)
+				end
+			end
+		},	
+	},
+}
+
+defineObject{
+	name = "shockburst",
+	baseObject = "shockburst",
+	components = {
+		{
+			class = "TileDamager",
+			onHitMonster = function(self, monster)
+				local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
+				if champion:hasTrait("voodoo") then
+					spells_functions.script.voodoo(self, champion, monster)
+				end				
+				spells_functions.script.shock_arc(self, champion, monster)
+			end
+		},	
+	},
+}
+
+defineObject{
+	name = "frostburst_cast",
+	baseObject = "frostburst",
+	components = {
+		{
+			class = "TileDamager",
+			onHitMonster = function(self, monster)
+				local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
+				if math.random() <= 0.2 * (1 + (champion:getResistance("cold") * 0.02)) then
+					monster:setCondition("frozen", math.min(math.max(math.random() * (2 + champion:getSkillLevel("elemental_magic") + champion:getSkillLevel("witchcraft")), 2), 10))
+				end
+				if champion:hasTrait("voodoo") then
+					spells_functions.script.voodoo(self, champion, monster)
 				end
 			end
 		},	
@@ -874,23 +941,6 @@ defineObject{
 -- water magic
 
 defineObject{
-	name = "frostburst_cast",
-	baseObject = "frostburst",
-	components = {
-		{
-			class = "TileDamager",
-			attackPower = 11,
-			castByChampion = 1,
-			damageType = "cold",
-			sound = "frostburst",
-			onHitMonster = function(self, monster)
-				monster:setCondition("frozen", math.random()*(3+party.party:getChampionByOrdinal(self:getCastByChampion()):getSkillLevel("water_magic")))
-			end,
-		},
-	},
-}
-
-defineObject{
 	name = "frostbolt_cast",
 	baseObject = "frostbolt_5",
 	components = {
@@ -1089,6 +1139,174 @@ defineObject{
 	},
 }
 
+defineObject{
+	name = "blizzard_small",
+	baseObject = "base_spell",
+	components = {
+		{
+			class = "Particle",
+			particleSystem = "blizzard_small",
+			offset = vec(0, 1.5, 0),
+			--destroyObject = true,
+		},
+		{
+			class = "Light",
+			offset = vec(0, 1.5, 0),
+			color = vec(0.5, 0.5, 0.25),
+			brightness = 7,
+			range = 5,
+			fadeOut = 13,
+			disableSelf = true,
+		},	
+		{
+			class = "TileDamager",
+			attackPower = 4,
+			damageType = "cold",
+			damageFlags = DamageFlags.DamageSourceIceShards,
+			repeatCount = 32,
+			repeatDelay = 0.25,
+			--destroyObject = true,
+			onHitChampion = function(self, champion)
+				self.go.iceshards:grantTemporaryImmunity(party, 1.1)
+			end,
+			onHitMonster = function(self, monster)
+				self.go.iceshards:grantTemporaryImmunity(monster.go, 1.8)
+			end,
+		},
+		{
+			class = "Timer",
+			timerInterval = 8,
+			triggerOnStart = true,
+			currentLevelOnly = true,
+			onActivate = function(self)
+				self.go.particle:fadeOut(1)
+			end,
+		},
+		{
+			class = "IceShards",
+			delay = 0.3,
+		},
+	},
+}
+
+defineParticleSystem{
+	name = "blizzard_small",
+	emitters = {
+		-- dark clouds
+		{
+			emissionRate = 20,
+			emissionTime = 0,
+			maxParticles = 1000,
+			boxMin = {-1.2, 0.8,-1.2},
+			boxMax = { 1.2, 0.7, 1.2},
+			sprayAngle = {0,360},
+			velocity = {0.1,0.2},
+			objectSpace = true,
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {1,3},
+			color0 = {0.0, 0.0, 0.0},
+			opacity = 0.75,
+			fadeIn = 0.2,
+			fadeOut = 2.2,
+			size = {0.75, 2.0},
+			gravity = {0,-0.1,0},
+			airResistance = 0.1,
+			rotationSpeed = 1,
+			blendMode = "Translucent",
+		},
+		
+		-- ice clouds
+		{
+			emissionRate = 35,
+			emissionTime = 0,
+			maxParticles = 1000,
+			boxMin = {-0.8, 0.85,-0.8},
+			boxMax = { 0.8, 0.65, 0.8},
+			sprayAngle = {0,360},
+			velocity = {0.1,0.2},
+			objectSpace = true,
+			texture = "assets/textures/particles/ice_guardian_smoke.tga",
+			lifetime = {1,3},
+			color0 = {0.5, 0.5, 0.5},
+			opacity = 0.5,
+			fadeIn = 0.2,
+			fadeOut = 2.2,
+			size = {0.75, 2.0},
+			gravity = {0,-0.05,0},
+			airResistance = 0.1,
+			rotationSpeed = -1,
+			blendMode = "Additive",
+		},
+		
+		-- ice fog
+		{
+			emissionRate = 5,
+			emissionTime = 0,
+			maxParticles = 1000,
+			boxMin = {-0.8, 0.85,-0.8},
+			boxMax = { 0.8, 0.0, 0.8},
+			sprayAngle = {0,360},
+			velocity = {0.1,0.2},
+			objectSpace = true,
+			texture = "assets/textures/particles/ice_guardian_smoke.tga",
+			lifetime = {1,3},
+			color0 = {0.5, 0.5, 0.5},
+			opacity = 0.5,
+			fadeIn = 0.2,
+			fadeOut = 2.2,
+			size = {1.0, 2.0},
+			gravity = {0,-0.05,0},
+			airResistance = 0.1,
+			rotationSpeed = -1,
+			blendMode = "Additive",
+		},
+
+		-- snow
+		{
+			emissionRate = 10,
+			emissionTime = 0,
+			maxParticles = 200,
+			boxMin = {-1.0, 0.8,-1.0},
+			boxMax = { 1.0, 0.7, 1.0},
+			sprayAngle = {0,360},
+			velocity = {0.1,0.2},
+			texture = "assets/textures/particles/ice_guardian_smoke.tga",
+			lifetime = {1,4},
+			color0 = {2.0, 2.0, 2.0},
+			opacity = 1,
+			fadeIn = 0.5,
+			fadeOut = 0.5,
+			size = {0.05, 0.08},
+			gravity = {0.1,-4,1.5},
+			airResistance = 0.9,
+			rotationSpeed = 2,
+			blendMode = "Additive",
+		},
+		
+		-- snow slow fall
+		{
+			emissionRate = 20,
+			emissionTime = 0,
+			maxParticles = 200,
+			boxMin = {-1.0, 0.8,-1.0},
+			boxMax = { 1.0, 0.7, 1.0},
+			sprayAngle = {0,360},
+			velocity = {0.1,0.2},
+			texture = "assets/textures/particles/ice_guardian_smoke.tga",
+			lifetime = {1,4},
+			color0 = {2.0, 2.0, 2.0},
+			opacity = 1,
+			fadeIn = 0.5,
+			fadeOut = 0.5,
+			size = {0.05, 0.08},
+			gravity = {0.5,-1.5,0.5},
+			airResistance = 0.9,
+			rotationSpeed = 2,
+			blendMode = "Additive",
+		},
+	}
+}
+
 -- earth magic
 
 defineObject{
@@ -1124,14 +1342,14 @@ defineObject{
 			triggerOnStart = true,
 			currentLevelOnly = true,
 			onActivate = function(self)
-				if spells_functions.script.windRiderPower > 0 and self.go.cloudspell:getAttackPower() > 0 then
-					local dx,dy,dz = self.go.x-party.x, self.go.y-party.y, self.go.elevation-party.elevation
-					if dx*dx + dy*dy + dz*dz < 25 then
-						self.go.cloudspell:setAttackPower(0)
-						if self.go.particle then self.go.particle:fadeOut(2) end
-						if self.go.light then self.go.light:fadeOut(2) end
-					end
-				end
+				-- if spells_functions.script.windRiderPower > 0 and self.go.cloudspell:getAttackPower() > 0 then
+					-- local dx,dy,dz = self.go.x-party.x, self.go.y-party.y, self.go.elevation-party.elevation
+					-- if dx*dx + dy*dy + dz*dz < 25 then
+						-- self.go.cloudspell:setAttackPower(0)
+						-- if self.go.particle then self.go.particle:fadeOut(2) end
+						-- if self.go.light then self.go.light:fadeOut(2) end
+					-- end
+				-- end
 			end,
 		},
 	},
@@ -1157,7 +1375,7 @@ defineObject{
 		},		
 		{
 			class = "CloudSpell",
-			attackPower = 5,
+			attackPower = 10,
 			damageInterval = 0.4,
 			damageType = "poison",
 			duration = 15,
@@ -1170,14 +1388,14 @@ defineObject{
 			triggerOnStart = true,
 			currentLevelOnly = true,
 			onActivate = function(self)
-				if spells_functions.script.windRiderPower > 0 and self.go.cloudspell:getAttackPower() > 0 then
-					local dx,dy,dz = self.go.x-party.x, self.go.y-party.y, self.go.elevation-party.elevation
-					if dx*dx + dy*dy + dz*dz < 25 then
-						self.go.cloudspell:setAttackPower(0)
-						if self.go.particle then self.go.particle:fadeOut(2) end
-						if self.go.light then self.go.light:fadeOut(2) end
-					end
-				end
+				-- if spells_functions.script.windRiderPower > 0 and self.go.cloudspell:getAttackPower() > 0 then
+					-- local dx,dy,dz = self.go.x-party.x, self.go.y-party.y, self.go.elevation-party.elevation
+					-- if dx*dx + dy*dy + dz*dz < 25 then
+						-- self.go.cloudspell:setAttackPower(0)
+						-- if self.go.particle then self.go.particle:fadeOut(2) end
+						-- if self.go.light then self.go.light:fadeOut(2) end
+					-- end
+				-- end
 			end,
 		},
 	},
@@ -1203,7 +1421,7 @@ defineObject{
 		},		
 		{
 			class = "CloudSpell",
-			attackPower = 5,
+			attackPower = 20,
 			damageInterval = 0.2,
 			damageType = "poison",
 			duration = 20,
@@ -1216,14 +1434,14 @@ defineObject{
 			triggerOnStart = true,
 			currentLevelOnly = true,
 			onActivate = function(self)
-				if spells_functions.script.windRiderPower > 0 and self.go.cloudspell:getAttackPower() > 0 then
-					local dx,dy,dz = self.go.x-party.x, self.go.y-party.y, self.go.elevation-party.elevation
-					if dx*dx + dy*dy + dz*dz < 25 then
-						self.go.cloudspell:setAttackPower(0)
-						if self.go.particle then self.go.particle:fadeOut(2) end
-						if self.go.light then self.go.light:fadeOut(2) end
-					end
-				end
+				-- if spells_functions.script.windRiderPower > 0 and self.go.cloudspell:getAttackPower() > 0 then
+					-- local dx,dy,dz = self.go.x-party.x, self.go.y-party.y, self.go.elevation-party.elevation
+					-- if dx*dx + dy*dy + dz*dz < 25 then
+						-- self.go.cloudspell:setAttackPower(0)
+						-- if self.go.particle then self.go.particle:fadeOut(2) end
+						-- if self.go.light then self.go.light:fadeOut(2) end
+					-- end
+				-- end
 			end,
 		},
 	},

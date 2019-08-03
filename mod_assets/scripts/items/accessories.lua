@@ -10,7 +10,8 @@ defineObject{
 			class = "Item",
 			uiName = "Coldspike Bracelet",
 			description = "A spiked bracer that never melts, which sends a deep cold energy that only a magic user can withstand.",
-			gameEffect = [[Cold damage +20%]],
+			gameEffect = [[Cold damage +20%
+			Increases base freezing chance of Frost Gust by 5%]],
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
 			gfxIndex = 39,
 			weight = 0.3,
@@ -36,7 +37,8 @@ defineObject{
 			class = "Item",
 			uiName = "Forestfire Bracer",
 			description = "An everburning enchanted bracer made with the bark of an ancient tree.",
-			gameEffect = [[Fire damage +20%]],
+			gameEffect = [[Fire damage +20%
+			Increases base burn chance of Fireburst by 5%]],
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
 			gfxIndex = 40,
 			weight = 0.3,
@@ -62,7 +64,8 @@ defineObject{
 			class = "Item",
 			uiName = "Torment Bracer",
 			description = "An electrically charged device that constantly shocks the user.",
-			gameEffect = [[Shock damage +20%]],
+			gameEffect = [[Shock damage +20%
+			Increases base arc chance of the Shock Rift spell by 5%]],
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
 			gfxIndex = 41,
 			weight = 0.3,
@@ -88,9 +91,8 @@ defineObject{
 			class = "Item",
 			uiName = "Serpent Bracer",
 			description = "A bracer fashioned after a venomous tropical snake. The teeth of the snake bite into the forearm of its wearer.",
-			gameEffect = [[Poison damage +20%
-			Adds 10% chance to poison enemies with 
-			melee and ranged attacks.]],
+			gameEffect = [[Poison damage +20%.
+			Adds 10% chance to poison enemies with melee and ranged attacks.]],
 			gfxIndex = 29,
 			weight = 0.5,
 			traits = { "bracers", "upgradable", "venomancer" },
@@ -115,7 +117,7 @@ defineObject{
 			class = "Item",
 			uiName = "Frostbite Necklace",
 			description = "This necklace, made out of Ice Lizard teeth, freezes everything it lays on but feels warm to touch.",
-			gameEffect = [[Adds cold resistance to the entire party +15.]],
+			gameEffect = [[+15 cold resistance to the entire party.]],
 			gfxIndex = 26,
 			weight = 0.2,
 			traits = { "necklace", "upgradable" },
@@ -123,10 +125,9 @@ defineObject{
 		{
 			class = "EquipmentItem",
 			resistCold = 15,
-			resistFire = -10,
 		},
 	},
-	tags = { "accessory" },
+	tags = { "necklace" },
 }
 
 defineObject{
@@ -141,8 +142,7 @@ defineObject{
 			class = "Item",
 			uiName = "Fire Torc",
 			description = "Two metal bands that clamp tightly around the neck. A faint sound of crackling embers can be heard emanating from it.",
-			gameEffect = [[Fire damage +20%
-			Adds fire resistance to the entire party +15%.]],
+			gameEffect = [[+15 fire resistance to the entire party.]],
 			gfxIndex = 67,
 			weight = 0.2,
 			traits = { "necklace"  },
@@ -150,10 +150,9 @@ defineObject{
 		{
 			class = "EquipmentItem",
 			resistFire = 15,
-			resistCold = -10,
 		},
 	},
-	tags = { "accessory" },
+	tags = { "necklace" },
 }
 
 defineObject{
@@ -168,8 +167,7 @@ defineObject{
 			class = "Item",
 			uiName = "Storm Amulet",
 			description = "",
-			gameEffect = [[Shock damage +20%
-			Adds shock resistance to the entire party +15%.]],
+			gameEffect = [[+15 shock resistance to the entire party.]],
 			gfxIndex = 302,
 			weight = 0.4,
 			traits = { "necklace", "upgradable" },
@@ -179,7 +177,7 @@ defineObject{
 			resistShock = 15,
 		},
 	},
-	tags = { "accessory" },
+	tags = { "necklace" },
 }
 
 defineObject{
@@ -194,14 +192,13 @@ defineObject{
 			class = "Item",
 			uiName = "Bone Amulet",
 			description = "A primitive amulet made out of bones that are bound together with string.",
-			gameEffect = [[You gain 5% chance to recover a pellet 
-			when firing with firearms.]],
+			gameEffect = [[You gain 5% chance to recover a pellet when firing with firearms.]],
 			gfxIndex = 65,
 			weight = 0.2,
 			traits = { "necklace", "upgradable" },
 		},
 	},
-	tags = { "accessory" },
+	tags = { "necklace" },
 }
 
 defineObject{
@@ -225,7 +222,7 @@ defineObject{
 			expRate = 20,
 		},
 	},
-	tags = { "accessory" },
+	tags = { "necklace" },
 }
 
 defineObject{
@@ -240,8 +237,7 @@ defineObject{
 			class = "Item",
 			uiName = "Hardstone Bracelet",
 			description = "A bracelet that the warriors of the hill tribes pass on from generation to generation.",
-			gameEffect = [[Adds a small chance to gain +35 protection
-			for 10 seconds when you get hit.]],
+			gameEffect = [[Adds a 20% chance to gain +3 Strenght +30 Protection for 10 seconds when you get hit.]],
 			gfxIndex = 27,
 			weight = 0.3,
 			traits = { "bracers", "upgradable" },
@@ -249,7 +245,6 @@ defineObject{
 		{
 			class = "EquipmentItem",
 			protection = 3,
-			accuracy = 10,
 		},
 	},
 	tags = { "accessory" },
@@ -273,7 +268,8 @@ defineObject{
 		},
 		{
 			class = "EquipmentItem",
-			protection = 2,
+			strength = 1,
+			willpower = 1,
 			cooldownRate = 15,
 		},
 	},
@@ -306,345 +302,6 @@ defineObject{
 	tags = { "accessory" },
 }
 
-defineObject{
-	name = "huntsman_cloak",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/huntsman_cloak.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Huntsman Cloak",
-			gfxIndex = 28,
-			weight = 0.8,
-			traits = { "cloak" },
-		},
-		{
-			class = "EquipmentItem",
-			evasion = 4,
-			dexterity = 1,
-			vitality = 1,
-		},
-	},
-	tags = { "accessory" },
-}
-
-defineObject{
-	name = "tattered_cloak",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/peasant_clothes.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Tattered Cloak",
-			gfxIndex = 66,
-			weight = 0.4,
-			traits = { "cloak" },
-		},
-		{
-			class = "EquipmentItem",
-			evasion = 2,
-		},
-	},
-	tags = { "accessory" },
-}
-
-defineObject{
-	name = "scaled_cloak",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/scaled_cloak.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Scaled Cloak",
-			gfxIndex = 72,
-			weight = 1.5,
-			traits = { "cloak" },
-		},
-		{
-			class = "EquipmentItem",
-			protection = 5,
-		},
-	},
-	tags = { "accessory" },
-}
-
-defineObject{
-	name = "diviner_cloak",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/diviner_clothes.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Diviner's Cloak",
-			description = "A fine cloak, woven with fibers that resonate with the faint arcane energies of the surrounding nature.",
-			gfxIndex = 167,
-			weight = 0.6,
-			traits = { "cloak" },
-		},
-		{
-			class = "EquipmentItem",
-			energyRegenerationRate = 20,
-		},
-	},
-	tags = { "accessory" },
-}
-
-defineObject{
-	name = "pit_gauntlets",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/pit_gauntlets.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Pit Fighter Gauntlets",
-			gfxIndex = 18,
-			weight = 0.9,
-			traits = { "gloves" },
-		},
-		{
-			class = "EquipmentItem",
-			strength = 2,
-			protection = 3,
-		},
-	},
-	tags = { "accessory" },
-}
-
-defineObject{
-	name = "nomad_mittens",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/nomad_clothes_small.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Nomad Mittens",
-			description = "Thick mittens worn by the tribesmen who live and travel with horned beasts in the far away tundras.",
-			gameEffect = [[Cold damage +5%]],
-			gfxIndex = 52,
-			weight = 0.4,
-			traits = { "gloves" },
-		},
-		{
-			class = "EquipmentItem",
-			protection = 1,
-			resistCold = 5,
-		},
-	},
-	tags = { "accessory" },
-}
-
-
-defineObject{
-	name = "gear_necklace",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/gear_necklace.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Gear Necklace",
-			gfxIndex = 219,
-			weight = 1.0,
-			traits = { "necklace", "upgradable" },
-			description = "A heavy, metal machine part from distant past."
-		},
-		{
-		class = "EquipmentItem",
-		energy = 15,
-		health = 15,
-		},
-	},
-	tags = { "accessory" },	
-}
-
-defineObject{
-	name = "ring_string",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/string_and_ring.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Ring on a String",
-			gfxIndex = 300,
-			weight = 2,
-			traits = { "necklace", "level_up" },
-			description = "A golden ring hanging in a simple leather wound string. Gravity seems to have an unnaturally strong pull on the ring. Faint writing of some unknown language has been masterfully engraved on the outer surface of the ring. You hear ominous whispers seducing you with its power."
-		},
-		{
-			class = "Particle",
-			particleSystem = "glitter_gold",
-		},
-	},
-	tags = { "accessory" },
-}
-
-defineObject{
-	name = "crystal_amulet",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/crystal_amulet.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Crystal Amulet",
-			gfxIndex = 301,
-			weight = 0.4,
-			traits = { "necklace", "upgradable" },
-			description = "This amulet was precisely cut from a living crystal. When you place it close to your ear, you can hear a soothing humming sound. The amulet protects its wearer with great magics.",
-			gameEffect = "Wearer gains immunity to poison, disease, paralysis, slow, blindness and petrify conditions.",
-		},
-		{
-			class = "EquipmentItem",
-			immunities = { "poison", "diseased", "paralyzed", "slow", "blind", "petrified" },
-		},
-	},
-	tags = { "accessory" },
-}
-
-defineObject{
-	name = "runestone_necklace",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/runestone_necklace.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Runestone Necklace",
-			gfxIndex = 303,
-			weight = 0.1,
-			traits = { "necklace", "upgradable" },
-		},
-		{
-			class = "EquipmentItem",
-			willpower = 2,
-		},
-	},
-	tags = { "accessory" },
-}
-
-defineObject{
-	name = "neck_chain",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/neck_chain.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Neck Chain",
-			gfxIndex = 304,
-			weight = 2.6,
-			traits = { "necklace", "upgradable" },
-			description = "The master craftsmen who built the great pyramids in the Xafi Desert wore these heavy chains around their necks. It is said that the chains were the source of their inhuman constitution.",
-			gameEffect = "Wearer gains immunity to starvation and burdened conditions.",
-		},
-		{
-			class = "EquipmentItem",
-			immunities = { "burdened", "starving" },
-		},
-	},
-	tags = { "accessory" },
-}
-
-defineObject{
-	name = "nergal_amulet",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/nergal_amulet.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Amulet of Nergal",
-			gfxIndex = 305,
-			weight = 0.4,
-			traits = { "necklace", "upgradable" },
-			description = "This powerful amulet is imbued with dark forces. The spirits within grant the wearer uncanny powers over death itself.",
-		},
-		{
-			class = "EquipmentItem",
-			health = 50,
-		},
-	},
-	tags = { "accessory" },
-}
-
-defineObject{
-	name = "jewel_pendant",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/jewel_pendant.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Jewel Pendant",
-			gfxIndex = 306,
-			weight = 0.7,
-			traits = { "necklace", "upgradable" },
-			description = "The golden necklace itself would be worth a fortune. The huge amethyst attached to it makes you rich beyond your wildest dreams.",
-		},
-		{
-			class = "EquipmentItem",
-			willpower = 4,
-		},
-	},
-	tags = { "accessory" },
-}
-
-defineObject{
-	name = "spiritwalker_pendant",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/spiritwalker_pendant.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Spiritwalker Pendant",
-			gfxIndex = 307,
-			weight = 0.3,
-			traits = { "necklace", "upgradable" },
-		},
-		{
-			class = "EquipmentItem",
-			energy = 50,
-			dexterity = 2,
-		},
-	},
-	tags = { "accessory" },
-}
 
 defineObject{
 	name = "leafbond_bracelet",
@@ -724,6 +381,296 @@ defineObject{
 }
 
 defineObject{
+	name = "huntsman_cloak",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/huntsman_cloak.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Huntsman Cloak",
+			gfxIndex = 28,
+			weight = 0.8,
+			traits = { "cloak" },
+		},
+		{
+			class = "EquipmentItem",
+			evasion = 4,
+			dexterity = 1,
+			vitality = 1,
+		},
+	},
+	tags = { "cloak" },
+}
+
+defineObject{
+	name = "tattered_cloak",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/peasant_clothes.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Tattered Cloak",
+			gfxIndex = 66,
+			weight = 0.4,
+			traits = { "cloak" },
+		},
+		{
+			class = "EquipmentItem",
+			evasion = 2,
+		},
+	},
+	tags = { "cloak" },
+}
+
+defineObject{
+	name = "scaled_cloak",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/scaled_cloak.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Scaled Cloak",
+			gfxIndex = 72,
+			weight = 2.5,
+			traits = { "cloak" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 5,
+			resistFire = 15,
+		},
+	},
+	tags = { "cloak" },
+}
+
+defineObject{
+	name = "diviner_cloak",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/diviner_clothes.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Diviner's Cloak",
+			description = "A fine cloak, woven with fibers that resonate with the faint arcane energies of the surrounding nature.",
+			gfxIndex = 167,
+			weight = 0.6,
+			traits = { "cloak" },
+		},
+		{
+			class = "EquipmentItem",
+			energyRegenerationRate = 20,
+		},
+	},
+	tags = { "cloak" },
+}
+
+defineObject{
+	name = "gear_necklace",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/gear_necklace.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Gear Necklace",
+			gfxIndex = 219,
+			weight = 1.0,
+			traits = { "necklace", "upgradable" },
+			description = "A heavy, metal machine part from distant past."
+		},
+		{
+		class = "EquipmentItem",
+		energy = 15,
+		health = 15,
+		},
+	},
+	tags = { "necklace" },	
+}
+
+defineObject{
+	name = "ring_string",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/string_and_ring.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Ring on a String",
+			gfxIndex = 300,
+			weight = 2,
+			traits = { "necklace", "level_up" },
+			description = "A golden ring hanging in a simple leather wound string. Gravity seems to have an unnaturally strong pull on the ring. Faint writing of some unknown language has been masterfully engraved on the outer surface of the ring. You hear ominous whispers seducing you with its power."
+		},
+		{
+			class = "Particle",
+			particleSystem = "glitter_gold",
+		},
+	},
+	tags = { "necklace" },
+}
+
+defineObject{
+	name = "crystal_amulet",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/crystal_amulet.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Crystal Amulet",
+			gfxIndex = 301,
+			weight = 0.4,
+			traits = { "necklace", "upgradable" },
+			description = "This amulet was precisely cut from a living crystal. When you place it close to your ear, you can hear a soothing humming sound. The amulet protects its wearer with great magics.",
+			gameEffect = "Wearer gains immunity to poison, disease, paralysis, slow, blindness and petrify conditions.",
+		},
+		{
+			class = "EquipmentItem",
+			immunities = { "poison", "diseased", "paralyzed", "slow", "blind", "petrified" },
+		},
+	},
+	tags = { "necklace" },
+}
+
+defineObject{
+	name = "runestone_necklace",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/runestone_necklace.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Runestone Necklace",
+			gfxIndex = 303,
+			weight = 0.1,
+			traits = { "necklace", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			willpower = 2,
+		},
+	},
+	tags = { "necklace" },
+}
+
+defineObject{
+	name = "neck_chain",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/neck_chain.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Neck Chain",
+			gfxIndex = 304,
+			weight = 2.6,
+			traits = { "necklace", "upgradable" },
+			description = "The master craftsmen who built the great pyramids in the Xafi Desert wore these heavy chains around their necks. It is said that the chains were the source of their inhuman constitution.",
+			gameEffect = "Wearer gains immunity to starvation and burdened conditions.",
+		},
+		{
+			class = "EquipmentItem",
+			immunities = { "burdened", "starving" },
+		},
+	},
+	tags = { "necklace" },
+}
+
+defineObject{
+	name = "nergal_amulet",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/nergal_amulet.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Amulet of Nergal",
+			gfxIndex = 305,
+			weight = 0.4,
+			traits = { "necklace", "upgradable" },
+			description = "This powerful amulet is imbued with dark forces. The spirits within grant the wearer uncanny powers over death itself.",
+		},
+		{
+			class = "EquipmentItem",
+			health = 50,
+		},
+	},
+	tags = { "necklace" },
+}
+
+defineObject{
+	name = "jewel_pendant",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/jewel_pendant.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Jewel Pendant",
+			gfxIndex = 306,
+			weight = 0.7,
+			traits = { "necklace", "upgradable" },
+			description = "The golden necklace itself would be worth a fortune. The huge amethyst attached to it makes you rich beyond your wildest dreams.",
+		},
+		{
+			class = "EquipmentItem",
+			willpower = 4,
+		},
+	},
+	tags = { "necklace" },
+}
+
+defineObject{
+	name = "spiritwalker_pendant",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/spiritwalker_pendant.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Spiritwalker Pendant",
+			gfxIndex = 307,
+			weight = 0.3,
+			traits = { "necklace", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			energy = 50,
+			dexterity = 2,
+		},
+	},
+	tags = { "necklace" },
+}
+
+defineObject{
 	name = "shaman_cloak",
 	baseObject = "base_item",
 	components = {
@@ -745,7 +692,7 @@ defineObject{
 			evasion = -2,
 		},
 	},
-	tags = { "accessory" },
+	tags = { "cloak" },
 }
 
 defineObject{
@@ -770,7 +717,7 @@ defineObject{
 			resistCold = 20,
 		},
 	},
-	tags = { "accessory" },
+	tags = { "cloak" },
 }
 
 defineObject{
@@ -795,7 +742,7 @@ defineObject{
 			strength = -2,
 		},
 	},
-	tags = { "accessory" },
+	tags = { "cloak" },
 }
 
 defineObject{
@@ -810,6 +757,7 @@ defineObject{
 			class = "Item",
 			uiName = "Bearclaw Gauntlets",
 			description = "These powerful enchanted gauntlets are rumored to be made from the severed paws of a polymorphed bear cult shaman.",
+			gameEffect = [[Your power attacks deal 15% more damage.]],
 			gfxIndex = 325,
 			weight = 0.9,
 			traits = { "gloves" },
@@ -819,7 +767,7 @@ defineObject{
 			strength = 4,
 		},
 	},
-	tags = { "accessory" },
+	tags = { "gloves" },
 }
 
 defineObject{
@@ -845,7 +793,7 @@ defineObject{
 			dexterity = 2,
 		},
 	},
-	tags = { "accessory" },
+	tags = { "gloves" },
 }
 
 defineObject{
@@ -860,6 +808,7 @@ defineObject{
 			class = "Item",
 			uiName = "Gauntlets of Fire",
 			description = "These gauntlets will slowly burn a hole into anything that they touch. Strangely enough, their wearer is always left unharmed.",
+			gameEffect = [[Your power attacks deal 15% more damage.]],
 			gfxIndex = 327,
 			weight = 0.4,
 			traits = { "gloves", "fire_gauntlets" },
@@ -871,5 +820,55 @@ defineObject{
 			resistFire = 15,
 		},
 	},
-	tags = { "accessory" },
+	tags = { "gloves" },
+}
+
+defineObject{
+	name = "pit_gauntlets",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/pit_gauntlets.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Pit Fighter Gauntlets",
+			gfxIndex = 18,
+			weight = 0.9,
+			traits = { "gloves" },
+		},
+		{
+			class = "EquipmentItem",
+			strength = 2,
+			protection = 3,
+		},
+	},
+	tags = { "gloves" },
+}
+
+defineObject{
+	name = "nomad_mittens",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/nomad_clothes_small.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Nomad Mittens",
+			description = "Thick mittens worn by the tribesmen who live and travel with horned beasts in the far away tundras.",
+			gameEffect = [[Cold damage +5%]],
+			gfxIndex = 52,
+			weight = 0.4,
+			traits = { "gloves" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 1,
+			resistCold = 5,
+		},
+	},
+	tags = { "gloves" },
 }

@@ -708,3 +708,26 @@ defineCondition{
 	onTick = function(self, champion)
 	end,	
 }
+
+defineCondition{
+	name = "reflective",
+	uiName = "Reflective",
+	description = "The first attack from an enemy is absorbed as Health and Energy over 5 seconds.",
+	icon = 33,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
+	beneficial = true,
+	harmful = false,
+	hidden = true,
+	tickInterval = 1,
+	onStart = function(self, champion)
+	end,
+	onStop = function(self, champion)
+	end,
+	onRecomputeStats = function(self, champion)
+	end,
+	onTick = function(self, champion)
+		local heal = functions.script.get_c("reflective_damage", champion:getOrdinal())
+		champion:regainHealth(heal / 5)
+		champion:regainEnergy(heal / 5)
+	end,	
+}

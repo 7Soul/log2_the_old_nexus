@@ -666,3 +666,27 @@ defineMaterial{
 	glossiness = 60,
 	depthBias = 0,
 }
+
+defineMaterial{
+	name = "ice_crab",
+	diffuseMap = "assets/textures/monsters/ice_guardian_dif.tga",
+	specularMap = "assets/textures/monsters/ice_guardian_spec.tga",
+	normalMap = "assets/textures/monsters/ice_guardian_normal.tga",
+	emissiveMap = "assets/textures/monsters/ice_guardian_emissive.tga",
+	doubleSided = false,
+	lighting = true,
+	alphaTest = false,
+	blendMode = "Opaque",
+	textureAddressMode = "Wrap",
+	glossiness = 60,
+	depthBias = 0,
+
+	-- custom shader
+	shader = "crystal",
+	shadeTex = "assets/textures/env/healing_crystal_shadetex.tga",
+	shadeTexAngle = 0,
+	crystalIntensity = 2,
+	onUpdate = function(self, time)
+		self:setParam("shadeTexAngle", time * 3.0)
+	end,
+}

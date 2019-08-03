@@ -14,6 +14,7 @@ import "mod_assets/scripts/objects/stone_philosophers.lua"
 import "mod_assets/scripts/objects/sky.lua"
 import "mod_assets/scripts/materials/tomb.lua"
 import "mod_assets/scripts/materials/generic.lua"
+import "mod_assets/scripts/materials/monsters.lua"
 -- import the spells pack
 import "mod_assets/spells_pack/init.lua"   -- the spells pack
 import "mod_assets/scripts/spells/ash.lua"
@@ -41,6 +42,9 @@ import "mod_assets/scripts/monsters/turtle.lua"
 import "mod_assets/scripts/monsters/sand_warg.lua"
 import "mod_assets/scripts/monsters/twigroot.lua"
 import "mod_assets/scripts/monsters/xeloroid.lua"
+import "mod_assets/scripts/monsters/cave_crab.lua"
+import "mod_assets/scripts/monsters/lava_crab.lua"
+import "mod_assets/scripts/monsters/ice_crab.lua"
 -- Items
 import "mod_assets/scripts/items/accessories.lua"
 import "mod_assets/scripts/items/armors.lua"
@@ -232,13 +236,15 @@ defineObject{
 			
 			if champion:hasTrait("elemental_armor") then
 				if damageType == "fire" or damageType == "cold" or damageType == "shock" then
-					chamption:regainEnergy(math.ceil(champion:getMaxEnergy() * 0.15))
+					champion:regainEnergy(math.ceil(champion:getMaxEnergy() * 0.15))
 				end
 			end
 			
 			if champion:hasTrait("meditation") then
 				champion:regainEnergy(math.ceil(champion:getMaxEnergy() * math.random(1,5) * 0.01))
 			end
+			
+			
 		end,
 		
 		-- WORKS
@@ -1080,16 +1086,18 @@ defineObject{
 					local monster = entity.monster
 					if monster and monster.go.poisoned and monster:isAlive() then
 						functions.script.hitMonster(monster.go.id, math.random(monster:getHealth() * 0.005, monster:getHealth() * 0.01), "009900", nil, "poison", 1)
-						if monster.go.poisoned:getCausedByChampion() and champion:hasTrait("venomancer") and math.random() <= 0.45 then
+						if monster.go.poisoned:getCausedByChampion() then
 							local champion = party.party:getChampionByOrdinal(monster.go.poisoned:getCausedByChampion())
-							champion:regainHealth(math.random(1,5))
+							if champion:hasTrait("venomancer") and math.random() <= 0.45 then
+								champion:regainHealth(math.random(1,5))
+							end
 						end
 						-- Plague spread
 						if monster.go.poisoned:getCausedByChampion() and math.random() <= 0.33 then
 							local champion = party.party:getChampionByOrdinal(monster.go.poisoned:getCausedByChampion())
 							if champion:hasTrait("plague") then
 								local mList = {}
-								for d=1,9 do
+								for d=0,8 do
 									local dx = math.floor(d / 3) - 1
 									local dy = ((d-1) % 3) - 1
 									for e in Dungeon.getMap(party.level):entitiesAt(monster.go.x + dx, monster.go.y + dy) do

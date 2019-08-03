@@ -1270,15 +1270,15 @@ defineTrait{
 	uiName = "Reflective",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 73,
-	description = "Gain +20 resist all if wearing all light armor.",
+	description = "The first attack from an enemy is absorbed as Health and Energy over 5 seconds.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			local all_light = functions.script.wearingAll(champion, "light_armor", "clothes")
 			if all_light then
-				champion:addStatModifier("resist_fire", 20)
-				champion:addStatModifier("resist_cold", 20)
-				champion:addStatModifier("resist_shock", 20)
-				champion:addStatModifier("resist_poison", 20)
+				-- champion:addStatModifier("resist_fire", 20)
+				-- champion:addStatModifier("resist_cold", 20)
+				-- champion:addStatModifier("resist_shock", 20)
+				-- champion:addStatModifier("resist_poison", 20)
 			end
 		end
 	end,
@@ -1780,7 +1780,7 @@ defineTrait{ -- to do
 	description = "During the night, your Energy regeneration rate is increased by 50% and your spell damage by 10%.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			if curTime > 1.01 then
+			if GameMode.getTimeOfDay() > 1.01 then
 				champion:addStatModifier("energy_regeneration_rate", 50)
 			end
 		end

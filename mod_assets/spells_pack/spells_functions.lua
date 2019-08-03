@@ -419,14 +419,19 @@ defOrdered =
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 156,
 	spellIcon = 1,
-	description = "Conjures a blast of fire that deals fire damage to all foes directly in front of you.\n- Cost : 25 energy\n- Power : 22",
+	description = [[Conjures a blast of fire that deals fire damage to all foes directly in front of you.
+	
+	Burn Chance: 50% with 3 points or more in Elemental Magic. This chance is multiplied by double your Fire resistance.
+	
+	Burn Duration: 3 seconds per point in Elemental Magic.
+	
+	Cost : 25 energy
+	Power : 22]],
 	onCast = function(champion, x, y, direction, elevation, skillLevel)
 		local power = spells_functions.script.getPower(22, champion, "elemental_magic", "fire", 1, "fireburst")
-		
 		local cost = 25
 		cost = spells_functions.script.getCost(champion, cost, "fire", "fireburst")
 		spells_functions.script.paySpellCost(champion, cost, "fire", "fireburst")
-	
 		spells_functions.script.frontAttack("fireburst", power, champion:getOrdinal())
 		spells_functions.script.stopInvisibility()
 	end,
@@ -465,7 +470,11 @@ defOrdered =
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 157,
 	spellIcon = 7,
-	description = "A flaming ball of fire shoots from your fingertips causing devastating damage to your foes.\n- Cost : 43 energy\n- Power : 30\n\n[Missile Weapons 3]:\nFor the next 15 seconds, your next missile weapon attack also triggers this spell for free.",
+	description = [[A flaming ball of fire shoots from your fingertips causing devastating damage to your foes.
+	It has a 30% chance to burn the target.
+
+	Cost : 43 energy
+	Power : 30]],
 	onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
 		local power = spells_functions.script.getPower(30, champion, "elemental_magic", "fire", 1, "fireball")
 		local ord = champion:getOrdinal()
@@ -560,14 +569,19 @@ end,
 
 {
 	name = "shock",
-	uiName = "Shock",
+	uiName = "Shock Rift",
 	gesture = 3,
 	manaCost = 0,
 	skill = "elemental_magic",
 	requirements = { "elemental_magic", 1, "concentration", 1 },
 	icon = 64,
 	spellIcon = 6,
-	description = "Conjures a blast of electricity that deals shock damage to all foes directly in front of you.\n- Cost : 25 energy\n- Power : 23",
+	description = [[Conjures a blast of electricity that deals shock damage to all foes directly in front of you.
+	
+	It has a 10% chance to also strike a nearby enemy. This chance is multiplied by double your Shock resistance.
+
+	Cost : 25 energy
+	Power : 23]],
 	onCast = function(champion, x, y, direction, elevation, skillLevel)
 		local power = spells_functions.script.getPower(23, champion, "elemental_magic", "shock", 1, "shock")
 		
@@ -666,7 +680,7 @@ end,
 	gesture = 52365,
 	manaCost = 50,
 	skill = "air_magic",
-	requirements = { "air_magic", 3, "concentration", 3 },
+	requirements = { "elemental_magic", 3, "concentration", 3 },
 	icon = 69,
 	spellIcon = 16,
 	description = "Creates a magical shield reducing shock damage against the party.\n- Cost : 50 energy\n- Duration : 50 seconds",
@@ -695,12 +709,19 @@ end,
 
 {
 	name = "frost_burst",
-	uiName = "Frostburst",
+	uiName = "Frost Gust",
 	skill = "elemental_magic",
 	requirements = { "elemental_magic", 1, "concentration", 1 },
 	gesture = 9,
 	manaCost = 0,
-	description = "Conjures ice that deals damage to all foes directly in front of you and freezes them.\n- Cost : 25 energy\n- Power : 15",
+	description = [[Conjures ice that deals damage to all foes directly in front of you.
+	
+	Freeze Chance: 20%, multiplied by double your Cold resistance.
+	
+	Freeze Duration: Random between 2 seconds and 1 second per point in Elemental Magic and Witchcraft.
+	
+	Cost : 25 energy
+	Power : 15]],
 	onCast = function(champion, x, y, direction, elevation, skillLevel)
 		local power = spells_functions.script.getPower(15, champion, "elemental_magic", "cold", 1, "frost_burst")
 		
@@ -875,6 +896,38 @@ end,
 	end
 },
 
+{
+	name = "blizzard",
+	uiName = "Blizzard",
+	gesture = 5698,
+	manaCost = 0,
+	skill = "elemental_mastery",
+	requirements = { "elemental_mastery", 1 },	
+	icon = 62,
+	spellIcon = 2,
+	description = [[Summons a toxic cloud of poison that deals damage over time.
+	
+	Cost : 27 energy
+	Power : 5 damage each 0.8 second (0.4 at level 3, 0.2 at level 5)
+	Duration : 10 seconds (15 at level 3, 20 at level 5)]],
+	onCast = function(champion, x, y, direction, elevation, skillLevel)
+		local power = spells_functions.script.getPower(5, champion, "poison_mastery", "poison", 1, "poison_cloud")
+		local castSize = skillLevel <= 2 and "poison_cloud_small" or skillLevel <= 4 and "poison_cloud_medium" or skillLevel == 5 and "poison_cloud_large"
+		
+		local cost = 27
+		cost = spells_functions.script.getCost(champion, cost, "poison", "poison_cloud")
+		spells_functions.script.paySpellCost(champion, cost, "poison", "poison_cloud")
+		
+		spells_functions.script.frontAttack("blizzard_small", power, champion:getOrdinal())
+		spells_functions.script.stopInvisibility()
+	end,
+	preCast = function(champion, x, y, direction, elevation, skillLevel)
+		local cost = 27
+		cost = spells_functions.script.getCost(champion, cost, "poison", "poison_cloud")
+		if champion:getEnergy() < cost then return false,"no_energy" end
+	end,
+},
+
 -- earth magic
 
 {
@@ -886,7 +939,11 @@ end,
 	requirements = { "poison_mastery", 1 },	
 	icon = 62,
 	spellIcon = 2,
-	description = "Summons a toxic cloud of poison that deals damage over time.\n- Cost : 27 energy\n- Power : 5 damage each 0.8 second\n- Duration : 20 seconds",
+	description = [[Summons a toxic cloud of poison that deals damage over time.
+	
+	Cost : 27 energy
+	Power : 5 damage each 0.8 second (0.4 at level 3, 0.2 at level 5)
+	Duration : 10 seconds (15 at level 3, 20 at level 5)]],
 	onCast = function(champion, x, y, direction, elevation, skillLevel)
 		local power = spells_functions.script.getPower(5, champion, "poison_mastery", "poison", 1, "poison_cloud")
 		local castSize = skillLevel <= 2 and "poison_cloud_small" or skillLevel <= 4 and "poison_cloud_medium" or skillLevel == 5 and "poison_cloud_large"
@@ -2222,7 +2279,7 @@ function normalZone()
 end
 
 function onCastSpell(champion, spellName)
-	local cost = defByName[spellName].manaCost
+	local cost = free and defByName[spellName].manaCost or 0
 	
 	if champion:hasCondition("frozen_champion") then
 		champion:regainEnergy(cost)
@@ -2325,6 +2382,54 @@ function onAttack(champion, action, slot)
 		end
 	end
 	return true
+end
+
+function voodoo(self, champion, monster)
+	local mList = {}
+	for d=0,24 do
+		local dx = math.floor(d / 5) - 2
+		local dy = ((d-1) % 5) - 2
+		for e in Dungeon.getMap(party.level):entitiesAt(monster.go.x + dx, monster.go.y + dy) do
+			if e.monster and e.monster ~= monster then
+				table.insert(mList, e.monster)
+			end
+		end
+	end
+	if #mList > 0 then
+		local newMonster = mList[ math.random( #mList ) ]
+		if newMonster and newMonster ~= monster then
+			--local spell = defByName[self.go.name]
+			local a = spawn("voodoo", party.level, newMonster.go.x, newMonster.go.y, newMonster.go.facing, newMonster.go.elevation)
+			if a.tiledamager then 
+				a.tiledamager:setCastByChampion(champion:getOrdinal()) 
+				a.tiledamager:setAttackPower((champion:getLevel() * 2) + 9 + math.random(9))
+			end
+		end
+	end
+end
+
+function shock_arc(self, champion, monster)
+	if math.random() > 0.1 * (1 + (champion:getResistance("shock") * 0.02)) then return end
+	local mList = {}
+	for d=0,8 do
+		local dx = math.floor(d / 3) - 1
+		local dy = ((d-1) % 3) - 1
+		for e in Dungeon.getMap(party.level):entitiesAt(monster.go.x + dx, monster.go.y + dy) do
+			if e.monster and e.monster ~= monster then
+				table.insert(mList, e.monster)
+			end
+		end
+	end
+	if #mList > 0 then
+		local newMonster = mList[ math.random( #mList ) ]
+		if newMonster and newMonster ~= monster then
+			local a = spawn("shockburst", party.level, newMonster.go.x, newMonster.go.y, newMonster.go.facing, newMonster.go.elevation)
+			if a.tiledamager then 
+				a.tiledamager:setCastByChampion(champion:getOrdinal()) 
+				a.tiledamager:setAttackPower(23)
+			end
+		end
+	end
 end
 
 sacred_armor = true
@@ -2555,38 +2660,13 @@ function frontAttack(attack, power, ordinal)
 			end
 		end
 	end
-	-- if attack == "poison_cloud_large" then
-		-- local success = 0
-		-- for e in party.map:entitiesAt(dx, dy) do
-			-- if e ~= nil then			
-				-- local herb_items = {"blooddrop_cap", "blooddrop_cap", "etherweed", "etherweed", "mudwort", "mudwort", "blackmoss", "falconskyre", "falconskyre"}
-				-- local herb = herb_items[math.random(#herb_items)]
-				-- if e.name == "borra" then	
-					-- spawn(herb, 1, e.x, e.y, e.facing, e.elevation)
-					-- success = success + 1
-					-- e:destroy()
-				-- elseif e.name == "bread" then
-					-- spawn(herb, 1, e.x, e.y, e.facing, e.elevation)
-					-- success = success + 1
-					-- e:destroy()
-				-- elseif e.name == "pitroot_bread" then
-					-- spawn(herb, 1, e.x, e.y, e.facing, e.elevation)
-					-- success = success + 1
-					-- e:destroy()
-				-- elseif e.name == "baked_maggot" then
-					-- spawn(herb, 1, e.x, e.y, e.facing, e.elevation)
-					-- success = success + 1
-					-- e:destroy()
-				-- end
-			-- end		
-		-- end
-		-- if success > 0 then
-			-- hudPrint("The caustic fumes caused herbs to sprout from the food...")
-		-- end
-	-- end
+	
 	if a.tiledamager then a.tiledamager:setCastByChampion(ordinal) a.tiledamager:setAttackPower(power) end
 	if a.cloudspell then a.cloudspell:setCastByChampion(ordinal) a.cloudspell:setAttackPower(power) end
 	if a.forcefield then delayedCall(a.id, power, "deactivate") delayEffects(power+3, destroy, {a.id}) end
+	functions.script.set_c("last_power", champion:getOrdinal(), power)
+	functions.script.set_c("last_element", champion:getOrdinal(), power)
+	functions.script.set_c("last_spell_name", champion:getOrdinal(), power)
 	return a
 end
 
@@ -2985,7 +3065,7 @@ function xpGrantingDeath(monster)
 		monster:showDamageText("+"..monster:getExp().." xp", "FFFF64")
 		for i = 1,4 do
 			local champ = party.party:getChampionByOrdinal(i)
-			if champ:isAlive() and champ:getClass() ~= "farmer" then champ:gainExp(monster:getExp()) end
+			if champ:isAlive() then champ:gainExp(monster:getExp()) end
 		end
 	end
 	monster:die()

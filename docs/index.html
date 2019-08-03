@@ -185,7 +185,8 @@ hr::after {
 }
 
 .class_trait p {
-	margin-bottom: 5px;
+	margin-bottom: 7px;
+	margin-top: 7px;
 }
 
 .class_trait ul {
@@ -256,7 +257,7 @@ h2 em {
 		<div class="stats">
 			<p>80 <em>(+5 per level, +15 per 10 Strength)</em></p>
 			<p>20 <em>(+5 per level)</em></p>
-			<p>- Can't wear armor, except for light helmets, boots and gloves.</p>
+			<p>- Can't wear any heavy armor. Can't wear any Body Armor or Pants.</p>
 		</div>
 	</div>
 	<div class="class_trait">
@@ -1087,10 +1088,10 @@ h2 em {
 		
 		<div class="perk">
 			<div style="margin-right: 31px"><em>Gold Tier</em><b>Voodoo</b></div>
-			<p>Hitting one enemy with a spell also affects nearby enemies* in a range of 2 tiles.</p>
+			<p>Hitting one enemy with a spell also damages and bleeds* a random nearby enemy in a range of 2 tiles.</p>
 		</div>
 	</div>
-	<p>*Hits a random enemy if there are multiple.</p>
+	<p>*Bleeding does around 0.5% of a monster's health per second and around 1% when they walk. It lasts a random amount of time.</p>
 </div>
 
 <div class="main">
@@ -1119,6 +1120,152 @@ h2 em {
 	<p>*Upgraded items weight 5kg more (-0.5kg per skill level).</p>
 	<p>*Tinkering level goes up after 3 upgrades and after leveling this skill (Lvl 10 max).</p>
 	<p>*Each skill point increases the stats by an additional 5%.</p>
+</div>
+
+<h1>/// Spells ///</h1>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: -225px -900px;"></div>
+		<h1>Mage Spark <em>Neutral</em></h1>
+		<h2>The most basic of offensive spells. Conjures a random elemental burst of energy in front of you.</h2>
+		<h2><em>Requirements: None</em></h2>
+	</div>
+	<div class="class_trait">
+		<p><b>Cost:</b>20 energy<br/>
+		<b>Power:</b>18</p>
+		<ul>
+		<li>A magic gem can be used to set the element.</li>
+		</ul>
+	</div>	
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: 0px -900px;"></div>
+		<h1>Fireburst <em>Fire</em></h1>
+		<h2>Conjures a blast of fire that deals fire damage to all foes directly in front of you.</h2>
+		<h2><em>Requirements: Elemental Magic 1, Magic Training 1</em></h2>
+	</div>
+	<div class="class_trait">
+		<p><b>Cost:</b>25 energy<br/>
+		<b>Power:</b>22</p>		
+		<p><b>Burn Chance:</b>50% with 3 points or more in Elemental Magic. This chance is multiplied by double your Fire resistance.</p>
+		<p><b>Burn Duration:</b>3 seconds per point in Elemental Magic.</p>
+	</div>	
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: -75px -900px;"></div>
+		<h1>Fireball <em>Fire</em></h1>
+		<h2>A flaming ball of fire shoots from your fingertips causing devastating damage to your foes.</h2>
+		<h2><em>Requirements: Elemental Magic 3, Magic Training 1</em></h2>
+	</div>
+	<div class="class_trait">
+		<p><b>Cost:</b>43 energy<br/>
+		<b>Power:</b>30</p>		
+		<p><b>Burn Chance:</b>30%. This chance is multiplied by double your Fire resistance.</p>
+		<p><b>Burn Duration:</b>3 seconds per point in Elemental Magic.</p>
+	</div>	
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: -150px -900px;"></div>
+		<h1>Meteor Storm <em>Fire</em></h1>
+		<h2>Unleashes a devastating storm of meteors on your foes.</h2>
+		<h2><em>Requirements: Elemental Magic 5, Magic Training 3</em></h2>
+	</div>
+	<div class="class_trait">
+		<p><b>Cost:</b>80 energy<br/>
+		<b>Power:</b>30 per meteor</p>
+		<p><b>Burn Chance:</b>15%. This chance is multiplied by double your Fire resistance.</p>
+		<p><b>Burn Duration:</b>3 seconds per point in Elemental Magic.</p>
+	</div>	
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: 0px -900px;"></div>
+		<h1>Fire Shield <em>Fire</em></h1>
+		<h2>Creates a magical shield reducing fire damage against the party.</h2>
+		<h2><em>Requirements: Elemental Magic 3, Magic Training 3</em></h2>
+	</div>
+	<div class="class_trait">
+		<p><b>Cost:</b>50 energy<br/>
+		<b>Duration:</b>50 seconds</p>
+	</div>	
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: 0px -900px;"></div>
+		<h1>Shock <em>Shock</em></h1>
+		<h2>Conjures a blast of electricity that deals shock damage to all foes directly in front of you.</h2>
+		<h2><em>Requirements: Elemental Magic 1, Magic Training 1</em></h2>
+	</div>
+	<div class="class_trait">
+		<p><b>Cost:</b>25 energy<br/>
+		<b>Power:</b>23</p>		
+		<p><b>Arc Chance:</b>It has a 10% chance to also strike a nearby enemy. This chance is multiplied by double your Shock resistance.</p>
+	</div>	
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: 0px -900px;"></div>
+		<h1>Lightning Bolt <em>Shock</em></h1>
+		<h2>You channel the power of storms through your hands.</h2>
+		<h2><em>Requirements: Elemental Magic 3, Magic Training 1</em></h2>
+	</div>
+	<div class="class_trait">
+		<p><b>Cost:</b>35 energy<br/>
+		<b>Power:</b>27</p>		
+		<p><b>Arc Chance:</b>It has a 10% chance to also strike a nearby enemy. This chance is multiplied by double your Shock resistance.</p>
+	</div>	
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: 0px -900px;"></div>
+		<h1>Invisibility <em>Shock</em></h1>
+		<h2>Turns yourself and your friends invisible.</h2>
+		<h2><em>Requirements: Magic Training 3</em></h2>
+	</div>
+	<div class="class_trait">
+		<p><b>Cost:</b>45 energy<br/>
+		<b>Duration:</b>20 seconds + 2 per character level</p>		
+		<p><b>Arc Chance:</b>It has a 10% chance to also strike a nearby enemy. This chance is multiplied by double your Shock resistance.</p>
+	</div>	
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: 0px -900px;"></div>
+		<h1>Shock Shield <em>Shock</em></h1>
+		<h2>Creates a magical shield reducing shock damage against the party.</h2>
+		<h2><em>Requirements: Elemental Magic 3, Magic Training 3</em></h2>
+	</div>
+	<div class="class_trait">
+		<p><b>Cost:</b>50 energy<br/>
+		<b>Duration:</b>50 seconds</p>		
+	</div>	
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: 0px -900px;"></div>
+		<h1>Frostburst <em>Fire</em></h1>
+		<h2>Conjures ice that deals damage to all foes directly in front of you.</h2>
+		<h2><em>Requirements: Elemental Magic 1, Magic Training 1</em></h2>
+	</div>
+	<div class="class_trait">
+		<p><b>Cost:</b>25 energy<br/>
+		<b>Power:</b>15</p>		
+		<p><b>Freeze Chance:</b>20%, multiplied by double your Cold resistance.</p>
+		<p><b>Freeze Duration:</b>Random between 2 seconds and 1 second per point in Elemental Magic and Witchcraft.</p>
+	</div>	
 </div>
 
 </body>

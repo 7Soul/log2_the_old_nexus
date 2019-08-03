@@ -27,6 +27,9 @@ defineObject{
 				alert = "assets/animations/monsters/turtle/turtle_alert.fbx",
 			},
 			currentLevelOnly = true,
+			onAnimationEvent = function(self, event)
+				--print(event)
+			end,
 		},
 		{
 			class = "Monster",
@@ -98,6 +101,7 @@ defineObject{
 		},
 	},
 }
+
 
 defineAnimationEvent{
 	animation = "assets/animations/monsters/turtle/turtle_attack.fbx",
