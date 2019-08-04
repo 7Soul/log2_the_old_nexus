@@ -727,12 +727,6 @@ function onThrowAttack(self, champion, slot, chainIndex, item)
 	if champion:hasTrait("precision") then
 		self:setAttackPower(self:getAttackPower() + (math.random() * 20 + 5))
 	end
-
-	-- if (champion:hasTrait("venomancer") and math.random() <= 0.2) or ((champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers):hasTrait("venomancer")) and math.random() <= 0.1) then
-		-- set_c("venomancerShot", champion:getOrdinal(), true)
-	-- else
-		-- set_c("venomancerShot", champion:getOrdinal(), nil)
-	-- end
 	
 	-- if self.go.bombitem then
 		-- print("bomb")
@@ -794,14 +788,6 @@ function onMissileAttack(self, champion, slot, chainIndex, item)
 		self:setAttackPower(self:getAttackPower() + (math.random() * 20 + 5))
 	end
 	
-	-- if (champion:hasTrait("venomancer") and math.random() <= 0.2) or ((champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers):hasTrait("venomancer")) and math.random() <= 0.1) then
-		-- set_c("venomancerBowShot", champion:getOrdinal(), true)
-		-- set_c("venomancerAmmo", champion:getOrdinal(), self:getAmmo())
-	-- else
-		-- set_c("venomancerBowShot", champion:getOrdinal(), nil)
-		-- set_c("venomancerAmmo", champion:getOrdinal(), nil)
-	-- end
-	
 	local id = champion:getOrdinal()
 	if champion:hasTrait("magic_missile") then
 		delayedCall("functions", 0.1, "psionicArrow", id)
@@ -857,28 +843,26 @@ function onFirearmAttack(self, champion, slot)
 	-- All physical attack boosts
 	self:setAttackPower(self:getAttackPower() * empowerElement(champion, "physical", 1))
 	
+	-- Silver Bullet trait - Double damage on 6th shot
 	if champion:hasTrait("silver_bullet") then
 		if get_c("silver_bullet", champion:getOrdinal()) == nil then
 			set_c("silver_bullet", champion:getOrdinal(), -1)
 		end
-		set_c("silver_bullet", champion:getOrdinal(), (get_c("silver_bullet", champion:getOrdinal()) + 1) % 6 )
-		if get_c("silver_bullet", champion:getOrdinal()) == 5 then
+		local trigger = 6
+		if champion:hasTrait("fast_fingers") then
+			trigger = trigger - math.floor(champion:getCurrentStat("dexterity") / 20)
+		end
+		set_c("silver_bullet", champion:getOrdinal(), (get_c("silver_bullet", champion:getOrdinal()) + 1) % trigger )
+		if get_c("silver_bullet", champion:getOrdinal()) == trigger - 1 then
 			self:setAttackPower(self:getAttackPower() * 2.0)
 		end
 	end
 	
+	-- Sea Dog Trait - Firearm damage increase in the front
 	if champion:hasTrait("sea_dog") and (champion:getOrdinal() == 1 or champion:getOrdinal() == 2) then
 		self:setAttackPower(self:getAttackPower() * 1.25)
 	end	
-	
-	-- if champion:hasTrait("fleshbore") then
-		-- if not self:getPierce() then	
-			-- self:setPierce(supertable[4][self.go.id] + 10)
-		-- else
-			-- self:setPierce(self:getPierce() + 10)
-		-- end	
-	-- end
-	
+
 	-- Tinkerer's reduction to damage before conversion
 	if champion:getClass() == "tinkerer" then
 		self:setAttackPower(self:getAttackPower() * 0.5 )
@@ -902,7 +886,7 @@ function onFirearmAttack(self, champion, slot)
 		
 		if (item and item:hasTrait("firearm")) and (item2 and item2:hasTrait("firearm")) then
 			self:setAttackPower(math.floor(self:getAttackPower() * (1.1 + ((champion:getLevel()-1) * 0.1))))
-		end	
+		end
 		
 		if item.go.name ~= "revolver" then
 			for i=1,32 do
@@ -983,6 +967,7 @@ function onPostFirearmAttack(self, champion, slot, secondary2)
 		end
 	end
 	
+	-- Metal Slug trait - 7% chance to save a pellet
 	if champion:hasTrait("metal_slug") and item.go.name ~= "revolver" then
 		local pelletsSlot = nil
 		local pellets = nil
@@ -999,7 +984,8 @@ function onPostFirearmAttack(self, champion, slot, secondary2)
 		end
 	end
 	
-	if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).name == "bone_amulet" then
+	-- Bone Amulet - 5% chance to save a pellet
+	if champion:getItem(ItemSlot.Necklace) and champion:getItem(ItemSlot.Necklace).name == "bone_amulet" then
 		local pelletsSlot = nil
 		local pellets = nil
 		if math.random() >= 0.95 then
@@ -1079,6 +1065,10 @@ function reloadAfter(id, cItem, slot, pelletsSlot)
 	end
 end
 
+-------------------------------------------------------------------------------------------------------
+-- Reset Weapon Values                                                                               --    
+-------------------------------------------------------------------------------------------------------
+
 function reset_attack(self, champion, slot, secondary2, item)
 	--local dx,dy = getForward(party.facing)
 	for entity in Dungeon.getMap(party.level):entitiesAt(party.x, party.y) do
@@ -1115,28 +1105,6 @@ function doubleAttack(self, item, champion, slot, chainIndex, secondary2)
 		secondary = 0
 	end
 end
-
-function wearingAll(champion, armor, armor2)
-	if armor2 == nil then armor2 = armor end
-	local wearing_all = true
-	local equip_slots = {3,9,4,5,6}
-	for i, v in pairs(equip_slots) do
-		if champion:getItem(v) ~= nil then
-			if (not champion:getItem(v):hasTrait(armor)) and (not champion:getItem(v):hasTrait(armor2)) then	
-				wearing_all = false
-				if v == 3 or v == 9 then -- head and gloves
-					if armor == "heavy_armor" and champion:hasTrait("armor_training") then
-						wearing_all = true
-					end
-				end
-			end
-		else
-			wearing_all = false
-		end
-	end
-	return wearing_all
-end
-
 
 -- Monster hooks
 -- MonsterComponent - champion takes damage
@@ -1367,6 +1335,7 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 		end
 	end
 	
+	-- Assassin's Backstab health sap
 	if champion:getClass() == "assassin_class" and backAttack then
 		local sap = self:getMaxHealth() * ((assassinations[champion:getOrdinal()] * 0.005) + 0.02)
 		delayedCall("functions", 0.15, "hitMonster", self.go.id, sap, "CC9999", nil, "physical", champion:getOrdinal())
@@ -1475,23 +1444,6 @@ function onAnimationEvent(self, event)
 	
 end
 
-function bleed(monster)
-	if monster:hasTrait("bleeding") and monster:isAlive() then
-		if math.random() < 0.05 then
-			monster:removeTrait("bleeding")
-			monster.go.model:setEmissiveColor(vec(0,0,0))
-		end
-		if event == "footstep" and math.random() <= 0.5 then
-			hitMonster(monster.go.id, math.random(monster:getHealth() * 0.015, monster:getHealth() * 0.03), "FF0000", nil, "physical", 1)
-			
-			monster.go:createComponent("Particle", "splatter")
-			monster.go.splatter:setOffset(vec(math.random() - 0.4, math.random() - 0.4 + 1, math.random() - 0.4))
-			monster.go.splatter:setParticleSystem("hit_blood")
-			monster.go.splatter:setDestroySelf(true)
-		end
-	end
-end
-
 function hitMonster(id, damage, color, flair, damageType, championId)
 	local monster = findEntity(id).monster
 	local champion = party.party:getChampionByOrdinal(championId)
@@ -1553,8 +1505,9 @@ function hitMonster(id, damage, color, flair, damageType, championId)
 	end
 end
 
-
-
+-------------------------------------------------------------------------------------------------------
+-- Misc Functions                                                                                    --    
+-------------------------------------------------------------------------------------------------------
 
 function bite(id)
 	local champion = party.party:getChampionByOrdinal(id)
@@ -1626,6 +1579,27 @@ function healingLight(champion, monster, damage)
 	end
 end
 
+function wearingAll(champion, armor, armor2)
+	if armor2 == nil then armor2 = armor end
+	local wearing_all = true
+	local equip_slots = {3,9,4,5,6}
+	for i, v in pairs(equip_slots) do
+		if champion:getItem(v) ~= nil then
+			if (not champion:getItem(v):hasTrait(armor)) and (not champion:getItem(v):hasTrait(armor2)) then	
+				wearing_all = false
+				if v == 3 or v == 9 then -- head and gloves
+					if armor == "heavy_armor" and champion:hasTrait("armor_training") then
+						wearing_all = true
+					end
+				end
+			end
+		else
+			wearing_all = false
+		end
+	end
+	return wearing_all
+end
+
 function elementalistPower(element, champion, power)
 	if champion:getClass() == "elementalist" then
 		local level = champion:getLevel()
@@ -1681,8 +1655,35 @@ function championBleed(champion, action)
 	local multi = { 0.01, 0.03 }
 	if action == "moving" then multi = { 0.03, 0.1 } end
 	if action == "attacking" then multi = { 0.05, 0.1 } end
+	if action == "dot" then multi = { 0.01, 0.03 } end
+
 	champion:damage(math.random(champion:getMaxHealth() * multi[1], champion:getMaxHealth() * multi[2]), "bleed")
 	champion:playDamageSound()
+	-- Remove bleeding - 1% chance per tick or 5% if the bleeding duration is below half (30s)
+	local chance = champion:getConditionValue("bleeding") < 30 and 0.05 or 0.01
+	if math.random() <= chance then
+		champion:removeCondition("bleeding")
+	end
+end
+
+function bleed(monster, action) -- Called by monsters within their MonsterMove object
+	if monster:hasTrait("bleeding") and monster:isAlive() then
+		if math.random() < 0.05 then -- 5% chance to stop bleeding
+			monster:removeTrait("bleeding")
+			monster.go.model:setEmissiveColor(vec(0,0,0))
+		end
+		if math.random() <= 0.5 then
+			if action == "walk" then
+			hitMonster(monster.go.id, math.random(monster:getHealth() * 0.015, monster:getHealth() * 0.03), "FF0000", nil, "physical", 1)
+			elseif action == "dot" then
+			hitMonster(monster.go.id, math.random(monster:getHealth() * 0.005, monster:getHealth() * 0.01), "FF0000", nil, "physical", 1)
+			end
+			monster.go:createComponent("Particle", "splatter")
+			monster.go.splatter:setOffset(vec(math.random() - 0.4, math.random() - 0.4 + 1, math.random() - 0.4))
+			monster.go.splatter:setParticleSystem("hit_blood")
+			monster.go.splatter:setDestroySelf(true)
+		end
+	end
 end
 	
 function class_skill(skill, champion)

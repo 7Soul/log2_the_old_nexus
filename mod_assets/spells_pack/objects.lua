@@ -601,7 +601,25 @@ defineObject{
 	baseObject = "fireburst",
 	components = {
 		{
+			class = "Particle",
+			particleSystem = "fireburst",
+			offset = vec(0, 1.2, 0),
+			destroyObject = true,
+		},
+		{
+			class = "Light",
+			color = vec(0.75, 0.4, 0.25),
+			brightness = 40,
+			range = 4,
+			offset = vec(0, 1.2, 0),
+			fadeOut = 0.75,
+			disableSelf = true,
+		},
+		{
 			class = "TileDamager",
+			damageType = "fire",
+			sound = "fireburst",
+			screenEffect = "fireball_screen",
 			onHitMonster = function(self, monster)
 				local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
 				local skillLevel = champion:getSkillLevel("elemental_magic")
@@ -1150,21 +1168,12 @@ defineObject{
 			--destroyObject = true,
 		},
 		{
-			class = "Light",
-			offset = vec(0, 1.5, 0),
-			color = vec(0.5, 0.5, 0.25),
-			brightness = 7,
-			range = 5,
-			fadeOut = 13,
-			disableSelf = true,
-		},	
-		{
 			class = "TileDamager",
 			attackPower = 4,
 			damageType = "cold",
 			damageFlags = DamageFlags.DamageSourceIceShards,
 			repeatCount = 32,
-			repeatDelay = 0.25,
+			repeatDelay = 0.25,			
 			--destroyObject = true,
 			onHitChampion = function(self, champion)
 				self.go.iceshards:grantTemporaryImmunity(party, 1.1)
@@ -1306,6 +1315,16 @@ defineParticleSystem{
 		},
 	}
 }
+
+defineSound{
+	name = "icewind",
+	filename = "mod_assets/sounds/IceWind.wav",
+	loop = false,
+	volume = 0.75,
+	minDistance = 1,
+	maxDistance = 10,
+}
+
 
 -- earth magic
 

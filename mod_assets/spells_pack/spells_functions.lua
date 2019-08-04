@@ -899,7 +899,7 @@ end,
 {
 	name = "blizzard",
 	uiName = "Blizzard",
-	gesture = 5698,
+	gesture = 0,
 	manaCost = 0,
 	skill = "elemental_mastery",
 	requirements = { "elemental_mastery", 1 },	

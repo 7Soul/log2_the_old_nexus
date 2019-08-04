@@ -62,6 +62,9 @@ defineObject{
 			sound = "turtle_walk",
 			cooldown = 10,
 			dashChance = 50,
+			onBeginAction = function(self)
+				functions.script.bleed(self.go.monster)
+			end,
 		},
 		{
 			class = "MonsterTurn",

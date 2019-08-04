@@ -4,6 +4,7 @@ defineObject{
 	components = {
 		{
 			class = "Model",
+			name = "model",
 			model = "assets/models/monsters/cave_crab.fbx",
 			storeSourceData = true,
 		},
@@ -41,6 +42,7 @@ defineObject{
 					a.tiledamager:setAttackPower(10)
 					a.iceshards:setRange(1)
 					a.iceshards:grantTemporaryImmunity(self.go, 2.4)
+					playSoundAt("icewind", self.go.level, self.go.x, self.go.y)
 				end
 			end
 		},
@@ -67,6 +69,8 @@ defineObject{
 			onInit = function(self)
 				--self.go.model:setEmissiveColor(vec(1,1,1))
 				self.go.model:setMaterial("ice_crab")
+				self.go.shieldback:setMaterial("heavy_shield")
+				self.go.crystalleg:setMaterial("metal_bracelet")
 			end,
 		},
 		{
@@ -159,23 +163,26 @@ defineObject{
 			offset = vec(0, 0.06, 0),
 		},
 		{
-			class = "Light",
-			parentNode = "capsule",
-			color = vec(0.4, 0.7, 0.8),
-			offset = vec(0, 0.5, 0),
-			brightness = 15,
-			range = 3.5,
-			fillLight = true,
-			onUpdate = function(self)
-				local noise = math.noise(Time.currentTime()*3 + 123) * 0.5 + 0.9
-				self:setBrightness(noise * 10)
-			end,
+			class = "Model",
+			name = "shieldback",
+			parentNode = "body",
+			model = "assets/models/items/shield_valor.fbx",
+			offset = vec(0.0, 0.22, -0.0),
+			rotation = vec(0, 90, 0),
+		},
+		{
+			class = "Model",
+			name = "crystalleg",
+			parentNode = "leg2",
+			model = "assets/models/items/metal_bracelet.fbx",
+			offset = vec(0.65, -0.07, 0),
+			rotation = vec(16, -49.6, -1.6),
 		},
 		{
 			class = "Light",
 			parentNode = "capsule",
 			name = "castLight",
-			color = vec(0.1, 0.2, 0.9),
+			color = vec(0.4, 0.45, 0.9),
 			offset = vec(0, 0.5, 0),
 			brightness = 20,
 			range = 6.5,
@@ -185,7 +192,7 @@ defineObject{
 				self:setBrightness(self:getBrightness() * 0.9)
 				if self:getBrightness() < 0.1 then
 					self:disable()
-				end
+				end	
 			end,
 		},
 	},

@@ -262,6 +262,33 @@ defineObject{
 			class = "Particle",
 			particleSystem = "portcullis",
 			emitterMesh = "assets/models/env/beach_gate_portcullis.fbx",
+		},	
+		{
+			class = "Door",
+			doubleDoor = true,
+			killPillars = true,
+			openVelocity = 1.1,
+			closeVelocity = -1.1,
+			closeAcceleration = -2,
+			sparse = true,
+			onOpen = function(self)
+				self.go.particle:stop()
+			end,
+			onClose = function(self)
+				self.go.particle:start()
+			end,
+		},
+		{
+			class = "Controller",
+			onOpen = function(self)
+				self.go.door:open()
+			end,
+			onClose = function(self)
+				self.go.door:close()
+			end,
+			onToggle = function(self)
+				self.go.door:toggle()
+			end,
 		},
 		{
 			class = "Light",
@@ -273,7 +300,7 @@ defineObject{
 			fadeOut = 0,
 			onUpdate = function(self)
 				if self.go.door:isOpening() or self.go.door:isClosing() then
-					self.go.particle:restart()
+					--self.go.particle:restart()
 				end
 			end,
 		},
@@ -287,7 +314,7 @@ defineParticleSystem{
 		-- fog
 		{
 			emitterShape = "MeshShape",
-			emissionRate = 600,
+			emissionRate = 800,
 			emissionTime = 0,
 			maxParticles = 1000,
 			--boxMin = {-1.5,-0.5,-0.15},
@@ -297,7 +324,7 @@ defineParticleSystem{
 			velocity = {0, 0},
 			objectSpace = false,
 			texture = "assets/textures/particles/teleporter.tga",
-			lifetime = {1,5},
+			lifetime = {1,3},
 			color0 = {0.5, 1, 1.5},
 			opacity = 0.55,
 			fadeIn = 0.2,

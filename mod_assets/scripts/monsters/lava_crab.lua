@@ -66,7 +66,21 @@ defineObject{
 			},
 			onInit = function(self)
 				--self.go.model:setEmissiveColor(vec(1,1,1))
-				self.go.model:setMaterial("stone_elemental")
+				self.go.model:setMaterial("lava_crab")
+				self.go.shieldback:setMaterial("stone_elemental")
+				self.go.shieldback2:setMaterial("stone_elemental")
+				self.go.crystalleg:setMaterial("metal_bracelet")
+				-- self.go:getComponent("wing_1_0"):start()
+				-- self.go:getComponent("wing_2_0"):start()
+				for i = 0,3 do
+					if self.go.facing ~= i then
+						self.go:getComponent("wing_1_"..i):stop()
+						self.go:getComponent("wing_2_"..i):stop()
+					else
+						self.go:getComponent("wing_1_"..i):start()
+						self.go:getComponent("wing_2_"..i):start()
+					end
+				end
 			end,
 		},
 		{
@@ -91,6 +105,16 @@ defineObject{
 			animationSpeed = 1.1,
 			onEndAction = function(self)
 				local dx,dy = getForward(self.go.facing)
+				for i = 0,3 do
+					if self.go.facing ~= i then
+						self.go:getComponent("wing_1_"..i):stop()
+						self.go:getComponent("wing_2_"..i):stop()
+					else
+						self.go:getComponent("wing_1_"..i):start()
+						self.go:getComponent("wing_2_"..i):start()
+					end
+				end
+				
 				for i = 2,5 do
 					local x,y = self.go.x + (dx * i), self.go.y + (dy * i)
 					for e in self.go.map:entitiesAt(x, y) do
@@ -137,34 +161,14 @@ defineObject{
 					obj.particle:setOffset(vec(0, 0.75, 0))
 				end
 			end,
-		},
-		{
-			class = "Particle",
-			name = "step1",
-			particleSystem = "turtle",
-			offset = vec(0.5, 0.06, 0),
-			enabled = false,
-		},
-		{
-			class = "Particle",
-			name = "step2",
-			particleSystem = "turtle",
-			offset = vec(-0.5, 0.06, 0),
-			enabled = false,
-		},
-		
-		{
-			class = "Particle",
-			particleSystem = "lava_crab",
-			offset = vec(0, 0.06, 0),
-		},
+		},	
 		{
 			class = "Light",
 			parentNode = "capsule",
-			color = vec(0.9, 0.2, 0.1),
+			color = vec(0.9, 0.35, 0.3),
 			offset = vec(0, 0.5, 0),
-			brightness = 15,
-			range = 3.5,
+			brightness = 12,
+			range = 6.5,
 			fillLight = true,
 			onUpdate = function(self)
 				local noise = math.noise(Time.currentTime()*3 + 123) * 0.5 + 0.9
@@ -175,7 +179,7 @@ defineObject{
 			class = "Light",
 			parentNode = "capsule",
 			name = "castLight",
-			color = vec(0.9, 0.2, 0.1),
+			color = vec(0.9, 0.25, 0.2),
 			offset = vec(0, 0.5, 0),
 			brightness = 20,
 			range = 6.5,
@@ -187,6 +191,107 @@ defineObject{
 					self:disable()
 				end
 			end,
+		},
+		{
+			class = "Model",
+			name = "shieldback",
+			parentNode = "body",
+			model = "assets/models/items/shield_valor.fbx",
+			offset = vec(0.16, 0.42, -0.03),
+			rotation = vec(4.5, 259, 113),
+		},
+		{
+			class = "Model",
+			name = "shieldback2",
+			parentNode = "body",
+			model = "assets/models/items/shield_valor.fbx",
+			offset = vec(-0.11, 0.42, -0.03),
+			rotation = vec(-136, 259, 111),
+		},
+		{
+			class = "Model",
+			name = "crystalleg",
+			parentNode = "leg33",
+			model = "assets/models/items/metal_bracelet.fbx",
+			offset = vec(0.66, -0.06, 0.04),
+			rotation = vec(32.8, -67.2, 11.2),
+		},	
+		{
+			class = "Particle",
+			particleSystem = "lava_crab",
+			offset = vec(0, 0.06, 0),
+		},
+		{
+			class = "Particle",
+			name = "wing_1_0",
+			parentNode = "body",
+			emitterMesh = "assets/models/items/shield_valor.fbx",
+			particleSystem = "lava_crab_wing_0",
+			offset = vec(0.16, 0.42, -0.03),
+			rotation = vec(4.5, 259, 113),
+		},
+		{
+			class = "Particle",
+			name = "wing_2_0",
+			parentNode = "body",
+			emitterMesh = "assets/models/items/shield_valor.fbx",
+			particleSystem = "lava_crab_wing_0",
+			offset = vec(-0.11, 0.42, -0.03),
+			rotation = vec(-136, 259, 111),
+		},
+		{
+			class = "Particle",
+			name = "wing_1_1",
+			parentNode = "body",
+			emitterMesh = "assets/models/items/shield_valor.fbx",
+			particleSystem = "lava_crab_wing_1",
+			offset = vec(0.16, 0.42, -0.03),
+			rotation = vec(4.5, 259, 113),
+		},
+		{
+			class = "Particle",
+			name = "wing_2_1",
+			parentNode = "body",
+			emitterMesh = "assets/models/items/shield_valor.fbx",
+			particleSystem = "lava_crab_wing_1",
+			offset = vec(-0.11, 0.42, -0.03),
+			rotation = vec(-136, 259, 111),
+		},
+		{
+			class = "Particle",
+			name = "wing_1_2",
+			parentNode = "body",
+			emitterMesh = "assets/models/items/shield_valor.fbx",
+			particleSystem = "lava_crab_wing_2",
+			offset = vec(0.16, 0.42, -0.03),
+			rotation = vec(4.5, 259, 113),
+		},
+		{
+			class = "Particle",
+			name = "wing_2_2",
+			parentNode = "body",
+			emitterMesh = "assets/models/items/shield_valor.fbx",
+			particleSystem = "lava_crab_wing_2",
+			offset = vec(-0.11, 0.42, -0.03),
+			rotation = vec(-136, 259, 111),
+		},
+		{
+			class = "Particle",
+			name = "wing_1_3",
+			parentNode = "body",
+			emitterMesh = "assets/models/items/shield_valor.fbx",
+			particleSystem = "lava_crab_wing_3",
+			offset = vec(0.16, 0.42, -0.03),
+			rotation = vec(4.5, 259, 113),
+		},
+		{
+			class = "Particle",
+			name = "wing_2_3",
+			parentNode = "body",
+			emitterMesh = "assets/models/items/shield_valor.fbx",
+			particleSystem = "lava_crab_wing_3",
+			offset = vec(-0.11, 0.42, -0.03),
+			rotation = vec(-136, 259, 111),
 		},
 	},
 }
@@ -578,7 +683,7 @@ defineParticleSystem{
 		{
 			emissionRate = 10,
 			emissionTime = 0,
-			maxParticles = 300,
+			maxParticles = 20,
 			boxMin = {-1.0, 0,-1.0},
 			boxMax = { 1.0, 0.1, 1.0},
 			sprayAngle = {0,360},
@@ -603,7 +708,7 @@ defineParticleSystem{
 		{
 			emissionRate = 10,
 			emissionTime = 0,
-			maxParticles = 300,
+			maxParticles = 20,
 			boxMin = {-1.0, 0,-1.0},
 			boxMax = { 1.0, 0.1, 1.0},
 			sprayAngle = {0,360},
@@ -626,9 +731,9 @@ defineParticleSystem{
 
 		-- flames
 		{
-			emissionRate = 5,
+			emissionRate = 4,
 			emissionTime = 0,
-			maxParticles = 300,
+			maxParticles = 10,
 			boxMin = {-1.0, 0.5,-1.0},
 			boxMax = { 1.0, 0.5, 1.0},
 			sprayAngle = {0,360},
@@ -716,4 +821,228 @@ defineParticleSystem{
 			blendMode = "Additive",
 		},
 	}
+}
+
+defineParticleSystem{
+	name = "lava_crab_wing_0",
+	emitters = {
+		{
+			emitterShape = "MeshShape",
+			emissionRate = 50,
+			emissionTime = 0,
+			maxParticles = 50,
+			sprayAngle = {0,360},
+			velocity = {0.1*2,0.3*2},
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {0.5,1},
+			color = {0.25, 0.25, 0.25},
+			opacity = 1,
+			fadeIn = 0.1,
+			fadeOut = 0.5,
+			size = {0.1, 0.3},
+			gravity = {0,1.5,-5},
+			airResistance = 0.9,
+			rotationSpeed = 0.6,
+			blendMode = "Translucent",
+			depthBias = 0.5,
+			-- objectSpace = true,
+		},
+		-- flames
+		{
+			emitterShape = "MeshShape",
+			emissionRate = 50,
+			emissionTime = 0,
+			maxParticles = 300,
+			sprayAngle = {0,360},
+			velocity = {0.02,0.1},
+			texture = "assets/textures/particles/flame.tga",
+			frameRate = 40,
+			frameSize = 32,
+			frameCount = 40,
+			lifetime = {0.5,1},
+			colorAnimation = true,
+			color0 = {2.0, 2.0, 2.0},
+			color1 = {1.0, 1.0, 1.0},
+			color2 = {1.0, 0.5, 0.25},
+			color3 = {1.0, 0.3, 0.1},
+			opacity = 1,
+			fadeIn = 0.1,
+			fadeOut = 0.5,
+			size = {0.05, 0.2},
+			gravity = {0,1,-5},
+			airResistance = 0.9,
+			rotationSpeed = 2,
+			blendMode = "Additive",
+			depthBias = 0.5,
+			-- objectSpace = true,
+		},
+	},
+}
+
+defineParticleSystem{
+	name = "lava_crab_wing_1",
+	emitters = {
+		{
+			emitterShape = "MeshShape",
+			emissionRate = 50,
+			emissionTime = 0,
+			maxParticles = 50,
+			sprayAngle = {0,360},
+			velocity = {0.1*2,0.3*2},
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {0.5,1},
+			color = {0.25, 0.25, 0.25},
+			opacity = 1,
+			fadeIn = 0.1,
+			fadeOut = 0.5,
+			size = {0.1, 0.3},
+			gravity = {-5,1.5,0},
+			airResistance = 0.9,
+			rotationSpeed = 0.6,
+			blendMode = "Translucent",
+			depthBias = 0.5,
+			-- objectSpace = true,
+		},
+		-- flames
+		{
+			emitterShape = "MeshShape",
+			emissionRate = 50,
+			emissionTime = 0,
+			maxParticles = 300,
+			sprayAngle = {0,360},
+			velocity = {0.02,0.1},
+			texture = "assets/textures/particles/flame.tga",
+			frameRate = 40,
+			frameSize = 32,
+			frameCount = 40,
+			lifetime = {0.5,1},
+			colorAnimation = true,
+			color0 = {2.0, 2.0, 2.0},
+			color1 = {1.0, 1.0, 1.0},
+			color2 = {1.0, 0.5, 0.25},
+			color3 = {1.0, 0.3, 0.1},
+			opacity = 1,
+			fadeIn = 0.1,
+			fadeOut = 0.5,
+			size = {0.05, 0.2},
+			gravity = {-5,1,0},
+			airResistance = 0.9,
+			rotationSpeed = 2,
+			blendMode = "Additive",
+			depthBias = 0.5,
+			-- objectSpace = true,
+		},
+	},
+}
+
+defineParticleSystem{
+	name = "lava_crab_wing_2",
+	emitters = {
+		{
+			emitterShape = "MeshShape",
+			emissionRate = 50,
+			emissionTime = 0,
+			maxParticles = 50,
+			sprayAngle = {0,360},
+			velocity = {0.1*2,0.3*2},
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {0.5,1},
+			color = {0.25, 0.25, 0.25},
+			opacity = 1,
+			fadeIn = 0.1,
+			fadeOut = 0.5,
+			size = {0.1, 0.3},
+			gravity = {0,1.5,5},
+			airResistance = 0.9,
+			rotationSpeed = 0.6,
+			blendMode = "Translucent",
+			depthBias = 0.5,
+			-- objectSpace = true,
+		},
+		-- flames
+		{
+			emitterShape = "MeshShape",
+			emissionRate = 50,
+			emissionTime = 0,
+			maxParticles = 300,
+			sprayAngle = {0,360},
+			velocity = {0.02,0.1},
+			texture = "assets/textures/particles/flame.tga",
+			frameRate = 40,
+			frameSize = 32,
+			frameCount = 40,
+			lifetime = {0.5,1},
+			colorAnimation = true,
+			color0 = {2.0, 2.0, 2.0},
+			color1 = {1.0, 1.0, 1.0},
+			color2 = {1.0, 0.5, 0.25},
+			color3 = {1.0, 0.3, 0.1},
+			opacity = 1,
+			fadeIn = 0.1,
+			fadeOut = 0.5,
+			size = {0.05, 0.2},
+			gravity = {0,1,5},
+			airResistance = 0.9,
+			rotationSpeed = 2,
+			blendMode = "Additive",
+			depthBias = 0.5,
+			-- objectSpace = true,
+		},
+	},
+}
+
+defineParticleSystem{
+	name = "lava_crab_wing_3",
+	emitters = {
+		{
+			emitterShape = "MeshShape",
+			emissionRate = 50,
+			emissionTime = 0,
+			maxParticles = 50,
+			sprayAngle = {0,360},
+			velocity = {0.1*2,0.3*2},
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {0.5,1},
+			color = {0.25, 0.25, 0.25},
+			opacity = 1,
+			fadeIn = 0.1,
+			fadeOut = 0.5,
+			size = {0.1, 0.3},
+			gravity = {5,1.5,0},
+			airResistance = 0.9,
+			rotationSpeed = 0.6,
+			blendMode = "Translucent",
+			depthBias = 0.5,
+			-- objectSpace = true,
+		},
+		-- flames
+		{
+			emitterShape = "MeshShape",
+			emissionRate = 50,
+			emissionTime = 0,
+			maxParticles = 300,
+			sprayAngle = {0,360},
+			velocity = {0.02,0.1},
+			texture = "assets/textures/particles/flame.tga",
+			frameRate = 40,
+			frameSize = 32,
+			frameCount = 40,
+			lifetime = {0.5,1},
+			colorAnimation = true,
+			color0 = {2.0, 2.0, 2.0},
+			color1 = {1.0, 1.0, 1.0},
+			color2 = {1.0, 0.5, 0.25},
+			color3 = {1.0, 0.3, 0.1},
+			opacity = 1,
+			fadeIn = 0.1,
+			fadeOut = 0.5,
+			size = {0.05, 0.2},
+			gravity = {5,1,0},
+			airResistance = 0.9,
+			rotationSpeed = 2,
+			blendMode = "Additive",
+			depthBias = 0.5,
+			-- objectSpace = true,
+		},
+	},
 }

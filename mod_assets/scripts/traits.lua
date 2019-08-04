@@ -31,7 +31,7 @@ defineTrait{
 	gameEffect = [[
 	- Health 80 (+5 per level, +15 per 10 Strength)
 	- Energy 20 (+5 per level)
-	- Can't wear armor, except for light helmets, boots and gloves.
+	- Can't wear heavy armor. Can't wear any Body Armor or Pants.
 	
 	Berserker Frenzy: Gain a buff that fades over 20 seconds if party gets attacked.
 	- Protection up to +4 per level (+6 per 3 levels).

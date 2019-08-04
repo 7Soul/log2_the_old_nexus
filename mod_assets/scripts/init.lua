@@ -27,7 +27,6 @@ import "mod_assets/scripts/defineObject.lua"
 import "mod_assets/scripts/functions.lua"
 import "mod_assets/scripts/level_start.lua"
 import "mod_assets/scripts/beach.lua"
-import "mod_assets/scripts/monsters.lua"
 import "mod_assets/scripts/objects.lua"
 import "mod_assets/scripts/tiles.lua"
 import "mod_assets/scripts/recipes.lua"
@@ -1064,23 +1063,14 @@ defineObject{
 		onActivate = function(self)
 			self.go.partycounter:increment()
 			local v = self.go.partycounter:getValue()
+			-- Monster Bleeding dot
 			for entity in Dungeon.getMap(party.level):allEntities() do
 				if entity.monster then
 					local monster = entity.monster
-					if monster and monster:hasTrait("bleeding") and monster:isAlive() then
-						if math.random() < 0.05 then
-							monster:removeTrait("bleeding")
-							monster.go.model:setEmissiveColor(vec(0,0,0))
-						end
-						functions.script.hitMonster(monster.go.id, math.random(monster:getHealth() * 0.005, monster:getHealth() * 0.01), "FF0000", nil, "physical", 1)
-						
-						monster.go:createComponent("Particle", "splatter")
-						monster.go.splatter:setOffset(vec(math.random() - 0.4, math.random() - 0.4 + 1, math.random() - 0.4))
-						monster.go.splatter:setParticleSystem("hit_blood_small")
-						monster.go.splatter:setDestroySelf(true)
-					end
+					functions.script.bleed(monster, "dot")
 				end
 			end
+
 			for entity in Dungeon.getMap(party.level):allEntities() do
 				if entity.monster then
 					local monster = entity.monster

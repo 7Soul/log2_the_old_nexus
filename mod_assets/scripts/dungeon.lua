@@ -4134,28 +4134,28 @@ spawn("forest_heather",29,5,2,0,"forest_heather_15")
 spawn("forest_heather",29,9,1,0,"forest_heather_16")
 spawn("forest_border_rocks_01",28,6,1,0,"forest_border_rocks_01_33")
 spawn("forest_border_rocks_01",29,4,0,0,"forest_border_rocks_01_34")
-spawn("receptor",17,11,1,0,"receptor_2")
+spawn("receptor",21,9,1,0,"receptor_2")
 receptor_2.walltrigger:setEntityType("")
-spawn("beach_lock_gold",17,11,1,0,"beach_lock_gold_2")
+spawn("beach_lock_gold",21,9,1,0,"beach_lock_gold_2")
 beach_lock_gold_2.model:disable()
 beach_lock_gold_2.clickable:disable()
 beach_lock_gold_2.lock:setOpenedBy("")
 beach_lock_gold_2.lock:disable()
-spawn("castle_pressure_plate",18,11,1,0,"castle_pressure_plate_1")
+spawn("castle_pressure_plate",22,9,1,0,"castle_pressure_plate_1")
 castle_pressure_plate_1.floortrigger:setTriggeredByParty(false)
 castle_pressure_plate_1.floortrigger:setTriggeredByMonster(false)
 castle_pressure_plate_1.floortrigger:setTriggeredByItem(false)
 castle_pressure_plate_1.floortrigger:setTriggeredByDigging(false)
 castle_pressure_plate_1.floortrigger:setDisableSelf(false)
 castle_pressure_plate_1.floortrigger:disable()
-spawn("forest_ground_01",19,11,2,0,"forest_ground_01_1")
-spawn("wall_button",18,12,0,0,"wall_button_2")
+spawn("forest_ground_01",23,9,2,0,"forest_ground_01_1")
+spawn("wall_button",22,10,0,0,"wall_button_2")
 wall_button_2.button:setDisableSelf(false)
 wall_button_2.button:addConnector("onActivate", "script_entity_24", "callRotate90")
 spawn("forest_statue_wall_1",20,10,0,0,"forest_statue_wall_1_2")
 forest_statue_wall_1_2.walltext:setWallText("")
-spawn("beach_rock_pillar_01",19,11,2,0,"beach_rock_pillar_01_24")
-spawn("script_entity",18,10,0,0,"script_entity_24")
+spawn("beach_rock_pillar_01",23,9,2,0,"beach_rock_pillar_01_24")
+spawn("script_entity",22,8,0,0,"script_entity_24")
 script_entity_24.script:setSource("origpos = {}\
 \
 function callRotate90()\
@@ -4178,14 +4178,14 @@ function rotate(angle, goal)\
 \9end\
 \9\
 end")
-spawn("timer",19,10,1,0,"timer_14")
+spawn("timer",23,8,1,0,"timer_14")
 timer_14.timer:setTimerInterval(1)
 timer_14.timer:setDisableSelf(false)
 timer_14.timer:setTriggerOnStart(false)
 timer_14.timer:setCurrentLevelOnly(false)
-spawn("forest_statue_wall_center",19,11,2,0,"forest_statue_wall_center_1")
+spawn("forest_statue_wall_center",23,9,2,0,"forest_statue_wall_center_1")
 forest_statue_wall_center_1.walltext:setWallText("")
-spawn("beach_rock_blocker_01",19,11,1,0,"beach_rock_blocker_01_56")
+spawn("beach_rock_blocker_01",23,9,1,0,"beach_rock_blocker_01_56")
 beach_rock_blocker_01_56.model:disable()
 spawn("forest_ruins_wall_02",21,7,0,0,"forest_ruins_wall_02_7")
 spawn("forest_ruins_wall_02",20,7,0,0,"forest_ruins_wall_02_16")
@@ -4650,8 +4650,8 @@ spawner_18.spawner:setSpawnedEntity("twigroot")
 spawner_18.spawner:setMonsterLevel(1)
 spawner_18.spawner:setCooldown(600)
 spawner_18.spawner:setDisableSelf(false)
-spawn("healing_crystal",17,15,1,0,"healing_crystal_4")
-spawn("forest_ruins_dome",17,15,2,0,"forest_ruins_dome_3")
+spawn("healing_crystal",18,16,1,0,"healing_crystal_4")
+spawn("forest_ruins_dome",18,16,2,0,"forest_ruins_dome_3")
 spawn("sack",28,29,2,-1,"sack_2")
 sack_2.data:setSource("\9\9\9\9data = {}\
 \9\9\9\9function get(name)\
@@ -6020,7 +6020,6 @@ tinkering_toolbox_1.detectedtimer:setTimerInterval(0)
 tinkering_toolbox_1.detectedtimer:setDisableSelf(false)
 tinkering_toolbox_1.detectedtimer:setTriggerOnStart(true)
 tinkering_toolbox_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("starting_location",13,14,1,0,"starting_location_1")
 spawn("brace_fortitude",12,9,2,0,"brace_fortitude_2")
 brace_fortitude_2.data:setSource("data = {}\
 function get(self,name)\
@@ -6321,26 +6320,32 @@ skullcleave_1.detectedtimer:setTimerInterval(0)
 skullcleave_1.detectedtimer:setDisableSelf(false)
 skullcleave_1.detectedtimer:setTriggerOnStart(true)
 skullcleave_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("ice_crab",18,16,3,0,"ice_crab_1")
+spawn("force_field",16,14,3,0,"force_field_2")
+spawn("lava_crab",24,15,3,0,"lava_crab_1")
+lava_crab_1.detectedtimer:setTimerInterval(0)
+lava_crab_1.detectedtimer:setDisableSelf(false)
+lava_crab_1.detectedtimer:setTriggerOnStart(true)
+lava_crab_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("force_field",13,14,3,0,"force_field_3")
+spawn("crab",13,14,1,0,"crab_1")
+crab_1.monster:setAIState("guard")
+crab_1.detectedtimer:setTimerInterval(0)
+crab_1.detectedtimer:setDisableSelf(false)
+crab_1.detectedtimer:setTriggerOnStart(true)
+crab_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("ice_crab",16,14,3,0,"ice_crab_1")
+ice_crab_1.monster:setAIState("guard")
 ice_crab_1.detectedtimer:setTimerInterval(0)
 ice_crab_1.detectedtimer:setDisableSelf(false)
 ice_crab_1.detectedtimer:setTriggerOnStart(true)
 ice_crab_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("ice_crab",18,14,3,0,"ice_crab_2")
+spawn("ice_crab",21,14,3,0,"ice_crab_2")
+ice_crab_2.monster:setAIState("guard")
 ice_crab_2.detectedtimer:setTimerInterval(0)
 ice_crab_2.detectedtimer:setDisableSelf(false)
 ice_crab_2.detectedtimer:setTriggerOnStart(true)
 ice_crab_2.detectedtimer:setCurrentLevelOnly(true)
-spawn("ice_crab",20,14,3,0,"ice_crab_3")
-ice_crab_3.detectedtimer:setTimerInterval(0)
-ice_crab_3.detectedtimer:setDisableSelf(false)
-ice_crab_3.detectedtimer:setTriggerOnStart(true)
-ice_crab_3.detectedtimer:setCurrentLevelOnly(true)
-spawn("ice_crab",20,16,3,0,"ice_crab_4")
-ice_crab_4.detectedtimer:setTimerInterval(0)
-ice_crab_4.detectedtimer:setDisableSelf(false)
-ice_crab_4.detectedtimer:setTriggerOnStart(true)
-ice_crab_4.detectedtimer:setCurrentLevelOnly(true)
+spawn("starting_location",26,16,2,0,"starting_location_1")
 
 --- level 4 ---
 
@@ -8819,6 +8824,7 @@ spawn("beach_rock_2x1",13,10,1,0,"beach_rock_2x1_74")
 spawn("beach_rock_2x1",14,9,1,1,"beach_rock_2x1_75")
 spawn("beach_rock_3x1",15,9,1,1,"beach_rock_3x1_68")
 spawn("zarchton",20,17,3,0,"zarchton_3")
+zarchton_3.monster:setAIState("guard")
 zarchton_3.detectedtimer:setTimerInterval(0)
 zarchton_3.detectedtimer:setDisableSelf(false)
 zarchton_3.detectedtimer:setTriggerOnStart(true)
@@ -9448,7 +9454,7 @@ aideKilled = 0\
 \
 function spawnAide(x,y)\
 \9if aideCount == 2 then return end\
-\9for entity in Dungeon.getMap(1):entitiesAt(2, 11) do\
+\9for entity in Dungeon.getMap(5):entitiesAt(2, 11) do\
 \9\9if aideCount < 2 and (entity.name == \"bossAide_1\" or entity.name == \"bossAide_2\" or entity.name == \"party\") then\
 \9\9\9\
 \9\9else\
@@ -9961,8 +9967,8 @@ spawn("forest_lantern",12,8,3,0,"forest_lantern_12")
 spawn("beach_rock_pillar_decoration",8,10,2,0,"beach_rock_pillar_decoration_9")
 spawn("beach_rock_floor_decoration",12,8,1,0,"beach_rock_floor_decoration_2")
 spawn("beach_door_wood",13,15,3,0,"beach_door_wood_1")
-spawn("pedestal",8,18,1,0,"pedestal_1")
-spawn("whitewood_wand",8,18,1,0,"whitewood_wand_2")
+spawn("pedestal",8,17,1,0,"pedestal_1")
+spawn("whitewood_wand",8,17,1,0,"whitewood_wand_2")
 whitewood_wand_2.data:setSource("\9\9\9\9data = {}\
 \9\9\9\9function get(name)\
 \9\9\9\9\9return self.data[name]\
@@ -9980,15 +9986,15 @@ pedestal_1.surface:addConnector("onInsertItem", "script_entity_8", "sticksAndSto
 pedestal_1.surface:addConnector("onRemoveItem", "script_entity_8", "stoneDoor")
 pedestal_1.door:disable()
 spawn("mine_ceiling_lantern",10,18,0,0,"mine_ceiling_lantern_1")
-spawn("pedestal",12,17,3,0,"pedestal_2")
+spawn("pedestal",9,16,2,0,"pedestal_2")
 pedestal_2.surface:addConnector("onInsertItem", "script_entity_8", "sticksAndStones")
 pedestal_2.door:disable()
-spawn("beach_wall_text",9,18,2,0,"beach_wall_text_1")
+spawn("beach_wall_text",10,17,0,0,"beach_wall_text_1")
 beach_wall_text_1.walltext:setWallText("The words you read here\
 are harmless.\
 \
 But what is kept here\
-my break your bones.")
+may break your bones.")
 spawn("beach_rock_pillar_decoration",9,18,2,0,"beach_rock_pillar_decoration_10")
 spawn("script_entity",7,17,0,0,"script_entity_8")
 script_entity_8.script:setSource("function sticksAndStones()\
@@ -10357,6 +10363,12 @@ spawn("beach_rock_arch_small",6,9,0,0,"beach_rock_arch_small_226")
 spawn("beach_rock_border",7,6,1,0,"beach_rock_border_72")
 spawn("beach_rock_floor_decoration",8,6,1,0,"beach_rock_floor_decoration_18")
 spawn("pedestal",7,4,2,0,"pedestal_5")
+spawn("scroll_mage_spark",7,4,2,0,"scroll_mage_spark_1")
+scroll_mage_spark_1.detectedtimer:setTimerInterval(0)
+scroll_mage_spark_1.detectedtimer:setDisableSelf(false)
+scroll_mage_spark_1.detectedtimer:setTriggerOnStart(true)
+scroll_mage_spark_1.detectedtimer:setCurrentLevelOnly(true)
+pedestal_5.surface:addItem(scroll_mage_spark_1.item)
 pedestal_5.door:disable()
 spawn("beach_rock_2x1",6,5,3,0,"beach_rock_2x1_70")
 spawn("forest_grass_01",7,5,0,0,"forest_grass_01_13")
@@ -10495,20 +10507,6 @@ torch_1.detectedtimer:setTimerInterval(0)
 torch_1.detectedtimer:setDisableSelf(false)
 torch_1.detectedtimer:setTriggerOnStart(true)
 torch_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("scroll",7,5,0,0,"scroll_5")
-scroll_5.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-scroll_5.scrollitem:setScrollText("mage spark in pedestal here\
-")
-scroll_5.detectedtimer:setTimerInterval(0)
-scroll_5.detectedtimer:setDisableSelf(false)
-scroll_5.detectedtimer:setTriggerOnStart(true)
-scroll_5.detectedtimer:setCurrentLevelOnly(true)
 
 --- level 7 ---
 

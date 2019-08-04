@@ -4,6 +4,9 @@ xr,yr,zr = 0, 0, 0
 posx = 0
 posy = 0
 posz = 0
+rotx = 0
+roty = 0
+rotz = 0
 gotDevice = false
 
 function start()
@@ -248,30 +251,41 @@ function start()
 		dead_crystal_1:setWorldRotation(m)
 	end
 	
-	local pos = forest_fireflies_4:getWorldPosition()
+	-- local pos = forest_fireflies_4:getWorldPosition()
+	local pos = findEntity(objname):getComponent(objname2):getOffset()
 	posx = pos.x
 	posy = pos.y
 	posz = pos.z
+	local rot = vec(-134, 259, 113)
+	rotx = rot.x
+	roty = rot.y
+	rotz = rot.z
 end
 
-objname = "forest_fireflies_4"
+objname = "lava_crab_1"
+objname2 = "shieldback2"
 
 function move(x,y,z)
 	xx = xx + x*1
 	yy = yy + y*1
 	zz = zz + z*1
-	findEntity(objname):setWorldPosition(vec(posx + xx, posy + yy, posz + zz))
+	-- Model within object
+	findEntity(objname):getComponent(objname2):setOffset(vec(posx + xx, posy + yy, posz + zz))
+	-- Object
+	--findEntity(objname):setWorldPosition(vec(posx + xx, posy + yy, posz + zz))
 	--findEntity(objname):getComponent("socket"):setOffset(vec(xx, yy, zz))
-	print("Offset: ", findEntity(objname):getWorldPosition())
+	--print("Offset: ", findEntity(objname):getWorldPosition())
+	print("Offset: ", findEntity(objname):getComponent(objname2):getOffset())
 end
 
 function rotate(x,y,z)
 	xr = xr + x*8
 	yr = yr + y*8
 	zr = zr + z*8
-	findEntity(objname):setWorldRotationAnglesWithOrder(xr, yr, zr, "xyz")
+	findEntity(objname):getComponent(objname2):setRotationAngles(rotx + xr, roty + yr, rotz + zr)
+	--findEntity(objname):setWorldRotationAnglesWithOrder(xr, yr, zr, "xyz")
 	--findEntity(objname):getComponent("socket"):setRotationAngles(xr, yr, zr)
-	print("Rotation: ", xr, yr, zr)
+	print("Rotation: ", rotx + xr, roty + yr, rotz + zr)
 end
 
 ----------------------------------------

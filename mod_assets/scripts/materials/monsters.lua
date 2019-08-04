@@ -669,24 +669,39 @@ defineMaterial{
 
 defineMaterial{
 	name = "ice_crab",
-	diffuseMap = "assets/textures/monsters/ice_guardian_dif.tga",
-	specularMap = "assets/textures/monsters/ice_guardian_spec.tga",
-	normalMap = "assets/textures/monsters/ice_guardian_normal.tga",
-	emissiveMap = "assets/textures/monsters/ice_guardian_emissive.tga",
+	diffuseMap = "mod_assets/textures/monsters/ice_crab_dif.tga",
+	specularMap = "mod_assets/textures/monsters/ice_crab_spec.tga",
+	normalMap = "assets/textures/monsters/cave_crab_normal.tga",
+	emissiveMap = "assets/textures/monsters/ice_crab_emissive.tga",
 	doubleSided = false,
 	lighting = true,
 	alphaTest = false,
 	blendMode = "Opaque",
 	textureAddressMode = "Wrap",
-	glossiness = 60,
+	glossiness = 50,
 	depthBias = 0,
 
 	-- custom shader
-	shader = "crystal",
-	shadeTex = "assets/textures/env/healing_crystal_shadetex.tga",
-	shadeTexAngle = 0,
-	crystalIntensity = 2,
-	onUpdate = function(self, time)
-		self:setParam("shadeTexAngle", time * 3.0)
-	end,
+	-- shader = "crystal",
+	-- shadeTex = "assets/textures/env/healing_crystal_shadetex.tga",
+	-- shadeTexAngle = 0,
+	-- crystalIntensity = 2,
+	-- onUpdate = function(self, time)
+	-- 	self:setParam("shadeTexAngle", time * 2.0)
+	-- end,
+}
+
+defineMaterial{
+	name = "lava_crab",
+	diffuseMap = "mod_assets/textures/monsters/lava_crab_dif.tga",
+	specularMap = "mod_assets/textures/monsters/lava_crab_spec.tga",
+	normalMap = "assets/textures/monsters/stone_elemental_normal.tga",
+	emissiveMap = "mod_assets/textures/monsters/lava_crab_emissive.tga",
+	doubleSided = false,
+	lighting = true,
+	alphaTest = false,
+	blendMode = "Opaque",
+	textureAddressMode = "Wrap",
+	glossiness = 50,
+	depthBias = 0,
 }
