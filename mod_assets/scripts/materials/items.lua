@@ -3410,3 +3410,46 @@ defineMaterial{
 	glossiness = 20,
 	depthBias = 0,
 }
+
+
+defineMaterial{
+	name = "coldspike_bracelet",
+	diffuseMap = "mod_assets/textures/items/coldspike_bracelet_dif.tga",
+	specularMap = "mod_assets/textures/items/coldspike_bracelet_spec.tga",
+	emissiveMap = "mod_assets/textures/items/coldspike_bracelet_emissive.tga",
+	doubleSided = false,
+	lighting = true,
+	alphaTest = false,
+	blendMode = "Opaque",
+	textureAddressMode = "Wrap",
+	glossiness = 30,
+	depthBias = 0,
+}
+
+defineMaterial{
+	name = "forestfire_bracer",
+	diffuseMap = "mod_assets/textures/items/forestfire_bracer_dif.tga",
+	specularMap = "mod_assets/textures/items/forestfire_bracer_spec.tga",
+	emissiveMap = "mod_assets/textures/items/forestfire_bracer_emissive.tga",
+	doubleSided = false,
+	lighting = true,
+	alphaTest = false,
+	blendMode = "Opaque",
+	textureAddressMode = "Wrap",
+	glossiness = 30,
+	depthBias = 0,
+}
+
+defineMaterial{
+	name = "torment_bracer",
+	diffuseMap = "mod_assets/textures/items/forestfire_bracer_dif.tga",
+	specularMap = "mod_assets/textures/items/forestfire_bracer_spec.tga",
+	emissiveMap = "mod_assets/textures/items/forestfire_bracer_emissive.tga",
+	doubleSided = false,
+	lighting = true,
+	alphaTest = false,
+	blendMode = "Opaque",
+	textureAddressMode = "Wrap",
+	glossiness = 30,
+	depthBias = 0,
+}

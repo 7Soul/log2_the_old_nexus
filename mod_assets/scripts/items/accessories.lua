@@ -5,6 +5,7 @@ defineObject{
 		{
 			class = "Model",
 			model = "assets/models/items/metal_bracelet.fbx",
+			material = "coldspike_bracelet",
 		},
 		{
 			class = "Item",
@@ -21,8 +22,69 @@ defineObject{
 			class = "EquipmentItem",
 			resistFire = -15,
 		},
+		{
+			class = "Particle",
+			particleSystem = "coldspike_bracelet",
+		}
 	},
 	tags = { "accessory" },
+}
+
+defineParticleSystem{
+	name = "coldspike_bracelet",
+	emitters = {
+		-- smoke
+		{
+			emissionRate = 4,
+			emissionTime = 0,
+			maxParticles = 50,
+			boxMin = {-0.1, 0.1, -0.1},
+			boxMax = { 0.1, 0.1,  0.1},
+			sprayAngle = {0,30},
+			velocity = {0.01,0.1},
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {1,1.75},
+			color0 = {0.9, 1.25, 1.5},
+			opacity = 0.75,
+			fadeIn = 0.5,
+			fadeOut = 0.5,
+			size = {0.1, 0.3},
+			gravity = {0,-0.2,0},
+			airResistance = 0.1,
+			rotationSpeed = 0.6,
+			blendMode = "Translucent",
+		},
+
+		-- cold
+		{
+			emissionRate = 10,
+			emissionTime = 0,
+			maxParticles = 100,
+			boxMin = {-0.1, 0,  -0.1},
+			boxMax = { 0.1, 0.1, 0.1},
+			sprayAngle = {0,10},
+			velocity = {0.1, 0.1},
+			texture = "assets/textures/particles/torch_flame.tga",
+			frameRate = 35,
+			frameSize = 64,
+			frameCount = 16,
+			lifetime = {0.25, 0.85},
+			colorAnimation = true,
+			color0 = {0.25, 1, 2},
+			color1 = {0.25, 1.0, 2.0},
+			color2 = {0.25, 0.5, 1.0},
+			color3 = {0.1, 0.3, 1.0},
+			opacity = 1,
+			fadeIn = 0.15,
+			fadeOut = 0.3,
+			size = {0.035, 0.01},
+			gravity = {0,0.5,0},
+			airResistance = 1.0,
+			rotationSpeed = 0,
+			blendMode = "Additive",
+			depthBias = 0.1,
+		},
+	}
 }
 
 defineObject{
@@ -31,7 +93,8 @@ defineObject{
 	components = {
 		{
 			class = "Model",
-			model = "assets/models/items/bronze_brace.fbx",
+			model = "assets/models/items/bracelet_tirin.fbx",
+			material = "forestfire_bracer",
 		},
 		{
 			class = "Item",
@@ -48,8 +111,104 @@ defineObject{
 			class = "EquipmentItem",
 			resistCold = -15,
 		},
+		{
+			class = "Particle",
+			particleSystem = "forestfire_bracer",
+		}
 	},
 	tags = { "accessory" },
+}
+
+defineParticleSystem{
+	name = "forestfire_bracer",
+	emitters = {
+		-- fog
+		{
+			emissionRate = 2,
+			emissionTime = 0,
+			maxParticles = 20,
+			boxMin = {-0.05, -0.05,-0.05},
+			boxMax = { 0.05, 0.15, 0.05},
+			sprayAngle = {0,360},
+			velocity = {0.1,0.2},
+			--objectSpace = true,
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {2,2},
+			color0 = {0.2, 0.2, 0.2},
+			opacity = 0.9,
+			fadeIn = 1.3,
+			fadeOut = 1.9,
+			size = {0.05, 0.5},
+			gravity = {0,0.5,0},
+			airResistance = 0.1,
+			rotationSpeed = 0.3,
+			blendMode = "Translucent",
+			clampToGroundPlane = true,
+			depthBias = 0.1,
+		},
+
+		-- flames
+		{
+			emissionRate = 2,
+			emissionTime = 0,
+			maxParticles = 10,
+			boxMin = {-0.05, -0.05,-0.05},
+			boxMax = { 0.05, 0.15, 0.05},
+			sprayAngle = {0,360},
+			velocity = {0.1,0.3},
+			texture = "assets/textures/particles/flame.tga",
+			frameRate = 40,
+			frameSize = 32,
+			frameCount = 40,
+			lifetime = {0.5,1},
+			colorAnimation = true,
+			color0 = {2.0, 2.0, 2.0},
+			color1 = {1.0, 1.0, 1.0},
+			color2 = {1.0, 0.5, 0.25},
+			color3 = {1.0, 0.3, 0.1},
+			opacity = 1,
+			fadeIn = 0.1,
+			fadeOut = 0.5,
+			size = {0.05, 0.2},
+			gravity = {0,0.1,0},
+			airResistance = 0.5,
+			rotationSpeed = 2,
+			blendMode = "Additive",
+			clampToGroundPlane = true,
+			depthBias = 0.1,
+		},
+
+		-- sparks
+		{
+			emissionRate = 1,
+			emissionTime = 0,
+			maxParticles = 5,
+			boxMin = {-0.05, -0.05,-0.05},
+			boxMax = { 0.05, 0.05, 0.05},
+			sprayAngle = {0,360},
+			velocity = {0.1,0.5},
+			--objectSpace = true,
+			texture = "assets/textures/particles/torch_flame.tga",
+			frameRate = 35,
+			frameSize = 64,
+			frameCount = 16,
+			lifetime = {1,3},
+			colorAnimation = true,
+			colorAnimation = true,
+			color0 = {2.0, 2.0, 2.0},
+			color1 = {1.0, 1.0, 1.0},
+			color2 = {1.0, 0.5, 0.25},
+			color3 = {1.0, 0.3, 0.1},
+			opacity = 1,
+			fadeIn = 0.5,
+			fadeOut = 0.5,
+			size = {0.01, 0.08},
+			gravity = {0,0.9,0},
+			airResistance = 0.5,
+			rotationSpeed = 2,
+			blendMode = "Additive",
+		},
+	}
 }
 
 defineObject{
@@ -59,6 +218,7 @@ defineObject{
 		{
 			class = "Model",
 			model = "assets/models/items/brace_fortitude.fbx",
+			material = "torment_bracer",
 		},
 		{
 			class = "Item",
@@ -75,8 +235,92 @@ defineObject{
 			class = "EquipmentItem",
 			evasion = -15,
 		},
+		
+		{
+			class = "Particle",
+			particleSystem = "torment_bracer",
+		}
 	},
 	tags = { "accessory" },
+}
+
+defineParticleSystem{
+	name = "torment_bracer",
+	emitters = {
+		-- smoke bright
+		{
+			emissionRate = 3,
+			emissionTime = 0,
+			maxParticles = 50,
+			boxMin = {-0.1, 0.1, -0.1},
+			boxMax = { 0.1, 0.1,  0.1},
+			sprayAngle = {0,30},
+			velocity = {0.01,0.1},
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {1,1.75},
+			color0 = {0.9, 1.25, 1.5},
+			opacity = 0.75,
+			fadeIn = 0.5,
+			fadeOut = 0.5,
+			size = {0.1, 0.3},
+			gravity = {0,0,0},
+			airResistance = 0.1,
+			rotationSpeed = 0.6,
+			blendMode = "Translucent",
+		},
+		
+		-- smoke dark
+		{
+			emissionRate = 3,
+			emissionTime = 0,
+			maxParticles = 50,
+			boxMin = {-0.1, 0.1, -0.1},
+			boxMax = { 0.1, 0.1,  0.1},
+			sprayAngle = {0,30},
+			velocity = {0.01,0.1},
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {1,1.75},
+			color0 = {0.25, 0.25, 0.25},
+			opacity = 0.75,
+			fadeIn = 0.5,
+			fadeOut = 0.5,
+			size = {0.1, 0.3},
+			gravity = {0,0,0},
+			airResistance = 0.1,
+			rotationSpeed = 0.6,
+			blendMode = "Translucent",
+		},
+
+		-- shock
+		{
+			emissionRate = 1,
+			emissionTime = 0,
+			maxParticles = 2,
+			boxMin = {-0.05, 0,  -0.05},
+			boxMax = { 0.05, 0, 0.05},
+			sprayAngle = {0,360},
+			velocity = {0.3, 0.6},
+			texture = "assets/textures/particles/lightning01.tga",
+			frameRate = 4,
+			frameSize = 256,
+			frameCount = 4,
+			lifetime = {0.25, 1.0},
+			colorAnimation = true,
+			color0 = {0.7, 2, 1},
+			color1 = {0.25, 2, 1},
+			color2 = {0.25, 1.5, 1},
+			color3 = {0.1, 1.3, 1},
+			opacity = 1,
+			fadeIn = 0.15,
+			fadeOut = 0.3,
+			size = {0.1, 0.2},
+			gravity = {0,0.0,0},
+			airResistance = 1.0,
+			rotationSpeed = 0,
+			blendMode = "Additive",
+			depthBias = 0.1,
+		},
+	}
 }
 
 defineObject{

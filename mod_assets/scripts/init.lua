@@ -15,6 +15,7 @@ import "mod_assets/scripts/objects/sky.lua"
 import "mod_assets/scripts/materials/tomb.lua"
 import "mod_assets/scripts/materials/generic.lua"
 import "mod_assets/scripts/materials/monsters.lua"
+import "mod_assets/scripts/materials/items.lua"
 -- import the spells pack
 import "mod_assets/spells_pack/init.lua"   -- the spells pack
 import "mod_assets/scripts/spells/ash.lua"
