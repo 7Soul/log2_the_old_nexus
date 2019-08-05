@@ -622,6 +622,7 @@ defineCondition{
 	tickInterval = 3,
 	onStart = function(self, champion)
 		champion:setConditionValue("bleeding", 60)
+		
 	end,
 	onStop = function(self, champion)
 	end,

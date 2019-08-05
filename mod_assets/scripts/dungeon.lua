@@ -6020,7 +6020,7 @@ tinkering_toolbox_1.detectedtimer:setTimerInterval(0)
 tinkering_toolbox_1.detectedtimer:setDisableSelf(false)
 tinkering_toolbox_1.detectedtimer:setTriggerOnStart(true)
 tinkering_toolbox_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("brace_fortitude",15,13,2,0,"brace_fortitude_2")
+spawn("brace_fortitude",15,10,2,0,"brace_fortitude_2")
 brace_fortitude_2.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6032,7 +6032,7 @@ brace_fortitude_2.detectedtimer:setTimerInterval(0)
 brace_fortitude_2.detectedtimer:setDisableSelf(false)
 brace_fortitude_2.detectedtimer:setTriggerOnStart(true)
 brace_fortitude_2.detectedtimer:setCurrentLevelOnly(true)
-spawn("bracelet_tirin",15,13,2,0,"bracelet_tirin_1")
+spawn("bracelet_tirin",15,10,2,0,"bracelet_tirin_1")
 bracelet_tirin_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6044,7 +6044,7 @@ bracelet_tirin_1.detectedtimer:setTimerInterval(0)
 bracelet_tirin_1.detectedtimer:setDisableSelf(false)
 bracelet_tirin_1.detectedtimer:setTriggerOnStart(true)
 bracelet_tirin_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("bronze_brace",15,13,2,0,"bronze_brace_2")
+spawn("bronze_brace",15,10,2,0,"bronze_brace_2")
 bronze_brace_2.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6056,7 +6056,7 @@ bronze_brace_2.detectedtimer:setTimerInterval(0)
 bronze_brace_2.detectedtimer:setDisableSelf(false)
 bronze_brace_2.detectedtimer:setTriggerOnStart(true)
 bronze_brace_2.detectedtimer:setCurrentLevelOnly(true)
-spawn("coldspike_bracelet",16,13,2,0,"coldspike_bracelet_1")
+spawn("coldspike_bracelet",16,10,2,0,"coldspike_bracelet_1")
 coldspike_bracelet_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6068,7 +6068,7 @@ coldspike_bracelet_1.detectedtimer:setTimerInterval(0)
 coldspike_bracelet_1.detectedtimer:setDisableSelf(false)
 coldspike_bracelet_1.detectedtimer:setTriggerOnStart(true)
 coldspike_bracelet_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("forestfire_bracer",16,13,2,0,"forestfire_bracer_1")
+spawn("forestfire_bracer",16,10,2,0,"forestfire_bracer_1")
 forestfire_bracer_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6080,7 +6080,7 @@ forestfire_bracer_1.detectedtimer:setTimerInterval(0)
 forestfire_bracer_1.detectedtimer:setDisableSelf(false)
 forestfire_bracer_1.detectedtimer:setTriggerOnStart(true)
 forestfire_bracer_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("hardstone_bracelet",15,13,2,0,"hardstone_bracelet_1")
+spawn("hardstone_bracelet",15,10,2,0,"hardstone_bracelet_1")
 hardstone_bracelet_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6092,7 +6092,7 @@ hardstone_bracelet_1.detectedtimer:setTimerInterval(0)
 hardstone_bracelet_1.detectedtimer:setDisableSelf(false)
 hardstone_bracelet_1.detectedtimer:setTriggerOnStart(true)
 hardstone_bracelet_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("leafbond_bracelet",15,13,2,0,"leafbond_bracelet_1")
+spawn("leafbond_bracelet",15,10,2,0,"leafbond_bracelet_1")
 leafbond_bracelet_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6104,7 +6104,7 @@ leafbond_bracelet_1.detectedtimer:setTimerInterval(0)
 leafbond_bracelet_1.detectedtimer:setDisableSelf(false)
 leafbond_bracelet_1.detectedtimer:setTriggerOnStart(true)
 leafbond_bracelet_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("serpent_bracer",15,13,2,0,"serpent_bracer_1")
+spawn("serpent_bracer",15,10,2,0,"serpent_bracer_1")
 serpent_bracer_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6116,7 +6116,7 @@ serpent_bracer_1.detectedtimer:setTimerInterval(0)
 serpent_bracer_1.detectedtimer:setDisableSelf(false)
 serpent_bracer_1.detectedtimer:setTriggerOnStart(true)
 serpent_bracer_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("steel_armband",15,13,2,0,"steel_armband_1")
+spawn("steel_armband",15,10,2,0,"steel_armband_1")
 steel_armband_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6128,7 +6128,7 @@ steel_armband_1.detectedtimer:setTimerInterval(0)
 steel_armband_1.detectedtimer:setDisableSelf(false)
 steel_armband_1.detectedtimer:setTriggerOnStart(true)
 steel_armband_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("torment_bracer",16,13,2,0,"torment_bracer_1")
+spawn("torment_bracer",16,10,2,0,"torment_bracer_1")
 torment_bracer_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6341,7 +6341,7 @@ ice_crab_1.detectedtimer:setTriggerOnStart(true)
 ice_crab_1.detectedtimer:setCurrentLevelOnly(true)
 spawn("starting_location",16,14,0,0,"starting_location_1")
 spawn("force_field",16,11,3,0,"force_field_4")
-spawn("etherweed",17,13,2,0,"etherweed_3")
+spawn("etherweed",17,10,2,0,"etherweed_3")
 etherweed_3.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6353,6 +6353,15 @@ etherweed_3.detectedtimer:setTimerInterval(0)
 etherweed_3.detectedtimer:setDisableSelf(false)
 etherweed_3.detectedtimer:setTriggerOnStart(true)
 etherweed_3.detectedtimer:setCurrentLevelOnly(true)
+spawn("floor_trigger",9,18,0,0,"floor_trigger_41")
+floor_trigger_41.floortrigger:setTriggeredByParty(true)
+floor_trigger_41.floortrigger:setTriggeredByMonster(false)
+floor_trigger_41.floortrigger:setTriggeredByItem(false)
+floor_trigger_41.floortrigger:setTriggeredByDigging(false)
+floor_trigger_41.floortrigger:setDisableSelf(false)
+floor_trigger_41.floortrigger:addConnector("onActivate", "force_field_3", "deactivate")
+floor_trigger_41.floortrigger:addConnector("onActivate", "force_field_2", "deactivate")
+floor_trigger_41.floortrigger:addConnector("onActivate", "force_field_4", "deactivate")
 
 --- level 4 ---
 

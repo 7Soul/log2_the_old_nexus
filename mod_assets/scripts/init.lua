@@ -1032,7 +1032,23 @@ defineObject{
 		onUseItem = function(party,champion,item,slot) 
 			print(party.go.id,champion:getName(),'is using',item,slot) 
 		end,		
-		onReceiveCondition = function(party,champ,condition,condNumber) end, 		
+		onReceiveCondition = function(party,champion,condition,condNumber) 
+			if condition == "bleeding" then
+				if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "pit_gauntlets" and math.random() <= 0.25 then
+					champion:removeCondition("bleeding")
+				end
+			end
+			if condition == "right_hand_wound" then
+				if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "pit_gauntlets" and math.random() <= 0.25 then
+					champion:removeCondition("right_hand_wound")
+				end
+			end
+			if condition == "left_hand_wound" then
+				if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "pit_gauntlets" and math.random() <= 0.25 then
+					champion:removeCondition("left_hand_wound")
+				end
+			end
+		end, 		
 		onLevelUp = function(party,champion) 
 			--print(party.go.id,champion:getName(),'leveled up!') 
 			-- Assassin's gets 'assassination' on level up

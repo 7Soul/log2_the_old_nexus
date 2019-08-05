@@ -341,84 +341,26 @@ end
 
 function setWeight(item, trait, multiplier)
 	if item and item:hasTrait(trait) then
-		if supertable[12][item.go.id] == nil then
-			supertable[12][item.go.id] = item.go.item:getWeight()
+		if supertable[20][item.go.id] == nil then
+			supertable[20][item.go.id] = item.go.item:getWeight()
 			item.go.item:setWeight(item.go.item:getWeight() * multiplier)
 		end
 	end
 end
 
 function resetItemWeight(item, trait)
-	if item and item:hasTrait(trait) and supertable[12][item.go.id] ~= nil then
-		item.go.item:setWeight(supertable[12][item.go.id])
-		supertable[12][item.go.id] = nil
+	if item and item:hasTrait(trait) and supertable[20][item.go.id] ~= nil then
+		item.go.item:setWeight(supertable[20][item.go.id])
+		supertable[20][item.go.id] = nil
 	end
 end
 
-b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12 = {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}
-supertable = { b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12 }
+b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13 = {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}
+supertable = { b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13 }
 
-function onEquipItem(self, champion, slot)
-	--supertable[12][self.go.id] = self.go.item:getWeight()
-	-- if champion:hasTrait("druid") then
-		-- local item1 = champion:getItem(ItemSlot.Weapon)
-		-- local item2 = champion:getItem(ItemSlot.OffHand)
-		-- local herbitems = {"blooddrop_cap", "etherweed", "mudwort", "falconskyre", "blackmoss", "crystal_flower"}
-		-- local herbItem = nil
-		-- if (item1 and item1:hasTrait("herb")) then
-			-- if (item2 and not(item2:hasTrait("herb") and true or false)) then
-				-- herbItem = item1.go.name
-			-- end
-		-- end
-		-- if (item2 and item2:hasTrait("herb")) then
-			-- if (item1 and not(item1:hasTrait("herb") and true or false)) then
-				-- herbItem = item2.go.name
-			-- end
-		-- end
-		-- if herbItem ~= nil then
-			-- champion:addTrait(herbItem)
-			-- if herbItem == "mudwort" then
-				-- for i=1,4 do
-					-- if i ~= champion:getOrdinal() then
-						-- party.party:getChampion(i):addTrait("lesser_mudwort")
-					-- end
-				-- end
-			-- end
-		-- end
-	-- end
-	
+function onEquipItem(self, champion, slot)	
 	local name = self.go.id
 	if slot >= ItemSlot.BackpackFirst and slot <= ItemSlot.BackpackLast then
-		-- if champion:hasTrait("heavy_conditioning") and self:hasTrait("heavy_armor") then
-			-- self.go.item:setWeight(self.go.item:getWeight() * 0.25)
-		-- end
-		-- if champion:hasTrait("heavy_conditioning") and self:hasTrait("heavy_armor") then
-			-- self.go.item:setWeight(self.go.item:getWeight() * 0.25)
-		-- end
-		-- if champion:hasTrait("lore_master") then
-			-- if self:hasTrait("spell_scroll") then
-				-- self.go.item:setWeight(self.go.item:getWeight() * 0)
-			-- end
-			-- if self.go.containeritem then
-				-- print("is container")
-				-- local container = self.go.containeritem
-				-- local allScrolls = true
-				-- if container then
-					-- local capacity = container:getCapacity()
-					-- for j=1,capacity do
-						-- local item2 = container:getItem(j)
-						-- if item2 and not item2:hasTrait("spell_scroll") then
-							-- allScrolls = false
-							-- print("not all scrolls")
-						-- end
-					-- end
-				-- end
-				-- if allScrolls then	
-					-- print("all scrolls")
-					-- self.go.item:setWeight(self.go.item:getWeight() * 0)
-				-- end
-			-- end
-		-- end
 		
 	else
 		if (slot >= 3 and slot <= 6) or slot == 9 then
@@ -439,6 +381,7 @@ function onEquipItem(self, champion, slot)
 			
 			if self.go.meleeattack then
 				supertable[1][name] = self.go.meleeattack:getAttackPower()
+				print("supertable1 = ", supertable[1][name])
 				supertable[2][name] = self.go.meleeattack:getCooldown()
 				supertable[4][name] = self.go.meleeattack:getPierce() and self.go.meleeattack:getPierce() or 0
 			end
@@ -447,6 +390,13 @@ function onEquipItem(self, champion, slot)
 			if self.go.equipmentitem then supertable[7][name] = self.go.equipmentitem:getResistFire() end
 			if self.go.equipmentitem then supertable[8][name] = self.go.equipmentitem:getResistShock() end
 			if self.go.equipmentitem then supertable[9][name] = self.go.equipmentitem:getResistCold() end
+			if self.go.equipmentitem then supertable[10][name] = self.go.equipmentitem:getResistPoison() end
+
+			if self.go.item:getSecondaryAction() and self.go:getComponent(self.go.item:getSecondaryAction()) then
+				supertable[13][name] = self.go:getComponent(self.go.item:getSecondaryAction()):getAttackPower()
+				print(self.go:getComponent(self.go.item:getSecondaryAction()):getAttackPower())
+				print(supertable[13][name])
+			end
 
 			if champion:hasTrait("weapons_specialist") then
 				self.go.equipmentitem:setCriticalChance(supertable[6][name] * 2)
@@ -529,6 +479,7 @@ function onUnequipItem(self, champion, slot)
 end
 
 function resetItem(self, name)
+	--print("reset item")
 	local item = nil
 	if self.go.firearmattack then item = self.go.firearmattack end
 	if self.go.meleeattack then item = self.go.meleeattack end
@@ -538,18 +489,15 @@ function resetItem(self, name)
 	if supertable[1][name] ~= nil then
 		local real_ap = 0
 		if tinker_item[1][name] then real_ap = tinker_item[1][name] else real_ap = supertable[1][name] end
-		item:setAttackPower(real_ap)
-		--supertable[1][name] = nil		
+		item:setAttackPower(real_ap)	
 	end
 	if supertable[2][name] ~= nil then
 		local real_cooldown = 0
 		if tinker_item[2][name] then real_cooldown = tinker_item[2][name] else real_cooldown = supertable[2][name] end
 		item:setCooldown(real_cooldown)
-		--supertable[2][name] = nil
 	end
 	if supertable[3][name] ~= nil then
 		if item == self.go.firearmattack then item:setRange(supertable[3][name]) end
-		--supertable[3][name] = nil
 	end
 	if supertable[4][name] ~= nil then
 		local real_pierce = 0
@@ -562,38 +510,40 @@ function resetItem(self, name)
 		end
 		if item == self.go.firearmattack then item:setPierce(real_pierce) end
 		if item == self.go.meleeattack then item:setPierce(real_pierce) end
-		--supertable[4][name] = nil
 	end
 	if supertable[5][name] ~= nil then
 		item:setAccuracy(supertable[5][name])
-		--supertable[5][name] = nil
 	end
 	if supertable[6][name] ~= nil then
 		local real_crit = 0
 		if tinker_item[6][name] then real_crit = tinker_item[6][name] else real_crit = supertable[6][name] end
 		if self.go.equipmentitem then self.go.equipmentitem:setCriticalChance(real_crit) end
-		--supertable[6][name] = nil
 	end
 	if supertable[7][name] ~= nil then
 		if self.go.equipmentitem then self.go.equipmentitem:setResistFire(supertable[7][name]) end
-		--supertable[7][name] = nil
 	end
 	if supertable[8][name] ~= nil then
 		if self.go.equipmentitem then self.go.equipmentitem:setResistShock(supertable[8][name]) end
-		--supertable[8][name] = nil
 	end
 	if supertable[9][name] ~= nil then
 		if self.go.equipmentitem then self.go.equipmentitem:setResistCold(supertable[9][name]) end
-		--supertable[9][name] = nil
+	end
+	if supertable[10][name] ~= nil then
+		if self.go.equipmentitem then self.go.equipmentitem:setResisPoison(supertable[10][name]) end
 	end
 	-- if supertable[12][name] ~= nil then
 		-- local item = self.go.item
 		-- item:setWeight(supertable[12][item.go.id])
 	-- end
+	if supertable[13][name] ~= nil and self.go:getComponent(self.go.item:getSecondaryAction()) then
+		local real_ap = 0
+		if tinker_item[13][name] then real_ap = tinker_item[13][name] else real_ap = supertable[13][name] end
+		self.go:getComponent(self.go.item:getSecondaryAction()):setAttackPower(real_ap)
+	end
 end
 
 function clearSupertable(self, name)
-	for i=1,11 do
+	for i=1,13 do
 		supertable[i][name] = nil
 	end
 end
@@ -603,6 +553,11 @@ end
 
 function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 	local c = champion:getOrdinal()
+	local secondary = self.go:getComponent(self.go.item:getSecondaryAction() and self.go.item:getSecondaryAction() or "")
+	-- When using secondary attack, we update the main melee action
+	if self == self.go:getComponent(self.go.item:getSecondaryAction()) then
+		self = self.go.meleeattack
+	end
 	functions.script.resetItem(self, self.go.id)
 	supertable[1][item.go.id] = self:getAttackPower()
 	supertable[2][item.go.id] = self:getCooldown()
@@ -648,17 +603,37 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 	
 	-- Druid's Mudwort secondary attack bonus against poisoned enemies
 	if champion:getClass() == "druid" then
-		local secondary = self.go:getComponent(self.go.item:getSecondaryAction() and self.go.item:getSecondaryAction() or "")
-		if secondary == self then
+		if secondary ~= self then
 			local poisonedMonster = functions.script.get_c("poisonedMonster", c)
 			if poisonedMonster then
 				local monster = findEntity(poisonedMonster).monster
-				self:setAttackPower(self:getAttackPower() * 1.3)
+				secondary:setAttackPower(secondary:getAttackPower() * 1.3)
 				monster:setCondition("poisoned", 0)
 			end
 		end
 	end
-	
+	print(secondary:getAttackPower())
+	-- Bearclaw Gauntlets - Increases power attack damage by 15%
+	if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "bearclaw_gauntlets" then
+		if secondary ~= self then
+			local amount = champion:getItem(ItemSlot.Gloves):hasTrait("upgraded") and 1.25 or 1.15
+			secondary:setAttackPower(secondary:getAttackPower() * amount)
+		end
+	end
+
+	if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "steel_armband" then
+		local bonus = 4
+		if champion:getItem(ItemSlot.Head) then bonus = bonus - 1 end
+		if champion:getItem(ItemSlot.Chest) then bonus = bonus - 1 end
+		if champion:getItem(ItemSlot.Legs) then bonus = bonus - 1 end
+		if champion:getItem(ItemSlot.Feet) then bonus = bonus - 1 end
+		if bonus > 0 then
+			if secondary ~= self then
+				secondary:setAttackPower(secondary:getAttackPower() * (1 + (bonus * 0.1)))
+			end
+		end
+	end
+	print("after " , secondary:getAttackPower())
 	-- Brutalizer damage bonus to melee
 	if champion:hasTrait("brutalizer") then
 		self:setAttackPower(self:getAttackPower() * (1.00 + (champion:getCurrentStat("strength") * 0.01)))		
@@ -676,16 +651,23 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 	end	
 	
 	-- Fire Gauntlets damage is amplified by other sources of + fire damage
-	if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).name == "fire_gauntlets" then
-		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).name == "forestfire_bracer" then
-			self:setAttackPower(self:getAttackPower() * 1.2)
-		end
+	if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "fire_gauntlets" then
 		self:setAttackPower(self:getAttackPower() * empowerElement(champion, "fire", 1))
 	end
 	
 	-- Double attack
-	if get_c("double_attack", champion:getOrdinal()) == nil then	
-		if champion:hasTrait("double_attack") and self.go.meleeattack and item:hasTrait("light_weapon") and math.random() <= 0.2 then
+	if get_c("double_attack", champion:getOrdinal()) == nil then
+		local chance = 0
+		if champion:hasTrait("double_attack") and self.go.meleeattack and item:hasTrait("light_weapon") then
+			chance = chance + 0.2
+		end
+		if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "steel_knuckles" then
+			if (item and item:hasTrait("light_weapon")) or (item and item:hasTrait("staff")) then
+				chance = chance + 0.06
+			end
+		end
+
+		if math.random() <= chance then
 			set_c("double_attack", champion:getOrdinal(), slot)
 			delayedCall("functions", 0.3, "secondShot", champion:getOrdinal(), slot)
 		end
@@ -912,7 +894,8 @@ function onFirearmAttack(self, champion, slot)
 							tinker_item[7][item2.go.id] = supertable[7][item2.go.id]
 							tinker_item[8][item2.go.id] = supertable[8][item2.go.id]
 							tinker_item[9][item2.go.id] = supertable[9][item2.go.id]
-							tinker_item[12][item2.go.id] = supertable[12][item2.go.id]
+							tinker_item[10][item2.go.id] = supertable[10][item2.go.id]
+							tinker_item[20][item2.go.id] = supertable[20][item2.go.id]
 							for j=1,18 do
 								if item2:hasTrait("upgraded"..j) then tinker_item[11][item2.go.id] = "upgraded"..j end
 							end
@@ -943,7 +926,7 @@ function onPostFirearmAttack(self, champion, slot, secondary2)
 			local newItem = spawn(corsairItem).item
 			
 			if tinker_item[10][corsairItemId] then newItem:setUiName(tinker_item[10][corsairItemId]) end
-			if tinker_item[12][corsairItemId] then newItem:setWeight(tinker_item[12][corsairItemId]) end
+			if tinker_item[20][corsairItemId] then newItem:setWeight(tinker_item[20][corsairItemId]) end
 			if tinker_item[11][corsairItemId] then newItem:addTrait(tinker_item[11][corsairItemId]) newItem:addTrait("upgraded") end
 			if tinker_item[1][corsairItemId] then newItem.go.firearmattack:setAttackPower(tinker_item[1][corsairItemId]) end
 			if tinker_item[2][corsairItemId] then newItem.go.firearmattack:setCooldown(tinker_item[2][corsairItemId]) end
@@ -1189,15 +1172,7 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 			monster:addTrait("bleeding")
 		end
 	end	
-	
-	-- Bearclaw Gauntlets - Increases power attack damage by 15%
-	if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "bearclaw_gauntlets" then
-		local secondary = self.go:getComponent(self.go.item:getSecondaryAction() and self.go.item:getSecondaryAction() or "")
-		if secondary == self then
-			--secondary:setAttackPower(self:getAttackPower() * 20)
-		end
-	end
-	
+		
 	-- Ratling's Sneak Attack
 	if functions.script.get_c("sneak_attack", champion:getOrdinal()) then
 		if math.random() <= 0.5 then
@@ -1660,7 +1635,7 @@ function championBleed(champion, action)
 	champion:damage(math.random(champion:getMaxHealth() * multi[1], champion:getMaxHealth() * multi[2]), "bleed")
 	champion:playDamageSound()
 	-- Remove bleeding - 1% chance per tick or 5% if the bleeding duration is below half (30s)
-	local chance = champion:getConditionValue("bleeding") < 30 and 0.05 or 0.01
+	local chance = champion:getConditionValue("bleeding") < 30 and 0.05 or 0.01	
 	if math.random() <= chance then
 		champion:removeCondition("bleeding")
 	end
@@ -1966,8 +1941,8 @@ end
 -------------------------------------------------------------------------------------------------------
 
 tinkering_level = { 0,0,0,0 }
-a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12 = {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}
-tinker_item = { a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12 }
+a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13 = {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}
+tinker_item = { a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13 }
 
 function tinkererUpgrade(self, champion, container, slot, button)
 	local item = champion:getItem(slot)
@@ -1996,12 +1971,13 @@ function tinkererUpgrade(self, champion, container, slot, button)
 					item.go.equipmentitem:setResistFire(supertable[7][name])
 					item.go.equipmentitem:setResistShock(supertable[8][name])
 					item.go.equipmentitem:setResistCold(supertable[9][name])
+					item.go.equipmentitem:setResistPoison(supertable[10][name])
 					if equipItem:getClass() == "firearm" then equipItem:setRange(supertable[3][name]) end
 					for j=1,12 do
 						supertable[j][name] = nil
 					end
 					item:removeTrait("upgraded"..i)
-					item:setWeight(supertable[12][item.go.id])
+					item:setWeight(supertable[20][item.go.id])
 				end				
 			end
 		end
@@ -2020,7 +1996,7 @@ function tinkererUpgrade(self, champion, container, slot, button)
 			-- Save base name
 			if supertable[10][item.go.id] == nil then
 				supertable[10][item.go.id] = item:getUiName()
-				supertable[12][item.go.id] = item:getWeight()
+				supertable[20][item.go.id] = item:getWeight()
 			end
 			-- Set new base info
 			item:setUiName("Upgraded "..supertable[10][item.go.id].." (Level "..level..")")
@@ -2034,7 +2010,7 @@ function tinkererUpgrade(self, champion, container, slot, button)
 			local boost = 0
 			
 			boost = math.floor(champion:getSkillLevel("athletics") / 5) * 0.12
-			item:setWeight(supertable[12][item.go.id] + ((5 - ((level-1) * 0.5)) * (1 - (champion:getSkillLevel("athletics") * 0.12) - boost)))
+			item:setWeight(supertable[20][item.go.id] + ((5 - ((level-1) * 0.5)) * (1 - (champion:getSkillLevel("athletics") * 0.12) - boost)))
 			if item:hasTrait("shield") then
 				
 				boost = champion:getSkillLevel("block") + math.floor(champion:getSkillLevel("block") / 5)
@@ -2114,7 +2090,7 @@ function tinkererUpgrade(self, champion, container, slot, button)
 				tinker_item[9][item.go.id] = item.go.equipmentitem:getResistCold()
 				tinker_item[10][item.go.id] = item:getUiName()
 				tinker_item[11][item.go.id] = "upgraded"..level
-				tinker_item[12][item.go.id] = item:getWeight()
+				tinker_item[20][item.go.id] = item:getWeight()
 			end
 		end
 	end
@@ -2188,7 +2164,6 @@ end
 -- Tinkerer upgrades for secondary actions
 function updateSecondary(meleeAttack, secondary, name)
 	local item = meleeAttack.go.item
-	
 	if name == "chop" then
 		local level = math.min(math.floor(meleeAttack:getAttackPower() / 9), 5)
 		secondary:setEnergyCost( 20 + math.floor(level * 8 / 5) * 5)

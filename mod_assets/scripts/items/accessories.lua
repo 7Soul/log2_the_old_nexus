@@ -10,17 +10,17 @@ defineObject{
 		{
 			class = "Item",
 			uiName = "Coldspike Bracelet",
-			description = "A spiked bracer that never melts, which sends a deep cold energy that only a magic user can withstand.",
+			description = "A spiked bracer that mantains itself under freezing temperatures. This cold can unly be withstood by a powerful magic user.",
 			gameEffect = [[Cold damage +20%
 			Increases base freezing chance of Frost Gust by 5%]],
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
 			gfxIndex = 39,
-			weight = 0.3,
+			weight = 0.5,
 			traits = { "bracers", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
-			resistFire = -15,
+			resistFire = -25,
 		},
 		{
 			class = "Particle",
@@ -109,7 +109,7 @@ defineObject{
 		},
 		{
 			class = "EquipmentItem",
-			resistCold = -15,
+			resistCold = -25,
 		},
 		{
 			class = "Particle",
@@ -228,7 +228,7 @@ defineObject{
 			Increases base arc chance of the Shock Rift spell by 5%]],
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
 			gfxIndex = 41,
-			weight = 0.3,
+			weight = 0.75,
 			traits = { "bracers", "upgradable" },
 		},
 		{
@@ -343,7 +343,7 @@ defineObject{
 		},
 		{
 			class = "EquipmentItem",
-			protection = -8,
+			protection = -15,
 		},
 	},
 	tags = { "accessory" },
@@ -436,7 +436,7 @@ defineObject{
 			class = "Item",
 			uiName = "Bone Amulet",
 			description = "A primitive amulet made out of bones that are bound together with string.",
-			gameEffect = [[You gain 5% chance to recover a pellet when firing with firearms.]],
+			gameEffect = [[5% chance to recover a pellet when firing with firearms.]],
 			gfxIndex = 65,
 			weight = 0.2,
 			traits = { "necklace", "upgradable" },
@@ -562,12 +562,12 @@ defineObject{
 			weight = 0.3,
 			traits = { "bracers", "upgradable" },
 			description = "The roots of this bracelet dig into the arm of its wearer, feeding from its host.",
-			gameEffect = "Food Consumption Rate + 20%",
+			gameEffect = "Food Consumption Rate + 25%",
 		},
 		{
 			class = "EquipmentItem",
-			energyRegenerationRate = 20,
-			foodRate = 20,
+			energyRegenerationRate = 40,
+			foodRate = 25,
 		},
 	},
 	tags = { "accessory" },
@@ -587,12 +587,23 @@ defineObject{
 			gfxIndex = 312,
 			weight = 0.6,
 			traits = { "bracers", "upgradable" },
-			description = "This simple armband is commonly worn on the battlefield by professional warriors."
+			description = "This simple armband is commonly worn on the battlefield by professional warriors.",
+			gameEffect = "+10 Protection and +10% Damage with Power Attacks for each piece of armor (Head, Body, Legs and Feet) that you're not wearing.",
 		},
 		{
 			class = "EquipmentItem",
-			strength = 1,
-			protection = 5,
+			strength = 2,
+			protection = -5,
+			onRecomputeStats = function(self, champion)
+				local bonus = 4
+				if champion:getItem(ItemSlot.Head) then bonus = bonus - 1 end
+				if champion:getItem(ItemSlot.Chest) then bonus = bonus - 1 end
+				if champion:getItem(ItemSlot.Legs) then bonus = bonus - 1 end
+				if champion:getItem(ItemSlot.Feet) then bonus = bonus - 1 end
+				if bonus > 0 then
+					champion:addStatModifier("protection", bonus * 10)
+				end
+			end
 		},
 	},
 	tags = { "accessory" },
@@ -1001,10 +1012,10 @@ defineObject{
 			class = "Item",
 			uiName = "Bearclaw Gauntlets",
 			description = "These powerful enchanted gauntlets are rumored to be made from the severed paws of a polymorphed bear cult shaman.",
-			gameEffect = [[Your power attacks deal 15% more damage.]],
+			gameEffect = [[Melee power attacks deal 15% more damage.]],
 			gfxIndex = 325,
 			weight = 0.9,
-			traits = { "gloves" },
+			traits = { "gloves", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -1026,6 +1037,7 @@ defineObject{
 			class = "Item",
 			uiName = "Knuckles of Steel",
 			description = "These gauntlets seem to enhance and strengthen every movement of your hands.",
+			gameEffect = [[6% chance to attack twice with Light Weapons and Staves.]],
 			gfxIndex = 324,
 			weight = 0.9,
 			traits = { "gloves" },
@@ -1033,8 +1045,8 @@ defineObject{
 		{
 			class = "EquipmentItem",
 			protection = 1,
-			strength = 2,
-			dexterity = 2,
+			strength = 1,
+			dexterity = 1,
 		},
 	},
 	tags = { "gloves" },
@@ -1052,7 +1064,6 @@ defineObject{
 			class = "Item",
 			uiName = "Gauntlets of Fire",
 			description = "These gauntlets will slowly burn a hole into anything that they touch. Strangely enough, their wearer is always left unharmed.",
-			gameEffect = [[Your power attacks deal 15% more damage.]],
 			gfxIndex = 327,
 			weight = 0.4,
 			traits = { "gloves", "fire_gauntlets" },
@@ -1078,6 +1089,8 @@ defineObject{
 		{
 			class = "Item",
 			uiName = "Pit Fighter Gauntlets",
+			description = "A type of glove usually worn by slaves pitted to fight to the death.",
+			gameEffect = [[Adds 25% resistance to hand injuries and bleeding.]],
 			gfxIndex = 18,
 			weight = 0.9,
 			traits = { "gloves" },
@@ -1103,7 +1116,8 @@ defineObject{
 			class = "Item",
 			uiName = "Nomad Mittens",
 			description = "Thick mittens worn by the tribesmen who live and travel with horned beasts in the far away tundras.",
-			gameEffect = [[Cold damage +5%]],
+			gameEffect = [[Cold damage +5%
+			Cold spells freeze for 1 more second.]],
 			gfxIndex = 52,
 			weight = 0.4,
 			traits = { "gloves" },

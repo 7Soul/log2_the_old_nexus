@@ -98,12 +98,12 @@ defineObject{
 		{
 			class = "MeleeAttack",
 			name = "chop",
-			onHitMonster = function(self, monster, tside, damage, champion)
-				local secondary2 = functions.script.secondary
-				local item = self.go.item
-				functions.script.monster_attacked(self, monster, tside, damage, champion)
-				functions.script.reset_attack(self, champion, slot, secondary2, item) -- (when hit)
-			end
+		-- 	-- onHitMonster = function(self, monster, tside, damage, champion)
+		-- 	-- 	local secondary2 = functions.script.secondary
+		-- 	-- 	local item = self.go.item
+		-- 	-- 	functions.script.monster_attacked(self, monster, tside, damage, champion)
+		-- 	-- 	functions.script.reset_attack(self, champion, slot, secondary2, item) -- (when hit)
+		-- 	-- end
 			
 		},
 	},

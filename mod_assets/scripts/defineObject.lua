@@ -92,7 +92,7 @@ local onWInit = function(self)
 			if not c then
 				c = self.go:createComponent("MeleeAttack", "chop")
 			end
-			functions.script.updateSecondary(self, c, "chop")
+			functions.script.updateSecondary(self.go.meleeattack, c, "chop")
 		end
 	end
 	
