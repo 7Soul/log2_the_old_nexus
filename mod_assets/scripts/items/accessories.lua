@@ -10,7 +10,7 @@ defineObject{
 		{
 			class = "Item",
 			uiName = "Coldspike Bracelet",
-			description = "A spiked bracer that mantains itself under freezing temperatures. This cold can unly be withstood by a powerful magic user.",
+			description = "A spiked bracer that mantains itself under freezing temperatures. This cold can unly be withstood by a powerful magic user.\n\nCan be upgraded with a Aquamarine Gem.",
 			gameEffect = [[Cold damage +20%
 			Increases base freezing chance of Frost Gust by 5%]],
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
@@ -101,7 +101,7 @@ defineObject{
 			uiName = "Forestfire Bracer",
 			description = "An everburning enchanted bracer made with the bark of an ancient tree.",
 			gameEffect = [[Fire damage +20%
-			Increases base burn chance of Fireburst by 5%]],
+			Increases base burn chance of Fireburst by 20%]],
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
 			gfxIndex = 40,
 			weight = 0.3,
@@ -225,7 +225,7 @@ defineObject{
 			uiName = "Torment Bracer",
 			description = "An electrically charged device that constantly shocks the user.",
 			gameEffect = [[Shock damage +20%
-			Increases base arc chance of the Shock Rift spell by 5%]],
+			Increases base arc chance of the Shock Rift spell by 10%]],
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
 			gfxIndex = 41,
 			weight = 0.75,
@@ -481,7 +481,7 @@ defineObject{
 			class = "Item",
 			uiName = "Hardstone Bracelet",
 			description = "A bracelet that the warriors of the hill tribes pass on from generation to generation.",
-			gameEffect = [[Adds a 20% chance to gain +3 Strenght +30 Protection for 10 seconds when you get hit.]],
+			gameEffect = [[Adds a 20% chance to gain +3 Strength +30 Protection for 10 seconds when you get hit.]],
 			gfxIndex = 27,
 			weight = 0.3,
 			traits = { "bracers", "upgradable" },
@@ -592,7 +592,7 @@ defineObject{
 		},
 		{
 			class = "EquipmentItem",
-			strength = 2,
+			strength = -1,
 			protection = -5,
 			onRecomputeStats = function(self, champion)
 				local bonus = 4
@@ -635,101 +635,7 @@ defineObject{
 	tags = { "accessory" },
 }
 
-defineObject{
-	name = "huntsman_cloak",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/huntsman_cloak.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Huntsman Cloak",
-			gfxIndex = 28,
-			weight = 0.8,
-			traits = { "cloak" },
-		},
-		{
-			class = "EquipmentItem",
-			evasion = 4,
-			dexterity = 1,
-			vitality = 1,
-		},
-	},
-	tags = { "cloak" },
-}
-
-defineObject{
-	name = "tattered_cloak",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/peasant_clothes.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Tattered Cloak",
-			gfxIndex = 66,
-			weight = 0.4,
-			traits = { "cloak" },
-		},
-		{
-			class = "EquipmentItem",
-			evasion = 2,
-		},
-	},
-	tags = { "cloak" },
-}
-
-defineObject{
-	name = "scaled_cloak",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/scaled_cloak.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Scaled Cloak",
-			gfxIndex = 72,
-			weight = 2.5,
-			traits = { "cloak" },
-		},
-		{
-			class = "EquipmentItem",
-			protection = 5,
-			resistFire = 15,
-		},
-	},
-	tags = { "cloak" },
-}
-
-defineObject{
-	name = "diviner_cloak",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/diviner_clothes.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Diviner's Cloak",
-			description = "A fine cloak, woven with fibers that resonate with the faint arcane energies of the surrounding nature.",
-			gfxIndex = 167,
-			weight = 0.6,
-			traits = { "cloak" },
-		},
-		{
-			class = "EquipmentItem",
-			energyRegenerationRate = 20,
-		},
-	},
-	tags = { "cloak" },
-}
+-- Necklaces
 
 defineObject{
 	name = "gear_necklace",
@@ -751,6 +657,12 @@ defineObject{
 		class = "EquipmentItem",
 		energy = 15,
 		health = 15,
+		healthRegenerationRate = 10,
+		energyRegenerationRate = 10,
+		resistFire = 2,
+		resistCold = 2,
+		resistShock = 2,
+		resistPoison = 2,
 		},
 	},
 	tags = { "necklace" },	
@@ -925,6 +837,109 @@ defineObject{
 	tags = { "necklace" },
 }
 
+-- Cloaks
+
+defineObject{
+	name = "huntsman_cloak",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/huntsman_cloak.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Huntsman Cloak",
+			gfxIndex = 28,
+			weight = 0.8,
+			traits = { "cloak" },
+			description = "",
+			gameEffect = [[Increases damage with Missile Weapons by 10%.]],
+		},
+		{
+			class = "EquipmentItem",
+			evasion = 4,
+			dexterity = 1,
+			vitality = 1,
+		},
+	},
+	tags = { "cloak" },
+}
+
+defineObject{
+	name = "tattered_cloak",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/peasant_clothes.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Tattered Cloak",
+			gfxIndex = 66,
+			weight = 0.4,
+			traits = { "cloak" },
+		},
+		{
+			class = "EquipmentItem",
+			evasion = 2,
+		},
+	},
+	tags = { "cloak" },
+}
+
+defineObject{
+	name = "scaled_cloak",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/scaled_cloak.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Scaled Cloak",
+			gfxIndex = 72,
+			weight = 2.5,
+			gameEffect = [[10% chance to shield the party from fire when taking fire damage.]],
+			traits = { "cloak" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 5,
+			evasion = -10,
+			resistFire = 15,
+		},
+	},
+	tags = { "cloak" },
+}
+
+defineObject{
+	name = "diviner_cloak",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/diviner_clothes.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Diviner's Cloak",
+			description = "A fine cloak, woven with fibers that resonate with the faint arcane energies of the surrounding nature.",
+			gameEffect = [[You recover 20 Energy when drinking any potion.]],
+			gfxIndex = 167,
+			weight = 0.6,
+			traits = { "cloak" },
+		},
+		{
+			class = "EquipmentItem",
+			energyRegenerationRate = 20,
+		},
+	},
+	tags = { "cloak" },
+}
+
 defineObject{
 	name = "shaman_cloak",
 	baseObject = "base_item",
@@ -939,11 +954,12 @@ defineObject{
 			gfxIndex = 319,
 			weight = 1.5,
 			traits = { "cloak" },
-			description = "The leaves that adorn this cloak emit a soothing sound when they flutter in the breeze."
+			description = "The leaves that adorn this cloak emit a soothing sound when they flutter in the breeze.",
+			gameEffect = [[Poison spells cost 20% less energy.]],
 		},
 		{
 			class = "EquipmentItem",
-			energy = 30,
+			energy = 20,
 			evasion = -2,
 		},
 	},
@@ -964,12 +980,25 @@ defineObject{
 			gfxIndex = 320,
 			weight = 2.5,
 			traits = { "cloak" },
-			description = "This cloak, made of bear skin, has a musty smell."
+			description = "This cloak, made of bear skin, has a musty smell.",
+			gameEffect = [[
+			
+			[Bearclaw Gauntlets and Bear Pelt Set Bonus]
+			While in bear form you gain +10.
+			Extends bear form duration.]],
 		},
 		{
 			class = "EquipmentItem",
 			vitality = 2,
 			resistCold = 20,
+			onRecomputeStats = function(self, champion)
+				if champion:hasCondition("bear_form") then
+					if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "bearclaw_gauntlets" then
+						champion:addStatModifier("strength", 10)
+						if not champion:hasCondition("bear_bonus") then champion:setConditionValue("bear_bonus", 2) end
+					end
+				end
+			end
 		},
 	},
 	tags = { "cloak" },
@@ -987,9 +1016,11 @@ defineObject{
 			class = "Item",
 			uiName = "Spidersilk Cloak",
 			gfxIndex = 321,
-			weight = 0.5,
+			weight = 0.1,
 			traits = { "cloak" },
 			description = "The fine threads of this cloak seem to blend into the surrounding shadows.",
+			gameEffect = [[Invisibility lasts 10 more seconds (affects entire party).
+			You gain +40 Cold Resist for 30 seconds after leaving invisibility.]],
 		},
 		{
 			class = "EquipmentItem",
@@ -999,6 +1030,8 @@ defineObject{
 	},
 	tags = { "cloak" },
 }
+
+-- Gloves
 
 defineObject{
 	name = "bearclaw_gauntlets",
@@ -1012,7 +1045,11 @@ defineObject{
 			class = "Item",
 			uiName = "Bearclaw Gauntlets",
 			description = "These powerful enchanted gauntlets are rumored to be made from the severed paws of a polymorphed bear cult shaman.",
-			gameEffect = [[Melee power attacks deal 15% more damage.]],
+			gameEffect = [[Melee power attacks deal 15% more damage.
+
+			[Bearclaw Gauntlets and Bear Pelt Set Bonus]
+			While in bear form you gain +10 Strength.
+			Extends bear form duration.]],
 			gfxIndex = 325,
 			weight = 0.9,
 			traits = { "gloves", "upgradable" },

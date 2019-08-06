@@ -64,8 +64,9 @@ defineObject{
 			onUseItem = function(self, champion)
 				champion:setConditionValue("healing_potion", 16)
 				champion:playHealingIndicator()
-				party.party.onDrawAttackPanel(self, champion, context, x, y)
-				context.drawImage2("mod_assets/textures/gui/block.dds", x+48, y-68, 0, 0, 128, 75, 128, 75)
+				if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "diviner_cloak" then
+					champion:regainEnergy(champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 40 or 20)
+				end
 			end,
 		},
 	},
@@ -96,6 +97,9 @@ defineObject{
 			onUseItem = function(self, champion)
 				champion:setConditionValue("healing_potion2", 8)
 				champion:playHealingIndicator()
+				if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "diviner_cloak" then
+					champion:regainEnergy(champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 40 or 20)
+				end
 			end,
 		},
 	},
@@ -126,6 +130,9 @@ defineObject{
 			onUseItem = function(self, champion)
 				champion:setConditionValue("energy_potion", 16)
 				champion:playHealingIndicator()
+				if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "diviner_cloak" then
+					champion:regainEnergy(champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 40 or 20)
+				end
 			end,
 		},
 	},
@@ -156,6 +163,9 @@ defineObject{
 			onUseItem = function(self, champion)
 				champion:setConditionValue("energy_potion2", 8)
 				champion:playHealingIndicator()
+				if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "diviner_cloak" then
+					champion:regainEnergy(champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 40 or 20)
+				end
 			end,
 		},
 	},
@@ -184,6 +194,9 @@ defineObject{
 			sound = "consume_potion",
 			onUseItem = function(self, champion)
 				champion:setCondition("poison")
+				if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "diviner_cloak" then
+					champion:regainEnergy(champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 40 or 20)
+				end
 			end,
 		},
 	},
@@ -212,6 +225,9 @@ defineObject{
 			sound = "consume_potion",
 			onUseItem = function(self, champion)
 				champion:setCondition("protective_shield")
+				if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "diviner_cloak" then
+					champion:regainEnergy(champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 40 or 20)
+				end
 			end,
 		},
 	},
@@ -241,6 +257,9 @@ defineObject{
 			onUseItem = function(self, champion)
 				champion:removeCondition("poison")
 				champion:playHealingIndicator()
+				if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "diviner_cloak" then
+					champion:regainEnergy(champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 40 or 20)
+				end
 			end,
 		},
 	},
@@ -270,6 +289,9 @@ defineObject{
 			sound = "consume_potion",
 			onUseItem = function(self, champion)
 				-- can't be used by dead champion but can be used to cure petrification
+				if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "diviner_cloak" then
+					champion:regainEnergy(champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 40 or 20)
+				end
 				if not champion:isAlive() and not champion:hasCondition("petrified") then
 					return false
 				end
@@ -305,6 +327,9 @@ defineObject{
 			--emptyItem = "flask",
 			sound = "consume_potion",
 			onUseItem = function(self, champion)
+				if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "diviner_cloak" then
+					champion:regainEnergy(champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 40 or 20)
+				end
 				champion:setConditionValue("rage", champion:getConditionValue("rage") + 20)
 			end,
 		},
@@ -333,6 +358,9 @@ defineObject{
 			--emptyItem = "flask",
 			sound = "consume_potion",
 			onUseItem = function(self, champion)
+				if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "diviner_cloak" then
+					champion:regainEnergy(champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 40 or 20)
+				end
 				if champion:getItem(ItemSlot.Feet) and champion:getItem(ItemSlot.Feet).go.name == "rogue_boots_2" then
 					champion:setConditionValue("haste", 100)
 				else

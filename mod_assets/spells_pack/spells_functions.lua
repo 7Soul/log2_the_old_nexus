@@ -484,7 +484,7 @@ defOrdered =
 		spells_functions.script.paySpellCost(champion, cost, "fire", "fireball")
 		
 		--if champion:getSkillLevel("missile_weapons") > 2 and not trigger then spells_functions.script.maxEffectIcons("fireball", 15, ord) end
-		local castSize = skillLevel <= 3 and "fireball_small_cast" or skillLevel <= 4 and "fireball_medium_cast" or skillLevel == 5 and "fireball_large_cast"
+		local castSize = skillLevel <= 3 and "fireball_small_cast" or skillLevel == 4 and "fireball_medium_cast" or skillLevel == 5 and "fireball_large_cast"
 		spells_functions.script.missile(castSize, ord, power)
 		spells_functions.script.stopInvisibility()
 	end,
@@ -636,8 +636,8 @@ end,
 		cost = spells_functions.script.getCost(champion, cost, "shock", "lightning_bolt")
 		spells_functions.script.paySpellCost(champion, cost, "shock", "lightning_bolt")
 		
-		--if champion:getSkillLevel("missile_weapons") > 2 and not trigger then spells_functions.script.maxEffectIcons("lightning_bolt", 15, ord) end
-		spells_functions.script.missile("lightning_bolt_greater_cast", ord, power)
+		local castSize = skillLevel <= 4 and "lightning_bolt_cast" or "lightning_bolt_greater_cast"
+		spells_functions.script.missile(castSize, ord, power)
 		spells_functions.script.stopInvisibility()
 	end,
 	preCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -664,6 +664,15 @@ end,
 		spells_functions.script.paySpellCost(champion, cost, "neutral", "invisibility")
 
 		local duration = 22 + ((champion:getLevel()-1) * 2)
+
+		for i=1,4 do
+			local c = party.party:getChampionByOrdinal(i)
+			if c:getItem(ItemSlot.Cloak) and c:getItem(ItemSlot.Cloak).go.name == "spidersilk_cloak" then
+				local bonus = c:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 20 or 10
+				duration = duration + bonus
+			end
+		end
+
 		spells_functions.script.maxConditionValue("invisibility", duration)
 		spells_functions.script.maxEffectIcons("invisibility", duration)
 	end,
@@ -700,7 +709,7 @@ end,
 	description = "Unleashes a devastating storm of thunder on your foes.\n- Cost : 65 energy\n- Power : 27 per bolt",
 	onCast = function(champion, x, y, direction, elevation, skillLevel)
 		local power = spells_functions.script.getPower(2.5, champion, "elemental_magic", "shock")
-		spells_functions.script.missiles(power, {"lightning_bolt_greater_cast"}, champion:getOrdinal(), 1, true)
+		spells_functions.script.missiles(power, {"lightning_bolt_greater"}, champion:getOrdinal(), 1, true)
 		spells_functions.script.stopInvisibility()
 	end
 },
@@ -905,11 +914,7 @@ end,
 	requirements = { "elemental_mastery", 1 },	
 	icon = 62,
 	spellIcon = 2,
-	description = [[Summons a toxic cloud of poison that deals damage over time.
-	
-	Cost : 27 energy
-	Power : 5 damage each 0.8 second (0.4 at level 3, 0.2 at level 5)
-	Duration : 10 seconds (15 at level 3, 20 at level 5)]],
+	description = [[]],
 	onCast = function(champion, x, y, direction, elevation, skillLevel)
 		local power = spells_functions.script.getPower(5, champion, "poison_mastery", "poison", 1, "poison_cloud")
 		local castSize = skillLevel <= 2 and "poison_cloud_small" or skillLevel <= 4 and "poison_cloud_medium" or skillLevel == 5 and "poison_cloud_large"
@@ -918,7 +923,7 @@ end,
 		cost = spells_functions.script.getCost(champion, cost, "poison", "poison_cloud")
 		spells_functions.script.paySpellCost(champion, cost, "poison", "poison_cloud")
 		
-		spells_functions.script.frontAttack("blizzard_small", power, champion:getOrdinal())
+		spells_functions.script.frontAttack("blizzard_small", power, champion:getOrdinal())----
 		spells_functions.script.stopInvisibility()
 	end,
 	preCast = function(champion, x, y, direction, elevation, skillLevel)
@@ -1130,7 +1135,7 @@ end,
 	-- description = "Unleashes a devastating storm of fire and thunder on your foes.\n- Cost : 73 energy\n- Power : 30 per fireball, 27 per lightning bolt",
 	-- onCast = function(champion, x, y, direction, elevation, skillLevel)
 		-- local power = spells_functions.script.getPower(2.5, champion, "fire_magic", "air_magic")
-		-- spells_functions.script.missiles(power, {"fireball_large_cast", "lightning_bolt_greater_cast"}, champion:getOrdinal(), 1, true)
+		-- spells_functions.script.missiles(power, {"fireball_large_cast", "lightning_bolt_greater"}, champion:getOrdinal(), 1, true)
 		-- spells_functions.script.stopInvisibility()
 	-- end
 -- },
@@ -1199,19 +1204,19 @@ end,
 	end
 },
 
-{
-	name = "blizzard",
-	uiName = "Blizzard",
-	requirements = {"air_magic", 4, "water_magic", 4},
-	gesture = 0,
-	manaCost = 67,
-	description = "Unleashes a devastating storm of ice and thunder on your foes.\n- Cost : 67 energy\n- Power : 27 per lightning bolt, 15 per frost bolt",
-	onCast = function(champion, x, y, direction, elevation, skillLevel)
-		local power = spells_functions.script.getPower(2.5, champion, "air_magic", "water_magic")
-		spells_functions.script.missiles(power, {"lightning_bolt_greater_cast", "frostbolt_cast"}, champion:getOrdinal(), 1, true)
-		spells_functions.script.stopInvisibility()
-	end
-},
+-- {
+-- 	name = "blizzard",
+-- 	uiName = "Blizzard",
+-- 	requirements = {"air_magic", 4, "water_magic", 4},
+-- 	gesture = 0,
+-- 	manaCost = 67,
+-- 	description = "Unleashes a devastating storm of ice and thunder on your foes.\n- Cost : 67 energy\n- Power : 27 per lightning bolt, 15 per frost bolt",
+-- 	onCast = function(champion, x, y, direction, elevation, skillLevel)
+-- 		local power = spells_functions.script.getPower(2.5, champion, "air_magic", "water_magic")
+-- 		spells_functions.script.missiles(power, {"lightning_bolt_greater", "frostbolt_cast"}, champion:getOrdinal(), 1, true)
+-- 		spells_functions.script.stopInvisibility()
+-- 	end
+-- },
 
 {
 	name = "psychic_shield",
@@ -1529,7 +1534,7 @@ end,
 	description = "Unleashes a devastating storm of thunder and poison on your foes.\n- Cost : 73 energy\n- Power : 27 per lightning bolt, 10 per rock",
 	onCast = function(champion, x, y, direction, elevation, skillLevel)
 		local power = spells_functions.script.getPower(2.5, champion, "air_magic", "earth_magic")
-		spells_functions.script.missiles(power, {"lightning_bolt_greater_cast", "poison_bolt_greater_cast"}, champion:getOrdinal(), 1, true)
+		spells_functions.script.missiles(power, {"lightning_bolt_greater", "poison_bolt_greater_cast"}, champion:getOrdinal(), 1, true)
 		spells_functions.script.stopInvisibility()
 	end
 },
@@ -1591,7 +1596,7 @@ end,
 	description = "Unleashes a devastating storm of lightning, ice and poison on your foes.\n- Cost : 65 energy\n- Power : 27 per lightning bolt, 15 per frost bolt, 15 per poison bolt",
 	onCast = function(champion, x, y, direction, elevation, skillLevel)
 		local power = spells_functions.script.getPower(2.5, champion, "air_magic", "water_magic", "earth_magic")
-		spells_functions.script.missiles(power, {"lightning_bolt_greater_cast", "frostbolt_cast", "poison_bolt_greater_cast"}, champion:getOrdinal(), 1, true)
+		spells_functions.script.missiles(power, {"lightning_bolt_greater", "frostbolt_cast", "poison_bolt_greater_cast"}, champion:getOrdinal(), 1, true)
 		spells_functions.script.stopInvisibility()
 	end
 },
@@ -1775,7 +1780,7 @@ end,
 	description = "Unleashes a devastating storm of poison, fire and ligthning on your foes.\n- Cost : 68 energy\nPower : 15 per poison bolt, 30 per fireball, 27 per lightning bolt",
 	onCast = function(champion, x, y, direction, elevation, skillLevel)
 		local power = spells_functions.script.getPower(2.5, champion, "earth_magic", "fire_magic", "air_magic")
-		spells_functions.script.missiles(power, {"poison_bolt_greater_cast", "fireball_large_cast", "lightning_bolt_greater_cast"}, champion:getOrdinal(), 1, true)
+		spells_functions.script.missiles(power, {"poison_bolt_greater_cast", "fireball_large_cast", "lightning_bolt_greater"}, champion:getOrdinal(), 1, true)
 		spells_functions.script.stopInvisibility()
 	end
 },
@@ -1855,7 +1860,7 @@ end,
 	description = "Unleashes a devastating storm of fire, ligthning and ice on your foes.\n- Cost : 68 energy\nPower : 30 per fireball, 27 per lightning bolt, 15 per frost bolt",
 	onCast = function(champion, x, y, direction, elevation, skillLevel)
 		local power = spells_functions.script.getPower(2.5, champion, "fire_magic", "air_magic", "water_magic")
-		spells_functions.script.missiles(power, {"fireball_large_cast", "lightning_bolt_greater_cast", "frostbolt_cast"}, champion:getOrdinal(), 1, true)
+		spells_functions.script.missiles(power, {"fireball_large_cast", "lightning_bolt_greater", "frostbolt_cast"}, champion:getOrdinal(), 1, true)
 		spells_functions.script.stopInvisibility()
 	end
 },
@@ -1916,7 +1921,7 @@ end,
 	description = "Unleashes a devastating storm of fire, ligthning, ice and poison on your foes.\n- Cost : 69 energy\nPower : 30 per fireball, 27 per lightning bolt, 15 per frost bolt, 15 per poison bolt\n\n[Wizard]:\nFor 15 seconds, you gain Concentration spells power +100%.",
 	onCast = function(champion, x, y, direction, elevation, skillLevel)
 		local power = spells_functions.script.getPower(2.5, champion, "fire_magic", "air_magic", "water_magic", "earth_magic")
-		spells_functions.script.missiles(power, {"fireball_large_cast", "lightning_bolt_greater_cast", "frostbolt_cast", "poison_bolt_greater_cast"}, champion:getOrdinal(), 1, true)
+		spells_functions.script.missiles(power, {"fireball_large_cast", "lightning_bolt_greater", "frostbolt_cast", "poison_bolt_greater_cast"}, champion:getOrdinal(), 1, true)
 		if champion:hasTrait("wizard") then
 			spells_functions.script.addSkillPower(champion, "concentration", 100, 15)
 		end
@@ -2237,27 +2242,34 @@ function getPower(base, champion, skill, element, tier, spellName)
 end
 
 function getCost(champion, base, element, spellName)
-	if champion:hasTrait("intensify_spell") and spellName and not defByName[spellName].hidden then
-		local intensify = functions.script.get_c("intensifySpell", champion:getOrdinal())
-		if intensify and intensify == spellName then
-			local multi = 1.4 - (math.floor(champion:getLevel() / 4) * 0.1)
-			base = base * multi
-			functions.script.set_c("intensifySpell", champion:getOrdinal(), nil)
+	if spellName and not defByName[spellName].hidden then
+		if champion:hasTrait("intensify_spell") then
+			local intensify = functions.script.get_c("intensifySpell", champion:getOrdinal())
+			if intensify and intensify == spellName then
+				local multi = 1.4 - (math.floor(champion:getLevel() / 4) * 0.1)
+				base = base * multi
+				functions.script.set_c("intensifySpell", champion:getOrdinal(), nil)
+			end
+		end
+		
+		if element == "neutral" and champion:getClass() == "stalker" then
+			base = base * (champion:getClass() == "stalker" and (champion:hasTrait("night_stalker") and 0.33 or 0.66) or 1)
+			
+			local night_stalker_charges = functions.script.night_stalker[champion:getOrdinal()]
+			if not night_stalker_charges then night_stalker_charges = 0 end
+			base = base * (night_stalker_charges > 0 and 0 or 1)
+		end
+
+		if element == "poison" then
+			if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "shaman_cloak" then
+				base = base * (champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 0.7 or 0.8)
+			end
+		end
+		
+		if champion:hasTrait("rodent_chewing") then
+			base = base * 0.9
 		end
 	end
-	
-	if element == "neutral" and champion:getClass() == "stalker" then
-		base = base * (champion:getClass() == "stalker" and (champion:hasTrait("night_stalker") and 0.33 or 0.66) or 1)
-		
-		local night_stalker_charges = functions.script.night_stalker[champion:getOrdinal()]
-		if not night_stalker_charges then night_stalker_charges = 0 end
-		base = base * (night_stalker_charges > 0 and 0 or 1)
-	end
-	
-	if champion:hasTrait("rodent_chewing") and spellName and not defByName[spellName].hidden then
-		base = base * 0.9
-	end
-	
 	return base
 end
 
@@ -2384,7 +2396,7 @@ function onAttack(champion, action, slot)
 	return true
 end
 
-function voodoo(self, champion, monster)
+function voodoo(self, e, champion, monster)
 	local mList = {}
 	for d=0,24 do
 		local dx = math.floor(d / 5) - 2
@@ -2403,30 +2415,6 @@ function voodoo(self, champion, monster)
 			if a.tiledamager then 
 				a.tiledamager:setCastByChampion(champion:getOrdinal()) 
 				a.tiledamager:setAttackPower((champion:getLevel() * 2) + 9 + math.random(9))
-			end
-		end
-	end
-end
-
-function shock_arc(self, champion, monster)
-	if math.random() > 0.1 * (1 + (champion:getResistance("shock") * 0.02)) then return end
-	local mList = {}
-	for d=0,8 do
-		local dx = math.floor(d / 3) - 1
-		local dy = ((d-1) % 3) - 1
-		for e in Dungeon.getMap(party.level):entitiesAt(monster.go.x + dx, monster.go.y + dy) do
-			if e.monster and e.monster ~= monster then
-				table.insert(mList, e.monster)
-			end
-		end
-	end
-	if #mList > 0 then
-		local newMonster = mList[ math.random( #mList ) ]
-		if newMonster and newMonster ~= monster then
-			local a = spawn("shockburst", party.level, newMonster.go.x, newMonster.go.y, newMonster.go.facing, newMonster.go.elevation)
-			if a.tiledamager then 
-				a.tiledamager:setCastByChampion(champion:getOrdinal()) 
-				a.tiledamager:setAttackPower(23)
 			end
 		end
 	end
@@ -3184,18 +3172,18 @@ end
 function elementalShields(duration, caster, f, a, w, e)
 	--local old = caster:getSkillLevel("concentration")>4 and 1 or 0
 	local old = 0
-	f = (f and getPower(duration, caster,	"fire_magic") or 0) + old*removeEffectIcons(	"fire_shield")
-	a = (a and getPower(duration, caster,	 "air_magic") or 0) + old*removeEffectIcons( "shock_shield")
-	w = (w and getPower(duration, caster, "water_magic") or 0) + old*removeEffectIcons( "frost_shield")
-	e = (e and getPower(duration, caster, "earth_magic") or 0) + old*removeEffectIcons("poison_shield")
-	insertEffectIcons(	"fire_shield", f)
-	insertEffectIcons( "shock_shield", a)
-	insertEffectIcons( "frost_shield", w)
+	f = (f and duration * (1 + caster:getCurrentStat("resist_fire") * 0.01) or 0) + old * removeEffectIcons("fire_shield")
+	a = (a and duration * (1 + caster:getCurrentStat("resist_shock") * 0.01) or 0) + old *removeEffectIcons("shock_shield")
+	w = (w and duration * (1 + caster:getCurrentStat("resist_cold") * 0.01) or 0) + old * removeEffectIcons("frost_shield")
+	e = (e and duration * (1 + caster:getCurrentStat("resist_poison") * 0.01) or 0) + old * removeEffectIcons("poison_shield")
+	insertEffectIcons("fire_shield", f)
+	insertEffectIcons("shock_shield", a)
+	insertEffectIcons("frost_shield", w)
 	insertEffectIcons("poison_shield", e)
 	for _,c in ipairs(getChampions()) do
-		c:setConditionValue(	"fire_shield", f)
-		c:setConditionValue( "shock_shield", a)
-		c:setConditionValue( "frost_shield", w)
+		c:setConditionValue("fire_shield", f)
+		c:setConditionValue("shock_shield", a)
+		c:setConditionValue("frost_shield", w)
 		c:setConditionValue("poison_shield", e)
 	end
 end
@@ -3203,17 +3191,17 @@ end
 function elementalShieldSingle(duration, caster, f, a, w, e)
 	--local old = caster:getSkillLevel("concentration")>4 and 1 or 0
 	local old = 1
-	f = (f and duration or 0) + old*removeEffectIcons(	"fire_shield")
-	a = (a and duration or 0) + old*removeEffectIcons( "shock_shield")
-	w = (w and duration or 0) + old*removeEffectIcons( "frost_shield")
-	e = (e and duration or 0) + old*removeEffectIcons("poison_shield")
-	insertEffectIcons(	"fire_shield", f)
-	insertEffectIcons( "shock_shield", a)
-	insertEffectIcons( "frost_shield", w)
+	f = (f and duration * (1 + caster:getCurrentStat("resist_fire") * 0.01) or 0) + old * removeEffectIcons("fire_shield")
+	a = (a and duration * (1 + caster:getCurrentStat("resist_shock") * 0.01) or 0) + old *removeEffectIcons("shock_shield")
+	w = (w and duration * (1 + caster:getCurrentStat("resist_cold") * 0.01) or 0) + old * removeEffectIcons("frost_shield")
+	e = (e and duration * (1 + caster:getCurrentStat("resist_poison") * 0.01) or 0) + old * removeEffectIcons("poison_shield")
+	insertEffectIcons("fire_shield", f)
+	insertEffectIcons("shock_shield", a)
+	insertEffectIcons("frost_shield", w)
 	insertEffectIcons("poison_shield", e)
-	caster:setConditionValue(	"fire_shield", f)
-	caster:setConditionValue( "shock_shield", a)
-	caster:setConditionValue( "frost_shield", w)
+	caster:setConditionValue("fire_shield", f)
+	caster:setConditionValue("shock_shield", a)
+	caster:setConditionValue("frost_shield", w)
 	caster:setConditionValue("poison_shield", e)
 end
 

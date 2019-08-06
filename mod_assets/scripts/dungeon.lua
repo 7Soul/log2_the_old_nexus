@@ -6339,7 +6339,7 @@ ice_crab_1.detectedtimer:setTimerInterval(0)
 ice_crab_1.detectedtimer:setDisableSelf(false)
 ice_crab_1.detectedtimer:setTriggerOnStart(true)
 ice_crab_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("starting_location",16,14,0,0,"starting_location_1")
+spawn("starting_location",14,9,3,0,"starting_location_1")
 spawn("force_field",16,11,3,0,"force_field_4")
 spawn("etherweed",17,10,2,0,"etherweed_3")
 etherweed_3.data:setSource("data = {}\
@@ -6362,6 +6362,37 @@ floor_trigger_41.floortrigger:setDisableSelf(false)
 floor_trigger_41.floortrigger:addConnector("onActivate", "force_field_3", "deactivate")
 floor_trigger_41.floortrigger:addConnector("onActivate", "force_field_2", "deactivate")
 floor_trigger_41.floortrigger:addConnector("onActivate", "force_field_4", "deactivate")
+spawn("crab",13,14,2,0,"crab_2")
+crab_2.monster:setAIState("guard")
+crab_2.detectedtimer:setTimerInterval(0)
+crab_2.detectedtimer:setDisableSelf(false)
+crab_2.detectedtimer:setTriggerOnStart(true)
+crab_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("potion_bear_form",14,9,3,0,"potion_bear_form_1")
+potion_bear_form_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+potion_bear_form_1.detectedtimer:setTimerInterval(0)
+potion_bear_form_1.detectedtimer:setDisableSelf(false)
+potion_bear_form_1.detectedtimer:setTriggerOnStart(true)
+potion_bear_form_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("lock_pick",13,9,1,0,"lock_pick_3")
+lock_pick_3.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+lock_pick_3.item:setStackSize(10)
+lock_pick_3.detectedtimer:setTimerInterval(0)
+lock_pick_3.detectedtimer:setDisableSelf(false)
+lock_pick_3.detectedtimer:setTriggerOnStart(true)
+lock_pick_3.detectedtimer:setCurrentLevelOnly(true)
 
 --- level 4 ---
 

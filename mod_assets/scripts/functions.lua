@@ -1,6 +1,5 @@
 assassinations = {0,0,0,0}
 night_stalker = {1,1,1,1}
-herb_timer = {0,0,0,0}
 hunter_crit = {0,0,0,0}
 hunter_timer = {0,0,0,0}
 hunter_max = {0,0,0,0}
@@ -97,7 +96,7 @@ end
 function teststart()
 	functions2.script.start()
 	if Editor.isRunning() then
-		party.party:getChampionByOrdinal(1):setClass("fighter")
+		party.party:getChampionByOrdinal(1):setClass("tinkerer")
 		party.party:getChampionByOrdinal(2):setClass("corsair")
 		party.party:getChampionByOrdinal(3):setClass("druid")
 		party.party:getChampionByOrdinal(4):setClass("elementalist")
@@ -193,10 +192,11 @@ function teststart()
 			end
 			
 			if champion:getClass() == "tinkerer" then
-				for s=13,14 do champion:removeItemFromSlot(s) end
+				for s=13,15 do champion:removeItemFromSlot(s) end
 				champion:insertItem(13,spawn("flintlock").item)
 				champion:insertItem(14,spawn("pellet_box").item)
 				champion:getItem(14):setStackSize(50)
+				champion:insertItem(15,spawn("great_axe").item)
 			end
 			
 			-- Races
@@ -341,22 +341,22 @@ end
 
 function setWeight(item, trait, multiplier)
 	if item and item:hasTrait(trait) then
-		if supertable[20][item.go.id] == nil then
-			supertable[20][item.go.id] = item.go.item:getWeight()
+		if supertable[14][item.go.id] == nil then
+			supertable[14][item.go.id] = item.go.item:getWeight()
 			item.go.item:setWeight(item.go.item:getWeight() * multiplier)
 		end
 	end
 end
 
 function resetItemWeight(item, trait)
-	if item and item:hasTrait(trait) and supertable[20][item.go.id] ~= nil then
-		item.go.item:setWeight(supertable[20][item.go.id])
-		supertable[20][item.go.id] = nil
+	if item and item:hasTrait(trait) and supertable[14][item.go.id] ~= nil then
+		item.go.item:setWeight(supertable[14][item.go.id])
+		supertable[14][item.go.id] = nil
 	end
 end
 
-b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13 = {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}
-supertable = { b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13 }
+b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b20 = {}, {}, {}, {}, {}, {}, { {},{},{},{} }, { {},{},{},{},{},{} }, { {},{} }, {}, {}, {}, {}, {}
+supertable = { b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b20  }
 
 function onEquipItem(self, champion, slot)	
 	local name = self.go.id
@@ -387,10 +387,20 @@ function onEquipItem(self, champion, slot)
 			end
 			
 			if self.go.equipmentitem then supertable[6][name] = self.go.equipmentitem:getCriticalChance() end
-			if self.go.equipmentitem then supertable[7][name] = self.go.equipmentitem:getResistFire() end
-			if self.go.equipmentitem then supertable[8][name] = self.go.equipmentitem:getResistShock() end
-			if self.go.equipmentitem then supertable[9][name] = self.go.equipmentitem:getResistCold() end
-			if self.go.equipmentitem then supertable[10][name] = self.go.equipmentitem:getResistPoison() end
+			if self.go.equipmentitem then supertable[7][1][name] = self.go.equipmentitem:getResistFire() end
+			if self.go.equipmentitem then supertable[7][2][name] = self.go.equipmentitem:getResistShock() end
+			if self.go.equipmentitem then supertable[7][3][name] = self.go.equipmentitem:getResistCold() end
+			if self.go.equipmentitem then supertable[7][4][name] = self.go.equipmentitem:getResistPoison() end
+
+			if self.go.equipmentitem then supertable[8][1][name] = self.go.equipmentitem:getStrength() end
+			if self.go.equipmentitem then supertable[8][2][name] = self.go.equipmentitem:getDexterity() end
+			if self.go.equipmentitem then supertable[8][3][name] = self.go.equipmentitem:getVitality() end
+			if self.go.equipmentitem then supertable[8][4][name] = self.go.equipmentitem:getWillpower() end
+			if self.go.equipmentitem then supertable[8][5][name] = self.go.equipmentitem:getHealthRegenerationRate() end
+			if self.go.equipmentitem then supertable[8][6][name] = self.go.equipmentitem:getEnergyRegenerationRate() end
+
+			if self.go.equipmentitem then supertable[9][1][name] = self.go.equipmentitem:getProtection() end
+			if self.go.equipmentitem then supertable[9][2][name] = self.go.equipmentitem:getEvasion() end
 
 			if self.go.item:getSecondaryAction() and self.go:getComponent(self.go.item:getSecondaryAction()) then
 				supertable[13][name] = self.go:getComponent(self.go.item:getSecondaryAction()):getAttackPower()
@@ -519,17 +529,43 @@ function resetItem(self, name)
 		if tinker_item[6][name] then real_crit = tinker_item[6][name] else real_crit = supertable[6][name] end
 		if self.go.equipmentitem then self.go.equipmentitem:setCriticalChance(real_crit) end
 	end
-	if supertable[7][name] ~= nil then
-		if self.go.equipmentitem then self.go.equipmentitem:setResistFire(supertable[7][name]) end
+	if supertable[7][1][name] ~= nil then
+		if self.go.equipmentitem then self.go.equipmentitem:setResistFire(supertable[7][1][name]) end
 	end
-	if supertable[8][name] ~= nil then
-		if self.go.equipmentitem then self.go.equipmentitem:setResistShock(supertable[8][name]) end
+	if supertable[7][2][name] ~= nil then
+		if self.go.equipmentitem then self.go.equipmentitem:setResistShock(supertable[7][2][name]) end
 	end
-	if supertable[9][name] ~= nil then
-		if self.go.equipmentitem then self.go.equipmentitem:setResistCold(supertable[9][name]) end
+	if supertable[7][3][name] ~= nil then
+		if self.go.equipmentitem then self.go.equipmentitem:setResistCold(supertable[7][3][name]) end
 	end
-	if supertable[10][name] ~= nil then
-		if self.go.equipmentitem then self.go.equipmentitem:setResisPoison(supertable[10][name]) end
+	if supertable[7][4][name] ~= nil then
+		if self.go.equipmentitem then self.go.equipmentitem:setResistPoison(supertable[7][4][name]) end
+	end
+
+	if supertable[8][1][name] ~= nil then
+		if self.go.equipmentitem then self.go.equipmentitem:setStrength(supertable[8][1][name]) end
+	end
+	if supertable[8][2][name] ~= nil then
+		if self.go.equipmentitem then self.go.equipmentitem:setDexterity(supertable[8][2][name]) end
+	end
+	if supertable[8][3][name] ~= nil then
+		if self.go.equipmentitem then self.go.equipmentitem:setVitality(supertable[8][3][name]) end
+	end
+	if supertable[8][4][name] ~= nil then
+		if self.go.equipmentitem then self.go.equipmentitem:setWillpower(supertable[8][4][name]) end
+	end
+	if supertable[8][5][name] ~= nil then
+		if self.go.equipmentitem then self.go.equipmentitem:setHealthRegenerationRate(supertable[8][5][name]) end
+	end
+	if supertable[8][6][name] ~= nil then
+		if self.go.equipmentitem then self.go.equipmentitem:setEnergyRegenerationRate(supertable[8][6][name]) end
+	end
+
+	if supertable[9][1][name] ~= nil then
+		if self.go.equipmentitem then self.go.equipmentitem:setProtection(supertable[9][1][name]) end
+	end
+	if supertable[9][2][name] ~= nil then
+		if self.go.equipmentitem then self.go.equipmentitem:setEvasion(supertable[9][2][name]) end
 	end
 	-- if supertable[12][name] ~= nil then
 		-- local item = self.go.item
@@ -544,7 +580,23 @@ end
 
 function clearSupertable(self, name)
 	for i=1,13 do
-		supertable[i][name] = nil
+		if i < 7 or i > 9 then
+			supertable[i][name] = nil
+		else
+			if i == 7 then
+				for j=1,4 do
+					supertable[i][j][name] = nil
+				end
+			elseif i == 8 then
+				for j=1,6 do
+					supertable[i][j][name] = nil
+				end
+			else
+				for j=1,2 do
+					supertable[i][j][name] = nil
+				end
+			end
+		end
 	end
 end
 -------------------------------------------------------------------------------------------------------
@@ -612,15 +664,16 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 			end
 		end
 	end
-	print(secondary:getAttackPower())
+	
 	-- Bearclaw Gauntlets - Increases power attack damage by 15%
 	if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "bearclaw_gauntlets" then
 		if secondary ~= self then
-			local amount = champion:getItem(ItemSlot.Gloves):hasTrait("upgraded") and 1.25 or 1.15
+			local amount = (champion:getItem(ItemSlot.Gloves):hasTrait("upgraded") and 1.30 or 1.15)
 			secondary:setAttackPower(secondary:getAttackPower() * amount)
 		end
 	end
 
+	-- Steel Armcand
 	if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "steel_armband" then
 		local bonus = 4
 		if champion:getItem(ItemSlot.Head) then bonus = bonus - 1 end
@@ -633,7 +686,7 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 			end
 		end
 	end
-	print("after " , secondary:getAttackPower())
+	
 	-- Brutalizer damage bonus to melee
 	if champion:hasTrait("brutalizer") then
 		self:setAttackPower(self:getAttackPower() * (1.00 + (champion:getCurrentStat("strength") * 0.01)))		
@@ -663,7 +716,7 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 		end
 		if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "steel_knuckles" then
 			if (item and item:hasTrait("light_weapon")) or (item and item:hasTrait("staff")) then
-				chance = chance + 0.06
+				chance = (champion:getItem(ItemSlot.Gloves):hasTrait("upgraded") and chance + 0.12 or chance + 0.06 )
 			end
 		end
 
@@ -789,6 +842,12 @@ function onMissileAttack(self, champion, slot, chainIndex, item)
 	else
 		set_c("double_attack", champion:getOrdinal(), nil)
 	end
+
+	-- Item bonuses
+	-- Huntsman Cloak
+	if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).name == "huntsman_cloak" then
+		self:setAttackPower(self:getAttackPower() * (champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 1.2 or 1.1))
+	end
 end
 
 function psionicArrow(id)
@@ -885,19 +944,25 @@ function onFirearmAttack(self, champion, slot)
 						corsairItem = item2.go.name
 						
 						if item2:hasTrait("upgraded") then
-							tinker_item[10][item2.go.id] = item2.go.item:getUiName()
+							tinker_item[11][item2.go.id] = item2.go.item:getUiName()
 							tinker_item[1][item2.go.id] = supertable[1][item2.go.id]
 							tinker_item[2][item2.go.id] = supertable[2][item2.go.id]
 							tinker_item[4][item2.go.id] = supertable[4][item2.go.id]
 							tinker_item[5][item2.go.id] = supertable[5][item2.go.id]
 							tinker_item[6][item2.go.id] = supertable[6][item2.go.id]
-							tinker_item[7][item2.go.id] = supertable[7][item2.go.id]
-							tinker_item[8][item2.go.id] = supertable[8][item2.go.id]
-							tinker_item[9][item2.go.id] = supertable[9][item2.go.id]
-							tinker_item[10][item2.go.id] = supertable[10][item2.go.id]
-							tinker_item[20][item2.go.id] = supertable[20][item2.go.id]
+							tinker_item[7][1][item2.go.id] = supertable[7][1][item2.go.id]
+							tinker_item[7][2][item2.go.id] = supertable[7][2][item2.go.id]
+							tinker_item[7][3][item2.go.id] = supertable[7][3][item2.go.id]
+							tinker_item[7][4][item2.go.id] = supertable[7][4][item2.go.id]
+							tinker_item[8][1][item2.go.id] = supertable[8][1][item2.go.id]
+							tinker_item[8][2][item2.go.id] = supertable[8][2][item2.go.id]
+							tinker_item[8][3][item2.go.id] = supertable[8][3][item2.go.id]
+							tinker_item[8][4][item2.go.id] = supertable[8][4][item2.go.id]
+							tinker_item[8][5][item2.go.id] = supertable[8][5][item2.go.id]
+							tinker_item[8][6][item2.go.id] = supertable[8][6][item2.go.id]
+							tinker_item[14][item2.go.id] = supertable[14][item2.go.id]
 							for j=1,18 do
-								if item2:hasTrait("upgraded"..j) then tinker_item[11][item2.go.id] = "upgraded"..j end
+								if item2:hasTrait("upgraded"..j) then tinker_item[12][item2.go.id] = "upgraded"..j end
 							end
 						end
 						
@@ -925,18 +990,19 @@ function onPostFirearmAttack(self, champion, slot, secondary2)
 			champion:removeItemFromSlot(otherslot)
 			local newItem = spawn(corsairItem).item
 			
-			if tinker_item[10][corsairItemId] then newItem:setUiName(tinker_item[10][corsairItemId]) end
-			if tinker_item[20][corsairItemId] then newItem:setWeight(tinker_item[20][corsairItemId]) end
-			if tinker_item[11][corsairItemId] then newItem:addTrait(tinker_item[11][corsairItemId]) newItem:addTrait("upgraded") end
+			if tinker_item[11][corsairItemId] then newItem:setUiName(tinker_item[11][corsairItemId]) end
+			if tinker_item[14][corsairItemId] then newItem:setWeight(tinker_item[14][corsairItemId]) end
+			if tinker_item[12][corsairItemId] then newItem:addTrait(tinker_item[12][corsairItemId]) newItem:addTrait("upgraded") end
 			if tinker_item[1][corsairItemId] then newItem.go.firearmattack:setAttackPower(tinker_item[1][corsairItemId]) end
 			if tinker_item[2][corsairItemId] then newItem.go.firearmattack:setCooldown(tinker_item[2][corsairItemId]) end
 			if tinker_item[4][corsairItemId] then newItem.go.firearmattack:setPierce(tinker_item[4][corsairItemId]) end
 			newItem.go:createComponent("EquipmentItem")
 			if tinker_item[5][corsairItemId] then newItem.go.equipmentitem:setAccuracy(tinker_item[5][corsairItemId]) end
 			if tinker_item[6][corsairItemId] then newItem.go.equipmentitem:setCriticalChance(tinker_item[6][corsairItemId]) end
-			if tinker_item[7][corsairItemId] then newItem.go.equipmentitem:setResistFire(tinker_item[7][corsairItemId]) end
-			if tinker_item[8][corsairItemId] then newItem.go.equipmentitem:setResistShock(tinker_item[8][corsairItemId]) end
-			if tinker_item[9][corsairItemId] then newItem.go.equipmentitem:setResistCold(tinker_item[9][corsairItemId]) end
+			if tinker_item[7][1][corsairItemId] then newItem.go.equipmentitem:setResistFire(tinker_item[7][1][corsairItemId]) end
+			if tinker_item[7][2][corsairItemId] then newItem.go.equipmentitem:setResistShock(tinker_item[7][2][corsairItemId]) end
+			if tinker_item[7][3][corsairItemId] then newItem.go.equipmentitem:setResistCold(tinker_item[7][3][corsairItemId]) end
+			if tinker_item[7][4][corsairItemId] then newItem.go.equipmentitem:setResistPoison(tinker_item[7][4][corsairItemId]) end
 			
 			champion:insertItem(otherslot, newItem)			
 			
@@ -1120,6 +1186,7 @@ function onMonsterDealDamage(self, champion, damage)
 		end
 	end
 	
+	-- Reflective Light Armor trait - recover hp and en on first hit from a monster
 	if champion:hasTrait("reflective") then
 		local all_light = functions.script.wearingAll(champion, "light_armor", "clothes")
 		if all_light and not functions.script.get_c("reflective_monster_" .. monster.go.id, champion:getOrdinal()) then
@@ -1128,7 +1195,49 @@ function onMonsterDealDamage(self, champion, damage)
 			champion:setConditionValue("reflective", 5)
 		end
 	end
+end
+
+function onChampionTakesDamage(party, champion, damage, damageType) -- champion takes damage from any source -- no reference to monsters
+	-- Berserker - Berserker Rage
+	for i=1,4 do
+		if party:getChampion(i):getClass() == "fighter" and party:getChampion(i):isAlive() and not party:getChampion(i):hasCondition("berserker_revenge") then
+			party:getChampion(i):setConditionValue("berserker_rage", 20)
+		end
+	end
 	
+	-- Brutalizer - increases damage taken
+	if champion:hasTrait("brutalizer") and damageType ~= "pure" then
+		local str = champion:getCurrentStat("strength")
+		--champion:damage(damage * str * 0.005, "pure")
+	end
+	
+	-- Skills
+	-- Elemental Armor
+	if champion:hasTrait("elemental_armor") then
+		if damageType == "fire" or damageType == "cold" or damageType == "shock" then
+			champion:regainEnergy(math.ceil(champion:getMaxEnergy() * 0.15))
+		end
+	end
+	
+	-- Meditation
+	if champion:hasTrait("meditation") then
+		champion:regainEnergy(math.ceil(champion:getMaxEnergy() * math.random(1,5) * 0.01))
+	end
+
+	-- Items
+	-- Hardstone Bracelet
+	if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "hardstone_bracelet" then
+		if math.random() <= 0.2 then
+			champion:setConditionValue("hardstone", 10)
+		end
+	end
+
+	-- Scaled Cloak
+	if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "scaled_cloak" then
+		if math.random() <= (champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 0.25 or 0.1) then
+			spells_functions.script.elementalShields(30, champion, damageType == "fire", false, false, false)
+		end
+	end
 end
 
 -------------------------------------------------------------------------------------------------------
@@ -1144,8 +1253,7 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 	end
 	
 	-- Venomancer for melee attacks
-	if (champion:hasTrait("venomancer") and math.random() <= 0.1 + (champion:hasTrait("plague") and 0.05 or 0)) 
-	or ((champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers):hasTrait("venomancer")) and math.random() <= 0.1) then	
+	if champion:hasTrait("venomancer") and math.random() <= 0.1 + (champion:hasTrait("plague") and 0.05 or 0)  then	
 		monster:setCondition("poisoned", 25)
 		if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
 	end	
@@ -1216,6 +1324,14 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 			end		
 		end
 	end
+
+	-- Serpent Bracer poison chance
+	if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "serpent_bracer" then
+		if math.random() <= 0.1 then
+			monster:setCondition("poisoned", 25)
+			if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
+		end
+	end
 	
 	-- Tinkerer's Elemental Surge
 	if champion:getClass() == "tinkerer" then
@@ -1269,7 +1385,7 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 	local monster = self
 	
 	-- Venomancer for ranged attacks
-	if (champion:hasTrait("venomancer") and math.random() <= 0.1) or ((champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers):hasTrait("venomancer")) and math.random() <= 0.1) then	
+	if champion:hasTrait("venomancer") and math.random() <= 0.1 + (champion:hasTrait("plague") and 0.05 or 0) then
 		monster:setCondition("poisoned", 25)
 		if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
 	end	
@@ -1303,7 +1419,16 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 		end
 		functions.script.set_c("sneak_attack", champion:getOrdinal(), false)
 	end
+
+	-- Serpent Bracer poison chance
+	if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "serpent_bracer" then
+		if math.random() <= 0.1 then
+			monster:setCondition("poisoned", 25)
+			if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
+		end
+	end
 	
+	-- Assassination - when monster takes a hit and dies
 	if self:getHealth() - damage <= 0 then
 		if champion:getClass() == "assassin_class" and champion:hasTrait("assassination") and backAttack then
 			assassination(champion, self)
@@ -1649,14 +1774,83 @@ function bleed(monster, action) -- Called by monsters within their MonsterMove o
 		end
 		if math.random() <= 0.5 then
 			if action == "walk" then
-			hitMonster(monster.go.id, math.random(monster:getHealth() * 0.015, monster:getHealth() * 0.03), "FF0000", nil, "physical", 1)
+				hitMonster(monster.go.id, math.random(monster:getHealth() * 0.015, monster:getHealth() * 0.03), "FF0000", nil, "physical", 1)
 			elseif action == "dot" then
-			hitMonster(monster.go.id, math.random(monster:getHealth() * 0.005, monster:getHealth() * 0.01), "FF0000", nil, "physical", 1)
+				hitMonster(monster.go.id, math.random(monster:getHealth() * 0.005, monster:getHealth() * 0.01), "FF0000", nil, "physical", 1)
 			end
 			monster.go:createComponent("Particle", "splatter")
 			monster.go.splatter:setOffset(vec(math.random() - 0.4, math.random() - 0.4 + 1, math.random() - 0.4))
 			monster.go.splatter:setParticleSystem("hit_blood")
 			monster.go.splatter:setDestroySelf(true)
+		end
+	end
+end
+
+function burnMonster(self, e, champion, monster) -- self = projectile
+	local skillLevel = champion:getSkillLevel("elemental_magic")
+	local baseChance = 0.2 + (skillLevel * 0.02)
+		if e.name == "fireburst" and champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "forestfire_bracer" then
+			baseChance = baseChance + 0.15
+		end
+	local chance = baseChance * (1 + (champion:getResistance("fire") * 0.02))
+	local duration = math.min(math.max(math.random() * (6 + champion:getSkillLevel("elemental_magic") + champion:getSkillLevel("witchcraft")), 6), 18)
+
+	if monster:isAlive() and math.random() <= chance then
+		if chance > 1 then -- duration increses if chance over 100%
+			duration = duration * chance
+		end
+		monster:setCondition("burning", duration)
+		-- mark condition so that exp is awarded if monster is killed by the condition
+		local burning = monster.go.burning
+		local ordinal = self:getCastByChampion()
+		if burning and ordinal then burning:setCausedByChampion(ordinal) end
+	end
+end
+
+function freezeMonster(self, e, champion, monster) -- self = projectile
+	local skillLevel = champion:getSkillLevel("elemental_magic")
+	local baseChance = 0.2
+		if e.name == "frostburst_cast" and champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "coldspike_bracelet" then
+			baseChance = baseChance + 0.05
+		end
+	local chance = baseChance * (1 + (champion:getResistance("cold") * 0.02))
+	local duration = math.min(math.max(math.random() * (2 + champion:getSkillLevel("elemental_magic") + champion:getSkillLevel("witchcraft")), 2), 10)	
+		if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "nomad_mittens" then
+			duration = (champion:getItem(ItemSlot.Gloves):hasTrait("upgraded") and duration + 2 or duration + 1)
+		end
+	--if self.go.name == "frost_burst" then end
+
+	if monster:isAlive() and math.random() <= chance then	
+		monster:setCondition("frozen", duration)
+	end
+end
+
+function shock_arc(self, e, champion, monster) -- self = projectile
+	local skillLevel = champion:getSkillLevel("witchcraft")
+	local damage = e.tiledamager:getAttackPower() * (0.75 + skillLevel / 20)
+	local baseChance = 0.1
+		if e.name == "shockburst" and champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "torment_bracer" then
+			baseChance = baseChance + 0.1
+		end
+	if math.random() > baseChance * (1 + (champion:getResistance("shock") * 0.02)) then return end
+	local mList = {}
+	for d=0,8 do
+		local dx = math.floor(d / 3) - 1
+		local dy = ((d-1) % 3) - 1
+		for ent in Dungeon.getMap(party.level):entitiesAt(monster.go.x + dx, monster.go.y + dy) do
+			if ent.monster and ent.monster ~= monster then
+				table.insert(mList, ent.monster)
+			end
+		end
+	end
+	if #mList > 0 then
+		local newMonster = mList[ math.random( #mList ) ]
+		if newMonster and newMonster ~= monster then
+			local a = spawn("shockburst", party.level, newMonster.go.x, newMonster.go.y, newMonster.go.facing, newMonster.go.elevation)
+			if a.tiledamager then 
+				a.tiledamager:setCastByChampion(champion:getOrdinal()) 
+				a.tiledamager:setAttackPower(damage)
+			end
 		end
 	end
 end
@@ -1778,7 +1972,7 @@ function empowerElement(champion, element, multi)
 		end	
 		
 		if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).name == "nomad_mittens" then
-			f = f * 1.05
+			f = (champion:getItem(ItemSlot.Gloves):hasTrait("upgraded") and f * 1.15 or f * 1.05)
 		end	
 		
 		if champion:hasTrait("imperium_arcana") then
@@ -1941,8 +2135,8 @@ end
 -------------------------------------------------------------------------------------------------------
 
 tinkering_level = { 0,0,0,0 }
-a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13 = {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}
-tinker_item = { a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13 }
+a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a20 = {}, {}, {}, {}, {}, {}, { {},{},{},{} }, { {},{},{},{},{},{} }, { {},{} }, {}, {}, {}, {}, {}
+tinker_item = { a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a20  }
 
 function tinkererUpgrade(self, champion, container, slot, button)
 	local item = champion:getItem(slot)
@@ -1950,7 +2144,7 @@ function tinkererUpgrade(self, champion, container, slot, button)
 	
 	if item then 
 		-- Clear lower level upgrades
-		for i=1,18 do
+		for i=1,13 do
 			if i ~= level and item:hasTrait("upgraded"..i) then
 				local name = item.go.id .. "tinker"
 				
@@ -1968,16 +2162,26 @@ function tinkererUpgrade(self, champion, container, slot, button)
 					equipItem:setPierce(supertable[4][name])
 					item.go.equipmentitem:setAccuracy(supertable[5][name])
 					item.go.equipmentitem:setCriticalChance(supertable[6][name])
-					item.go.equipmentitem:setResistFire(supertable[7][name])
-					item.go.equipmentitem:setResistShock(supertable[8][name])
-					item.go.equipmentitem:setResistCold(supertable[9][name])
-					item.go.equipmentitem:setResistPoison(supertable[10][name])
+					item.go.equipmentitem:setResistFire(supertable[7][1][name])
+					item.go.equipmentitem:setResistShock(supertable[7][2][name])
+					item.go.equipmentitem:setResistCold(supertable[7][3][name])
+					item.go.equipmentitem:setResistPoison(supertable[7][4][name])
+					item.go.equipmentitem:setStrength(supertable[8][1][name])
+					item.go.equipmentitem:setDexterity(supertable[8][2][name])
+					item.go.equipmentitem:setVitality(supertable[8][3][name])
+					item.go.equipmentitem:setWillpower(supertable[8][4][name])
+					item.go.equipmentitem:setHealthRegenerationRate(supertable[8][5][name])
+					item.go.equipmentitem:setEnergyRegenerationRate(supertable[8][6][name])
+					item.go.equipmentitem:setProtection(supertable[9][1][name])
+					item.go.equipmentitem:setEvasion(supertable[9][2][name])
+					if item.go:getComponent(item.go.item:getSecondaryAction()) then item.go:getComponent(item.go.item:getSecondaryAction()):setAttackPower(supertable[13][name]) end
+
 					if equipItem:getClass() == "firearm" then equipItem:setRange(supertable[3][name]) end
 					for j=1,12 do
 						supertable[j][name] = nil
 					end
 					item:removeTrait("upgraded"..i)
-					item:setWeight(supertable[20][item.go.id])
+					item:setWeight(supertable[14][item.go.id])
 				end				
 			end
 		end
@@ -1994,12 +2198,12 @@ function tinkererUpgrade(self, champion, container, slot, button)
 				setMouseItem(nil)
 			end
 			-- Save base name
-			if supertable[10][item.go.id] == nil then
-				supertable[10][item.go.id] = item:getUiName()
-				supertable[20][item.go.id] = item:getWeight()
+			if supertable[11][item.go.id] == nil then
+				supertable[11][item.go.id] = item:getUiName()
+				supertable[14][item.go.id] = item:getWeight()
 			end
 			-- Set new base info
-			item:setUiName("Upgraded "..supertable[10][item.go.id].." (Level "..level..")")
+			item:setUiName("Upgraded "..supertable[11][item.go.id].." (Level "..level..")")
 			item:addTrait("upgraded"..level)
 			item:addTrait("upgraded")
 			playSound("tinker")
@@ -2010,87 +2214,182 @@ function tinkererUpgrade(self, champion, container, slot, button)
 			local boost = 0
 			
 			boost = math.floor(champion:getSkillLevel("athletics") / 5) * 0.12
-			item:setWeight(supertable[20][item.go.id] + ((5 - ((level-1) * 0.5)) * (1 - (champion:getSkillLevel("athletics") * 0.12) - boost)))
-			if item:hasTrait("shield") then
-				
-				boost = champion:getSkillLevel("block") + math.floor(champion:getSkillLevel("block") / 5)
-				equipItem:setEvasion(math.floor(equipItem:getEvasion() * (1.1 + (level * 0.09))) + boost)
-				if equipItem:getDexterity() ~= nil then
-					equipItem:setDexterity(math.floor(equipItem:getDexterity() * (1.2 + (level * 0.06))))
-				end
-				if champion:getSkillLevel("elemental_magic") > 0 then
-					local random_element = math.random()
-					boost = math.floor(champion:getSkillLevel("elemental_magic")/5) * 3
-					if random_element < 0.3 then	
-						item.go.equipmentitem:setResistFire(math.ceil(champion:getSkillLevel("elemental_magic") * (2 + (level * 0.1)) + boost))
-					elseif random_element >= 0.3 and random_element < 0.6 then
-						item.go.equipmentitem:setResistShock(math.ceil(champion:getSkillLevel("elemental_magic") * (2 + (level * 0.1)) + boost))
-					else
-						item.go.equipmentitem:setResistCold(math.ceil(champion:getSkillLevel("elemental_magic") * (2 + (level * 0.1)) + boost))
-					end
-				end
-				return
-			end
+			item:setWeight(supertable[14][item.go.id] + ((5 - ((level-1) * 0.5)) * (1 - (champion:getSkillLevel("athletics") * 0.12) - boost)))
 			
 			-- Upgrade weapons
-			if item:hasTrait("firearm") then
+			if item.go.firearmattack then
 				equipItem = item.go.firearmattack
 				bonus = getBonus(champion:getSkillLevel("firearms"), 0.05)
-			elseif item:hasTrait("axe") or item:hasTrait("mace") or item:hasTrait("sword") then
+			elseif item.go.meleeattack then
 				equipItem = item.go.meleeattack
 				if item:hasTrait("light_weapon") then bonus = getBonus(champion:getSkillLevel("light_weapons"), 0.05) end
-				if item:hasTrait("heavy_weapon") then bonus = getBonus(champion:getSkillLevel("heavy_weapons"), 0.05) end				
+				if item:hasTrait("heavy_weapon") then bonus = getBonus(champion:getSkillLevel("heavy_weapons"), 0.05) end		
+			elseif item.go.rangedattack then
+				equipItem = item.go.rangedattack
+				bonus = getBonus(champion:getSkillLevel("ranged_weapons"), 0.05)
+			elseif item.go.throwattack then
+				equipItem = item.go.throwattack
+				bonus = getBonus(champion:getSkillLevel("ranged_weapons"), 0.05)
 			end
 			
 			local name = item.go.id .. "tinker"
 			if equipItem then
 				supertable[1][name] = equipItem:getAttackPower()
 				supertable[2][name] = equipItem:getCooldown()
-				supertable[4][name] = equipItem:getPierce()
-				
+				if equipItem.go.firearmattack then supertable[3][name] = equipItem:getRange() end
+				if not equipItem.go.rangedattack and not equipItem.go.throwattack then supertable[4][name] = equipItem:getPierce() end
+				supertable[5][name] = item.go.equipmentitem and item.go.equipmentitem:getAccuracy() or 0
+				supertable[6][name] = item.go.equipmentitem and item.go.equipmentitem:geCriticalChance() or 0
+				supertable[7][1][name] = item.go.equipmentitem and item.go.equipmentitem:getResistFire() or 0
+				supertable[7][2][name] = item.go.equipmentitem and item.go.equipmentitem:getResistShock() or 0
+				supertable[7][3][name] = item.go.equipmentitem and item.go.equipmentitem:getResistCold() or 0
+				supertable[7][4][name] = item.go.equipmentitem and item.go.equipmentitem:getResistPoison() or 0
+				supertable[8][1][name] = item.go.equipmentitem and item.go.equipmentitem:getStrength() or 0
+				supertable[8][1][name] = item.go.equipmentitem and item.go.equipmentitem:getStrength() or 0
+				supertable[8][2][name] = item.go.equipmentitem and item.go.equipmentitem:getDexterity() or 0
+				supertable[8][3][name] = item.go.equipmentitem and item.go.equipmentitem:getVitality() or 0
+				supertable[8][4][name] = item.go.equipmentitem and item.go.equipmentitem:getWillpower() or 0
+				supertable[8][5][name] = item.go.equipmentitem and item.go.equipmentitem:getHealthRegenerationRate() or 0
+				supertable[8][6][name] = item.go.equipmentitem and item.go.equipmentitem:getEnergyRegenerationRate() or 0
+				supertable[9][1][name] = item.go.equipmentitem and item.go.equipmentitem:getProtection() or 0
+				supertable[9][2][name] = item.go.equipmentitem and item.go.equipmentitem:getEvasion() or 0
+
 				equipItem:setAttackPower(math.ceil(equipItem:getAttackPower() * (1.05 + (level * 0.05)) + (boost * 2)))
+
 				local secondary = item.go:getComponent(item:getSecondaryAction() and item:getSecondaryAction() or "")
 				if secondary then
 					updateSecondary(equipItem, secondary, item:getSecondaryAction())
 				end
 				
-				if champion:getSkillLevel("concentration") > 0 then
-					bonus = getBonus(champion:getSkillLevel("concentration"), 0.05)
-					equipItem:setCooldown(supertable[2][name] * (1 - ((level * 0.02) + (0.1 * bonus))))
+				-- Crafting expertise bonus
+				if champion:getClass() == "tinkerer" then
+				local expertise = functions.script.get_c("crafting_expertise", champion:getOrdinal())
+					expertise = (expertise ~= nil and expertise or 0)
+				end
+
+				local bonusList = {}
+				if item:hasTrait("light_armor") then
+					bonusList = {"resist", "stat", "evasion" }
+				elseif item:hasTrait("heavy_armor") then
+					bonusList = {"resist", "stat", "protection"}
+				elseif item:hasTrait("shield") then
+					bonusList = {"resist", "stat", "protection", "evasion"}
+				elseif item:hasTrait("light_weapon") or item:hasTrait("heavy_weapon") or item:hasTrait("missile_weapon") or item:hasTrait("throwing_weapon") or item:hasTrait("firearm") then
+					--bonusList = {"cooldown", "accuracy", "critical", "resist", "stat"}
+					bonusList = {"stat"}
 				end
 				
-				item.go:createComponent("EquipmentItem")
-				if champion:getSkillLevel("accuracy") > 0 then
-					item.go.equipmentitem:setAccuracy(math.min(champion:getSkillLevel("accuracy"),4) + math.floor(level / 3) * 2)
+				local bonus = bonusList[math.random(#bonusList)]
+				if not item.go.equipmentitem then
+					item.go:createComponent("EquipmentItem")
 				end
-				if champion:getSkillLevel("critical") > 0 then
-					item.go.equipmentitem:setCriticalChance(math.min(champion:getSkillLevel("critical"),4))
-					item:setGameEffect("Critical Chance +" .. item.go.equipmentitem:getCriticalChance() .. "%")
-				end
-				if champion:getSkillLevel("elemental_magic") > 0 then
-					local random_element = math.random()
-					boost = math.floor(champion:getSkillLevel("elemental_magic")/5) * 2
-					if random_element < 0.3 then	
-						item.go.equipmentitem:setResistFire(math.ceil(champion:getSkillLevel("elemental_magic") * (1.5 + (level * 0.1)) + boost))
-					elseif random_element >= 0.3 and random_element < 0.6 then
-						item.go.equipmentitem:setResistShock(math.ceil(champion:getSkillLevel("elemental_magic") * (1.5 + (level * 0.1)) + boost))
+
+				local gameEffect = item:getGameEffect() ~= nil and item:getGameEffect() or ""
+
+				if bonus == "cooldown" then
+					equipItem:setCooldown(supertable[2][name] * (1 - (math.random(10,15) * 0.01)))
+				elseif bonus == "accuracy" then
+					if supertable[5][name] == 0 then
+						item.go.equipmentitem:setAccuracy(math.random(6,12))
 					else
-						item.go.equipmentitem:setResistCold(math.ceil(champion:getSkillLevel("elemental_magic") * (1.5 + (level * 0.1)) + boost))
+						item.go.equipmentitem:setAccuracy(supertable[5][name] * (1 + (math.random(16,32) * 0.01)))
+					end
+				elseif bonus == "critical" then
+					if supertable[6][name] == 0 then
+						item.go.equipmentitem:setCriticalChance(math.random(3,6))
+						item:setGameEffect(gameEffect .. "\nCritical Chance +" .. item.go.equipmentitem:getCriticalChance() .. "%")
+					else
+						item.go.equipmentitem:setCriticalChance(supertable[6][name] * (1 + (math.random(75,100) * 0.01)))
+						item:setGameEffect(gameEffect .. "\nCritical Chance +" .. item.go.equipmentitem:getCriticalChance() .. "%")
+					end
+				elseif bonus == "resist" then
+					local random_element = math.random(1,3)
+					if random_element == 1 then
+						item.go.equipmentitem:setResistFire(math.random(6,12))
+					elseif random_element == 2 then
+						item.go.equipmentitem:setResistShock(math.random(6,12))
+					else
+						item.go.equipmentitem:setResistCold(math.random(6,12))
+					end
+				elseif bonus == "stat" then
+					local stat = math.random(1,6)
+					if stat == 1 then
+						if supertable[8][1][name] == 0 then
+							item.go.equipmentitem:setStrength(math.random(2,4))
+						else
+							item.go.equipmentitem:setStrength(supertable[8][1][name] * (1 + (math.random(50,80) * 0.01)))
+						end
+					elseif stat == 2 then						
+						if supertable[8][2][name] == 0 then
+							item.go.equipmentitem:setDexterity(math.random(2,4))
+						else
+							item.go.equipmentitem:setDexterity(supertable[8][2][name] * (1 + (math.random(50,80) * 0.01)))
+						end
+					elseif stat == 3 then
+						if supertable[8][3][name] == 0 then
+							item.go.equipmentitem:setVitality(math.random(2,4))
+						else
+							item.go.equipmentitem:setVitality(supertable[8][3][name] * (1 + (math.random(50,80) * 0.01)))
+						end
+					elseif stat == 4 then
+						if supertable[8][4][name] == 0 then
+							item.go.equipmentitem:setWillpower(math.random(2,4))
+						else
+							item.go.equipmentitem:setWillpower(supertable[8][4][name] * (1 + (math.random(50,80) * 0.01)))
+						end
+					elseif stat == 5 then
+						if supertable[8][5][name] == 0 then
+							item.go.equipmentitem:setHealthRegenerationRate(math.random(10,20))
+						else
+							item.go.equipmentitem:setHealthRegenerationRate(supertable[8][5][name] * (1 + (math.random(33,50) * 0.01)))
+						end
+					else
+						if supertable[8][6][name] == 0 then
+							item.go.equipmentitem:setEnergyRegenerationRate(math.random(10,20))
+						else
+							item.go.equipmentitem:setEnergyRegenerationRate(supertable[8][6][name] * (1 + (math.random(33,50) * 0.01)))
+						end
+					end
+				elseif bonus == "protection" then
+					if supertable[9][1][name] == 0 then
+						item.go.equipmentitem:setProtection(math.random(2,5))
+					else
+						item.go.equipmentitem:setProtection(supertable[8][1][name] * (1 + (math.random(24,32) * 0.01)))
+					end
+				elseif bonus == "evasion" then
+					if supertable[9][2][name] == 0 then
+						item.go.equipmentitem:setEvasion(math.random(2,7))
+					else
+						item.go.equipmentitem:setEvasion(supertable[8][2][name] * (1 + (math.random(24,32) * 0.01)))
 					end
 				end
 				
 				tinker_item[1][item.go.id] = equipItem:getAttackPower()
 				tinker_item[2][item.go.id] = equipItem:getCooldown()
-				tinker_item[3][item.go.id] = 0
-				tinker_item[4][item.go.id] = equipItem:getPierce()
+				tinker_item[3][item.go.id] = supertable[3][name]
+				tinker_item[4][item.go.id] = supertable[4][name]
 				tinker_item[5][item.go.id] = item.go.equipmentitem:getAccuracy()
 				tinker_item[6][item.go.id] = item.go.equipmentitem:getCriticalChance()
-				tinker_item[7][item.go.id] = item.go.equipmentitem:getResistFire()
-				tinker_item[8][item.go.id] = item.go.equipmentitem:getResistShock()
-				tinker_item[9][item.go.id] = item.go.equipmentitem:getResistCold()
-				tinker_item[10][item.go.id] = item:getUiName()
-				tinker_item[11][item.go.id] = "upgraded"..level
-				tinker_item[20][item.go.id] = item:getWeight()
+
+				tinker_item[7][1][item.go.id] = item.go.equipmentitem:getResistFire()
+				tinker_item[7][2][item.go.id] = item.go.equipmentitem:getResistShock()
+				tinker_item[7][3][item.go.id] = item.go.equipmentitem:getResistCold()
+				tinker_item[7][4][item.go.id] = item.go.equipmentitem:getResistPoison()
+
+				tinker_item[8][1][item.go.id] = item.go.equipmentitem:getStrength()
+				tinker_item[8][2][item.go.id] = item.go.equipmentitem:getDexterity()
+				tinker_item[8][3][item.go.id] = item.go.equipmentitem:getVitality()
+				tinker_item[8][4][item.go.id] = item.go.equipmentitem:getWillpower()
+				tinker_item[8][5][item.go.id] = item.go.equipmentitem:getHealthRegenerationRate()
+				tinker_item[8][6][item.go.id] = item.go.equipmentitem:getEnergyRegenerationRate()
+
+				tinker_item[9][1][item.go.id] = item.go.equipmentitem:getProtection()
+				tinker_item[9][2][item.go.id] = item.go.equipmentitem:getEvasion()
+
+				tinker_item[11][item.go.id] = item:getUiName()
+				tinker_item[12][item.go.id] = "upgraded"..level
+				if item.go:getComponent(item.go.item:getSecondaryAction()) then tinker_item[13][item.go.id] = item.go:getComponent(item.go.item:getSecondaryAction()):getAttackPower() end
+				tinker_item[14][item.go.id] = item:getWeight()
 			end
 		end
 	end

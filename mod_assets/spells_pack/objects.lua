@@ -32,25 +32,19 @@ function hit(self, what, entity)
 		end
 	end
 	
-	if self:getCastByChampion() and entity.monster then
+	if self:getCastByChampion() and entity.monster and e.tiledamager then
 		local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
 		if champion:hasTrait("voodoo") then
-			spells_functions.script.voodoo(self, champion, entity)
+			spells_functions.script.voodoo(self, e, champion, entity.monster)
 		end
-		
-		if e.tiledamager:getDamageType() == "shock" then
-			spells_functions.script.shock_arc(self, champion, entity.monster)
-		end
-		
 		if e.tiledamager:getDamageType() == "fire" then
-			local skillLevel = champion:getSkillLevel("elemental_magic")
-			if monster:isAlive() and skillLevel >= 3 and math.random() <= 0.3 then
-				monster:setCondition("burning", skillLevel * 5)
-				-- mark condition so that exp is awarded if monster is killed by the condition
-				local burning = monster.go.burning
-				local ordinal = self:getCastByChampion()
-				if burning and ordinal then burning:setCausedByChampion(ordinal) end
-			end
+			functions.script.burnMonster(self, e, champion, entity.monster)
+		end
+		if e.tiledamager:getDamageType() == "shock" then
+			functions.script.shock_arc(self, e, champion, entity.monster)
+		end
+		if e.tiledamager:getDamageType() == "cold" then
+			functions.script.freezeMonster(self, e, champion, entity.monster)
 		end
 	end
 	
@@ -520,6 +514,41 @@ defineObject{
 -- fire magic
 
 defineObject{
+	name = "fireburst",
+	baseObject = "fireburst",
+	components = {
+		{
+			class = "Particle",
+			particleSystem = "fireburst",
+			offset = vec(0, 1.2, 0),
+			destroyObject = true,
+		},
+		{
+			class = "Light",
+			color = vec(0.75, 0.4, 0.25),
+			brightness = 40,
+			range = 4,
+			offset = vec(0, 1.2, 0),
+			fadeOut = 0.75,
+			disableSelf = true,
+		},
+		{
+			class = "TileDamager",
+			damageType = "fire",
+			sound = "fireburst",
+			screenEffect = "fireball_screen",
+			onHitMonster = function(self, monster)
+				local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
+				functions.script.burnMonster(self, self, champion, monster)
+				if champion:hasTrait("voodoo") then
+					spells_functions.script.voodoo(self, champion, monster)
+				end
+			end
+		},	
+	},
+}
+
+defineObject{
 	name = "fire_wall",
 	baseObject = "base_spell",
 	components = {
@@ -597,96 +626,13 @@ defineObject{
 }
 
 defineObject{
-	name = "fireburst",
-	baseObject = "fireburst",
-	components = {
-		{
-			class = "Particle",
-			particleSystem = "fireburst",
-			offset = vec(0, 1.2, 0),
-			destroyObject = true,
-		},
-		{
-			class = "Light",
-			color = vec(0.75, 0.4, 0.25),
-			brightness = 40,
-			range = 4,
-			offset = vec(0, 1.2, 0),
-			fadeOut = 0.75,
-			disableSelf = true,
-		},
-		{
-			class = "TileDamager",
-			damageType = "fire",
-			sound = "fireburst",
-			screenEffect = "fireball_screen",
-			onHitMonster = function(self, monster)
-				local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
-				local skillLevel = champion:getSkillLevel("elemental_magic")
-				local chance = 0.3 * (1 + (champion:getResistance("fire") * 0.02))
-				if monster:isAlive() and skillLevel >= 3 and math.random() <= chance then
-					local duration = skillLevel * 3
-					if chance > 1 then
-						duration = duration * chance
-					end
-					monster:setCondition("burning", duration)
-					-- mark condition so that exp is awarded if monster is killed by the condition
-					local burning = monster.go.burning
-					local ordinal = self:getCastByChampion()
-					if burning and ordinal then burning:setCausedByChampion(ordinal) end
-				end
-				if champion:hasTrait("voodoo") then
-					spells_functions.script.voodoo(self, champion, monster)
-				end
-			end
-		},	
-	},
-}
-
-defineObject{
-	name = "shockburst",
-	baseObject = "shockburst",
-	components = {
-		{
-			class = "TileDamager",
-			onHitMonster = function(self, monster)
-				local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
-				if champion:hasTrait("voodoo") then
-					spells_functions.script.voodoo(self, champion, monster)
-				end				
-				spells_functions.script.shock_arc(self, champion, monster)
-			end
-		},	
-	},
-}
-
-defineObject{
-	name = "frostburst_cast",
-	baseObject = "frostburst",
-	components = {
-		{
-			class = "TileDamager",
-			onHitMonster = function(self, monster)
-				local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
-				if math.random() <= 0.2 * (1 + (champion:getResistance("cold") * 0.02)) then
-					monster:setCondition("frozen", math.min(math.max(math.random() * (2 + champion:getSkillLevel("elemental_magic") + champion:getSkillLevel("witchcraft")), 2), 10))
-				end
-				if champion:hasTrait("voodoo") then
-					spells_functions.script.voodoo(self, champion, monster)
-				end
-			end
-		},	
-	},
-}
-
-defineObject{
 	name = "fireball_small_cast",
 	baseObject = "fireball_small",
 	components = {
 		{ class = "Script",
 			name = "data",
 			source = [[
-				data = {hitEffect = "fireball_blast_large", attackPower=30}
+				data = {hitEffect = "fireball_blast_small", attackPower=30}
 				function get(self,name) return self.data[name] end
 				function set(self,name,value) self.data[name] = value end
 			]],			
@@ -697,6 +643,35 @@ defineObject{
 			velocity = 10,
 			radius = 0.1,
 			onProjectileHit = hit,
+		},
+	},
+}
+
+defineObject{
+	name = "fireball_blast_small",
+	baseObject = "base_spell",
+	components = {
+		{
+			class = "Particle",
+			particleSystem = "fireball_blast_small",
+			destroyObject = true,
+		},
+		{
+			class = "Light",
+			color = vec(1, 0.5, 0.25),
+			brightness = 20,
+			range = 10,
+			fadeOut = 0.4,
+			disableSelf = true,
+		},
+		{
+			class = "TileDamager",
+			attackPower = 30,
+			damageType = "fire",
+			damageFlags = DamageFlags.NoLingeringEffects,
+			sound = "fireball_hit",
+			screenEffect = "fireball_screen",
+			woundChance = 10,
 		},
 	},
 }
@@ -708,7 +683,7 @@ defineObject{
 		{ class = "Script",
 			name = "data",
 			source = [[
-				data = {hitEffect = "fireball_blast_large", attackPower=50}
+				data = {hitEffect = "fireball_blast_medium", attackPower=50}
 				function get(self,name) return self.data[name] end
 				function set(self,name,value) self.data[name] = value end
 			]],			
@@ -719,6 +694,34 @@ defineObject{
 			velocity = 10,
 			radius = 0.1,
 			onProjectileHit = hit,
+		},
+	},
+}
+
+defineObject{
+	name = "fireball_blast_medium",
+	baseObject = "base_spell",
+	components = {
+		{
+			class = "Particle",
+			particleSystem = "fireball_blast_medium",
+			destroyObject = true,
+		},
+		{
+			class = "Light",
+			color = vec(1, 0.5, 0.25),
+			brightness = 40,
+			range = 10,
+			fadeOut = 0.5,
+			disableSelf = true,
+		},
+		{
+			class = "TileDamager",
+			attackPower = 50,
+			damageType = "fire",
+			sound = "fireball_hit",
+			screenEffect = "fireball_screen",
+			woundChance = 20,
 		},
 	},
 }
@@ -741,6 +744,34 @@ defineObject{
 			velocity = 10,
 			radius = 0.1,
 			onProjectileHit = hit,
+		},
+	},
+}
+
+defineObject{
+	name = "fireball_blast_large",
+	baseObject = "base_spell",
+	components = {
+		{
+			class = "Particle",
+			particleSystem = "fireball_blast_large",
+			destroyObject = true,
+		},
+		{
+			class = "Light",
+			color = vec(1, 0.5, 0.25),
+			brightness = 40,
+			range = 10,
+			fadeOut = 0.5,
+			disableSelf = true,
+		},
+		{
+			class = "TileDamager",
+			attackPower = 70,
+			damageType = "fire",
+			sound = "fireball_hit",
+			screenEffect = "fireball_screen",
+			woundChance = 40,
 		},
 	},
 }
@@ -829,8 +860,93 @@ defineObject{
 -- air magic
 
 defineObject{
+	name = "shockburst",
+	baseObject = "shockburst",
+	components = {
+		{
+			class = "TileDamager",
+			attackPower = 27,
+			damageType = "shock",
+			sound = "shockburst",
+			onHitMonster = function(self, monster)
+				local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
+				functions.script.shock_arc(self, self, champion, monster)
+				if champion:hasTrait("voodoo") then
+					spells_functions.script.voodoo(self, champion, monster)
+				end	
+			end
+		},	
+	},
+}
+
+defineObject{
+	name = "lightning_bolt_cast",
+	baseObject = "lightning_bolt",
+	components = {
+		{ class = "Script",
+			name = "data",
+			source = [[
+				data = {hitEffect = "lightning_bolt_blast", attackPower=27}
+				function get(self,name) return self.data[name] end
+				function set(self,name,value) self.data[name] = value end
+			]],
+		},
+		{
+			class = "Projectile",
+			spawnOffsetY = 1.35,
+			velocity = 10,
+			radius = 0.1,
+			onProjectileHit = hit,
+		},
+		{
+			class = "Light",
+			color = vec(0.25, 0.5, 1),
+			brightness = 15,
+			range = 7,
+			castShadow = true,
+		},
+		{
+			class = "Sound",
+			sound = "lightning_bolt",
+		},
+		{
+			class = "Sound",
+			name = "launchSound",
+			sound = "lightning_bolt_launch",
+		},
+	},
+}
+
+defineObject{
+	name = "lightning_bolt_blast",
+	baseObject = "base_spell",
+	components = {
+		{
+			class = "Particle",
+			particleSystem = "lightning_bolt_hit",
+			destroyObject = true,
+		},
+		{
+			class = "Light",
+			color = vec(0.25, 0.5, 1),
+			brightness = 40,
+			range = 10,
+			fadeOut = 0.5,
+			disableSelf = true,
+		},
+		{
+			class = "TileDamager",
+			attackPower = 35,
+			damageType = "shock",
+			woundChance = 10,
+			sound = "lightning_bolt_hit_small",
+		},
+	},
+}
+
+defineObject{
 	name = "lightning_bolt_greater_cast",
-	baseObject = "lightning_bolt_greater",
+	baseObject = "lightning_bolt_cast",
 	components = {
 		{ class = "Script",
 			name = "data",
@@ -846,6 +962,25 @@ defineObject{
 			velocity = 10,
 			radius = 0.1,
 			onProjectileHit = hit,
+		},
+	},
+}
+
+defineObject{
+	name = "lightning_bolt_greater_blast",
+	baseObject = "lightning_bolt_blast",
+	components = {
+		{
+			class = "Particle",
+			particleSystem = "lightning_bolt_hit_greater",
+			destroyObject = true,
+		},
+		{
+			class = "TileDamager",
+			attackPower = 47,
+			damageType = "shock",
+			woundChance = 30,
+			sound = "lightning_bolt_hit",
 		},
 	},
 }
@@ -944,7 +1079,7 @@ defineObject{
 
 defineObject{
 	name = "lightning_bolt_andak",
-	baseObject = "lightning_bolt_greater_cast",
+	baseObject = "lightning_bolt_greater",
 	components = {
 		{
 			class = "Timer",
@@ -959,6 +1094,26 @@ defineObject{
 -- water magic
 
 defineObject{
+	name = "frostburst_cast",
+	baseObject = "frostburst",
+	components = {
+		{
+			class = "TileDamager",
+			attackPower = 20,
+			damageType = "cold",
+			sound = "frostburst",
+			onHitMonster = function(self, monster)
+				local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
+				functions.script.freezeMonster(self, self, champion, monster)
+				if champion:hasTrait("voodoo") then
+					spells_functions.script.voodoo(self, champion, monster)
+				end
+			end
+		},	
+	},
+}
+
+defineObject{
 	name = "frostbolt_cast",
 	baseObject = "frostbolt_5",
 	components = {
@@ -966,7 +1121,7 @@ defineObject{
 			class = "Script",
 			name = "data",
 			source = [[
-				data = {hitEffect = "frostbolt_blast_5", attackPower=15}
+				data = {hitEffect = "frostbolt_blast", attackPower=15}
 				function get(self,name) return self.data[name] end
 				function set(self,name,value) self.data[name] = value end
 			]],			
@@ -977,6 +1132,32 @@ defineObject{
 			velocity = 10,
 			radius = 0.1,
 			onProjectileHit = hit,
+		},
+	},
+}
+
+defineObject{
+	name = "frostbolt_blast",
+	baseObject = "base_spell",
+	components = {
+		{
+			class = "Particle",
+			particleSystem = "frostbolt_hit",
+			destroyObject = true,
+		},
+		{
+			class = "Light",
+			color = vec(0.25, 0.5, 1),
+			brightness = 40,
+			range = 10,
+			fadeOut = 0.5,
+			disableSelf = true,
+		},
+		{
+			class = "TileDamager",
+			attackPower = 10,
+			damageType = "cold",
+			sound = "frostbolt_hit",
 		},
 	},
 }

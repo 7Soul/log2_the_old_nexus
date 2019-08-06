@@ -88,7 +88,7 @@ defineObject{
 			cooldown = 10,
 			animation = "rangedAttack",
 			sound = "xeloroid_lightning",
-			shootProjectile = "lightning_bolt_greater_cast",
+			shootProjectile = "lightning_bolt_greater",
 		},
 		{
 			class = "MonsterChangeAltitude",

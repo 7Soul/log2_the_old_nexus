@@ -220,31 +220,9 @@ defineObject{
 		-----------------------------------------------------------
 		-- On Damage Taken
 		-----------------------------------------------------------
-		onDamage = function(party, champion, damage, damageType)
+		onDamage = function(self, champion, damage, damageType)
 			--print(party.go.id, champion:getName(), 'received', damage, 'damage,', damageType, 'type') 
-			
-			for i=1,4 do
-				if party:getChampion(i):getClass() == "fighter" and party:getChampion(i):isAlive() and not party:getChampion(i):hasCondition("berserker_revenge") then
-					party:getChampion(i):setConditionValue("berserker_rage", 20)
-				end
-			end
-			
-			if champion:hasTrait("brutalizer") and damageType ~= "pure" then
-				local str = champion:getCurrentStat("strength")
-				champion:damage(damage * str * 0.005, "pure")
-			end
-			
-			if champion:hasTrait("elemental_armor") then
-				if damageType == "fire" or damageType == "cold" or damageType == "shock" then
-					champion:regainEnergy(math.ceil(champion:getMaxEnergy() * 0.15))
-				end
-			end
-			
-			if champion:hasTrait("meditation") then
-				champion:regainEnergy(math.ceil(champion:getMaxEnergy() * math.random(1,5) * 0.01))
-			end
-			
-			
+			functions.script.onChampionTakesDamage(self, champion, damage, damageType)			
 		end,
 		
 		-- WORKS
@@ -1031,21 +1009,28 @@ defineObject{
 
 		onUseItem = function(party,champion,item,slot) 
 			print(party.go.id,champion:getName(),'is using',item,slot) 
-		end,		
+		end,
+
 		onReceiveCondition = function(party,champion,condition,condNumber) 
 			if condition == "bleeding" then
-				if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "pit_gauntlets" and math.random() <= 0.25 then
-					champion:removeCondition("bleeding")
+				if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "pit_gauntlets" then
+					if math.random() <= champion:getItem(ItemSlot.Gloves):hasTrait("upgraded") and 0.5 or 0.25 then
+						champion:removeCondition("bleeding")
+					end
 				end
 			end
 			if condition == "right_hand_wound" then
-				if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "pit_gauntlets" and math.random() <= 0.25 then
-					champion:removeCondition("right_hand_wound")
+				if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "pit_gauntlets" then
+					if math.random() <= champion:getItem(ItemSlot.Gloves):hasTrait("upgraded") and 0.5 or 0.25 then
+						champion:removeCondition("right_hand_wound")
+					end
 				end
 			end
 			if condition == "left_hand_wound" then
-				if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "pit_gauntlets" and math.random() <= 0.25 then
-					champion:removeCondition("left_hand_wound")
+				if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "pit_gauntlets" then
+					if math.random() <= champion:getItem(ItemSlot.Gloves):hasTrait("upgraded") and 0.5 or 0.25 then
+						champion:removeCondition("left_hand_wound")
+					end
 				end
 			end
 		end, 		
@@ -1055,6 +1040,13 @@ defineObject{
 			if champion:getClass() == "assassin_class" then
 				if not champion:hasTrait("assassination") then
 					champion:addTrait("assassination")
+				end
+			end
+			if champion:getClass() == "tinkerer" then
+				local count = functions.script.get_c("crafting_expertise", champion:getOrdinal())
+				functions.script.set_c("crafting_expertise", champion:getOrdinal(), count ~= nil and math.min(count + 1, 3) or 1)
+				if count ~= nil and count >= 2 then
+					--hudPrint(champion:getName() .. ", the Tinkerer needs to craft something.")
 				end
 			end
 		end,

@@ -216,8 +216,12 @@ defineCondition{
 	harmful = false,
 	tickInterval = 1,
 	onStart = function(self, champion)
+		
 	end,
 	onStop = function(self, champion)
+		if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "spidersilk_cloak" then
+			champion:setConditionValue(champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and "spidersilk1" or "spidersilk2" , 30)
+		end
 	end,
 	onRecomputeStats = function(self, champion)
 		if champion:getClass() == "stalker" then
@@ -725,5 +729,92 @@ defineCondition{
 		local heal = functions.script.get_c("reflective_damage", champion:getOrdinal())
 		champion:regainHealth(heal / 5)
 		champion:regainEnergy(heal / 5)
+	end,	
+}
+
+-- Items
+
+defineCondition{
+	name = "hardstone",
+	uiName = "Hardstone Bracelet",
+	description = "",
+	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
+	beneficial = true,
+	harmful = false,
+	hidden = true,
+	tickInterval = 1,
+	onStart = function(self, champion)
+	end,
+	onStop = function(self, champion)
+	end,
+	onRecomputeStats = function(self, champion)
+		champion:addStatModifier("strength", 3)
+		champion:addStatModifier("protection", 30)
+	end,
+	onTick = function(self, champion)
+	end,	
+}
+
+defineCondition{
+	name = "spidersilk",
+	uiName = "Spidersilk Cloak",
+	description = "",
+	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
+	beneficial = true,
+	harmful = false,
+	hidden = true,
+	tickInterval = 1,
+	onStart = function(self, champion)
+	end,
+	onStop = function(self, champion)
+	end,
+	onRecomputeStats = function(self, champion)
+		champion:addStatModifier("resist_cold", 40)
+	end,
+	onTick = function(self, champion)
+	end,	
+}
+
+defineCondition{
+	name = "spidersilk2",
+	uiName = "Spidersilk Cloak",
+	description = "",
+	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
+	beneficial = true,
+	harmful = false,
+	hidden = true,
+	tickInterval = 1,
+	onStart = function(self, champion)
+	end,
+	onStop = function(self, champion)
+	end,
+	onRecomputeStats = function(self, champion)
+		champion:addStatModifier("resist_cold", 60)
+	end,
+	onTick = function(self, champion)
+	end,	
+}
+
+defineCondition{
+	name = "bear_bonus",
+	uiName = "Spidersilk Cloak",
+	description = "",
+	icon = 1,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
+	beneficial = true,
+	harmful = false,
+	hidden = true,
+	tickInterval = 2,
+	onStart = function(self, champion)
+	end,
+	onStop = function(self, champion)
+	end,
+	onRecomputeStats = function(self, champion)
+	end,
+	onTick = function(self, champion)
+		champion:regainEnergy(0.5)
 	end,	
 }

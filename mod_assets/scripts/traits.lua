@@ -341,8 +341,8 @@ defineTrait{
 	- Health 70 (+5 per level)
 	- Energy 40 (+5 per level)
 	
-	Craftsman Expertise: Apply extra bonus effects when you upgrade an item.
-	- You gain one craft bonus usage per level.
+	Craftsman Expertise: Apply random extra bonus effects when you upgrade an item.
+	- You gain one craft bonus usage per level. You can accumulate up to 3 uses at a time.
 	
 	Elemental Surge: Fire and Shock damage is increased based on your Fire and Shock resistances.
 	- Converts 50% of your Firearm damage to Fire.
@@ -362,7 +362,7 @@ defineTrait{
 			-- champion:addStatModifier("dexterity", upgItems)
 			-- champion:addStatModifier("vitality", upgItems)
 			-- champion:addStatModifier("willpower", upgItems)
-			champion:addStatModifier("protection", 2 + level)
+			--champion:addStatModifier("protection", 2 + level)
 			champion:addTrait("elemental_surge")
 		end	
 	end,
@@ -433,186 +433,186 @@ defineTrait{
 	end,
 }
 
-defineTrait{
-	name = "blooddrop_cap",
-	uiName = "Blooddrop Boon",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 132,
-	description = "The Druid draws from the earth by carrying a Blooddrop Cap.",
-	gameEffect = [[- Strength +1 per 2 levels.
-	- Fire resistance +5 (+2 per level).
-	- Fire damage increased by 20%.
-	- Gain extra strength, action speed and accuracy when hit 
-	by or when using a Fire spell (Duration 18 seconds).]],
-	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			level = champion:getLevel()
-			champion:addStatModifier("strength", math.floor(level/2))
-			champion:addStatModifier("resist_fire", 5 + (level * 2))
-		end
-	end,
-}
+-- defineTrait{
+-- 	name = "blooddrop_cap",
+-- 	uiName = "Blooddrop Boon",
+-- 	iconAtlas = "mod_assets/textures/gui/skills.dds",
+-- 	icon = 132,
+-- 	description = "The Druid draws from the earth by carrying a Blooddrop Cap.",
+-- 	gameEffect = [[- Strength +1 per 2 levels.
+-- 	- Fire resistance +5 (+2 per level).
+-- 	- Fire damage increased by 20%.
+-- 	- Gain extra strength, action speed and accuracy when hit 
+-- 	by or when using a Fire spell (Duration 18 seconds).]],
+-- 	onRecomputeStats = function(champion, level)
+-- 		if level > 0 then
+-- 			level = champion:getLevel()
+-- 			champion:addStatModifier("strength", math.floor(level/2))
+-- 			champion:addStatModifier("resist_fire", 5 + (level * 2))
+-- 		end
+-- 	end,
+-- }
 
-defineTrait{
-	name = "blooddrop_rage",
-	uiName = "Blooddrop Fire Rage",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 133,
-	description = "Fire damage causes you to attack with burning strength.",
-	gameEffect = [[- Strength +4, Melee Accuracy + 6, 
-	- Action Cooldowns are 15% Faster.
-	- Lasts 18 seconds.]],
-	onComputeCooldown = function(champion, weapon, attack, attackType, level)
-		if level > 0 then return 0.85 end
-	end,
-	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
-		if level > 0 and attackType == "melee" then return 6 end
-	end,
-	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			champion:addStatModifier("strength", 4)
-		end
-	end,
-}
+-- defineTrait{
+-- 	name = "blooddrop_rage",
+-- 	uiName = "Blooddrop Fire Rage",
+-- 	iconAtlas = "mod_assets/textures/gui/skills.dds",
+-- 	icon = 133,
+-- 	description = "Fire damage causes you to attack with burning strength.",
+-- 	gameEffect = [[- Strength +4, Melee Accuracy + 6, 
+-- 	- Action Cooldowns are 15% Faster.
+-- 	- Lasts 18 seconds.]],
+-- 	onComputeCooldown = function(champion, weapon, attack, attackType, level)
+-- 		if level > 0 then return 0.85 end
+-- 	end,
+-- 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
+-- 		if level > 0 and attackType == "melee" then return 6 end
+-- 	end,
+-- 	onRecomputeStats = function(champion, level)
+-- 		if level > 0 then
+-- 			champion:addStatModifier("strength", 4)
+-- 		end
+-- 	end,
+-- }
 
-defineTrait{
-	name = "etherweed",
-	uiName = "Etherweed Boon",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 134,
-	description = "The Druid draws from the earth by carrying an Etherweed.",
-	gameEffect = [[- Willpower +1 per 2 levels.
-	- Cold resistance +5 (+2 per level).
-	- Cold damage increased by 20%.
-	- Recover 50% of missing Energy when hit by a Cold spell.]],
-	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			level = champion:getLevel()
-			champion:addStatModifier("willpower", math.floor(level/2))
-			champion:addStatModifier("resist_cold", 5 + (level * 2))
-		end	
-	end,	
-}
+-- defineTrait{
+-- 	name = "etherweed",
+-- 	uiName = "Etherweed Boon",
+-- 	iconAtlas = "mod_assets/textures/gui/skills.dds",
+-- 	icon = 134,
+-- 	description = "The Druid draws from the earth by carrying an Etherweed.",
+-- 	gameEffect = [[- Willpower +1 per 2 levels.
+-- 	- Cold resistance +5 (+2 per level).
+-- 	- Cold damage increased by 20%.
+-- 	- Recover 50% of missing Energy when hit by a Cold spell.]],
+-- 	onRecomputeStats = function(champion, level)
+-- 		if level > 0 then
+-- 			level = champion:getLevel()
+-- 			champion:addStatModifier("willpower", math.floor(level/2))
+-- 			champion:addStatModifier("resist_cold", 5 + (level * 2))
+-- 		end	
+-- 	end,	
+-- }
 
-defineTrait{
-	name = "etherweed_rage",
-	uiName = "Etherweed Cold Rage",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 135,
-	description = "Cold damage causes you to cast spells with a refreshed mind.",
-	gameEffect = [[- Willpower +4, Ranged Accuracy + 6.
-	- Action Cooldowns are 15% Faster.
-	- Lasts 18 seconds.]],
-	onComputeCooldown = function(champion, weapon, attack, attackType, level)
-		if level > 0 then return 0.85 end
-	end,
-	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
-		if level > 0 and (attackType == "missile" or attackType == "thrown" or attackType == "firearm") then return 6 end
-	end,
-	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			champion:addStatModifier("willpower", 4)
-		end
-	end,
-}
+-- defineTrait{
+-- 	name = "etherweed_rage",
+-- 	uiName = "Etherweed Cold Rage",
+-- 	iconAtlas = "mod_assets/textures/gui/skills.dds",
+-- 	icon = 135,
+-- 	description = "Cold damage causes you to cast spells with a refreshed mind.",
+-- 	gameEffect = [[- Willpower +4, Ranged Accuracy + 6.
+-- 	- Action Cooldowns are 15% Faster.
+-- 	- Lasts 18 seconds.]],
+-- 	onComputeCooldown = function(champion, weapon, attack, attackType, level)
+-- 		if level > 0 then return 0.85 end
+-- 	end,
+-- 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
+-- 		if level > 0 and (attackType == "missile" or attackType == "thrown" or attackType == "firearm") then return 6 end
+-- 	end,
+-- 	onRecomputeStats = function(champion, level)
+-- 		if level > 0 then
+-- 			champion:addStatModifier("willpower", 4)
+-- 		end
+-- 	end,
+-- }
 
-defineTrait{
-	name = "mudwort",
-	uiName = "Mudwort Boon",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 136,
-	description = "The Druid draws from the earth by carrying a Mudwort.",
-	gameEffect = [[- Poison resistance +5 (+2 per level).
-	- Immune to disease.
-	- Increased Poison damage by 40%.
-	- Also affects party (check their traits).]],
-	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			level = champion:getLevel()
-			champion:addStatModifier("resist_poison", 5 + (level * 2))
-			for i=1,4 do
-				party.party:getChampion(i):addStatModifier("resist_poison", level * 2)
-			end
-		end	
-	end,
-	onReceiveCondition = function(champion, cond, level)
-		if level > 0 and cond == "diseased" then
-			return false
-		end
-	end,
-}
+-- defineTrait{
+-- 	name = "mudwort",
+-- 	uiName = "Mudwort Boon",
+-- 	iconAtlas = "mod_assets/textures/gui/skills.dds",
+-- 	icon = 136,
+-- 	description = "The Druid draws from the earth by carrying a Mudwort.",
+-- 	gameEffect = [[- Poison resistance +5 (+2 per level).
+-- 	- Immune to disease.
+-- 	- Increased Poison damage by 40%.
+-- 	- Also affects party (check their traits).]],
+-- 	onRecomputeStats = function(champion, level)
+-- 		if level > 0 then
+-- 			level = champion:getLevel()
+-- 			champion:addStatModifier("resist_poison", 5 + (level * 2))
+-- 			for i=1,4 do
+-- 				party.party:getChampion(i):addStatModifier("resist_poison", level * 2)
+-- 			end
+-- 		end	
+-- 	end,
+-- 	onReceiveCondition = function(champion, cond, level)
+-- 		if level > 0 and cond == "diseased" then
+-- 			return false
+-- 		end
+-- 	end,
+-- }
 
-defineTrait{
-	name = "lesser_mudwort",
-	uiName = "Lesser Mudwort Boon",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 137,
-	description = "The Druid draws from the earth by carrying a Mudwort.",
-	gameEffect = [[- Poison resistance +2 per level.
-	- Disease resistance +50%.]],
-	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			level = champion:getLevel()
-			champion:addStatModifier("resist_poison", level * 2)
-		end	
-	end,
-	onReceiveCondition = function(champion, cond, level)
-		local chance = math.random() * 100
-		if level > 0 and cond == "diseased" and chance >= 50 then
-			return false
-		end
-	end,
-}
+-- defineTrait{
+-- 	name = "lesser_mudwort",
+-- 	uiName = "Lesser Mudwort Boon",
+-- 	iconAtlas = "mod_assets/textures/gui/skills.dds",
+-- 	icon = 137,
+-- 	description = "The Druid draws from the earth by carrying a Mudwort.",
+-- 	gameEffect = [[- Poison resistance +2 per level.
+-- 	- Disease resistance +50%.]],
+-- 	onRecomputeStats = function(champion, level)
+-- 		if level > 0 then
+-- 			level = champion:getLevel()
+-- 			champion:addStatModifier("resist_poison", level * 2)
+-- 		end	
+-- 	end,
+-- 	onReceiveCondition = function(champion, cond, level)
+-- 		local chance = math.random() * 100
+-- 		if level > 0 and cond == "diseased" and chance >= 50 then
+-- 			return false
+-- 		end
+-- 	end,
+-- }
 
-defineTrait{
-	name = "falconskyre",
-	uiName = "Falconskyre Boon",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 138,
-	description = "The Druid draws from the earth by carrying a Falconskyre.",
-	gameEffect = [[- Dexterity +1 per level.
-	- Shock resistance +5 (+2 per level).
-	- Shock damage increased by 20%.]],
-	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			level = champion:getLevel()
-			champion:addStatModifier("dexterity", level)
-			champion:addStatModifier("resist_shock", 5 + (level * 2))
-		end	
-	end,
-}
+-- defineTrait{
+-- 	name = "falconskyre",
+-- 	uiName = "Falconskyre Boon",
+-- 	iconAtlas = "mod_assets/textures/gui/skills.dds",
+-- 	icon = 138,
+-- 	description = "The Druid draws from the earth by carrying a Falconskyre.",
+-- 	gameEffect = [[- Dexterity +1 per level.
+-- 	- Shock resistance +5 (+2 per level).
+-- 	- Shock damage increased by 20%.]],
+-- 	onRecomputeStats = function(champion, level)
+-- 		if level > 0 then
+-- 			level = champion:getLevel()
+-- 			champion:addStatModifier("dexterity", level)
+-- 			champion:addStatModifier("resist_shock", 5 + (level * 2))
+-- 		end	
+-- 	end,
+-- }
 
-defineTrait{
-	name = "blackmoss",
-	uiName = "Blackmoss Boon",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 140,
-	description = "The Druid draws from the earth by carrying a Blackmoss.",
-	gameEffect = [[- Doubles Bomb damage.
-	- Bombs in your inventory multiply.]],
-}
+-- defineTrait{
+-- 	name = "blackmoss",
+-- 	uiName = "Blackmoss Boon",
+-- 	iconAtlas = "mod_assets/textures/gui/skills.dds",
+-- 	icon = 140,
+-- 	description = "The Druid draws from the earth by carrying a Blackmoss.",
+-- 	gameEffect = [[- Doubles Bomb damage.
+-- 	- Bombs in your inventory multiply.]],
+-- }
 
-defineTrait{
-	name = "crystal_flower",
-	uiName = "Crystal Flower Boon",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 142,
-	description = "The Druid draws from the earth by carrying a Crystal Flower.",
-	gameEffect = [[- Protection +2 (+2 per level).
-	- All resistances +2 per level.
-	- Increases Health Regeneration by 25%.]],
-	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			level = champion:getLevel()
-			champion:addStatModifier("protection", 2 + (level * 2))
-			champion:addStatModifier("resist_fire", level * 2)
-			champion:addStatModifier("resist_poison", level * 2)
-			champion:addStatModifier("resist_cold", level * 2)
-			champion:addStatModifier("resist_shock", level * 2)
-			champion:addStatModifier("health_regeneration_rate", 25)
-		end	
-	end,
-}
+-- defineTrait{
+-- 	name = "crystal_flower",
+-- 	uiName = "Crystal Flower Boon",
+-- 	iconAtlas = "mod_assets/textures/gui/skills.dds",
+-- 	icon = 142,
+-- 	description = "The Druid draws from the earth by carrying a Crystal Flower.",
+-- 	gameEffect = [[- Protection +2 (+2 per level).
+-- 	- All resistances +2 per level.
+-- 	- Increases Health Regeneration by 25%.]],
+-- 	onRecomputeStats = function(champion, level)
+-- 		if level > 0 then
+-- 			level = champion:getLevel()
+-- 			champion:addStatModifier("protection", 2 + (level * 2))
+-- 			champion:addStatModifier("resist_fire", level * 2)
+-- 			champion:addStatModifier("resist_poison", level * 2)
+-- 			champion:addStatModifier("resist_cold", level * 2)
+-- 			champion:addStatModifier("resist_shock", level * 2)
+-- 			champion:addStatModifier("health_regeneration_rate", 25)
+-- 		end	
+-- 	end,
+-- }
 
 defineTrait{
 	name = "elemental_surge",
@@ -623,6 +623,7 @@ defineTrait{
 	gameEffect = [[- Firearm attacks have 50% of their damage converted to Fire.
 	- Melee attacks have 50% of their damage converted to Shock.]],
 }
+
 
 ---------------------------------------------------------------------------------
 -- Race traits
@@ -1804,7 +1805,7 @@ defineTrait{
 	description = "All upgrades require 1 Lockpick.",
 	gameEffect = [[
 	~ 1-Handed Weapons and Missile ~
-	2 Common Metal
+	2 All-Purpose Metal
 	
 	~ 2-Handed Weapons ~
 	3 All-Purpose Metal
@@ -1813,7 +1814,7 @@ defineTrait{
 	2 Explosive Core
 	
 	~ Light Armor ~
-	2 Leather Strip
+	2 Leather
 	
 	~ Heavy Armor and Shields ~
 	2 All-Purpose Metal ]],
