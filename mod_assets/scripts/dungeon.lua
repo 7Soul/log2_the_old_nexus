@@ -6339,7 +6339,7 @@ ice_crab_1.detectedtimer:setTimerInterval(0)
 ice_crab_1.detectedtimer:setDisableSelf(false)
 ice_crab_1.detectedtimer:setTriggerOnStart(true)
 ice_crab_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("starting_location",14,9,3,0,"starting_location_1")
+spawn("starting_location",18,13,3,0,"starting_location_1")
 spawn("force_field",16,11,3,0,"force_field_4")
 spawn("etherweed",17,10,2,0,"etherweed_3")
 etherweed_3.data:setSource("data = {}\
@@ -6393,6 +6393,19 @@ lock_pick_3.detectedtimer:setTimerInterval(0)
 lock_pick_3.detectedtimer:setDisableSelf(false)
 lock_pick_3.detectedtimer:setTriggerOnStart(true)
 lock_pick_3.detectedtimer:setCurrentLevelOnly(true)
+spawn("throwing_knife",17,13,1,0,"throwing_knife_6")
+throwing_knife_6.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+throwing_knife_6.item:setStackSize(10)
+throwing_knife_6.detectedtimer:setTimerInterval(0)
+throwing_knife_6.detectedtimer:setDisableSelf(false)
+throwing_knife_6.detectedtimer:setTriggerOnStart(true)
+throwing_knife_6.detectedtimer:setCurrentLevelOnly(true)
 
 --- level 4 ---
 

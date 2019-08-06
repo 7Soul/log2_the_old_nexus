@@ -15,8 +15,9 @@ defineObject{
 			weight = 0.8,
 			projectileRotationX = 90,
 			projectileRotationY = 90,
+			secondaryAction = "dagger_throw",
 			description = "A vicious looking dagger, which is effective in close combat as well as from a distance. The dagger is the favorite weapon of many a rogue.",
-			traits = { "light_weapon", "dagger", "dismantle", "upgradable", "weapon" },
+			traits = { "light_weapon", "dagger", "dismantle", "upgradable", "weapon", "dagger_throw" },
 		},
 		{
 			class = "MeleeAttack",
@@ -25,7 +26,6 @@ defineObject{
 			cooldown = 2.5,
 			swipe = "vertical",
 			attackSound = "swipe_light",
-			powerAttackTemplate = "throw",
 		},
 	},
 	tags = { "weapon", "weapon_light", "weapon_dagger" },

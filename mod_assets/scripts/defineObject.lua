@@ -23,7 +23,8 @@ local onHitMonster = function(self, monster, tside, damage, champion)
 end
 
 local onProjectileHitMonster = function(self, item, damage, damageType)
-	functions.script.onProjectileHitMonster(self, item, damage, damageType)
+	
+	return functions.script.onProjectileHitMonster(self, item, damage, damageType)
 end
 
 local onPostAttack = function(self, champion, slot)
@@ -93,6 +94,16 @@ local onWInit = function(self)
 				c = self.go:createComponent("MeleeAttack", "chop")
 			end
 			functions.script.updateSecondary(self.go.meleeattack, c, "chop")
+		end
+	end
+	
+	if self.go.item:hasTrait("dagger_throw") then
+		if functions.script then
+			local c = self.go:getComponent("dagger_throw")
+			if c == nil then
+				c = self.go:createComponent("MeleeAttack", "dagger_throw")
+			end
+			functions.script.updateSecondary(self.go.meleeattack, c, "dagger_throw")
 		end
 	end
 	

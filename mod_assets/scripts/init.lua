@@ -37,6 +37,7 @@ import "mod_assets/scripts/skills.lua"
 import "mod_assets/scripts/traits.lua"
 import "mod_assets/scripts/conditions.lua"
 -- Monsters
+import "mod_assets/scripts/monsters/dummy.lua"
 import "mod_assets/scripts/monsters/ash_elemental.lua"
 import "mod_assets/scripts/monsters/turtle.lua"
 import "mod_assets/scripts/monsters/sand_warg.lua"
@@ -186,7 +187,13 @@ defineObject{
 		-----------------------------------------------------------
 		onAttack = function(party, champion, action, slot)
 			print(champion:getName(), "is attacking with", action.go.name)
-			--print(champion:getName(), "used the action", action)
+			
+			if action.go.item:getSecondaryAction() == "dagger_throw" and action.go.dagger_throw == action then
+				if action.go.meleeattack then
+					functions.script.onMeleeAttack(action.go.dagger_throw, action.go.item, champion, slot, 0, nil)
+				end
+			end
+
 			if action.go.bombitem then
 				if champion:hasTrait("bomb_multiplication") then
 					local item = champion:getItem(slot)
@@ -204,7 +211,7 @@ defineObject{
 			if champion:hasTrait("sneak_attack") and champion:hasCondition("sneak_attack") then
 				champion:removeCondition("sneak_attack")
 				functions.script.set_c("sneak_attack", champion:getOrdinal(), true)
-				print("sneak_attack set")
+				--print("sneak_attack set")
 			end
 			
 			for i=1,4 do
@@ -216,6 +223,7 @@ defineObject{
 			end
 			functions.script.set_c("attackedWith", champion:getOrdinal(), action.go.name)
 			functions.script.set_c("attacked", champion:getOrdinal(), champion:getOrdinal())
+			--functions.script.reset_attack(action.go.meleeattack, champion, slot, 0, action.go.item)
 		end,
 		-----------------------------------------------------------
 		-- On Damage Taken
@@ -617,18 +625,18 @@ defineObject{
 			
 			-- local keyset = { "T", "1", "2", "3" }
 			-- for i=1, #keyset do
-				-- if functions.script.getKeydown(keyset[i]) then
-					-- print("key " .. keyset[i] .. " pressed")
-					-- functions.script.resetKeydown(keyset[i])
-				-- end
+			-- 	if functions.script.getKeydown(keyset[i]) then
+			-- 		print("key " .. keyset[i] .. " pressed")
+			-- 		functions.script.resetKeydown(keyset[i])
+			-- 	end
 			
-				-- if context.keyDown(keyset[i]) and not functions.script.getKeydown(keyset[i]) then
-					-- functions.script.setKeydown(keyset[i])
-				-- end
+			-- 	if context.keyDown(keyset[i]) and not functions.script.getKeydown(keyset[i]) then
+			-- 		functions.script.setKeydown(keyset[i])
+			-- 	end
 				
-				-- if not context.keyDown(keyset[i]) then
-					-- functions.script.resetKeydown(keyset[i])
-				-- end
+			-- 	if not context.keyDown(keyset[i]) then
+			-- 		functions.script.resetKeydown(keyset[i])
+			-- 	end
 			-- end
 			
 			
@@ -672,6 +680,19 @@ defineObject{
 				end
 			end
 			
+			if context.keyDown("U") and functions.script.keypressDelayGet() == 0 then
+				GameMode.setTimeOfDay((GameMode.getTimeOfDay() + 0.33) % 2)
+				print("Time of Day set to " .. GameMode.getTimeOfDay())
+				functions.script.keypressDelaySet(10)
+			end
+
+			if context.keyDown("L") and functions.script.keypressDelayGet() == 0 then
+				for i = 1,4 do
+					party.party:getChampion(i):levelUp()
+					functions.script.keypressDelaySet(10)
+				end
+			end
+
 			-- Display class skill buttons
 			
 			local area1, area2, areaX, areaY = {}, {}, {}, {}
@@ -1045,8 +1066,8 @@ defineObject{
 			if champion:getClass() == "tinkerer" then
 				local count = functions.script.get_c("crafting_expertise", champion:getOrdinal())
 				functions.script.set_c("crafting_expertise", champion:getOrdinal(), count ~= nil and math.min(count + 1, 3) or 1)
-				if count ~= nil and count >= 2 then
-					--hudPrint(champion:getName() .. ", the Tinkerer needs to craft something.")
+				if count ~= nil and count < 3 then
+					hudPrint(champion:getName() .. ", the Tinkerer gained one charge of Crafting Expertise.")
 				end
 			end
 		end,
@@ -1146,6 +1167,8 @@ defineObject{
 			self.go.gametime2:increment()
 			local t = GameMode.getTimeOfDay()
 			functions2.script.updateSky(t)
+
+			functions.script.keypressDelaySet(math.max(functions.script.keypressDelayGet() - 1, 0))
 			
 			if party.party:isCarrying("enchanted_timepiece") or (getMouseItem() and getMouseItem().go.name == "enchanted_timepiece") then
 				local timepiece = functions.script.getTimepiece()
