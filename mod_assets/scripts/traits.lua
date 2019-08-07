@@ -353,16 +353,6 @@ defineTrait{
 			level = champion:getLevel()
 			champion:addStatModifier("max_health", 70 + (level-1) * 5)
 			champion:addStatModifier("max_energy", 40 + (level-1) * 5)
-			-- local upgItems = 0
-			-- for i=1,ItemSlot.Bracers do
-				-- local item = champion:getItem(i)
-				-- if item and item:hasTrait("upgraded") then upgItems = upgItems + 1 end
-			-- end
-			-- champion:addStatModifier("strength", upgItems)
-			-- champion:addStatModifier("dexterity", upgItems)
-			-- champion:addStatModifier("vitality", upgItems)
-			-- champion:addStatModifier("willpower", upgItems)
-			--champion:addStatModifier("protection", 2 + level)
 			champion:addTrait("elemental_surge")
 		end	
 	end,
@@ -1837,6 +1827,17 @@ defineTrait{
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 125,
 	description = "You can craft bombs and pellets. +5% Fire and Shock resistance per upgraded item you have equipped.",
+	onRecomputeStats = function(champion, level)
+		if level > 0 then
+			local upgItems = 0
+			for i=1,ItemSlot.Bracers do
+				local item = champion:getItem(i)
+				if item and item:hasTrait("upgraded") then upgItems = upgItems + 1 end
+			end
+			champion:addStatModifier("resist_fire", upgItems * 5)
+			champion:addStatModifier("resist_shock", upgItems * 5)
+		end
+	end,
 }
 
 defineTrait{

@@ -81,11 +81,34 @@ defineObject{
 			armorSet = "leather",
 			gfxIndex = 35,
 			weight = 2.6,
-			traits = { "clothes", "boots", "dismantle" },
+			traits = { "clothes", "boots", "dismantle", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
 			protection = 4,
+		},
+	},
+	tags = { "armor_clothes" },
+}
+
+defineObject{
+	name = "leather_pants",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/leather_clothes.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Leather Pants",
+			gfxIndex = 54,
+			weight = 2.0,
+			traits = { "clothes", "leg_armor", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 3,
 		},
 	},
 	tags = { "armor_clothes" },
@@ -104,7 +127,7 @@ defineObject{
 			uiName = "Leather Gloves",
 			gfxIndex = 53,
 			weight = 0.2,
-			traits = { "clothes", "gloves" },
+			traits = { "clothes", "gloves", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -140,29 +163,6 @@ defineObject{
 }
 
 defineObject{
-	name = "leather_pants",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/leather_clothes.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Leather Pants",
-			gfxIndex = 54,
-			weight = 2.0,
-			traits = { "clothes", "leg_armor" },
-		},
-		{
-			class = "EquipmentItem",
-			protection = 3,
-		},
-	},
-	tags = { "armor_clothes" },
-}
-
-defineObject{
 	name = "doublet",
 	baseObject = "base_item",
 	components = {
@@ -175,7 +175,7 @@ defineObject{
 			uiName = "Doublet",
 			gfxIndex = 36,
 			weight = 1.0,
-			traits = { "clothes", "chest_armor" },
+			traits = { "clothes", "chest_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -277,127 +277,6 @@ defineObject{
 	tags = { "armor_clothes" },
 }
 
-defineObject{
-	name = "flarefeather_cap",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/flarefeather_cap.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Flarefeather Cap",
-			description = "A felt cap that dons a feather of a flarebird.",
-			gfxIndex = 38,
-			weight = 0.3,
-			traits = { "clothes", "helmet" },
-		},
-		{
-			class = "EquipmentItem",
-			protection = 1,
-			dexterity = 2,
-		},
-	},
-	tags = { "armor_clothes" },
-}
-
-defineObject{
-	name = "circlet_war",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/circlet_war.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Circlet of War",
-			description = "The steel from the weapons of a surrendered enemy regiment was melted and forged into a crown for their new king.",
-			gfxIndex = 71,
-			weight = 1.5,
-			traits = { "clothes", "helmet" },
-		},
-		{
-			class = "EquipmentItem",
-			protection = 1,
-			strength = 3,
-		},
-	},
-	tags = { "armor_clothes" },
-}
-
-defineObject{
-	name = "sandals",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/sandals.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Sandals",
-			gfxIndex = 33,
-			weight = 0.8,
-			traits = { "clothes", "boots" },
-		},
-		{
-			class = "EquipmentItem",
-			protection = 1,
-		},
-	},
-	tags = { "armor_clothes" },
-}
-
-defineObject{
-	name = "pointy_shoes",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/pointy_shoes.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Pointy Shoes",
-			gfxIndex = 166,
-			weight = 1.0,
-			traits = { "clothes", "boots" },
-		},
-		{
-			class = "EquipmentItem",
-			protection = 1,
-			dexterity = 1,
-		},
-	},
-	tags = { "armor_clothes" },
-}
-
-defineObject{
-	name = "nomad_boots",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/nomad_boots.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Nomad Boots",
-			description = "Thick boots that can keep the freezing winds of a tundra at bay.",
-			gfxIndex = 9,
-			weight = 3.5,
-			traits = { "clothes", "boots" },
-		},
-		{
-			class = "EquipmentItem",
-			protection = 2,
-			resistCold = 5,
-		},
-	},
-	tags = { "armor_clothes" },
-}
 
 defineObject{
 	name = "xafi_khakis",
@@ -472,6 +351,130 @@ defineObject{
 }
 
 defineObject{
+	name = "sandals",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/sandals.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Sandals",
+			gfxIndex = 33,
+			weight = 0.8,
+			traits = { "clothes", "boots" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 1,
+		},
+	},
+	tags = { "armor_clothes" },
+}
+
+-- Clothes with other bonuses
+
+defineObject{
+	name = "flarefeather_cap",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/flarefeather_cap.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Flarefeather Cap",
+			description = "A felt cap that dons a feather of a flarebird.",
+			gfxIndex = 38,
+			weight = 0.3,
+			traits = { "clothes", "helmet", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 1,
+			dexterity = 2,
+		},
+	},
+	tags = { "armor_clothes" },
+}
+
+defineObject{
+	name = "circlet_war",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/circlet_war.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Circlet of War",
+			description = "The steel from the weapons of a surrendered enemy regiment was melted and forged into a crown for their new king.",
+			gfxIndex = 71,
+			weight = 1.5,
+			traits = { "clothes", "helmet", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 1,
+			strength = 3,
+		},
+	},
+	tags = { "armor_clothes" },
+}
+
+defineObject{
+	name = "pointy_shoes",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/pointy_shoes.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Pointy Shoes",
+			gfxIndex = 166,
+			weight = 1.0,
+			traits = { "clothes", "boots" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 1,
+			dexterity = 1,
+		},
+	},
+	tags = { "armor_clothes" },
+}
+
+defineObject{
+	name = "nomad_boots",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/nomad_boots.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Nomad Boots",
+			description = "Thick boots that can keep the freezing winds of a tundra at bay.",
+			gfxIndex = 9,
+			weight = 3.5,
+			traits = { "clothes", "boots", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 2,
+			resistCold = 5,
+		},
+	},
+	tags = { "armor_clothes" },
+}
+
+defineObject{
 	name = "conjurers_hat",
 	baseObject = "base_item",
 	components = {
@@ -485,7 +488,7 @@ defineObject{
 			description = "This old, worn hat has been used by numerous wizards. The felt still has residues of energy and knowledge from its previous owners.",
 			gfxIndex = 70,
 			weight = 0.5,
-			traits = { "clothes", "helmet" },
+			traits = { "clothes", "helmet", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -496,7 +499,7 @@ defineObject{
 	tags = { "armor_clothes" },
 }
 
--- Lurker set 
+-- Lurker set
 
 defineObject{
 	name = "lurker_pants",
@@ -514,8 +517,9 @@ defineObject{
 			gfxIndex = 39,
 			weight = 0.5,
 			armorSetPieces = 4,
-			gameEffect = [[Lurker Set: Invisibility spell costs half to cast.]],
-			traits = { "clothes", "leg_armor" },
+			gameEffect = [[[Lurker Set]
+			Invisibility spell costs half to cast.]],
+			traits = { "clothes", "leg_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -539,10 +543,10 @@ defineObject{
 			description = "A vest made from a material that seems to blend into surrounding shadows.",
 			armorSet = "lurker",
 			armorSetPieces = 4,
-			gameEffect = [[Lurker Set: Invisibility spell costs half to cast.]],
+			gameEffect = [[[Lurker Set]	Invisibility spell costs half to cast.]],
 			gfxIndex = 40,
 			weight = 0.75,
-			traits = { "clothes", "chest_armor" },
+			traits = { "clothes", "chest_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -566,9 +570,9 @@ defineObject{
 			description = "A dark hood that covers the head.",
 			armorSet = "lurker",
 			gfxIndex = 41,
-			gameEffect = [[Lurker Set: Invisibility spell costs half to cast.]],
+			gameEffect = [[[Lurker Set] Invisibility spell costs half to cast.]],
 			weight = 0.25,
-			traits = { "clothes", "helmet" },
+			traits = { "clothes", "helmet", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -593,8 +597,8 @@ defineObject{
 			armorSet = "lurker",
 			gfxIndex = 141,
 			weight = 0.25,
-			gameEffect = [[Lurker Set: Invisibility spell costs half to cast.]],
-			traits = { "clothes", "boots" },
+			gameEffect = [[[Lurker Set] Invisibility spell costs half to cast.]],
+			traits = { "clothes", "boots", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -621,8 +625,8 @@ defineObject{
 			gfxIndex = 246,
 			weight = 1.2,
 			armorSet = "embalmers",
-			gameEffect = [[Embalmer's Set: Poison Resist and Poison Damage +15%.]],
-			traits = { "clothes", "boots" },
+			gameEffect = [[[Embalmer's Set] Poison Resist and Poison Damage +15%.]],
+			traits = { "clothes", "boots", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -653,8 +657,8 @@ defineObject{
 			gfxIndex = 247,
 			weight = 0.5,
 			armorSet = "embalmers",
-			gameEffect = [[Embalmer's Set: Poison Resist and Poison Damage +15%.]],
-			traits = { "clothes", "helmet" },
+			gameEffect = [[[Embalmer's Set] Poison Resist and Poison Damage +15%.]],
+			traits = { "clothes", "helmet", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -680,8 +684,8 @@ defineObject{
 			gfxIndex = 244,
 			weight = 0.5,
 			armorSet = "embalmers",
-			gameEffect = [[Embalmer's Set: Poison Resist and Poison Damage +15%.]],
-			traits = { "clothes", "chest_armor" },
+			gameEffect = [[[Embalmer's Set] Poison Resist and Poison Damage +15%.]],
+			traits = { "clothes", "chest_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -707,8 +711,8 @@ defineObject{
 			gfxIndex = 245,
 			weight = 0.5,
 			armorSet = "embalmers",
-			gameEffect = [[Embalmer's Set: Poison Resist and Poison Damage +15%.]],
-			traits = { "clothes", "leg_armor" },
+			gameEffect = [[[Embalmer's Set] Poison Resist and Poison Damage +15%.]],
+			traits = { "clothes", "leg_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -733,11 +737,12 @@ defineObject{
 			class = "Item",
 			uiName = "Archmage's Mantle",
 			description = "Magical runes adorn this mantle, which was worn by a long since forgotten archmage.",
+			gameEffect = [[[Archmage's Set] ]],
 			armorSet = "archmage",
 			gfxIndex = 478,			
 			gfxIndexArmorSet = 341,
 			weight = 0.5,
-			traits = { "clothes", "leg_armor" },
+			traits = { "clothes", "leg_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -761,12 +766,13 @@ defineObject{
 			class = "Item",
 			uiName = "Archmage's Scapular",
 			description = "The archmages of the Academy of Des are known to weave various mystical enchantments into their robes.",
+			gameEffect = [[[Archmage's Set] ]],
 			armorSet = "archmage",
 			armorSetPieces = 4,
 			gfxIndex = 479,
 			gfxIndexArmorSet = 342,
 			weight = 0.5,
-			traits = { "clothes", "chest_armor" },
+			traits = { "clothes", "chest_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -795,11 +801,12 @@ defineObject{
 			class = "Item",
 			uiName = "Archmage's Cap",
 			description = "Headwear is of great importance to many mages since the Academy of Des regards the head as the most potent source of magical energy in the body.",
+			gameEffect = [[[Archmage's Set] ]],
 			armorSet = "archmage",
 			gfxIndex = 480,	
 			gfxIndexArmorSet = 343,
 			weight = 0.2,
-			traits = { "clothes", "helmet" },
+			traits = { "clothes", "helmet", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -823,11 +830,12 @@ defineObject{
 			class = "Item",
 			uiName = "Archmage's Loafers",
 			description = "Considerable magical energy has flowed through these well-worn enchanted loafers.",
+			gameEffect = [[[Archmage's Set] ]],
 			armorSet = "archmage",
 			gfxIndex = 481,	
 			gfxIndexArmorSet = 344,
 			weight = 1.0,
-			traits = { "clothes", "boots" },
+			traits = { "clothes", "boots", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -853,10 +861,11 @@ defineObject{
 			class = "Item",
 			uiName = "Rogue Pants",
 			description = "A pair of pants woven from fine, lightweight thread.",
+			gameEffect = [[[Rogue Set] ]],
 			armorSet = "rogue",
 			gfxIndex = 357,
 			weight = 0.5,
-			traits = { "clothes", "leg_armor" },
+			traits = { "clothes", "leg_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -879,11 +888,12 @@ defineObject{
 			class = "Item",
 			uiName = "Rogue Vest",
 			description = "A vest made from a material that seems to blend into the surrounding shadows.",
+			gameEffect = [[[Rogue Set] ]],
 			armorSet = "rogue",
 			armorSetPieces = 5,
 			gfxIndex = 358,
 			weight = 0.75,
-			traits = { "clothes", "chest_armor" },
+			traits = { "clothes", "chest_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -906,10 +916,11 @@ defineObject{
 			class = "Item",
 			uiName = "Rogue Hood",
 			description = "A dark hood that covers the head.",
+			gameEffect = [[[Rogue Set] ]],
 			armorSet = "rogue",
 			gfxIndex = 359,
 			weight = 0.25,
-			traits = { "clothes", "helmet" },
+			traits = { "clothes", "helmet", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -932,10 +943,11 @@ defineObject{
 			class = "Item",
 			uiName = "Rogue Boots",
 			description = "A skilled thief can move completely silently when wearing these boots.",
+			gameEffect = [[[Rogue Set] ]],
 			armorSet = "rogue",
 			gfxIndex = 361,
 			weight = 0.25,
-			traits = { "clothes", "boots" },
+			traits = { "clothes", "boots", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -962,7 +974,7 @@ defineObject{
 			armorSet = "rogue",
 			gfxIndex = 361,
 			weight = 0.3,
-			traits = { "clothes", "boots" },
+			traits = { "clothes", "boots", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -985,10 +997,11 @@ defineObject{
 			class = "Item",
 			uiName = "Rogue Gloves",
 			description = "The fingers of these gloves are covered with a thin layer of gumtree nectar for enhanced grip.",
+			gameEffect = [[[Rogue Set] ]],
 			armorSet = "rogue",
 			gfxIndex = 360,
 			weight = 0.3,
-			traits = { "clothes", "gloves" },
+			traits = { "clothes", "gloves", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",

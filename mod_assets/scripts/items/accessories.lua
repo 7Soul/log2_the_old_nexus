@@ -979,24 +979,22 @@ defineObject{
 			uiName = "Bear Pelt",
 			gfxIndex = 320,
 			weight = 2.5,
+			armorSet = "bear",
+			armorSetPieces = 3,
 			traits = { "cloak" },
 			description = "This cloak, made of bear skin, has a musty smell.",
-			gameEffect = [[
-			
-			[Bearclaw Gauntlets and Bear Pelt Set Bonus]
-			While in bear form you gain +10.
+			gameEffect = [[[Bear Set] While in bear form you gain +10 Strength.
 			Extends bear form duration.]],
 		},
 		{
 			class = "EquipmentItem",
 			vitality = 2,
 			resistCold = 20,
+			resistCold = 20,
 			onRecomputeStats = function(self, champion)
-				if champion:hasCondition("bear_form") then
-					if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "bearclaw_gauntlets" then
-						champion:addStatModifier("strength", 10)
-						if not champion:hasCondition("bear_bonus") then champion:setConditionValue("bear_bonus", 2) end
-					end
+				if champion:isArmorSetEquipped("bear") then
+					champion:addStatModifier("strength", 10)
+					if not champion:hasCondition("bear_bonus") then champion:setConditionValue("bear_bonus", 2) end
 				end
 			end
 		},
@@ -1044,15 +1042,16 @@ defineObject{
 		{
 			class = "Item",
 			uiName = "Bearclaw Gauntlets",
+			weight = 0.9,
+			armorSet = "bear",
+			armorSetPieces = 3,
+			traits = { "gloves", "upgradable" },
 			description = "These powerful enchanted gauntlets are rumored to be made from the severed paws of a polymorphed bear cult shaman.",
 			gameEffect = [[Melee power attacks deal 15% more damage.
 
-			[Bearclaw Gauntlets and Bear Pelt Set Bonus]
-			While in bear form you gain +10 Strength.
+			[Bear Set] While in bear form you gain +10 Strength.
 			Extends bear form duration.]],
 			gfxIndex = 325,
-			weight = 0.9,
-			traits = { "gloves", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",

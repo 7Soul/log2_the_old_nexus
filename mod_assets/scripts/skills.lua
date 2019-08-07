@@ -352,9 +352,9 @@ defineSkill{
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 17,
 	description = [[Allows you to upgrade equipments, increasing their stats. Requires a Tinkerer's Toolbox and crafting materials.
-	- Raises your tinkering level after 3 successful upgrades and after leveling this skill.
+	- Items can be upgraded 3 times.
 	- Each skill point increases the stats by an additional 5%.
-	- Upgraded items weight 5kg more (-0.5kg per skill level).
+	- Upgraded items have increased weight (reduced based on the level of the skill).
 	
 	Perks:
 	- Pyrotechnician | You can craft bombs and pellets. +5% Fire and Shock damage dealt per upgraded item you have equipped.

@@ -6406,6 +6406,42 @@ throwing_knife_6.detectedtimer:setTimerInterval(0)
 throwing_knife_6.detectedtimer:setDisableSelf(false)
 throwing_knife_6.detectedtimer:setTriggerOnStart(true)
 throwing_knife_6.detectedtimer:setCurrentLevelOnly(true)
+spawn("bane",17,13,1,0,"bane_1")
+bane_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+bane_1.detectedtimer:setTimerInterval(0)
+bane_1.detectedtimer:setDisableSelf(false)
+bane_1.detectedtimer:setTriggerOnStart(true)
+bane_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("bane",17,13,1,0,"bane_2")
+bane_2.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+bane_2.detectedtimer:setTimerInterval(0)
+bane_2.detectedtimer:setDisableSelf(false)
+bane_2.detectedtimer:setTriggerOnStart(true)
+bane_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("bane",17,13,1,0,"bane_3")
+bane_3.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+bane_3.detectedtimer:setTimerInterval(0)
+bane_3.detectedtimer:setDisableSelf(false)
+bane_3.detectedtimer:setTriggerOnStart(true)
+bane_3.detectedtimer:setCurrentLevelOnly(true)
 
 --- level 4 ---
 

@@ -13,7 +13,7 @@ defineObject{
 			armorSetPieces = 5,
 			gfxIndex = 88,
 			weight = 11.0,
-			traits = { "heavy_armor", "dismantle", "chest_armor" },
+			traits = { "heavy_armor", "dismantle", "chest_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -37,7 +37,7 @@ defineObject{
 			armorSet = "ring",
 			gfxIndex = 89,
 			weight = 8.0,
-			traits = { "heavy_armor", "dismantle", "leg_armor" },
+			traits = { "heavy_armor", "dismantle", "leg_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -61,7 +61,7 @@ defineObject{
 			armorSet = "ring",
 			gfxIndex = 90,
 			weight = 3.5,
-			traits = { "heavy_armor", "dismantle", "gloves" },
+			traits = { "heavy_armor", "dismantle", "gloves", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -85,7 +85,7 @@ defineObject{
 			armorSet = "ring",
 			gfxIndex = 140,
 			weight = 4.8,
-			traits = { "heavy_armor", "dismantle", "boots" },
+			traits = { "heavy_armor", "dismantle", "boots", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -108,7 +108,7 @@ defineObject{
 			uiName = "Phalanx Helmet",
 			gfxIndex = 209,
 			weight = 3.4,
-			traits = { "heavy_armor", "dismantle", "helmet" },
+			traits = { "heavy_armor", "dismantle", "helmet", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -131,7 +131,7 @@ defineObject{
 			uiName = "Iron Basinet",
 			gfxIndex = 4,
 			weight = 3.1,
-			traits = { "heavy_armor", "dismantle", "helmet" },
+			traits = { "heavy_armor", "dismantle", "helmet", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -156,7 +156,7 @@ defineObject{
 			armorSetPieces = 5,
 			gfxIndex = 91,
 			weight = 17.0,
-			traits = { "heavy_armor", "dismantle", "chest_armor" },
+			traits = { "heavy_armor", "dismantle", "chest_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -180,7 +180,7 @@ defineObject{
 			armorSet = "plate",
 			gfxIndex = 92,
 			weight = 11.0,
-			traits = { "heavy_armor", "dismantle", "leg_armor" },
+			traits = { "heavy_armor", "dismantle", "leg_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -204,7 +204,7 @@ defineObject{
 			armorSet = "plate",
 			gfxIndex = 93,
 			weight = 5.0,
-			traits = { "heavy_armor", "dismantle", "helmet" },
+			traits = { "heavy_armor", "dismantle", "helmet", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -228,7 +228,7 @@ defineObject{
 			armorSet = "plate",
 			gfxIndex = 95,
 			weight = 4.0,
-			traits = { "heavy_armor", "dismantle", "gloves" },
+			traits = { "heavy_armor", "dismantle", "gloves", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -252,7 +252,7 @@ defineObject{
 			armorSet = "plate",
 			gfxIndex = 94,
 			weight = 6.0,
-			traits = { "heavy_armor", "dismantle", "boots" },
+			traits = { "heavy_armor", "dismantle", "boots", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -275,7 +275,7 @@ defineObject{
 			uiName = "Ancient Helm",
 			gfxIndex = 296,
 			weight = 3.5,
-			traits = { "heavy_armor", "dismantle", "helmet" },
+			traits = { "heavy_armor", "dismantle", "helmet", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -298,13 +298,17 @@ defineObject{
 			uiName = "Bear Skull Helmet",
 			gfxIndex = 322,
 			weight = 0.8,
-			traits = { "light_armor", "helmet" },
+			armorSet = "bear",
+			armorSetPieces = 3,
+			traits = { "light_armor", "helmet", "upgradable" },
 			description = "The most bloodthirsty of the fjord dwellers wore helmets crafted out of bear skulls.",
+			gameEffect = [[[Bear Set] While in bear form you gain +10 Strength.
+			Extends bear form duration.]],
 		},
 		{
 			class = "EquipmentItem",
-			protection = 4,
-			strength = 4,
+			protection = 5,
+			strength = 2,
 		},
 	},
 	tags = { "armor_light" },
@@ -328,11 +332,16 @@ defineObject{
 			armorSetPieces = 5,
 			gfxIndex = 125,
 			weight = 13.0,
-			traits = { "heavy_armor", "dismantle", "chest_armor" },
+			traits = { "heavy_armor", "dismantle", "chest_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
 			protection = 15,
+			onRecomputeStats = function(self, champion)
+				if champion:isArmorSetEquipped("crystal") then
+					champion:addStatModifier("max_health", 50)
+				end
+			end,
 		},
 	},
 	tags = { "armor_heavy" },
@@ -353,7 +362,7 @@ defineObject{
 			armorSet = "valor",
 			gfxIndex = 126,
 			weight = 9.5,
-			traits = { "heavy_armor", "dismantle", "leg_armor" },
+			traits = { "heavy_armor", "dismantle", "leg_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -378,7 +387,7 @@ defineObject{
 			armorSet = "valor",
 			gfxIndex = 127,
 			weight = 4.5,
-			traits = { "heavy_armor", "dismantle", "helmet" },
+			traits = { "heavy_armor", "dismantle", "helmet", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -403,7 +412,7 @@ defineObject{
 			armorSet = "valor",
 			gfxIndex = 129,
 			weight = 3.5,
-			traits = { "heavy_armor", "dismantle", "gloves" },
+			traits = { "heavy_armor", "dismantle", "gloves", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -428,7 +437,7 @@ defineObject{
 			armorSet = "valor",
 			gfxIndex = 128,
 			weight = 5.5,
-			traits = { "heavy_armor", "dismantle", "boots" },
+			traits = { "heavy_armor", "dismantle", "boots", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -457,7 +466,7 @@ defineObject{
 			gfxIndex = 350,
 			gfxIndexArmorSet = 99,
 			weight = 13.0,
-			traits = { "heavy_armor", "dismantle", "epic", "chest_armor" }
+			traits = { "heavy_armor", "dismantle", "epic", "chest_armor", "upgradable" }
 		},
 		{
 			class = "EquipmentItem",
@@ -489,7 +498,7 @@ defineObject{
 			gfxIndex = 352,
 			gfxIndexArmorSet = 101,
 			weight = 3.8,
-			traits = { "heavy_armor", "dismantle", "helmet", "epic" },
+			traits = { "heavy_armor", "dismantle", "helmet", "epic", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -516,7 +525,7 @@ defineObject{
 			gfxIndex = 354,
 			gfxIndexArmorSet = 103,
 			weight = 2.5,
-			traits = { "heavy_armor", "dismantle", "gloves", "epic" },
+			traits = { "heavy_armor", "dismantle", "gloves", "epic", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -543,7 +552,7 @@ defineObject{
 			gfxIndex = 351,
 			gfxIndexArmorSet = 100,
 			weight = 7.0,
-			traits = { "heavy_armor", "dismantle", "leg_armor", "epic" },
+			traits = { "heavy_armor", "dismantle", "leg_armor", "epic", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -570,7 +579,7 @@ defineObject{
 			gfxIndex = 353,
 			gfxIndexArmorSet = 102,
 			weight = 3.2,
-			traits = { "heavy_armor", "dismantle", "boots", "epic" },
+			traits = { "heavy_armor", "dismantle", "boots", "epic", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -601,7 +610,7 @@ defineObject{
 			gfxIndexArmorSet = 467,	
 			weight = 15.0,
 			gameEffect = [[Meteor Set: +50 Fire Resist.]],
-			traits = { "heavy_armor", "dismantle", "chest_armor", "epic" },
+			traits = { "heavy_armor", "dismantle", "chest_armor", "epic", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -632,7 +641,7 @@ defineObject{
 			gfxIndex = 266,
 			gfxIndexArmorSet = 468,
 			weight = 11.5,
-			traits = { "heavy_armor", "dismantle", "leg_armor", "epic" },
+			traits = { "heavy_armor", "dismantle", "leg_armor", "epic", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -658,7 +667,7 @@ defineObject{
 			gfxIndex = 267,
 			gfxIndexArmorSet = 469,
 			weight = 4.2,
-			traits = { "heavy_armor", "dismantle", "helmet", "epic" },
+			traits = { "heavy_armor", "dismantle", "helmet", "epic", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -684,7 +693,7 @@ defineObject{
 			gfxIndex = 268,
 			gfxIndexArmorSet = 470,
 			weight = 3.8,
-			traits = { "heavy_armor", "dismantle", "boots", "epic" },
+			traits = { "heavy_armor", "dismantle", "boots", "epic", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -710,7 +719,7 @@ defineObject{
 			gfxIndex = 269,
 			gfxIndexArmorSet = 471,
 			weight = 3.8,
-			traits = { "heavy_armor", "dismantle", "gloves", "epic" },
+			traits = { "heavy_armor", "dismantle", "gloves", "epic", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -718,32 +727,6 @@ defineObject{
 		},
 	},
 	tags = { "armor_heavy" },
-}
-
-defineObject{
-	name = "makeshift_mask",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/makeshift_mask.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Thraelm Tribal Mask",
-			description = "A grotesque mask used in the rites of the Thraelm tribesmen.",
-			armorSet = "makeshift",
-			gfxIndex = 284,
-			weight = 1.2,
-			traits = { "light_armor", "helmet" },
-		},
-		{
-			class = "EquipmentItem",
-			protection = 3,
-			energy = 5,
-		},
-	},
-	tags = { "armor_light" },
 }
 
 ------------- Light armor
@@ -762,7 +745,7 @@ defineObject{
 			description = "During times of drought, farmers often resort to hunting sandmoles for their meat and thick hides.",
 			gfxIndex = 34,
 			weight = 3.0,
-			traits = { "light_armor", "chest_armor" },
+			traits = { "light_armor", "chest_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -787,7 +770,7 @@ defineObject{
 			armorSetPieces = 4,
 			gfxIndex = 19,
 			weight = 8.0,
-			traits = { "light_armor", "chest_armor" },
+			traits = { "light_armor", "chest_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -811,7 +794,7 @@ defineObject{
 			armorSet = "leather",
 			gfxIndex = 20,
 			weight = 5.0,
-			traits = { "light_armor", "leg_armor" },
+			traits = { "light_armor", "leg_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -835,11 +818,39 @@ defineObject{
 			armorSet = "leather",
 			gfxIndex = 21,
 			weight = 0.8,
-			traits = { "light_armor", "helmet" },
+			traits = { "light_armor", "helmet", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
 			protection = 4,
+		},
+	},
+	tags = { "armor_light" },
+}
+
+-- Makeshift Set
+
+defineObject{
+	name = "makeshift_mask",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/makeshift_mask.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Thraelm Tribal Mask",
+			description = "A grotesque mask used in the rites of the Thraelm tribesmen.",
+			armorSet = "makeshift",
+			gfxIndex = 284,
+			weight = 1.2,
+			traits = { "light_armor", "helmet", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 3,
+			energy = 5,
 		},
 	},
 	tags = { "armor_light" },
@@ -861,7 +872,7 @@ defineObject{
 			armorSetPieces = 4,
 			gfxIndex = 283,
 			weight = 4.0,
-			traits = { "light_armor", "chest_armor" },
+			traits = { "light_armor", "chest_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -887,7 +898,7 @@ defineObject{
 			armorSet = "makeshift",
 			gfxIndex = 285,
 			weight = 2.0,
-			traits = { "light_armor", "leg_armor" },
+			traits = { "light_armor", "leg_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -916,7 +927,7 @@ defineObject{
 			armorSetPieces = 5,
 			gfxIndex = 254,
 			weight = 8.0,
-			traits = { "light_armor", "chest_armor" },
+			traits = { "light_armor", "chest_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -942,7 +953,7 @@ defineObject{
 			armorSet = "reed",
 			gfxIndex = 255,
 			weight = 5.0,
-			traits = { "light_armor", "leg_armor" },
+			traits = { "light_armor", "leg_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -968,7 +979,7 @@ defineObject{
 			armorSet = "reed",
 			gfxIndex = 256,
 			weight = 0.8,
-			traits = { "light_armor", "helmet" },
+			traits = { "light_armor", "helmet", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -994,7 +1005,7 @@ defineObject{
 			armorSet = "reed",
 			gfxIndex = 257,
 			weight = 2.6,
-			traits = { "light_armor", "boots" },
+			traits = { "light_armor", "boots", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -1020,7 +1031,7 @@ defineObject{
 			armorSet = "reed",
 			gfxIndex = 258,
 			weight = 0.5,
-			traits = { "light_armor", "gloves" },
+			traits = { "light_armor", "gloves", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -1049,7 +1060,7 @@ defineObject{
 			armorSetPieces = 5,
 			gfxIndex = 239,
 			weight = 8.0,
-			traits = { "light_armor", "chest_armor" },
+			traits = { "light_armor", "chest_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -1075,7 +1086,7 @@ defineObject{
 			armorSet = "mirror",
 			gfxIndex = 242,
 			weight = 3.5,
-			traits = { "light_armor", "boots" },
+			traits = { "light_armor", "boots", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -1101,7 +1112,7 @@ defineObject{
 			armorSet = "mirror",
 			gfxIndex = 243,
 			weight = 0.8,
-			traits = { "light_armor", "gloves" },
+			traits = { "light_armor", "gloves", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -1127,7 +1138,7 @@ defineObject{
 			armorSet = "mirror",
 			gfxIndex = 241,
 			weight = 3.5,
-			traits = { "light_armor", "helmet" },
+			traits = { "light_armor", "helmet", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -1153,7 +1164,7 @@ defineObject{
 			armorSet = "mirror",
 			gfxIndex = 240,
 			weight = 3.5,
-			traits = { "light_armor", "leg_armor" },
+			traits = { "light_armor", "leg_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -1182,7 +1193,7 @@ defineObject{
 			armorSetPieces = 4,
 			gfxIndex = 49,
 			weight = 7.0,
-			traits = { "light_armor", "chest_armor" },
+			traits = { "light_armor", "chest_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -1207,7 +1218,7 @@ defineObject{
 			armorSet = "chitin",
 			gfxIndex = 50,
 			weight = 4.0,
-			traits = { "light_armor", "leg_armor" },
+			traits = { "light_armor", "leg_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -1232,7 +1243,7 @@ defineObject{
 			armorSet = "chitin",
 			gfxIndex = 73,
 			weight = 3.0,
-			traits = { "light_armor", "boots" },
+			traits = { "light_armor", "boots", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -1257,7 +1268,7 @@ defineObject{
 			armorSet = "chitin",
 			gfxIndex = 51,
 			weight = 2.0,
-			traits = { "light_armor", "helmet" },
+			traits = { "light_armor", "helmet", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",

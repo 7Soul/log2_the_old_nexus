@@ -415,8 +415,15 @@ defineObject{
 						context.drawImage2("mod_assets/textures/gui/upgradable.dds", w - ((553 - (posx * 63)) * f2), (297 + (posy * 63)) * f2, 0, 0, 64, 64, 55 * f2, 55 * f2)
 						end
 					end
-					local text = "Tinkering Level = ".. math.min((math.floor(functions.script.tinkering_level[champion:getOrdinal()] / 3) + 1), 10)
-					context.drawText(text, MX - (context.getTextWidth(text) / 2), MY + 30)					
+					-- local text = "Tinkering Level = ".. champion:getSkillLevel("tinkering")
+					-- context.drawText(text, MX - (context.getTextWidth(text) / 2), MY + 30)
+					if champion:getClass() == "tinkerer" then
+						local count = functions.script.get_c("crafting_expertise", champion:getOrdinal())
+						if count ~= nil and count > 0 then
+							local text2 = "Crafting Bonus = ".. count
+							context.drawText(text2, MX - (context.getTextWidth(text2) / 2), MY + 30)
+						end
+					end
 				end
 				
 				-- Dismantle prompt
