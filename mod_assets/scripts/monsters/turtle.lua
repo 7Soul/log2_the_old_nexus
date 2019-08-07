@@ -6,7 +6,6 @@ defineObject{
 			class = "Model",
 			model = "assets/models/monsters/turtle.fbx",
 			storeSourceData = true, -- must be enabled for mesh particles to work
-			size = vec(0.25, 0.25, 0.25),
 		},
 		{
 			class = "Animation",

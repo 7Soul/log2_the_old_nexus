@@ -43,9 +43,9 @@ defOrdered =
 	hidden = true,
 	description = "",
 	onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
-		local base = functions.script.getDamage(ord, nil) + functions.script.getAccuracy(ord, nil)
-		local power = spells_functions.script.getPower(base, champion, "missile_weapons", "neutral", 1)	
 		local ord = champion:getOrdinal()
+		local base = functions.script.getDamage(ord, nil) + functions.script.getAccuracy(ord, nil)
+		local power = spells_functions.script.getPower(base, champion, "missile_weapons", "neutral", 1)			
 		spells_functions.script.missile("psionic_arrow", ord, power, nil, true)
 		spells_functions.script.stopInvisibility()
 	end
@@ -3251,7 +3251,7 @@ function insertEffectIcons(spell, duration, ord)
 	if not i then
 		i = "assets/textures/gui/skills.tga"
 		local index = defByName[spell].icon
-		ix =					 (index%10)*75
+		ix = (index%10)*75
 		iy = math.floor(index/10)*75
 	end
 	eff.n = {name = spell, icon = i, ordinal = ord, x = ix, y = iy, t = expire, n = eff.n}
@@ -3278,15 +3278,18 @@ function hasEffectIcons(spell, ord)
 	end
 	return false
 end
+
 function maxEffectIcons(spell, duration, ord)
 	insertEffectIcons(spell, removeEffectIcons(spell, duration, ord), ord)
 end
+
 function addEffectIcons(spell, duration, ord)
 	insertEffectIcons(spell, duration + removeEffectIcons(spell, 0, ord), ord)
 end
 function setEffectIcons(spell, duration, ord)
 	removeEffectIcons(spell, 0, ord) if duration then insertEffectIcons(spell, duration, ord) end
 end
+
 function setConditionIcons(condition, spell, ord)
 	if ord then
 		local c = party.party:getChampionByOrdinal(ord)
@@ -3295,6 +3298,7 @@ function setConditionIcons(condition, spell, ord)
 		for ord = 1,4 do setConditionIcons(condition, spell, ord) end
 	end
 end
+
 fontSize = {"tiny", "small", "medium", "large"}
 function drawEffectIcons(pcomp, context)	
 	for _,c in ipairs(getChampions()) do if not c:hasCondition("invisibility") then removeEffectIcons("invisibility") break end end
@@ -3326,9 +3330,11 @@ function drawEffectIcons(pcomp, context)
 		end
 	end
 end
+
 function ordinalToIndex(ordinal)
 	for i = 1,4 do if party.party:getChampion(i):getOrdinal() == ordinal then return i end end
 end
+
 if self and self.go then
 	party.party:addConnector("onDrawGui", self.go.id, "drawEffectIcons")
 end

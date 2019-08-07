@@ -338,7 +338,7 @@ defineObject{
 			class = "EquipmentItem",
 			protection = 15,
 			onRecomputeStats = function(self, champion)
-				if champion:isArmorSetEquipped("crystal") then
+				if champion:isArmorSetEquipped("valor") then
 					champion:addStatModifier("max_health", 50)
 				end
 			end,
@@ -461,6 +461,9 @@ defineObject{
 			class = "Item",
 			uiName = "Crystal Cuirass",
 			description = "Putting on this crystal covered cuirass refreshes the spirits like a good night's sleep.",
+			gameEffect=[[[Crystal Set] +50 Health
+			After you heal at a Healing Crystal, you gain the blessing of the crystal. 
+			If you fall under 50 health, you quickly heal back to full and lose the blessing.]],
 			armorSet = "crystal",
 			armorSetPieces = 6,
 			gfxIndex = 350,
@@ -494,6 +497,9 @@ defineObject{
 			class = "Item",
 			uiName = "Crystal Helmet",
 			description = "This helmet covers its wearer with a veil of pale blue light.",
+			gameEffect=[[[Crystal Set] +50 Health
+			After you heal at a Healing Crystal, you gain the blessing of the crystal. 
+			If you fall under 50 health, you quickly heal back to full and lose the blessing.]],
 			armorSet = "crystal",
 			gfxIndex = 352,
 			gfxIndexArmorSet = 101,
@@ -522,6 +528,9 @@ defineObject{
 			uiName = "Crystal Gauntlets",
 			armorSet = "crystal",
 			description = "A faint, soothing hum can be heard emanating from the crystals.",
+			gameEffect=[[[Crystal Set] +50 Health
+			After you heal at a Healing Crystal, you gain the blessing of the crystal. 
+			If you fall under 50 health, you quickly heal back to full and lose the blessing.]],
 			gfxIndex = 354,
 			gfxIndexArmorSet = 103,
 			weight = 2.5,
@@ -548,6 +557,9 @@ defineObject{
 			class = "Item",
 			uiName = "Crystal Greaves",
 			description = "The Crystal Armor was rumored to be the source of the immortality of Iliar Foulhart, the self-crowned king of Conwyn.",
+			gameEffect=[[[Crystal Set] +50 Health
+			After you heal at a Healing Crystal, you gain the blessing of the crystal. 
+			If you fall under 50 health, you quickly heal back to full and lose the blessing.]],
 			armorSet = "crystal",
 			gfxIndex = 351,
 			gfxIndexArmorSet = 100,
@@ -575,6 +587,9 @@ defineObject{
 			class = "Item",
 			uiName = "Crystal Boots",
 			description = "You can feel magical energy flowing from the blue shards of crystal in these boots.",
+			gameEffect=[[[Crystal Set] +50 Health
+			After you heal at a Healing Crystal, you gain the blessing of the crystal. 
+			If you fall under 50 health, you quickly heal back to full and lose the blessing.]],
 			armorSet = "crystal",
 			gfxIndex = 353,
 			gfxIndexArmorSet = 102,

@@ -242,7 +242,7 @@ defineObject{
 		onDie = function(party,champion) 
 			--print(party.go.id,champion:getName(),'died') 
 			for i=1,4 do
-				if party:getChampion(i):getClass() == "fighter" and party:getChampion(i):isAlive() then
+				if party:getChampion(i):getClass() == "berserker" and party:getChampion(i):isAlive() then
 					party:getChampion(i):setConditionValue("berserker_revenge", 60)
 					if party:getChampion(i):hasCondition("berserker_rage") then
 						party:getChampion(i):removeCondition("berserker_rage")
@@ -328,12 +328,13 @@ defineObject{
 					end
 				end
 				
+				-- Rodent
 				local item = champion:getItem(slot)
-				if item and champion:hasTrait("rodent") and item:hasTrait("herb") then
+				if item and champion:hasTrait("rodent") and item:hasTrait("herb") and item:hasTrait("rodent") then
 					if button == 2 then
 						if not champion:hasCondition("chewing") then
 							hudPrint("The ratling ate the herb.")
-							champion:setConditionValue("chewing", 5)
+							champion:setConditionValue("chewing", 60 * 3)
 							if item:getStackSize() > 1 then
 								item:setStackSize(item:getStackSize() - 1)
 							else
@@ -456,7 +457,7 @@ defineObject{
 				end
 			end
 			
-			-- if champion:getClass() == "fighter" then
+			-- if champion:getClass() == "berserker" then
 				-- local item = getMouseItem()				
 				-- if item and item.go:getComponent("equipmentitem") then
 					-- local i = nil
@@ -1315,6 +1316,14 @@ defineObject{
 					local biteTimer = functions.script.get_c("bite", champion:getOrdinal())
 					if biteTimer and biteTimer > 0 then
 						functions.script.set_c("bite", champion:getOrdinal(), math.max(biteTimer - 1, 0))
+					end
+				end
+
+				if champion:hasTrait("crystal_health") and get_c("crystal_health", champion:getOrdinal()) ~= nil then
+					if champion:getHealth() <= 50 then
+						champion:setConditionValue("crystal_health", 5)
+						champion:removeTrait("crystal_health")
+						set_c("crystal_health", champion:getOrdinal(), nil)
 					end
 				end
 			end

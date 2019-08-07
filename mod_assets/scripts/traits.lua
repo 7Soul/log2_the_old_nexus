@@ -23,7 +23,7 @@ defineTrait{
 }
 
 defineTrait{
-	name = "fighter",
+	name = "berserker",
 	uiName = "Berserker",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 27,
@@ -966,7 +966,6 @@ defineTrait{
 			local stat = functions.script.get_c("wide_vision", champion:getOrdinal())
 			if not stat then return end
 			champion:addStatModifier("evasion", stat * 10)
-			champion:addStatModifier("accuracy", stat * 10)
 			for i=1,4 do
 				local c = party.party:getChampionByOrdinal(i)
 				if c ~= champion then
@@ -1863,4 +1862,20 @@ defineTrait{
 	icon = 1,
 	hidden = true,
 	description = "",
+}
+
+-- item traits
+
+defineTrait{
+	name = "crystal_health",
+	uiName = "Crystal Set Health",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 0,
+	hidden = true,
+	description = "",
+	onRecomputeStats = function(champion, level)
+		if level > 0 then
+			
+		end
+	end,
 }

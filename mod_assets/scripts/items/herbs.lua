@@ -13,33 +13,11 @@ defineObject{
 			gfxIndex = 57,
 			stackable = true,
 			weight = 0.05,
-			traits = { "herb" },
+			traits = { "herb", "rodent" },
 		},
 		{
 			class = "Particle",
 			particleSystem = "blooddrop",
-		},
-		{
-			class = "UsableItem",
-			onUseItem = function(self, champion)
-				if champion:hasTrait("rodent") then
-					
-				end
-				
-				if self.go.data:get("charges") == 24 then
-					local id = champion:getOrdinal()
-					local power = 1.2 + (math.floor(champion:getCurrentStat("dexterity") / 5) * 0.05)
-					functions.script.set_c("topaz_power", id, power)
-					functions.script.set_c("topaz_charges",  id, 5)
-					self.go.data:set("charges", 0)
-					self.go.data:set("icon", self.go.item:getGfxIndex())
-					playSound("generic_spell")
-					self.go.item:setGfxIndex(self.go.item:getGfxIndex() + 2)
-				else
-					hudPrint("The gem needs to recharge.")
-				end
-				return false
-			end,
 		},
 	},
 	tags = { "herb" },
@@ -60,7 +38,7 @@ defineObject{
 			gfxIndex = 76,
 			stackable = true,
 			weight = 0.05,
-			traits = { "herb" },
+			traits = { "herb", "rodent" },
 		},
 		{
 			class = "Particle",
@@ -85,7 +63,7 @@ defineObject{
 			gfxIndex = 77,
 			stackable = true,
 			weight = 0.05,
-			traits = { "herb" },
+			traits = { "herb", "rodent" },
 		},
 	},
 	tags = { "herb" },
@@ -127,7 +105,7 @@ defineObject{
 			gfxIndex = 79,
 			stackable = true,
 			weight = 0.05,
-			traits = { "herb" },
+			traits = { "herb", "rodent" },
 		},
 	},
 	tags = { "herb" },

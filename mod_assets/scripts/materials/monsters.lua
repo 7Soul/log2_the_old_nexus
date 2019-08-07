@@ -672,7 +672,7 @@ defineMaterial{
 	diffuseMap = "mod_assets/textures/monsters/ice_crab_dif.tga",
 	specularMap = "mod_assets/textures/monsters/ice_crab_spec.tga",
 	normalMap = "assets/textures/monsters/cave_crab_normal.tga",
-	emissiveMap = "assets/textures/monsters/ice_crab_emissive.tga",
+	emissiveMap = "mod_assets/textures/monsters/ice_crab_emissive.tga",
 	doubleSided = false,
 	lighting = true,
 	alphaTest = false,

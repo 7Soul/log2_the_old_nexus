@@ -733,14 +733,15 @@ defineObject{
 			offset = vec(0, 1.5, 0),
 			size = vec(1.6, 2, 1.6),
 			maxDistance = 1,
-			-- onClick = function(self)
-				-- local m = self.go:getWorldRotation()
-				-- m.x = m.x * 0.5
-				-- m.y = m.y * 0.5
-				-- m.z = m.z * 0.5
-				-- self.go:setWorldRotation(m)
-				-- print(self.go:getWorldRotation())
-			-- end,
+			onClick = function(self)
+				for c=1,4 do
+					local champion = party.party:getChampion(c)
+					if champion:isArmorSetEquipped("crystal") then
+						champion:addTrait("crystal_health")
+						functions.script.set_c("crystal_health", champion:getOrdinal(), 50)
+					end
+				end
+			end,
 		},
 		{
 			class = "Obstacle",

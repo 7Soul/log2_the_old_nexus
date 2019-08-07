@@ -103,27 +103,90 @@ function getKeydown(key)
 	end
 end
 
+function setDefaultParty()
+	local champion = nil
+	for c=1,4 do
+		champion = party.party:getChampionByOrdinal(c)
+		-- Reset Level
+		champion:resetExp(0)
+		-- Reset Skills
+		skillNames = { "athletics", "block", "light_armor", "heavy_armor", "accuracy", "critical", "firearms", "seafaring", "alchemy", "ranged_weapons", "light_weapons", "heavy_weapons", "spellblade", "elemental_magic", "poison_mastery", "concentration", "witchcraft", "tinkering" }
+		for i=1,#skillNames do
+			local s = champion:getSkillLevel(skillNames[i])
+			champion:trainSkill(skillNames[i], s * -1, false)
+		end
+		-- Remove items
+		for s=1,32 do champion:removeItemFromSlot(s) end		
+	end
+
+	--local defaultChampion = {"human_berserker"}
+	champion = party.party:getChampionByOrdinal(1)
+	champion:setRace("insectoid")
+	champion:setClass("monk")
+	champion:addTrait("persistence")
+	champion:trainSkill("heavy_weapons", 1, false)
+	champion:trainSkill("athletics", 1, false)
+
+	champion = party.party:getChampionByOrdinal(2)
+	champion:setRace("lizardman")
+	champion:setClass("assassin_class")
+	champion:addTrait("wide_vision")
+	champion:trainSkill("light_weapons", 1, false)
+	champion:trainSkill("critical", 1, false)
+
+	champion = party.party:getChampionByOrdinal(3)
+	champion:setRace("ratling")
+	champion:setClass("corsair")
+	champion:addTrait("rodent")
+	champion:trainSkill("firearms", 1, false)
+	champion:trainSkill("alchemy", 1, false)
+
+	champion = party.party:getChampionByOrdinal(4)
+	champion:setRace("human")
+	champion:setClass("elementalist")
+	champion:addTrait("lore_master")
+	champion:trainSkill("elemental_magic", 1, false)
+	champion:trainSkill("concentration", 1, false)
+
+	for c=1,4 do
+		champion = party.party:getChampionByOrdinal(c)
+		champion:setHealth(champion:getMaxHealth() * 0.9)
+		champion:setEnergy(champion:getMaxEnergy() * 0.9)
+	end
+end
+
 function teststart()
 	functions2.script.start()
+	defaultPartyCheck = {"fighter", "barbarian", "wizard", "alchemist", "knight", "rogue", "battle_mage", "farmer"}
+	for i=1,#defaultPartyCheck do
+		for c=1,4 do
+			local champion = party.party:getChampionByOrdinal(c)
+			if champion:getClass() == defaultPartyCheck[i] then
+				setDefaultParty()
+			end
+		end
+	end
+
 	if Editor.isRunning() then
-		party.party:getChampionByOrdinal(1):setClass("tinkerer")
-		party.party:getChampionByOrdinal(2):setClass("corsair")
-		party.party:getChampionByOrdinal(3):setClass("druid")
-		party.party:getChampionByOrdinal(4):setClass("elementalist")
-		party.party:getChampionByOrdinal(1):setRace("human")
-		party.party:getChampionByOrdinal(2):setRace("minotaur")
-		party.party:getChampionByOrdinal(3):setRace("insectoid")
-		party.party:getChampionByOrdinal(4):setRace("ratling")
+		setDefaultParty()
+		-- party.party:getChampionByOrdinal(1):setClass("tinkerer")
+		-- party.party:getChampionByOrdinal(2):setClass("corsair")
+		-- party.party:getChampionByOrdinal(3):setClass("druid")
+		-- party.party:getChampionByOrdinal(4):setClass("elementalist")
+		-- party.party:getChampionByOrdinal(1):setRace("human")
+		-- party.party:getChampionByOrdinal(2):setRace("minotaur")
+		-- party.party:getChampionByOrdinal(3):setRace("insectoid")
+		-- party.party:getChampionByOrdinal(4):setRace("ratling")
 		for i=1,4 do
 			local champion = party.party:getChampionByOrdinal(i)
 			if not champion:getItem(32) then champion:insertItem(32,spawn("torch").item) end
-			champion:addSkillPoints(15)
+			--champion:addSkillPoints(1)
 			if i == 1 then
 				champion:removeItemFromSlot(31)
 				champion:insertItem(31,spawn("enchanted_timepiece").item)
 			end
-			
-			if champion:getClass() == "fighter" then
+			-- Classes
+			if champion:getClass() == "berserker" then
 				for s=13,19 do champion:removeItemFromSlot(s) end
 				champion:insertItem(13,spawn("great_axe").item)
 				champion:insertItem(14,spawn("potion_strength").item)
@@ -184,7 +247,7 @@ function teststart()
 			end
 			
 			if champion:getClass() == "elementalist" then
-				champion:trainSkill("elemental_magic", 1)
+				if champion:getSkillLevel("elemental_magic") == 0 then champion:trainSkill("elemental_magic", 1) end
 				for s=13,14 do champion:removeItemFromSlot(s) end
 				champion:insertItem(13,spawn("quarterstaff").item)
 				champion:insertItem(14,spawn("potion_willpower").item)
@@ -207,16 +270,12 @@ function teststart()
 				champion:insertItem(13,spawn("flintlock").item)
 				champion:insertItem(14,spawn("pellet_box").item)
 				champion:getItem(14):setStackSize(50)
-				champion:insertItem(15,spawn("great_axe").item)
+				champion:insertItem(15,spawn("ring_mail").item)
 				champion:insertItem(16,spawn("lock_pick").item)
 				champion:getItem(16):setStackSize(25)
 				for	d=1,4 do
 					champion:insertItem(16+d,spawn("dagger").item)
 				end
-				for	d=1,4 do
-					champion:insertItem(20+d,spawn("ring_mail").item)
-				end
-				
 			end
 			
 			-- Races
@@ -224,7 +283,6 @@ function teststart()
 				champion:addTrait("lore_master")
 				champion:addTrait("drinker")
 				champion:addTrait("average_joe")
-				--for s=21,31 do champion:removeItemFromSlot(s) champion:insertItem(s,spawn("dagger").item) end
 			end
 			
 			if champion:getRace() == "minotaur" then
@@ -258,6 +316,14 @@ function teststart()
 				champion:addTrait("sneak_attack")
 				champion:addTrait("built_resistance")
 				for s=21,28 do champion:removeItemFromSlot(s) end
+				champion:insertItem(21,spawn("blooddrop_cap").item)
+				champion:getItem(21):setStackSize(5)
+				champion:insertItem(22,spawn("etherweed").item)
+				champion:getItem(22):setStackSize(5)
+				champion:insertItem(23,spawn("mudwort").item)
+				champion:getItem(23):setStackSize(5)
+				champion:insertItem(24,spawn("falconskyre").item)
+				champion:getItem(24):setStackSize(5)
 			end
 		end
 	end
@@ -432,7 +498,12 @@ function onEquipItem(self, champion, slot)
 			if self.go.equipmentitem then supertable[9][1][name] = self.go.equipmentitem:getProtection() end
 			if self.go.equipmentitem then supertable[9][2][name] = self.go.equipmentitem:getEvasion() end
 
-			local secondary = (self.go.item:getSecondaryAction() and self.go.item:getComponent(self.go.item:getSecondaryAction()) and self.go.item:getComponent(self.go.item:getSecondaryAction()) or nil)
+			
+			local secondaryAction = self.go.item:getSecondaryAction()
+			local secondary = nil
+			if secondaryAction ~= nil and self.go:getComponent(secondaryAction):getClass() ~= "CastSpellComponent" then
+				secondary = self.go:getComponent(secondaryAction)
+			end
 			if secondary then supertable[13][name] = secondary:getAttackPower() end
 
 			if champion:hasTrait("weapons_specialist") then
@@ -450,7 +521,7 @@ function onEquipItem(self, champion, slot)
 		end
 		
 		-- Berserker unequips armor
-		if champion:getClass() == "fighter" then
+		if champion:getClass() == "berserker" then
 			local noEquipSlots = { ItemSlot.Head, ItemSlot.Gloves, ItemSlot.Feet, ItemSlot.Chest, ItemSlot.Legs }
 			for i=1, #noEquipSlots do
 				local lightSlots = false
@@ -600,10 +671,15 @@ function resetItem(self, name)
 	-- 	if tinker_item[17][name] then real_crit = tinker_item[17][name] else real_weight = supertable[17][name] end
 	-- 	if self.go.equipmentitem then self:setWeight(real_weight) end
 	-- end
-	if supertable[13][name] ~= nil and self.go:getComponent(self.go.item:getSecondaryAction()) then
+	local secondaryAction = self.go.item:getSecondaryAction()
+	local secondary = nil
+	if secondaryAction ~= nil and self.go:getComponent(secondaryAction):getClass() ~= "CastSpellComponent" then
+		secondary = self.go:getComponent(secondaryAction)
+	end
+	if supertable[13][name] ~= nil and secondary then
 		local real_ap = 0
 		if tinker_item[13][name] then real_ap = tinker_item[13][name] else real_ap = supertable[13][name] end
-		self.go:getComponent(self.go.item:getSecondaryAction()):setAttackPower(real_ap)
+		secondary:setAttackPower(real_ap)
 	end
 end
 
@@ -630,6 +706,7 @@ function clearSupertable(self, name)
 		end
 	end
 end
+
 -------------------------------------------------------------------------------------------------------
 -- Attacking events                                                                                  --    
 -------------------------------------------------------------------------------------------------------
@@ -883,6 +960,11 @@ function onMissileAttack(self, champion, slot, chainIndex, item)
 	supertable[1][self.go.id] = self:getAttackPower()
 	supertable[2][self.go.id] = self:getCooldown()
 	supertable[6][self.go.id] = self.go.equipmentitem and self.go.equipmentitem:getCriticalChance() or 0
+	local secondaryAction = self.go.item:getSecondaryAction()
+	local secondary = nil
+	if secondaryAction ~= nil and self.go:getComponent(secondaryAction):getClass() ~= "CastSpellComponent" then
+		secondary = self.go:getComponent(secondaryAction)
+	end
 	
 	-- Ranged Weapons skill bonus
 	self:setAttackPower(self:getAttackPower() * (1 + champion:getSkillLevel("ranged_weapons") * 0.2))
@@ -906,13 +988,15 @@ function onMissileAttack(self, champion, slot, chainIndex, item)
 	item.go.equipmentitem:setCriticalChance(supertable[6][self.go.id])
 	
 	-- Double shot
-	if get_c("double_attack", champion:getOrdinal()) == nil then	
-		if champion:hasTrait("double_shot") and self.go.rangedattack then
-			set_c("double_attack", champion:getOrdinal(), slot)
-			delayedCall("functions", 0.25, "secondShot", champion:getOrdinal(), slot)
+	if self ~= secondary then
+		if get_c("double_attack", champion:getOrdinal()) == nil then	
+			if champion:hasTrait("double_shot") and self.go.rangedattack then
+				set_c("double_attack", champion:getOrdinal(), slot)
+				delayedCall("functions", 0.25, "secondShot", champion:getOrdinal(), slot)
+			end
+		else
+			set_c("double_attack", champion:getOrdinal(), nil)
 		end
-	else
-		set_c("double_attack", champion:getOrdinal(), nil)
 	end
 
 	-- Item bonuses
@@ -1197,14 +1281,15 @@ function reset_attack(self, champion, slot, secondary2, item)
 		local dy = ((pos-1) % 3) - 1
 		for entity in Dungeon.getMap(party.level):entitiesAt(party.x + dx, party.y + dy) do
 			--if entity.projectile then print(entity.projectile.go.name) end
-			if entity.throwattack or entity.rangedattack or entity.meleeattack or entity.equipmentitem then
+			if entity.throwattack or entity.rangedattack or entity.meleeattack or entity.equipmentitem or entity.ammoitem then
 				local c = champion:getOrdinal()
 				local item1 = champion:getItem(ItemSlot.Weapon)
 				local item2 = champion:getItem(ItemSlot.OffHand)
 				
 				--if (item1 and get_c("attackedWith", c) == item1.name) or (item2 and get_c("attackedWith", c) == item2.name) then end
 				-- set projectile 'cast by champion' on ammo
-				if (item1 and item1.go.rangedattack and item1.go.rangedattack:getAmmo()) == entity.name or (item2 and item2.go.rangedattack and item2.go.rangedattack:getAmmo() == entity.name) then
+				if entity.ammoitem then
+					print("reset_attack ammo")
 					entity.data:set("castByChampion", c)
 					entity.data:set("castByChampionFacing", party.facing)
 				end
@@ -1286,7 +1371,7 @@ end
 function onChampionTakesDamage(party, champion, damage, damageType) -- champion takes damage from any source -- no reference to monsters
 	-- Berserker - Berserker Rage
 	for i=1,4 do
-		if party:getChampion(i):getClass() == "fighter" and party:getChampion(i):isAlive() and not party:getChampion(i):hasCondition("berserker_revenge") then
+		if party:getChampion(i):getClass() == "berserker" and party:getChampion(i):isAlive() and not party:getChampion(i):hasCondition("berserker_revenge") then
 			party:getChampion(i):setConditionValue("berserker_rage", 20)
 		end
 	end
@@ -2335,7 +2420,11 @@ function tinkererUpgrade(self, champion, container, slot, button)
 				supertable[9][1][name] = item.go.equipmentitem and item.go.equipmentitem:getProtection() or 0
 				supertable[9][2][name] = item.go.equipmentitem and item.go.equipmentitem:getEvasion() or 0
 
-				local secondary = (item:getSecondaryAction() and item.go:getComponent(item:getSecondaryAction()) and item.go:getComponent(item:getSecondaryAction()) or nil)
+				local secondaryAction = item:getSecondaryAction()
+				local secondary = nil
+				if secondaryAction ~= nil and item.go:getComponent(secondaryAction):getClass() ~= "CastSpellComponent" then
+					secondary = item.go:getComponent(secondaryAction)
+				end
 				if secondary then supertable[13][name] = secondary:getAttackPower() end
 				
 				if not item.go.equipmentitem then
@@ -2347,146 +2436,147 @@ function tinkererUpgrade(self, champion, container, slot, button)
 				if champion:getClass() == "tinkerer" then
 					expertise = functions.script.get_c("crafting_expertise", champion:getOrdinal())
 					expertise = (expertise ~= nil and expertise or 0)
-					
-					local bonusList = {}
-					if (item:hasTrait("light_armor") or item:hasTrait("clothes")) then
-						bonusList = {"resist", "stat", "evasion" }
-					elseif item:hasTrait("heavy_armor") then
-						bonusList = {"resist", "stat", "protection"}
-					elseif item:hasTrait("shield") then
-						bonusList = {"resist", "stat", "protection", "evasion"}
-					elseif item:hasTrait("light_weapon") or item:hasTrait("heavy_weapon") or item:hasTrait("missile_weapon") or item:hasTrait("throwing_weapon") or item:hasTrait("firearm") then
-						bonusList = {"attackPower", "cooldown", "accuracy", "critical", "resist", "stat"}
-					end
-					
-					local firstBonus = ""
-					firstBonus = bonusList[math.random(#bonusList)]
-					local bonus = firstBonus
-					for i = 1, 1 + (expertise > 0 and 1 or 0) do
-						if bonus == "" then 
+				end
+
+				local bonusList = {}
+				if (item:hasTrait("light_armor") or item:hasTrait("clothes")) then
+					bonusList = {"resist", "stat", "evasion" }
+				elseif item:hasTrait("heavy_armor") then
+					bonusList = {"resist", "stat", "protection"}
+				elseif item:hasTrait("shield") then
+					bonusList = {"resist", "stat", "protection", "evasion"}
+				elseif item:hasTrait("light_weapon") or item:hasTrait("heavy_weapon") or item:hasTrait("missile_weapon") or item:hasTrait("throwing_weapon") or item:hasTrait("firearm") then
+					bonusList = {"attackPower", "cooldown", "accuracy", "critical", "resist", "stat"}
+				end
+				
+				local firstBonus = ""
+				firstBonus = bonusList[math.random(#bonusList)]
+				local bonus = firstBonus
+				for i = 1, 1 + (expertise > 0 and 1 or 0) do
+					if bonus == "" then 
+						bonus = bonusList[math.random(#bonusList)] 
+						while bonus == firstBonus do 
 							bonus = bonusList[math.random(#bonusList)] 
-							while bonus == firstBonus do 
-								bonus = bonusList[math.random(#bonusList)] 
-							end
 						end
-						local gameEffect = item:getGameEffect() ~= nil and item:getGameEffect() or ""
-						
-						if bonus == "cooldown" then
-							equipItem:setCooldown(supertable[2][name] * (1 - (math.random(10,15) * 0.01)))
-							hudPrint("Tinkering Results: " .. "Cooldown improved.")
-						elseif bonus == "attackPower" then
-							equipItem:setAttackPower(math.ceil(equipItem:getAttackPower() * (1.05 + (level * 0.05))))
-							hudPrint("Tinkering Results: " .. "Attack Power improved.")
-						elseif bonus == "accuracy" then
-							if supertable[5][name] == 0 then
-								item.go.equipmentitem:setAccuracy(math.random(6,12))
-							else
-								item.go.equipmentitem:setAccuracy(supertable[5][name] * (1 + (math.random(16,32) * 0.01)))
-							end
-							hudPrint("Tinkering Results: " .. "Accuracy improved.")
-						elseif bonus == "critical" then
-							if supertable[6][name] == 0 then
-								item.go.equipmentitem:setCriticalChance(math.random(3,6))
-								--item:setGameEffect(gameEffect .. "\nCritical Chance +" .. item.go.equipmentitem:getCriticalChance() .. "%")
-							else
-								local crit = supertable[6][name] * (1 + (math.random(75,100) * 0.01))
-								item.go.equipmentitem:setCriticalChance(math.floor(crit))
-								--item:setGameEffect(gameEffect .. "\nCritical Chance +" .. item.go.equipmentitem:getCriticalChance() .. "%")
-							end
-							hudPrint("Tinkering Results: " .. "Critical Chance improved.")
-						elseif bonus == "resist" then
-							local random_element = math.random(1,4)
-							if random_element == 1 then
-								if supertable[7][1][name] == 0 then
-									item.go.equipmentitem:setResistFire(math.random(6,12))
-								else
-									item.go.equipmentitem:setResistFire(supertable[7][1][name] * (1 + (math.random(25,35) * 0.01)))
-								end
-								hudPrint("Tinkering Results: " .. "Fire Resistance improved.")
-							elseif random_element == 2 then
-								if supertable[7][2][name] == 0 then
-									item.go.equipmentitem:setResistShock(math.random(6,12))
-								else
-									item.go.equipmentitem:setResistShock(supertable[7][2][name] * (1 + (math.random(25,35) * 0.01)))
-								end
-								hudPrint("Tinkering Results: " .. "Shock Resistance improved.")
-							elseif random_element == 3 then
-								if supertable[7][3][name] == 0 then
-									item.go.equipmentitem:setResistCold(math.random(6,12))
-								else
-									item.go.equipmentitem:setResistCold(supertable[7][3][name] * (1 + (math.random(25,35) * 0.01)))
-								end
-								hudPrint("Tinkering Results: " .. "Cold Resistance improved.")
-							else
-								if supertable[7][4][name] == 0 then
-									item.go.equipmentitem:setResistPoison(math.random(6,12))
-								else
-									item.go.equipmentitem:setResistPoison(supertable[7][4][name] * (1 + (math.random(25,35) * 0.01)))
-								end
-								hudPrint("Tinkering Results: " .. "Poison Resistance improved.")
-							end
-						elseif bonus == "stat" then
-							local stat = math.random(1,6)
-							if stat == 1 then
-								if supertable[8][1][name] == 0 then
-									item.go.equipmentitem:setStrength(math.random(2,4))
-								else
-									item.go.equipmentitem:setStrength(supertable[8][1][name] * (1 + (math.random(50,80) * 0.01)))
-								end
-								hudPrint("Tinkering Results: " .. "Strenght improved.")
-							elseif stat == 2 then						
-								if supertable[8][2][name] == 0 then
-									item.go.equipmentitem:setDexterity(math.random(2,4))
-								else
-									item.go.equipmentitem:setDexterity(supertable[8][2][name] * (1 + (math.random(50,80) * 0.01)))
-								end
-								hudPrint("Tinkering Results: " .. "Dexterity improved.")
-							elseif stat == 3 then
-								if supertable[8][3][name] == 0 then
-									item.go.equipmentitem:setVitality(math.random(2,4))
-								else
-									item.go.equipmentitem:setVitality(supertable[8][3][name] * (1 + (math.random(50,80) * 0.01)))
-								end
-								hudPrint("Tinkering Results: " .. "Vitality improved.")
-							elseif stat == 4 then
-								if supertable[8][4][name] == 0 then
-									item.go.equipmentitem:setWillpower(math.random(2,4))
-								else
-									item.go.equipmentitem:setWillpower(supertable[8][4][name] * (1 + (math.random(50,80) * 0.01)))
-								end
-								hudPrint("Tinkering Results: " .. "Willpower improved.")
-							elseif stat == 5 then
-								if supertable[8][5][name] == 0 then
-									item.go.equipmentitem:setHealthRegenerationRate(math.random(10,20))
-								else
-									item.go.equipmentitem:setHealthRegenerationRate(supertable[8][5][name] * (1 + (math.random(33,50) * 0.01)))
-								end
-								hudPrint("Tinkering Results: " .. "Health Regeneration Rate improved.")
-							else
-								if supertable[8][6][name] == 0 then
-									item.go.equipmentitem:setEnergyRegenerationRate(math.random(10,20))
-								else
-									item.go.equipmentitem:setEnergyRegenerationRate(supertable[8][6][name] * (1 + (math.random(33,50) * 0.01)))
-								end
-								hudPrint("Tinkering Results: " .. "Energy Regeneration Rate improved.")
-							end
-						elseif bonus == "protection" then
-							if supertable[9][1][name] == 0 then
-								item.go.equipmentitem:setProtection(math.random(2,5))
-							else
-								item.go.equipmentitem:setProtection(supertable[9][1][name] * (1 + (math.random(24,32) * 0.01)))
-							end
-							hudPrint("Tinkering Results: " .. "Protection improved.")
-						elseif bonus == "evasion" then
-							if supertable[9][2][name] == 0 then
-								item.go.equipmentitem:setEvasion(math.random(2,7))
-							else
-								item.go.equipmentitem:setEvasion(supertable[9][2][name] * (1 + (math.random(24,32) * 0.01)))
-							end
-							hudPrint("Tinkering Results: " .. "Evasion improved.")
-						end
-						bonus = ""
 					end
+					local gameEffect = item:getGameEffect() ~= nil and item:getGameEffect() or ""
+					
+					if bonus == "cooldown" then
+						equipItem:setCooldown(supertable[2][name] * (1 - (math.random(10,15) * 0.01)))
+						hudPrint("Tinkering Results: " .. "Cooldown improved.")
+					elseif bonus == "attackPower" then
+						equipItem:setAttackPower(math.ceil(equipItem:getAttackPower() * (1.05 + (level * 0.05))))
+						hudPrint("Tinkering Results: " .. "Attack Power improved.")
+					elseif bonus == "accuracy" then
+						if supertable[5][name] == 0 then
+							item.go.equipmentitem:setAccuracy(math.random(6,12))
+						else
+							item.go.equipmentitem:setAccuracy(supertable[5][name] * (1 + (math.random(16,32) * 0.01)))
+						end
+						hudPrint("Tinkering Results: " .. "Accuracy improved.")
+					elseif bonus == "critical" then
+						if supertable[6][name] == 0 then
+							item.go.equipmentitem:setCriticalChance(math.random(3,6))
+							--item:setGameEffect(gameEffect .. "\nCritical Chance +" .. item.go.equipmentitem:getCriticalChance() .. "%")
+						else
+							local crit = supertable[6][name] * (1 + (math.random(75,100) * 0.01))
+							item.go.equipmentitem:setCriticalChance(math.floor(crit))
+							--item:setGameEffect(gameEffect .. "\nCritical Chance +" .. item.go.equipmentitem:getCriticalChance() .. "%")
+						end
+						hudPrint("Tinkering Results: " .. "Critical Chance improved.")
+					elseif bonus == "resist" then
+						local random_element = math.random(1,4)
+						if random_element == 1 then
+							if supertable[7][1][name] == 0 then
+								item.go.equipmentitem:setResistFire(math.random(6,12))
+							else
+								item.go.equipmentitem:setResistFire(supertable[7][1][name] * (1 + (math.random(25,35) * 0.01)))
+							end
+							hudPrint("Tinkering Results: " .. "Fire Resistance improved.")
+						elseif random_element == 2 then
+							if supertable[7][2][name] == 0 then
+								item.go.equipmentitem:setResistShock(math.random(6,12))
+							else
+								item.go.equipmentitem:setResistShock(supertable[7][2][name] * (1 + (math.random(25,35) * 0.01)))
+							end
+							hudPrint("Tinkering Results: " .. "Shock Resistance improved.")
+						elseif random_element == 3 then
+							if supertable[7][3][name] == 0 then
+								item.go.equipmentitem:setResistCold(math.random(6,12))
+							else
+								item.go.equipmentitem:setResistCold(supertable[7][3][name] * (1 + (math.random(25,35) * 0.01)))
+							end
+							hudPrint("Tinkering Results: " .. "Cold Resistance improved.")
+						else
+							if supertable[7][4][name] == 0 then
+								item.go.equipmentitem:setResistPoison(math.random(6,12))
+							else
+								item.go.equipmentitem:setResistPoison(supertable[7][4][name] * (1 + (math.random(25,35) * 0.01)))
+							end
+							hudPrint("Tinkering Results: " .. "Poison Resistance improved.")
+						end
+					elseif bonus == "stat" then
+						local stat = math.random(1,6)
+						if stat == 1 then
+							if supertable[8][1][name] == 0 then
+								item.go.equipmentitem:setStrength(math.random(2,4))
+							else
+								item.go.equipmentitem:setStrength(supertable[8][1][name] * (1 + (math.random(50,80) * 0.01)))
+							end
+							hudPrint("Tinkering Results: " .. "Strenght improved.")
+						elseif stat == 2 then						
+							if supertable[8][2][name] == 0 then
+								item.go.equipmentitem:setDexterity(math.random(2,4))
+							else
+								item.go.equipmentitem:setDexterity(supertable[8][2][name] * (1 + (math.random(50,80) * 0.01)))
+							end
+							hudPrint("Tinkering Results: " .. "Dexterity improved.")
+						elseif stat == 3 then
+							if supertable[8][3][name] == 0 then
+								item.go.equipmentitem:setVitality(math.random(2,4))
+							else
+								item.go.equipmentitem:setVitality(supertable[8][3][name] * (1 + (math.random(50,80) * 0.01)))
+							end
+							hudPrint("Tinkering Results: " .. "Vitality improved.")
+						elseif stat == 4 then
+							if supertable[8][4][name] == 0 then
+								item.go.equipmentitem:setWillpower(math.random(2,4))
+							else
+								item.go.equipmentitem:setWillpower(supertable[8][4][name] * (1 + (math.random(50,80) * 0.01)))
+							end
+							hudPrint("Tinkering Results: " .. "Willpower improved.")
+						elseif stat == 5 then
+							if supertable[8][5][name] == 0 then
+								item.go.equipmentitem:setHealthRegenerationRate(math.random(10,20))
+							else
+								item.go.equipmentitem:setHealthRegenerationRate(supertable[8][5][name] * (1 + (math.random(33,50) * 0.01)))
+							end
+							hudPrint("Tinkering Results: " .. "Health Regeneration Rate improved.")
+						else
+							if supertable[8][6][name] == 0 then
+								item.go.equipmentitem:setEnergyRegenerationRate(math.random(10,20))
+							else
+								item.go.equipmentitem:setEnergyRegenerationRate(supertable[8][6][name] * (1 + (math.random(33,50) * 0.01)))
+							end
+							hudPrint("Tinkering Results: " .. "Energy Regeneration Rate improved.")
+						end
+					elseif bonus == "protection" then
+						if supertable[9][1][name] == 0 then
+							item.go.equipmentitem:setProtection(math.random(2,5))
+						else
+							item.go.equipmentitem:setProtection(supertable[9][1][name] * (1 + (math.random(24,32) * 0.01)))
+						end
+						hudPrint("Tinkering Results: " .. "Protection improved.")
+					elseif bonus == "evasion" then
+						if supertable[9][2][name] == 0 then
+							item.go.equipmentitem:setEvasion(math.random(2,7))
+						else
+							item.go.equipmentitem:setEvasion(supertable[9][2][name] * (1 + (math.random(24,32) * 0.01)))
+						end
+						hudPrint("Tinkering Results: " .. "Evasion improved.")
+					end
+					bonus = ""
+					
 					if equipType == "weapon" then
 						tinker_item[1][item.go.id] = equipItem:getAttackPower()
 						tinker_item[2][item.go.id] = equipItem:getCooldown()
@@ -2514,13 +2604,23 @@ function tinkererUpgrade(self, champion, container, slot, button)
 					tinker_item[11][item.go.id] = item:getUiName()
 					tinker_item[12][item.go.id] = "upgraded"..upgradeLevel
 
-					local secondary = (item:getSecondaryAction() and item.go:getComponent(item:getSecondaryAction()) and item.go:getComponent(item:getSecondaryAction()) or nil)
-					if secondary then tinker_item[13][name] = secondary:getAttackPower() end
-					tinker_item[14][item.go.id] = item:getWeight()
+					local secondaryAction = item:getSecondaryAction()
+					local secondary = nil
+					if secondaryAction ~= nil and item.go:getComponent(secondaryAction):getClass() ~= "CastSpellComponent" then
+						secondary = item.go:getComponent(secondaryAction)
+					end
 
 					if secondary then
-						updateSecondary(equipItem, secondary, item:getSecondaryAction())
+						print(equipItem)
+						print(secondary)
+						print(item:getSecondaryAction())
+						print(upgradeLevel)
+						updateSecondary(equipItem, secondary, item:getSecondaryAction(), upgradeLevel)
 					end
+
+					if secondary then tinker_item[13][name] = secondary:getAttackPower() end
+
+					tinker_item[14][item.go.id] = item:getWeight()
 
 					if expertise > 0 then
 						functions.script.set_c("crafting_expertise", champion:getOrdinal(), expertise - 1)
@@ -2597,11 +2697,11 @@ function tinkererDismantleAction(id, slot)
 end
 
 -- Tinkerer upgrades for secondary actions
-function updateSecondary(meleeAttack, secondary, name)
+function updateSecondary(meleeAttack, secondary, name, upgradeLevel)
 	local item = meleeAttack.go.item
 	if name == "chop" then
 		local level = math.min(math.floor(meleeAttack:getAttackPower() / 9), 5)
-		secondary:setEnergyCost( 20 + math.floor(level * 8 / 5) * 5)
+		secondary:setEnergyCost( 20 + math.floor(upgradeLevel * 8 / 5) * 5)
 		secondary:setAttackPower(meleeAttack:getAttackPower() * 2)
 		secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
 		secondary:setCooldown(meleeAttack:getCooldown() * 1.5)
@@ -2610,15 +2710,15 @@ function updateSecondary(meleeAttack, secondary, name)
 		secondary:setSwipe("vertical")
 		secondary:setUiName("Chop")
 		if secondary.go.item:hasTrait("light_weapon") then
-			secondary:setRequirements({ "light_weapons", math.min(level+1,5) })
+			secondary:setRequirements({ "light_weapons", math.min(upgradeLevel+1,5) })
 		elseif secondary.go.item:hasTrait("heavy_weapon") then
-			secondary:setRequirements({ "heavy_weapons", math.min(level+1,5) })
+			secondary:setRequirements({ "heavy_weapons", math.min(upgradeLevel+1,5) })
 		end
 		secondary.go.item:setSecondaryAction("chop")
 
 	elseif name == "dagger_throw" then
 		local level = math.min(math.floor(meleeAttack:getAttackPower() / 9), 5)
-		secondary:setEnergyCost( 6 + math.floor(level * 8 / 3) * 3)
+		secondary:setEnergyCost( 6 + math.floor(upgradeLevel * 8 / 3) * 3)
 		secondary:setAttackPower(meleeAttack:getAttackPower() * 1.8)
 		secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
 		secondary:setCooldown(meleeAttack:getCooldown() * 1.0)
@@ -2627,19 +2727,19 @@ function updateSecondary(meleeAttack, secondary, name)
 		secondary:setUiName("Dagger Throw")
 		--secondary:setSwipe("thrust")
 		if secondary.go.item:hasTrait("light_weapon") then
-			secondary:setRequirements({ "light_weapons", math.min(level+1,5) })
+			secondary:setRequirements({ "light_weapons", math.min(upgradeLevel+1,5) })
 		elseif secondary.go.item:hasTrait("heavy_weapon") then
-			secondary:setRequirements({ "heavy_weapons", math.min(level+1,5) })
+			secondary:setRequirements({ "heavy_weapons", math.min(upgradeLevel+1,5) })
 		end
 		secondary.go.item:setSecondaryAction("dagger_throw")
 		
 	elseif name == "stun" then
 		local level = math.min(math.floor(meleeAttack:getAttackPower() / 9), 5)
-		secondary:setEnergyCost( 20 + math.floor(level * 8 / 5) * 5)
+		secondary:setEnergyCost( 20 + math.floor(upgradeLevel * 8 / 5) * 5)
 		secondary:setAttackPower(meleeAttack:getAttackPower() * 2)
 		secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
 		secondary:setCooldown(meleeAttack:getCooldown() * 1.5)
-		secondary:setGameEffect("A powerful blow that has a ".. 18 + level * 6 .."% chance to stun an enemy. Deals double damage.")
+		secondary:setGameEffect("A powerful blow that has a ".. 18 + upgradeLevel * 6 .."% chance to stun an enemy. Deals double damage.")
 		secondary:setPierce(meleeAttack:getPierce() and meleeAttack:getPierce() or 0)
 		secondary:setCauseCondition("stunned")
 		secondary:setConditionChance(18 + level * 6)
@@ -2654,7 +2754,7 @@ function updateSecondary(meleeAttack, secondary, name)
 		
 	elseif name == "cleave" then
 		local level = math.min(math.floor(meleeAttack:getAttackPower() / 9), 5)
-		secondary:setEnergyCost( 20 + math.floor(level * 8 / 5) * 5)
+		secondary:setEnergyCost( 20 + math.floor(upgradeLevel * 8 / 5) * 5)
 		secondary:setAttackPower(meleeAttack:getAttackPower() * 2.5)
 		secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
 		secondary:setCooldown(meleeAttack:getCooldown() * 1.5)
@@ -2663,16 +2763,16 @@ function updateSecondary(meleeAttack, secondary, name)
 		secondary:setSwipe("vertical")
 		secondary:setUiName("Cleave")
 		if secondary.go.item:hasTrait("light_weapon") then
-			secondary:setRequirements({"light_weapons", math.min(level+2,5)})
+			secondary:setRequirements({"light_weapons", math.min(upgradeLevel+2,5)})
 		elseif secondary.go.item:hasTrait("heavy_weapon") then
-			secondary:setRequirements({"heavy_weapons", math.min(level+2,5)})
+			secondary:setRequirements({"heavy_weapons", math.min(upgradeLevel+2,5)})
 		end
 		secondary.go.item:setSecondaryAction("cleave")
 	
 	elseif name == "flurry" then
 		local level = math.min(math.floor(meleeAttack:getAttackPower() / 9), 5)
-		secondary:setEnergyCost( 20 + math.floor(level * 8 / 5) * 5)
-		secondary:setAccuracy(12 + (level * 2))
+		secondary:setEnergyCost( 20 + math.floor(upgradeLevel * 8 / 5) * 5)
+		secondary:setAccuracy(12 + (upgradeLevel * 2))
 		secondary:setAttackPower(meleeAttack:getAttackPower() / 2)
 		secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
 		secondary:setCooldown(meleeAttack:getCooldown() * 1.8)
@@ -2683,15 +2783,15 @@ function updateSecondary(meleeAttack, secondary, name)
 		secondary:setSwipe("flurry")
 		secondary:setUiName("Flurry of Slashes")
 		if secondary.go.item:hasTrait("light_weapon") then
-			secondary:setRequirements({"light_weapons", math.min(level+1,5), "accuracy", 1 })
+			secondary:setRequirements({"light_weapons", math.min(upgradeLevel+1,5), "accuracy", 1 })
 		elseif secondary.go.item:hasTrait("heavy_weapon") then
-			secondary:setRequirements({"heavy_weapons", math.min(level+1,5), "accuracy", 1 })
+			secondary:setRequirements({"heavy_weapons", math.min(upgradeLevel+1,5), "accuracy", 1 })
 		end
 		secondary.go.item:setSecondaryAction("flurry")
 		
 	elseif name == "devastate" then
 		local level = math.min(math.floor(meleeAttack:getAttackPower() / 9), 5)
-		secondary:setEnergyCost( 30 + math.floor(level * 8 / 5) * 5)
+		secondary:setEnergyCost( 30 + math.floor(upgradeLevel * 8 / 5) * 5)
 		secondary:setAttackPower(meleeAttack:getAttackPower() * 2.5)
 		secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
 		secondary:setCooldown(meleeAttack:getCooldown() * 1.8)
@@ -2701,15 +2801,15 @@ function updateSecondary(meleeAttack, secondary, name)
 		secondary:setCameraShake(true)
 		secondary:setUiName("Devastate")
 		if secondary.go.item:hasTrait("light_weapon") then
-			secondary:setRequirements({"light_weapons", math.min(level+1,5), "critical", 1 })
+			secondary:setRequirements({"light_weapons", math.min(upgradeLevel+1,5), "critical", 1 })
 		elseif secondary.go.item:hasTrait("heavy_weapon") then
-			secondary:setRequirements({"heavy_weapons", math.min(level+1,5), "critical", 1 })
+			secondary:setRequirements({"heavy_weapons", math.min(upgradeLevel+1,5), "critical", 1 })
 		end
 		secondary.go.item:setSecondaryAction("devastate")
 		
 	elseif name == "banish" then
 		local level = math.min(math.floor(meleeAttack:getAttackPower() / 9), 5)
-		secondary:setEnergyCost( 40 + math.floor(level * 8 / 5) * 5)
+		secondary:setEnergyCost( 40 + math.floor(upgradeLevel * 8 / 5) * 5)
 		secondary:setAttackPower(meleeAttack:getAttackPower() * 2.5)
 		secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
 		secondary:setCooldown(meleeAttack:getCooldown() * 2)
@@ -2720,24 +2820,24 @@ function updateSecondary(meleeAttack, secondary, name)
 		secondary:setCameraShake(true)
 		secondary:setUiName("Banish")
 		if secondary.go.item:hasTrait("light_weapon") then
-			secondary:setRequirements({"light_weapons", math.min(level+1,5), "critical", 1 })
+			secondary:setRequirements({"light_weapons", math.min(upgradeLevel+1,5), "critical", 1 })
 		elseif secondary.go.item:hasTrait("heavy_weapon") then
-			secondary:setRequirements({"heavy_weapons", math.min(level+1,5), "critical", 1 })
+			secondary:setRequirements({"heavy_weapons", math.min(upgradeLevel+1,5), "critical", 1 })
 		end
 		secondary.go.item:setSecondaryAction("banish")
 	
 	elseif name == "volley" then
 		local level = math.min(math.floor(meleeAttack:getAttackPower() / 9), 5)
-		secondary:setEnergyCost( 12 + math.floor(level * 8 / 5) * 5)
+		secondary:setEnergyCost( 12 + math.floor(upgradeLevel * 8 / 5) * 5)
 		secondary:setAttackPower(meleeAttack:getAttackPower() * 1)
 		secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
-		secondary:setCooldown(meleeAttack:getCooldown() * 1.25)
+		secondary:setCooldown(meleeAttack:getCooldown() * 1.2)
 		secondary:setGameEffect("Fires three shots in quick succession.")
 		secondary:setUiName("Volley")
-		secondary:setRequirements({ "ranged_weapons", math.min(level+1,5) })
+		secondary:setRequirements({ "ranged_weapons", math.min(upgradeLevel + 1,3) })
 		secondary.go.item:setSecondaryAction("volley")
 		secondary:setAmmo("arrow")
-		secondary:setRepeatCount(3)
+		secondary:setRepeatCount(3 + math.floor(upgradeLevel / 3))
 		secondary:setRepeatDelay(0.2)
 		secondary:setAttackSound("swipe_bow")
 	end

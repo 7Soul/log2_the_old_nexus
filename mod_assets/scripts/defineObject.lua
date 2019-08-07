@@ -30,6 +30,7 @@ end
 local onPostAttack = function(self, champion, slot)
 	local secondary2 = functions.script.secondary
 	local item = self.go.item
+	print("on post attack")
 	functions.script.reset_attack(self, champion, slot, secondary2, item) -- (when misses)
 end
 
@@ -74,17 +75,17 @@ end
 local onWInit = function(self)
 	if self.go.item:hasTrait("flurry") then
 		local c = self.go:createComponent("MeleeAttack", "flurry")
-		functions.script.updateSecondary(self, c, "flurry")	
+		functions.script.updateSecondary(self, c, "flurry", 0)	
 	end
 	
 	if self.go.item:hasTrait("cleave") then
 		local c = self.go:createComponent("MeleeAttack", "cleave")
-		functions.script.updateSecondary(self, c, "cleave")		
+		functions.script.updateSecondary(self, c, "cleave", 0)		
 	end
 	
 	if self.go.item:hasTrait("stun") then
 		local c = self.go:createComponent("MeleeAttack", "stun")
-		functions.script.updateSecondary(self, c, "stun")
+		functions.script.updateSecondary(self, c, "stun", 0)
 	end
 	
 	if self.go.item:hasTrait("chop") and self:getName() ~= "meleeattack" then
@@ -93,7 +94,7 @@ local onWInit = function(self)
 			if not c then
 				c = self.go:createComponent("MeleeAttack", "chop")
 			end
-			functions.script.updateSecondary(self.go.meleeattack, c, "chop")
+			functions.script.updateSecondary(self.go.meleeattack, c, "chop", 0)
 		end
 	end
 	
@@ -103,24 +104,29 @@ local onWInit = function(self)
 			if c == nil then
 				c = self.go:createComponent("MeleeAttack", "dagger_throw")
 			end
-			functions.script.updateSecondary(self.go.meleeattack, c, "dagger_throw")
+			functions.script.updateSecondary(self.go.meleeattack, c, "dagger_throw", 0)
 		end
 	end
 	
 	if self.go.item:hasTrait("devastate") then
 		local c = self.go:createComponent("MeleeAttack", "devastate")
-		functions.script.updateSecondary(self, c, "devastate")
+		functions.script.updateSecondary(self, c, "devastate", 0)
 	end
 	
 	if self.go.item:hasTrait("banish") then
 		local c = self.go:getComponent("banish")
-		functions.script.updateSecondary(self, c, "banish")
+		functions.script.updateSecondary(self, c, "banish", 0)
 	end
 	
-	if self.go.item:hasTrait("volley") then
-		local c = self.go:createComponent("RangedAttack", "volley")
-		functions.script.updateSecondary(self, c, "volley")
-	end
+	-- if self.go.item:hasTrait("volley") then
+	-- 	if functions.script then
+	-- 		local c = self.go:getComponent("volley")
+	-- 		if c == nil then
+	-- 			c = self.go:createComponent("RangedAttack", "volley")
+	-- 		end
+	-- 		functions.script.updateSecondary(self.go.rangedattack, c, "volley")
+	-- 	end
+	-- end
 end
 
 defineObject = function(def)

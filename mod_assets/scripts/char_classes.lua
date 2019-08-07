@@ -1,8 +1,15 @@
 defineCharClass{
+	name = "fighter",
+	uiName = "Fighter",
+	optionalTraits = 2,
+}
+
+defineCharClass{
 	name = "barbarian",
 	uiName = "Barbarian",
 	optionalTraits = 2,
 }
+
 defineCharClass{
 	name = "wizard",
 	uiName = "Wizard",
@@ -26,7 +33,7 @@ defineCharClass{
 }
 
 defineCharClass{
-	name = "fighter",
+	name = "berserker",
 	uiName = "Berserker",
 	optionalTraits = 1,
 }

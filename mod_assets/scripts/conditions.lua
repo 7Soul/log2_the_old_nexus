@@ -818,3 +818,26 @@ defineCondition{
 		champion:regainEnergy(0.5)
 	end,	
 }
+
+defineCondition{
+	name = "crystal_health",
+	uiName = "Crystal Set Healing",
+	description = "",
+	icon = 0,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
+	beneficial = true,
+	harmful = false,
+	hidden = true,
+	tickInterval = 0.5,
+	onStart = function(self, champion)
+		champion:removeTrait("crystal_health")
+		champion:regainHealth(champion:getMaxHealth() / 5)
+	end,
+	onStop = function(self, champion)
+	end,
+	onRecomputeStats = function(self, champion)
+	end,
+	onTick = function(self, champion)
+		champion:regainHealth(champion:getMaxHealth() / 10)
+	end,	
+}
