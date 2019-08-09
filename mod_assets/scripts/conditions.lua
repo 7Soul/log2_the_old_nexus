@@ -800,9 +800,9 @@ defineCondition{
 
 defineCondition{
 	name = "bear_bonus",
-	uiName = "Spidersilk Cloak",
+	uiName = "",
 	description = "",
-	icon = 1,
+	icon = 0,
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
 	harmful = false,
@@ -816,6 +816,7 @@ defineCondition{
 	end,
 	onTick = function(self, champion)
 		champion:regainEnergy(0.5)
+		if not champion:hasCondition("bear_form") then champion:removeCondition("bear_bonus") end
 	end,	
 }
 

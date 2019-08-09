@@ -37,25 +37,3 @@ defineObject{
 	editorIcon = 108,
 	minimalSaveState = true,
 }
-
-defineObject{
-	name = "mine_moss_ceiling_02",
-	baseObject = "base_ceiling",
-	replacesCeiling = true,
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/env/mine_ceiling_02.fbx",
-			material = "mine_moss_tile",
-			dissolveStart = 2,
-			dissolveEnd = 4,
-			staticShadow = true,
-			offset = vec(0, -1, 0),
-		},
-		{
-			class = "Occluder",
-			model = "assets/models/env/mine_ceiling_01_occluder.fbx",
-		},
-	},
-	minimalSaveState = true,
-}

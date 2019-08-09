@@ -73,6 +73,7 @@ import "mod_assets/scripts/items/tomes.lua"
 import "mod_assets/scripts/particles/blooddrop.lua"
 import "mod_assets/scripts/particles/soundGate.lua"
 import "mod_assets/scripts/particles/forest_lantern2.lua"
+import "mod_assets/fire_cave/scripts/init.lua"
 
 defineObject{
 	name = "party",
@@ -1213,7 +1214,7 @@ defineObject{
 			for i=1,4 do
 				local champion = party.party:getChampionByOrdinal(i)
 				functions.script.checkWeights(i)
-				if champion:isReadyToAttack(0) then
+				if champion:isReadyToAttack(1) then
 					functions.script.set_c("attackedWith", i, nil)
 					functions.script.set_c("attacked", i, nil)
 				end

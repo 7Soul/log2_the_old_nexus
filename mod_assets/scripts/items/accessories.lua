@@ -992,11 +992,13 @@ defineObject{
 			resistCold = 20,
 			resistCold = 20,
 			onRecomputeStats = function(self, champion)
-				if champion:isArmorSetEquipped("bear") then
-					champion:addStatModifier("strength", 10)
-					if not champion:hasCondition("bear_bonus") then champion:setConditionValue("bear_bonus", 2) end
+				if functions.script.isArmorSetEquipped(champion, "bear") then
+					if champion:hasCondition("bear_form") then
+						champion:addStatModifier("strength", 10)
+						if not champion:hasCondition("bear_bonus") then champion:setConditionValue("bear_bonus", 100) end
+					end
 				end
-			end
+			end,
 		},
 	},
 	tags = { "cloak" },

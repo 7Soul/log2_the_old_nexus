@@ -6339,7 +6339,6 @@ ice_crab_1.detectedtimer:setTimerInterval(0)
 ice_crab_1.detectedtimer:setDisableSelf(false)
 ice_crab_1.detectedtimer:setTriggerOnStart(true)
 ice_crab_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("starting_location",14,9,3,0,"starting_location_1")
 spawn("force_field",16,11,3,0,"force_field_4")
 spawn("etherweed",17,10,2,0,"etherweed_3")
 etherweed_3.data:setSource("data = {}\
@@ -6465,6 +6464,30 @@ crystal_shield_1.detectedtimer:setTimerInterval(0)
 crystal_shield_1.detectedtimer:setDisableSelf(false)
 crystal_shield_1.detectedtimer:setTriggerOnStart(true)
 crystal_shield_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("bear_skull_helm",14,9,2,0,"bear_skull_helm_1")
+bear_skull_helm_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+bear_skull_helm_1.detectedtimer:setTimerInterval(0)
+bear_skull_helm_1.detectedtimer:setDisableSelf(false)
+bear_skull_helm_1.detectedtimer:setTriggerOnStart(true)
+bear_skull_helm_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("potion_bear_form",14,9,3,0,"potion_bear_form_2")
+potion_bear_form_2.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+potion_bear_form_2.detectedtimer:setTimerInterval(0)
+potion_bear_form_2.detectedtimer:setDisableSelf(false)
+potion_bear_form_2.detectedtimer:setTriggerOnStart(true)
+potion_bear_form_2.detectedtimer:setCurrentLevelOnly(true)
 
 --- level 4 ---
 
@@ -13500,3 +13523,118 @@ forest_bridge_no_icon_121.model:disable()
 spawn("forest_ruins_ceiling_flat",21,17,0,0,"forest_ruins_ceiling_flat_14")
 spawn("swamp_oak",18,25,0,0,"swamp_oak_42")
 spawn("forest_exit",20,0,0,0,"forest_exit_9")
+
+--- level 11 ---
+
+newMap{
+	name = "Unnamed",
+	width = 32,
+	height = 32,
+	levelCoord = {-1,0,2},
+	ambientTrack = "dungeon",
+	tiles = {
+		"fire_cave_floor",
+		"fire_cave_lava",
+		"fire_cave_wall",
+	}
+}
+
+loadLayer("floor_elevation", {
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,-1,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,0,0,0,0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+})
+
+loadLayer("tiles", {
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,1,3,3,1,1,1,1,2,2,3,3,1,1,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,1,1,3,3,1,1,1,2,2,1,3,3,3,1,1,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,1,1,3,3,1,1,1,2,2,1,1,3,3,1,2,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,1,1,3,3,1,1,1,1,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,2,2,1,1,1,2,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,2,1,1,1,1,2,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,1,1,2,1,1,1,1,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,1,1,1,1,1,2,2,2,2,2,1,1,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,1,1,1,1,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,1,1,1,2,2,2,1,3,3,1,2,2,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,1,1,3,2,2,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+})
+
+spawn("forest_heightmap",0,0,1,0,"forest_heightmap_9")
+spawn("rc_lava_surface",17,13,0,0,"rc_lava_surface_1")
+rc_lava_surface_1.timer:setTimerInterval(0)
+rc_lava_surface_1.timer:setDisableSelf(false)
+rc_lava_surface_1.timer:setTriggerOnStart(false)
+rc_lava_surface_1.timer:setCurrentLevelOnly(true)
+spawn("fire_cave_fog",2,0,1,0,"fire_cave_fog_1")
+spawn("starting_location",15,14,2,0,"starting_location_1")
+spawn("rc_ceiling_lamp_crystal_high",15,14,3,0,"rc_ceiling_lamp_crystal_high_1")
+spawn("rc_ceiling_lamp_crystal_high",20,15,0,0,"rc_ceiling_lamp_crystal_high_2")
+spawn("rc_ceiling_lamp_crystal_high",13,11,3,0,"rc_ceiling_lamp_crystal_high_3")
+spawn("altar",12,13,1,0,"altar_1")
+spawn("lava_crab",11,17,0,0,"lava_crab_2")
+lava_crab_2.detectedtimer:setTimerInterval(0)
+lava_crab_2.detectedtimer:setDisableSelf(false)
+lava_crab_2.detectedtimer:setTriggerOnStart(true)
+lava_crab_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("rc_large_crystal_formation_1x1",11,9,3,0,"rc_large_crystal_formation_1x1_3")
+spawn("rc_ceiling_lamp_crystal_high",10,18,3,0,"rc_ceiling_lamp_crystal_high_4")
+spawn("rc_edge_crystal",18,12,0,0,"rc_edge_crystal_1")
+spawn("rc_large_crystal_formation_1x1",18,8,3,0,"rc_large_crystal_formation_1x1_4")
+spawn("rc_small_crystals_bed_1x1",15,19,2,0,"rc_small_crystals_bed_1x1_1")
+spawn("rc_effect_dust_motes",14,19,1,0,"rc_effect_dust_motes_1")
+spawn("rc_effect_dust_motes",17,17,2,0,"rc_effect_dust_motes_2")
+spawn("rc_effect_dust_motes",17,12,3,0,"rc_effect_dust_motes_3")
+spawn("rc_molten_floaty_idle_no_effect",21,13,2,0,"rc_molten_floaty_idle_no_effect_1")
+spawn("rc_molten_floaty_idle_no_effect",17,15,1,0,"rc_molten_floaty_idle_no_effect_2")
+spawn("forest_lantern",21,12,3,0,"forest_lantern_29")
+spawn("forest_lantern",17,20,0,0,"forest_lantern_34")

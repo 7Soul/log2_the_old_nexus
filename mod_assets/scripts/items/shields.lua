@@ -246,9 +246,7 @@ defineObject{
 			
 			Special: Gives petrify immunity to the entire party for 45 seconds.
 			
-			[Crystal Set] +50 Health
-			After you heal at a Healing Crystal, you gain the blessing of the crystal. 
-			If you fall under 50 health, you quickly heal back to full and lose the blessing.]],
+			[Crystal Set] +50 Health. Once after using a Healing Crystal, if you fall under 50 health you quickly heal back to full.]],
 		},
 		{
 			class = "EquipmentItem",

@@ -390,17 +390,7 @@ end
 
 function checkWeights(id)
 	local champion = party.party:getChampionByOrdinal(id)
-	
-	-- local equip_slots = {3,4,5,6,9}
-	-- for i, v in pairs(equip_slots) do
-		-- local item = champion:getItem(v)
-		-- if champion:hasTrait("armor_training") then
-			-- setWeight(item, "heavy_armor", 0.0)
-		-- else
-			-- resetItemWeight(item, "heavy_armor")
-		-- end
-	-- end
-	
+
 	for i=1, ItemSlot.BackpackLast do
 		local item = champion:getItem(i)
 		if champion:hasTrait("lore_master") then
@@ -436,12 +426,15 @@ function setWeight(item, trait, multiplier)
 		elseif supertable[14][item.go.id] ~= nil then
 			item.go.item:setWeight(supertable[14][item.go.id] * multiplier)
 		else
-			item.go.item:setWeight(item.go.item:getWeight() * multiplier)
+			--item.go.item:setWeight(item.go.item:getWeight() * multiplier)
 		end
 	end
 end
 
 function resetItemWeight(item, trait)
+	if item and supertable[14][item.go.id] == nil then
+		supertable[14][item.go.id] = item.go.item:getWeight()
+	end
 	if item and item:hasTrait(trait) and supertable[14][item.go.id] ~= nil then
 		item.go.item:setWeight(supertable[14][item.go.id])
 		--supertable[14][item.go.id] = nil
@@ -666,9 +659,9 @@ function resetItem(self, name)
 	if supertable[9][2][name] ~= nil then
 		if self.go.equipmentitem then self.go.equipmentitem:setEvasion(supertable[9][2][name]) end
 	end
-	-- if supertable[12][name] ~= nil then
+	-- if supertable[13][name] ~= nil then
 	-- 	local real_weight = 0
-	-- 	if tinker_item[17][name] then real_crit = tinker_item[17][name] else real_weight = supertable[17][name] end
+	-- 	if tinker_item[13][name] then real_crit = tinker_item[13][name] else real_weight = supertable[13][name] end
 	-- 	if self.go.equipmentitem then self:setWeight(real_weight) end
 	-- end
 	local secondaryAction = self.go.item:getSecondaryAction()
@@ -2323,7 +2316,33 @@ function getDamage(id, slot)
 	return dmg
 end
 
+function isArmorSetEquipped(champion, set)
+	if champion:isArmorSetEquipped(set) then
+		return true
+	end
 
+	local armorSetPieces = { ["valor"] = 5, ["crystal"] = 6, ["bear"] = 3 }
+	local mainSlots = {1,2,4,5,6}
+	local setCount = 0
+	for i = 1,#mainSlots do
+		if champion:getItem(mainSlots[i]) and champion:getItem(mainSlots[i]):getArmorSet() == set then
+			setCount = setCount + 1
+		end
+	end
+
+	local secondarySlots = {3,7,8,9,10} -- Head and Gloves
+	for i = 1,#secondarySlots do
+		if champion:getItem(secondarySlots[i]) and champion:getItem(secondarySlots[i]):getArmorSet() == set then
+			setCount = setCount + 1
+		else
+			if champion:hasTrait("armor_training") and (secondarySlots == 3 or secondarySlots == 9) then
+				setCount = setCount + 1
+			end
+		end
+	end
+	
+	return setCount == armorSetPieces[set]
+end
 -------------------------------------------------------------------------------------------------------
 -- Tinkerer Events                                                                                   --    
 -------------------------------------------------------------------------------------------------------

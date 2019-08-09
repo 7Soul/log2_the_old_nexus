@@ -1309,8 +1309,8 @@ defineTrait{
 				local bonusProt = 0
 				local equip_slots = {3,4,5,6,9}
 				for i, v in pairs(equip_slots) do
-					if champion:getItem(v) then
-						bonusProt = bonusProt + champion:getItem(v):getProtection()
+					if champion:getItem(v) and champion:getItem(v).go.equipmentitem and champion:getItem(v).go.equipmentitem:getProtection() then
+						bonusProt = bonusProt + champion:getItem(v).go.equipmentitem:getProtection()
 					end
 				end
 				bonusProt = bonusProt * 0.1
@@ -1338,8 +1338,8 @@ defineTrait{
 				local bonusProt = 0
 				local equip_slots = {3,4,5,6,9}
 				for i, v in pairs(equip_slots) do
-					if champion:getItem(v) then
-						bonusProt = bonusProt + champion:getItem(v):getProtection()
+					if champion:getItem(v) and champion:getItem(v).go.equipmentitem and champion:getItem(v).go.equipmentitem:getProtection() then
+						bonusProt = bonusProt + champion:getItem(v).go.equipmentitem:getProtection()
 					end
 				end
 				bonusProt = bonusProt * 0.1
@@ -1354,7 +1354,24 @@ defineTrait{
 	uiName = "Armor Training",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 77,
-	description = [[Bonuses are doubled and work even if your Helmet and Gloves are not heavy armor. Other armor in those slots gain an extra 25% protection.]],
+	description = [[Sets and Heavy Armor perks work even without Helmet and Gloves. Other armor types in those slots gain an extra 10% protection.]],
+	onRecomputeStats = function(champion, level)
+		if level > 0 then
+			level = champion:getLevel()
+			local all_heavy = functions.script.wearingAll(champion, "heavy_armor")
+			if all_heavy then				
+				local bonusProt = 0
+				local equip_slots = {3,9}
+				for i, v in pairs(equip_slots) do
+					if champion:getItem(v) and champion:getItem(v).go.equipmentitem and champion:getItem(v).go.equipmentitem:getProtection() then
+						bonusProt = bonusProt + champion:getItem(v).go.equipmentitem:getProtection()
+					end
+				end
+				bonusProt = bonusProt * 0.2
+				champion:addStatModifier("protection", math.ceil(bonusProt))
+			end
+		end
+	end,
 }
 
 -- Accuracy
@@ -1825,7 +1842,7 @@ defineTrait{
 	uiName = "Pyrotechnician",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 125,
-	description = "You can craft bombs and pellets. +5% Fire and Shock resistance per upgraded item you have equipped.",
+	description = "+5 Fire and Shock resistance per upgraded item you have equipped.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			local upgItems = 0

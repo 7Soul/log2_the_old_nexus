@@ -77,9 +77,9 @@ defineSkill{
 	description = [[Each point reduces the evasion penalties from wearing Heavy Armor by 20% and weight by 10%.
 	
 	Perks when wearing heavy armor in all 5 slots:
-	- Armored Up | +5% Protection and +2 Strength.
-	- Heavy Conditioning | +40 Health and +10% Protection.
-	- Armor Training | Bonuses are doubled and work even if your Helmet and Gloves are not heavy armor. Other armor in those slots gain an extra 10% protection.]],
+	- Armored Up | +5% Protection and +2 Strength. Doubled when this skill is maxed.
+	- Heavy Conditioning | +40 Health and +10% Protection. Doubled when this skill is maxed.
+	- Armor Training | Sets and Heavy Armor perks work even without Helmet and Gloves. Other armor types in those slots gain an extra 10% protection.]],
 	traits = { [2] = "armored_up", [4] = "heavy_conditioning", [5]="armor_training" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 and functions ~= nil and Time.currentTime() > 3 then
@@ -90,7 +90,6 @@ defineSkill{
 					--champion:addStatModifier("protection", champion:getItem(v).go.equipmentitem:getProtection() * 0.05 * champion:getSkillLevel("heavy_armor"))
 				elseif champion:getItem(v) and champion:hasTrait("armor_training") and (champion:getItem(v):hasTrait("light_armor") or champion:getItem(v):hasTrait("clothes")) then
 					champion:addStatModifier("evasion", champion:getSkillLevel("heavy_armor") * 2)
-					champion:addStatModifier("protection", champion:getItem(v).go.equipmentitem:getProtection() * 0.25)
 				end
 			end
 		end
@@ -354,10 +353,10 @@ defineSkill{
 	description = [[Allows you to upgrade equipments, increasing their stats. Requires a Tinkerer's Toolbox and crafting materials.
 	- Items can be upgraded 3 times.
 	- Each skill point increases the stats by an additional 5%.
-	- Upgraded items have increased weight (reduced based on the level of the skill).
+	- Upgraded items weight around 30% more, reduced by the skill level.
 	
 	Perks:
-	- Pyrotechnician | You can craft bombs and pellets. +5% Fire and Shock damage dealt per upgraded item you have equipped.
+	- Pyrotechnician | +5 Fire and Shock damage dealt per upgraded item you have equipped.
 	- Multipurpose | Unlock chests without a lockpick, at the cost of Energy. You gain +1 to a random stat when you do it.
 	- Mastersmith | You can upgrade Epic items.]],
 	traits = { [3] = "pyrotechnician", [4] = "multipurpose", [5] = "mastersmith" },
