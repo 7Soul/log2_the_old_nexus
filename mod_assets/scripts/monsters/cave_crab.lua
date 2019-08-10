@@ -38,6 +38,9 @@ defineObject{
 			protection = 20,
 			evasion = 0,
 			exp = 450,
+			resistances = { 
+				["shock"] = "weak"
+			 },
 			traits = { "animal" },
 		},
 		{

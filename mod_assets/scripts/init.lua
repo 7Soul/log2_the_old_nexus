@@ -288,10 +288,11 @@ defineObject{
 			--if champion:getItem(slot) then print(champion:getItem(slot).go.id) end
 			if champion then
 				local mouseItem = getMouseItem()
+				-- Click a slot with a herb in the cursor
 				if mouseItem and mouseItem:hasTrait("herb") and champion:getClass() == "druid" then
-					if slot == ItemSlot.Bracers then
-						local prevItem = functions.script.get_c("druid_item", champion:getOrdinal())
-						functions.script.set_c("druid_item", champion:getOrdinal(), mouseItem.go.name)
+					if slot == ItemSlot.Bracers or slot == ItemSlot.Necklace or slot == ItemSlot.Gloves then
+						local prevItem = functions.script.get_c("druid_item"..slot, champion:getOrdinal())
+						functions.script.set_c("druid_item"..slot, champion:getOrdinal(), mouseItem.go.name)
 						
 						if prevItem then
 							if prevItem ~= mouseItem.go.name then
@@ -319,11 +320,11 @@ defineObject{
 						end
 					end
 				end
-				
+				-- Right click the slot to get the herb back
 				if not mouseItem and button == 2 and champion:getClass() == "druid" then
-					if slot == ItemSlot.Bracers then
-						local prevItem = functions.script.get_c("druid_item", champion:getOrdinal())
-						functions.script.set_c("druid_item", champion:getOrdinal(), nil)
+					if slot == ItemSlot.Bracers or slot == ItemSlot.Necklace or slot == ItemSlot.Gloves then
+						local prevItem = functions.script.get_c("druid_item"..slot, champion:getOrdinal())
+						functions.script.set_c("druid_item"..slot, champion:getOrdinal(), nil)
 						if prevItem then
 							setMouseItem(spawn(prevItem).item)
 						else
@@ -497,50 +498,57 @@ defineObject{
 			
 			-- Druid equippable herbs
 			-- Display herb over bracers slot
+			local slotsX = { 82, 266, 82 }
+			local slotsY = { 277, 510, 510 }
 			if champion:getClass() == "druid" then
-				local druidItem = functions.script.get_c("druid_item", champion:getOrdinal())
-				if druidItem then
-					local icons = { {name = "blooddrop_cap", id=57}, {name = "etherweed", id=76}, {name = "mudwort", id=77}, {name = "falconskyre", id=78}, {name = "blackmoss", id=79}, {name = "crystal_flower", id=80} }
-					for i=1,#icons do
-						if druidItem == icons[i].name then
-							local id = icons[i].id
-							local icon_x = (id % 13) * 75
-							local icon_y = math.floor(id / 13) * 75
-							context.drawImage2("assets/textures/gui/items.dds", w - (82 * f2), 510 * f2, icon_x, icon_y, 75, 75, 60 * f2, 60 * f2)
-						end
-					end	
-				end				
+				local slots = { 8, 9, 10 }
+				for s = 1,#slots do
+					local druidItem = functions.script.get_c("druid_item"..slots[s], champion:getOrdinal())
+					if druidItem then
+						local icons = { {name = "blooddrop_cap", id=57}, {name = "etherweed", id=76}, {name = "mudwort", id=77}, {name = "falconskyre", id=78}, {name = "blackmoss", id=79}, {name = "crystal_flower", id=80} }
+						for i=1,#icons do
+							if druidItem == icons[i].name then
+								local id = icons[i].id
+								local icon_x = (id % 13) * 75
+								local icon_y = math.floor(id / 13) * 75
+								context.drawImage2("assets/textures/gui/items.dds", w - (slotsX[s] * f2), slotsY[s] * f2, icon_x, icon_y, 75, 75, 60 * f2, 60 * f2)
+							end
+						end	
+					end
+				end	
 			end
 			-- Update herb description
 			local item = getMouseItem()
 			if item and item:hasTrait("herb") then
 				if champion:getClass() == "druid" then
 					context.color(255, 255, 255, 40)
-					context.drawImage2("mod_assets/textures/gui/slotHighlight.dds", w - (113 * f2), 529 * f2, 0, 0, 69, 69, 75 * f2, 75 * f2)
+					context.drawImage2("mod_assets/textures/gui/slotHighlight.dds", w - ((slotsX[1]+32) * f2), (slotsY[1]+19) * f2, 0, 0, 69, 69, 75 * f2, 75 * f2)
+					context.drawImage2("mod_assets/textures/gui/slotHighlight.dds", w - ((slotsX[2]+32) * f2), (slotsY[2]+19) * f2, 0, 0, 69, 69, 75 * f2, 75 * f2)
+					context.drawImage2("mod_assets/textures/gui/slotHighlight.dds", w - ((slotsX[3]+32) * f2), (slotsY[3]+19) * f2, 0, 0, 69, 69, 75 * f2, 75 * f2)
 					local herbEffects = { 
 						{ 
 						name = "blooddrop_cap", 
-						effect = "- Converts 20% of physical damage to Poison.\n- Strength +2.\n- Regain 25% of poison damage dealt as Health." 
+						effect = "- Strength +2.\n- Regain 8 to 25% of poison damage dealt as Health (cloud spells only heal on the initial hit)." 
 						},
 						{ 
 						name = "etherweed", 
-						effect = "- Converts 20% of physical damage to Poison.\n- Willpower +2.\n- Regain 25% of poison damage dealt as Energy." 
+						effect = "- Willpower +2.\n- Regain 8 to 25% of poison damage dealt as Energy (cloud spells only heal on the initial hit)." 
 						},
 						{ 
 						name = "mudwort", 
-						effect = "- Converts 40% of physical damage to Poison.\n- Vitality +2.\n- 5% chance to poison foes (+1% per level).\n- Melee power attacks deal 30% more damage to poisoned foes." 
+						effect = "- Vitality +2.\n- +15% Melee damage to poisoned foes.\n- +20% Poison Resistance." 
 						},
 						{ 
 						name = "falconskyre", 
-						effect = "- Converts 20% of physical damage to Poison.\n- Dexterity +2.\n- Poison Resist +10 (+1 per level) and can't be Diseased or Poisoned." 
+						effect = "- Dexterity +2.\n- +8% Chance to poison with attacks."
 						},
 						{ 
 						name = "blackmoss", 
-						effect = "- Converts 20% of physical damage to Poison.\n- 5% chance to poison foes.\n- Poison Damage +15% (+1% per level)." 
+						effect = "- Poison Damage +10%.\n- Physical to Poison conversion rate +10%."
 						},
 						{ 
 						name = "crystal_flower", 
-						effect = "- All spell damage is converted to poison.\n- Poison Damage +6% (+1% per level)." 
+						effect = "- All spell damage is converted to poison.\n- Poison Damage +4%." 
 						}
 					}
 					if not item:hasTrait("druid") then

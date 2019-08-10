@@ -2640,11 +2640,13 @@ function frontAttack(attack, power, ordinal)
 	end
 	
 	if champion:getClass() == "druid" then
-		local druidItem = functions.script.get_c("druid_item", champion:getOrdinal())
-		if druidItem then
-			if druidItem == "crystal_flower" then
-				if a.tiledamager then a.tiledamager:setDamageType("poison") end
-				if a.cloudspell then a.cloudspell:setDamageType("poison") end
+		for slot = 8,10 do
+			local druidItem = functions.script.get_c("druid_item"..slot, champion:getOrdinal())
+			if druidItem then
+				if druidItem == "crystal_flower" then
+					if a.tiledamager then a.tiledamager:setDamageType("poison") end
+					if a.cloudspell then a.cloudspell:setDamageType("poison") end
+				end
 			end
 		end
 	end

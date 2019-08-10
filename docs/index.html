@@ -19,6 +19,7 @@ body {
        1px 1px 0 #000;
 	display: flex;
 	flex-wrap: wrap;
+	overflow-x: hidden;
 }
 
 h1 {
@@ -290,8 +291,9 @@ h2 em {
 		</div>
 	</div>
 	<div class="class_trait">
-		<p><b>Healing Light:</b> Damaging enemies charge a 500% Health Regen and 300% Energy Regen buff. It affects the party at half the effect.</p>
+		<p><b>Healing Light:</b> Damaging enemies charge a Health and Energy Regeneration buff for you and an ally to your side.</p>
 		<ul>
+		<li>1% Health and Energy recovered per second.</li>
 		<li>Duration is 12 seconds <em>(+3 seconds per 4 levels)</em>.</li>
 		<li>Deal the killing blow for a bonus charge.</li>
 		</ul>
@@ -342,18 +344,18 @@ h2 em {
 		<div class="stats">
 			<p>50 <em>(+5 per level)</em></p>
 			<p>50 <em>(+6 per level)</em></p>
+			<p>Converts 20% of your physical damage to Poison.</p>
 		</div>
 	</div>
 	<div class="class_trait">
-		<p><b>Herbologist:</b> You can attach a herb to your accessory slot, gaining unique effects.</p>
-		<p>All herbs convert 20% of your physical damage to Poison.</p>
+		<p><b>Herbologist:</b> You can attach a herb to your Gloves, Bracers and Necklace, gaining its effects.</p>
 		<ul style="padding-left:10px;">
-		<li>Blooddrop Cap: Strength +2 <em>(+1 per 4 levels)</em>. Gain health by dealing poison damage.</li>
-		<li>Etherweed: Willpower +2 <em>(+1 per 4 levels)</em>. Gain energy by dealing poison damage.</li>
-		<li>Mudwort: Vitality + 2 <em>(+1 per 4 levels)</em>. Conversion rate 40%. Chance to poison <em>(5% + 1% per level)</em>. More damage to poisoned foes.</li>
-		<li>Falconskyre: Dexterity + 2 <em>(+1 per 4 levels)</em>. Poison and Disease resistance.</li>
-		<li>Blackmoss: Chance to poison <em>(5%)</em>. Bonus to all poison damage <em>(15% + 1% per level)</em>.</li>
-		<li>Crystal Flower: Converts all spells to poison. Bonus to all poison damage <em>(6% + 1% per level)</em>.</li>
+		<li>Blooddrop: +2 Strength. Gain health by dealing poison damage.</li>
+		<li>Etherweed: +2 Willpower. Gain energy by dealing poison damage.</li>
+		<li>Mudwort: +2 Vitality. +15% Melee damage to poisoned foes. +20% Poison Resistance.</li>
+		<li>Falconskyre: +2 Dexterity. +8% Chance to poison.</li>
+		<li>Blackmoss: Gain +10% Poison damage. Conversion rate +10%.</li>
+		<li>Crystal Flower: Converts all spells to poison. Gain +4% Poison damage.</li>
 		</ul>
 	</div>
 </div>

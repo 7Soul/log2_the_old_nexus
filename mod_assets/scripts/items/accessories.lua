@@ -335,7 +335,7 @@ defineObject{
 			class = "Item",
 			uiName = "Serpent Bracer",
 			description = "A bracer fashioned after a venomous tropical snake. The teeth of the snake bite into the forearm of its wearer.",
-			gameEffect = [[Poison damage +20%.
+			gameEffect = [[Poison damage +15%.
 			Adds 10% chance to poison enemies with melee and ranged attacks.]],
 			gfxIndex = 29,
 			weight = 0.5,

@@ -168,15 +168,15 @@ function teststart()
 	end
 
 	if Editor.isRunning() then
-		setDefaultParty()
-		-- party.party:getChampionByOrdinal(1):setClass("tinkerer")
-		-- party.party:getChampionByOrdinal(2):setClass("corsair")
-		-- party.party:getChampionByOrdinal(3):setClass("druid")
-		-- party.party:getChampionByOrdinal(4):setClass("elementalist")
-		-- party.party:getChampionByOrdinal(1):setRace("human")
-		-- party.party:getChampionByOrdinal(2):setRace("minotaur")
-		-- party.party:getChampionByOrdinal(3):setRace("insectoid")
-		-- party.party:getChampionByOrdinal(4):setRace("ratling")
+		--setDefaultParty()
+		party.party:getChampionByOrdinal(1):setClass("tinkerer")
+		party.party:getChampionByOrdinal(2):setClass("corsair")
+		party.party:getChampionByOrdinal(3):setClass("druid")
+		party.party:getChampionByOrdinal(4):setClass("elementalist")
+		party.party:getChampionByOrdinal(1):setRace("human")
+		party.party:getChampionByOrdinal(2):setRace("minotaur")
+		party.party:getChampionByOrdinal(3):setRace("insectoid")
+		party.party:getChampionByOrdinal(4):setRace("ratling")
 		for i=1,4 do
 			local champion = party.party:getChampionByOrdinal(i)
 			if not champion:getItem(32) then champion:insertItem(32,spawn("torch").item) end
@@ -544,33 +544,6 @@ function onUnequipItem(self, champion, slot)
 	local name = self.go.id
 	local slots = {2,1}
 	local otherslot = slots[slot]
-	-- Resets weight for all items when removing heavy armor
-	-- if (slot >= 3 and slot <= 6) or slot == 9 then
-		-- if champion:hasTrait("armor_training") then
-			-- local equip_slots = {3,4,5,6,9}
-			-- for i, v in pairs(equip_slots) do
-				-- local item = champion:getItem(v)
-				-- if item and item ~= self and supertable[12][item.go.id] and item:hasTrait("heavy_armor") then 
-					-- item:setWeight(supertable[12][item.go.id])
-					-- supertable[12][item.go.id] = nil
-				-- end
-			-- end
-		-- end
-	-- end
-	
-	-- if champion:hasTrait("druid") then
-		-- local herbitems = {"blooddrop_cap", "etherweed", "mudwort", "falconskyre", "blackmoss", "crystal_flower"}
-		-- for _,e in ipairs(herbitems) do
-			-- champion:removeTrait(e)
-			-- if e == "mudwort" then
-				-- for i=1,4 do
-					-- if i ~= champion:getOrdinal() then
-						-- party.party:getChampion(i):removeTrait("lesser_mudwort")
-					-- end
-				-- end
-			-- end
-		-- end
-	-- end
 	
 	if self.go.name == "quarterstaff" and champion:getSkillLevel("spellblade") >= 1 then
 		self.go.item:addTrait("two_handed")
@@ -785,14 +758,15 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 	
 	-- Druid's Mudwort secondary attack bonus against poisoned enemies
 	if champion:getClass() == "druid" then
-		if secondary ~= self then
+		--if secondary ~= self then
 			local poisonedMonster = functions.script.get_c("poisonedMonster", c)
 			if poisonedMonster then
 				local monster = findEntity(poisonedMonster).monster
-				secondary:setAttackPower(secondary:getAttackPower() * 1.3)
+				--secondary:setAttackPower(secondary:getAttackPower() * 1.3)
+				self:setAttackPower(self:getAttackPower() * 1.15 )
 				monster:setCondition("poisoned", 0)
 			end
-		end
+		--end
 	end
 	
 	-- Bearclaw Gauntlets - Increases power attack damage by 15%
@@ -1468,24 +1442,34 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 		healingLight(champion, monster, damage)
 	end
 	
-	-- Druid's Herb effects
+	-- Druid's poison chance from herbs effects
 	if champion:getClass() == "druid" then
-		local druidItem = functions.script.get_c("druid_item", champion:getOrdinal())
-		if druidItem then
-			local poisonChance = druidItem == "mudwort" and 0.05 + ((champion:getLevel() - 1) * 0.01) or 0.05
-			if (druidItem == "mudwort" or druidItem == "blackmoss") and math.random() < poisonChance then	
-				monster:setCondition("poisoned", 25)
-				if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
+		local poisonChance = 0
+		local conversion = 0.8
+		for slot = 8,10 do
+			local druidItem = functions.script.get_c("druid_item"..slot, champion:getOrdinal())
+			if druidItem then
+				if druidItem == "falconskyre" then
+					poisonChance = poisonChance + 0.08
+				end
+				if druidItem == "blackmoss" then
+					conversion = conversion - 0.1
+				end
 			end
-			
-			local multiplier = 0.25
-			if druidItem == "mudwort" then multiplier = 0.666 end
-			if self.go.firearmattack then
-				hitMonster(monster.go.id, damage * multiplier, "33CC33", nil, "poison", champion:getOrdinal())
-			end
-			if self.go.meleeattack then
-				hitMonster(monster.go.id, damage * multiplier, "33CC33", nil, "poison", champion:getOrdinal())
-			end		
+		end
+
+		-- Conversion damage
+		if self.go.firearmattack then
+			hitMonster(monster.go.id, damage / conversion * (1 - conversion), "33CC33", nil, "poison", champion:getOrdinal())
+		end
+		if self.go.meleeattack then
+			hitMonster(monster.go.id, damage / conversion * (1 - conversion), "33CC33", nil, "poison", champion:getOrdinal())
+		end	
+
+		-- Poison chance
+		if poisonChance > 0 and math.random() < poisonChance then	
+			monster:setCondition("poisoned", 25)
+			if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
 		end
 	end
 
@@ -1555,24 +1539,34 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 		if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
 	end
 	
-	-- Druid's Herb effects
+	-- Druid's poison chance from herbs effects
 	if champion:getClass() == "druid" then
-		local druidItem = functions.script.get_c("druid_item", champion:getOrdinal())
-		if druidItem then
-			local poisonChance = druidItem == "mudwort" and 0.05 + ((champion:getLevel() - 1) * 0.01) or 0.05
-			if (druidItem == "mudwort" or druidItem == "blackmoss") and math.random() < poisonChance then	
-				monster:setCondition("poisoned", 25)
-				if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
-			end	
-			
-			local multiplier = 0.25
-			if druidItem == "mudwort" then multiplier = 0.666 end
-			if self.go.firearmattack then
-				hitMonster(monster.go.id, damage * multiplier, "33CC33", nil, "poison", champion:getOrdinal())
+		local poisonChance = 0
+		local conversion = 0.8
+		for slot = 8,10 do
+			local druidItem = functions.script.get_c("druid_item"..slot, champion:getOrdinal())
+			if druidItem then
+				if druidItem == "falconskyre" then
+					poisonChance = poisonChance + 0.08
+				end
+				if druidItem == "blackmoss" then
+					conversion = conversion - 0.1
+				end
 			end
-			if self.go.meleeattack then
-				hitMonster(monster.go.id, damage * multiplier, "33CC33", nil, "poison", champion:getOrdinal())
-			end
+		end
+
+		-- Conversion damage
+		if self.go.firearmattack then
+			hitMonster(monster.go.id, damage / conversion * (1 - conversion), "33CC33", nil, "poison", champion:getOrdinal())
+		end
+		if self.go.meleeattack then
+			hitMonster(monster.go.id, damage / conversion * (1 - conversion), "33CC33", nil, "poison", champion:getOrdinal())
+		end	
+		
+		-- Poison chance
+		if poisonChance > 0 and math.random() < poisonChance then	
+			monster:setCondition("poisoned", 25)
+			if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
 		end
 	end
 	
@@ -1675,13 +1669,23 @@ function onDamageMonster(self, damage, damageType)
 			
 			-- Druid's Herb effects
 			if champion:getClass() == "druid" then
-				local druidItem = functions.script.get_c("druid_item", champion:getOrdinal())
-				if druidItem and damageType == "poison" and math.random() > 0.75 then
-					if druidItem == "blooddrop_cap" then
-						champion:regainHealth(damage * 0.25)
-					elseif druidItem == "etherweed" then
-						champion:regainEnergy(damage * 0.25)
+				local health = 0
+				local energy = 0
+				for slot = 8,10 do
+					local druidItem = functions.script.get_c("druid_item"..slot, champion:getOrdinal())
+					if druidItem and damageType == "poison" then
+						if druidItem == "blooddrop_cap" then
+							health = health + 25
+						elseif druidItem == "etherweed" then
+							energy = energy + 25
+						end
 					end
+				end
+				if health > 0 then
+					champion:regainHealth(damage * math.random(health/3,health) * 0.01)
+				end
+				if energy > 0 then
+					champion:regainEnergy(damage * math.random(health/3,health) * 0.01)
 				end
 			end
 			
@@ -1754,16 +1758,20 @@ function hitMonster(id, damage, color, flair, damageType, championId)
 	damage = empowerElement(champion, damageType, damage)
 	damage = math.ceil(damage)
 	
-	if damageType == "physical" then
+	color = "CCCCCC"
+
+	if resistances == "weak" then
+		color = "FF0000"
+	elseif resistances == "vulnerable" then
+		color = "CC0000"
+	elseif resistances == "resist" then
 		color = "CCCCCC"
+	elseif resistances == "immune" then
+		color = "EEEEEE"
+	elseif resistances == "absorb" then
+		color = "00FF00"
 	end
 
-	if resistances == "weak" and damageType ~= "physical" then
-		color = "FF0000"
-	else
-		color = "CCCCCC"
-	end
-	
 	if flair then
 		monster.go.monster:showDamageText("" .. damage, color, flair) 
 	else 
@@ -1771,14 +1779,24 @@ function hitMonster(id, damage, color, flair, damageType, championId)
 	end
 	
 	-- Druid's Herb effects
-	if champion:getClass() == "druid" then
-		local druidItem = functions.script.get_c("druid_item", champion:getOrdinal())
-		if druidItem and damageType == "poison" and math.random() > 0.75 then
-			if druidItem == "blooddrop_cap" then
-				champion:regainHealth(damage * 0.25)
-			elseif druidItem == "etherweed" then
-				champion:regainEnergy(damage * 0.25)
+	if champion:getClass() == "druid" and damageType == "poison" then
+		local health = 0
+		local energy = 0
+		for slot = 8,10 do
+			local druidItem = functions.script.get_c("druid_item"..slot, champion:getOrdinal())
+			if druidItem then
+				if druidItem == "blooddrop_cap" then
+					health = health + 25
+				elseif druidItem == "etherweed" then
+					energy = energy + 25
+				end
 			end
+		end
+		if health > 0 then
+			champion:regainHealth(damage * math.random(health/3,health) * 0.01)
+		end
+		if energy > 0 then
+			champion:regainEnergy(damage * math.random(health/3,health) * 0.01)
 		end
 	end
 	
@@ -1840,7 +1858,7 @@ end
 
 function healingLight(champion, monster, damage)
 	local healingLight = functions.script.get_c("healinglight", champion:getOrdinal())
-	local healingMax = 400 + ((champion:getLevel() ^ 2) * 75)
+	local healingMax = 500 + ((champion:getLevel() ^ 2) * 75)
 	if not healingLight then healingLight = 0 end
 	if healingLight >= healingMax then return end -- don't charge if full
 	if champion:getConditionValue("healing_light") > 0 then return end -- don't charge if full
@@ -1856,9 +1874,10 @@ function healingLight(champion, monster, damage)
 		local bonus = math.floor(champion:getLevel() / 4) * 3
 		champion:setConditionValue("healing_light", 12 + bonus)
 		playSound("monk_light")
+		local pairs = { 2, 1, 4, 3 }
 		for j=1,4 do
-			if champion:getOrdinal() ~= j then
-				party.party:getChampionByOrdinal(j):setConditionValue("healing_light2", 12 + bonus)
+			if party.party:getChampion(j) == champion then				
+				party.party:getChampion(pairs[j]):setConditionValue("healing_light2", 12 + bonus)
 			end
 		end
 	else
@@ -2014,7 +2033,7 @@ end
 
 function shock_arc(self, e, champion, monster) -- self = projectile
 	local skillLevel = champion:getSkillLevel("witchcraft")
-	local damage = e.tiledamager:getAttackPower() * (0.75 + skillLevel / 20)
+	local damage = e.tiledamager and e.tiledamager:getAttackPower() * (0.75 + skillLevel / 20) or 0
 	local baseChance = 0.1
 		if e.name == "shockburst" and champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "torment_bracer" then
 			baseChance = baseChance + 0.1
@@ -2090,25 +2109,19 @@ function empowerElement(champion, element, multi)
 	end
 	
 	if champion:getClass() == "druid" and element == "physical" then
-		local druidItem = functions.script.get_c("druid_item", champion:getOrdinal())
-		if druidItem then
-			if druidItem == "blooddrop_cap" then
-				f = f * 0.8
-			elseif druidItem == "etherweed" then
-				f = f * 0.8
-			elseif druidItem == "mudwort" then
-				f = f * 0.6
-			elseif druidItem == "falconskyre" then
-				f = f * 0.8
-			elseif druidItem == "blackmoss" then
-				f = f * 0.8
+		local conversion = 0.2
+		for slot = 8,10 do
+			local druidItem = functions.script.get_c("druid_item"..slot, champion:getOrdinal())
+			if druidItem and druidItem == "blackmoss" then
+				conversion = conversion + 0.1
 			end
 		end
+		f = f * (1 - conversion)
 	end
 	
 	if element == "poison" then
 		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).name == "serpent_bracer" then
-			f = f * 1.2
+			f = f * 1.15
 		end
 		
 		if champion:isArmorSetEquipped("embalmers") then
@@ -2116,14 +2129,18 @@ function empowerElement(champion, element, multi)
 		end
 		
 		if champion:getClass() == "druid" then
-			local druidItem = functions.script.get_c("druid_item", ord)
-			if druidItem then
-				if druidItem == "crystal_flower" then
-					f = f * 1.06 + ((champion:getLevel() - 1) * 0.01)
-				elseif druidItem == "blackmoss" then
-					f = f * 1.15 + ((champion:getLevel() - 1) * 0.01)
+			local multi = 0
+			for slot = 8,10 do
+				local druidItem = functions.script.get_c("druid_item"..slot, ord)
+				if druidItem then
+					if druidItem == "crystal_flower" then
+						multi = multi + 0.04
+					elseif druidItem == "blackmoss" then
+						multi = multi + 0.10
+					end
 				end
 			end
+			f = f * (1 + multi)
 		end
 		
 		if champion:hasTrait("imperium_arcana") then

@@ -61,12 +61,14 @@ defineTrait{
 	- Energy 60 (+1 per level)
 	- Starts with every stat at 9 and gain +1 to all stats per level.
 	
-	Healing Light: Damaging enemies charge a 500% Health Regen and 300% Energy Regen buff. It affects the party at half the effect.
+	Healing Light: Damaging enemies charge a Health and Energy Regeneration buff for you and an ally to your side.
+	- 1% Health and Energy recovered per second.
 	- Duration is 12 seconds (+3 seconds per 4 levels).
 	- Deal the killing blow for a bonus charge.
 	
-	Holy Light: You gain a random bonus of 0 to 3 to all stats (+1 max per 3 levels, 1 minute duration).
-	- It begins when Healing Light ends. Duration +30 seconds per 4 levels.]],
+	Holy Light: You gain a random bonus of 0 to 3 to all stats (+1 max per 3 levels).
+	- It begins when Healing Light ends.
+	- Duration is 1 minute (+30 seconds per 4 levels).]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
@@ -78,26 +80,6 @@ defineTrait{
 			local vitality = champion:getBaseStat("vitality")
 			local willpower = champion:getBaseStat("willpower")
 			champion:addStatModifier("food_rate", -25)
-			-- if champion:getRace() == "ratling" then
-				-- champion:addStatModifier("strength", 4)
-				-- champion:addStatModifier("dexterity", -2)
-			-- end			
-			-- if champion:getRace() == "minotaur" then
-				-- champion:addStatModifier("strength", -5)
-				-- champion:addStatModifier("dexterity", 4)
-				-- champion:addStatModifier("vitality", -4)
-				-- champion:addStatModifier("willpower", 3)
-			-- end
-			-- if champion:getRace() == "insectoid" then
-				-- champion:addStatModifier("strength", -1)
-				-- champion:addStatModifier("dexterity", 2)
-				-- champion:addStatModifier("vitality", 1)
-				-- champion:addStatModifier("willpower", -2)
-			-- end
-			-- if champion:getRace() == "lizardman" then
-				-- champion:addStatModifier("dexterity", -2)
-				-- champion:addStatModifier("willpower", 2)
-			-- end
 			if Dungeon.getMaxLevels() ~= 0 then
 				local str = functions.script.get_c("monkstrength", champion:getOrdinal()) and functions.script.get_c("monkstrength", champion:getOrdinal()) or 0
 				local dex = functions.script.get_c("monkdexterity", champion:getOrdinal()) and functions.script.get_c("monkdexterity", champion:getOrdinal()) or 0
@@ -179,49 +161,52 @@ defineTrait{
 	gameEffect = [[
 	- Health 50 (+5 per level)
 	- Energy 50 (+6 per level)
+	- 20% of your physical damage is converted to Poison.
 	
-	Herbologist: You can attach a herb to your accessory slot, gaining unique effects.
-	- All herbs convert 20% of your physical damage to Poison.
+	Herbologist: You can attach a herb to your Gloves, Bracers and Necklace, gaining its effects.
 	
-	- Blooddrop Cap: Strength +2. Gain health by dealing poison damage.
-	- Etherweed: Willpower +2. Gain energy by dealing poison damage.
-	- Mudwort: Vitality + 2. Conversion rate 40%. Chance to poison. More damage to poisoned foes.
-	- Falconskyre: Dexterity + 2. Chance to poison. Poison and Disease resistance.
-	- Blackmoss: Chance to poison. Bonus to all poison damage (high).
-	- Crystal Flower: Converts all spells to poison. Bonus to all poison damage. ]],
+	- Blooddrop Cap: +2 Strength. Gain health by dealing poison damage.
+	- Etherweed: +2 Willpower. Gain energy by dealing poison damage.
+	- Mudwort: +2 Vitality. +15% Melee damage to poisoned foes. +15% Poison Resistance.
+	- Falconskyre: +2 Dexterity. +8% Chance to poison with attacks.
+	- Blackmoss: Gain +10% Poison damage. Conversion rate +10%.
+	- Crystal Flower: Converts all spells to poison. Gain +4% Poison damage.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
 			champion:addStatModifier("max_health", 50 + ((level-1) * 5))
 			champion:addStatModifier("max_energy", 50 + (level-1) * 6)
 			if not functions then return end
-			local druidItem = functions.script.get_c("druid_item", champion:getOrdinal())
-			if druidItem then
-				if druidItem == "blooddrop_cap" then
-					champion:addStatModifier("strength", 2)
-				elseif druidItem == "etherweed" then
-					champion:addStatModifier("willpower", 2)
-				elseif druidItem == "mudwort" then
-					champion:addStatModifier("vitality", 2)
-				elseif druidItem == "falconskyre" then
-					champion:addStatModifier("dexterity", 2)
-					champion:addStatModifier("resist_poison", 10 + (level - 1))
+			for slot = 8,10 do
+				local druidItem = functions.script.get_c("druid_item"..slot, champion:getOrdinal())
+				if druidItem then
+					if druidItem == "blooddrop_cap" then
+						champion:addStatModifier("strength", 2)
+					elseif druidItem == "etherweed" then
+						champion:addStatModifier("willpower", 2)
+					elseif druidItem == "mudwort" then
+						champion:addStatModifier("vitality", 2)
+						champion:addStatModifier("resist_poison", 15)
+					elseif druidItem == "falconskyre" then
+						champion:addStatModifier("dexterity", 2)
+					end
 				end
 			end
 		end			
 	end,
-	
-	onReceiveCondition = function(champion, cond, level)
-		if level > 0 then
-			if not functions then return end
-			local druidItem = functions.script.get_c("druid_item", champion:getOrdinal())
-			if druidItem and druidItem == "falconskyre" then
-				if cond == "diseased" or cond == "poisoned" then
-					return false
-				end
-			end
-		end
-	end,
+	-- onReceiveCondition = function(champion, cond, level)
+	-- 	if level > 0 then
+	-- 		if not functions then return end
+	-- 		for slot = 8,10 do
+	-- 			local druidItem = functions.script.get_c("druid_item"..slot, champion:getOrdinal())
+	-- 			if druidItem and druidItem == "falconskyre" then
+	-- 				if cond == "diseased" or cond == "poisoned" then
+	-- 					return false
+	-- 				end
+	-- 			end
+	-- 		end
+	-- 	end
+	-- end,
 }
 
 defineTrait{

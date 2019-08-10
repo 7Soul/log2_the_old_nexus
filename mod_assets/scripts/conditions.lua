@@ -114,13 +114,12 @@ defineCondition{
 defineCondition{
 	name = "healing_light",
 	uiName = "Healing Light",
-	description = [[
-	- Big boost to health and energy reneration rate.]],
+	description = "1% Health and Energy recovered per second.",
 	icon = 25,
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
 	harmful = false,
-	tickInterval = 1,
+	tickInterval = 0.5,
 	onStart = function(self, champion)
 		playSound("light")
 	end,
@@ -129,19 +128,18 @@ defineCondition{
 			champion:setConditionValue("holy_light", 60 + (math.floor(champion:getLevel() / 4) * 30))
 		end
 	end,
-	onRecomputeStats = function(self, champion)
-		champion:addStatModifier("health_regeneration_rate", 500)
-		champion:addStatModifier("energy_regeneration_rate", 300)
+	onRecomputeStats = function(self, champion)		
 	end,
 	onTick = function(self, champion)
+		champion:regainHealth(champion:getMaxHealth() / 100)
+		champion:regainEnergy(champion:getMaxEnergy() / 100)
 	end,	
 }
 
 defineCondition{
 	name = "holy_light",
 	uiName = "Holy Light",
-	description = [[
-	- Random bonus to all stats.]],
+	description = "Random bonus to all stats.",
 	icon = 26,
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
@@ -187,8 +185,7 @@ defineCondition{
 defineCondition{
 	name = "healing_light2",
 	uiName = "Healing Light",
-	description = [[
-	- Small boost to health and energy reneration rate.]],
+	description = "1% Health and Energy recovered per second.",
 	icon = 25,
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
@@ -198,11 +195,11 @@ defineCondition{
 	end,
 	onStop = function(self, champion)		
 	end,
-	onRecomputeStats = function(self, champion)
-		champion:addStatModifier("health_regeneration_rate", 250)
-		champion:addStatModifier("energy_regeneration_rate", 150)
+	onRecomputeStats = function(self, champion)		
 	end,
 	onTick = function(self, champion)
+		champion:regainHealth(champion:getMaxHealth() / 100)
+		champion:regainEnergy(champion:getMaxEnergy() / 100)
 	end,	
 }
 
