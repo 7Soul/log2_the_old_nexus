@@ -16,7 +16,7 @@ defineObject{
 		},
 	},
 	minimalSaveState = true,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -69,7 +69,7 @@ defineObject{
 		},
 	},
 	minimalSaveState = true,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -88,7 +88,7 @@ defineObject{
 		},
 	},
 	minimalSaveState = true,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -142,7 +142,7 @@ defineObject{
 	},
 	editorIcon = 124,
 	automapIcon = 84,
-	tags = { "red cave", "vanblam", "door"},
+	tags = { "door"},
 }
 
 defineObject{
@@ -217,5 +217,5 @@ defineObject{
 	placement = "wall",
 	editorIcon = 124,
 	automapIcon = 84,
-	tags = { "red cave", "vanblam", "door"},
+	tags = { "door"},
 }

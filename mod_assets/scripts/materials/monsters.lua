@@ -705,3 +705,104 @@ defineMaterial{
 	glossiness = 50,
 	depthBias = 0,
 }
+
+defineMaterial{
+	name = "burnt_twigroot",
+	diffuseMap = "mod_assets/textures/monsters/burnt_twigroot_dif.tga",
+	specularMap = "mod_assets/textures/monsters/burnt_twigroot_spec.tga",
+	normalMap = "mod_assets/textures/monsters/burnt_twigroot_normal.tga",
+	emissiveMap = "mod_assets/textures/monsters/burnt_twigroot_emissive.tga",
+	doubleSided = false,
+	lighting = true,
+	alphaTest = false,
+	blendMode = "Opaque",
+	textureAddressMode = "Wrap",
+	glossiness = 65,
+	depthBias = 0,
+}
+
+defineMaterial{
+	name = "burnt_ivy",
+	diffuseMap = "mod_assets/textures/monsters/burnt_ivy_dif.tga",
+	specularMap = "mod_assets/textures/monsters/burnt_ivy_spec.tga",
+	normalMap = "mod_assets/textures/monsters/burnt_ivy_normal.tga",
+	doubleSided = true,
+	lighting = true,
+	alphaTest = true,
+	castShadow = false,
+	blendMode = "Opaque",
+	textureAddressMode = "Wrap",
+	glossiness = 25,
+	depthBias = 0,
+}
+
+defineMaterial{
+	name = "burnt_branch",
+	diffuseMap = "mod_assets/textures/monsters/burnt_branch_dif.tga",
+	specularMap = "mod_assets/textures/monsters/burnt_branch_spec.tga",
+	normalMap = "mod_assets/textures/monsters/burnt_branch_normal.tga",
+	doubleSided = true,
+	lighting = true,
+	alphaTest = true,
+	blendMode = "Opaque",
+	textureAddressMode = "Wrap",
+	glossiness = 10,
+	depthBias = 0,
+}
+
+defineMaterial{
+	name = "scorched_root",
+	diffuseMap = "mod_assets/textures/monsters/scorched_root_dif.tga",
+	--specularMap = "assets/textures/common/black.tga",
+	specularMap = "mod_assets/textures/monsters/scorched_root_spec.tga",
+	normalMap = "mod_assets/textures/monsters/scorched_root_normal.tga",
+	doubleSided = false,
+	lighting = true,
+	alphaTest = false,
+	blendMode = "Opaque",
+	textureAddressMode = "Wrap",
+	glossiness = 20,
+	depthBias = 0,
+}
+
+defineMaterial{
+	name = "scorched_root_tentacle",
+	diffuseMap = "mod_assets/textures/monsters/scorched_root_tentacle_dif.tga",
+	specularMap = "assets/textures/env/forest_thorns_spec.tga",
+	normalMap = "assets/textures/env/forest_thorns_normal.tga",
+	doubleSided = false,
+	lighting = true,
+	alphaTest = false,
+	blendMode = "Opaque",
+	textureAddressMode = "Wrap",
+	glossiness = 10,
+	depthBias = 0,
+}
+
+defineMaterial{
+	name = "scorched_leaf_cluster",
+	diffuseMap = "mod_assets/textures/monsters/scorched_leaf_cluster_dif.tga",
+	specularMap = "assets/textures/common/black.tga",
+	doubleSided = true,
+	lighting = true,
+	alphaTest = true,
+	blendMode = "Opaque",
+	textureAddressMode = "Wrap",
+	glossiness = 10,
+	depthBias = 0,
+}
+
+defineMaterial{
+	name = "scorched_dig_hole",
+	diffuseMap = "mod_assets/textures/monsters/scorched_dig_hole_dif.tga",
+	specularMap = "assets/textures/common/black.tga",
+	normalMap = "assets/textures/props/dig_hole_normal.tga",
+	doubleSided = false,
+	lighting = true,
+	alphaTest = true,
+	castShadow = false,
+	blendMode = "Opaque",
+	textureAddressMode = "Wrap",
+	glossiness = 20,
+	depthBias = 0,
+}

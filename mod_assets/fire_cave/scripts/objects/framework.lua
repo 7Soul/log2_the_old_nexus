@@ -47,7 +47,7 @@ defineObject{
 		},
 	},
 	replacesFloor = true,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -179,7 +179,7 @@ defineObject{
 		},
 	},
 	replacesFloor = true,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -239,10 +239,10 @@ defineObject{
 		},
 		{
 			class = "Light",
-			range = 3,
+			range = 4,
 			offset = vec(0, 3.2, 0),
 			color = vec(1, 0.13, 0),
-			brightness = 10,
+			brightness = 8,
 			castShadow = false,
 			staticShadows = true,
 			shadowMapSize = 256,
@@ -250,7 +250,7 @@ defineObject{
 		{
 			class = "Light",
 			name = "dim_light",
-			range = 3,
+			range = 4,
 			offset = vec(0, 3.2, 0),
 			color = vec(1, 0.12, 0),
 			brightness = 2.5,
@@ -320,7 +320,7 @@ defineObject{
 		},
 	},
 	minimalSaveState = true,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -339,7 +339,7 @@ defineObject{
 	},
 	editorIcon = 92,
 	minimalSaveState = true,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -359,7 +359,7 @@ defineObject{
 		},
 	},
 	minimalSaveState = true,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -378,7 +378,7 @@ defineObject{
 	},
 	editorIcon = 92,
 	minimalSaveState = true,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -398,7 +398,7 @@ defineObject{
 		},
 	},
 	minimalSaveState = true,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -419,7 +419,7 @@ defineObject{
 	editorIcon = 160,
 	automapIcon = 88,
 	minimalSaveState = true,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -440,7 +440,7 @@ defineObject{
 	editorIcon = 160,
 	automapIcon = 88,
 	minimalSaveState = true,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -454,7 +454,7 @@ defineObject{
 		},
 	},
 	minimalSaveState = true,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -492,7 +492,7 @@ defineObject{
 	},
 	placement = "wall",
 	editorIcon = 160,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -530,7 +530,7 @@ defineObject{
 	},
 	placement = "wall",
 	editorIcon = 160,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -563,7 +563,7 @@ defineObject{
 	},
 	minimalSaveState = true,
 	editorIcon = 136,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -578,7 +578,7 @@ defineObject{
 	},
 	minimalSaveState = true,
 	editorIcon = 92,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -593,5 +593,5 @@ defineObject{
 	},
 	minimalSaveState = true,
 	editorIcon = 108,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }

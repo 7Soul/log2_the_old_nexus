@@ -15,22 +15,22 @@ defineMaterial{
 	end,
 }
 
-defineMaterial{
-	name = "rc_lava_river_solid",
-	diffuseMap = "mod_assets/fire_cave/textures/env/rc_lava_river_dif.tga",
-	specularMap = "mod_assets/fire_cave/textures/env/rc_lava_river_dif.tga",
-	normalMap = "mod_assets/fire_cave/textures/env/rc_lava_pure_normal.tga",
-	doubleSided = false,
-	lighting = false,
-	alphaTest = false,
-	blendMode = "Opaque",
-	textureAddressMode = "Wrap",
-	glossiness = 0,
-	depthBias = 0,
-	onUpdate = function(self, time)
-		self:setTexcoordScaleOffset(1, 1, time*0, time*-0.03)
-	end,
-}
+-- defineMaterial{
+-- 	name = "rc_lava_river_solid",
+-- 	diffuseMap = "mod_assets/fire_cave/textures/env/rc_lava_river_dif.tga",
+-- 	specularMap = "mod_assets/fire_cave/textures/env/rc_lava_river_dif.tga",
+-- 	normalMap = "mod_assets/fire_cave/textures/env/rc_lava_pure_normal.tga",
+-- 	doubleSided = false,
+-- 	lighting = false,
+-- 	alphaTest = false,
+-- 	blendMode = "Opaque",
+-- 	textureAddressMode = "Wrap",
+-- 	glossiness = 0,
+-- 	depthBias = 0,
+-- 	onUpdate = function(self, time)
+-- 		self:setTexcoordScaleOffset(1, 1, time*0, time*-0.03)
+-- 	end,
+-- }
 
 -- defineMaterial{
 -- 	name = "rc_lava_river2",
@@ -96,21 +96,6 @@ defineMaterial{
 }
 
 defineMaterial{
-	name = "rc_gem_rock",
-	diffuseMap = "mod_assets/fire_cave/textures/env/rc_gem_rock_dif.tga",
-	specularMap = "mod_assets/fire_cave/textures/env/rc_gem_rock_spec.tga",
-	emissiveMap = "mod_assets/fire_cave/textures/env/rc_gem_rock_emissive.tga",
-	normalMap = "mod_assets/fire_cave/textures/env/rc_gem_rock_normal.tga",
-	doubleSided = false,
-	lighting = true,
-	alphaTest = false,
-	blendMode = "Opaque",
-	textureAddressMode = "Wrap",
-	glossiness = 90,
-	depthBias = 0,
-}
-
-defineMaterial{
 	name = "rc_grass",
 	diffuseMap = "mod_assets/fire_cave/textures/env/rc_grass_dif.tga",
 	specularMap = "mod_assets/fire_cave/textures/env/rc_grass_spec.tga",
@@ -165,6 +150,22 @@ defineMaterial{
 }
 
 defineMaterial{
+	name = "rc_crystal_2",
+	diffuseMap = "mod_assets/fire_cave/textures/env/rc_crystal_2_dif.tga",
+	specularMap = "mod_assets/fire_cave/textures/env/rc_crystal_2_spec.tga",
+	normalMap = "mod_assets/fire_cave/textures/env/rc_crystal_2_normal.tga",
+	emissiveMap = "mod_assets/fire_cave/textures/env/rc_crystal_2_glow.tga",
+	doubleSided = false,
+	lighting = true,
+	ambientOcclusion = false,
+	alphaTest = false,
+	blendMode = "Opaque",
+	textureAddressMode = "Wrap",
+	glossiness = 100,
+	depthBias = 0,
+}
+
+defineMaterial{
 	name = "rc_crystal_3",
 	diffuseMap = "mod_assets/fire_cave/textures/env/rc_crystal_3_dif.tga",
 	specularMap = "mod_assets/fire_cave/textures/env/rc_yellow_orange.tga",
@@ -185,22 +186,6 @@ defineMaterial{
 	onUpdate = function(self, time)
 		self:setParam("shadeTexAngle", time*0.2)
 	end,
-}
-
-defineMaterial{
-	name = "rc_crystal_2",
-	diffuseMap = "mod_assets/fire_cave/textures/env/rc_crystal_2_dif.tga",
-	specularMap = "mod_assets/fire_cave/textures/env/rc_crystal_2_spec.tga",
-	normalMap = "mod_assets/fire_cave/textures/env/rc_crystal_2_normal.tga",
-	emissiveMap = "mod_assets/fire_cave/textures/env/rc_crystal_2_glow.tga",
-	doubleSided = false,
-	lighting = true,
-	ambientOcclusion = false,
-	alphaTest = false,
-	blendMode = "Opaque",
-	textureAddressMode = "Wrap",
-	glossiness = 100,
-	depthBias = 0,
 }
 
 defineMaterial{
@@ -242,6 +227,21 @@ defineMaterial{
 	blendMode = "Opaque",
 	textureAddressMode = "Wrap",
 	glossiness = 80,
+	depthBias = 0,
+}
+
+defineMaterial{
+	name = "rc_gem_rock",
+	diffuseMap = "mod_assets/fire_cave/textures/env/rc_gem_rock_dif.tga",
+	specularMap = "mod_assets/fire_cave/textures/env/rc_gem_rock_spec.tga",
+	emissiveMap = "mod_assets/fire_cave/textures/env/rc_gem_rock_emissive.tga",
+	normalMap = "mod_assets/fire_cave/textures/env/rc_gem_rock_normal.tga",
+	doubleSided = false,
+	lighting = true,
+	alphaTest = false,
+	blendMode = "Opaque",
+	textureAddressMode = "Wrap",
+	glossiness = 90,
 	depthBias = 0,
 }
 
@@ -301,33 +301,33 @@ defineMaterial{
 	depthBias = 0,
 }
 
-defineMaterial{
-	name = "rc_stone_door_02",
-	diffuseMap = "mod_assets/fire_cave/textures/env/rc_stone_door_02_dif.tga",
-	specularMap = "mod_assets/fire_cave/textures/env/rc_stone_door_02_spec.tga",
-	normalMap = "mod_assets/fire_cave/textures/env/rc_stone_door_02_normal.tga",
-	doubleSided = false,
-	lighting = true,
-	alphaTest = false,
-	blendMode = "Opaque",
-	textureAddressMode = "Wrap",
-	glossiness = 50,
-	depthBias = 0,
-}
+-- defineMaterial{
+-- 	name = "rc_stone_door_02",
+-- 	diffuseMap = "mod_assets/fire_cave/textures/env/rc_stone_door_02_dif.tga",
+-- 	specularMap = "mod_assets/fire_cave/textures/env/rc_stone_door_02_spec.tga",
+-- 	normalMap = "mod_assets/fire_cave/textures/env/rc_stone_door_02_normal.tga",
+-- 	doubleSided = false,
+-- 	lighting = true,
+-- 	alphaTest = false,
+-- 	blendMode = "Opaque",
+-- 	textureAddressMode = "Wrap",
+-- 	glossiness = 50,
+-- 	depthBias = 0,
+-- }
 
-defineMaterial{
-	name = "rc_puz_pedestal_01",
-	diffuseMap = "mod_assets/fire_cave/textures/env/rc_puz_pedestal_01_dif.tga",
-	specularMap = "mod_assets/fire_cave/textures/env/rc_puz_pedestal_01_spec.tga",
-	normalMap = "mod_assets/fire_cave/textures/env/rc_puz_pedestal_01_normal.tga",
-	doubleSided = false,
-	lighting = true,
-	alphaTest = false,
-	blendMode = "Opaque",
-	textureAddressMode = "Wrap",
-	glossiness = 50,
-	depthBias = 0,
-}
+-- defineMaterial{
+-- 	name = "rc_puz_pedestal_01",
+-- 	diffuseMap = "mod_assets/fire_cave/textures/env/rc_puz_pedestal_01_dif.tga",
+-- 	specularMap = "mod_assets/fire_cave/textures/env/rc_puz_pedestal_01_spec.tga",
+-- 	normalMap = "mod_assets/fire_cave/textures/env/rc_puz_pedestal_01_normal.tga",
+-- 	doubleSided = false,
+-- 	lighting = true,
+-- 	alphaTest = false,
+-- 	blendMode = "Opaque",
+-- 	textureAddressMode = "Wrap",
+-- 	glossiness = 50,
+-- 	depthBias = 0,
+-- }
 
 defineMaterial{
 	name = "rc_lever",
@@ -343,19 +343,19 @@ defineMaterial{
 	depthBias = 0,
 }
 
-defineMaterial{
-	name = "rc_unique_lever",
-	diffuseMap = "mod_assets/fire_cave/textures/env/rc_unique_lever_dif.tga",
-	specularMap = "mod_assets/fire_cave/textures/env/rc_unique_lever_spec.tga",
-	normalMap = "mod_assets/fire_cave/textures/env/rc_unique_lever_normal.tga",
-	doubleSided = false,
-	lighting = true,
-	alphaTest = false,
-	blendMode = "Opaque",
-	textureAddressMode = "Wrap",
-	glossiness = 50,
-	depthBias = 0,
-}
+-- defineMaterial{
+-- 	name = "rc_unique_lever",
+-- 	diffuseMap = "mod_assets/fire_cave/textures/env/rc_unique_lever_dif.tga",
+-- 	specularMap = "mod_assets/fire_cave/textures/env/rc_unique_lever_spec.tga",
+-- 	normalMap = "mod_assets/fire_cave/textures/env/rc_unique_lever_normal.tga",
+-- 	doubleSided = false,
+-- 	lighting = true,
+-- 	alphaTest = false,
+-- 	blendMode = "Opaque",
+-- 	textureAddressMode = "Wrap",
+-- 	glossiness = 50,
+-- 	depthBias = 0,
+-- }
 
 defineMaterial{
 	name = "rc_stone_parts",
@@ -651,19 +651,19 @@ defineMaterial{
 	depthBias = 0,
 }
 
-defineMaterial{
-	name = "rc_stone_box",
-	diffuseMap = "mod_assets/fire_cave/textures/env/rc_stone_box_dif.tga",
-	specularMap = "mod_assets/fire_cave/textures/env/rc_stone_box_spec.tga",
-	normalMap = "mod_assets/fire_cave/textures/env/rc_stone_box_normal.tga",
-	doubleSided = false,
-	lighting = true,
-	alphaTest = false,
-	blendMode = "Opaque",
-	textureAddressMode = "Wrap",
-	glossiness = 55,
-	depthBias = 0,
-}
+-- defineMaterial{
+-- 	name = "rc_stone_box",
+-- 	diffuseMap = "mod_assets/fire_cave/textures/env/rc_stone_box_dif.tga",
+-- 	specularMap = "mod_assets/fire_cave/textures/env/rc_stone_box_spec.tga",
+-- 	normalMap = "mod_assets/fire_cave/textures/env/rc_stone_box_normal.tga",
+-- 	doubleSided = false,
+-- 	lighting = true,
+-- 	alphaTest = false,
+-- 	blendMode = "Opaque",
+-- 	textureAddressMode = "Wrap",
+-- 	glossiness = 55,
+-- 	depthBias = 0,
+-- }
 
 defineMaterial{
 	name = "rc_stone_trims",

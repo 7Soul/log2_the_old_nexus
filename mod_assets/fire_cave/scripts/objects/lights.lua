@@ -41,7 +41,7 @@ defineObject{
 		},
 	},
 	editorIcon = 88,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 	minimalSaveState = true,
 }
 
@@ -81,7 +81,7 @@ defineObject{
 	},
 	minimalSaveState = true,
 	editorIcon = 88,
-	tags = { "red cave", "vanblam"},
+	tags = { },
 }
 
 defineObject{
@@ -121,7 +121,7 @@ defineObject{
 	},
 	minimalSaveState = true,
 	editorIcon = 88,
-	tags = { "red cave", "vanblam"},
+	tags = { },
 }
 
 defineObject{
@@ -162,7 +162,7 @@ defineObject{
 	},
 	minimalSaveState = true,
 	editorIcon = 88,
-	tags = { "red cave", "vanblam"},
+	tags = { },
 }
 
 defineObject{
@@ -207,7 +207,7 @@ defineObject{
 	},
 	minimalSaveState = true,
 	editorIcon = 88,
-	tags = { "red cave", "vanblam"},
+	tags = { },
 }
 
 defineObject{
@@ -258,7 +258,7 @@ defineObject{
 		},
 	},
 	editorIcon = 88,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 	minimalSaveState = true,
 }
 
@@ -330,7 +330,7 @@ defineObject{
 	},
 	placement = "pillar",
 	editorIcon = 240,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 	minimalSaveState = true,
 }
 
@@ -375,7 +375,7 @@ defineObject{
 		},
 	},
 	editorIcon = 240,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 	minimalSaveState = true,
 }
 
@@ -416,7 +416,7 @@ defineObject{
 	},
 	editorIcon = 168,
 	automapTile = "rocky_wall",
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 	minimalSaveState = true,
 }
 
@@ -457,7 +457,7 @@ defineObject{
 		},
 	},
 	editorIcon = 88,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 	minimalSaveState = true,
 }
 
@@ -563,5 +563,5 @@ defineObject{
 	},
 	editorIcon = 92,
 	automapTile = "rocky_wall",
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }

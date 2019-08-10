@@ -28,8 +28,10 @@ defineObject{
 			timerInterval = 0,
 			currentLevelOnly = true,
 			onActivate = function(self)
-				local y = party:getWorldPositionY()
-				if y < -1.4 then
+				local partyY = party:getWorldPositionY()
+				local x = self.go.x
+				local y = self.go.y
+				if partyY < -1.4 and party.x < x + 16 and party.x > x - 16 and party.y < y + 16 and party.y > y - 16 then
 					self.go.fogparams:enable()
 					-- "fade in" the fog a little as the party falls into the lava
 					self.go.fogparams:setFogRange({0,4/math.min(1,-1.3-y)})
@@ -44,7 +46,7 @@ defineObject{
 	placement = "pillar",
 	editorIcon = 264,
 	dontAdjustHeight = true,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -63,7 +65,7 @@ defineObject{
 	},
 	minimalSaveState = true,
 	editorIcon = 56,
-	tags = { "red cave", "vanblam"},
+	tags = { },
 }
 
 defineObject{
@@ -82,7 +84,7 @@ defineObject{
 	},
 	minimalSaveState = true,
 	editorIcon = 56,
-	tags = { "red cave", "vanblam"},
+	tags = { },
 }
 
 defineObject{
@@ -101,7 +103,7 @@ defineObject{
 	},
 	minimalSaveState = true,
 	editorIcon = 56,
-	tags = { "red cave", "vanblam"},
+	tags = { },
 }
 
 defineObject{
@@ -120,7 +122,7 @@ defineObject{
 	},
 	minimalSaveState = true,
 	editorIcon = 56,
-	tags = { "red cave", "vanblam"},
+	tags = { },
 }
 
 defineObject{
@@ -136,7 +138,7 @@ defineObject{
 	},
 	minimalSaveState = true,
 	editorIcon = 160,
-	tags = { "red cave", "vanblam"},
+	tags = { },
 }
 
 defineObject{
@@ -152,7 +154,7 @@ defineObject{
 	},
 	minimalSaveState = true,
 	editorIcon = 160,
-	tags = { "red cave", "vanblam"},
+	tags = { },
 }
 
 defineObject{
@@ -166,7 +168,7 @@ defineObject{
 		},
 	},
 	minimalSaveState = true,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -185,7 +187,7 @@ defineObject{
 	},
 	editorIcon = 56,
 	minimalSaveState = true,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -200,7 +202,7 @@ defineObject{
 	replacesCeiling = true,
 	minimalSaveState = true,
 	editorIcon = 92,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -217,7 +219,7 @@ defineObject{
 	},
 	minimalSaveState = true,
 	editorIcon = 272,
-	tags = { "red cave", "vanblam"},
+	tags = { },
 }
 
 defineObject{
@@ -237,7 +239,7 @@ defineObject{
 	placement = "floor",
 	editorIcon = 56,
 	automapTile = "rocky_wall",
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -257,7 +259,7 @@ defineObject{
 	placement = "floor",
 	editorIcon = 56,
 	automapTile = "rocky_wall",
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -284,7 +286,7 @@ defineObject{
 	placement = "wall",
 	editorIcon = 52,
 	automapIcon = 112,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -311,7 +313,7 @@ defineObject{
 	placement = "wall",
 	editorIcon = 52,
 	automapIcon = 152,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -328,7 +330,7 @@ defineObject{
 	killHeightmap = true,
 	minimalSaveState = "true",
 	editorIcon = 136,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -347,62 +349,13 @@ defineObject{
 				local rx,ry = getForward((facing+1)%4)
 
 				for yy=-3,3 do
-					for xx=-2,-1 do
-						local x = x + rx * xx + fx * yy
-						local y = y + ry * xx + fy * yy
-						local choice = math.random()
-						if x >= 0 and y >= 0 and x < 32 and y < 32 then
-							for e in self.go.map:entitiesAt(x, y) do
-								if e.name == "rc_pillar_01a" 
-								or e.name == "rc_pillar_01b" 								
-								then e:destroy()
-									if choice >= 0.66 then
-											spawn("rc_pillar_01a_hatless", level, x, y,math.random(0,3), self.go.elevation)
-										elseif choice >= 0.33 then
-											spawn("rc_pillar_01b_hatless", level, x, y,math.random(0,3), self.go.elevation)
-										else
-											spawn("rc_pillar_01b_hatless", level, x, y,math.random(0,3), self.go.elevation)
-									end
-								end
-							end
-						end
-					end
-				end
-				for yy=-3,3 do
-					for xx=1,2 do
-						local x = x + rx * xx + fx * yy
-						local y = y + ry * xx + fy * yy
-						local choice = math.random()
-						if x >= 0 and y >= 0 and x < 32 and y < 32 then
-							for e in self.go.map:entitiesAt(x, y) do
-								if e.name == "rc_pillar_01a"
-								or e.name == "rc_pillar_01b"							
-								then e:destroy()
-									if choice >= 0.66 then
-											spawn("rc_pillar_01a_hatless", level, x, y,math.random(0,3), self.go.elevation)
-										elseif choice >= 0.33 then
-											spawn("rc_pillar_01b_hatless", level, x, y,math.random(0,3), self.go.elevation)
-										else
-											spawn("rc_pillar_01b_hatless", level, x, y,math.random(0,3), self.go.elevation)
-									end
-								end
-							end
-						end
-					end
-				end
-				for yy=-3,3 do
 					for xx=-1,1 do
 						local x = x + rx * xx + fx * yy
 						local y = y + ry * xx + fy * yy
 						local choice = math.random()
 						if x >= 0 and y >= 0 and x < 32 and y < 32 then
 							for e in self.go.map:entitiesAt(x, y) do
-								if e.name == "rc_ceiling_01a"		
-								or e.name == "rc_ceiling_01b"
-								or e.name == "rc_ceiling_01c"
-								or e.name == "rc_ceiling_01d"
-								or e.name == "rc_ceiling_01e"
-								or e.name == "rc_edge_support_01"
+								if e.name == "rc_edge_support_01"
 								or e.name == "rc_edge_support_02"
 								or e.name == "rc_edge_support_03"
 								or e.name == "rc_edge_support_04"
@@ -423,7 +376,7 @@ defineObject{
 	},
 	placement = "floor",
 	editorIcon = 56,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -433,6 +386,7 @@ defineObject{
 			class = "Model",
 			model = "mod_assets/fire_cave/models/env/rc_rock_chasm_1x6.fbx",
 			staticShadow = true,
+			rotation = vec(0,0,90)
 		},
 	},
 	placement = "floor",
@@ -450,7 +404,7 @@ defineObject{
 	minimalSaveState = true,
 	placement = "wall",
 	editorIcon = 120,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_design" },
 }
 
 defineObject{
@@ -465,7 +419,7 @@ defineObject{
 	minimalSaveState = true,
 	placement = "floor",
 	editorIcon = 120,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_design" },
 }
 
 defineObject{
@@ -480,7 +434,7 @@ defineObject{
 	minimalSaveState = true,
 	placement = "wall",
 	editorIcon = 120,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_design" },
 }
 
 defineObject{
@@ -495,7 +449,7 @@ defineObject{
 	minimalSaveState = true,
 	placement = "floor",
 	editorIcon = 120,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_design" },
 }
 
 defineObject{
@@ -510,7 +464,7 @@ defineObject{
 	minimalSaveState = true,
 	placement = "wall",
 	editorIcon = 120,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_design" },
 }
 
 defineObject{
@@ -525,7 +479,7 @@ defineObject{
 	minimalSaveState = true,
 	placement = "floor",
 	editorIcon = 120,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_design" },
 }
 
 defineObject{
@@ -553,7 +507,7 @@ defineObject{
 	placement = "floor",
 	reflectionMode = "never",
 	editorIcon = 240,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
@@ -581,7 +535,7 @@ defineObject{
 	placement = "floor",
 	reflectionMode = "never",
 	editorIcon = 240,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
@@ -609,7 +563,7 @@ defineObject{
 	placement = "floor",
 	reflectionMode = "never",
 	editorIcon = 240,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
@@ -625,7 +579,7 @@ defineObject{
 	minimalSaveState = true,
 	placement = "floor",
 	editorIcon = 136,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
@@ -641,7 +595,7 @@ defineObject{
 	minimalSaveState = true,
 	placement = "floor",
 	editorIcon = 136,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
@@ -657,7 +611,7 @@ defineObject{
 	minimalSaveState = true,
 	placement = "floor",
 	editorIcon = 136,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
@@ -673,7 +627,7 @@ defineObject{
 	minimalSaveState = true,
 	placement = "floor",
 	editorIcon = 136,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
@@ -689,11 +643,11 @@ defineObject{
 	minimalSaveState = true,
 	placement = "floor",
 	editorIcon = 136,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
-	name = "rc_ground_tiles_06",
+	name = "rc_ground_tiles_06_almostfull",
 	components = {
 		{
 			class = "Model",
@@ -704,11 +658,11 @@ defineObject{
 	minimalSaveState = true,
 	placement = "floor",
 	editorIcon = 136,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
-	name = "rc_ground_tiles_07",
+	name = "rc_ground_tiles_07_full",
 	components = {
 		{
 			class = "Model",
@@ -719,7 +673,7 @@ defineObject{
 	minimalSaveState = true,
 	placement = "floor",
 	editorIcon = 136,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
@@ -735,7 +689,7 @@ defineObject{
 	minimalSaveState = true,
 	placement = "floor",
 	editorIcon = 136,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
@@ -751,7 +705,7 @@ defineObject{
 	minimalSaveState = true,
 	placement = "floor",
 	editorIcon = 136,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
@@ -767,7 +721,7 @@ defineObject{
 	minimalSaveState = true,
 	placement = "floor",
 	editorIcon = 136,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
@@ -783,7 +737,7 @@ defineObject{
 	minimalSaveState = true,
 	placement = "floor",
 	editorIcon = 136,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
@@ -797,7 +751,7 @@ defineObject{
 	},
 	minimalSaveState = true,
 	editorIcon = 244,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
@@ -811,7 +765,7 @@ defineObject{
 	},
 	minimalSaveState = true,
 	editorIcon = 244,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
@@ -825,7 +779,7 @@ defineObject{
 	},
 	minimalSaveState = true,
 	editorIcon = 244,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
@@ -845,7 +799,7 @@ defineObject{
 	editorIcon = 56,
 	automapTile = "rocky_wall",
 	minimalSaveState = true,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
@@ -873,7 +827,7 @@ defineObject{
 	editorIcon = 92,
 	automapTile = "rocky_wall",
 	minimalSaveState = true,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_design" },
 }
 
 defineObject{
@@ -887,7 +841,7 @@ defineObject{
 		},
 	},
 	minimalSaveState = true,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
@@ -901,7 +855,7 @@ defineObject{
 		},
 	},
 	minimalSaveState = true,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
@@ -915,7 +869,7 @@ defineObject{
 		},
 	},
 	minimalSaveState = true,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
@@ -929,7 +883,7 @@ defineObject{
 		},
 	},
 	minimalSaveState = true,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
@@ -943,7 +897,7 @@ defineObject{
 		},
 	},
 	minimalSaveState = true,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
@@ -957,7 +911,7 @@ defineObject{
 		},
 	},
 	minimalSaveState = true,
-	tags = { "red cave", "vanblam" },
+	tags = {"level_decoration"  },
 }
 
 defineObject{
@@ -971,7 +925,7 @@ defineObject{
 		},
 	},
 	minimalSaveState = true,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
@@ -985,7 +939,7 @@ defineObject{
 		},
 	},
 	minimalSaveState = true,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_decoration" },
 }
 
 defineObject{
@@ -1006,7 +960,7 @@ defineObject{
 	placement = "wall",
 	editorIcon = 132,
 	automapIcon = 84,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_design" },
 }
 
 defineObject{
@@ -1023,7 +977,7 @@ defineObject{
 	placement = "wall",
 	editorIcon = 188,
 	automapIcon = 84,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_design" },
 }
 
 defineObject{
@@ -1039,7 +993,7 @@ defineObject{
 	placement = "wall",
 	editorIcon = 188,
 	automapIcon = 84,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_design" },
 }
 
 defineObject{
@@ -1059,5 +1013,5 @@ defineObject{
 	minimalSaveState = true,
 	placement = "wall",
 	editorIcon = 8,
-	tags = { "red cave", "vanblam" },
+	tags = { "level_design" },
 }

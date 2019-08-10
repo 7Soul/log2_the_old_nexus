@@ -2259,3 +2259,30 @@ defineObject{
 	automapIcon = 152,
 	tags = { "level_decoration" },
 }
+
+defineObject{
+	name = "burnt_oak",
+	components = {
+		{
+			class = "Model",
+			model = "mod_assets/models/env/burnt_oak.fbx",
+			dissolveStart = 2,
+			dissolveEnd = 5,
+			shadowLod = 1,
+			staticShadow = true,
+		},
+		{
+			class = "Animation",
+			animations = {
+				sway = "assets/animations/env/forest_oak_idle.fbx",
+			},
+			playOnInit = "sway",
+			loop = true,
+			maxUpdateDistance = 5,
+		},
+	},
+	placement = "pillar",
+	editorIcon = 180,
+	minimalSaveState = true,
+	tags = { "level_decoration", "level_design" },
+}

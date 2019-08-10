@@ -6322,6 +6322,7 @@ skullcleave_1.detectedtimer:setTriggerOnStart(true)
 skullcleave_1.detectedtimer:setCurrentLevelOnly(true)
 spawn("force_field",15,11,3,0,"force_field_2")
 spawn("lava_crab",16,11,2,0,"lava_crab_1")
+lava_crab_1.monster:setAIState("guard")
 lava_crab_1.detectedtimer:setTimerInterval(0)
 lava_crab_1.detectedtimer:setDisableSelf(false)
 lava_crab_1.detectedtimer:setTriggerOnStart(true)
@@ -6361,12 +6362,6 @@ floor_trigger_41.floortrigger:setDisableSelf(false)
 floor_trigger_41.floortrigger:addConnector("onActivate", "force_field_3", "deactivate")
 floor_trigger_41.floortrigger:addConnector("onActivate", "force_field_2", "deactivate")
 floor_trigger_41.floortrigger:addConnector("onActivate", "force_field_4", "deactivate")
-spawn("crab",13,14,2,0,"crab_2")
-crab_2.monster:setAIState("guard")
-crab_2.detectedtimer:setTimerInterval(0)
-crab_2.detectedtimer:setDisableSelf(false)
-crab_2.detectedtimer:setTriggerOnStart(true)
-crab_2.detectedtimer:setCurrentLevelOnly(true)
 spawn("potion_bear_form",14,9,3,0,"potion_bear_form_1")
 potion_bear_form_1.data:setSource("data = {}\
 function get(self,name)\
@@ -6392,7 +6387,7 @@ lock_pick_3.detectedtimer:setTimerInterval(0)
 lock_pick_3.detectedtimer:setDisableSelf(false)
 lock_pick_3.detectedtimer:setTriggerOnStart(true)
 lock_pick_3.detectedtimer:setCurrentLevelOnly(true)
-spawn("crystal_cuirass",17,13,1,0,"crystal_cuirass_1")
+spawn("crystal_cuirass",17,14,1,0,"crystal_cuirass_1")
 crystal_cuirass_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6404,7 +6399,7 @@ crystal_cuirass_1.detectedtimer:setTimerInterval(0)
 crystal_cuirass_1.detectedtimer:setDisableSelf(false)
 crystal_cuirass_1.detectedtimer:setTriggerOnStart(true)
 crystal_cuirass_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("crystal_boots",17,13,1,0,"crystal_boots_1")
+spawn("crystal_boots",17,14,1,0,"crystal_boots_1")
 crystal_boots_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6416,7 +6411,7 @@ crystal_boots_1.detectedtimer:setTimerInterval(0)
 crystal_boots_1.detectedtimer:setDisableSelf(false)
 crystal_boots_1.detectedtimer:setTriggerOnStart(true)
 crystal_boots_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("crystal_gauntlets",17,13,1,0,"crystal_gauntlets_1")
+spawn("crystal_gauntlets",17,14,1,0,"crystal_gauntlets_1")
 crystal_gauntlets_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6428,7 +6423,7 @@ crystal_gauntlets_1.detectedtimer:setTimerInterval(0)
 crystal_gauntlets_1.detectedtimer:setDisableSelf(false)
 crystal_gauntlets_1.detectedtimer:setTriggerOnStart(true)
 crystal_gauntlets_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("crystal_greaves",17,13,1,0,"crystal_greaves_1")
+spawn("crystal_greaves",17,14,1,0,"crystal_greaves_1")
 crystal_greaves_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6440,7 +6435,7 @@ crystal_greaves_1.detectedtimer:setTimerInterval(0)
 crystal_greaves_1.detectedtimer:setDisableSelf(false)
 crystal_greaves_1.detectedtimer:setTriggerOnStart(true)
 crystal_greaves_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("crystal_helmet",17,13,1,0,"crystal_helmet_1")
+spawn("crystal_helmet",17,14,1,0,"crystal_helmet_1")
 crystal_helmet_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6452,7 +6447,7 @@ crystal_helmet_1.detectedtimer:setTimerInterval(0)
 crystal_helmet_1.detectedtimer:setDisableSelf(false)
 crystal_helmet_1.detectedtimer:setTriggerOnStart(true)
 crystal_helmet_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("crystal_shield",17,13,1,0,"crystal_shield_1")
+spawn("crystal_shield",17,14,1,0,"crystal_shield_1")
 crystal_shield_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6488,6 +6483,14 @@ potion_bear_form_2.detectedtimer:setTimerInterval(0)
 potion_bear_form_2.detectedtimer:setDisableSelf(false)
 potion_bear_form_2.detectedtimer:setTriggerOnStart(true)
 potion_bear_form_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("burnt_twigroot",13,15,2,0,"burnt_twigroot_1")
+burnt_twigroot_1.detectedtimer:setTimerInterval(0)
+burnt_twigroot_1.detectedtimer:setDisableSelf(false)
+burnt_twigroot_1.detectedtimer:setTriggerOnStart(true)
+burnt_twigroot_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("burnt_oak",15,17,3,0,"burnt_oak_1")
+spawn("burnt_oak",12,15,0,0,"burnt_oak_2")
+spawn("burnt_oak",14,13,1,0,"burnt_oak_3")
 
 --- level 4 ---
 
@@ -13536,6 +13539,7 @@ newMap{
 		"fire_cave_floor",
 		"fire_cave_lava",
 		"fire_cave_wall",
+		"void",
 	}
 }
 
@@ -13547,21 +13551,21 @@ loadLayer("floor_elevation", {
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,-1,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,0,0,0,0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2,-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2,-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2,-2,0,0,0,0,0,-2,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2,-2,-2,-2,-2,-2,-2,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2,-2,0,0,0,-2,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2,0,0,0,0,-2,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2,-2,-2,-2,-2,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,-2,-2,-2,-2,-2,-2,-2,-2,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,-2,-2,-2,0,0,0,0,-2,-2,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,-2,-2,0,0,0,0,-2,-2,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2,-2,-2,-2,-2,-2,-2,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -13581,10 +13585,10 @@ loadLayer("tiles", {
 	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
 	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
 	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,3,3,4,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,3,1,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,4,4,4,3,3,3,3,3,3,3,
 	3,3,3,3,3,3,3,3,3,1,3,3,1,1,1,1,2,2,3,3,1,1,3,3,3,3,3,3,3,3,3,3,
 	3,3,3,3,3,3,3,3,1,1,3,3,1,1,1,2,2,1,3,3,3,1,1,3,3,3,3,3,3,3,3,3,
 	3,3,3,3,3,3,3,3,1,1,3,3,1,1,1,2,2,1,1,3,3,1,2,3,3,3,3,3,3,3,3,3,
@@ -13595,13 +13599,13 @@ loadLayer("tiles", {
 	3,3,3,3,3,3,3,3,3,1,1,1,1,1,2,2,2,2,2,1,1,3,3,3,3,3,3,3,3,3,3,3,
 	3,3,3,3,3,3,3,3,3,1,1,1,1,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,
 	3,3,3,3,3,3,3,3,3,1,1,1,2,2,2,1,3,3,1,2,2,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,1,1,3,2,2,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,1,1,3,2,2,1,1,1,1,2,2,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,
 	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
 	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
 	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
@@ -13610,31 +13614,117 @@ loadLayer("tiles", {
 })
 
 spawn("forest_heightmap",0,0,1,0,"forest_heightmap_9")
-spawn("rc_lava_surface",17,13,0,0,"rc_lava_surface_1")
+spawn("rc_lava_surface",10,26,0,0,"rc_lava_surface_1")
 rc_lava_surface_1.timer:setTimerInterval(0)
 rc_lava_surface_1.timer:setDisableSelf(false)
 rc_lava_surface_1.timer:setTriggerOnStart(false)
 rc_lava_surface_1.timer:setCurrentLevelOnly(true)
-spawn("fire_cave_fog",2,0,1,0,"fire_cave_fog_1")
-spawn("starting_location",15,14,2,0,"starting_location_1")
-spawn("rc_ceiling_lamp_crystal_high",15,14,3,0,"rc_ceiling_lamp_crystal_high_1")
+spawn("fire_cave_fog",1,0,1,0,"fire_cave_fog_1")
+spawn("rc_ceiling_lamp_crystal_high",9,14,3,0,"rc_ceiling_lamp_crystal_high_1")
 spawn("rc_ceiling_lamp_crystal_high",20,15,0,0,"rc_ceiling_lamp_crystal_high_2")
 spawn("rc_ceiling_lamp_crystal_high",13,11,3,0,"rc_ceiling_lamp_crystal_high_3")
-spawn("altar",12,13,1,0,"altar_1")
-spawn("lava_crab",11,17,0,0,"lava_crab_2")
-lava_crab_2.detectedtimer:setTimerInterval(0)
-lava_crab_2.detectedtimer:setDisableSelf(false)
-lava_crab_2.detectedtimer:setTriggerOnStart(true)
-lava_crab_2.detectedtimer:setCurrentLevelOnly(true)
 spawn("rc_large_crystal_formation_1x1",11,9,3,0,"rc_large_crystal_formation_1x1_3")
 spawn("rc_ceiling_lamp_crystal_high",10,18,3,0,"rc_ceiling_lamp_crystal_high_4")
 spawn("rc_edge_crystal",18,12,0,0,"rc_edge_crystal_1")
 spawn("rc_large_crystal_formation_1x1",18,8,3,0,"rc_large_crystal_formation_1x1_4")
 spawn("rc_small_crystals_bed_1x1",15,19,2,0,"rc_small_crystals_bed_1x1_1")
-spawn("rc_effect_dust_motes",14,19,1,0,"rc_effect_dust_motes_1")
+spawn("rc_effect_dust_motes",13,19,1,0,"rc_effect_dust_motes_1")
 spawn("rc_effect_dust_motes",17,17,2,0,"rc_effect_dust_motes_2")
 spawn("rc_effect_dust_motes",17,12,3,0,"rc_effect_dust_motes_3")
 spawn("rc_molten_floaty_idle_no_effect",21,13,2,0,"rc_molten_floaty_idle_no_effect_1")
 spawn("rc_molten_floaty_idle_no_effect",17,15,1,0,"rc_molten_floaty_idle_no_effect_2")
 spawn("forest_lantern",21,12,3,0,"forest_lantern_29")
 spawn("forest_lantern",17,20,0,0,"forest_lantern_34")
+spawn("aged_key",15,15,0,0,"aged_key_1")
+aged_key_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+aged_key_1.detectedtimer:setTimerInterval(0)
+aged_key_1.detectedtimer:setDisableSelf(false)
+aged_key_1.detectedtimer:setTriggerOnStart(true)
+aged_key_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("fair_key",15,15,0,0,"fair_key_1")
+fair_key_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+fair_key_1.detectedtimer:setTimerInterval(0)
+fair_key_1.detectedtimer:setDisableSelf(false)
+fair_key_1.detectedtimer:setTriggerOnStart(true)
+fair_key_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("iron_key",15,15,0,0,"iron_key_2")
+iron_key_2.detectedtimer:setTimerInterval(0)
+iron_key_2.detectedtimer:setDisableSelf(false)
+iron_key_2.detectedtimer:setTriggerOnStart(true)
+iron_key_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("rigid_key",15,15,0,0,"rigid_key_1")
+rigid_key_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+rigid_key_1.detectedtimer:setTimerInterval(0)
+rigid_key_1.detectedtimer:setDisableSelf(false)
+rigid_key_1.detectedtimer:setTriggerOnStart(true)
+rigid_key_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("rc_altar",15,8,0,0,"rc_altar_1")
+spawn("rc_buttonlever_surface",11,14,2,0,"rc_buttonlever_surface_1")
+spawn("rc_button",11,15,0,0,"rc_button_1")
+rc_button_1.button:setDisableSelf(false)
+spawn("rc_lever",12,14,3,0,"rc_lever_1")
+rc_lever_1.lever:setDisableSelf(false)
+spawn("rc_stone_ground_lever",12,12,3,0,"rc_stone_ground_lever_1")
+rc_stone_ground_lever_1.lever:setDisableSelf(false)
+spawn("rc_secret_button",12,11,3,0,"rc_secret_button_1")
+rc_secret_button_1.button:setDisableSelf(false)
+rc_secret_button_1.detectedtimer:setTimerInterval(0)
+rc_secret_button_1.detectedtimer:setDisableSelf(false)
+rc_secret_button_1.detectedtimer:setTriggerOnStart(true)
+rc_secret_button_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("rc_stone_lock_01",10,14,1,0,"rc_stone_lock_01_1")
+rc_stone_lock_01_1.lock:setOpenedBy("")
+spawn("rc_stone_tablet",12,16,2,0,"rc_stone_tablet_1")
+spawn("rc_stone_stairs_down",22,9,1,0,"rc_stone_stairs_down_1")
+spawn("rc_stone_stairs_up",20,8,0,0,"rc_stone_stairs_up_1")
+spawn("rc_rock_chasm_1x6",16,20,1,1,"rc_rock_chasm_1x6_1")
+spawn("invisible_wall",16,22,2,0,"invisible_wall_221")
+spawn("invisible_wall",17,22,3,0,"invisible_wall_222")
+spawn("invisible_wall",18,22,2,0,"invisible_wall_223")
+spawn("invisible_wall",19,22,3,0,"invisible_wall_224")
+spawn("invisible_wall",15,22,3,0,"invisible_wall_225")
+spawn("rc_large_crystal_formation_1x1",16,26,0,0,"rc_large_crystal_formation_1x1_1")
+spawn("rc_ceiling_crystal",17,25,2,0,"rc_ceiling_crystal_1")
+spawn("rc_large_crystal_formation_1x1",17,24,3,0,"rc_large_crystal_formation_1x1_2")
+spawn("script_entity",2,0,3,0,"tpItemScript")
+tpItemScript.script:setSource("function tpItem99()\
+\9for entity in Dungeon.getMap(party.level):allEntities() do\
+\9\9if entity.item and entity.elevation <= 1 then\
+\9\9\9entity:setPosition(party.x, party.y, party.facing, party.elevation, party.level)\
+\9\9end\
+\9end\
+end")
+spawn("burnt_twigroot",15,20,1,0,"burnt_twigroot_2")
+burnt_twigroot_2.detectedtimer:setTimerInterval(0)
+burnt_twigroot_2.detectedtimer:setDisableSelf(false)
+burnt_twigroot_2.detectedtimer:setTriggerOnStart(true)
+burnt_twigroot_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("starting_location",18,16,1,0,"starting_location_1")
+spawn("burnt_twigroot",21,16,3,0,"burnt_twigroot_3")
+burnt_twigroot_3.detectedtimer:setTimerInterval(0)
+burnt_twigroot_3.detectedtimer:setDisableSelf(false)
+burnt_twigroot_3.detectedtimer:setTriggerOnStart(true)
+burnt_twigroot_3.detectedtimer:setCurrentLevelOnly(true)
+spawn("lava_crab",9,10,2,0,"lava_crab_2")
+lava_crab_2.detectedtimer:setTimerInterval(0)
+lava_crab_2.detectedtimer:setDisableSelf(false)
+lava_crab_2.detectedtimer:setTriggerOnStart(true)
+lava_crab_2.detectedtimer:setCurrentLevelOnly(true)

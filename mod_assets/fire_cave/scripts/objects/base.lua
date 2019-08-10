@@ -244,7 +244,7 @@ defineObject{
 	--minimalSaveState = true,
 	placement = "floor",
 	editorIcon = 96,
-	tags = {"red cave", "vanblam" },
+	tags = { },
 }
 
 defineObject{
@@ -267,9 +267,7 @@ defineObject{
 						local y = y + ry * xx + fy * yy
 						if x >= 0 and y >= 0 and x < 32 and y < 32 then
 							for e in self.go.map:entitiesAt(x, y) do
-								if e.name == "rc_pillar_01a" 
-								or e.name == "rc_pillar_01b" 
-								or e.name == "rc_pillar_02a"							
+								if e.name == "rc_pillar_02a"							
 								then e:destroy()
 								end
 							end
@@ -284,7 +282,7 @@ defineObject{
 	--minimalSaveState = true,
 	placement = "floor",
 	editorIcon = 96,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -315,8 +313,6 @@ defineObject{
 								or e.name == "rc_edge_support_02b"
 								or e.name == "rc_edge_support_03b"
 								or e.name == "rc_edge_support_04b"
-								or e.name == "rc_pillar_01a" 
-								or e.name == "rc_pillar_01b" 
 								or e.name == "rc_pillar_02a"
 								then e:destroy()
 								end
@@ -332,6 +328,6 @@ defineObject{
 	--minimalSaveState = true,
 	placement = "floor",
 	editorIcon = 96,
-	tags = { "red cave", "vanblam" },
+	tags = { },
 }
 end

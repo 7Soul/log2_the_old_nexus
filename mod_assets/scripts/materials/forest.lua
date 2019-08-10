@@ -470,3 +470,18 @@ defineMaterial{
 	glossiness = 90,
 	depthBias = 0,
 }
+
+
+defineMaterial{
+	name = "burnt_oak",
+	diffuseMap = "mod_assets/textures/env/burnt_oak_dif.tga",
+	specularMap = "mod_assets/textures/env/burnt_oak_spec.tga",
+	normalMap = "assets/textures/env/forest_oak_normal.tga",
+	doubleSided = true,
+	lighting = true,
+	alphaTest = true,
+	blendMode = "Opaque",
+	textureAddressMode = "Wrap",
+	glossiness = 10,
+	depthBias = 0,
+}

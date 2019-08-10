@@ -27,7 +27,7 @@ defineObject{
 	},
 	placement = "floor",
 	editorIcon = 80,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -53,7 +53,7 @@ defineObject{
 	placement = "floor",
 	automapIcon = 136,
 	editorIcon = 276,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 	minimalSaveState = true,
 }
 
@@ -79,7 +79,7 @@ defineObject{
 	},
 	placement = "wall",
 	editorIcon = 20,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 defineObject{
 	name = "rc_pressure_plate",
@@ -104,7 +104,7 @@ defineObject{
 			staticShadow = true,
 		},
 	},
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -124,23 +124,6 @@ defineObject{
 				local rx,ry = getForward((facing+1)%4)
 
 				-- destroy other ceilings in a 3x3 area
-				for yy=-1,1 do
-					for xx=-1,1 do
-						local x = x + rx * xx + fx * yy
-						local y = y + ry * xx + fy * yy
-						if x >= 0 and y >= 0 and x < 32 and y < 32 then
-							for e in self.go.map:entitiesAt(x, y) do
-								if e.name == "rc_ceiling_01a" 
-								or e.name == "rc_ceiling_01b" 
-								or e.name == "rc_ceiling_01c"
-								or e.name == "rc_ceiling_01d"
-								or e.name == "rc_ceiling_01e"							
-								then e:destroy()
-								end
-							end
-						end
-					end
-				end
 				for yy=0,0 do
 					for xx=-1,1 do
 						local x = x + rx * xx + fx * yy
@@ -161,35 +144,12 @@ defineObject{
 						end
 					end
 				end
-				for yy=-1,1 do
-					for xx=-1,1 do
-						local x = x + rx * xx + fx * yy
-						local y = y + ry * xx + fy * yy
-						local choice = math.random()
-						if x >= 0 and y >= 0 and x < 32 and y < 32 then
-							for e in self.go.map:entitiesAt(x, y) do
-								if e.name == "rc_pillar_01a" 
-								or e.name == "rc_pillar_01b"							
-								then e:destroy()
-									if choice >= 0.66 then
-											spawn("rc_pillar_01a_hatless", level, x, y,math.random(0,3), self.go.elevation)
-										elseif choice >= 0.33 then
-											spawn("rc_pillar_01b_hatless", level, x, y,math.random(0,3), self.go.elevation)
-										else
-											spawn("rc_pillar_02a", level, x, y,math.random(0,3), self.go.elevation)
-										
-									end
-								end
-							end
-						end
-					end
-				end
 				self.go:spawn("rc_stone_ceiling_shaft_real")
 			end,
 		},
 		
 	},
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -225,23 +185,6 @@ defineObject{
 				local rx,ry = getForward((facing+1)%4)
 
 				-- destroy other ceilings in a 3x3 area
-				for yy=-1,1 do
-					for xx=-1,1 do
-						local x = x + rx * xx + fx * yy
-						local y = y + ry * xx + fy * yy
-						if x >= 0 and y >= 0 and x < 32 and y < 32 then
-							for e in self.go.map:entitiesAt(x, y) do
-								if e.name == "rc_pillar_01a" 
-								or e.name == "rc_pillar_01b"
-								or e.name == "rc_pillar_01a_hatless"
-								or e.name == "rc_pillar_01b_hatless"								
-								then e:destroy()
-								spawn("rc_pillar_02a", level, x, y, math.random(0,3), self.go.elevation)
-								end
-							end
-						end
-					end
-				end
 				self.go:spawn("rc_floor_shaft_real")
 			end,
 		},
@@ -252,7 +195,7 @@ defineObject{
 	placement = "floor",
 	editorIcon = 40,
 	automapIcon = 108,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -290,36 +233,6 @@ defineObject{
 				local rx,ry = getForward((facing+1)%4)
 
 				-- destroy other ceilings in a 3x3 area
-				for yy=-1,1 do
-					for xx=-1,1 do
-						local x = x + rx * xx + fx * yy
-						local y = y + ry * xx + fy * yy
-						if x >= 0 and y >= 0 and x < 32 and y < 32 then
-							for e in self.go.map:entitiesAt(x, y) do
-								if e.name == "rc_pillar_01a" 
-								or e.name == "rc_pillar_01b"
-								or e.name == "rc_pillar_01a_hatless"
-								or e.name == "rc_pillar_01b_hatless"								
-								then e:destroy()
-								spawn("rc_pillar_02a", level, x, y, math.random(0,3), self.go.elevation)
-								end
-							end
-						end
-					end
-				end
-				for yy=-1,1 do
-					for xx=-1,1 do
-						local x = x + rx * xx + fx * yy
-						local y = y + ry * xx + fy * yy
-						if x >= 0 and y >= 0 and x < 32 and y < 32 then
-							for e in self.go.map:entitiesAt(x, y) do
-								if e.name == "rc_wall_slope"
-								then e:destroy()								
-								end
-							end
-						end
-					end
-				end
 				self.go:spawn("rc_stone_floor_shaft_real")
 			end,
 		},
@@ -330,7 +243,7 @@ defineObject{
 	placement = "floor",
 	editorIcon = 40,
 	automapIcon = 108,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -369,7 +282,7 @@ defineObject{
 			model = "assets/models/env/dungeon_pit_occluder.fbx",
 		},
 	},
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -402,22 +315,6 @@ defineObject{
 				end
 
 				-- destroy all pillars and slopes
-				for yy=0,4 do
-					for xx=-1,1 do
-						local x = x + rx * xx + fx * yy
-						local y = y + ry * xx + fy * yy
-						if x >= 0 and y >= 0 and x < 32 and y < 32 then
-							for e in self.go.map:entitiesAt(x, y) do
-								if e.name == "rc_pillar_01a" 
-								or e.name == "rc_pillar_01b"  
-						    	then
-								e:destroy()
-								spawn("rc_pillar_02a", level, x, y, math.random(0,3), self.go.elevation)
-								end
-							end
-						end
-					end
-				end
 				for e in self.go.map:entitiesAt(x, y) do				
 				spawn("rc_ground_01", level, x, y, math.random(0,3), self.go.elevation)			
 				end
@@ -441,10 +338,7 @@ defineObject{
 						local y = y + ry * xx + fy * yy
 						if x >= 0 and y >= 0 and x < 32 and y < 32 then
 							for e in self.go.map:entitiesAt(x, y) do
-								if e.name == "rc_wall_01a"
-								or e.name == "rc_wall_01b" 
-								or e.name == "rc_wall_01c"
-								or e.name == "rc_wall_02a"
+								if e.name == "rc_wall_02a"
 								or e.name == "rc_wall_02b"								
 						    	then
 								e:destroy()
@@ -483,7 +377,7 @@ defineObject{
 			end
 		},
 	},
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -516,22 +410,6 @@ defineObject{
 				end
 
 				-- destroy all pillars and slopes
-				for yy=0,4 do
-					for xx=-1,1 do
-						local x = x + rx * xx + fx * yy
-						local y = y + ry * xx + fy * yy
-						if x >= 0 and y >= 0 and x < 32 and y < 32 then
-							for e in self.go.map:entitiesAt(x, y) do
-								if e.name == "rc_pillar_01a" 
-								or e.name == "rc_pillar_01b"  
-						    	then
-								e:destroy()
-								spawn("rc_pillar_02a", level, x, y, math.random(0,3), self.go.elevation)
-								end
-							end
-						end
-					end
-				end
 				-- for e in self.go.map:entitiesAt(x, y) do				
 				-- spawn("rc_ground_01", level, x, y, math.random(0,3), self.go.elevation)			
 				-- end
@@ -555,10 +433,7 @@ defineObject{
 						local y = y + ry * xx + fy * yy
 						if x >= 0 and y >= 0 and x < 32 and y < 32 then
 							for e in self.go.map:entitiesAt(x, y) do
-								if e.name == "rc_wall_01a"
-								or e.name == "rc_wall_01b" 
-								or e.name == "rc_wall_01c"
-								or e.name == "rc_wall_02a"
+								if e.name == "rc_wall_02a"
 								or e.name == "rc_wall_02b"
 								or e.name == "rc_ground_01"
 								or e.name == "rc_ground_02"
@@ -598,8 +473,7 @@ defineObject{
 								or e.name == "rc_ground_tiles_07"
 								or e.name == "rc_grass_01a"
 								or e.name == "rc_grass_01b"
-								or e.name == "rc_grass_01c"	
-								or e.name == "rc_wall_slope"
+								or e.name == "rc_grass_01c"
 						    	then
 								e:destroy()
 								end
@@ -610,7 +484,7 @@ defineObject{
 			end
 		},
 	},
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -642,7 +516,7 @@ defineObject{
 	},
 	placement = "wall",
 	editorIcon = 12,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineObject{
@@ -676,25 +550,25 @@ defineObject{
 		},
 		{
 			class = "Lever",
-			sound = "rc_stone_lever",
+			sound = "lever",
 			enabled = false,
 		},
 		{
-				class = "Particle",
-				name = "lever_hit1",
-				offset = vec(-0.158,0.54,-0.7),
-				particleSystem = "rc_hit_lever",
+			class = "Particle",
+			name = "lever_hit1",
+			offset = vec(-0.158,0.54,-0.7),
+			particleSystem = "rc_hit_lever",
 		},
 		{
-				class = "Particle",
-				name = "lever_hit2",
-				offset = vec(0.155,0.54,-0.7),
-				particleSystem = "rc_hit_lever",
+			class = "Particle",
+			name = "lever_hit2",
+			offset = vec(0.155,0.54,-0.7),
+			particleSystem = "rc_hit_lever",
 		},
 	},
 	placement = "wall",
 	editorIcon = 12,
-	tags = { "red cave", "vanblam" },
+	tags = {  },
 }
 
 defineAnimationEvent{
@@ -736,7 +610,7 @@ defineObject{
 	},
 	placement = "wall",
 	editorIcon = 12,
-	tags = { "red cave", "vanblam",},
+	tags = { },
 }
 
 defineObject{
@@ -761,12 +635,12 @@ defineObject{
 		},
 		{
 			class = "Button",
-			sound = "rc_stone_button",
+			sound = "button",
 		},
 	},
 	placement = "wall",
 	editorIcon = 12,
-	tags = { "red cave", "vanblam"},
+	tags = { },
 }
 
 defineObject{
@@ -792,10 +666,10 @@ defineObject{
 		},
 		{
 			class = "Button",
-			sound = "rc_stone_button",
+			sound = "button",
 		},
 	},
 	placement = "wall",
 	editorIcon = 12,
-	tags = { "red cave", "vanblam",},
+	tags = { },
 }

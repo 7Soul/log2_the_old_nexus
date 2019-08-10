@@ -55,7 +55,7 @@ defineParticleSystem{
 			color1 = {0.8, 0.35, 0.35},
 			color2 = {0.6, 0.3, 0.3},
 			color3 = {0.3, 0.3, 0.3},
-			opacity = 0.3,
+			opacity = 0.25,
 			fadeIn = 0.8,
 			fadeOut = 1,
 			size = {3, 4},
