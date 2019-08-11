@@ -12,7 +12,6 @@ local onMeleeAttack = function(self, champion, slot, chainIndex)
 	local item = champion:getItem(slot)
 	local secondary2 = functions.script.secondary
 	functions.script.onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
-	--functions.script.doubleAttack(self, item, champion, slot, chainIndex, secondary2)
 end
 
 local onHitMonster = function(self, monster, tside, damage, champion)

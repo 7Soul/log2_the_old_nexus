@@ -6407,7 +6407,7 @@ lock_pick_3.detectedtimer:setTimerInterval(0)
 lock_pick_3.detectedtimer:setDisableSelf(false)
 lock_pick_3.detectedtimer:setTriggerOnStart(true)
 lock_pick_3.detectedtimer:setCurrentLevelOnly(true)
-spawn("crystal_cuirass",17,14,1,0,"crystal_cuirass_1")
+spawn("crystal_cuirass",19,13,1,0,"crystal_cuirass_1")
 crystal_cuirass_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6419,7 +6419,7 @@ crystal_cuirass_1.detectedtimer:setTimerInterval(0)
 crystal_cuirass_1.detectedtimer:setDisableSelf(false)
 crystal_cuirass_1.detectedtimer:setTriggerOnStart(true)
 crystal_cuirass_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("crystal_boots",17,14,1,0,"crystal_boots_1")
+spawn("crystal_boots",19,13,1,0,"crystal_boots_1")
 crystal_boots_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6431,7 +6431,7 @@ crystal_boots_1.detectedtimer:setTimerInterval(0)
 crystal_boots_1.detectedtimer:setDisableSelf(false)
 crystal_boots_1.detectedtimer:setTriggerOnStart(true)
 crystal_boots_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("crystal_gauntlets",17,14,1,0,"crystal_gauntlets_1")
+spawn("crystal_gauntlets",19,13,1,0,"crystal_gauntlets_1")
 crystal_gauntlets_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6443,7 +6443,7 @@ crystal_gauntlets_1.detectedtimer:setTimerInterval(0)
 crystal_gauntlets_1.detectedtimer:setDisableSelf(false)
 crystal_gauntlets_1.detectedtimer:setTriggerOnStart(true)
 crystal_gauntlets_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("crystal_greaves",17,14,1,0,"crystal_greaves_1")
+spawn("crystal_greaves",19,13,1,0,"crystal_greaves_1")
 crystal_greaves_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6455,7 +6455,7 @@ crystal_greaves_1.detectedtimer:setTimerInterval(0)
 crystal_greaves_1.detectedtimer:setDisableSelf(false)
 crystal_greaves_1.detectedtimer:setTriggerOnStart(true)
 crystal_greaves_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("crystal_helmet",17,14,1,0,"crystal_helmet_1")
+spawn("crystal_helmet",19,13,1,0,"crystal_helmet_1")
 crystal_helmet_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6467,7 +6467,7 @@ crystal_helmet_1.detectedtimer:setTimerInterval(0)
 crystal_helmet_1.detectedtimer:setDisableSelf(false)
 crystal_helmet_1.detectedtimer:setTriggerOnStart(true)
 crystal_helmet_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("crystal_shield",17,14,1,0,"crystal_shield_1")
+spawn("crystal_shield",19,13,1,0,"crystal_shield_1")
 crystal_shield_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6509,54 +6509,67 @@ turtle_1.detectedtimer:setTimerInterval(0)
 turtle_1.detectedtimer:setDisableSelf(false)
 turtle_1.detectedtimer:setTriggerOnStart(true)
 turtle_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("shaman_staff",12,14,1,0,"shaman_staff_2")
-shaman_staff_2.data:setSource("data = {}\
+spawn("starting_location",20,14,3,0,"starting_location_1")
+spawn("rogue_boots",19,14,1,0,"rogue_boots_1")
+rogue_boots_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
 end\
 function set(self,name,value)\
 \9self.data[name] = value\
 end")
-shaman_staff_2.detectedtimer:setTimerInterval(0)
-shaman_staff_2.detectedtimer:setDisableSelf(false)
-shaman_staff_2.detectedtimer:setTriggerOnStart(true)
-shaman_staff_2.detectedtimer:setCurrentLevelOnly(true)
-spawn("serpent_blade",12,14,1,0,"serpent_blade_1")
-serpent_blade_1.data:setSource("data = {}\
+rogue_boots_1.detectedtimer:setTimerInterval(0)
+rogue_boots_1.detectedtimer:setDisableSelf(false)
+rogue_boots_1.detectedtimer:setTriggerOnStart(true)
+rogue_boots_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("rogue_gloves",19,14,1,0,"rogue_gloves_2")
+rogue_gloves_2.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
 end\
 function set(self,name,value)\
 \9self.data[name] = value\
 end")
-serpent_blade_1.detectedtimer:setTimerInterval(0)
-serpent_blade_1.detectedtimer:setDisableSelf(false)
-serpent_blade_1.detectedtimer:setTriggerOnStart(true)
-serpent_blade_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("venom_edge",12,14,1,0,"venom_edge_1")
-venom_edge_1.data:setSource("data = {}\
+rogue_gloves_2.detectedtimer:setTimerInterval(0)
+rogue_gloves_2.detectedtimer:setDisableSelf(false)
+rogue_gloves_2.detectedtimer:setTriggerOnStart(true)
+rogue_gloves_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("rogue_hood",19,14,1,0,"rogue_hood_1")
+rogue_hood_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
 end\
 function set(self,name,value)\
 \9self.data[name] = value\
 end")
-venom_edge_1.detectedtimer:setTimerInterval(0)
-venom_edge_1.detectedtimer:setDisableSelf(false)
-venom_edge_1.detectedtimer:setTriggerOnStart(true)
-venom_edge_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("venomfang_pick",12,14,1,0,"venomfang_pick_1")
-venomfang_pick_1.data:setSource("data = {}\
+rogue_hood_1.detectedtimer:setTimerInterval(0)
+rogue_hood_1.detectedtimer:setDisableSelf(false)
+rogue_hood_1.detectedtimer:setTriggerOnStart(true)
+rogue_hood_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("rogue_pants",19,14,1,0,"rogue_pants_1")
+rogue_pants_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
 end\
 function set(self,name,value)\
 \9self.data[name] = value\
 end")
-venomfang_pick_1.detectedtimer:setTimerInterval(0)
-venomfang_pick_1.detectedtimer:setDisableSelf(false)
-venomfang_pick_1.detectedtimer:setTriggerOnStart(true)
-venomfang_pick_1.detectedtimer:setCurrentLevelOnly(true)
+rogue_pants_1.detectedtimer:setTimerInterval(0)
+rogue_pants_1.detectedtimer:setDisableSelf(false)
+rogue_pants_1.detectedtimer:setTriggerOnStart(true)
+rogue_pants_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("rogue_vest",19,14,1,0,"rogue_vest_1")
+rogue_vest_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+rogue_vest_1.detectedtimer:setTimerInterval(0)
+rogue_vest_1.detectedtimer:setDisableSelf(false)
+rogue_vest_1.detectedtimer:setTriggerOnStart(true)
+rogue_vest_1.detectedtimer:setCurrentLevelOnly(true)
 
 --- level 4 ---
 
@@ -13721,7 +13734,6 @@ tpItemScript.script:setSource("function tpItem99()\
 \9\9end\
 \9end\
 end")
-spawn("starting_location",10,12,2,0,"starting_location_1")
 spawn("pushable_block",8,13,1,0,"pushable2")
 spawn("magic_bridge",12,13,1,0,"mbridge_1")
 spawn("pushable_block_floor_trigger",8,13,2,0,"pushable_block_floor_trigger_2")

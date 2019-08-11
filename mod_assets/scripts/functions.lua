@@ -170,7 +170,7 @@ function teststart()
 	if Editor.isRunning() then
 		--setDefaultParty()
 		party.party:getChampionByOrdinal(1):setClass("tinkerer")
-		party.party:getChampionByOrdinal(2):setClass("corsair")
+		party.party:getChampionByOrdinal(2):setClass("hunter")
 		party.party:getChampionByOrdinal(3):setClass("druid")
 		party.party:getChampionByOrdinal(4):setClass("elementalist")
 		party.party:getChampionByOrdinal(1):setRace("human")
@@ -255,13 +255,15 @@ function teststart()
 			end
 			
 			if champion:getClass() == "hunter" then
-				for s=13,16 do champion:removeItemFromSlot(s) end
+				for s=13,17 do champion:removeItemFromSlot(s) end
 				champion:insertItem(13,spawn("short_bow").item)
 				champion:insertItem(14,spawn("arrow").item)
 				champion:getItem(14):setStackSize(25)
 				champion:insertItem(15,spawn("crossbow").item)
 				champion:insertItem(16,spawn("quarrel").item)
 				champion:getItem(16):setStackSize(25)
+				champion:insertItem(17,spawn("throwing_knife").item)
+				champion:getItem(17):setStackSize(20)
 			end
 			
 			if champion:getClass() == "tinkerer" then
@@ -830,6 +832,9 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 				chance = (champion:getItem(ItemSlot.Gloves):hasTrait("upgraded") and chance + 0.12 or chance + 0.06 )
 			end
 		end
+		if isArmorSetEquipped(champion, "rogue") then
+			chance = chance + 0.25
+		end
 
 		if math.random() <= chance then
 			set_c("double_attack", champion:getOrdinal(), slot)
@@ -913,17 +918,27 @@ function onThrowAttack(self, champion, slot, chainIndex, item)
 	-- Double shot
 	local otherItem = nil
 	local otherSlotList = {2,1}	
-	if get_c("double_attack", champion:getOrdinal()) == nil then	
+	if get_c("double_attack", champion:getOrdinal()) == nil then
+		local chance = 0
 		if champion:hasTrait("double_shot") and self.go.throwattack then
+			chance = 1
+		end
+
+		if isArmorSetEquipped(champion, "rogue") and self.go.throwattack then
+			chance = chance + 0.25
+		end
+
+		if math.random() <= chance then
 			local otherItem = champion:getOtherHandItem(slot)
-			if otherItem and otherItem:hasTrait("throwing_weapon") then
+			
+			if otherItem and otherItem.go.throwattack then
 				slot = otherSlotList[slot]
-				set_c("double_attack", champion:getOrdinal(), slot)
-				delayedCall("functions", 0.25, "secondShot", champion:getOrdinal(), slot)
-			elseif item and item:getStackSize() > 1 then				
-				set_c("double_attack", champion:getOrdinal(), slot)
-				delayedCall("functions", 0.25, "secondShot", champion:getOrdinal(), slot)
+			elseif item and item:getStackSize() > 1 then
+				slot = slot
 			end
+			
+			set_c("double_attack", champion:getOrdinal(), slot)
+			delayedCall("functions", 0.25, "secondShot", champion:getOrdinal(), slot)
 		end
 	else
 		set_c("double_attack", champion:getOrdinal(), nil)
@@ -963,14 +978,26 @@ function onMissileAttack(self, champion, slot, chainIndex, item)
 	
 	-- Double shot
 	if self ~= secondary then
-		if get_c("double_attack", champion:getOrdinal()) == nil then	
-			if champion:hasTrait("double_shot") and self.go.rangedattack then
-				set_c("double_attack", champion:getOrdinal(), slot)
-				delayedCall("functions", 0.25, "secondShot", champion:getOrdinal(), slot)
-			end
-		else
-			set_c("double_attack", champion:getOrdinal(), nil)
+		-- Double shot
+	local otherItem = nil
+	local otherSlotList = {2,1}	
+	if get_c("double_attack", champion:getOrdinal()) == nil then
+		local chance = 0
+		if champion:hasTrait("double_shot") and self.go.rangedattack then
+			chance = 1
 		end
+
+		if isArmorSetEquipped(champion, "rogue") and self.go.rangedattack then
+			chance = chance + 0.25
+		end
+
+		if math.random() <= chance then
+			set_c("double_attack", champion:getOrdinal(), slot)
+			delayedCall("functions", 0.25, "secondShot", champion:getOrdinal(), slot)
+		end
+	else
+		set_c("double_attack", champion:getOrdinal(), nil)
+	end
 	end
 
 	-- Item bonuses
@@ -1185,6 +1212,11 @@ function secondShot(id, slot)
 	local champion = party.party:getChampionByOrdinal(id)
 	champion:attack(get_c("double_attack", id), false)
 	set_c("double_attack", champion:getOrdinal(), nil)
+
+	if math.random() <= (isArmorSetEquipped(champion, "rogue") and 0.25 or 0) and champion:getItem(slot) and (champion:getItem(slot).go.rangedattack or champion:getItem(slot).go.throwattack) then
+		set_c("double_attack", champion:getOrdinal(), slot)
+		delayedCall("functions", 0.3, "secondShot", champion:getOrdinal(), slot)
+	end
 end
 
 function reload(self, champion, slot)
@@ -1263,7 +1295,6 @@ function reset_attack(self, champion, slot, secondary2, item)
 				--if (item1 and get_c("attackedWith", c) == item1.name) or (item2 and get_c("attackedWith", c) == item2.name) then end
 				-- set projectile 'cast by champion' on ammo
 				if entity.ammoitem then
-					print("reset_attack ammo")
 					entity.data:set("castByChampion", c)
 					entity.data:set("castByChampionFacing", party.facing)
 				end
@@ -1287,17 +1318,6 @@ function reset_attack(self, champion, slot, secondary2, item)
 	-- Reset item stats after attack
 	if supertable[1][item.go.id] == nil then return end	
 	functions.script.resetItem(self, self.go.id)
-end
-
-function doubleAttack(self, item, champion, slot, chainIndex, secondary2)
-	if secondary2 == 0 then	
-		if champion:hasTrait("double_attack") and self.go.meleeattack and item:hasTrait("light_weapon") then
-			secondary = 1
-			delayedCall("functions", 0.2, "secondShot", champion:getOrdinal(), slot)
-		end
-	else
-		secondary = 0
-	end
 end
 
 -- Monster hooks
@@ -2135,7 +2155,7 @@ function empowerElement(champion, element, multi)
 			f = f * 1.15
 		end
 		
-		if champion:isArmorSetEquipped("embalmers") then
+		if isArmorSetEquipped(champion, "embalmers") then
 			f = f * 1.15
 		end
 		
@@ -2293,6 +2313,9 @@ function getAccuracy(id)
 				add = item.meleeattack:getAccuracy()
 				if add and add ~= 0 then acc = acc + add end
 			end
+			if (item.rangedattack or item.throwattack) and champion:hasTrait("bullseye") then
+				acc = acc + 15
+			end
 			if item:hasTrait("mage_weapon") then
 				acc = acc + (champion:getSkillLevel("spellblade") * 3)
 			end
@@ -2368,7 +2391,7 @@ function isArmorSetEquipped(champion, set)
 		return true
 	end
 
-	local armorSetPieces = { ["valor"] = 5, ["crystal"] = 6, ["bear"] = 3 }
+	local armorSetPieces = { ["valor"] = 5, ["crystal"] = 6, ["bear"] = 3, ["embalmers"] = 4, ["archmage"] = 4, ["rogue"] = 5 }
 	local mainSlots = {1,2,4,5,6}
 	local setCount = 0
 	for i = 1,#mainSlots do
@@ -2377,17 +2400,18 @@ function isArmorSetEquipped(champion, set)
 		end
 	end
 
-	local secondarySlots = {3,7,8,9,10} -- Head and Gloves
+	local secondarySlots = {3,7,8,9,10} -- Head, Gloves and Accessories
 	for i = 1,#secondarySlots do
 		if champion:getItem(secondarySlots[i]) and champion:getItem(secondarySlots[i]):getArmorSet() == set then
 			setCount = setCount + 1
 		else
+			-- Armor Training counts any glove and helmet as completing a set
 			if champion:hasTrait("armor_training") and (secondarySlots == 3 or secondarySlots == 9) then
 				setCount = setCount + 1
 			end
 		end
 	end
-	
+	print("setcout",setCount)
 	return setCount == armorSetPieces[set]
 end
 -------------------------------------------------------------------------------------------------------

@@ -625,6 +625,7 @@ defineObject{
 			gfxIndex = 246,
 			weight = 1.2,
 			armorSet = "embalmers",
+			armorSetPieces = 4,
 			gameEffect = [[[Embalmer's Set] Poison Resist and Poison Damage +15%.]],
 			traits = { "clothes", "boots", "upgradable" },
 		},
@@ -633,7 +634,7 @@ defineObject{
 			protection = 2,
 			vitality = 1,
 			onRecomputeStats = function(self, champion)
-				if champion:isArmorSetEquipped("embalmers") then
+				if functions.script.isArmorSetEquipped(champion, "embalmers") then
 					champion:addStatModifier("resist_poison", 15)
 				end
 			end,
@@ -657,6 +658,7 @@ defineObject{
 			gfxIndex = 247,
 			weight = 0.5,
 			armorSet = "embalmers",
+			armorSetPieces = 4,
 			gameEffect = [[[Embalmer's Set] Poison Resist and Poison Damage +15%.]],
 			traits = { "clothes", "helmet", "upgradable" },
 		},
@@ -684,6 +686,7 @@ defineObject{
 			gfxIndex = 244,
 			weight = 0.5,
 			armorSet = "embalmers",
+			armorSetPieces = 4,
 			gameEffect = [[[Embalmer's Set] Poison Resist and Poison Damage +15%.]],
 			traits = { "clothes", "chest_armor", "upgradable" },
 		},
@@ -711,6 +714,7 @@ defineObject{
 			gfxIndex = 245,
 			weight = 0.5,
 			armorSet = "embalmers",
+			armorSetPieces = 4,
 			gameEffect = [[[Embalmer's Set] Poison Resist and Poison Damage +15%.]],
 			traits = { "clothes", "leg_armor", "upgradable" },
 		},
@@ -726,35 +730,6 @@ defineObject{
 -- Archmage set
 
 defineObject{
-	name = "archmage_mantle",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/archmage_mantle.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Archmage's Mantle",
-			description = "Magical runes adorn this mantle, which was worn by a long since forgotten archmage.",
-			gameEffect = [[[Archmage's Set] ]],
-			armorSet = "archmage",
-			gfxIndex = 478,			
-			gfxIndexArmorSet = 341,
-			weight = 0.5,
-			traits = { "clothes", "leg_armor", "upgradable" },
-		},
-		{
-			class = "EquipmentItem",
-			protection = 3,
-			willpower = 1,
-			resistAll = 10,
-		},
-	},
-	tags = { "armor_clothes" },
-}
-
-defineObject{
 	name = "archmage_scapular",
 	baseObject = "base_item",
 	components = {
@@ -766,7 +741,7 @@ defineObject{
 			class = "Item",
 			uiName = "Archmage's Scapular",
 			description = "The archmages of the Academy of Des are known to weave various mystical enchantments into their robes.",
-			gameEffect = [[[Archmage's Set] ]],
+			gameEffect = [[[Archmage's Set] Monsters below 7% health (Max 777 hp) are instantly killed by your spells.]],
 			armorSet = "archmage",
 			armorSetPieces = 4,
 			gfxIndex = 479,
@@ -776,14 +751,44 @@ defineObject{
 		},
 		{
 			class = "EquipmentItem",
-			protection = 3,
+			protection = 4,
 			willpower = 1,
 			resistAll = 10,
 			onRecomputeStats = function(self, champion)
-				if champion:isArmorSetEquipped("archmage") then
-					champion:addStatModifier("max_energy", 50)
+				if functions.script.isArmorSetEquipped(champion, "archmage") then
+					--champion:addStatModifier("max_energy", 50)
 				end
 			end,
+		},
+	},
+	tags = { "armor_clothes" },
+}
+
+defineObject{
+	name = "archmage_mantle", -- (pants)
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/archmage_mantle.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Archmage's Mantle",
+			description = "Magical runes adorn this mantle, which was worn by a long since forgotten archmage.",
+			gameEffect = [[[Archmage's Set] Monsters below 7% health (Max 777 hp) are instantly killed by your spells.]],
+			armorSet = "archmage",
+			armorSetPieces = 4,
+			gfxIndex = 478,			
+			gfxIndexArmorSet = 341,
+			weight = 0.5,
+			traits = { "clothes", "leg_armor", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 3,
+			willpower = 1,
+			resistAll = 5,
 		},
 	},
 	tags = { "armor_clothes" },
@@ -801,8 +806,9 @@ defineObject{
 			class = "Item",
 			uiName = "Archmage's Cap",
 			description = "Headwear is of great importance to many mages since the Academy of Des regards the head as the most potent source of magical energy in the body.",
-			gameEffect = [[[Archmage's Set] ]],
+			gameEffect = [[[Archmage's Set] Monsters below 7% health (Max 777 hp) are instantly killed by your spells.]],
 			armorSet = "archmage",
+			armorSetPieces = 4,
 			gfxIndex = 480,	
 			gfxIndexArmorSet = 343,
 			weight = 0.2,
@@ -812,7 +818,7 @@ defineObject{
 			class = "EquipmentItem",
 			protection = 3,
 			willpower = 1,
-			resistAll = 10,
+			resistAll = 5,
 		},
 	},
 	tags = { "armor_clothes" },
@@ -830,8 +836,9 @@ defineObject{
 			class = "Item",
 			uiName = "Archmage's Loafers",
 			description = "Considerable magical energy has flowed through these well-worn enchanted loafers.",
-			gameEffect = [[[Archmage's Set] ]],
+			gameEffect = [[[Archmage's Set] Monsters below 7% health (Max 777 hp) are instantly killed by your spells.]],
 			armorSet = "archmage",
+			armorSetPieces = 4,
 			gfxIndex = 481,	
 			gfxIndexArmorSet = 344,
 			weight = 1.0,
@@ -841,40 +848,13 @@ defineObject{
 			class = "EquipmentItem",
 			protection = 3,
 			willpower = 1,
-			resistAll = 10,
+			resistAll = 5,
 		},
 	},
 	tags = { "armor_clothes" },
 }
 
 -- Rogue set
-
-defineObject{
-	name = "rogue_pants",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/rogue_clothes.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Rogue Pants",
-			description = "A pair of pants woven from fine, lightweight thread.",
-			gameEffect = [[[Rogue Set] ]],
-			armorSet = "rogue",
-			gfxIndex = 357,
-			weight = 0.5,
-			traits = { "clothes", "leg_armor", "upgradable" },
-		},
-		{
-			class = "EquipmentItem",
-			protection = 5,
-			dexterity = 1,
-		},
-	},
-	tags = { "armor_clothes" },
-}
 
 defineObject{
 	name = "rogue_vest",
@@ -888,12 +868,40 @@ defineObject{
 			class = "Item",
 			uiName = "Rogue Vest",
 			description = "A vest made from a material that seems to blend into the surrounding shadows.",
-			gameEffect = [[[Rogue Set] ]],
+			gameEffect = [[[Rogue Set] Adds 25% chance of attacking twice with Melee Weapons and 25% chance of firing an extra shot with Ranged Weapons.]],
 			armorSet = "rogue",
 			armorSetPieces = 5,
 			gfxIndex = 358,
 			weight = 0.75,
 			traits = { "clothes", "chest_armor", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 5,
+			dexterity = 1,
+		},
+	},
+	tags = { "armor_clothes" },
+}
+
+defineObject{
+	name = "rogue_pants",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/rogue_clothes.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Rogue Pants",
+			description = "A pair of pants woven from fine, lightweight thread.",
+			gameEffect = [[[Rogue Set] Adds 25% chance of attacking twice with Melee Weapons and 25% chance of firing an extra shot with Ranged Weapons.]],
+			armorSet = "rogue",
+			armorSetPieces = 5,
+			gfxIndex = 357,
+			weight = 0.5,
+			traits = { "clothes", "leg_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -916,8 +924,9 @@ defineObject{
 			class = "Item",
 			uiName = "Rogue Hood",
 			description = "A dark hood that covers the head.",
-			gameEffect = [[[Rogue Set] ]],
+			gameEffect = [[[Rogue Set] Adds 25% chance of attacking twice with Melee Weapons and 25% chance of firing an extra shot with Ranged Weapons.]],
 			armorSet = "rogue",
+			armorSetPieces = 5,
 			gfxIndex = 359,
 			weight = 0.25,
 			traits = { "clothes", "helmet", "upgradable" },
@@ -943,8 +952,9 @@ defineObject{
 			class = "Item",
 			uiName = "Rogue Boots",
 			description = "A skilled thief can move completely silently when wearing these boots.",
-			gameEffect = [[[Rogue Set] ]],
+			gameEffect = [[[Rogue Set] Adds 25% chance of attacking twice with Melee Weapons and 25% chance of firing an extra shot with Ranged Weapons.]],
 			armorSet = "rogue",
+			armorSetPieces = 5,
 			gfxIndex = 361,
 			weight = 0.25,
 			traits = { "clothes", "boots", "upgradable" },
@@ -970,8 +980,10 @@ defineObject{
 			class = "Item",
 			uiName = "Merv's Rogue Boots",
 			description = "These boots once belonged to the fastest man alive.",
-			gameEffect = "Speed potions last twice as long while you wear these boots.",
+			gameEffect = [[Speed potions last twice as long while you wear these boots.
+			gameEffect = [[[Rogue Set] Adds 25% chance of attacking twice with Melee Weapons and 25% chance of firing an extra shot with Ranged Weapons.]],
 			armorSet = "rogue",
+			armorSetPieces = 5,
 			gfxIndex = 361,
 			weight = 0.3,
 			traits = { "clothes", "boots", "upgradable" },
@@ -997,8 +1009,9 @@ defineObject{
 			class = "Item",
 			uiName = "Rogue Gloves",
 			description = "The fingers of these gloves are covered with a thin layer of gumtree nectar for enhanced grip.",
-			gameEffect = [[[Rogue Set] ]],
+			gameEffect = [[[Rogue Set] Adds 25% chance of attacking twice with Melee Weapons and 25% chance of firing an extra shot with Ranged Weapons.]],
 			armorSet = "rogue",
+			armorSetPieces = 5,
 			gfxIndex = 360,
 			weight = 0.3,
 			traits = { "clothes", "gloves", "upgradable" },

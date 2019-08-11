@@ -84,7 +84,7 @@ defineObject{
 			end,
 			onHitMonster = function(self, monster)			
 				local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
-				local accuracy = functions.script.get_c("psionic_accuracy", self:getCastByChampion())
+				local accuracy = functions.script.getAccuracy(self:getCastByChampion())
 				local evasion = monster:getEvasion()
 				local hitChance = math.clamp(60 + accuracy - evasion, 5, 95) / 100
 				if math.random() > hitChance then
