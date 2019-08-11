@@ -106,7 +106,7 @@ defineSkill{
 	
 	Perks:
 	- Reach | You can perform melee attacks from the back row.
-	- Clutch | Gain up to +100 accuracy based on how much health the party is missing.
+	- Clutch | Gain up to +10 Dexterity and +50 Accuracy based on how much health the party is missing.
 	- Deadly Aim | Melee and Firearm attacks pierce 5 to 15 armor, while Ranged attacks deal 5 to 20 extra damage.]],
 	traits = { [1] = "reach",  [4] = "clutch", [5] = "precision" },
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)

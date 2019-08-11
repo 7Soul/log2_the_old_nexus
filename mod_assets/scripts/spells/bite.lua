@@ -25,6 +25,7 @@ defineObject{
 				local accuracy = functions.script.get_c("bite_accuracy", self:getCastByChampion())
 				local evasion = monster:getEvasion()
 				local protection = monster:getProtection()
+				self:setAttackPower(self:getAttackPower() - ((protection-5) * (math.random() + 0.5)))
 				local hitChance = math.clamp(60 + accuracy - evasion, 5, 95) / 100
 				if math.random() > hitChance then
 					monster:showDamageText("miss", "AAAAAA")

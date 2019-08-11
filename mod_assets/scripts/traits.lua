@@ -616,7 +616,7 @@ defineTrait{
 			local item = nil
 			for i=1,2 do
 				item = champion:getItem(i)
-				if item and (item.go.firearmattack or item.go.meleeattack or item.go.throwattack) and item.go.equipmentitem then 
+				if item and (item.go.firearmattack or item.go.meleeattack or item.go.throwattack or item.go.rangedattack) and item.go.equipmentitem then 
 					if item.go.equipmentitem:getResistFire() then champion:addStatModifier("resist_fire", item.go.equipmentitem:getResistFire()) end
 					if item.go.equipmentitem:getResistShock() then champion:addStatModifier("resist_shock", item.go.equipmentitem:getResistShock()) end
 					if item.go.equipmentitem:getResistCold() then champion:addStatModifier("resist_cold", item.go.equipmentitem:getResistCold()) end
@@ -642,7 +642,7 @@ defineTrait{
 			local item = nil
 			for i=1,2 do
 				item = champion:getItem(i)
-				if item and (item.go.firearmattack or item.go.meleeattack or item.go.throwattack) and item.go.equipmentitem then 
+				if item and (item.go.firearmattack or item.go.meleeattack or item.go.throwattack or item.go.rangedattack) and item.go.equipmentitem then 
 					if item.go.equipmentitem:getResistFire() then champion:addStatModifier("resist_fire", item.go.equipmentitem:getResistFire()) end
 					if item.go.equipmentitem:getResistShock() then champion:addStatModifier("resist_shock", item.go.equipmentitem:getResistShock()) end
 					if item.go.equipmentitem:getResistCold() then champion:addStatModifier("resist_cold", item.go.equipmentitem:getResistCold()) end
@@ -669,7 +669,7 @@ defineTrait{
 			local item = nil
 			for i=1,2 do
 				item = champion:getItem(i)
-				if item and (item.go.firearmattack or item.go.meleeattack or item.go.throwattack) and item.go.equipmentitem then 
+				if item and (item.go.firearmattack or item.go.meleeattack or item.go.throwattack or item.go.rangedattack) and item.go.equipmentitem then 
 					if item.go.equipmentitem:getResistFire() then champion:addStatModifier("resist_fire", item.go.equipmentitem:getResistFire()) end
 					if item.go.equipmentitem:getResistShock() then champion:addStatModifier("resist_shock", item.go.equipmentitem:getResistShock()) end
 					if item.go.equipmentitem:getResistCold() then champion:addStatModifier("resist_cold", item.go.equipmentitem:getResistCold()) end
@@ -694,7 +694,7 @@ defineTrait{
 			local item = nil
 			for i=1,2 do
 				item = champion:getItem(i)
-				if item and (item.go.firearmattack or item.go.meleeattack or item.go.throwattack) and item.go.equipmentitem then 
+				if item and (item.go.firearmattack or item.go.meleeattack or item.go.throwattack or item.go.rangedattack) and item.go.equipmentitem then 
 					if item.go.equipmentitem:getResistFire() then champion:addStatModifier("resist_fire", item.go.equipmentitem:getResistFire()) end
 					if item.go.equipmentitem:getResistShock() then champion:addStatModifier("resist_shock", item.go.equipmentitem:getResistShock()) end
 					if item.go.equipmentitem:getResistCold() then champion:addStatModifier("resist_cold", item.go.equipmentitem:getResistCold()) end
@@ -724,7 +724,7 @@ defineTrait{
 			local item = nil
 			for i=1,2 do
 				item = champion:getItem(i)
-				if item and (item.go.firearmattack or item.go.meleeattack or item.go.throwattack) and item.go.equipmentitem then 
+				if item and (item.go.firearmattack or item.go.meleeattack or item.go.throwattack or item.go.rangedattack) and item.go.equipmentitem then 
 					if item.go.equipmentitem:getResistFire() then champion:addStatModifier("resist_fire", item.go.equipmentitem:getResistFire()) end
 					if item.go.equipmentitem:getResistShock() then champion:addStatModifier("resist_shock", item.go.equipmentitem:getResistShock()) end
 					if item.go.equipmentitem:getResistCold() then champion:addStatModifier("resist_cold", item.go.equipmentitem:getResistCold()) end
@@ -1118,10 +1118,18 @@ defineTrait{
 	icon = 52,
 	charGen = true,
 	requiredRace = "ratling",
-	description = [[Activate your class ability to gain 100 Evasion, which you lose upon performing an action.
+	description = [[Activate your class ability to blend into the shadows and prepare a deadly attack.
 	
 	- Costs 15 Energy to use.
-	- Your first physical attack will do 5% extra damage (+10% at levels 8 and 12), with a 50% chance to poison the target.]],
+	- Gain 100 Evasion and 15% Critical Chance.
+	- Your first physical attack has a 50% chance to poison the target.]],
+	onComputeCritChance = function(champion, weapon, attack, attackType, level)
+		if level > 0 then 
+			if functions.script.get_c("sneak_attack", champion:getOrdinal()) then
+				return 10
+			end
+		end
+	end,
 }
 
 defineTrait{
@@ -1141,6 +1149,7 @@ defineTrait{
 			local health = math.max(champion:getCurrentStat("resist_poison") - 50, 0) + math.max((champion:getCurrentStat("vitality") - 10) * 2, 0)
 			champion:addStatModifier("max_health", health)
 			champion:addStatModifier("health", health)
+			champion:addStatModifier("max_load", health * 0.1)
 		--end
 	end,
 }
@@ -1373,7 +1382,20 @@ defineTrait{
 	uiName = "Clutch",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 79,
-	description = "Gain up to +100 accuracy based on how much health the party is missing.",
+	description = "Gain up to +10 Dexterity and +50 Accuracy based on how much health the party is missing.",
+	onRecomputeStats = function(champion, level)
+		if level > 0 then
+			local hpMaxTotal = 0
+			local hpTotal = 0
+			for i=1,4 do
+				local champ = party.party:getChampionByOrdinal(i)
+				hpMaxTotal = hpMaxTotal + champ:getMaxHealth()
+				hpTotal = hpTotal + champ:getHealth()
+			end
+			local hpRate = 1 - (hpTotal / hpMaxTotal)
+			champion:addStatModifier("dexterity", 10 * hpRate)
+		end
+	end,
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
 		if level > 0 then
 			local hpMaxTotal = 0
@@ -1384,8 +1406,8 @@ defineTrait{
 				hpTotal = hpTotal + champ:getHealth()
 			end
 			local hpRate = 1 - (hpTotal / hpMaxTotal)
-			functions.script.set_c("clutch", champion:getOrdinal(), 100 * hpRate)
-			return 100 * hpRate
+			functions.script.set_c("clutch", champion:getOrdinal(), 50 * hpRate)
+			return 50 * hpRate
 		end
 	end,
 }

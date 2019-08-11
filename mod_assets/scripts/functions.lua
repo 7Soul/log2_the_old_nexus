@@ -842,8 +842,8 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 	-- Lizardman Bite
 	if champion:hasTrait("bite") then
 		if get_c("bite", champion:getOrdinal()) == nil or get_c("bite", champion:getOrdinal()) == 0 then
-			set_c("bite", champion:getOrdinal(), 16 - ((champion:getLevel() - 1) * 0.5) )
-			set_c("bite_damage", champion:getOrdinal(), champion:getCurrentStat("strength") + champion:getCurrentStat("dexterity") - 5 )
+			set_c("bite", champion:getOrdinal(), 30 - ((champion:getLevel() - 1) * 1.0) )
+			set_c("bite_damage", champion:getOrdinal(), champion:getCurrentStat("dexterity") - 5 )
 			set_c("bite_accuracy", champion:getOrdinal(), getAccuracy( champion:getOrdinal() ) )
 			delayedCall("functions", 0.1, "bite", champion:getOrdinal())
 		end
@@ -2298,6 +2298,12 @@ function getAccuracy(id)
 			end
 		end
 	end
+	if get_c("duelist", id) == 1 then
+		acc = acc + 10
+	end
+	if champion:getClass() == "stalker" then
+		acc = acc + ((2 + (champion:getLevel() - 1)) * (champion:hasTrait("night_stalker") and 2 or 1))
+	end
 	acc = acc + (champion:getSkillLevel("accuracy") * 10)
 	acc = acc + math.max(((champion:getCurrentStat("dexterity") - 10) * 2), 0)
 	if get_c("clutch", id) then
@@ -2315,6 +2321,12 @@ function getCrit(id)
 			local add = item.equipmentitem:getCriticalChance()
 			if add and add ~= 0 then crit = crit + add end
 		end
+	end
+	if get_c("duelist", id) == 1 then
+		crit = crit + 5
+	end
+	if champion:getClass() == "stalker" then
+		crit = crit + ((2 + (champion:getLevel() - 1)) * (champion:hasTrait("night_stalker") and 2 or 1))
 	end
 	crit = crit + (champion:getSkillLevel("critical") * 3)
 	return crit
