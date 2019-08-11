@@ -756,7 +756,7 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 		self:setAttackPower(self:getAttackPower() * 0.5 )
 	end
 	
-	-- Druid's Mudwort secondary attack bonus against poisoned enemies
+	-- Druid's Mudwort attack bonus against poisoned enemies
 	if champion:getClass() == "druid" then
 		--if secondary ~= self then
 			local poisonedMonster = functions.script.get_c("poisonedMonster", c)
@@ -767,6 +767,13 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 				monster:setCondition("poisoned", 0)
 			end
 		--end
+	end
+
+	if item:hasTrait("poison_mace") and champion:getSkillLevel("poison_mastery") == 5 then
+		local poisonedMonster = functions.script.get_c("poisonedMonster", c)
+		if poisonedMonster then
+			self:setAttackPower(self:getAttackPower() * 1.4 )
+		end
 	end
 	
 	-- Bearclaw Gauntlets - Increases power attack damage by 15%
@@ -1390,12 +1397,6 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 		monster:showDamageText(chip.." Armor", "FFFFFF", "Chip!")
 	end
 	
-	-- Venomancer for melee attacks
-	if champion:hasTrait("venomancer") and math.random() <= 0.1 + (champion:hasTrait("plague") and 0.05 or 0)  then	
-		monster:setCondition("poisoned", 25)
-		if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
-	end	
-	
 	-- Broadside Trait
 	if champion:hasTrait("broadside") and math.random() <= 0.4 then
 		if self.go.firearmattack then
@@ -1421,10 +1422,7 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 		
 	-- Ratling's Sneak Attack
 	if functions.script.get_c("sneak_attack", champion:getOrdinal()) then
-		if math.random() <= 0.5 then
-			monster:setCondition("poisoned", 25)
-			if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
-		end
+		poisonChance = poisonChance + 0.5
 		functions.script.set_c("sneak_attack", champion:getOrdinal(), false)
 	end
 	
@@ -1442,9 +1440,33 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 		healingLight(champion, monster, damage)
 	end
 	
+	local poisonChance = 0
+	-- Venomancer for melee attacks
+	if champion:hasTrait("venomancer") then	
+		poisonChance = poisonChance + 0.1
+	end	
+
+	if champion:hasTrait("antivenom") then
+		poisonChance = poisonChance + 0.05
+	end
+
+	-- Serpent Bracer poison chance
+	if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "serpent_bracer" then
+		poisonChance = poisonChance + 0.1
+	end
+
+	-- Venomous daggers (venom edge, serpent blade)
+	if self.go.item:hasTrait("poison_dagger") and monster:getHealth() >= monster:getMaxHealth() * 0.5 then
+		poisonChance = poisonChance + 0.15
+	end
+
+	-- Venomfang Pick
+	if self.go.item:hasTrait("poison_mace") then
+		poisonChance = poisonChance + 0.05
+	end
+
 	-- Druid's poison chance from herbs effects
 	if champion:getClass() == "druid" then
-		local poisonChance = 0
 		local conversion = 0.8
 		for slot = 8,10 do
 			local druidItem = functions.script.get_c("druid_item"..slot, champion:getOrdinal())
@@ -1465,20 +1487,6 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 		if self.go.meleeattack then
 			hitMonster(monster.go.id, damage / conversion * (1 - conversion), "33CC33", nil, "poison", champion:getOrdinal())
 		end	
-
-		-- Poison chance
-		if poisonChance > 0 and math.random() < poisonChance then	
-			monster:setCondition("poisoned", 25)
-			if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
-		end
-	end
-
-	-- Serpent Bracer poison chance
-	if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "serpent_bracer" then
-		if math.random() <= 0.1 then
-			monster:setCondition("poisoned", 25)
-			if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
-		end
 	end
 	
 	-- Tinkerer's Elemental Surge
@@ -1522,6 +1530,12 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 			assassination(champion, monster)
 		end
 	end
+
+	-- Poison chance
+	if poisonChance > 0 and math.random() < poisonChance then	
+		monster:setCondition("poisoned", 25)
+		if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
+	end
 end
 
 -- MonsterComponent - monster hit by projectile
@@ -1533,15 +1547,23 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 	local backAttack = self.go.facing == facing
 	local monster = self
 
-	-- Venomancer for ranged attacks
-	if champion:hasTrait("venomancer") and math.random() <= 0.1 + (champion:hasTrait("plague") and 0.05 or 0) then
-		monster:setCondition("poisoned", 25)
-		if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
+	local poisonChance = 0
+	-- Venomancer for melee attacks
+	if champion:hasTrait("venomancer") then	
+		poisonChance = poisonChance + 0.1
+	end	
+
+	if champion:hasTrait("antivenom") then
+		poisonChance = poisonChance + 0.05
+	end
+
+	-- Serpent Bracer poison chance
+	if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "serpent_bracer" then
+		poisonChance = poisonChance + 0.1
 	end
 	
 	-- Druid's poison chance from herbs effects
 	if champion:getClass() == "druid" then
-		local poisonChance = 0
 		local conversion = 0.8
 		for slot = 8,10 do
 			local druidItem = functions.script.get_c("druid_item"..slot, champion:getOrdinal())
@@ -1562,29 +1584,12 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 		if self.go.meleeattack then
 			hitMonster(monster.go.id, damage / conversion * (1 - conversion), "33CC33", nil, "poison", champion:getOrdinal())
 		end	
-		
-		-- Poison chance
-		if poisonChance > 0 and math.random() < poisonChance then	
-			monster:setCondition("poisoned", 25)
-			if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
-		end
 	end
 	
 	-- Ratling's Sneak Attack
 	if functions.script.get_c("sneak_attack", champion:getOrdinal()) then
-		if math.random() <= 0.5 then
-			monster:setCondition("poisoned", 25)
-			if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
-		end
+		poisonChance = poisonChance + 0.5
 		functions.script.set_c("sneak_attack", champion:getOrdinal(), false)
-	end
-
-	-- Serpent Bracer poison chance
-	if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "serpent_bracer" then
-		if math.random() <= 0.1 then
-			monster:setCondition("poisoned", 25)
-			if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
-		end
 	end
 	
 	-- Assassination - when monster takes a hit and dies
@@ -1613,6 +1618,12 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 	-- Monk's Healing Light
 	if champion:getClass() == "monk" then
 		healingLight(champion, monster, damage)
+	end
+
+	-- Poison chance
+	if poisonChance > 0 and math.random() < poisonChance then	
+		monster:setCondition("poisoned", 25)
+		if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
 	end
 
 	if specialDamage then
@@ -2146,6 +2157,13 @@ function empowerElement(champion, element, multi)
 		if champion:hasTrait("imperium_arcana") then
 			local bonus = (champion:getMaxEnergy() / 100 * 15 * 0.01) + 1
 			f = f * bonus
+		end
+
+		for slot = 1,ItemSlot.Bracers do
+			local item = champion:getItem(slot)
+			if item and item:hasTrait("earthbound") then
+				f = f * 1.2
+			end
 		end
 		
 	elseif element == "fire" then

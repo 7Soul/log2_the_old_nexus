@@ -12,6 +12,7 @@ import "mod_assets/scripts/objects/dungeon.lua"
 import "mod_assets/scripts/objects/castle.lua"
 import "mod_assets/scripts/objects/stone_philosophers.lua"
 import "mod_assets/scripts/objects/sky.lua"
+import "mod_assets/scripts/objects/pushable_block.lua"
 import "mod_assets/scripts/materials/tomb.lua"
 import "mod_assets/scripts/materials/generic.lua"
 import "mod_assets/scripts/materials/monsters.lua"
@@ -1259,7 +1260,7 @@ defineObject{
 					end
 				end
 				
-				if champion:getClass() == "druid" then
+				--if champion:getClass() == "druid" then
 					local poisonedMonster = nil
 					local dir = party.facing
 					local dx,dy = getForward(dir)
@@ -1269,7 +1270,7 @@ defineObject{
 						end
 					end
 					functions.script.set_c("poisonedMonster", i, poisonedMonster)
-				end
+				--end
 				
 				if champion:hasTrait("sneak_attack") and (champion:isReadyToAttack(0) or champion:isReadyToAttack(1)) and functions.script.get_c("sneak_attack", champion:getOrdinal()) then
 					functions.script.set_c("sneak_attack", champion:getOrdinal(), false)

@@ -84,7 +84,8 @@ defineObject{
 			gfxIndexPowerAttack = 440,
 			impactSound = "impact_blunt",
 			weight = 3.3,
-			gameEffect = "Earthbound (Poison spells deal 20% more damage)",
+			gameEffect = "Poison spells deal 20% more damage",
+			traits = { "earthbound" },
 			secondaryAction = "poisonBolt",
 		},
 		{

@@ -185,11 +185,13 @@ defineObject{
 			class = "Item",
 			uiName = "Venomfang Pick",
 			description = "A tooth from a venomfang lizard is attached to a pole, which makes for a simple but effective weapon.",
+			gameEffect = [[Adds 5% chance to poison.
+			[Poison Mastery 5]: Does 40% more damage to poisoned enemies.]],
 			gfxIndex = 226,
 			gfxIndexPowerAttack = 422,
 			impactSound = "impact_blade",
 			weight = 2.4,
-			traits = { "light_weapon", "mace", "dismantle", "upgradable" },
+			traits = { "light_weapon", "mace", "dismantle", "upgradable", "poison_mace" },
 			secondaryAction = "bite",
 		},
 		{
@@ -216,7 +218,7 @@ defineObject{
 			cooldown = 4.5,
 			swipe = "vertical",
 			attackSound = "swipe",
-			requirements = { "light_weapons", 3, "earth_magic", 1 },
+			requirements = { "light_weapons", 3, "poison_mastery", 1 },
 			gameEffect = "A sting that injects poison into victim's bloodstream.",
 		},
 	},
