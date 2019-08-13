@@ -235,7 +235,17 @@ defineObject{
 		-----------------------------------------------------------
 		onDamage = function(self, champion, damage, damageType)
 			--print(party.go.id, champion:getName(), 'received', damage, 'damage,', damageType, 'type') 
-			functions.script.onChampionTakesDamage(self, champion, damage, damageType)			
+			functions.script.onChampionTakesDamage(self, champion, damage, damageType)
+
+			if GameMode.damageRecurse then
+				GameMode.damageRecurse = nil
+				return true
+			elseif damage > 1 then
+				damage = math.max(1,damage - champion:getLevel())
+				GameMode.damageRecurse = true
+				champion:damage(damage,"pure")
+				return false
+			end
 		end,
 		
 		-- WORKS

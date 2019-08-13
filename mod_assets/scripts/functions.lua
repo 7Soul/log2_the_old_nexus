@@ -2391,7 +2391,7 @@ function isArmorSetEquipped(champion, set)
 		return true
 	end
 
-	local armorSetPieces = { ["valor"] = 5, ["crystal"] = 6, ["bear"] = 3, ["embalmers"] = 4, ["archmage"] = 4, ["rogue"] = 5 }
+	local armorSetPieces = { ["valor"] = 5, ["crystal"] = 6, ["meteor"] = 6, ["bear"] = 3, ["embalmers"] = 4, ["archmage"] = 4, ["rogue"] = 5, ["makeshift"] = 5, ["reed"] = 5, ["mirror"] = 5 }
 	local mainSlots = {1,2,4,5,6}
 	local setCount = 0
 	for i = 1,#mainSlots do
@@ -2411,7 +2411,7 @@ function isArmorSetEquipped(champion, set)
 			end
 		end
 	end
-	print("setcout",setCount)
+	
 	return setCount == armorSetPieces[set]
 end
 -------------------------------------------------------------------------------------------------------

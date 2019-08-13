@@ -6570,6 +6570,222 @@ rogue_vest_1.detectedtimer:setTimerInterval(0)
 rogue_vest_1.detectedtimer:setDisableSelf(false)
 rogue_vest_1.detectedtimer:setTriggerOnStart(true)
 rogue_vest_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("archmage_hat",19,15,1,0,"archmage_hat_1")
+archmage_hat_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+archmage_hat_1.detectedtimer:setTimerInterval(0)
+archmage_hat_1.detectedtimer:setDisableSelf(false)
+archmage_hat_1.detectedtimer:setTriggerOnStart(true)
+archmage_hat_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("archmage_loafers",19,15,1,0,"archmage_loafers_1")
+archmage_loafers_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+archmage_loafers_1.detectedtimer:setTimerInterval(0)
+archmage_loafers_1.detectedtimer:setDisableSelf(false)
+archmage_loafers_1.detectedtimer:setTriggerOnStart(true)
+archmage_loafers_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("archmage_mantle",19,15,1,0,"archmage_mantle_1")
+archmage_mantle_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+archmage_mantle_1.detectedtimer:setTimerInterval(0)
+archmage_mantle_1.detectedtimer:setDisableSelf(false)
+archmage_mantle_1.detectedtimer:setTriggerOnStart(true)
+archmage_mantle_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("archmage_scapular",19,15,1,0,"archmage_scapular_1")
+archmage_scapular_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+archmage_scapular_1.detectedtimer:setTimerInterval(0)
+archmage_scapular_1.detectedtimer:setDisableSelf(false)
+archmage_scapular_1.detectedtimer:setTriggerOnStart(true)
+archmage_scapular_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("embalmers_boots",19,16,1,0,"embalmers_boots_2")
+embalmers_boots_2.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+embalmers_boots_2.detectedtimer:setTimerInterval(0)
+embalmers_boots_2.detectedtimer:setDisableSelf(false)
+embalmers_boots_2.detectedtimer:setTriggerOnStart(true)
+embalmers_boots_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("embalmers_headpiece",19,16,1,0,"embalmers_headpiece_1")
+embalmers_headpiece_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+embalmers_headpiece_1.detectedtimer:setTimerInterval(0)
+embalmers_headpiece_1.detectedtimer:setDisableSelf(false)
+embalmers_headpiece_1.detectedtimer:setTriggerOnStart(true)
+embalmers_headpiece_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("embalmers_pants",19,16,1,0,"embalmers_pants_1")
+embalmers_pants_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+embalmers_pants_1.detectedtimer:setTimerInterval(0)
+embalmers_pants_1.detectedtimer:setDisableSelf(false)
+embalmers_pants_1.detectedtimer:setTriggerOnStart(true)
+embalmers_pants_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("embalmers_robe",19,16,1,0,"embalmers_robe_1")
+embalmers_robe_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+embalmers_robe_1.detectedtimer:setTimerInterval(0)
+embalmers_robe_1.detectedtimer:setDisableSelf(false)
+embalmers_robe_1.detectedtimer:setTriggerOnStart(true)
+embalmers_robe_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("lurker_boots",19,17,1,0,"lurker_boots_1")
+lurker_boots_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+lurker_boots_1.detectedtimer:setTimerInterval(0)
+lurker_boots_1.detectedtimer:setDisableSelf(false)
+lurker_boots_1.detectedtimer:setTriggerOnStart(true)
+lurker_boots_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("lurker_hood",19,17,1,0,"lurker_hood_1")
+lurker_hood_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+lurker_hood_1.detectedtimer:setTimerInterval(0)
+lurker_hood_1.detectedtimer:setDisableSelf(false)
+lurker_hood_1.detectedtimer:setTriggerOnStart(true)
+lurker_hood_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("lurker_pants",19,17,1,0,"lurker_pants_1")
+lurker_pants_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+lurker_pants_1.detectedtimer:setTimerInterval(0)
+lurker_pants_1.detectedtimer:setDisableSelf(false)
+lurker_pants_1.detectedtimer:setTriggerOnStart(true)
+lurker_pants_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("lurker_vest",19,17,1,0,"lurker_vest_1")
+lurker_vest_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+lurker_vest_1.detectedtimer:setTimerInterval(0)
+lurker_vest_1.detectedtimer:setDisableSelf(false)
+lurker_vest_1.detectedtimer:setTriggerOnStart(true)
+lurker_vest_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("cuirass_valor",20,13,3,0,"cuirass_valor_1")
+cuirass_valor_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+cuirass_valor_1.detectedtimer:setTimerInterval(0)
+cuirass_valor_1.detectedtimer:setDisableSelf(false)
+cuirass_valor_1.detectedtimer:setTriggerOnStart(true)
+cuirass_valor_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("cuisse_valor",20,13,3,0,"cuisse_valor_1")
+cuisse_valor_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+cuisse_valor_1.detectedtimer:setTimerInterval(0)
+cuisse_valor_1.detectedtimer:setDisableSelf(false)
+cuisse_valor_1.detectedtimer:setTriggerOnStart(true)
+cuisse_valor_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("gauntlets_valor",20,13,3,0,"gauntlets_valor_1")
+gauntlets_valor_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+gauntlets_valor_1.detectedtimer:setTimerInterval(0)
+gauntlets_valor_1.detectedtimer:setDisableSelf(false)
+gauntlets_valor_1.detectedtimer:setTriggerOnStart(true)
+gauntlets_valor_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("greaves_valor",20,13,3,0,"greaves_valor_1")
+greaves_valor_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+greaves_valor_1.detectedtimer:setTimerInterval(0)
+greaves_valor_1.detectedtimer:setDisableSelf(false)
+greaves_valor_1.detectedtimer:setTriggerOnStart(true)
+greaves_valor_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("helmet_valor",20,13,3,0,"helmet_valor_1")
+helmet_valor_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+helmet_valor_1.detectedtimer:setTimerInterval(0)
+helmet_valor_1.detectedtimer:setDisableSelf(false)
+helmet_valor_1.detectedtimer:setTriggerOnStart(true)
+helmet_valor_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("shield_valor",20,13,3,0,"shield_valor_1")
+shield_valor_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+shield_valor_1.detectedtimer:setTimerInterval(0)
+shield_valor_1.detectedtimer:setDisableSelf(false)
+shield_valor_1.detectedtimer:setTriggerOnStart(true)
+shield_valor_1.detectedtimer:setCurrentLevelOnly(true)
 
 --- level 4 ---
 

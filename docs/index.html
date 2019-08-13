@@ -218,11 +218,60 @@ h2 em {
 	font-size: 0.8em;
 }
 
+.index {
+	display: block;
+	position: fixed;
+	background-color: rgba(0,0,0,0.5);
+	top: 25px;
+	left: 10px;
+	padding: 25px 15px;
+	border-radius: 10px;
+	z-index: 0;
+	opacity: 0.3;
+}
+
+.index:hover {
+	opacity: 1.0;
+	z-index: 100;
+}
+
+.index > *  {
+	display: block;
+	color: white;
+	opacity: 0.4;
+	z-index: 0;
+	text-decoration: none;
+}
+
+.index a:hover {
+	text-decoration: underline;
+}
+
+.index:hover > * {
+	opacity: 1.0;
+	z-index: 100;
+}
+
+.index p {
+	padding: 0;
+	margin: 0;
+}
+
 </style>
 </head>
 
 <body>
-<h1>/// Classes ///</h1>
+
+<div class="index">
+	<p>/// Index ///</p>
+	<a href="#classes">Classes</a>
+	<a href="#races">Races</a>
+	<a href="#racialtraits">Racial Traits</a>
+	<a href="#skills">Skills</a>
+	<a href="#spells">Spells</a>
+</div>
+
+<h1 id="classes">/// Classes ///</h1>
 <p style="clear:both;display:block;text-align:center;width:100%;">These replace all the original classes.</p>
 
 <div class="main">
@@ -474,7 +523,7 @@ h2 em {
 	</div>
 </div>
 
-<h1>/// Races ///</h1>
+<h1 id="races">/// Races ///</h1>
 
 <div class="main">
 	<div class="top">
@@ -542,7 +591,7 @@ h2 em {
 </div>
 
 
-<h1>/// Racial Traits ///</h1>
+<h1 id="racialtraits">/// Racial Traits ///</h1>
 <p style="clear:both;display:block;text-align:center;width:100%;">There are no general traits at character creation, instead, you choose 1 trait based on your race.</p>
 
 <div class="main">
@@ -746,7 +795,7 @@ h2 em {
 </div>
 
 
-<h1>/// Skills ///</h1>
+<h1 id="skills">/// Skills ///</h1>
 
 <div class="main">
 	<div class="top">
@@ -1223,7 +1272,7 @@ h2 em {
 	<p>*Upgraded items weight around 30% more, reduced by the skill level.</p>		
 </div>
 
-<h1>/// Spells ///</h1>
+<h1 id="spells">/// Spells ///</h1>
 
 <div class="main">
 	<div class="top">

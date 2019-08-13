@@ -330,7 +330,9 @@ defineObject{
 			description = "A plate cuirass forged of strips of shiny golden metal. It was thought to be forever lost on the battlefields of Malan Tael",
 			armorSet = "valor",
 			armorSetPieces = 5,
-			gfxIndex = 125,
+			gfxAtlas = "mod_assets/textures/gui/items.dds",
+			gfxIndex = 91,
+			gfxIndexArmorSet = 97,	
 			weight = 13.0,
 			traits = { "heavy_armor", "dismantle", "chest_armor", "upgradable" },
 		},
@@ -360,7 +362,9 @@ defineObject{
 			uiName = "Cuisse of Valor",
 			description = "Leg armor made out of strange, ornate metal. Light dances across its surface.",
 			armorSet = "valor",
-			gfxIndex = 126,
+			gfxAtlas = "mod_assets/textures/gui/items.dds",
+			gfxIndex = 92,
+			gfxIndexArmorSet = 98,
 			weight = 9.5,
 			traits = { "heavy_armor", "dismantle", "leg_armor", "upgradable" },
 		},
@@ -385,7 +389,9 @@ defineObject{
 			uiName = "Helmet of Valor",
 			description = "Even though this helmet looks ceremonial, it is forged to last even the mightiest of blows.",
 			armorSet = "valor",
-			gfxIndex = 127,
+			gfxAtlas = "mod_assets/textures/gui/items.dds",
+			gfxIndex = 93,
+			gfxIndexArmorSet = 99,
 			weight = 4.5,
 			traits = { "heavy_armor", "dismantle", "helmet", "upgradable" },
 		},
@@ -410,7 +416,9 @@ defineObject{
 			uiName = "Gauntlets of Valor",
 			description = "These gauntlets were worn by the emperor of Malan Tael.",
 			armorSet = "valor",
-			gfxIndex = 129,
+			gfxAtlas = "mod_assets/textures/gui/items.dds",
+			gfxIndex = 95,
+			gfxIndexArmorSet = 101,
 			weight = 3.5,
 			traits = { "heavy_armor", "dismantle", "gloves", "upgradable" },
 		},
@@ -435,7 +443,9 @@ defineObject{
 			uiName = "Greaves of Valor",
 			description = "These greaves, fashioned of almost impenetrable metal, are lighter to wear than the fine steel sabatons of the royal regiments.",
 			armorSet = "valor",
-			gfxIndex = 128,
+			gfxAtlas = "mod_assets/textures/gui/items.dds",
+			gfxIndex = 94,
+			gfxIndexArmorSet = 100,
 			weight = 5.5,
 			traits = { "heavy_armor", "dismantle", "boots", "upgradable" },
 		},
@@ -836,32 +846,6 @@ defineObject{
 -- Makeshift Set
 
 defineObject{
-	name = "makeshift_mask",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/makeshift_mask.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Thraelm Tribal Mask",
-			description = "A grotesque mask used in the rites of the Thraelm tribesmen.",
-			armorSet = "makeshift",
-			gfxIndex = 284,
-			weight = 1.2,
-			traits = { "light_armor", "helmet", "upgradable" },
-		},
-		{
-			class = "EquipmentItem",
-			protection = 3,
-			energy = 5,
-		},
-	},
-	tags = { "armor_light" },
-}
-
-defineObject{
 	name = "makeshift_chestplate",
 	baseObject = "base_item",
 	components = {
@@ -889,6 +873,33 @@ defineObject{
 }
 
 defineObject{
+	name = "makeshift_mask",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/makeshift_mask.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Thraelm Tribal Mask",
+			description = "A grotesque mask used in the rites of the Thraelm tribesmen.",
+			armorSet = "makeshift",
+			armorSetPieces = 4,
+			gfxIndex = 284,
+			weight = 1.2,
+			traits = { "light_armor", "helmet", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 3,
+			energy = 5,
+		},
+	},
+	tags = { "armor_light" },
+}
+
+defineObject{
 	name = "makeshift_legplates",
 	baseObject = "base_item",
 	components = {
@@ -901,6 +912,7 @@ defineObject{
 			uiName = "Thraelm Tribal Legplates",
 			description = "Thraelm tribesmen are widely feared due to their fighting style which combines magic with ruthless hand-to-hand combat.",
 			armorSet = "makeshift",
+			armorSetPieces = 4,
 			gfxIndex = 285,
 			weight = 2.0,
 			traits = { "light_armor", "leg_armor", "upgradable" },
@@ -1194,6 +1206,7 @@ defineObject{
 			class = "Item",
 			uiName = "Chitin Breastplate",
 			description = "A chestplate crafted from parts of a giant beetle carapace.",
+			gameEffect = [[[Chitin Set]: Bonuses and Perks from the Block skill work without you holding a shield.]],
 			armorSet = "chitin",
 			armorSetPieces = 4,
 			gfxIndex = 49,
@@ -1202,7 +1215,8 @@ defineObject{
 		},
 		{
 			class = "EquipmentItem",
-			protection = 9,
+			protection = 10,
+			resistFire = 5,
 		},
 	},
 	tags = { "armor_light" },
@@ -1220,6 +1234,7 @@ defineObject{
 			class = "Item",
 			uiName = "Chitin Cuisse",
 			description = "Numerous pieces of chitinous shells are fixed together to form a primitive but efficient leg armor.",
+			gameEffect = [[[Chitin Set]: Bonuses and Perks from the Block skill work without you holding a shield.]],
 			armorSet = "chitin",
 			gfxIndex = 50,
 			weight = 4.0,
@@ -1245,6 +1260,7 @@ defineObject{
 			class = "Item",
 			uiName = "Chitin Greaves",
 			description = "The many layers of insect shells provide good protection for the feet.",
+			gameEffect = [[[Chitin Set]: Bonuses and Perks from the Block skill work without you holding a shield.]],
 			armorSet = "chitin",
 			gfxIndex = 73,
 			weight = 3.0,
@@ -1270,6 +1286,7 @@ defineObject{
 			class = "Item",
 			uiName = "Chitin Mask",
 			description = "The pod of a giant beetle larva is carved into a primitive face mask.",
+			gameEffect = [[[Chitin Set]: Bonuses and Perks from the Block skill work without you holding a shield.]],
 			armorSet = "chitin",
 			gfxIndex = 51,
 			weight = 2.0,
@@ -1277,7 +1294,7 @@ defineObject{
 		},
 		{
 			class = "EquipmentItem",
-			protection = 9,
+			protection = 6,
 		},
 	},
 	tags = { "armor_light" },
