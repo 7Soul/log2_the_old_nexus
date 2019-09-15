@@ -8,8 +8,8 @@ defineSkill{
 
 	Perks:
 	- Level 2 | Weight Limit +10kg.
-	- Level 4 | 25% Resistance to feet and leg wounds. Wearing Heavy boots doubles that effect.
-	- Level 5 | Healing potions heal 25% more, with extra healing applied instantly.]],
+	- Level 4 | 25% Resistance to wounds. Heavy Armor triples it for the body part it covers (Gloves protect from hand injuries).
+	- Level 5 | Healing potions heal 25% more, with extra healing applied instantly. While you heal, gain +60 Protection.]],
 	traits = { [2] = "pack_mule", [4] = "endurance", [5] = "refreshed" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
@@ -49,7 +49,7 @@ defineSkill{
 	
 	Perks (when wearing light armor in all 5 slots):
 	- Light Wear | +5 Evasion and +2 Dexterity.
-	- Reflective | +20 All Resists.
+	- Reflective | The first attack from an enemy is absorbed as Health and Energy over 5 seconds.
 	- Nimble     | Action timers reduced by 15%.]],
 	traits = { [2] = "light_wear", [4] = "reflective", [5] = "nimble" },
 	onRecomputeStats = function(champion, level)
@@ -74,9 +74,9 @@ defineSkill{
 	description = [[Each point reduces the evasion penalties from wearing Heavy Armor by 20% and weight by 10%.
 	
 	Perks when wearing heavy armor in all 5 slots:
-	- Armored Up | +5% Protection and +2 Strength. Doubled when this skill is maxed.
-	- Heavy Conditioning | +40 Health and +10% Protection. Doubled when this skill is maxed.
-	- Armor Training | Sets and Heavy Armor perks work even without Helmet and Gloves. Other armor types in those slots gain an extra 10% protection.]],
+	- Armored Up     | +5% Protection and +2 Strength. Doubled when this skill is maxed.
+	- Conditioning   | +40 Health and +10% Protection. Doubled when this skill is maxed.
+	- Armor Training | Sets and Heavy Armor perks work even without Helmet and Gloves. Other armor types in those slots gain an extra 20% protection.]],
 	traits = { [2] = "armored_up", [4] = "heavy_conditioning", [5]="armor_training" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 and functions ~= nil and Time.currentTime() > 3 then
@@ -125,7 +125,7 @@ defineSkill{
 	- Level 2 | You can backstab an enemy with a dagger and deal triple damage.
 	- Level 4 | You gain double critical chance from items.
 	- Level 5 | You can backstab with any Light Weapon.]],
-	traits = { [2] = "backstab", [5] = "slayer", [4] = "weapons_specialist" },
+	traits = { [2] = "backstab", [4] = "weapons_specialist", [5] = "assassin" },
 	onComputeCritChance = function(champion, weapon, attack, attackType, level)
 		return level * 3
 	end,

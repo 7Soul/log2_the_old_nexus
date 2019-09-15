@@ -455,7 +455,7 @@ function onEquipItem(self, champion, slot)
 	if slot >= ItemSlot.BackpackFirst and slot <= ItemSlot.BackpackLast then
 		
 	else
-		if (slot >= 3 and slot <= 6) or slot == 9 then
+		if (slot >= ItemSlot.Head and slot <= ItemSlot.Feet) or slot == ItemSlot.Gloves then
 			
 		end
 			
@@ -501,13 +501,13 @@ function onEquipItem(self, champion, slot)
 			end
 			if secondary then supertable[13][name] = secondary:getAttackPower() end
 
-			if champion:hasTrait("weapons_specialist") then
-				self.go.equipmentitem:setCriticalChance(supertable[6][name] * 2)
-				if self.go.name == "scythe" then
-					self.go.equipmentitem:setCriticalChance(5)
-					supertable[6][name] = 5
-				end
-			end
+			-- if champion:hasTrait("weapons_specialist") then
+			-- 	self.go.equipmentitem:setCriticalChance(supertable[6][name] * 2)
+			-- 	if self.go.name == "scythe" then
+			-- 		self.go.equipmentitem:setCriticalChance(5)
+			-- 		supertable[6][name] = 5
+			-- 	end
+			-- end
 			
 			if self.go.name == "quarterstaff" and champion:getSkillLevel("spellblade") >= 1 then
 				self.go.item:removeTrait("two_handed")
@@ -786,7 +786,7 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 		end
 	end
 
-	-- Steel Armcand
+	-- Steel Armband
 	if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "steel_armband" then
 		local bonus = 4
 		if champion:getItem(ItemSlot.Head) then bonus = bonus - 1 end
@@ -1416,6 +1416,7 @@ end
 -------------------------------------------------------------------------------------------------------
 -- Melee attack hits monster
 function monster_attacked(self, monster, tside, damage, champion) -- self = meleeattack or firearmattack
+	local c = champion:getOrdinal()
 	-- Pickaxe Chip effect
 	if self:getUiName() == "Chip" then
 		local chip = self.go.item:hasTrait("upgraded") and -2 or -1
@@ -1454,10 +1455,10 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 	
 	-- Hunter
 	if champion:getClass() == "hunter" then
-		hunterCrit(champion:getOrdinal(), 1, 6 + (champion:getLevel() - 1))
+		hunterCrit(c, 1, 6 + (champion:getLevel() - 1))
 		if monster:hasTrait("animal") then
 			wisdom_of_the_tribe_heal(champion)
-			delayedCall("functions", 0.15, "hitMonster", monster.go.id, math.ceil(damage * wisdom_of_the_tribe(champion) ), "339933", nil, self:getDamageType(), champion:getOrdinal())
+			delayedCall("functions", 0.15, "hitMonster", monster.go.id, math.ceil(damage * wisdom_of_the_tribe(champion) ), "FFFFFF", nil, "physical", c)
 		end
 	end	
 	
@@ -1542,12 +1543,23 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 		end
 	end
 	
-	if champion:getClass() == "assassin_class" then
-		if tside == 2 then
-			local sap = monster:getMaxHealth() * ((assassinations[champion:getOrdinal()] * 0.005) + 0.02)
-			delayedCall("functions", 0.15, "hitMonster", monster.go.id, sap, "CC9999", nil, "physical", champion:getOrdinal())
+	if tside == 2 then
+		-- Assassin (class) backstab leech
+		if champion:getClass() == "assassin_class" then
+			local sap = monster:getMaxHealth() * ((assassinations[c] * 0.005) + 0.02)
+			delayedCall("functions", 0.15, "hitMonster", monster.go.id, sap, "CC9999", nil, "physical", c)
 			champion:regainHealth(math.max(sap * (1 - (champion:getHealth() / champion:getMaxHealth())) * 0.5, 1))			
-		end	
+		end
+
+		-- Assassin (trait) backstab bleed
+		if champion:hasTrait("assassin") and self.go.item:hasTrait("light_weapon") then
+			set_c("assassin_bleed", c, true)
+		end
+	end
+
+	if champion:hasTrait("assassin") and get_c("assassin_bleed", c) and math.random() <= 0.20 then
+		monster:addTrait("bleeding")
+		set_c("assassin_bleed", c, nil)
 	end
 	
 	-- Killing blow effects
@@ -1634,7 +1646,6 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 	
 	if champion:getClass() == "hunter" then
 		hunterCrit(c, 1, 6 + (champion:getLevel() - 1))
-		--if target is animal then
 		if self:hasTrait("animal") then
 			wisdom_of_the_tribe_heal(champion)
 			delayedCall("functions", 0.15, "hitMonster", self.go.id, math.ceil(damage * wisdom_of_the_tribe(champion) ), "339933", nil, damageType, champion:getOrdinal())
@@ -2397,7 +2408,7 @@ function isArmorSetEquipped(champion, set)
 		return true
 	end
 
-	local armorSetPieces = { [chitin] = 4, ["valor"] = 5, ["crystal"] = 6, ["meteor"] = 6, ["bear"] = 3, ["embalmers"] = 4, ["archmage"] = 4, ["rogue"] = 5, ["makeshift"] = 5, ["reed"] = 5, ["mirror"] = 5 }
+	local armorSetPieces = { ["chitin"] = 4, ["valor"] = 5, ["crystal"] = 6, ["meteor"] = 6, ["bear"] = 3, ["embalmers"] = 4, ["archmage"] = 4, ["rogue"] = 5, ["makeshift"] = 5, ["reed"] = 5, ["mirror"] = 5 }
 	local mainSlots = {1,2,4,5,6}
 	local setCount = 0
 	for i = 1,#mainSlots do

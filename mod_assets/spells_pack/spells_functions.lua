@@ -2652,10 +2652,10 @@ function frontAttack(attack, power, ordinal)
 	end
 	
 	if functions.script.isArmorSetEquipped(champion, "mirror") then
-		if (a.tiledamager and a.tiledamager:getDamageType() == "fire") or (a.cloudspell and a.cloudspell:getDamageType() == "fire")
+		if (a.tiledamager and a.tiledamager:getDamageType() == "fire") or (a.cloudspell and a.cloudspell:getDamageType() == "fire") then
 			if a.tiledamager then a.tiledamager:setDamageType("cold") end
 			if a.cloudspell then a.cloudspell:setDamageType("cold") end
-		elseif (a.tiledamager and a.tiledamager:getDamageType() == "cold") or (a.cloudspell and a.cloudspell:getDamageType() == "cold")
+		elseif (a.tiledamager and a.tiledamager:getDamageType() == "cold") or (a.cloudspell and a.cloudspell:getDamageType() == "cold") then
 			if a.tiledamager then a.tiledamager:setDamageType("fire") end
 			if a.cloudspell then a.cloudspell:setDamageType("fire") end
 		end

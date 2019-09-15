@@ -1444,6 +1444,18 @@ defineTrait{
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 82,
 	description = "You gain double critical chance from items.",
+	onComputeCritChance = function(champion, weapon, attack, attackType, level)
+		if level > 0 then 
+			local crit = 0
+			for slot = ItemSlot.Weapon, ItemSlot.Bracers do
+				local item = champion:getItem(slot)
+				if item and item.go.equipmentitem and item.go.equipmentitem:getCriticalChance() then
+					crit = crit + item.go.equipmentitem:getCriticalChance()
+				end
+			end
+			return crit
+		end
+	end,
 }
 
 defineTrait{
