@@ -343,11 +343,9 @@ defineCondition{
 	name = "refreshed",
 	uiName = "Refreshed",
 	icon = 0,
-	description = "Increased health regeneration rate.",
-	gameEffect = [[
-	- Energy Regeneration Rate +125%.]],
+	description = "Gain +60 protection while a healing potion is in effect.",
 	onRecomputeStats = function(self, champion)
-		champion:addStatModifier("energy_regeneration_rate", 100)
+		champion:addStatModifier("protection", 60)
 	end,
 }
 

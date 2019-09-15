@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "mod_assets\\scripts"
+		},
+		{
+			"path": "mod_assets\\spells_pack"
+		},
+		{
+			"path": "mod_assets\\fire_cave"
+		},
+		{
+			"path": "docs"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "docs"
+	}
+}

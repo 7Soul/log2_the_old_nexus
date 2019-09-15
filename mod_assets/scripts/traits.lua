@@ -61,34 +61,33 @@ defineTrait{
 	- Energy 60 (+1 per level)
 	- Starts with every stat at 9 and gain +1 to all stats per level.
 	
-	Healing Light: Damaging enemies charge a Health and Energy Regeneration buff for you and an ally to your side.
+	Healing Aura: Damaging enemies charge a Health and Energy Regeneration buff for you and an ally to your side.
 	- 1% Health and Energy recovered per second.
 	- Duration is 12 seconds (+3 seconds per 4 levels).
 	- Deal the killing blow for a bonus charge.
 	
 	Holy Light: You gain a random bonus of 0 to 3 to all stats (+1 max per 3 levels).
-	- It begins when Healing Light ends.
+	- It begins when Healing Aura ends.
 	- Duration is 1 minute (+30 seconds per 4 levels).]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
 			champion:addStatModifier("max_health", 70 + (level-1) * 1)
 			champion:addStatModifier("max_energy", 60 + (level-1) * 1)
-			--champion:addStatModifier("food_rate", -25)
 			local strength = champion:getBaseStat("strength")
 			local dexterity = champion:getBaseStat("dexterity")
 			local vitality = champion:getBaseStat("vitality")
 			local willpower = champion:getBaseStat("willpower")
-			champion:addStatModifier("food_rate", -25)
+			-- champion:addStatModifier("food_rate", -25)
 			if Dungeon.getMaxLevels() ~= 0 then
 				local str = functions.script.get_c("monkstrength", champion:getOrdinal()) and functions.script.get_c("monkstrength", champion:getOrdinal()) or 0
 				local dex = functions.script.get_c("monkdexterity", champion:getOrdinal()) and functions.script.get_c("monkdexterity", champion:getOrdinal()) or 0
 				local vit = functions.script.get_c("monkvitality", champion:getOrdinal()) and functions.script.get_c("monkvitality", champion:getOrdinal()) or 0
 				local wil = functions.script.get_c("monkwillpower", champion:getOrdinal()) and functions.script.get_c("monkwillpower", champion:getOrdinal()) or 0
-				champion:addStatModifier("strength", -strength + 9 + str)
-				champion:addStatModifier("dexterity", -dexterity + 9 + dex)
-				champion:addStatModifier("vitality", -vitality + 9 + vit)
-				champion:addStatModifier("willpower", -willpower + 9 + wil)
+				champion:addStatModifier("strength", -strength + 9 + str + level)
+				champion:addStatModifier("dexterity", -dexterity + 9 + dex + level)
+				champion:addStatModifier("vitality", -vitality + 9 + vit + level)
+				champion:addStatModifier("willpower", -willpower + 9 + wil + level)
 			else
 				champion:addStatModifier("strength", -strength + 9)
 				champion:addStatModifier("dexterity", -dexterity + 9)
@@ -1177,17 +1176,21 @@ defineTrait{
 	uiName = "Endurance",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 66,
-	description = "25% Resistance to feet and leg wounds. Wearing Heavy boots doubles that effect.",
+	description = "25% Resistance to wounds. Wearing Heavy Armor triples the resistance for that body part.\n(Gloves protect from hand injuries).",
 	onReceiveCondition = function(champion, cond, level)
 		if level > 0 then
-			local bonus = 0.25
-			local item = champion:getItem(6)
-			if item and item:hasTrait("heavy_armor") then
-				bonus = 0.5
-			end
-			
-			if cond == ("leg_wound" or cond == "feet_wound") and math.random() <= bonus then
-				return false
+			local slots = {3,4,5,6,9,9}
+			local injuries = {"head_wound","chest_wound","leg_wound","feet_wound","left_hand_wound","right_hand_wound"}
+			for index, slot in ipairs(slots) do
+				local bonus = 0.25
+				local item = champion:getItem(slot)
+				if item and item:hasTrait("heavy_armor") then
+					bonus = bonus * 3
+				end
+				
+				if cond == injuries[index] and math.random() <= bonus then
+					return false
+				end
 			end
 		end
 	end,
@@ -1207,20 +1210,7 @@ defineTrait{
 	uiName = "Block",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 69,
-	description = "Gain 10% chance to block a physical attack with a shield.",
-}
-
-defineTrait{
-	name = "shield_bearer",
-	uiName = "Shield Bearer",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 70,
-	description = "Immunity against hand and chest wounds.",
-	onReceiveCondition = function(champion, cond, level)
-		if level > 0 and (cond == "chest_wound" or cond == "left_hand_wound" or cond == "right_hand_wound") then
-			return false
-		end
-	end,
+	description = "Gain 8% chance to block a physical attack with a shield.",
 }
 
 defineTrait{
@@ -1228,7 +1218,25 @@ defineTrait{
 	uiName = "Shield Bash",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 71,
-	description = "Bashes the enemy for 150% of the damage received when you block an attack.",
+	description = "When blocking, you bash your attacker, doing damage based on your Protection.",
+}
+
+defineTrait{
+	name = "shield_bearer",
+	uiName = "Shield Bearer",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 70,
+	description = "Every time you are attacked, you gain 2 Protection and 1% Block Chance. This effect stacks until you block an attack.",
+	onRecomputeStats = function(champion, level)
+		if level > 0 then
+			if (item1 and item1:hasTrait("shield")) or (item2 and item2:hasTrait("shield")) or functions.script.isArmorSetEquipped(champion, "chitin") then
+				local c = champion:getOrdinal()
+				local charges = functions.script.get_c("shield_bearer", c) and functions.script.get_c("shield_bearer", c) + 1 or 0
+				if champion:hasCondition("ancestral_charge") then charges = charges * 1.5 end
+				champion:addStatModifier("protection", math.floor(charges) * 2)
+			end
+		end
+	end,
 }
 
 -- Light Armor

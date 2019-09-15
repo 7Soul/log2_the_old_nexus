@@ -517,8 +517,7 @@ defineObject{
 			gfxIndex = 39,
 			weight = 0.5,
 			armorSetPieces = 4,
-			gameEffect = [[[Lurker Set]
-			Invisibility spell costs half to cast.]],
+			gameEffect = [[[Lurker Set]	Invisibility spell costs half to cast.]],
 			traits = { "clothes", "leg_armor", "upgradable" },
 		},
 		{
@@ -939,7 +938,7 @@ defineObject{
 		},
 		{
 			class = "EquipmentItem",
-			protection = 5,
+			protection = 4,
 			dexterity = 1,
 		},
 	},
@@ -969,7 +968,7 @@ defineObject{
 		},
 		{
 			class = "EquipmentItem",
-			protection = 5,
+			protection = 3,
 			dexterity = 1,
 		},
 	},
@@ -1000,7 +999,7 @@ defineObject{
 		},
 		{
 			class = "EquipmentItem",
-			protection = 5,
+			protection = 3,
 			dexterity = 1,
 		},
 	},
@@ -1030,7 +1029,7 @@ defineObject{
 		},
 		{
 			class = "EquipmentItem",
-			protection = 5,
+			protection = 3,
 			dexterity = 1,
 		},
 	},

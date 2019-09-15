@@ -169,9 +169,9 @@ function teststart()
 
 	if Editor.isRunning() then
 		--setDefaultParty()
-		party.party:getChampionByOrdinal(1):setClass("tinkerer")
+		party.party:getChampionByOrdinal(1):setClass("berserker")
 		party.party:getChampionByOrdinal(2):setClass("hunter")
-		party.party:getChampionByOrdinal(3):setClass("druid")
+		party.party:getChampionByOrdinal(3):setClass("monk")
 		party.party:getChampionByOrdinal(4):setClass("elementalist")
 		party.party:getChampionByOrdinal(1):setRace("human")
 		party.party:getChampionByOrdinal(2):setRace("minotaur")
@@ -1327,27 +1327,33 @@ function onMonsterDealDamage(self, champion, damage)
 	local item1 = champion:getItem(ItemSlot.Weapon)
 	local item2 = champion:getOtherHandItem(ItemSlot.Weapon)
 	local monster = self
+	local c = champion:getOrdinal()
 	-- Shield bash and blocking
-	if (item1 and item1:hasTrait("shield")) or (item2 and item2:hasTrait("shield")) then
-		local addedChance = 0.03 + (champion:getSkillLevel("block") / 50)
+	if (item1 and item1:hasTrait("shield")) or (item2 and item2:hasTrait("shield")) or isArmorSetEquipped(champion, "chitin") then
+		local addedChance = champion:getSkillLevel("block") / 50
 		if champion:hasTrait("block") then addedChance = addedChance + 0.08 end
-		if champion:hasTrait("shield_bearer") then addedChance = addedChance + 0.02 end
-		if champion:hasTrait("shield_bash") then addedChance = addedChance + 0.02 end
-		if champion:hasCondition("ancestral_charge") then addedChance = addedChance * 2 end
+		addedChance = get_c("shield_bearer", c) and addedChance + (get_c("shield_bearer", c) * 0.01) or addedChance
+		if champion:hasCondition("ancestral_charge") then addedChance = addedChance * 1.5 end
 		if math.random() <= addedChance then
-			champion:setHealth(champion:getHealth() + math.ceil(damage * 0.5))
+			champion:setHealth(champion:getHealth() + math.ceil(damage * 0.51))
 			if champion:hasTrait("shield_bash") then
 				local dx,dy = getForward(party.facing)
 				local flags = DamageFlags.CameraShake
 				champion:playDamageSound()
 				if champion:hasCondition("ancestral_charge") then damage = damage * 1.5 end
 				delayedCall("functions", 0.15, "hitMonster", monster.go.id, math.ceil(damage * 1.5), "CCCCCC", "Shield Bash!", "physical", champion:getOrdinal())
+				set_c("shield_bearer", nil)
 				--if math.random() <= 0.5 then self.go.animation:play("getHitFrontRight") else self.go.animation:play("getHitFrontLeft") end
 				--self.go.monster:showDamageText("" .. math.ceil(damage * 1.5), "FFFFFF", "Shield Bash!")
 				--self.go.monster:setHealth(self.go.monster:getHealth() - math.ceil(damage * 1.5))
 				--party.party:onDrawAttackPanel(self, champion, context, x, y)
 				--context.drawImage2("mod_assets/textures/gui/block.dds", x+48, y-68, 0, 0, 128, 75, 128, 75)
 			end
+		end
+
+		if champion:hasTrait("shield_bearer") then
+			local shield_bearer = get_c("shield_bearer", c) and get_c("shield_bearer", c) + 1 or 0
+			set_c("shield_bearer", shield_bearer  + 1)
 		end
 	end
 	
@@ -2391,7 +2397,7 @@ function isArmorSetEquipped(champion, set)
 		return true
 	end
 
-	local armorSetPieces = { ["valor"] = 5, ["crystal"] = 6, ["meteor"] = 6, ["bear"] = 3, ["embalmers"] = 4, ["archmage"] = 4, ["rogue"] = 5, ["makeshift"] = 5, ["reed"] = 5, ["mirror"] = 5 }
+	local armorSetPieces = { [chitin] = 4, ["valor"] = 5, ["crystal"] = 6, ["meteor"] = 6, ["bear"] = 3, ["embalmers"] = 4, ["archmage"] = 4, ["rogue"] = 5, ["makeshift"] = 5, ["reed"] = 5, ["mirror"] = 5 }
 	local mainSlots = {1,2,4,5,6}
 	local setCount = 0
 	for i = 1,#mainSlots do

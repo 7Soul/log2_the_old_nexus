@@ -28,17 +28,14 @@ defineSkill{
 	description = [[Protection and Block Chance +2 per point.
 		
 	Perks (when holding a shield):
-	- Level 2 | 10% chance to block an attack.
-	- Level 4 | Bashes your attacker for 150% of the damage received when you block.
+	- Level 2 | 8% chance to block an attack.
+	- Level 4 | When blocking, you bash your attacker, doing damage based on your Protection.
 	- Level 5 | Every time you are attacked, you gain 2 Protection and 1% Block Chance. This effect stacks until you block an attack.]],
-	traits = { [2] = "block", [4] = "shield_bearer", [5] = "shield_bash" },
+	traits = { [2] = "block", [4] = "shield_bash", [5] = "shield_bearer" },
 	onRecomputeStats = function(champion, level)
 		local skillLevel = champion:getSkillLevel("block")
-		champion:addStatModifier("resist_fire", 2 * skillLevel)
-		champion:addStatModifier("resist_cold", 2 * skillLevel)
-		champion:addStatModifier("resist_poison", 2 * skillLevel)
-		champion:addStatModifier("resist_shock", 2 * skillLevel)
-		champion:addStatModifier("protection", 2 * skillLevel)
+		if champion:hasCondition("ancestral_charge") then skillLevel = skillLevel * 1.5 end
+		champion:addStatModifier("protection", 2 * math.floor(skillLevel))
 	end,
 }
 

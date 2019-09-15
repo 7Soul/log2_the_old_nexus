@@ -849,7 +849,20 @@ defineObject{
 					context.drawText("Cost: " .. tostring(skill.cost) .. " Energy", MX - (txt_w / 2), MY - 20)
 				end
 			end
-			
+
+			local textIndex = 0
+			for i=1,4 do
+				local champion = party.party:getChampionByOrdinal(i)
+				if functions.script.get_c("level_up_message_timer", champion:getOrdinal()) then
+					local text = functions.script.get_c("level_up_message", champion:getOrdinal())
+					textIndex = textIndex + 1
+					local timer = 3 - (functions.script.get_c("level_up_message_timer", champion:getOrdinal()) or 0)
+					timer = math.max(timer, 0)
+					context.font("medium")
+					context.color(255, 255, 255, 255 - (timer*85))
+					context.drawText(text, (w - (w / 2)) - (context.getTextWidth(text) / 2), (f2 * h * 0.01) + (textIndex * 24))
+				end	
+			end
 		end,
 		
 		onDrawStats = function(self, context, champion)	
@@ -1086,6 +1099,7 @@ defineObject{
 				end
 			end
 		end, 		
+
 		onLevelUp = function(party,champion) 
 			--print(party.go.id,champion:getName(),'leveled up!') 
 			-- Assassin's gets 'assassination' on level up
@@ -1094,6 +1108,7 @@ defineObject{
 					champion:addTrait("assassination")
 				end
 			end
+
 			if champion:getClass() == "tinkerer" then
 				local count = functions.script.get_c("crafting_expertise", champion:getOrdinal())
 				functions.script.set_c("crafting_expertise", champion:getOrdinal(), count ~= nil and math.min(count + 1, 3) or 1)
@@ -1101,7 +1116,33 @@ defineObject{
 					hudPrint(champion:getName() .. ", the Tinkerer gained one charge of Crafting Expertise.")
 				end
 			end
+
+			if champion:getClass() == "berserker" and (champion:getLevel()-1) % 3 == 0 then
+				functions.script.set_c("level_up_message", champion:getOrdinal(), champion:getName() .. " gained +6 Protection and +1 Strenght to Berserker Frenzy.")
+				functions.script.set_c("level_up_message_timer", champion:getOrdinal(), 8)
+			end
+
+			if champion:getClass() == "monk" and (champion:getLevel()-1) % 4 == 0 then
+				functions.script.set_c("level_up_message", champion:getOrdinal(), champion:getName() .. " gained +3 seconds duration to Healing Aura and +30 seconds to Holy Light.")
+				functions.script.set_c("level_up_message_timer", champion:getOrdinal(), 8)
+			end
+
+			if champion:getClass() == "hunter" then
+				functions.script.set_c("level_up_message", champion:getOrdinal(), champion:getName() .. " gained +1 second duration to Thrill of the Hunt.")
+				functions.script.set_c("level_up_message_timer", champion:getOrdinal(), 8)
+			end
+
+			if champion:getClass() == "elementalist" and (champion:getLevel()-1) % 3 == 0 then
+				functions.script.set_c("level_up_message", champion:getOrdinal(), champion:getName() .. " gained +3 seconds duration to Trine Aegis.")
+				functions.script.set_c("level_up_message_timer", champion:getOrdinal(), 8)
+			end
+
+			if champion:getClass() == "stalker" and (champion:getLevel()-1) % 3 == 0 then
+				functions.script.set_c("level_up_message", champion:getOrdinal(), champion:getName() .. " gained +4 seconds duration to Night Stalker.")
+				functions.script.set_c("level_up_message_timer", champion:getOrdinal(), 8)
+			end
 		end,
+
 		onPickUpItem = function(party, item)
 			if item.go.model then
 				item.go.model:setOffset(vec(0,0,0))
@@ -1109,6 +1150,7 @@ defineObject{
 			end
 			functions2.script.checkIronKeyBurn(party,item)
 		end,
+
 		onGetPortrait = function(self,champion)
 		end,
 	},
@@ -1306,6 +1348,15 @@ defineObject{
 						functions.script.set_c("healinglight", champion:getOrdinal(), healingLight)
 					end
 				end
+
+				if functions.script.get_c("level_up_message_timer", champion:getOrdinal()) then
+					local timer = functions.script.get_c("level_up_message_timer", champion:getOrdinal())
+					if timer > 0 then
+						functions.script.set_c("level_up_message_timer", champion:getOrdinal(), timer - 0.02)
+					else
+						functions.script.set_c("level_up_message_timer", champion:getOrdinal(), nil)
+					end
+				end
 			end
 		end
 	},
@@ -1316,7 +1367,7 @@ defineObject{
 	{
 		class = "Timer",
 		name = "timetravel",
-		timerInterval = 1,
+		timerInterval = 1, -- once per second
 		triggerOnStart = true,
 		onActivate = function(self)
 			self.go.timetraveltimer:increment()
@@ -1335,6 +1386,7 @@ defineObject{
 				
 			for i=1,4 do
 				local champion = party.party:getChampionByOrdinal(i)
+				local c = champion:getOrdinal()
 				if champion:hasTrait("bite") then
 					local biteTimer = functions.script.get_c("bite", champion:getOrdinal())
 					if biteTimer and biteTimer > 0 then

@@ -2651,6 +2651,16 @@ function frontAttack(attack, power, ordinal)
 		end
 	end
 	
+	if functions.script.isArmorSetEquipped(champion, "mirror") then
+		if (a.tiledamager and a.tiledamager:getDamageType() == "fire") or (a.cloudspell and a.cloudspell:getDamageType() == "fire")
+			if a.tiledamager then a.tiledamager:setDamageType("cold") end
+			if a.cloudspell then a.cloudspell:setDamageType("cold") end
+		elseif (a.tiledamager and a.tiledamager:getDamageType() == "cold") or (a.cloudspell and a.cloudspell:getDamageType() == "cold")
+			if a.tiledamager then a.tiledamager:setDamageType("fire") end
+			if a.cloudspell then a.cloudspell:setDamageType("fire") end
+		end
+	end
+	
 	if a.tiledamager then a.tiledamager:setCastByChampion(ordinal) a.tiledamager:setAttackPower(power) end
 	if a.cloudspell then a.cloudspell:setCastByChampion(ordinal) a.cloudspell:setAttackPower(power) end
 	if a.forcefield then delayedCall(a.id, power, "deactivate") delayEffects(power+3, destroy, {a.id}) end

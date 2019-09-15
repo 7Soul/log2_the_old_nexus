@@ -990,7 +990,6 @@ defineObject{
 			class = "EquipmentItem",
 			vitality = 2,
 			resistCold = 20,
-			resistCold = 20,
 			onRecomputeStats = function(self, champion)
 				if functions.script.isArmorSetEquipped(champion, "bear") then
 					if champion:hasCondition("bear_form") then

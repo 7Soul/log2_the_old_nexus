@@ -64,6 +64,9 @@ defineObject{
 			onUseItem = function(self, champion)
 				champion:setConditionValue("healing_potion", 16)
 				champion:playHealingIndicator()
+				if champion:hasTrait("refreshed") then
+					champion:setConditionValue("refreshed", 16)
+				end
 				if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "diviner_cloak" then
 					champion:regainEnergy(champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 40 or 20)
 				end
@@ -97,6 +100,9 @@ defineObject{
 			onUseItem = function(self, champion)
 				champion:setConditionValue("healing_potion2", 8)
 				champion:playHealingIndicator()
+				if champion:hasTrait("refreshed") then
+					champion:setConditionValue("refreshed", 8)
+				end
 				if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "diviner_cloak" then
 					champion:regainEnergy(champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 40 or 20)
 				end
