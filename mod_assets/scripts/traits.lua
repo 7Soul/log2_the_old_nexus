@@ -841,7 +841,14 @@ defineTrait{
 		if level > 0 then
 			--champion:addStatModifier("dexterity", 15)
 		end
-	end
+	end,
+	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 then
+			if functions.script.get_c("drown_your_sorrows", champion:getOrdinal()) then
+				return 0.5
+			end
+		end
+	end,
 }
 
 defineTrait{

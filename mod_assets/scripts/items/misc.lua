@@ -643,9 +643,6 @@ defineObject{
 		{
 			class = "CraftPotion",
 			requirements = { "alchemy", 1 },
-			onCraftItem = function()
-				print("ok")
-			end
 		},
 	},
 	tags = { "item_misc" }

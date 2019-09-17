@@ -13,7 +13,7 @@ defineObject{
 			uiName = "Buckler",
 			gfxIndex = 314,
 			weight = 2.7,
-			traits = { "shield", "bracers" },
+			traits = { "shield", "bracers", "metal" },
 		},
 		{
 			class = "EquipmentItem",
@@ -65,7 +65,7 @@ defineObject{
 			uiName = "Round Shield",
 			gfxIndex = 55,
 			weight = 3.8,
-			traits = { "shield", "upgradable" },
+			traits = { "shield", "upgradable", "metal" },
 		},
 		{
 			class = "EquipmentItem",
@@ -88,7 +88,7 @@ defineObject{
 			uiName = "Ancient Shield",
 			gfxIndex = 295,
 			weight = 4.0,
-			traits = { "shield", "upgradable" },
+			traits = { "shield", "upgradable", "metal" },
 			description = "This shield radiates unholy energy.",
 		},
 		{
@@ -113,7 +113,7 @@ defineObject{
 			uiName = "Heavy Shield",
 			gfxIndex = 15,
 			weight = 8.0,
-			traits = { "shield", "upgradable" },
+			traits = { "shield", "upgradable", "metal" },
 		},
 		{
 			class = "EquipmentItem",
@@ -137,7 +137,7 @@ defineObject{
 			description = "A shiny shield that is embossed with the magical symbols of the four elements.",
 			gfxIndex = 2,
 			weight = 7.5,
-			traits = { "shield", "upgradable" },
+			traits = { "shield", "upgradable", "metal" },
 		},
 		{
 			class = "EquipmentItem",
@@ -164,7 +164,7 @@ defineObject{
 			description = "The polished surface of this shield resembles that of a pearl.",
 			gfxIndex = 236,
 			weight = 4.1,
-			traits = { "shield", "upgradable" },
+			traits = { "shield", "upgradable", "metal" },
 			gameEffect = [[Special: Heals the party completely.]],
 			secondaryAction = "heal",
 		},
@@ -206,7 +206,7 @@ defineObject{
 			gfxIndexArmorSet = 102,
 			armorSet = "valor",
 			weight = 6.5,
-			traits = { "shield", "upgradable" },
+			traits = { "shield", "upgradable", "metal", "epic" },
 			gameEffect = [[Special: Increases Strength of the party by 1 (+1 per 2 levels) for 45 seconds.
 			
 			Valor Set: Duration +45 seconds.]],
@@ -249,7 +249,7 @@ defineObject{
 			gfxIndexPowerAttack = 204,
 			weight = 3.5,
 			secondaryAction = "anticurse",
-			traits = { "shield", "epic" },
+			traits = { "shield", "epic", "metal" },
 			gameEffect = [[Wearer gains immunity to petrify condition.
 			
 			Special: Gives petrify immunity to the entire party for 45 seconds.
@@ -294,7 +294,7 @@ defineObject{
 			gfxIndexPowerAttack = 474,			
 			weight = 5.5,
 			secondaryAction = "fireShield",
-			traits = { "shield", "epic" },
+			traits = { "shield", "epic", "metal" },
 		},
 		{
 			class = "EquipmentItem",

@@ -113,7 +113,7 @@ defineCondition{
 
 defineCondition{
 	name = "healing_light",
-	uiName = "Healing Light",
+	uiName = "Healing Aura",
 	description = "1% Health and Energy recovered per second.",
 	icon = 25,
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
@@ -184,7 +184,7 @@ defineCondition{
 
 defineCondition{
 	name = "healing_light2",
-	uiName = "Healing Light",
+	uiName = "Healing Aura",
 	description = "1% Health and Energy recovered per second.",
 	icon = 25,
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
@@ -567,8 +567,10 @@ defineCondition{
 	harmful = false,
 	tickInterval = 1,
 	onStart = function(self, champion)
+		functions.script.set_c("drown_your_sorrows", champion:getOrdinal(), true)
 	end,
 	onStop = function(self, champion)
+		functions.script.set_c("drown_your_sorrows", champion:getOrdinal(), nil)
 	end,
 	onRecomputeStats = function(self, champion)
 		champion:addStatModifier("protection", 5)

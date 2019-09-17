@@ -73,6 +73,7 @@ import "mod_assets/scripts/items/staves.lua"
 import "mod_assets/scripts/items/swords.lua"
 import "mod_assets/scripts/items/throwing_weapons.lua"
 import "mod_assets/scripts/items/tomes.lua"
+import "mod_assets/scripts/items/tinkering.lua"
 -- Other
 import "mod_assets/scripts/particles/blooddrop.lua"
 import "mod_assets/scripts/particles/soundGate.lua"
@@ -192,6 +193,37 @@ defineObject{
 		-----------------------------------------------------------
 		onAttack = function(party, champion, action, slot)
 			print(champion:getName(), "is attacking with", action.go.name)
+
+			if action.go.name == "tinkering_toolbox" then
+				local hasLockpick = false
+				local item = nil
+				for i = ItemSlot.BackpackFirst, ItemSlot.BackpackLast do
+					if not hasLockpick then
+						item = champion:getItem(i)
+						if item and item.go.name == "lock_pick" then 
+							hasLockpick = true 
+						end
+					end
+				end
+
+				-- Enable tinkering mode if has a lockpick
+				if hasLockpick then
+					-- Sets target item to the other hand slot to the toolbox
+					local otherSlot = slot == ItemSlot.Weapon and ItemSlot.OffHand or ItemSlot.Weapon								
+					if champion:getItem(otherSlot) then
+						if champion:getItem(otherSlot):hasTrait("upgradable") then
+							functions.script.set_c("tinkering", champion:getOrdinal(), otherSlot)
+						else
+							hudPrint("Item is not upgradable.")
+						end
+					else
+						hudPrint("Needs target item in other hand.")
+					end
+				else
+					hudPrint("Needs Lockpicks.")
+					functions.script.set_c("tinkering", champion:getOrdinal(), nil)
+				end
+			end
 			
 			if action.go.item:getSecondaryAction() == "dagger_throw" and action.go.dagger_throw == action then
 				if action.go.meleeattack then
@@ -364,9 +396,44 @@ defineObject{
 				
 				if item then
 					if champion:hasTrait("tinkering") then
-						if getMouseItem()  and getMouseItem().go.name == "lock_pick" and button == 2 and item:hasTrait("upgradable") then
-							functions.script.tinkererUpgrade(self, champion, container, slot, button)
+						-- Cancel if clicking in an equipped item
+						if not (slot >= ItemSlot.BackpackFirst and slot <= ItemSlot.BackpackLast) then
+							functions.script.set_c("tinkering", champion:getOrdinal(), nil)
 						end
+
+						-- Right-Click on tinkering toolbox in hand
+						if not getMouseItem() and button == 2 and item.go.name == "tinkering_toolbox" and (slot == ItemSlot.Weapon or slot == ItemSlot.OffHand) then
+							local hasLockpick = false
+							local item = nil
+							for i = ItemSlot.BackpackFirst, ItemSlot.BackpackLast do
+								if not hasLockpick then
+									item = champion:getItem(i)
+									if item and item.go.name == "lock_pick" then 
+										hasLockpick = true 
+									end
+								end
+							end
+
+							-- Enable tinkering mode if has a lockpick
+							if hasLockpick then
+								-- Sets target item to the other hand slot to the toolbox
+								local otherSlot = slot == ItemSlot.Weapon and ItemSlot.OffHand or ItemSlot.Weapon								
+								if champion:getItem(otherSlot) then
+									functions.script.set_c("tinkering", champion:getOrdinal(), otherSlot)
+								else
+									if champion:getItem(otherSlot):hasTrait("upgradable") then
+										functions.script.set_c("tinkering", champion:getOrdinal(), otherSlot)
+									else
+										hudPrint("Item is not upgradable.")
+									end
+								end
+							else
+								hudPrint("Needs Lockpicks.")
+								functions.script.set_c("tinkering", champion:getOrdinal(), nil)
+							end
+						end
+
+						-- Dismantler
 						if champion:hasTrait("dismantler") then
 							local dismantle = 0
 							local container = item.go.containeritem
@@ -389,6 +456,11 @@ defineObject{
 							end
 						end
 					end
+				else
+					-- Cancel if clicking an empty slot
+					if not getMouseItem() and functions.script.get_c("tinkering", champion:getOrdinal()) then
+						functions.script.set_c("tinkering", champion:getOrdinal(), nil)
+					end
 				end
 			end
 			if container and container:getItem(slot) then print(champion:getName(), "clicked item", container:getItem(slot).go.name, "with button", button) end
@@ -402,9 +474,6 @@ defineObject{
 			local MX, MY = context.mouseX, context.mouseY
 
 			if champion:hasTrait("tinkering") then
-				if Editor.isRunning() and context.keyDown("T") then 
-					functions.script.tinkering_level[champion:getOrdinal()] = functions.script.tinkering_level[champion:getOrdinal()] + 1
-				end
 				-- Draw "dismantle" icon on items
 				local posx, posy = 0, 0
 				for i=13,ItemSlot.BackpackLast do
@@ -421,9 +490,9 @@ defineObject{
 						end
 					end
 				end	
-				
+
 				-- Show tinkering level and upgradable icon while lock-pick is in hand
-				if getMouseItem() and getMouseItem().go.name == "lock_pick" then
+				if functions.script.get_c("tinkering", champion:getOrdinal()) then
 					local posx, posy = 0, 0
 					for i=13,ItemSlot.BackpackLast do
 						if champion:getItem(i) and champion:getItem(i):hasTrait("upgradable") then
@@ -438,7 +507,7 @@ defineObject{
 						local count = functions.script.get_c("crafting_expertise", champion:getOrdinal())
 						if count ~= nil and count > 0 then
 							local text2 = "Crafting Bonus = ".. count
-							context.drawText(text2, MX - (context.getTextWidth(text2) / 2), MY + 30)
+							-- context.drawText(text2, MX - (context.getTextWidth(text2) / 2), MY + 30)
 						end
 					end
 				end
@@ -595,6 +664,65 @@ defineObject{
 				context.font("small")
 			elseif f < 0.2 then
 				context.font("tiny")
+			end
+
+			if functions.script.get_c("tinkering", champion:getOrdinal()) then
+				-- Draw tinkering UI
+				context.drawImage2("mod_assets/textures/gui/tinker_ui.dds", x, y, 0, 0, 171, 117, 171, 117)
+				local item = champion:getItem(functions.script.get_c("tinkering", champion:getOrdinal()))
+				local materials = functions.script.tinkererGetMaterialList(item)
+				-- Draw item requirements
+				context.font("small")
+				for mat, value in pairs(materials) do
+					-- for i = ItemSlot.BackpackFirst, ItemSlot.BackpackLast do
+					print("mat: " .. mat .. " : " .. value)
+					-- end
+					if value > 0 then
+						if mat == "metal_bar" then
+							context.drawImage2("mod_assets/textures/gui/items.dds", x-2, y-2, 225, 300, 75, 75, 50, 50)
+							context.drawText("" .. value, x + 31, y + 14)
+						elseif mat == "metal_nugget" then
+							context.drawImage2("mod_assets/textures/gui/items.dds", x + 35, y-7, 375, 300, 75, 75, 60, 60)
+							context.drawText("" .. value, x + 31 + (44*1), y + 14)
+						elseif mat == "leather" then
+							context.drawImage2("mod_assets/textures/gui/items.dds", x + 82, y-2, 525, 300, 75, 75, 50, 50)
+							context.drawText("" .. value, x + 31 + (44*2), y + 14)
+						elseif mat == "leather_strips" then
+							context.drawImage2("mod_assets/textures/gui/items.dds", x + 124, y-1, 450, 300, 75, 75, 50, 50)
+							context.drawText("" .. value, x + 31 + (44*3), y + 14)
+						elseif mat == "silk" then
+							context.drawImage2("mod_assets/textures/gui/items.dds", x - 8, y+38, 300, 300, 75, 75, 58, 58)
+							context.drawText("" .. value, x + 31 + (44*0), y + 58) 
+						elseif mat == "gold" then
+							context.drawImage2("mod_assets/textures/gui/items.dds", x + 40, y+39, 750, 300, 75, 75, 50, 50)
+							context.drawText("" .. value, x + 31 + (44*1), y + 58) 
+						elseif mat == "skull" then
+							context.drawImage2("assets/textures/gui/items.dds", x + 80, y+35, 375, 150, 75, 75, 55, 55)
+							context.drawText("" .. value, x + 31 + (44*2), y + 58) 
+						elseif mat == "crystal_flower" then
+							context.drawImage2("assets/textures/gui/items.dds", x + 123, y+35, 150, 450, 75, 75, 55, 55)
+							context.drawText("" .. value, x + 31 + (44*3), y + 58) 
+						end
+					end
+				end
+
+				-- Exit button
+				local val1, val2 = context.button("tinkering_exit", x + 135, y + 89, 34, 25)
+				if val1 or val2 then			
+					if context.mouseDown(3) then
+						functions.script.set_c("tinkering", champion:getOrdinal(), nil)
+					end
+				end
+				-- Upgrade button
+				local upg1, upg2 = context.button("tinkering_confirm", x, y + 86, 132, 31)
+				if upg1 or upg2 then
+					if context.mouseDown(3) then
+						functions.script.tinkererUpgrade(self, champion, functions.script.get_c("tinkering", champion:getOrdinal()))
+						functions.script.set_c("tinkering", champion:getOrdinal(), nil)
+					end
+				end
+
+				return false
 			end
 			
 			if champion:getClass() == "monk" then
@@ -857,6 +985,18 @@ defineObject{
 					local text = functions.script.get_c("level_up_message", champion:getOrdinal())
 					textIndex = textIndex + 1
 					local timer = 3 - (functions.script.get_c("level_up_message_timer", champion:getOrdinal()) or 0)
+					timer = math.max(timer, 0)
+					context.font("medium")
+					context.color(255, 255, 255, 255 - (timer*85))
+					context.drawText(text, (w - (w / 2)) - (context.getTextWidth(text) / 2), (f2 * h * 0.01) + (textIndex * 24))
+				end	
+			end
+			for i=1,4 do
+				local champion = party.party:getChampionByOrdinal(i)
+				if functions.script.get_c("level_up_message_2_timer", champion:getOrdinal()) then
+					local text = functions.script.get_c("level_up_message_2", champion:getOrdinal())
+					textIndex = textIndex + 1
+					local timer = 3 - (functions.script.get_c("level_up_message_2_timer", champion:getOrdinal()) or 0)
 					timer = math.max(timer, 0)
 					context.font("medium")
 					context.color(255, 255, 255, 255 - (timer*85))
@@ -1141,6 +1281,16 @@ defineObject{
 				functions.script.set_c("level_up_message", champion:getOrdinal(), champion:getName() .. " gained +4 seconds duration to Night Stalker.")
 				functions.script.set_c("level_up_message_timer", champion:getOrdinal(), 8)
 			end
+
+			if champion:hasTrait("carnivorous") and (champion:getLevel() == 8 or champion:getLevel() == 12) then
+				functions.script.set_c("level_up_message_2", champion:getOrdinal(), champion:getName() .. " gained +4 minute duration to Carnivorous.")
+				functions.script.set_c("level_up_message_2_timer", champion:getOrdinal(), 8)
+			end
+
+			if champion:hasTrait("bite") and (champion:getLevel() == 8 or champion:getLevel() == 12) then
+				functions.script.set_c("level_up_message_2", champion:getOrdinal(), champion:getName() .. " gained -5 seconds cooldown to Bite.")
+				functions.script.set_c("level_up_message_2_timer", champion:getOrdinal(), 8)
+			end
 		end,
 
 		onPickUpItem = function(party, item)
@@ -1355,6 +1505,15 @@ defineObject{
 						functions.script.set_c("level_up_message_timer", champion:getOrdinal(), timer - 0.02)
 					else
 						functions.script.set_c("level_up_message_timer", champion:getOrdinal(), nil)
+					end
+				end
+
+				if functions.script.get_c("level_up_message_2_timer", champion:getOrdinal()) then
+					local timer = functions.script.get_c("level_up_message_2_timer", champion:getOrdinal())
+					if timer > 0 then
+						functions.script.set_c("level_up_message_2_timer", champion:getOrdinal(), timer - 0.02)
+					else
+						functions.script.set_c("level_up_message_2_timer", champion:getOrdinal(), nil)
 					end
 				end
 			end

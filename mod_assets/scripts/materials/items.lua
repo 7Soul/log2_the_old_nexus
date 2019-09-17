@@ -640,6 +640,19 @@ defineMaterial{
 }
 
 defineMaterial{
+	name = "chitin_gloves",
+	diffuseMap = "mod_assets/textures/items/gauntlets_chitin_dif.tga",
+	specularMap = "assets/textures/items/plate_gauntlets_spec.tga",
+	doubleSided = false,
+	lighting = true,
+	alphaTest = false,
+	blendMode = "Opaque",
+	textureAddressMode = "Wrap",
+	glossiness = 40,
+	depthBias = 0,
+}
+
+defineMaterial{
 	name = "nomad_clothes",
 	diffuseMap = "assets/textures/items/nomad_clothes_dif.tga",
 	specularMap = "assets/textures/common/black.tga",

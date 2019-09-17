@@ -323,6 +323,7 @@ defineSkill{
 	-- Level 2 spell > fear (lowers monster morale and protection)
 	-- Level 3 spell > wicked (smoke cloud that moves around randomly, does poison damage and lowers accuracy)
 	-- Level 5 spell > thunderstorm (2x2 shocks area over a period)
+	-- Darkness spells?
 	name = "witchcraft",
 	uiName = "Witchcraft",
 	priority = 170,

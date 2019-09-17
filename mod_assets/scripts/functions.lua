@@ -162,14 +162,14 @@ function teststart()
 		for c=1,4 do
 			local champion = party.party:getChampionByOrdinal(c)
 			if champion:getClass() == defaultPartyCheck[i] then
-				setDefaultParty()
+				-- setDefaultParty()
 			end
 		end
 	end
 
 	if Editor.isRunning() then
 		--setDefaultParty()
-		party.party:getChampionByOrdinal(1):setClass("berserker")
+		party.party:getChampionByOrdinal(1):setClass("tinkerer")
 		party.party:getChampionByOrdinal(2):setClass("hunter")
 		party.party:getChampionByOrdinal(3):setClass("monk")
 		party.party:getChampionByOrdinal(4):setClass("elementalist")
@@ -268,7 +268,7 @@ function teststart()
 			
 			if champion:getClass() == "tinkerer" then
 				if champion:getSkillLevel("tinkering") == 0 then champion:trainSkill("tinkering", 1) end
-				for s=13,24 do champion:removeItemFromSlot(s) end
+				for s=13,25 do champion:removeItemFromSlot(s) end
 				champion:insertItem(13,spawn("flintlock").item)
 				champion:insertItem(14,spawn("pellet_box").item)
 				champion:getItem(14):setStackSize(50)
@@ -278,6 +278,11 @@ function teststart()
 				for	d=1,4 do
 					champion:insertItem(16+d,spawn("dagger").item)
 				end
+				champion:insertItem(21,spawn("tinkering_toolbox").item)
+				champion:insertItem(22,spawn("metal_bar").item)
+				champion:insertItem(23,spawn("metal_nugget").item)
+				champion:insertItem(24,spawn("leather_strips").item)
+				champion:insertItem(25,spawn("leather").item)
 			end
 			
 			-- Races
@@ -382,7 +387,7 @@ function onConsumeFood(self, champion)
 	if champion:hasTrait("carnivorous") and champion:isAlive() then
 		if self.go.item:hasTrait("consumable") and self.go.item:hasTrait("meat") then
 			champion:setConditionValue("carnivorous", 60 + (math.floor(champion:getLevel() / 8 ) * 60) + (math.floor(champion:getLevel() / 12 ) * 60) )
-			champion:modifyFood(self.go.usableitem:getNutritionValue() * 0.15)
+			champion:modifyFood(self.go.usableitem:getNutritionValue() * 0.15) -- extra 15% hunger gain
 		else
 			hudPrint("This isn't meat...")
 			return false
@@ -847,7 +852,7 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 	-- Lizardman Bite
 	if champion:hasTrait("bite") then
 		if get_c("bite", champion:getOrdinal()) == nil or get_c("bite", champion:getOrdinal()) == 0 then
-			set_c("bite", champion:getOrdinal(), 30 - ((champion:getLevel() - 1) * 1.0) )
+			set_c("bite", champion:getOrdinal(), 30 - (math.floor(champion:getLevel() / 5) * 5 ) )
 			set_c("bite_damage", champion:getOrdinal(), champion:getCurrentStat("dexterity") - 5 )
 			set_c("bite_accuracy", champion:getOrdinal(), getAccuracy( champion:getOrdinal() ) )
 			delayedCall("functions", 0.1, "bite", champion:getOrdinal())
@@ -1578,96 +1583,98 @@ end
 
 -- MonsterComponent - monster hit by projectile
 function onProjectileHitMonster(self, item, damage, damageType) -- self = monster, item = projectile
-	local champion = party.party:getChampionByOrdinal(item.go.data:get("castByChampion"))
-	local facing = item.go.data:get("castByChampionFacing")
-	local specialDamage = item.go.data:get("projectileDamage")
-	local c = champion:getOrdinal()
-	local backAttack = self.go.facing == facing
-	local monster = self
+	if item.go.data:get("castByChampion") then -- random thrown items don't get this
+		local champion = party.party:getChampionByOrdinal(item.go.data:get("castByChampion"))
+		local facing = item.go.data:get("castByChampionFacing")
+		local specialDamage = item.go.data:get("projectileDamage")
+		local c = champion:getOrdinal()
+		local backAttack = self.go.facing == facing
+		local monster = self
 
-	local poisonChance = 0
-	-- Venomancer for melee attacks
-	if champion:hasTrait("venomancer") then	
-		poisonChance = poisonChance + 0.1
-	end	
+		local poisonChance = 0
+		-- Venomancer for melee attacks
+		if champion:hasTrait("venomancer") then	
+			poisonChance = poisonChance + 0.1
+		end	
 
-	if champion:hasTrait("antivenom") then
-		poisonChance = poisonChance + 0.05
-	end
+		if champion:hasTrait("antivenom") then
+			poisonChance = poisonChance + 0.05
+		end
 
-	-- Serpent Bracer poison chance
-	if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "serpent_bracer" then
-		poisonChance = poisonChance + 0.1
-	end
-	
-	-- Druid's poison chance from herbs effects
-	if champion:getClass() == "druid" then
-		local conversion = 0.8
-		for slot = 8,10 do
-			local druidItem = functions.script.get_c("druid_item"..slot, champion:getOrdinal())
-			if druidItem then
-				if druidItem == "falconskyre" then
-					poisonChance = poisonChance + 0.08
-				end
-				if druidItem == "blackmoss" then
-					conversion = conversion - 0.1
+		-- Serpent Bracer poison chance
+		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "serpent_bracer" then
+			poisonChance = poisonChance + 0.1
+		end
+		
+		-- Druid's poison chance from herbs effects
+		if champion:getClass() == "druid" then
+			local conversion = 0.8
+			for slot = 8,10 do
+				local druidItem = functions.script.get_c("druid_item"..slot, champion:getOrdinal())
+				if druidItem then
+					if druidItem == "falconskyre" then
+						poisonChance = poisonChance + 0.08
+					end
+					if druidItem == "blackmoss" then
+						conversion = conversion - 0.1
+					end
 				end
 			end
-		end
 
-		-- Conversion damage
-		if self.go.firearmattack then
-			hitMonster(monster.go.id, damage / conversion * (1 - conversion), "33CC33", nil, "poison", champion:getOrdinal())
+			-- Conversion damage
+			if self.go.firearmattack then
+				hitMonster(monster.go.id, damage / conversion * (1 - conversion), "33CC33", nil, "poison", champion:getOrdinal())
+			end
+			if self.go.meleeattack then
+				hitMonster(monster.go.id, damage / conversion * (1 - conversion), "33CC33", nil, "poison", champion:getOrdinal())
+			end	
 		end
-		if self.go.meleeattack then
-			hitMonster(monster.go.id, damage / conversion * (1 - conversion), "33CC33", nil, "poison", champion:getOrdinal())
+		
+		-- Ratling's Sneak Attack
+		if functions.script.get_c("sneak_attack", champion:getOrdinal()) then
+			poisonChance = poisonChance + 0.5
+			functions.script.set_c("sneak_attack", champion:getOrdinal(), false)
+		end
+		
+		-- Assassination - when monster takes a hit and dies
+		if self:getHealth() - damage <= 0 then
+			if champion:getClass() == "assassin_class" and champion:hasTrait("assassination") and backAttack then
+				assassination(champion, self)
+			end
+		end
+		
+		-- Assassin's Backstab health sap
+		if champion:getClass() == "assassin_class" and backAttack then
+			local sap = self:getMaxHealth() * ((assassinations[champion:getOrdinal()] * 0.005) + 0.02)
+			delayedCall("functions", 0.15, "hitMonster", self.go.id, sap, "CC9999", nil, "physical", champion:getOrdinal())
+			champion:regainHealth(math.max(sap * (1 - (champion:getHealth() / champion:getMaxHealth())) * 0.5, 1))
 		end	
-	end
-	
-	-- Ratling's Sneak Attack
-	if functions.script.get_c("sneak_attack", champion:getOrdinal()) then
-		poisonChance = poisonChance + 0.5
-		functions.script.set_c("sneak_attack", champion:getOrdinal(), false)
-	end
-	
-	-- Assassination - when monster takes a hit and dies
-	if self:getHealth() - damage <= 0 then
-		if champion:getClass() == "assassin_class" and champion:hasTrait("assassination") and backAttack then
-			assassination(champion, self)
-		end
-	end
-	
-	-- Assassin's Backstab health sap
-	if champion:getClass() == "assassin_class" and backAttack then
-		local sap = self:getMaxHealth() * ((assassinations[champion:getOrdinal()] * 0.005) + 0.02)
-		delayedCall("functions", 0.15, "hitMonster", self.go.id, sap, "CC9999", nil, "physical", champion:getOrdinal())
-		champion:regainHealth(math.max(sap * (1 - (champion:getHealth() / champion:getMaxHealth())) * 0.5, 1))
-	end	
-	
-	if champion:getClass() == "hunter" then
-		hunterCrit(c, 1, 6 + (champion:getLevel() - 1))
-		if self:hasTrait("animal") then
-			wisdom_of_the_tribe_heal(champion)
-			delayedCall("functions", 0.15, "hitMonster", self.go.id, math.ceil(damage * wisdom_of_the_tribe(champion) ), "339933", nil, damageType, champion:getOrdinal())
+		
+		if champion:getClass() == "hunter" then
+			hunterCrit(c, 1, 6 + (champion:getLevel() - 1))
+			if self:hasTrait("animal") then
+				wisdom_of_the_tribe_heal(champion)
+				delayedCall("functions", 0.15, "hitMonster", self.go.id, math.ceil(damage * wisdom_of_the_tribe(champion) ), "339933", nil, damageType, champion:getOrdinal())
+			end	
 		end	
-	end	
-	
-	-- Monk's Healing Light
-	if champion:getClass() == "monk" then
-		healingLight(champion, monster, damage)
-	end
+		
+		-- Monk's Healing Light
+		if champion:getClass() == "monk" then
+			healingLight(champion, monster, damage)
+		end
 
-	-- Poison chance
-	if poisonChance > 0 and math.random() < poisonChance then	
-		monster:setCondition("poisoned", 25)
-		if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
-	end
+		-- Poison chance
+		if poisonChance > 0 and math.random() < poisonChance then	
+			monster:setCondition("poisoned", 25)
+			if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
+		end
 
-	if specialDamage then
-		hitMonster(monster.go.id, specialDamage, "FFFFFF", nil, "physical", champion:getOrdinal())
-		return false
-	else
-		return true
+		if specialDamage then
+			hitMonster(monster.go.id, specialDamage, "FFFFFF", nil, "physical", champion:getOrdinal())
+			return false
+		else
+			return true
+		end
 	end
 end
 
@@ -2118,7 +2125,7 @@ function class_skill(skill, champion)
 		
 	elseif skill == "ancestral_charge" then
 		--print("skill ancestral_charge")
-		local spell = spells_functions.script.defByName["ancestral_charge"]
+		local spell = spells_functions.script.defByName["ancestral_charge_cast"]
 		spell.onCast(champion, party.x, party.y, party.facing, party.elevation, 3)
 		champion:setConditionValue("recharging", 2)
 	
@@ -2408,7 +2415,7 @@ function isArmorSetEquipped(champion, set)
 		return true
 	end
 
-	local armorSetPieces = { ["chitin"] = 4, ["valor"] = 5, ["crystal"] = 6, ["meteor"] = 6, ["bear"] = 3, ["embalmers"] = 4, ["archmage"] = 4, ["rogue"] = 5, ["makeshift"] = 5, ["reed"] = 5, ["mirror"] = 5 }
+	local armorSetPieces = { ["chitin"] = 5, ["valor"] = 5, ["crystal"] = 6, ["meteor"] = 6, ["bear"] = 3, ["embalmers"] = 4, ["archmage"] = 4, ["rogue"] = 5, ["makeshift"] = 5, ["reed"] = 5, ["mirror"] = 5 }
 	local mainSlots = {1,2,4,5,6}
 	local setCount = 0
 	for i = 1,#mainSlots do
@@ -2439,7 +2446,7 @@ tinkering_level = { 0,0,0,0 }
 a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a20 = {}, {}, {}, {}, {}, {}, { {},{},{},{} }, { {},{},{},{},{},{} }, { {},{} }, {}, {}, {}, {}, {}
 tinker_item = { a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a20  }
 
-function tinkererUpgrade(self, champion, container, slot, button)
+function tinkererUpgrade(self, champion, slot)
 	local item = champion:getItem(slot)
 	local level = champion:getSkillLevel("tinkering")
 	local canUpgEpic = (champion:hasTrait("mastersmith") and item:hasTrait("epic")) or not item:hasTrait("epic")
@@ -2457,12 +2464,23 @@ function tinkererUpgrade(self, champion, container, slot, button)
 		end
 		if upgradeLevel <= upgMax then
 			-- Use up lock-pick
-			local stacksize = getMouseItem().go.item:getStackSize()
-			local lock = getMouseItem()
+			local hasLockpick = false
+			local lock = nil
+			for l = ItemSlot.BackpackFirst, ItemSlot.BackpackLast do
+				if not hasLockpick then
+					lock = champion:getItem(l)
+					if lock and lock.go.name == "lock_pick" then 
+						hasLockpick = true 
+					end
+				end
+			end
+
+			local stacksize = lock.go.item:getStackSize()
 			if stacksize > 1 then
 				lock:setStackSize(stacksize - 1)
-				setMouseItem(lock)
+				setMouseItem(nil)
 			else
+				champion:removeItem(lock)
 				setMouseItem(nil)
 			end
 
@@ -2734,6 +2752,8 @@ function tinkererUpgrade(self, champion, container, slot, button)
 					end
 				end
 			end
+		else
+			hudPrint("Maximum level reached.")
 		end
 	end
 end
@@ -2758,27 +2778,145 @@ function tinkererDismantle(on, x, y, slot, id)
 	dismantleChampion = id
 end
 
+function tinkererGetMaterialList(item)
+	local return_recipe = {["metal_bar"] = 0, ["metal_nugget"] = 0, ["leather_strips"] = 0, ["leather"] = 0, ["silk"] = 0, ["gold"] = 0, ["skull"] = 0, ["crystal_flower"] = 0 }
+	local recipes = { 
+		light_weapon = { ["metal_nugget"] = 2, ["leather_strips"] = 1 } ,
+		daggers = { ["metal_nugget"] = 1, ["leather_strips"] = 1 } ,
+		heavy_weapon = { ["metal_bar"] = 1, ["metal_nugget"] = 1, ["leather_strips"] = 1 } ,
+		light_armor = { ["leather"] = 2, ["leather_strips"] = 1 } ,
+		heavy_armor = { ["metal_bar"] = 2, ["leather_strips"] = 1 } ,
+		shield_metal = { ["metal_bar"] = 1, ["leather"] = 1 } ,
+		shield_non_metal = { ["leather"] = 1, ["leather_strips"] = 1 } ,
+		clothes = { ["leather"] = 1, ["leather_strips"] = 1 } ,
+		firearm = { ["metal_nugget"] = 3 } ,
+		missile_weapon = { ["metal_nugget"] = 1, ["leather_strips"] = 2 } ,
+
+		metal_bar = { ["metal_bar"] = 1 } ,
+		metal_nugget = { ["metal_nugget"] = 1 } ,
+		leather_strips = { ["leather_strips"] = 1 } ,
+		leather = { ["leather"] = 1 } ,
+		silk = { ["silk"] = 1 } ,
+		gold = { ["gold"] = 1 } ,
+		skull = { ["skull"] = 1 } ,
+		crystal = { ["crystal_flower"] = 1 } ,
+		}
+
+	if item:hasTrait("light_weapon") and item:hasTrait("dagger") then
+		addTables(return_recipe, recipes.daggers)
+
+	elseif item:hasTrait("light_weapon") and not item:hasTrait("dagger") then
+		addTables(return_recipe, recipes.light_weapon)
+
+	elseif item:hasTrait("heavy_weapon")  then
+		addTables(return_recipe, recipes.heavy_weapon)
+		if item:hasTrait("two_handed") then
+			addTables(return_recipe, recipes.metal_bar)
+		end
+		
+	elseif item:hasTrait("light_armor") then
+		addTables(return_recipe, recipes.light_armor)
+
+		if item:getArmorSet() ~= nil then
+			addTables(return_recipe, recipes.leather)
+			addTables(return_recipe, recipes.silk)
+		end	
+	elseif item:hasTrait("heavy_armor") then
+		addTables(return_recipe, recipes.heavy_armor)
+
+	elseif item:hasTrait("shield") then
+		if item:hasTrait("metal") then
+			addTables(return_recipe, recipes.shield_metal)
+		else
+			addTables(return_recipe, recipes.shield_non_metal)
+		end
+
+	elseif item:hasTrait("clothes") then
+		addTables(return_recipe, recipes.clothes)
+
+		if item:getArmorSet() ~= nil then
+			addTables(return_recipe, recipes.leather)
+			addTables(return_recipe, recipes.silk)
+		end	
+
+		if item:getArmorSet() == "archmage" then
+			addTables(return_recipe, recipes.crystal)
+		end
+	elseif item:hasTrait("firearm") then
+		addTables(return_recipe, recipes.firearm)
+
+	elseif item:hasTrait("missile_weapon") then
+		addTables(return_recipe, recipes.missile_weapon)
+	end
+
+	if item:getArmorSet() == "bear" then
+		addTables(return_recipe, recipes.skull)
+	end
+
+	if item:hasTrait("epic") then
+		if item:getArmorSet() == "meteor" then
+			addTables(return_recipe, recipes.gold)
+		end
+
+		if item:getArmorSet() == "crystal" then
+			addTables(return_recipe, recipes.crystal)
+		end
+
+		if item.go.meleeattack then
+			addTables(return_recipe, recipes.metal_bar)
+			addTables(return_recipe, recipes.metal_nugget)
+			addTables(return_recipe, recipes.gold)
+			addTables(return_recipe, recipes.crystal_flower)
+		end
+	end
+
+	return return_recipe
+end
+
+function addTables(t1, t2)
+	for entry, value in pairs(t1) do
+		if t2[entry] then
+			t1[entry] = t1[entry] + t2[entry]
+		end
+	end
+	return t1
+end
+
+function merge(t1, t2)
+    for k, v in pairs(t2) do
+        if (type(v) == "table") and (type(t1[k] or false) == "table") then
+            merge(t1[k], t2[k])
+        else
+            t1[k] = v
+        end
+    end
+    return t1
+end
+
 function tinkererDismantleAction(id, slot)
-	local materials = { metal = {"blooddrop_cap", 0}, core = {"rock", 0}, leather = {"etherweed", 0}, lockpick = {"lock_pick", 0} } --todo / replace with real items
+	local materials = { metal = {"metal_bar", 0}, nugget = {"metal_nugget", 0}, leather_strips = {"leather_strips", 0}, leather = {"leather", 0}, lockpick = {"lock_pick", 0} }
 	local container = party.party:getChampionByOrdinal(id):getItem(slot).go.containeritem
 	
 	for i=1, container:getCapacity() do
 		local item = container:getItem(i)
 		
 		if item:hasTrait("light_weapon") or item:hasTrait("missile_weapon") then
-			materials.metal[2] = materials.metal[2] + 1
+			materials.nugget[2] = materials.nugget[2] + 1
+			materials.leather_strips[2] = materials.leather_strips[2] + 1
 			
 		elseif item:hasTrait("heavy_weapon") or item:hasTrait("heavy_armor") then
-			materials.metal[2] = materials.metal[2] + 2
-			
-		elseif item:hasTrait("shield") then
 			materials.metal[2] = materials.metal[2] + 1
 			
+		elseif item:hasTrait("shield") then
+			materials.nugget[2] = materials.nugget[2] + 1
+			materials.leather[2] = materials.leather[2] + 1
+			
 		elseif item:hasTrait("light_armor") or item:hasTrait("clothes") then
-			materials.core[2] = materials.leather[2] + 1
+			materials.leather[2] = materials.leather[2] + 1
+			materials.leather_strips[2] = materials.leather_strips[2] + 1
 			
 		elseif item:hasTrait("firearm") then
-			materials.core[2] = materials.core[2] + 1
+			materials.nugget[2] = materials.nugget[2] + 1
 			
 		end
 		
@@ -2787,13 +2925,13 @@ function tinkererDismantleAction(id, slot)
 	end	
 	
 	for mat, value in pairs(materials) do
-		local ammount = math.ceil(value[2] / 3)
-		if ammount ~= 0 then
+		local amount = math.ceil(value[2] / 3)
+		if amount ~= 0 then
 			for i=1, 9 do
 				local insert = i
 				if container:getItem(insert) == nil then
 					container:insertItem(insert, spawn(value[1]).item)
-					container:getItem(insert).go.item:setStackSize(ammount)
+					container:getItem(insert).go.item:setStackSize(amount)
 					break
 				end			
 			end

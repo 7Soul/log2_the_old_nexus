@@ -228,7 +228,7 @@ defineObject{
 			Increases base arc chance of the Shock Rift spell by 10%]],
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
 			gfxIndex = 41,
-			weight = 0.75,
+			weight = 0.7,
 			traits = { "bracers", "upgradable" },
 		},
 		{
@@ -533,7 +533,7 @@ defineObject{
 			uiName = "Brace of Fortitude",
 			description = "This brace is made out of a single solid piece of metal but it feels exceptionally light.",
 			gfxIndex = 75,
-			weight = 0.15,
+			weight = 0.2,
 			traits = { "bracers", "upgradable" },
 		},
 		{

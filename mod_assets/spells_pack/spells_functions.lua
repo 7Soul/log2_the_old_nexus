@@ -11,7 +11,7 @@ defOrdered =
 { 
 
 {
-	name = "ancestral_charge",
+	name = "ancestral_charge_cast",
 	uiName = "Ancestral Charge",
 	gesture = 0,
 	manaCost = 0,
@@ -2225,7 +2225,7 @@ function getPower(base, champion, skill, element, tier, spellName)
 	if champion:hasTrait("intensify_spell") and spellName and not defByName[spellName].hidden then
 		local intensify = functions.script.get_c("intensifySpell", champion:getOrdinal())
 		if intensify and intensify == spellName then
-			local multi = 1.25 + (math.floor(champion:getLevel() / 4) * 0.1)
+			local multi = 1.5 + (math.floor(champion:getLevel() / 4) * 0.1)
 			f = f * multi
 		end
 	end
@@ -2246,9 +2246,10 @@ function getCost(champion, base, element, spellName)
 		if champion:hasTrait("intensify_spell") then
 			local intensify = functions.script.get_c("intensifySpell", champion:getOrdinal())
 			if intensify and intensify == spellName then
-				local multi = 1.4 - (math.floor(champion:getLevel() / 4) * 0.1)
+				local multi = 1.3 - (math.floor(champion:getLevel() / 4) * 0.1)
 				base = base * multi
 				functions.script.set_c("intensifySpell", champion:getOrdinal(), nil)
+				champion:damage(base * -1 * 0.5, "pure")
 			end
 		end
 		

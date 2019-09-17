@@ -1209,7 +1209,7 @@ defineObject{
 			description = "A chestplate crafted from parts of a giant beetle carapace.",
 			gameEffect = [[[Chitin Set]: Bonuses and Perks from the Block skill work without you holding a shield.]],
 			armorSet = "chitin",
-			armorSetPieces = 4,
+			armorSetPieces = 5,
 			gfxIndex = 49,
 			weight = 7.0,
 			traits = { "light_armor", "chest_armor", "upgradable" },
@@ -1303,6 +1303,35 @@ defineObject{
 			protection = 5,
 			resistFire = 3,
 			resistCold = 3,
+		},
+	},
+	tags = { "armor_light" },
+}
+
+defineObject{
+	name = "chitin_gloves",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "mod_assets/models/items/chitin_gloves.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Chitin Gloves",
+			description = "",
+			gameEffect = [[[Chitin Set]: Bonuses and Perks from the Block skill work without you holding a shield.]],
+			armorSet = "chitin",
+			gfxAtlas = "mod_assets/textures/gui/items.dds",
+			gfxIndex = 82,
+			weight = 2.1,
+			traits = { "light_armor", "gloves", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 4,
+			resistFire = 2,
+			resistCold = 2,
 		},
 	},
 	tags = { "armor_light" },
