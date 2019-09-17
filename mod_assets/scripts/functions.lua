@@ -280,9 +280,13 @@ function teststart()
 				end
 				champion:insertItem(21,spawn("tinkering_toolbox").item)
 				champion:insertItem(22,spawn("metal_bar").item)
+				champion:getItem(22):setStackSize(5)
 				champion:insertItem(23,spawn("metal_nugget").item)
+				champion:getItem(23):setStackSize(5)
 				champion:insertItem(24,spawn("leather_strips").item)
+				champion:getItem(24):setStackSize(5)
 				champion:insertItem(25,spawn("leather").item)
+				champion:getItem(25):setStackSize(5)
 			end
 			
 			-- Races
@@ -689,7 +693,7 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 	local secondary = self.go:getComponent(self.go.item:getSecondaryAction() and self.go.item:getSecondaryAction() or "")
 	--print(item:getSecondaryAction() )
 
-	if self == self.go:getComponent(self.go.item:getSecondaryAction()) then
+	if self.go.item:getSecondaryAction() and self == self.go:getComponent(self.go.item:getSecondaryAction()) then
 		champion:removeItem(item)
 		addItemToMap(item, party.level, 0, 0, 0, party.elevation, nil)
 		local dx, dy = getForward(party.facing)
@@ -716,7 +720,7 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 	end
 	
 	-- When using secondary attack, we update the main melee action
-	if self == self.go:getComponent(self.go.item:getSecondaryAction()) then
+	if self.go.item:getSecondaryAction() and self == self.go:getComponent(self.go.item:getSecondaryAction()) then
 		self = self.go.meleeattack		
 	end
 
@@ -2446,13 +2450,87 @@ tinkering_level = { 0,0,0,0 }
 a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a20 = {}, {}, {}, {}, {}, {}, { {},{},{},{} }, { {},{},{},{},{},{} }, { {},{} }, {}, {}, {}, {}, {}
 tinker_item = { a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a20  }
 
-function tinkererUpgrade(self, champion, slot)
-	local item = champion:getItem(slot)
+function tinkererUpgrade(self, champion, slot, materials)
+	local item = champion:getItem(slot) -- item is in hand
 	local level = champion:getSkillLevel("tinkering")
 	local canUpgEpic = (champion:hasTrait("mastersmith") and item:hasTrait("epic")) or not item:hasTrait("epic")
 	local upgMax = 3
 
 	if item and canUpgEpic then 
+		local hasMaterials = true
+		for mat, value in pairs(materials) do
+			local valueCountdown = value
+			local matCount = 0 -- first we count how many of the material we have
+
+			for i=1,ItemSlot.MaxSlots do
+				local item2 = champion:getItem(i)
+				if item2 then
+					if item2.go.name == mat then
+						if item2:getStackSize() > 0 then
+							matCount = matCount + item2:getStackSize()
+						end
+					else
+						local container = item2.go.containeritem
+						if container then
+							local capacity = container:getCapacity()
+							for j=1,capacity do
+								local item3 = container:getItem(j)
+								if item3.go.name == mat then
+									if item3:getStackSize() > 0 then
+										matCount = matCount + item3:getStackSize()
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+
+			if matCount >= value then
+				while valueCountdown > 0 do
+					for i=1,ItemSlot.MaxSlots do
+						local item2 = champion:getItem(i)
+						if item2 then
+							if item2.go.name == mat then
+								while item2:getStackSize() > 0 and valueCountdown > 0 do
+									valueCountdown = valueCountdown - 1
+									if item2:getStackSize() > 1 then
+										item2:setStackSize(item2:getStackSize() - 1)
+									else
+										champion:removeItem(item2)
+									end
+								end
+							else
+								local container = item2.go.containeritem
+								if container then
+									local capacity = container:getCapacity()
+									for j=1,capacity do
+										local item3 = container:getItem(j)
+										if item3.go.name == mat then
+											if item3:getStackSize() > 0 and valueCountdown > 0 then
+												valueCountdown = valueCountdown - 1
+												if item3:getStackSize() > 1 then
+													item3:setStackSize(item3:getStackSize() - 1)
+												else
+													champion:removeItem(item3)
+												end
+											end
+										end
+									end
+								end
+							end
+						end
+					end
+				end
+			else
+				if mat == "lock_pick" then
+					hudPrint("Not enough materials - one Lock Pick is required.")
+				else
+					hudPrint("Not enough materials.")
+				end
+				return
+			end
+		end
 		-- Upgrade Item
 		local upgradeLevel = 1
 		if item:hasTrait("upgraded") then
@@ -2464,25 +2542,25 @@ function tinkererUpgrade(self, champion, slot)
 		end
 		if upgradeLevel <= upgMax then
 			-- Use up lock-pick
-			local hasLockpick = false
-			local lock = nil
-			for l = ItemSlot.BackpackFirst, ItemSlot.BackpackLast do
-				if not hasLockpick then
-					lock = champion:getItem(l)
-					if lock and lock.go.name == "lock_pick" then 
-						hasLockpick = true 
-					end
-				end
-			end
+			-- local hasLockpick = false
+			-- local lock = nil
+			-- for l = ItemSlot.BackpackFirst, ItemSlot.BackpackLast do
+			-- 	if not hasLockpick then
+			-- 		lock = champion:getItem(l)
+			-- 		if lock and lock.go.name == "lock_pick" then 
+			-- 			hasLockpick = true 
+			-- 		end
+			-- 	end
+			-- end
 
-			local stacksize = lock.go.item:getStackSize()
-			if stacksize > 1 then
-				lock:setStackSize(stacksize - 1)
-				setMouseItem(nil)
-			else
-				champion:removeItem(lock)
-				setMouseItem(nil)
-			end
+			-- local stacksize = lock.go.item:getStackSize()
+			-- if stacksize > 1 then
+			-- 	lock:setStackSize(stacksize - 1)
+			-- 	setMouseItem(nil)
+			-- else
+			-- 	champion:removeItem(lock)
+			-- 	setMouseItem(nil)
+			-- end
 
 			-- Save base name and base weight
 			if supertable[11][item.go.id] == nil then
@@ -2736,10 +2814,10 @@ function tinkererUpgrade(self, champion, slot)
 					end
 
 					if secondary then
-						print(equipItem)
-						print(secondary)
-						print(item:getSecondaryAction())
-						print(upgradeLevel)
+						-- print(equipItem)
+						-- print(secondary)
+						-- print(item:getSecondaryAction())
+						-- print(upgradeLevel)
 						updateSecondary(equipItem, secondary, item:getSecondaryAction(), upgradeLevel)
 					end
 
@@ -2779,7 +2857,7 @@ function tinkererDismantle(on, x, y, slot, id)
 end
 
 function tinkererGetMaterialList(item)
-	local return_recipe = {["metal_bar"] = 0, ["metal_nugget"] = 0, ["leather_strips"] = 0, ["leather"] = 0, ["silk"] = 0, ["gold"] = 0, ["skull"] = 0, ["crystal_flower"] = 0 }
+	local return_recipe = {["metal_bar"] = 0, ["metal_nugget"] = 0, ["leather_strips"] = 0, ["leather"] = 0, ["silk"] = 0, ["gold"] = 0, ["skull"] = 0, ["crystal_flower"] = 0, ["lock_pick"] = 1 }
 	local recipes = { 
 		light_weapon = { ["metal_nugget"] = 2, ["leather_strips"] = 1 } ,
 		daggers = { ["metal_nugget"] = 1, ["leather_strips"] = 1 } ,

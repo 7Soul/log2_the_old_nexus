@@ -195,33 +195,16 @@ defineObject{
 			print(champion:getName(), "is attacking with", action.go.name)
 
 			if action.go.name == "tinkering_toolbox" then
-				local hasLockpick = false
-				local item = nil
-				for i = ItemSlot.BackpackFirst, ItemSlot.BackpackLast do
-					if not hasLockpick then
-						item = champion:getItem(i)
-						if item and item.go.name == "lock_pick" then 
-							hasLockpick = true 
-						end
-					end
-				end
-
-				-- Enable tinkering mode if has a lockpick
-				if hasLockpick then
-					-- Sets target item to the other hand slot to the toolbox
-					local otherSlot = slot == ItemSlot.Weapon and ItemSlot.OffHand or ItemSlot.Weapon								
-					if champion:getItem(otherSlot) then
-						if champion:getItem(otherSlot):hasTrait("upgradable") then
-							functions.script.set_c("tinkering", champion:getOrdinal(), otherSlot)
-						else
-							hudPrint("Item is not upgradable.")
-						end
+				-- Sets target item to the other hand slot to the toolbox
+				local otherSlot = slot == ItemSlot.Weapon and ItemSlot.OffHand or ItemSlot.Weapon								
+				if champion:getItem(otherSlot) then
+					if champion:getItem(otherSlot):hasTrait("upgradable") then
+						functions.script.set_c("tinkering", champion:getOrdinal(), otherSlot)
 					else
-						hudPrint("Needs target item in other hand.")
+						hudPrint("Item is not upgradable.")
 					end
 				else
-					hudPrint("Needs Lockpicks.")
-					functions.script.set_c("tinkering", champion:getOrdinal(), nil)
+					hudPrint("Needs target item in other hand.")
 				end
 			end
 			
@@ -403,33 +386,16 @@ defineObject{
 
 						-- Right-Click on tinkering toolbox in hand
 						if not getMouseItem() and button == 2 and item.go.name == "tinkering_toolbox" and (slot == ItemSlot.Weapon or slot == ItemSlot.OffHand) then
-							local hasLockpick = false
-							local item = nil
-							for i = ItemSlot.BackpackFirst, ItemSlot.BackpackLast do
-								if not hasLockpick then
-									item = champion:getItem(i)
-									if item and item.go.name == "lock_pick" then 
-										hasLockpick = true 
-									end
-								end
-							end
-
-							-- Enable tinkering mode if has a lockpick
-							if hasLockpick then
-								-- Sets target item to the other hand slot to the toolbox
-								local otherSlot = slot == ItemSlot.Weapon and ItemSlot.OffHand or ItemSlot.Weapon								
-								if champion:getItem(otherSlot) then
+							-- Sets target item to the other hand slot to the toolbox
+							local otherSlot = slot == ItemSlot.Weapon and ItemSlot.OffHand or ItemSlot.Weapon								
+							if champion:getItem(otherSlot) then
+								functions.script.set_c("tinkering", champion:getOrdinal(), otherSlot)
+							else
+								if champion:getItem(otherSlot):hasTrait("upgradable") then
 									functions.script.set_c("tinkering", champion:getOrdinal(), otherSlot)
 								else
-									if champion:getItem(otherSlot):hasTrait("upgradable") then
-										functions.script.set_c("tinkering", champion:getOrdinal(), otherSlot)
-									else
-										hudPrint("Item is not upgradable.")
-									end
+									hudPrint("Item is not upgradable.")
 								end
-							else
-								hudPrint("Needs Lockpicks.")
-								functions.script.set_c("tinkering", champion:getOrdinal(), nil)
 							end
 						end
 
@@ -666,6 +632,27 @@ defineObject{
 				context.font("tiny")
 			end
 
+			if champion:getClass() == "tinkerer" then
+				local item = champion:getItem(ItemSlot.Weapon)
+				local item2 = champion:getItem(ItemSlot.OffHand)
+				local slot = 0
+				if item and item.go.name == "tinkering_toolbox" then
+					slot = 1
+				elseif item2 and item2.go.name == "tinkering_toolbox" then
+					slot = 2
+				end
+				if slot ~= 0 then
+					local count = functions.script.get_c("crafting_expertise", champion:getOrdinal())
+					if count ~= nil and count > 0 then
+						context.font("small")
+						context.color(205, 255, 255, 255)
+						local text2 = "+".. count
+						context.drawText(text2, x + 60 + ((slot-1) * 80), y+31)
+						context.color(255, 255, 255, 255)
+					end
+				end
+			end
+
 			if functions.script.get_c("tinkering", champion:getOrdinal()) then
 				-- Draw tinkering UI
 				context.drawImage2("mod_assets/textures/gui/tinker_ui.dds", x, y, 0, 0, 171, 117, 171, 117)
@@ -674,9 +661,6 @@ defineObject{
 				-- Draw item requirements
 				context.font("small")
 				for mat, value in pairs(materials) do
-					-- for i = ItemSlot.BackpackFirst, ItemSlot.BackpackLast do
-					print("mat: " .. mat .. " : " .. value)
-					-- end
 					if value > 0 then
 						if mat == "metal_bar" then
 							context.drawImage2("mod_assets/textures/gui/items.dds", x-2, y-2, 225, 300, 75, 75, 50, 50)
@@ -717,7 +701,7 @@ defineObject{
 				local upg1, upg2 = context.button("tinkering_confirm", x, y + 86, 132, 31)
 				if upg1 or upg2 then
 					if context.mouseDown(3) then
-						functions.script.tinkererUpgrade(self, champion, functions.script.get_c("tinkering", champion:getOrdinal()))
+						functions.script.tinkererUpgrade(self, champion, functions.script.get_c("tinkering", champion:getOrdinal()), materials)
 						functions.script.set_c("tinkering", champion:getOrdinal(), nil)
 					end
 				end
