@@ -132,7 +132,7 @@ defineCondition{
 	end,
 	onTick = function(self, champion)
 		champion:regainHealth(champion:getMaxHealth() / 100)
-		champion:regainEnergy(champion:getMaxEnergy() / 100)
+		functions.script.regainEnergy(champion:getOrdinal(), champion:getMaxEnergy() / 100)
 	end,	
 }
 
@@ -199,7 +199,8 @@ defineCondition{
 	end,
 	onTick = function(self, champion)
 		champion:regainHealth(champion:getMaxHealth() / 100)
-		champion:regainEnergy(champion:getMaxEnergy() / 100)
+		functions.script.regainEnergy(champion:getOrdinal(), champion:getMaxEnergy() / 100)
+		
 	end,	
 }
 
@@ -264,10 +265,7 @@ defineCondition{
 	icon = 29,
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	description = "Cold and Air spells +40% damage.",
-	gameEffect = [[
-	- Energy Regeneration Rate +50%.]],
 	onRecomputeStats = function(self, champion)
-		--champion:addStatModifier("energy_regeneration_rate", 50)
 	end,
 }
 
@@ -277,10 +275,7 @@ defineCondition{
 	icon = 30,
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	description = "Fire and Cold spells +40% damage.",
-	gameEffect = [[
-	- Energy Regeneration Rate +50%.]],
 	onRecomputeStats = function(self, champion)
-		--champion:addStatModifier("energy_regeneration_rate", 50)
 	end,
 }
 
@@ -290,10 +285,7 @@ defineCondition{
 	icon = 31,
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	description = "Fire and Air spells +40% damage.",
-	gameEffect = [[
-	- Energy Regeneration Rate +50%.]],
 	onRecomputeStats = function(self, champion)
-		--champion:addStatModifier("energy_regeneration_rate", 50)
 	end,
 }
 
@@ -367,9 +359,9 @@ defineCondition{
 			local c = party.party:getChampionByOrdinal(i)
 			if c:hasTrait("arcane_extraction") then
 				if c ~= champion then
-					champion:regainEnergy(8)
+					functions.script.regainEnergy(champion:getOrdinal(), 8)
 				else
-					champion:regainEnergy(25)
+					functions.script.regainEnergy(champion:getOrdinal(), 25)
 				end
 				break
 			end
@@ -416,9 +408,9 @@ defineCondition{
 			local c = party.party:getChampionByOrdinal(i)
 			if c:hasTrait("arcane_extraction") then
 				if c ~= champion then
-					champion:regainEnergy(8)
+					functions.script.regainEnergy(champion:getOrdinal(), 8)
 				else
-					champion:regainEnergy(25)
+					functions.script.regainEnergy(champion:getOrdinal(), 25)
 				end
 				break
 			end
@@ -488,7 +480,7 @@ defineCondition{
 				break
 			end
 		end
-		champion:regainEnergy(regen)
+		functions.script.regainEnergy(champion:getOrdinal(), regen)
 	end,	
 }
 
@@ -533,7 +525,7 @@ defineCondition{
 				break
 			end
 		end
-		champion:regainEnergy(regen)
+		functions.script.regainEnergy(champion:getOrdinal(), regen)
 	end,	
 }
 
@@ -725,7 +717,7 @@ defineCondition{
 	onTick = function(self, champion)
 		local heal = functions.script.get_c("reflective_damage", champion:getOrdinal())
 		champion:regainHealth(heal / 5)
-		champion:regainEnergy(heal / 5)
+		functions.script.regainEnergy(champion:getOrdinal(), heal / 5)
 	end,	
 }
 
@@ -812,7 +804,7 @@ defineCondition{
 	onRecomputeStats = function(self, champion)
 	end,
 	onTick = function(self, champion)
-		champion:regainEnergy(0.5)
+		functions.script.regainEnergy(champion:getOrdinal(), 0.5)
 		if not champion:hasCondition("bear_form") then champion:removeCondition("bear_bonus") end
 	end,	
 }

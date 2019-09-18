@@ -306,6 +306,10 @@ function teststart()
 				champion:insertItem(23,spawn("rat_shank").item)
 				champion:insertItem(24,spawn("potion_strength").item)
 				champion:getItem(24):setStackSize(10)
+				champion:insertItem(25,spawn("warg_meat").item)
+				champion:insertItem(26,spawn("sausage").item)
+				champion:insertItem(27,spawn("rat_shank").item)
+				champion:insertItem(28,spawn("rat_shank").item)
 			end
 			
 			if champion:getRace() == "lizardman" then
@@ -390,8 +394,27 @@ end
 function onConsumeFood(self, champion)
 	if champion:hasTrait("carnivorous") and champion:isAlive() then
 		if self.go.item:hasTrait("consumable") and self.go.item:hasTrait("meat") then
-			champion:setConditionValue("carnivorous", 60 + (math.floor(champion:getLevel() / 8 ) * 60) + (math.floor(champion:getLevel() / 12 ) * 60) )
-			champion:modifyFood(self.go.usableitem:getNutritionValue() * 0.15) -- extra 15% hunger gain
+			-- champion:setConditionValue("carnivorous", 60 + (math.floor(champion:getLevel() / 8 ) * 60) + (math.floor(champion:getLevel() / 12 ) * 60) )
+			champion:modifyFood(self.go.usableitem:getNutritionValue() * 0.05) -- extra 5% hunger gain
+
+			local meatCounter = get_c("meat_counter", champion:getOrdinal()) or 0
+			local meatBonus = get_c("meat_bonus", champion:getOrdinal()) or 0
+			set_c("meat_counter", champion:getOrdinal(), meatCounter + 1)
+			if meatCounter == (3 + math.floor(champion:getLevel() / 5) + (math.floor(champion:getLevel() / 13) * 2) + math.floor(champion:getLevel())) then
+				set_c("meat_counter", champion:getOrdinal(), 0)
+				meatBonus = meatBonus + 1
+				set_c("meat_bonus", champion:getOrdinal(), meatBonus)
+
+				local strBonus = math.floor(meatBonus / 2)
+				local vitBonus = math.ceil(meatBonus / 2)
+
+				if meatBonus % 2 == 1 then
+					functions.script.set_c("level_up_message_2", champion:getOrdinal(), champion:getName() .. " gained +1 Vitality from the Carnivorous trait.")
+				else
+					functions.script.set_c("level_up_message_2", champion:getOrdinal(), champion:getName() .. " gained +1 Strenght from the Carnivorous trait.")
+				end
+				functions.script.set_c("level_up_message_2_timer", champion:getOrdinal(), 8)
+			end
 		else
 			hudPrint("This isn't meat...")
 			return false
@@ -1395,13 +1418,13 @@ function onChampionTakesDamage(party, champion, damage, damageType) -- champion 
 	-- Elemental Armor
 	if champion:hasTrait("elemental_armor") then
 		if damageType == "fire" or damageType == "cold" or damageType == "shock" then
-			champion:regainEnergy(math.ceil(champion:getMaxEnergy() * 0.15))
+			regainEnergy(champion:getOrdinal(), math.ceil(champion:getMaxEnergy() * 0.15))
 		end
 	end
 	
 	-- Meditation
 	if champion:hasTrait("meditation") then
-		champion:regainEnergy(math.ceil(champion:getMaxEnergy() * math.random(1,5) * 0.01))
+		regainEnergy(champion:getOrdinal(), math.ceil(champion:getMaxEnergy() * math.random(1,5) * 0.01))
 	end
 
 	-- Items
@@ -1744,7 +1767,7 @@ function onDamageMonster(self, damage, damageType)
 					champion:regainHealth(damage * math.random(health/3,health) * 0.01)
 				end
 				if energy > 0 then
-					champion:regainEnergy(damage * math.random(health/3,health) * 0.01)
+					regainEnergy(champion:getOrdinal(), damage * math.random(health/3,health) * 0.01)
 				end
 			end
 			
@@ -1855,7 +1878,7 @@ function hitMonster(id, damage, color, flair, damageType, championId)
 			champion:regainHealth(damage * math.random(health/3,health) * 0.01)
 		end
 		if energy > 0 then
-			champion:regainEnergy(damage * math.random(health/3,health) * 0.01)
+			regainEnergy(champion:getOrdinal(), damage * math.random(health/3,health) * 0.0)
 		end
 	end
 	
@@ -2013,6 +2036,8 @@ function regainEnergy(id, amount)
 	if not id then return end
 	if not amount then return end
 	local champion = party.party:getChampionByOrdinal(id)
+	local lore_master = functions.script.get_c("lore_master_9", champion:getOrdinal()) or 1
+	amount = math.ceil(amount * lore_master)
 	champion:regainEnergy(amount)
 end
 
@@ -2456,6 +2481,10 @@ function tinkererUpgrade(self, champion, slot, materials)
 	local canUpgEpic = (champion:hasTrait("mastersmith") and item:hasTrait("epic")) or not item:hasTrait("epic")
 	local upgMax = 3
 
+	if not canUpgEpic then
+		hudPrint("Only a Master Smith can upgrade Epic items.")
+	end
+
 	if item and canUpgEpic then 
 		local hasMaterials = true
 		for mat, value in pairs(materials) do
@@ -2531,6 +2560,7 @@ function tinkererUpgrade(self, champion, slot, materials)
 				return
 			end
 		end
+
 		-- Upgrade Item
 		local upgradeLevel = 1
 		if item:hasTrait("upgraded") then
@@ -2540,28 +2570,8 @@ function tinkererUpgrade(self, champion, slot, materials)
 				end
 			end
 		end
+
 		if upgradeLevel <= upgMax then
-			-- Use up lock-pick
-			-- local hasLockpick = false
-			-- local lock = nil
-			-- for l = ItemSlot.BackpackFirst, ItemSlot.BackpackLast do
-			-- 	if not hasLockpick then
-			-- 		lock = champion:getItem(l)
-			-- 		if lock and lock.go.name == "lock_pick" then 
-			-- 			hasLockpick = true 
-			-- 		end
-			-- 	end
-			-- end
-
-			-- local stacksize = lock.go.item:getStackSize()
-			-- if stacksize > 1 then
-			-- 	lock:setStackSize(stacksize - 1)
-			-- 	setMouseItem(nil)
-			-- else
-			-- 	champion:removeItem(lock)
-			-- 	setMouseItem(nil)
-			-- end
-
 			-- Save base name and base weight
 			if supertable[11][item.go.id] == nil then
 				supertable[11][item.go.id] = item:getUiName()
@@ -2767,7 +2777,7 @@ function tinkererUpgrade(self, champion, slot, materials)
 						if supertable[9][1][name] == 0 then
 							item.go.equipmentitem:setProtection(math.random(2,5))
 						else
-							item.go.equipmentitem:setProtection(supertable[9][1][name] * (1 + (math.random(24,32) * 0.01)))
+							item.go.equipmentitem:setProtection(math.ceil(supertable[9][1][name] * (1 + (math.random(24,32) * 0.01))))
 						end
 						hudPrint("Tinkering Results: " .. "Protection improved.")
 					elseif bonus == "evasion" then
@@ -3169,12 +3179,4 @@ function updateSecondary(meleeAttack, secondary, name, upgradeLevel)
 	-- if item.go.name == "pickaxe" then
 		-- secondary:setGameEffect("This attack chips away 2 armor from the enemy with each hit.")
 	-- end
-end
-
-function derp()
-	print("derp")
-end
-
-function onDaggerThrow()
-	print("throw")
 end

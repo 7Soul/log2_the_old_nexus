@@ -35,7 +35,7 @@ defineObject{
 	components = {
 		{
 			class = "Model",
-			model = "assets/models/items/skull.fbx", --
+			model = "mod_assets/models/items/metal_bar.fbx", --
 		},
 		{
 			class = "Item",
@@ -103,6 +103,26 @@ defineObject{
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
 			gfxIndex = 59,
             weight = 0.1,
+            stackable = true,
+		}
+    },
+    tags = { "tinkering" }
+}
+
+defineObject{
+	name = "silk",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/skull.fbx", --
+		},
+		{
+			class = "Item",
+			uiName = "Fabric",
+			gfxAtlas = "mod_assets/textures/gui/items.dds",
+			gfxIndex = 56,
+            weight = 1.5,
             stackable = true,
 		}
     },

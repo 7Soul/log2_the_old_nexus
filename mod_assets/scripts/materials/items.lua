@@ -3466,3 +3466,16 @@ defineMaterial{
 	glossiness = 30,
 	depthBias = 0,
 }
+
+defineMaterial{
+	name = "metal_bar",
+	diffuseMap = "mod_assets/textures/items/metal_bar_dif.tga",
+	specularMap = "mod_assets/textures/items/metal_bar_spec.tga",
+	doubleSided = false,
+	lighting = true,
+	alphaTest = false,
+	blendMode = "Opaque",
+	textureAddressMode = "Wrap",
+	glossiness = 30,
+	depthBias = 0,
+}

@@ -1266,8 +1266,8 @@ defineObject{
 				functions.script.set_c("level_up_message_timer", champion:getOrdinal(), 8)
 			end
 
-			if champion:hasTrait("carnivorous") and (champion:getLevel() == 8 or champion:getLevel() == 12) then
-				functions.script.set_c("level_up_message_2", champion:getOrdinal(), champion:getName() .. " gained +4 minute duration to Carnivorous.")
+			if champion:hasTrait("brutalizer") and (champion:getLevel()-1) % 2 == 0 then
+				functions.script.set_c("level_up_message_2", champion:getOrdinal(), champion:getName() .. " gained +1 Strength from the Brutalizer trait.")
 				functions.script.set_c("level_up_message_2_timer", champion:getOrdinal(), 8)
 			end
 

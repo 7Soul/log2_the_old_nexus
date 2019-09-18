@@ -193,19 +193,6 @@ defineTrait{
 			end
 		end			
 	end,
-	-- onReceiveCondition = function(champion, cond, level)
-	-- 	if level > 0 then
-	-- 		if not functions then return end
-	-- 		for slot = 8,10 do
-	-- 			local druidItem = functions.script.get_c("druid_item"..slot, champion:getOrdinal())
-	-- 			if druidItem and druidItem == "falconskyre" then
-	-- 				if cond == "diseased" or cond == "poisoned" then
-	-- 					return false
-	-- 				end
-	-- 			end
-	-- 		end
-	-- 	end
-	-- end,
 }
 
 defineTrait{
@@ -407,187 +394,6 @@ defineTrait{
 	end,
 }
 
--- defineTrait{
--- 	name = "blooddrop_cap",
--- 	uiName = "Blooddrop Boon",
--- 	iconAtlas = "mod_assets/textures/gui/skills.dds",
--- 	icon = 132,
--- 	description = "The Druid draws from the earth by carrying a Blooddrop Cap.",
--- 	gameEffect = [[- Strength +1 per 2 levels.
--- 	- Fire resistance +5 (+2 per level).
--- 	- Fire damage increased by 20%.
--- 	- Gain extra strength, action speed and accuracy when hit 
--- 	by or when using a Fire spell (Duration 18 seconds).]],
--- 	onRecomputeStats = function(champion, level)
--- 		if level > 0 then
--- 			level = champion:getLevel()
--- 			champion:addStatModifier("strength", math.floor(level/2))
--- 			champion:addStatModifier("resist_fire", 5 + (level * 2))
--- 		end
--- 	end,
--- }
-
--- defineTrait{
--- 	name = "blooddrop_rage",
--- 	uiName = "Blooddrop Fire Rage",
--- 	iconAtlas = "mod_assets/textures/gui/skills.dds",
--- 	icon = 133,
--- 	description = "Fire damage causes you to attack with burning strength.",
--- 	gameEffect = [[- Strength +4, Melee Accuracy + 6, 
--- 	- Action Cooldowns are 15% Faster.
--- 	- Lasts 18 seconds.]],
--- 	onComputeCooldown = function(champion, weapon, attack, attackType, level)
--- 		if level > 0 then return 0.85 end
--- 	end,
--- 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
--- 		if level > 0 and attackType == "melee" then return 6 end
--- 	end,
--- 	onRecomputeStats = function(champion, level)
--- 		if level > 0 then
--- 			champion:addStatModifier("strength", 4)
--- 		end
--- 	end,
--- }
-
--- defineTrait{
--- 	name = "etherweed",
--- 	uiName = "Etherweed Boon",
--- 	iconAtlas = "mod_assets/textures/gui/skills.dds",
--- 	icon = 134,
--- 	description = "The Druid draws from the earth by carrying an Etherweed.",
--- 	gameEffect = [[- Willpower +1 per 2 levels.
--- 	- Cold resistance +5 (+2 per level).
--- 	- Cold damage increased by 20%.
--- 	- Recover 50% of missing Energy when hit by a Cold spell.]],
--- 	onRecomputeStats = function(champion, level)
--- 		if level > 0 then
--- 			level = champion:getLevel()
--- 			champion:addStatModifier("willpower", math.floor(level/2))
--- 			champion:addStatModifier("resist_cold", 5 + (level * 2))
--- 		end	
--- 	end,	
--- }
-
--- defineTrait{
--- 	name = "etherweed_rage",
--- 	uiName = "Etherweed Cold Rage",
--- 	iconAtlas = "mod_assets/textures/gui/skills.dds",
--- 	icon = 135,
--- 	description = "Cold damage causes you to cast spells with a refreshed mind.",
--- 	gameEffect = [[- Willpower +4, Ranged Accuracy + 6.
--- 	- Action Cooldowns are 15% Faster.
--- 	- Lasts 18 seconds.]],
--- 	onComputeCooldown = function(champion, weapon, attack, attackType, level)
--- 		if level > 0 then return 0.85 end
--- 	end,
--- 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
--- 		if level > 0 and (attackType == "missile" or attackType == "thrown" or attackType == "firearm") then return 6 end
--- 	end,
--- 	onRecomputeStats = function(champion, level)
--- 		if level > 0 then
--- 			champion:addStatModifier("willpower", 4)
--- 		end
--- 	end,
--- }
-
--- defineTrait{
--- 	name = "mudwort",
--- 	uiName = "Mudwort Boon",
--- 	iconAtlas = "mod_assets/textures/gui/skills.dds",
--- 	icon = 136,
--- 	description = "The Druid draws from the earth by carrying a Mudwort.",
--- 	gameEffect = [[- Poison resistance +5 (+2 per level).
--- 	- Immune to disease.
--- 	- Increased Poison damage by 40%.
--- 	- Also affects party (check their traits).]],
--- 	onRecomputeStats = function(champion, level)
--- 		if level > 0 then
--- 			level = champion:getLevel()
--- 			champion:addStatModifier("resist_poison", 5 + (level * 2))
--- 			for i=1,4 do
--- 				party.party:getChampion(i):addStatModifier("resist_poison", level * 2)
--- 			end
--- 		end	
--- 	end,
--- 	onReceiveCondition = function(champion, cond, level)
--- 		if level > 0 and cond == "diseased" then
--- 			return false
--- 		end
--- 	end,
--- }
-
--- defineTrait{
--- 	name = "lesser_mudwort",
--- 	uiName = "Lesser Mudwort Boon",
--- 	iconAtlas = "mod_assets/textures/gui/skills.dds",
--- 	icon = 137,
--- 	description = "The Druid draws from the earth by carrying a Mudwort.",
--- 	gameEffect = [[- Poison resistance +2 per level.
--- 	- Disease resistance +50%.]],
--- 	onRecomputeStats = function(champion, level)
--- 		if level > 0 then
--- 			level = champion:getLevel()
--- 			champion:addStatModifier("resist_poison", level * 2)
--- 		end	
--- 	end,
--- 	onReceiveCondition = function(champion, cond, level)
--- 		local chance = math.random() * 100
--- 		if level > 0 and cond == "diseased" and chance >= 50 then
--- 			return false
--- 		end
--- 	end,
--- }
-
--- defineTrait{
--- 	name = "falconskyre",
--- 	uiName = "Falconskyre Boon",
--- 	iconAtlas = "mod_assets/textures/gui/skills.dds",
--- 	icon = 138,
--- 	description = "The Druid draws from the earth by carrying a Falconskyre.",
--- 	gameEffect = [[- Dexterity +1 per level.
--- 	- Shock resistance +5 (+2 per level).
--- 	- Shock damage increased by 20%.]],
--- 	onRecomputeStats = function(champion, level)
--- 		if level > 0 then
--- 			level = champion:getLevel()
--- 			champion:addStatModifier("dexterity", level)
--- 			champion:addStatModifier("resist_shock", 5 + (level * 2))
--- 		end	
--- 	end,
--- }
-
--- defineTrait{
--- 	name = "blackmoss",
--- 	uiName = "Blackmoss Boon",
--- 	iconAtlas = "mod_assets/textures/gui/skills.dds",
--- 	icon = 140,
--- 	description = "The Druid draws from the earth by carrying a Blackmoss.",
--- 	gameEffect = [[- Doubles Bomb damage.
--- 	- Bombs in your inventory multiply.]],
--- }
-
--- defineTrait{
--- 	name = "crystal_flower",
--- 	uiName = "Crystal Flower Boon",
--- 	iconAtlas = "mod_assets/textures/gui/skills.dds",
--- 	icon = 142,
--- 	description = "The Druid draws from the earth by carrying a Crystal Flower.",
--- 	gameEffect = [[- Protection +2 (+2 per level).
--- 	- All resistances +2 per level.
--- 	- Increases Health Regeneration by 25%.]],
--- 	onRecomputeStats = function(champion, level)
--- 		if level > 0 then
--- 			level = champion:getLevel()
--- 			champion:addStatModifier("protection", 2 + (level * 2))
--- 			champion:addStatModifier("resist_fire", level * 2)
--- 			champion:addStatModifier("resist_poison", level * 2)
--- 			champion:addStatModifier("resist_cold", level * 2)
--- 			champion:addStatModifier("resist_shock", level * 2)
--- 			champion:addStatModifier("health_regeneration_rate", 25)
--- 		end	
--- 	end,
--- }
-
 defineTrait{
 	name = "elemental_surge",
 	uiName = "Elemental Surge",
@@ -751,7 +557,14 @@ defineTrait{
 	icon = 39,
 	charGen = true,
 	requiredRace = "human",
-	description = "Carrying Spell Scrolls give you +1% Increased Experience Gain per scroll, plus 1 Willpower for every 4 scrolls.",
+	description = [[Carrying Spell Scrolls give you bonuses. For every 3 scrolls you gain a new additional effect.
+	
+	(3) +1 Willpower.
+	(6) +5% Experience gain.
+	(9) +10% Energy recovery from every source.
+	(12) +2 Willpower.
+	(15) +5% Chance to freeze, burn or poison with spells and attacks.
+	(18) +3 Willpower.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			-- count scrolls
@@ -775,8 +588,17 @@ defineTrait{
 					end
 				end
 			end
-			champion:addStatModifier("exp_rate", scrolls)
-			champion:addStatModifier("willpower", math.floor(scrolls/4))
+			functions.script.set_c("lore_master", champion:getOrdinal(), scrolls)
+			if scrolls == 9 then
+				functions.script.set_c("lore_master_9", champion:getOrdinal(), 1.1)
+			else
+				functions.script.set_c("lore_master_9", champion:getOrdinal(), 1)
+			end
+			champion:addStatModifier("exp_rate", scrolls == 6 and 5 or 0)
+			champion:addStatModifier("energy_regeneration_rate", scrolls == 9 and 10 or 0)
+			champion:addStatModifier("willpower", scrolls == 3 and 1 or 0)
+			champion:addStatModifier("willpower", scrolls == 12 and 2 or 0)
+			champion:addStatModifier("willpower", scrolls == 18 and 3 or 0)
 		end
 	end,
 }
@@ -859,13 +681,20 @@ defineTrait{
 	charGen = true,
 	requiredRace = "minotaur",
 	description = [[Increases chances of finding meat when defeating beasts. 
-	- Eating red meat increases your Strength by 4 and Health and Energy regeneration rate by 25% for 1 minute (+1 minute at levels 8 and 12).
+	- Gain Health Regeneration equal to your Vitality.
+	- Gain a point in Strength or Vitality randomly when you eat meat.
 	
-	- You can't eat non-meat foods, like bread, bugs or even fish.	
-	- Your food consumption rate is 15% higher.]],
+	- You can't eat non-meat foods, like bread, bugs or even fish.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			champion:addStatModifier("food_rate", 15)
+			champion:addStatModifier("food_rate", 1)
+			champion:addStatModifier("health_regeneration_rate", champion:getCurrentStat("vitality"))
+
+			local meatBonus = functions.script.get_c("meat_bonus", champion:getOrdinal()) or 0
+			local strBonus = math.floor(meatBonus / 2)
+			local vitBonus = math.ceil(meatBonus / 2)
+			champion:addStatModifier("strength", strBonus)
+			champion:addStatModifier("vitality", vitBonus)
 		end
 	end
 }
@@ -1843,21 +1672,6 @@ defineTrait{
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 123,
 	description = "All upgrades require 1 Lockpick.",
-	gameEffect = [[
-	~ 1-Handed Weapons and Missile ~
-	2 All-Purpose Metal
-	
-	~ 2-Handed Weapons ~
-	3 All-Purpose Metal
-	
-	~ Firearms ~
-	2 Explosive Core
-	
-	~ Light Armor ~
-	2 Leather
-	
-	~ Heavy Armor and Shields ~
-	2 All-Purpose Metal ]],
 }
 
 defineTrait{
