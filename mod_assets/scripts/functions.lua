@@ -1360,9 +1360,10 @@ function onMonsterDealDamage(self, champion, damage)
 	local item2 = champion:getOtherHandItem(ItemSlot.Weapon)
 	local monster = self
 	local c = champion:getOrdinal()
+
 	-- Shield bash and blocking
 	if (item1 and item1:hasTrait("shield")) or (item2 and item2:hasTrait("shield")) or isArmorSetEquipped(champion, "chitin") then
-		local addedChance = champion:getSkillLevel("block") / 50
+		local addedChance = champion:getSkillLevel("block") / 50 + 0.5
 		if champion:hasTrait("block") then addedChance = addedChance + 0.08 end
 		addedChance = get_c("shield_bearer", c) and addedChance + (get_c("shield_bearer", c) * 0.01) or addedChance
 		if champion:hasCondition("ancestral_charge") then addedChance = addedChance * 1.5 end
@@ -1371,21 +1372,20 @@ function onMonsterDealDamage(self, champion, damage)
 			if champion:hasTrait("shield_bash") then
 				local dx,dy = getForward(party.facing)
 				local flags = DamageFlags.CameraShake
+				local damageBase = math.min(champion:getProtection() + damage, 50) + math.max((champion:getProtection() + damage - 50) / 4, 0) -- get up to 50 prot, anything over 50 is divided by 4
+				local damageBonus = 1 + (1 - (100 / (math.min(champion:getProtection(), 100) + 150))) -- 1.0 to 1.4 from 0 prot to 100 prot
 				champion:playDamageSound()
-				if champion:hasCondition("ancestral_charge") then damage = damage * 1.5 end
-				delayedCall("functions", 0.15, "hitMonster", monster.go.id, math.ceil(damage * 1.5), "CCCCCC", "Shield Bash!", "physical", champion:getOrdinal())
-				set_c("shield_bearer", nil)
-				--if math.random() <= 0.5 then self.go.animation:play("getHitFrontRight") else self.go.animation:play("getHitFrontLeft") end
-				--self.go.monster:showDamageText("" .. math.ceil(damage * 1.5), "FFFFFF", "Shield Bash!")
-				--self.go.monster:setHealth(self.go.monster:getHealth() - math.ceil(damage * 1.5))
-				--party.party:onDrawAttackPanel(self, champion, context, x, y)
+				if champion:hasCondition("ancestral_charge") then damageBonus = damageBonus * 1.5 end
+				delayedCall("functions", 0.15, "hitMonster", monster.go.id, math.ceil(damageBase * damageBonus), "CCCCCC", "Shield Bash!", "physical", champion:getOrdinal())
+				set_c("shield_bearer", c, nil)
+				
 				--context.drawImage2("mod_assets/textures/gui/block.dds", x+48, y-68, 0, 0, 128, 75, 128, 75)
 			end
 		end
 
 		if champion:hasTrait("shield_bearer") then
 			local shield_bearer = get_c("shield_bearer", c) and get_c("shield_bearer", c) + 1 or 0
-			set_c("shield_bearer", shield_bearer  + 1)
+			set_c("shield_bearer", c, shield_bearer  + 1)
 		end
 	end
 	
@@ -1838,6 +1838,11 @@ function hitMonster(id, damage, color, flair, damageType, championId)
 	end
 
 	damage = empowerElement(champion, damageType, damage)
+
+	if damageType == "physical" then
+		local protection = monster:getProtection() * (0.5 + math.random())
+		damage = math.max(damage - protection, 0)
+	end
 	damage = math.ceil(damage)
 	
 	color = "CCCCCC"

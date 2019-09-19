@@ -1190,7 +1190,7 @@ defineObject{
 			
 			if champion:hasCondition("sneak_attack") then
 				champion:removeCondition("sneak_attack")
-				functions.script.set_c("sneak_attack", champion:getOrdinal(), false)
+				functions.script.set_c("sneak_attack", champion:getOrdinal(), nil)
 			end
 		end,
 		
@@ -1459,7 +1459,7 @@ defineObject{
 				--end
 				
 				if champion:hasTrait("sneak_attack") and (champion:isReadyToAttack(0) or champion:isReadyToAttack(1)) and functions.script.get_c("sneak_attack", champion:getOrdinal()) then
-					functions.script.set_c("sneak_attack", champion:getOrdinal(), false)
+					functions.script.set_c("sneak_attack", champion:getOrdinal(), nil)
 				end
 				
 				if champion:hasTrait("drinker") and champion:hasCondition("drown_sorrows_exp") then

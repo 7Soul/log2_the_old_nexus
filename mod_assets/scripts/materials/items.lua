@@ -3476,6 +3476,45 @@ defineMaterial{
 	alphaTest = false,
 	blendMode = "Opaque",
 	textureAddressMode = "Wrap",
-	glossiness = 30,
+	glossiness = 50,
+	depthBias = 0,
+}
+
+defineMaterial{
+	name = "metal_nugget",
+	diffuseMap = "mod_assets/textures/items/metal_nugget_dif.tga",
+	specularMap = "mod_assets/textures/items/metal_nugget_spec.tga",
+	doubleSided = false,
+	lighting = true,
+	alphaTest = false,
+	blendMode = "Opaque",
+	textureAddressMode = "Wrap",
+	glossiness = 50,
+	depthBias = 0,
+}
+
+defineMaterial{
+	name = "leather",
+	diffuseMap = "mod_assets/textures/items/leather_dif.tga",
+	specularMap = "assets/textures/items/bear_pelt_spec.tga",
+	doubleSided = false,
+	lighting = true,
+	alphaTest = false,
+	blendMode = "Opaque",
+	textureAddressMode = "Wrap",
+	glossiness = 10,
+	depthBias = 0,
+}
+
+defineMaterial{
+	name = "gold_bar",
+	diffuseMap = "mod_assets/textures/items/gold_bar_dif.tga",
+	specularMap = "mod_assets/textures/items/gold_bar_spec.tga",
+	doubleSided = false,
+	lighting = true,
+	alphaTest = false,
+	blendMode = "Opaque",
+	textureAddressMode = "Wrap",
+	glossiness = 60,
 	depthBias = 0,
 }

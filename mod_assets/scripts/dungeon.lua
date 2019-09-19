@@ -6376,12 +6376,11 @@ potion_bear_form_2.detectedtimer:setTriggerOnStart(true)
 potion_bear_form_2.detectedtimer:setCurrentLevelOnly(true)
 spawn("turtle",11,14,1,0,"turtle_1")
 turtle_1.monster:setHealth(900)
-turtle_1.brain:disable()
 turtle_1.detectedtimer:setTimerInterval(0)
 turtle_1.detectedtimer:setDisableSelf(false)
 turtle_1.detectedtimer:setTriggerOnStart(true)
 turtle_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("starting_location",10,14,1,0,"starting_location_1")
+spawn("starting_location",13,14,3,0,"starting_location_1")
 spawn("rogue_boots",19,14,1,0,"rogue_boots_1")
 rogue_boots_1.data:setSource("data = {}\
 function get(self,name)\
@@ -6778,6 +6777,30 @@ mortar_2.detectedtimer:setTimerInterval(0)
 mortar_2.detectedtimer:setDisableSelf(false)
 mortar_2.detectedtimer:setTriggerOnStart(true)
 mortar_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("gold_bar",10,14,0,0,"gold_bar_1")
+gold_bar_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+gold_bar_1.detectedtimer:setTimerInterval(0)
+gold_bar_1.detectedtimer:setDisableSelf(false)
+gold_bar_1.detectedtimer:setTriggerOnStart(true)
+gold_bar_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("round_shield",13,14,3,0,"round_shield_1")
+round_shield_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+round_shield_1.detectedtimer:setTimerInterval(0)
+round_shield_1.detectedtimer:setDisableSelf(false)
+round_shield_1.detectedtimer:setTriggerOnStart(true)
+round_shield_1.detectedtimer:setCurrentLevelOnly(true)
 
 --- level 4 ---
 

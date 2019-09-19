@@ -961,7 +961,7 @@ defineTrait{
 	onComputeCritChance = function(champion, weapon, attack, attackType, level)
 		if level > 0 then 
 			if functions.script.get_c("sneak_attack", champion:getOrdinal()) then
-				return 10
+				return 15
 			end
 		end
 	end,
@@ -1046,7 +1046,7 @@ defineTrait{
 	uiName = "Block",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 69,
-	description = "Gain 8% chance to block a physical attack with a shield.",
+	description = "Gain 8% chance to block a physical attack with a shield, reducing the damage by 50%.",
 }
 
 defineTrait{
@@ -1054,7 +1054,7 @@ defineTrait{
 	uiName = "Shield Bash",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 71,
-	description = "When blocking, you bash your attacker, doing damage based on your Protection.",
+	description = "When blocking, you bash your attacker, doing damage based on the damage received and on your Protection amount.",
 }
 
 defineTrait{
@@ -1642,7 +1642,7 @@ defineTrait{
 	description = "Heals the party for 5% of the damage done with spells. You heal for twice as much.", -- (not dot)
 }
 
-defineTrait{ -- to do
+defineTrait{
 	name = "moon_rites",
 	uiName = "Moon Rites",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
@@ -1657,7 +1657,7 @@ defineTrait{ -- to do
 	end,
 }
 
-defineTrait{ -- to do
+defineTrait{
 	name = "voodoo",
 	uiName = "Voodoo",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",

@@ -4,7 +4,7 @@ defineObject{
 	components = {
 		{
 			class = "Model",
-			model = "assets/models/items/mortar_pestle.fbx",
+			model = "assets/models/items/mortar_pestle.fbx", --< 
 		},
 		{
 			class = "Item",
@@ -13,7 +13,6 @@ defineObject{
 			gfxIndex = 61,
 			weight = 3.0,
             description = "Contains a variety of tools and gadgets used for tinkering. It's a priceless tool of the trade.",
-            gameEffect = "Requires a Lockpick and crafting materials.",
 			traits = { "usable" },
 		},
 		{
@@ -35,7 +34,7 @@ defineObject{
 	components = {
 		{
 			class = "Model",
-			model = "mod_assets/models/items/metal_bar.fbx", --
+			model = "mod_assets/models/items/metal_bar.fbx",
 		},
 		{
 			class = "Item",
@@ -55,7 +54,7 @@ defineObject{
 	components = {
 		{
 			class = "Model",
-			model = "assets/models/items/skull.fbx", --
+			model = "mod_assets/models/items/nugget.fbx",
 		},
 		{
 			class = "Item",
@@ -75,7 +74,7 @@ defineObject{
 	components = {
 		{
 			class = "Model",
-			model = "assets/models/items/skull.fbx", --
+			model = "mod_assets/models/items/leather.fbx", --<
 		},
 		{
 			class = "Item",
@@ -95,7 +94,7 @@ defineObject{
 	components = {
 		{
 			class = "Model",
-			model = "assets/models/items/skull.fbx", --
+			model = "mod_assets/models/items/leather.fbx",
 		},
 		{
 			class = "Item",
@@ -115,7 +114,7 @@ defineObject{
 	components = {
 		{
 			class = "Model",
-			model = "assets/models/items/skull.fbx", --
+			model = "assets/models/items/skull.fbx", --<
 		},
 		{
 			class = "Item",
@@ -135,7 +134,7 @@ defineObject{
 	components = {
 		{
 			class = "Model",
-			model = "assets/models/items/skull.fbx", --
+			model = "mod_assets/models/items/gold_bar.fbx",
 		},
 		{
 			class = "Item",

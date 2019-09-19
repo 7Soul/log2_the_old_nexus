@@ -661,8 +661,8 @@ defineCondition{
 defineCondition{
 	name = "sneak_attack",
 	uiName = "",
-	description = "",
-	icon = 1,
+	description = "Gain 100 Evasion and 15% Critical Chance. Your first physical attack has a 50% chance to poison the target.",
+	icon = 38,
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
 	harmful = false,

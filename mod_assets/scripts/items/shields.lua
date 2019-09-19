@@ -1,5 +1,3 @@
--- All shields must be tagged with "shield" for Shield Expert talent!
-
 defineObject{
 	name = "buckler",
 	baseObject = "base_item",
@@ -190,6 +188,33 @@ defineObject{
 -- Set shields
 
 defineObject{
+	name = "makeshift_buckler",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/makeshift_buckler.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Thraelm Tribal Buckler",
+			description = "Judging from the numerous cuts and notches, this otherwise ceremonial-looking simple shield has definitely been used in many battles.",
+			armorSet = "makeshift",
+			armorSetPieces = 4,
+			gfxIndex = 299,
+			weight = 3.0,
+			traits = { "shield", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			slot = "Weapon",
+			evasion = 2,
+			energy = 5,
+		},
+	},
+}
+
+defineObject{
 	name = "shield_valor",
 	baseObject = "base_item",
 	components = {
@@ -311,33 +336,6 @@ defineObject{
 			energyCost = 30,
 			spell = "fire_shield",
 			requirements = { "elemental_magic", 2 },
-		},
-	},
-}
-
-defineObject{
-	name = "makeshift_buckler",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/makeshift_buckler.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Thraelm Tribal Buckler",
-			description = "Judging from the numerous cuts and notches, this otherwise ceremonial-looking simple shield has definitely been used in many battles.",
-			armorSet = "makeshift",
-			armorSetPieces = 4,
-			gfxIndex = 299,
-			weight = 3.0,
-			traits = { "shield", "upgradable" },
-		},
-		{
-			class = "EquipmentItem",
-			slot = "Weapon",
-			evasion = 2,
-			energy = 5,
 		},
 	},
 }
