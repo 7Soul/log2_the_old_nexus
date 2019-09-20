@@ -440,7 +440,7 @@ defineObject{
 			local MX, MY = context.mouseX, context.mouseY
 
 			if champion:hasTrait("tinkering") then
-				-- Draw "dismantle" icon on items
+				-- Draw "upgradable" icon on items
 				local posx, posy = 0, 0
 				for i=13,ItemSlot.BackpackLast do
 					local item = champion:getItem(i)
@@ -449,34 +449,34 @@ defineObject{
 							local container = item.go.containeritem 
 						end
 						
-						if champion:getItem(i) and champion:getItem(i):hasTrait("dismantle") then
+						if champion:getItem(i) and champion:getItem(i):hasTrait("upgradable") then
 						posx = (i-1) % 4
 						posy = math.floor((i-13) / 4)
-						context.drawImage2("mod_assets/textures/gui/dismantle.dds", w - ((553 + 0 - (posx * 63)) * f2), (297 - 0 + (posy * 63)) * f2, 0, 0, 75, 75, 20 * f2, 20 * f2)
+						context.drawImage2("mod_assets/textures/gui/upgradable.dds", w - ((553 + 0 - (posx * 63)) * f2), (297 - 0 + (posy * 63)) * f2, 0, 0, 64, 64, 55 * f2, 55 * f2)
 						end
 					end
 				end	
 
 				-- Show tinkering level and upgradable icon while lock-pick is in hand
-				if functions.script.get_c("tinkering", champion:getOrdinal()) then
-					local posx, posy = 0, 0
-					for i=13,ItemSlot.BackpackLast do
-						if champion:getItem(i) and champion:getItem(i):hasTrait("upgradable") then
-						posx = (i-1) % 4
-						posy = math.floor((i-13) / 4)
-						context.drawImage2("mod_assets/textures/gui/upgradable.dds", w - ((553 - (posx * 63)) * f2), (297 + (posy * 63)) * f2, 0, 0, 64, 64, 55 * f2, 55 * f2)
-						end
-					end
-					-- local text = "Tinkering Level = ".. champion:getSkillLevel("tinkering")
-					-- context.drawText(text, MX - (context.getTextWidth(text) / 2), MY + 30)
-					if champion:getClass() == "tinkerer" then
-						local count = functions.script.get_c("crafting_expertise", champion:getOrdinal())
-						if count ~= nil and count > 0 then
-							local text2 = "Crafting Bonus = ".. count
-							-- context.drawText(text2, MX - (context.getTextWidth(text2) / 2), MY + 30)
-						end
-					end
-				end
+				-- if functions.script.get_c("tinkering", champion:getOrdinal()) then
+				-- 	local posx, posy = 0, 0
+				-- 	for i=13,ItemSlot.BackpackLast do
+				-- 		if champion:getItem(i) and champion:getItem(i):hasTrait("upgradable") then
+				-- 		posx = (i-1) % 4
+				-- 		posy = math.floor((i-13) / 4)
+				-- 		context.drawImage2("mod_assets/textures/gui/upgradable.dds", w - ((553 - (posx * 63)) * f2), (297 + (posy * 63)) * f2, 0, 0, 64, 64, 55 * f2, 55 * f2)
+				-- 		end
+				-- 	end
+				-- 	-- local text = "Tinkering Level = ".. champion:getSkillLevel("tinkering")
+				-- 	-- context.drawText(text, MX - (context.getTextWidth(text) / 2), MY + 30)
+				-- 	if champion:getClass() == "tinkerer" then
+				-- 		local count = functions.script.get_c("crafting_expertise", champion:getOrdinal())
+				-- 		if count ~= nil and count > 0 then
+				-- 			local text2 = "Crafting Bonus = ".. count
+				-- 			-- context.drawText(text2, MX - (context.getTextWidth(text2) / 2), MY + 30)
+				-- 		end
+				-- 	end
+				-- end
 				
 				-- Dismantle prompt
 				if functions.script.dismantlePrompt then
@@ -1014,7 +1014,7 @@ defineObject{
 		end, 
 
 		onDrawSkills = function(self, context, champion)
-			local customSkills = false
+			local customSkills = true
 			if customSkills then
 				local w, h, r = context.width, 		context.height, 	context.width / context.height
 				local f = (r < 1.3 and 0.8 or r < 1.4 and 0.9 or 1) * context.height/1080

@@ -280,7 +280,7 @@ function teststart()
 				end
 				champion:insertItem(21,spawn("tinkering_toolbox").item)
 				champion:insertItem(22,spawn("metal_bar").item)
-				champion:getItem(22):setStackSize(5)
+				champion:getItem(22):setStackSize(10)
 				champion:insertItem(23,spawn("metal_nugget").item)
 				champion:getItem(23):setStackSize(5)
 				champion:insertItem(24,spawn("leather_strips").item)
@@ -479,7 +479,7 @@ function resetItemWeight(item, trait)
 	end
 end
 
-b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b20 = {}, {}, {}, {}, {}, {}, { {},{},{},{} }, { {},{},{},{},{},{} }, { {},{} }, {}, {}, {}, {}, {}
+b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b20 = {}, {}, {}, {}, {}, {}, { {},{},{},{} }, { {},{},{},{},{},{} }, { {},{},{} }, {}, {}, {}, {}, {}
 supertable = { b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b20  }
 
 function onEquipItem(self, champion, slot)	
@@ -596,81 +596,107 @@ function resetItem(self, name)
 	if self.go.rangedattack then item = self.go.rangedattack end
 	
 	if supertable[1][name] ~= nil then
-		local real_ap = 0
-		if tinker_item[1][name] then real_ap = tinker_item[1][name] else real_ap = supertable[1][name] end
-		item:setAttackPower(real_ap)	
+		local real_ap = tinker_item[1][name] and tinker_item[1][name] or supertable[1][name]
+		item:setAttackPower(real_ap)
 	end
+
 	if supertable[2][name] ~= nil then
-		local real_cooldown = 0
-		if tinker_item[2][name] then real_cooldown = tinker_item[2][name] else real_cooldown = supertable[2][name] end
+		local real_cooldown = tinker_item[2][name] and tinker_item[2][name] or supertable[2][name]
 		item:setCooldown(real_cooldown)
 	end
+
 	if supertable[3][name] ~= nil then
-		if item == self.go.firearmattack then item:setRange(supertable[3][name]) end
+		local real_range = tinker_item[3][name] and tinker_item[3][name] or supertable[3][name]
+		if item == self.go.firearmattack then item:setRange(real_range) end
 	end
+
 	if supertable[4][name] ~= nil then
-		local real_pierce = 0
-		if tinker_item[4][name] then 
-			real_pierce = tinker_item[4][name] 
-		else 
-			if supertable[4][name] then
-				real_pierce = supertable[4][name] 
-			end
-		end
-		if item == self.go.firearmattack then item:setPierce(real_pierce) end
-		if item == self.go.meleeattack then item:setPierce(real_pierce) end
+		local real_pierce = tinker_item[4][name] and tinker_item[4][name] or supertable[4][name]
+		if item == self.go.firearmattack or item == self.go.meleeattack then item:setPierce(real_pierce) end
 	end
+
 	if supertable[5][name] ~= nil then
-		item:setAccuracy(supertable[5][name])
+		local real_acc = tinker_item[5][name] and tinker_item[5][name] or supertable[5][name]
+		if item == self.go.meleeattack or item == self.go.firearmattack then
+			item:setAccuracy(real_acc)
+		else
+			self.go.equipmentitem:setAccuracy(real_acc)
+		end
 	end
+
 	if supertable[6][name] ~= nil then
-		local real_crit = 0
-		if tinker_item[6][name] then real_crit = tinker_item[6][name] else real_crit = supertable[6][name] end
+		local real_crit = tinker_item[6][name] and tinker_item[6][name] or supertable[6][name]
 		if self.go.equipmentitem then self.go.equipmentitem:setCriticalChance(real_crit) end
 	end
+
 	if supertable[7][1][name] ~= nil then
-		if self.go.equipmentitem then self.go.equipmentitem:setResistFire(supertable[7][1][name]) end
+		local real_res = tinker_item[7][1][name] and tinker_item[7][1][name] or supertable[7][1][name]
+		if self.go.equipmentitem then self.go.equipmentitem:setResistFire(real_res) end
 	end
 	if supertable[7][2][name] ~= nil then
-		if self.go.equipmentitem then self.go.equipmentitem:setResistShock(supertable[7][2][name]) end
+		local real_res = tinker_item[7][2][name] and tinker_item[7][2][name] or supertable[7][2][name]
+		if self.go.equipmentitem then self.go.equipmentitem:setResistShock(real_res) end
 	end
 	if supertable[7][3][name] ~= nil then
-		if self.go.equipmentitem then self.go.equipmentitem:setResistCold(supertable[7][3][name]) end
+		local real_res = tinker_item[7][3][name] and tinker_item[7][3][name] or supertable[7][3][name]
+		if self.go.equipmentitem then self.go.equipmentitem:setResistCold(real_res) end
 	end
 	if supertable[7][4][name] ~= nil then
-		if self.go.equipmentitem then self.go.equipmentitem:setResistPoison(supertable[7][4][name]) end
+		local real_res = tinker_item[7][4][name] and tinker_item[7][4][name] or supertable[7][4][name]
+		if self.go.equipmentitem then self.go.equipmentitem:setResistPoison(real_res) end
 	end
 
 	if supertable[8][1][name] ~= nil then
-		if self.go.equipmentitem then self.go.equipmentitem:setStrength(supertable[8][1][name]) end
+		local real_stat = tinker_item[8][1][name] and tinker_item[8][1][name] or supertable[8][1][name]
+		if self.go.equipmentitem then self.go.equipmentitem:setStrength(real_stat) end
 	end
 	if supertable[8][2][name] ~= nil then
-		if self.go.equipmentitem then self.go.equipmentitem:setDexterity(supertable[8][2][name]) end
+		local real_stat = tinker_item[8][2][name] and tinker_item[8][2][name] or supertable[8][2][name]
+		if self.go.equipmentitem then self.go.equipmentitem:setDexterity(real_stat) end
 	end
 	if supertable[8][3][name] ~= nil then
-		if self.go.equipmentitem then self.go.equipmentitem:setVitality(supertable[8][3][name]) end
+		local real_stat = tinker_item[8][3][name] and tinker_item[8][3][name] or supertable[8][3][name]
+		if self.go.equipmentitem then self.go.equipmentitem:setVitality(real_stat) end
 	end
 	if supertable[8][4][name] ~= nil then
-		if self.go.equipmentitem then self.go.equipmentitem:setWillpower(supertable[8][4][name]) end
+		local real_stat = tinker_item[8][4][name] and tinker_item[8][4][name] or supertable[8][4][name]
+		if self.go.equipmentitem then self.go.equipmentitem:setWillpower(real_stat) end
 	end
 	if supertable[8][5][name] ~= nil then
-		if self.go.equipmentitem then self.go.equipmentitem:setHealthRegenerationRate(supertable[8][5][name]) end
+		local real_stat = tinker_item[8][5][name] and tinker_item[8][5][name] or supertable[8][5][name]
+		if self.go.equipmentitem then self.go.equipmentitem:setHealthRegenerationRate(real_stat) end
 	end
 	if supertable[8][6][name] ~= nil then
-		if self.go.equipmentitem then self.go.equipmentitem:setEnergyRegenerationRate(supertable[8][6][name]) end
+		local real_stat = tinker_item[8][6][name] and tinker_item[8][6][name] or supertable[8][6][name]
+		if self.go.equipmentitem then self.go.equipmentitem:setEnergyRegenerationRate(real_stat) end
 	end
 
 	if supertable[9][1][name] ~= nil then
-		if self.go.equipmentitem then self.go.equipmentitem:setProtection(supertable[9][1][name]) end
+		local real_prot = tinker_item[9][1][name] and tinker_item[9][1][name] or supertable[9][1][name]
+		if self.go.equipmentitem then self.go.equipmentitem:setProtection(real_prot) end
 	end
+
 	if supertable[9][2][name] ~= nil then
-		if self.go.equipmentitem then self.go.equipmentitem:setEvasion(supertable[9][2][name]) end
+		local real_prot = tinker_item[9][2][name] and tinker_item[9][2][name] or supertable[9][2][name]
+		if self.go.equipmentitem then self.go.equipmentitem:setProtection(real_prot) end
 	end
+
+	-- if supertable[9][3][name] ~= nil then
+	-- 	local real_ge = tinker_item[9][3][name] and tinker_item[9][3][name] or supertable[9][3][name]
+	-- 	if self.go:getGameEffect() then self.go:setGameEffect(real_ge) end
+	-- end
+
+	-- if supertable[9][4][name] ~= nil then
+	-- 	local upgrades = tinker_item[9][4][name] and tinker_item[9][4][name] or supertable[9][4][name]
+	-- 	supertable[9][4][name] = upgrades
+	-- end
+
 	-- if supertable[13][name] ~= nil then
 	-- 	local real_weight = 0
 	-- 	if tinker_item[13][name] then real_crit = tinker_item[13][name] else real_weight = supertable[13][name] end
 	-- 	if self.go.equipmentitem then self:setWeight(real_weight) end
 	-- end
+
 	local secondaryAction = self.go.item:getSecondaryAction()
 	local secondary = nil
 	if secondaryAction ~= nil and self.go:getComponent(secondaryAction):getClass() ~= "CastSpellComponent" then
@@ -2477,7 +2503,7 @@ end
 -------------------------------------------------------------------------------------------------------
 
 tinkering_level = { 0,0,0,0 }
-a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a20 = {}, {}, {}, {}, {}, {}, { {},{},{},{} }, { {},{},{},{},{},{} }, { {},{} }, {}, {}, {}, {}, {}
+a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a20 = {}, {}, {}, {}, {}, {}, { {},{},{},{} }, { {},{},{},{},{},{} }, { {},{},{},{} }, {}, {}, {}, {}, {}
 tinker_item = { a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a20  }
 
 function tinkererUpgrade(self, champion, slot, materials)
@@ -2622,7 +2648,7 @@ function tinkererUpgrade(self, champion, slot, materials)
 				supertable[2][name] = (item.go.firearmattack or item.go.meleeattack or item.go.rangedattack or item.go.throwattack) and equipItem:getCooldown() or 0
 				supertable[3][name] = equipItem.go.firearmattack and equipItem:getRange() or 0
 				supertable[4][name] = (item.go.firearmattack or item.go.meleeattack) and equipItem:getPierce() or 0
-				supertable[5][name] = item.go.equipmentitem and item.go.equipmentitem:getAccuracy() or 0
+				supertable[5][name] = (item.go.firearmattack or item.go.meleeattack) and equipItem:getAccuracy() or (item.go.equipmentitem and item.go.equipmentitem:getAccuracy() or 0)
 				supertable[6][name] = item.go.equipmentitem and item.go.equipmentitem:getCriticalChance() or 0
 				supertable[7][1][name] = item.go.equipmentitem and item.go.equipmentitem:getResistFire() or 0
 				supertable[7][2][name] = item.go.equipmentitem and item.go.equipmentitem:getResistShock() or 0
@@ -2637,6 +2663,8 @@ function tinkererUpgrade(self, champion, slot, materials)
 				supertable[8][6][name] = item.go.equipmentitem and item.go.equipmentitem:getEnergyRegenerationRate() or 0
 				supertable[9][1][name] = item.go.equipmentitem and item.go.equipmentitem:getProtection() or 0
 				supertable[9][2][name] = item.go.equipmentitem and item.go.equipmentitem:getEvasion() or 0
+				supertable[9][3][name] = supertable[9][3][name] == nil and (item:getGameEffect() and item:getGameEffect() or "") or supertable[9][3][name]
+				supertable[10][name] = supertable[10][name] and supertable[10][name] or {}
 
 				local secondaryAction = item:getSecondaryAction()
 				local secondary = nil
@@ -2658,14 +2686,16 @@ function tinkererUpgrade(self, champion, slot, materials)
 
 				local bonusList = {}
 				if (item:hasTrait("light_armor") or item:hasTrait("clothes")) then
-					bonusList = {"resist", "stat", "evasion" }
+					bonusList = { "resist", "stat", "evasion" }
 				elseif item:hasTrait("heavy_armor") then
-					bonusList = {"resist", "stat", "protection"}
+					bonusList = { "resist", "stat", "protection", "protection_more" }
 				elseif item:hasTrait("shield") then
-					bonusList = {"resist", "stat", "protection", "evasion"}
+					bonusList = { "resist", "stat", "protection", "protection_more", "evasion", "evasion_more" }
 				elseif item:hasTrait("light_weapon") or item:hasTrait("heavy_weapon") or item:hasTrait("missile_weapon") or item:hasTrait("throwing_weapon") or item:hasTrait("firearm") then
-					bonusList = {"attackPower", "cooldown", "accuracy", "critical", "resist", "stat"}
+					bonusList = { "attackPower", "cooldown", "accuracy", "critical", "resist", "stat" }
 				end
+
+				hudPrint("~~ Tinkering Results ~~")
 				
 				local firstBonus = ""
 				firstBonus = bonusList[math.random(#bonusList)]
@@ -2677,122 +2707,253 @@ function tinkererUpgrade(self, champion, slot, materials)
 							bonus = bonusList[math.random(#bonusList)] 
 						end
 					end
-					local gameEffect = item:getGameEffect() ~= nil and item:getGameEffect() or ""
-					
+
+					table.insert(supertable[10][name], bonus)
+
+					local result = 0
 					if bonus == "cooldown" then
-						equipItem:setCooldown(supertable[2][name] * (1 - (math.random(10,15) * 0.01)))
-						hudPrint("Tinkering Results: " .. "Cooldown improved.")
+						result = (1 - (math.random(10, 15 + level) * 0.01))
+						equipItem:setCooldown(supertable[2][name] * result)
+						hudPrint("Cooldown improved by " .. math.abs(result-1) * 100 .. "%")
+
 					elseif bonus == "attackPower" then
-						equipItem:setAttackPower(math.ceil(equipItem:getAttackPower() * (1.05 + (level * 0.05))))
-						hudPrint("Tinkering Results: " .. "Attack Power improved.")
+						result = (1.05 + (level * 0.05))
+						equipItem:setAttackPower(math.ceil(equipItem:getAttackPower() * result))
+						hudPrint("Attack Power improved by " .. (result-1) * 100 .. "%")
+
 					elseif bonus == "accuracy" then
 						if supertable[5][name] == 0 then
-							item.go.equipmentitem:setAccuracy(math.random(6,12))
+							result = math.random(6,12)
+							if (item.go.firearmattack or item.go.meleeattack) then
+								equipItem:setAccuracy(result)
+							else
+								item.go.equipmentitem:setAccuracy(result)
+							end
+							hudPrint("Gained " .. result .. " Accuracy.")
 						else
-							item.go.equipmentitem:setAccuracy(supertable[5][name] * (1 + (math.random(16,32) * 0.01)))
+							result = (1 + (math.random(24,66) * 0.01))		
+							if (item.go.firearmattack or item.go.meleeattack) then
+								equipItem:setAccuracy(supertable[5][name] * result)
+							else
+								item.go.equipmentitem:setAccuracy(supertable[5][name] * result)
+							end
+							hudPrint("Accuracy improved by " .. (result-1) * 100 .. "%")
 						end
-						hudPrint("Tinkering Results: " .. "Accuracy improved.")
+						
 					elseif bonus == "critical" then
 						if supertable[6][name] == 0 then
-							item.go.equipmentitem:setCriticalChance(math.random(3,6))
-							--item:setGameEffect(gameEffect .. "\nCritical Chance +" .. item.go.equipmentitem:getCriticalChance() .. "%")
+							result = math.random(3,6)
+							item.go.equipmentitem:setCriticalChance(result)
+							hudPrint("Gained " .. result .. "% Critical Chance.")
 						else
-							local crit = supertable[6][name] * (1 + (math.random(75,100) * 0.01))
-							item.go.equipmentitem:setCriticalChance(math.floor(crit))
-							--item:setGameEffect(gameEffect .. "\nCritical Chance +" .. item.go.equipmentitem:getCriticalChance() .. "%")
+							result = (1 + (math.random(75,100) * 0.01))
+							item.go.equipmentitem:setCriticalChance(math.floor(supertable[6][name] * result))
+							hudPrint("Critical Chance improved by " .. (result-1) * 100 .. "%")
 						end
-						hudPrint("Tinkering Results: " .. "Critical Chance improved.")
+						
+
 					elseif bonus == "resist" then
 						local random_element = math.random(1,4)
+						local resistMinAdd, resistMaxAdd = 6, 12
+						local resistMinMulti, resistMaxMulti = 40, 80
 						if random_element == 1 then
 							if supertable[7][1][name] == 0 then
-								item.go.equipmentitem:setResistFire(math.random(6,12))
+								result = math.random(resistMinAdd, resistMaxAdd)
+								item.go.equipmentitem:setResistFire(result)
+								hudPrint("Gained " .. result .. " Fire Resistance.")
 							else
-								item.go.equipmentitem:setResistFire(supertable[7][1][name] * (1 + (math.random(25,35) * 0.01)))
+								result = (1 + (math.random(resistMinMulti, resistMaxMulti) * 0.01))
+								item.go.equipmentitem:setResistFire(supertable[7][1][name] * result)
+								hudPrint("Fire Resistance improved by " .. (result-1) * 100 .. "%")
 							end
-							hudPrint("Tinkering Results: " .. "Fire Resistance improved.")
+							
 						elseif random_element == 2 then
 							if supertable[7][2][name] == 0 then
-								item.go.equipmentitem:setResistShock(math.random(6,12))
+								result = math.random(resistMinAdd, resistMaxAdd)
+								item.go.equipmentitem:setResistShock(result)
+								hudPrint("Gained " .. result .. " Shock Resistance.")
 							else
-								item.go.equipmentitem:setResistShock(supertable[7][2][name] * (1 + (math.random(25,35) * 0.01)))
+								result = (1 + (math.random(resistMinMulti, resistMaxMulti) * 0.01))
+								item.go.equipmentitem:setResistShock(supertable[7][2][name] * result)
+								hudPrint("Shock Resistance improved by " .. (result-1) * 100 .. "%")
 							end
-							hudPrint("Tinkering Results: " .. "Shock Resistance improved.")
+
 						elseif random_element == 3 then
 							if supertable[7][3][name] == 0 then
-								item.go.equipmentitem:setResistCold(math.random(6,12))
+								result = math.random(resistMinAdd, resistMaxAdd)
+								item.go.equipmentitem:setResistCold(result)
+								hudPrint("Gained " .. result .. " Cold Resistance.")
 							else
-								item.go.equipmentitem:setResistCold(supertable[7][3][name] * (1 + (math.random(25,35) * 0.01)))
+								result = (1 + (math.random(resistMinMulti, resistMaxMulti) * 0.01))
+								item.go.equipmentitem:setResistCold(supertable[7][3][name] * result)
+								hudPrint("Cold Resistance improved by " .. (result-1) * 100 .. "%")
 							end
-							hudPrint("Tinkering Results: " .. "Cold Resistance improved.")
+
 						else
 							if supertable[7][4][name] == 0 then
-								item.go.equipmentitem:setResistPoison(math.random(6,12))
+								result = math.random(resistMinAdd, resistMaxAdd)
+								item.go.equipmentitem:setResistPoison(result)
+								hudPrint("Gained " .. result .. " Poison Resistance.")
 							else
-								item.go.equipmentitem:setResistPoison(supertable[7][4][name] * (1 + (math.random(25,35) * 0.01)))
+								result = (1 + (math.random(resistMinMulti, resistMaxMulti) * 0.01))
+								item.go.equipmentitem:setResistPoison(supertable[7][4][name] * result)
+								hudPrint("Poison Resistance improved by " .. (result-1) * 100 .. "%")
 							end
-							hudPrint("Tinkering Results: " .. "Poison Resistance improved.")
 						end
+
 					elseif bonus == "stat" then
 						local stat = math.random(1,6)
+						local statMinAdd, statMaxAdd = 2, 4
+						local statMinMulti, statMaxMulti = 50, 80
 						if stat == 1 then
 							if supertable[8][1][name] == 0 then
-								item.go.equipmentitem:setStrength(math.random(2,4))
+								result = math.random(statMinAdd, statMaxAdd)
+								item.go.equipmentitem:setStrength(result)
+								hudPrint("Gained " .. result .. " Strenght.")
 							else
-								item.go.equipmentitem:setStrength(supertable[8][1][name] * (1 + (math.random(50,80) * 0.01)))
+								result = (1 + (math.random(statMinMulti, statMaxMulti) * 0.01))
+								item.go.equipmentitem:setStrength(supertable[8][1][name] * result)
+								hudPrint("Strenght improved by " .. (result-1) * 100 .. "%")
 							end
-							hudPrint("Tinkering Results: " .. "Strenght improved.")
+
 						elseif stat == 2 then						
 							if supertable[8][2][name] == 0 then
-								item.go.equipmentitem:setDexterity(math.random(2,4))
+								result = math.random(statMinAdd, statMaxAdd)
+								item.go.equipmentitem:setDexterity(result)
+								hudPrint("Gained " .. result .. " Dexterity.")
 							else
-								item.go.equipmentitem:setDexterity(supertable[8][2][name] * (1 + (math.random(50,80) * 0.01)))
+								result = (1 + (math.random(statMinMulti, statMaxMulti) * 0.01))
+								item.go.equipmentitem:setDexterity(supertable[8][2][name] * result)
+								hudPrint("Dexterity improved by " .. (result-1) * 100 .. "%")
 							end
-							hudPrint("Tinkering Results: " .. "Dexterity improved.")
+
 						elseif stat == 3 then
 							if supertable[8][3][name] == 0 then
-								item.go.equipmentitem:setVitality(math.random(2,4))
+								result = math.random(statMinAdd, statMaxAdd)
+								item.go.equipmentitem:setVitality(result)
+								hudPrint("Gained " .. result .. " Vitality.")
 							else
-								item.go.equipmentitem:setVitality(supertable[8][3][name] * (1 + (math.random(50,80) * 0.01)))
+								result = (1 + (math.random(statMinMulti, statMaxMulti) * 0.01))
+								item.go.equipmentitem:setVitality(supertable[8][3][name] * result)
+								hudPrint("Vitality improved by " .. (result-1) * 100 .. "%")
 							end
-							hudPrint("Tinkering Results: " .. "Vitality improved.")
+
 						elseif stat == 4 then
 							if supertable[8][4][name] == 0 then
-								item.go.equipmentitem:setWillpower(math.random(2,4))
+								result = math.random(statMinAdd, statMaxAdd)
+								item.go.equipmentitem:setWillpower(result)
+								hudPrint("Gained " .. result .. " Willpower.")
 							else
-								item.go.equipmentitem:setWillpower(supertable[8][4][name] * (1 + (math.random(50,80) * 0.01)))
+								result = (1 + (math.random(statMinMulti, statMaxMulti) * 0.01))
+								item.go.equipmentitem:setWillpower(supertable[8][4][name] * result)
+								hudPrint("Willpower improved by " .. (result-1) * 100 .. "%")
 							end
-							hudPrint("Tinkering Results: " .. "Willpower improved.")
+
 						elseif stat == 5 then
 							if supertable[8][5][name] == 0 then
-								item.go.equipmentitem:setHealthRegenerationRate(math.random(10,20))
+								result = math.random(statMinAdd*5, statMaxAdd*5)
+								item.go.equipmentitem:setHealthRegenerationRate(result)
+								hudPrint("Gained " .. result .. "% Health Regeneration Rate.")
 							else
-								item.go.equipmentitem:setHealthRegenerationRate(supertable[8][5][name] * (1 + (math.random(33,50) * 0.01)))
+								result = (1 + (math.random(statMinMulti*0.66, statMaxMulti*0.66) * 0.01))
+								item.go.equipmentitem:setHealthRegenerationRate(supertable[8][5][name] * result)
+								hudPrint("Health Regeneration Rate improved by " .. (result-1) * 100 .. "%")
 							end
-							hudPrint("Tinkering Results: " .. "Health Regeneration Rate improved.")
+
 						else
 							if supertable[8][6][name] == 0 then
-								item.go.equipmentitem:setEnergyRegenerationRate(math.random(10,20))
+								result = math.random(statMinAdd*5, statMaxAdd*5)
+								item.go.equipmentitem:setEnergyRegenerationRate(result)
+								hudPrint("Gained " .. result .. "% Energy Regeneration Rate.")
 							else
-								item.go.equipmentitem:setEnergyRegenerationRate(supertable[8][6][name] * (1 + (math.random(33,50) * 0.01)))
+								result = (1 + (math.random(statMinMulti*0.66, statMaxMulti*0.66) * 0.01))
+								item.go.equipmentitem:setEnergyRegenerationRate(supertable[8][6][name] * result)
+								hudPrint("Energy Regeneration Rate improved by " .. (result-1) * 100 .. "%")
 							end
-							hudPrint("Tinkering Results: " .. "Energy Regeneration Rate improved.")
 						end
+
 					elseif bonus == "protection" then
+						print("protection is " .. supertable[9][1][name])
 						if supertable[9][1][name] == 0 then
-							item.go.equipmentitem:setProtection(math.random(2,5))
+							result = math.random(2, 7)
+							item.go.equipmentitem:setProtection(result)
+							hudPrint("Gained " .. result .. " Protection.")
 						else
-							item.go.equipmentitem:setProtection(math.ceil(supertable[9][1][name] * (1 + (math.random(24,32) * 0.01))))
+							result = (1 + (math.random(24,32) * 0.01))
+							item.go.equipmentitem:setProtection(math.ceil(supertable[9][1][name] * result))
+							hudPrint("Protection improved by " .. (result-1) * 100 .. "%")
 						end
-						hudPrint("Tinkering Results: " .. "Protection improved.")
+						print("protection is now " .. item.go.equipmentitem:getProtection())
+						
+					elseif bonus == "protection_more" then
+						if supertable[9][1][name] == 0 then
+							result = math.random(4, 10)
+							item.go.equipmentitem:setProtection(result)
+							hudPrint("Gained " .. result .. " Protection.")
+						else
+							result = (1 + (math.random(24,48) * 0.01))
+							item.go.equipmentitem:setProtection(math.ceil(supertable[9][1][name] * result))
+							hudPrint("Protection improved by " .. (result-1) * 100 .. "%")
+						end
+
 					elseif bonus == "evasion" then
 						if supertable[9][2][name] == 0 then
-							item.go.equipmentitem:setEvasion(math.random(2,7))
+							result = math.random(2, 7)
+							item.go.equipmentitem:setEvasion(result)
+							hudPrint("Gained " .. result .. " Evasion.")
 						else
-							item.go.equipmentitem:setEvasion(supertable[9][2][name] * (1 + (math.random(24,32) * 0.01)))
+							result = (1 + (math.random(24,32) * 0.01))
+							item.go.equipmentitem:setEvasion(supertable[9][2][name] * result)
+							hudPrint("Evasion improved by " .. (result-1) * 100 .. "%")
 						end
-						hudPrint("Tinkering Results: " .. "Evasion improved.")
+						
+					elseif bonus == "evasion_more" then
+						if supertable[9][2][name] == 0 then
+							result = math.random(4, 12)
+							item.go.equipmentitem:setEvasion(result)
+							hudPrint("Gained " .. result .. " Evasion.")
+						else
+							result = (1 + (math.random(24,48) * 0.01))
+							item.go.equipmentitem:setEvasion(supertable[9][2][name] * result)
+							hudPrint("Evasion improved by " .. (result-1) * 100 .. "%")
+						end
+						
 					end
+
+					-- Write item's gameEffect
+
+					local gameEffect = supertable[9][3][name] and supertable[9][3][name] or ""
+					local tempTable = supertable[10][name]
+					-- Remove duplicates from list of upgrades
+					local hash = {}
+					local res = {}
+					for _,v in ipairs(tempTable) do
+						if not hash[v] then
+							res[#res+1] = v -- you could print here instead of saving to result table if you wanted
+							hash[v] = true
+						end
+						tempTable = res
+					end
+
+					for index, upgrade in ipairs(tempTable) do
+						local newText = ""
+
+						if upgrade == "critical" then
+							newText = "Critical Chance +" .. item.go.equipmentitem:getCriticalChance() .. "%"
+						end
+
+						if gameEffect ~= "" then
+							item:setGameEffect(gameEffect .. "\n" .. newText)
+						else
+							if index == 1 then
+								item:setGameEffect(gameEffect .. newText)
+							else
+								item:setGameEffect(gameEffect .. "\n" .. newText)
+							end
+						end
+					end	
+					--
+
 					bonus = ""
 					
 					if equipType == "weapon" then
@@ -2801,6 +2962,7 @@ function tinkererUpgrade(self, champion, slot, materials)
 						tinker_item[3][item.go.id] = supertable[3][name]
 						tinker_item[4][item.go.id] = supertable[4][name]
 					end
+
 					tinker_item[5][item.go.id] = item.go.equipmentitem:getAccuracy()
 					tinker_item[6][item.go.id] = item.go.equipmentitem:getCriticalChance()
 
@@ -2818,6 +2980,7 @@ function tinkererUpgrade(self, champion, slot, materials)
 
 					tinker_item[9][1][item.go.id] = item.go.equipmentitem:getProtection()
 					tinker_item[9][2][item.go.id] = item.go.equipmentitem:getEvasion()
+					-- tinker_item[9][3][item.go.id] = item:getGameEffect()
 
 					tinker_item[11][item.go.id] = item:getUiName()
 					tinker_item[12][item.go.id] = "upgraded"..upgradeLevel
@@ -2843,8 +3006,11 @@ function tinkererUpgrade(self, champion, slot, materials)
 					if expertise > 0 then
 						functions.script.set_c("crafting_expertise", champion:getOrdinal(), expertise - 1)
 					end
-				end
+				end				
 			end
+
+			setMouseItem(item)
+			champion:removeItem(item)
 		else
 			hudPrint("Maximum level reached.")
 		end
