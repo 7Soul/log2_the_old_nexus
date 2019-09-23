@@ -9,12 +9,14 @@ stepCount = 0
 keypressDelay = 0
 
 data = {}
-champion_1_Data, champion_2_Data, champion_3_Data, champion_4_Data = {}, {}, {}, {}
-championData = { champion_1_Data, champion_2_Data, champion_3_Data, champion_4_Data }
 function get(name) return data[name] end
 function set(name,value) data[name] = value end
+
+champion_1_Data, champion_2_Data, champion_3_Data, champion_4_Data = {}, {}, {}, {}
+championData = { champion_1_Data, champion_2_Data, champion_3_Data, champion_4_Data }
 function get_c(name, id) return championData[id][name] end
 function set_c(name, id, value) championData[id][name] = value end
+function add_c(name, id, value) championData[id][name] = championData[id][name] and championData[id][name] + value or value end
 
 function stepCountIncrease()
 	stepCount = stepCount + 1
@@ -176,7 +178,7 @@ function teststart()
 		--setDefaultParty()
 		party.party:getChampionByOrdinal(1):setClass("druid")
 		party.party:getChampionByOrdinal(2):setClass("hunter")
-		party.party:getChampionByOrdinal(3):setClass("monk")
+		party.party:getChampionByOrdinal(3):setClass("corsair")
 		party.party:getChampionByOrdinal(4):setClass("elementalist")
 		party.party:getChampionByOrdinal(1):setRace("human")
 		party.party:getChampionByOrdinal(2):setRace("minotaur")
@@ -2020,45 +2022,63 @@ function wearingAll(champion, armor, armor2)
 	return wearing_all
 end
 
-function elementalistPower(element, champion, power)
+function elementalistPower(element, champion, power, return_only)
 	if champion:getClass() == "elementalist" then
 		local level = champion:getLevel()
 		local shield_dur = 10 + (math.floor((level - 1) / 3) * 3)
-		if element == "fire" then
-			spells_functions.script.addConditionValue("elemental_balance_fire", 15, champion:getOrdinal())
-			if champion:hasCondition("elemental_balance_cold") or champion:hasCondition("elemental_balance_air") then
-				power = power * 1.25
-				delayedCall("functions", 0.5, "regainEnergy", champion:getOrdinal(), champion:getMaxEnergy() * (0.05 + champion:getCurrentStat("willpower") * 0.001))
+		if return_only then 
+			if element == "fire" then
+				if champion:hasCondition("elemental_balance_cold") or champion:hasCondition("elemental_balance_air") then
+					power = power * 1.25
+				end
+
+			elseif element == "cold" then
+				if champion:hasCondition("elemental_balance_fire") or champion:hasCondition("elemental_balance_air") then
+					power = power * 1.25
+				end
+
+			elseif element == "shock" then
+				if champion:hasCondition("elemental_balance_cold") or champion:hasCondition("elemental_balance_fire") then
+					power = power * 1.25
+				end
+			end
+		else
+			if element == "fire" then
+				spells_functions.script.addConditionValue("elemental_balance_fire", 15, champion:getOrdinal())
+				if champion:hasCondition("elemental_balance_cold") or champion:hasCondition("elemental_balance_air") then
+					power = power * 1.25
+					delayedCall("functions", 0.5, "regainEnergy", champion:getOrdinal(), champion:getMaxEnergy() * (0.05 + champion:getCurrentStat("willpower") * 0.001))
+					champion:removeCondition("elemental_balance_cold")
+					champion:removeCondition("elemental_balance_air")
+				end
 				champion:removeCondition("elemental_balance_cold")
 				champion:removeCondition("elemental_balance_air")
-			end
-			champion:removeCondition("elemental_balance_cold")
-			champion:removeCondition("elemental_balance_air")
-			spells_functions.script.elementalShieldSingle(shield_dur, champion, true, false, false, false)
-			
-		elseif element == "cold" then
-			spells_functions.script.addConditionValue("elemental_balance_cold", 15, champion:getOrdinal())
-			if champion:hasCondition("elemental_balance_fire") or champion:hasCondition("elemental_balance_air") then
-				power = power * 1.25
-				delayedCall("functions", 0.5, "regainEnergy", champion:getOrdinal(), champion:getMaxEnergy() * (0.05 + champion:getCurrentStat("willpower") * 0.001))
+				spells_functions.script.elementalShieldSingle(shield_dur, champion, true, false, false, false)
+				
+			elseif element == "cold" then
+				spells_functions.script.addConditionValue("elemental_balance_cold", 15, champion:getOrdinal())
+				if champion:hasCondition("elemental_balance_fire") or champion:hasCondition("elemental_balance_air") then
+					power = power * 1.25
+					delayedCall("functions", 0.5, "regainEnergy", champion:getOrdinal(), champion:getMaxEnergy() * (0.05 + champion:getCurrentStat("willpower") * 0.001))
+					champion:removeCondition("elemental_balance_fire")
+					champion:removeCondition("elemental_balance_air")
+				end
 				champion:removeCondition("elemental_balance_fire")
 				champion:removeCondition("elemental_balance_air")
-			end
-			champion:removeCondition("elemental_balance_fire")
-			champion:removeCondition("elemental_balance_air")
-			spells_functions.script.elementalShieldSingle(shield_dur, champion, false, false, true, false)
-			
-		elseif element == "shock" then
-			spells_functions.script.addConditionValue("elemental_balance_air", 15, champion:getOrdinal())
-			if champion:hasCondition("elemental_balance_cold") or champion:hasCondition("elemental_balance_fire") then
-				power = power * 1.25
-				delayedCall("functions", 0.5, "regainEnergy", champion:getOrdinal(), champion:getMaxEnergy() * (0.05 + champion:getCurrentStat("willpower") * 0.001))
+				spells_functions.script.elementalShieldSingle(shield_dur, champion, false, false, true, false)
+				
+			elseif element == "shock" then
+				spells_functions.script.addConditionValue("elemental_balance_air", 15, champion:getOrdinal())
+				if champion:hasCondition("elemental_balance_cold") or champion:hasCondition("elemental_balance_fire") then
+					power = power * 1.25
+					delayedCall("functions", 0.5, "regainEnergy", champion:getOrdinal(), champion:getMaxEnergy() * (0.05 + champion:getCurrentStat("willpower") * 0.001))
+					champion:removeCondition("elemental_balance_cold")
+					champion:removeCondition("elemental_balance_fire")
+				end
 				champion:removeCondition("elemental_balance_cold")
 				champion:removeCondition("elemental_balance_fire")
+				spells_functions.script.elementalShieldSingle(shield_dur, champion, false, true, false, false)
 			end
-			champion:removeCondition("elemental_balance_cold")
-			champion:removeCondition("elemental_balance_fire")
-			spells_functions.script.elementalShieldSingle(shield_dur, champion, false, true, false, false)
 		end
 		return power
 	end
@@ -2213,11 +2233,11 @@ end
 
 
 
-function empowerElement(champion, element, multi)
+function empowerElement(champion, element, multi, return_only)
 	local f = multi
 	local ord = champion:getOrdinal()
 	if champion:getClass() == "elementalist" and element ~= "physical" then
-		f = functions.script.elementalistPower(element, champion, f)
+		f = functions.script.elementalistPower(element, champion, f, return_only)
 	end
 	
 	if element ~= "physical" and champion:hasTrait("moon_rites") and GameMode.getTimeOfDay() > 1.01 then
@@ -2236,7 +2256,7 @@ function empowerElement(champion, element, multi)
 	end
 	
 	if element == "poison" then
-		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).name == "serpent_bracer" then
+		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "serpent_bracer" then
 			f = f * 1.15
 		end
 		
@@ -2272,7 +2292,7 @@ function empowerElement(champion, element, multi)
 		end
 		
 	elseif element == "fire" then
-		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).name == "forestfire_bracer" then
+		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "forestfire_bracer" then
 			f = f * 1.2
 		end
 		
@@ -2294,11 +2314,11 @@ function empowerElement(champion, element, multi)
 		end
 		
 	elseif element == "cold" then
-		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).name == "coldspike_bracelet" then
+		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "coldspike_bracelet" then
 			f = f * 1.2
 		end	
 		
-		if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).name == "nomad_mittens" then
+		if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "nomad_mittens" then
 			f = (champion:getItem(ItemSlot.Gloves):hasTrait("upgraded") and f * 1.15 or f * 1.05)
 		end	
 		
@@ -2316,7 +2336,7 @@ function empowerElement(champion, element, multi)
 		end
 		
 	elseif element == "shock" then
-		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).name == "torment_bracer" then
+		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "torment_bracer" then
 			f = f * 1.2
 		end	
 		
@@ -2367,11 +2387,18 @@ function empowerElement(champion, element, multi)
 	return f
 end
 
-function empowerAttackType(champion, attackType, multi)
+function empowerAttackType(champion, attackType, multi, return_only)
 	local f = multi
 	local ord = champion:getOrdinal()
+	if attackType == "light_weapons" or attackType == "heavy_weapons" then
+		if champion:hasTrait("sea_dog") and (champion == party.party:getChampion(3) or champion == party.party:getChampion(4)) then
+			f = f * 1.25
+		end	
+	end
 	
 	if attackType == "ranged" then
+		f = f * ((champion:getSkillLevel("ranged_weapons") * 0.2) + 1)
+
 		if champion:hasTrait("sea_dog") and (champion == party.party:getChampion(1) or champion == party.party:getChampion(2)) then
 			f = f * 1.25
 		end	
@@ -2379,6 +2406,21 @@ function empowerAttackType(champion, attackType, multi)
 		if champion:getClass() == "assassin_class" then
 			f = f * (1 + (assassinations[ord] * 0.05))
 		end	
+
+	elseif attackType == "light_weapons" then
+		f = f * ((champion:getSkillLevel("light_weapons") * 0.2) + 1)
+
+	elseif attackType == "dual_wielding" then		
+		if champion:getClass() == "assassin_class" then
+			f = f * 0.75
+			f = f * (1 + (assassinations[ord] * 0.05))
+		else
+			f = f * 0.6
+		end
+
+	elseif attackType == "firearms" then
+		
+
 	end
 	
 	return f
@@ -2532,7 +2574,7 @@ function getPierce(champion, slot)
 		end
 
 		if item.go.firearmattack then
-			add = item.go.firearmattack:getAgetPierceccuracy()
+			add = item.go.firearmattack:getPierce()
 			pierce = add and pierce + add or pierce
 
 			if champion:hasTrait("precision") then
@@ -2588,8 +2630,10 @@ function getDamage(champion, slot)
 		dmg[0] = math.floor(ap * 0.5 * skillLevel)
 		dmg[1] = math.floor(ap * 1.5 * skillLevel)
 
-		dmg[0] = math.floor(dmg[0] + math.max((math.ceil(champion:getCurrentStat(itemComp:getBaseDamageStat()) - 10) * 0.5), 0))
-		dmg[1] = math.floor(dmg[1] + math.max(((champion:getCurrentStat(itemComp:getBaseDamageStat()) - 10) * 1.0), 0))
+		if itemComp:getBaseDamageStat() then
+			dmg[0] = math.floor(dmg[0] + math.max((math.ceil(champion:getCurrentStat(itemComp:getBaseDamageStat()) - 10) * 0.5), 0))
+			dmg[1] = math.floor(dmg[1] + math.max(((champion:getCurrentStat(itemComp:getBaseDamageStat()) - 10) * 1.0), 0))
+		end
 	else
 		dmg[0] = 1 + math.max((math.ceil(champion:getCurrentStat("strength") - 10) * 0.5), 1)
 		dmg[1] = 1 + math.max(((champion:getCurrentStat("strength") - 10) * 1.0), 2)
@@ -2600,17 +2644,144 @@ function getDamage(champion, slot)
 	return dmg
 end
 
+function getActionSpeed(champion)
+	local speed = 1
+	if champion:hasCondition("drown_sorrows") then
+		speed = speed * 0.5
+	end
+
+	if champion:hasTrait("chewing") then
+		speed = speed * 0.9
+	end
+
+	if champion:hasTrait("chemical_processing") then
+		local food = (champion:getFood()-500) / 500
+		speed = speed * (1 - (0.15 * food))
+	end
+
+	if champion:hasTrait("nimble") then
+		local all_light = wearingAll(champion, "light_armor", "clothes")
+		if all_light then
+			speed = speed * 0.85
+		end	
+	end
+
+	if champion:hasTrait("fast_fingers") then
+		local item1 = champion:getItem(ItemSlot.Weapon)
+		local item2 = champion:getOtherHandItem(ItemSlot.Weapon)
+		if (item1 and item1:hasTrait("firearm")) or (item2 and item2:hasTrait("firearm")) then
+			speed = speed * 0.85
+		end
+	end
+
+	if champion:getClass() == "corsair" then
+		local item1 = champion:getItem(ItemSlot.Weapon)
+		local item2 = champion:getItem(ItemSlot.OffHand)
+		if (item1 and item1:hasTrait("firearm")) or (item2 and item2:hasTrait("firearm")) then
+			local level = champion:getLevel()
+			speed = speed * (1.4 - (level * 0.015))
+		end
+	end
+
+	if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "bracelet_tirin" then
+		speed = speed * 0.85
+	end
+
+	return speed
+end
+
 function getBlockChance(champion)
-	local chance = 0
+	local chance = 0.0
 	local item1 = champion:getItem(ItemSlot.Weapon)
 	local item2 = champion:getOtherHandItem(ItemSlot.Weapon)
 	if (item1 and item1:hasTrait("shield")) or (item2 and item2:hasTrait("shield")) or isArmorSetEquipped(champion, "chitin") then
-		chance = champion:getSkillLevel("block") / 50
+		chance = chance + 0.02
+		chance = chance + champion:getSkillLevel("block") / 50
 		if champion:hasTrait("block") then chance = chance + 0.08 end
 		chance = get_c("shield_bearer", champion:getOrdinal()) and chance + (get_c("shield_bearer", champion:getOrdinal()) * 0.01) or chance
 		if champion:hasCondition("ancestral_charge") then chance = chance * 1.5 end
 	end
 	return chance
+end
+
+function getMiscResistance(champion, name)
+	local c = champion:getOrdinal()
+	local resist = 0
+	local add = 0
+
+	if name == "disease" then
+		if champion:getRace() == "ratling" then
+			return 100
+		end
+
+		for s = ItemSlot.Head,ItemSlot.Bracers do
+			local item = champion:getItem(s)
+			if item then
+				if item.go.name == "crystal_amulet" then
+					return 100
+				end
+			end
+		end
+	elseif name == "bleeding" then
+		resist = get_c("bleeding_resist", c) and get_c("bleeding_resist", c) or 0
+		
+		for s = ItemSlot.Head,ItemSlot.Bracers do
+			local item = champion:getItem(s)
+			if item then
+				if item.go.name == "pit_gauntlets" then
+					resist = resist + 25
+				end
+			end
+		end	
+
+	elseif name == "poisoned" then
+		resist = get_c("poisoned_resist", c) and get_c("poisoned_resist", c) or 0
+
+		for s = ItemSlot.Head,ItemSlot.Bracers do
+			local item = champion:getItem(s)
+			if item then
+				if item.go.name == "crystal_amulet" then
+					return 100
+				end
+			end
+		end
+
+
+	end
+	return resist
+end
+
+function getWoundResistance(champion)
+	local c = champion:getOrdinal()
+	local resist = { 0,0,0,0,0,0 }
+	local add = 0
+
+	if champion:hasTrait("endurance") then
+		local slots = {3,4,5,6,9,9}
+		local injuries = {"head_wound","chest_wound","leg_wound","feet_wound","left_hand_wound","right_hand_wound"}
+		for index, slot in ipairs(slots) do
+			local bonus = 25
+			local item = champion:getItem(slot)
+			if item and item:hasTrait("heavy_armor") then
+				bonus = bonus * 3
+			end
+			
+			resist[index] = resist[index] + bonus
+		end
+	end
+
+	if champion:getRace() == "insectoid" then
+		for i=1,6 do
+			resist[i] = resist[i] + 50
+		end
+	end
+
+	if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "pit_gauntlets" then
+		resist[5] = resist[5] + 25
+		resist[6] = resist[6] + 25
+	end
+
+	return resist
 end
 
 function isArmorSetEquipped(champion, set)

@@ -1006,8 +1006,8 @@ defineObject{
 				context.font("tiny")
 			end
 
-			-- context.drawImage2("mod_assets/textures/gui/stats_background.dds", w - (558 * f2), 280 * f2, 0, 0, 528, 350, 528*f2, 350*f2)
-			-- local dummy1, dummy2 = context.button("dummy",w - (558), 280, 528, 350)
+			context.drawImage2("mod_assets/textures/gui/stats_background.dds", w - (558 * f2), 280 * f2, 0, 0, 528, 350, 528*f2, 350*f2)
+			local dummy1, dummy2 = context.button("dummy",w - (558), 280, 528, 350)
 
 			if champion:getClass() == "assassin_class" then
 				context.drawText("Assassinations: " .. functions.script.assassinations[champion:getOrdinal()], w - (530 * f2), 618 * f2)
@@ -1018,73 +1018,191 @@ defineObject{
 			end
 			
 			local txt = ""
-			context.drawText("Strength", w - (528 * f2), 334 * f2)
+			local x = 0
+			local y = 0
+			-- ATTRIBUTES
+			x = 530
+			y = 334
+			context.drawText("Strength", w - (x * f2), y * f2)
 			txt = tostring(math.floor(champion:getCurrentStat("strength")))
-			context.drawText("" .. txt, w - (390 * f2) - context.getTextWidth(txt), 334 * f2)
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
 
-			context.drawText("Dexterity", w - (528 * f2), 354 * f2)
+			context.drawText("Dexterity", w - (x * f2), (y + 20) * f2)
 			txt = tostring(math.floor(champion:getCurrentStat("dexterity")))
-			context.drawText("" .. txt, w - (390 * f2) - context.getTextWidth(txt), 354 * f2)
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 20) * f2)
 
-			context.drawText("Vitality", w - (528 * f2), 374 * f2)
+			context.drawText("Vitality", w - (x * f2), (y + 40) * f2)
 			txt = tostring(math.floor(champion:getCurrentStat("vitality")))
-			context.drawText("" .. txt, w - (390 * f2) - context.getTextWidth(txt), 374 * f2)
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 40) * f2)
 
-			context.drawText("Willpower", w - (528 * f2), 394 * f2)
+			context.drawText("Willpower", w - (x * f2), (y + 60) * f2)
 			txt = tostring(math.floor(champion:getCurrentStat("willpower")))
-			context.drawText("" .. txt, w - (390 * f2) - context.getTextWidth(txt), 394 * f2)
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 60) * f2)
 
-			context.drawText("Hp Regen", w - (528 * f2), 450 * f2)
+			-- MISC
+			x = 530
+			y = 452
+			context.drawText("Hp Regen", w - (x * f2), y * f2)
 			txt = tostring(math.floor(champion:getCurrentStat("health_regeneration_rate") - 100))
-			context.drawText("" .. txt, w - (390 * f2) - context.getTextWidth(txt), 450 * f2)
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
 			
-			context.drawText("En Regen", w - (528 * f2), 470 * f2)
+			context.drawText("En Regen", w - (x * f2), (y + 20) * f2)
 			txt = tostring(math.floor(champion:getCurrentStat("energy_regeneration_rate") - 100))
-			context.drawText("" .. txt, w - (390 * f2) - context.getTextWidth(txt), 470 * f2)
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 20) * f2)
 
-			context.drawText("Action Speed", w - (528 * f2), 490 * f2)
-			txt = tostring(math.floor(15))
-			context.drawText("" .. txt, w - (390 * f2) - context.getTextWidth(txt), 490 * f2)
+			context.drawText("Action Speed", w - (x * f2), (y + 40) * f2)
+			txt = tostring(100 - math.floor(functions.script.getActionSpeed(champion) * 100))
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 40) * f2)
 
-			context.drawText("Block", w - (528 * f2), 510 * f2)
+			context.drawText("Block", w - (x * f2), (y + 60) * f2)
 			txt = tostring(math.floor(functions.script.getBlockChance(champion) * 100))
-			context.drawText("" .. txt, w - (390 * f2) - context.getTextWidth(txt), 510 * f2)
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 60) * f2)
+
+			-- RESISTANCES
+			x = 365
+			y = 334
+			context.drawText("Fire", w - (x * f2), y * f2)
+			txt = tostring(math.floor(champion:getResistance("fire")))
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+
+			context.drawText("Shock", w - (x * f2), (y + 20) * f2)
+			txt = tostring(math.floor(champion:getResistance("shock")))
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 20) * f2)
+
+			context.drawText("Poison", w - (x * f2), (y + 40) * f2)
+			txt = tostring(math.floor(champion:getResistance("poison")))
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 40) * f2)
+
+			context.drawText("Cold", w - (x * f2), (y + 60) * f2)
+			txt = tostring(math.floor(champion:getResistance("cold")))
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 60) * f2)
+
+			context.drawText("Disease", w - (x * f2), (y + 80) * f2)
+			txt = tostring(math.floor(functions.script.getMiscResistance(champion, "disease")))
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 80) * f2)
+
+			context.drawText("Bleeding", w - (x * f2), (y + 100) * f2)
+			txt = tostring(math.floor(functions.script.getMiscResistance(champion, "bleeding")))
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 100) * f2)
+
+			context.drawText("Poisoned", w - (x * f2), (y + 120) * f2)
+			txt = tostring(math.floor(functions.script.getMiscResistance(champion, "poisoned")))
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 120) * f2)
+
+			-- WOUND RESISTS
+			x = 365
+			y = 334+175
+			local wound_res = functions.script.getWoundResistance(champion)
+			context.drawText("Head", w - (x * f2), y * f2)
+			txt = tostring(math.floor(wound_res[1]))
+			context.drawText("" .. txt, w - ((x-69) * f2) - context.getTextWidth(txt), y * f2)
+			context.drawText("Chest", w - (x * f2), (y + 16) * f2)
+			txt = tostring(math.floor(wound_res[2]))
+			context.drawText("" .. txt, w - ((x-69) * f2) - context.getTextWidth(txt), (y + 16) * f2)
+			context.drawText("Legs", w - (x * f2), (y + 32) * f2)
+			txt = tostring(math.floor(wound_res[3]))
+			context.drawText("" .. txt, w - ((x-69) * f2) - context.getTextWidth(txt), (y + 32) * f2)
+			
+			x = 296-4
+			y = 334+175
+			context.drawText("Feet", w - (x * f2), y * f2)
+			txt = tostring(math.floor(wound_res[4]))
+			context.drawText("" .. txt, w - ((x-69) * f2) - context.getTextWidth(txt), y * f2)
+			context.drawText("L.Hand", w - (x * f2), (y + 16) * f2)
+			txt = tostring(math.floor(wound_res[5]))
+			context.drawText("" .. txt, w - ((x-69) * f2) - context.getTextWidth(txt), (y + 16) * f2)
+			context.drawText("R.Hand", w - (x * f2), (y + 32) * f2)
+			txt = tostring(math.floor(wound_res[6]))
+			context.drawText("" .. txt, w - ((x-69) * f2) - context.getTextWidth(txt), (y + 32) * f2)
+
+			-- MULTIPLIERS
+			x = 198
+			y = 334
+			context.drawText("Fire", w - (x * f2), y * f2)
+			txt = tostring(math.floor( functions.script.empowerElement(champion, "fire", 100, true) - 100 ))
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+
+			context.drawText("Shock", w - (x * f2), (y + 20) * f2)
+			txt = tostring(math.floor( functions.script.empowerElement(champion, "shock", 100, true) - 100 ))
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 20) * f2)
+
+			context.drawText("Poison", w - (x * f2), (y + 40) * f2)
+			txt = tostring(math.floor( functions.script.empowerElement(champion, "poison", 100, true) - 100 ))
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 40) * f2)
+
+			context.drawText("Cold", w - (x * f2), (y + 60) * f2)
+			txt = tostring(math.floor( functions.script.empowerElement(champion, "cold", 100, true) - 100 ))
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 60) * f2)
+
+			context.drawText("Neutral", w - (x * f2), (y + 80) * f2)
+			txt = tostring(math.floor( functions.script.empowerElement(champion, "neutral", 100, true) - 100 ))
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 80) * f2)
+
+			y = 334 + 124
+			context.drawText("L.Weapons", w - (x * f2), y * f2)
+			txt = tostring(math.floor( functions.script.empowerAttackType(champion, "light_weapons", 100, true) - 100 ))
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+
+			context.drawText("H.Weapons", w - (x * f2), (y + 20) * f2)
+			txt = tostring(math.floor( functions.script.empowerAttackType(champion, "heavy_weapons", 100, true) - 100 ))
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 20) * f2)
+
+			context.drawText("Dual Wield", w - (x * f2), (y + 40) * f2)
+			txt = tostring(math.floor( functions.script.empowerAttackType(champion, "dual_wielding", 100, true) - 100 ))
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 40) * f2)
+
+			context.drawText("Ranged", w - (x * f2), (y + 60) * f2)
+			txt = tostring(math.floor( functions.script.empowerAttackType(champion, "ranged", 100, true) - 100 ))
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 60) * f2)
+
+			context.drawText("Firearms", w - (x * f2), (y + 80) * f2)
+			txt = tostring(math.floor( functions.script.empowerAttackType(champion, "firearms", 100, true) - 100 ))
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 80) * f2)
+
 
 			-- Left Hand
-			context.drawText("Dmg", w - (528 * f2), 590 * f2)
+			x = 530
+			y = 592
+			context.drawText("Dmg", w - (x * f2), y * f2)
 			local dmg = functions.script.getDamage(champion, ItemSlot.Weapon)
 			txt = tostring(math.floor(dmg[0])) .. " - " .. tostring(math.floor(dmg[1]))
-			context.drawText("" .. txt , w - (412 * f2) - context.getTextWidth(txt), 590 * f2)
+			context.drawText("" .. txt , w - ((x-116) * f2) - context.getTextWidth(txt), y * f2)
 
-			context.drawText("Acc", w - (528 * f2), 610 * f2)
+			context.drawText("Acc", w - (x * f2), (y + 20) * f2)
 			txt = tostring(math.floor(functions.script.getAccuracy(champion, ItemSlot.Weapon) * 1))
-			context.drawText("" .. txt, w - (412 * f2) - context.getTextWidth(txt), 610 * f2)
+			context.drawText("" .. txt, w - ((x-116) * f2) - context.getTextWidth(txt), (y + 20) * f2)
 
-			context.drawText("Crit", w - (402 * f2), 590 * f2)
+			x = x-128
+			y = 592
+			context.drawText("Crit", w - (x * f2), y * f2)
 			txt = tostring(math.floor(functions.script.getCrit(champion, ItemSlot.Weapon) * 1)) .. "%"
-			context.drawText("" .. txt, w - (312 * f2) - context.getTextWidth(txt), 590 * f2)
+			context.drawText("" .. txt, w - ((x-88) * f2) - context.getTextWidth(txt), y * f2)
 
-			context.drawText("Pierce", w - (402 * f2), 610 * f2)
+			context.drawText("Pierce", w - (x * f2), (y + 20) * f2)
 			txt = tostring(math.floor(functions.script.getPierce(champion, ItemSlot.Weapon) * 1))
-			context.drawText("" .. txt, w - (312 * f2) - context.getTextWidth(txt), 610 * f2)
+			context.drawText("" .. txt, w - ((x-88) * f2) - context.getTextWidth(txt), (y + 20) * f2)
 
 			-- Right Hand
-			context.drawText("Dmg", w - ((528-254) * f2), 590 * f2)
+			x = 276
+			y = 592
+			context.drawText("Dmg", w - (x * f2), y * f2)
 			local dmg = functions.script.getDamage(champion, ItemSlot.OffHand)
 			txt = tostring(math.floor(dmg[0])) .. " - " .. tostring(math.floor(dmg[1]))
-			context.drawText("" .. txt , w - ((412-254) * f2) - context.getTextWidth(txt), 590 * f2)
+			context.drawText("" .. txt , w - ((x-116) * f2) - context.getTextWidth(txt), y * f2)
 
-			context.drawText("Acc", w - ((528-254) * f2), 610 * f2)
+			context.drawText("Acc", w - (x * f2), (y + 20) * f2)
 			txt = tostring(math.floor(functions.script.getAccuracy(champion, ItemSlot.OffHand) * 1))
-			context.drawText("" .. txt, w - ((412-254) * f2) - context.getTextWidth(txt), 610 * f2)
+			context.drawText("" .. txt, w - ((x-116) * f2) - context.getTextWidth(txt), (y + 20) * f2)
 
-			context.drawText("Crit", w - ((402-254) * f2), 590 * f2)
+			x = x-128
+			y = 592
+			context.drawText("Crit", w - (x * f2), y * f2)
 			txt = tostring(math.floor(functions.script.getCrit(champion, ItemSlot.OffHand) * 1)) .. "%"
-			context.drawText("" .. txt, w - ((312-254) * f2) - context.getTextWidth(txt), 590 * f2)
+			context.drawText("" .. txt, w - ((x-88) * f2) - context.getTextWidth(txt), y * f2)
 
-			context.drawText("Pierce", w - ((402-254) * f2), 610 * f2)
+			context.drawText("Pierce", w - (x * f2), (y + 20) * f2)
 			txt = tostring(math.floor(functions.script.getPierce(champion, ItemSlot.OffHand) * 1))
-			context.drawText("" .. txt, w - ((312-254) * f2) - context.getTextWidth(txt), 610 * f2)
+			context.drawText("" .. txt, w - ((x-88) * f2) - context.getTextWidth(txt), (y + 20) * f2)
 			
 			-- local firemulti = functions.script.empowerElement(champion, "poison", 1)
 			-- context.drawText("poison damage: " .. firemulti, w - (530 * f2), 230 * f2)
