@@ -8,7 +8,7 @@ defineObject{
 		},
 		{
 			class = "Item",
-            uiName = "Tinkering Toolbox",
+            uiName = "Tinkerer's Toolbox",
             gfxAtlas = "mod_assets/textures/gui/items.dds",
 			gfxIndex = 61,
 			weight = 3.0,

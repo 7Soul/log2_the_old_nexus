@@ -44,7 +44,7 @@ defOrdered =
 	description = "",
 	onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
 		local ord = champion:getOrdinal()
-		local base = functions.script.getDamage(ord, nil) + functions.script.getAccuracy(ord, nil)
+		local base = functions.script.getDamage(ord, nil) + functions.script.getAccuracy(champion)
 		local power = spells_functions.script.getPower(base, champion, "missile_weapons", "neutral", 1)			
 		spells_functions.script.missile("psionic_arrow", ord, power, nil, true)
 		spells_functions.script.stopInvisibility()
@@ -2217,7 +2217,7 @@ function getPower(base, champion, skill, element, tier, spellName)
 		if champion:hasTrait("arcane_warrior") then
 			local ap1, acc1 = 0, 0
 			ap = functions.script.getDamage(champion:getOrdinal()) * 0.1
-			acc = functions.script.getAccuracy(champion:getOrdinal()) * 0.1
+			acc = functions.script.getAccuracy(champion) * 0.1
 			arcaneWarrior = ap + acc
 		end
 	end

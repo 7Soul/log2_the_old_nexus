@@ -869,7 +869,7 @@ defineTrait{
 
 defineTrait{
 	name = "persistence",
-	uiName = "Persistence",
+	uiName = "Body and Mind",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 48,
 	charGen = true,
@@ -1237,7 +1237,7 @@ defineTrait{
 				hpTotal = hpTotal + champ:getHealth()
 			end
 			local hpRate = 1 - (hpTotal / hpMaxTotal)
-			champion:addStatModifier("dexterity", 10 * hpRate)
+			champion:addStatModifier("dexterity", math.ceil(10 * hpRate))
 		end
 	end,
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
@@ -1251,17 +1251,17 @@ defineTrait{
 			end
 			local hpRate = 1 - (hpTotal / hpMaxTotal)
 			functions.script.set_c("clutch", champion:getOrdinal(), 50 * hpRate)
-			return 50 * hpRate
+			return math.ceil(50 * hpRate)
 		end
 	end,
 }
 
 defineTrait{
 	name = "precision",
-	uiName = "Precision",
+	uiName = "Deadly Aim",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 80,
-	description = "25% Chance to pierce 5 to 15 armor with melee and firearm attacks.",
+	description = "Melee and Firearm attacks pierce 5 to 15 armor, while Ranged attacks deal 5 to 20 extra damage.",
 }
 
 -- Critical

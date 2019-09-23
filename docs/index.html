@@ -257,6 +257,26 @@ h2 em {
 	margin: 0;
 }
 
+#herbologist:hover:after {
+	content: url(log2_old_nexus_druid.gif);
+	display: block;
+	position: absolute;
+    left: 123px;
+    top: 26px;
+	z-index: 100;
+	border: 2px gray solid;
+	border-radius: 8px;
+}
+
+#herbologist:hover {
+	position: relative;	
+	cursor: pointer;
+}
+
+#herbologist {
+	text-decoration: underline;
+}
+
 </style>
 </head>
 
@@ -398,7 +418,7 @@ h2 em {
 		</div>
 	</div>
 	<div class="class_trait">
-		<p><b>Herbologist:</b> You can attach a herb to your Gloves, Bracers and Necklace, gaining its effects.</p>
+		<p><b>Herbologist:</b> You can <span id="herbologist">attach a herb</span> to your Gloves, Bracers and Necklace, gaining its effects.</p>
 		<ul style="padding-left:10px;">
 		<li>Blooddrop: +2 Strength. Gain health by dealing poison damage.</li>
 		<li>Etherweed: +2 Willpower. Gain energy by dealing poison damage.</li>
@@ -724,7 +744,7 @@ h2 em {
 <div class="main">
 	<div class="top">
 		<div class="icon" style="background-position: -675px -225px;"></div>
-		<h1>Persistence<em>Insectoid</em></h1>
+		<h1>Body and Mind<em>Insectoid</em></h1>
 		<h2>Increases physical and magical damage by 4% for each point in Vitality <em>(has diminishing returns)</em></h2>
 		<h2>Gain +1 Vitality per 25 Energy.</em></h2>
 	</div>
@@ -1112,7 +1132,7 @@ h2 em {
 			<p style="max-width: 360px;">You can wield two-handed weapons in one hand.</p>
 		</div>
 	</div>
-	<p>Perks take effect when attacking with Light Weapons.<p>
+	<p>Perks take effect when attacking with Heavy Weapons.<p>
 </div>
 
 <div class="main">

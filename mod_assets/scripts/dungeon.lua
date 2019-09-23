@@ -6381,7 +6381,7 @@ turtle_1.detectedtimer:setTimerInterval(0)
 turtle_1.detectedtimer:setDisableSelf(false)
 turtle_1.detectedtimer:setTriggerOnStart(true)
 turtle_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("starting_location",13,14,3,0,"starting_location_1")
+spawn("starting_location",14,9,3,0,"starting_location_1")
 spawn("rogue_boots",19,14,1,0,"rogue_boots_1")
 rogue_boots_1.data:setSource("data = {}\
 function get(self,name)\
@@ -8139,7 +8139,7 @@ loadLayer("tiles", {
 	8,7,2,2,2,2,2,2,5,5,5,5,5,1,5,5,5,5,1,5,5,5,1,1,1,1,1,1,1,1,1,5,
 	8,7,2,2,2,6,2,2,5,5,5,5,5,1,5,5,5,5,1,5,5,5,5,5,1,1,1,1,5,1,5,5,
 	8,7,2,2,2,6,2,2,2,2,5,5,5,1,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
-	8,7,8,8,8,6,2,2,2,2,5,5,5,5,5,5,5,5,1,1,1,1,1,1,2,1,5,5,5,5,5,5,
+	8,7,8,8,8,6,2,2,2,2,5,5,5,5,5,5,5,1,1,1,1,1,1,1,2,1,5,5,5,5,5,5,
 	8,7,6,6,2,2,2,2,2,2,1,5,5,5,5,5,5,5,5,5,5,5,1,2,2,2,5,5,5,5,5,5,
 	8,2,6,6,6,2,6,6,2,2,1,5,5,5,1,1,1,1,1,3,1,1,2,2,2,1,5,5,5,5,5,5,
 	8,7,6,6,6,6,6,6,2,1,1,5,5,3,3,1,1,5,5,5,5,1,2,1,2,1,5,5,5,5,5,5,
@@ -9646,7 +9646,6 @@ ornate_key_1.detectedtimer:setCurrentLevelOnly(true)
 pedestal_7.surface:addItem(ornate_key_1.item)
 spawn("beach_rock_3x1",19,8,1,0,"beach_rock_3x1_76")
 spawn("beach_rock_arch_small",20,8,2,0,"beach_rock_arch_small_245")
-spawn("beach_rock_3x2",16,7,2,0,"beach_rock_3x2_9")
 spawn("crystal_area",22,11,2,0,"crystal_area_3")
 spawn("crystal_area",22,11,0,0,"crystal_area_4")
 spawn("crystal_area_inside",22,11,1,0,"crystal_area_inside_1")

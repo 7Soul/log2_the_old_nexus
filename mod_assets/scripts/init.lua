@@ -997,20 +997,97 @@ defineObject{
 			local mLeft, mRight = context.mouseDown(0), context.mouseDown(2)
 			
 			if f2 > 0.8 then
-				context.font("medium")
+				context.font("small")
 			elseif f2 > 0.7 then
-				context.font("medium")
+				context.font("small")
 			elseif f2 > 0.6 then
 				context.font("small")
 			elseif f2 < 0.5 then
 				context.font("tiny")
 			end
+
+			-- context.drawImage2("mod_assets/textures/gui/stats_background.dds", w - (558 * f2), 280 * f2, 0, 0, 528, 350, 528*f2, 350*f2)
+			-- local dummy1, dummy2 = context.button("dummy",w - (558), 280, 528, 350)
+
 			if champion:getClass() == "assassin_class" then
 				context.drawText("Assassinations: " .. functions.script.assassinations[champion:getOrdinal()], w - (530 * f2), 618 * f2)
 			end
+
 			if champion:getClass() == "stalker" then
 				context.drawText("Invisibility Casts: " .. functions.script.night_stalker[champion:getOrdinal()], w - (530 * f2), 618 * f2)
 			end
+			
+			local txt = ""
+			context.drawText("Strength", w - (528 * f2), 334 * f2)
+			txt = tostring(math.floor(champion:getCurrentStat("strength")))
+			context.drawText("" .. txt, w - (390 * f2) - context.getTextWidth(txt), 334 * f2)
+
+			context.drawText("Dexterity", w - (528 * f2), 354 * f2)
+			txt = tostring(math.floor(champion:getCurrentStat("dexterity")))
+			context.drawText("" .. txt, w - (390 * f2) - context.getTextWidth(txt), 354 * f2)
+
+			context.drawText("Vitality", w - (528 * f2), 374 * f2)
+			txt = tostring(math.floor(champion:getCurrentStat("vitality")))
+			context.drawText("" .. txt, w - (390 * f2) - context.getTextWidth(txt), 374 * f2)
+
+			context.drawText("Willpower", w - (528 * f2), 394 * f2)
+			txt = tostring(math.floor(champion:getCurrentStat("willpower")))
+			context.drawText("" .. txt, w - (390 * f2) - context.getTextWidth(txt), 394 * f2)
+
+			context.drawText("Hp Regen", w - (528 * f2), 450 * f2)
+			txt = tostring(math.floor(champion:getCurrentStat("health_regeneration_rate") - 100))
+			context.drawText("" .. txt, w - (390 * f2) - context.getTextWidth(txt), 450 * f2)
+			
+			context.drawText("En Regen", w - (528 * f2), 470 * f2)
+			txt = tostring(math.floor(champion:getCurrentStat("energy_regeneration_rate") - 100))
+			context.drawText("" .. txt, w - (390 * f2) - context.getTextWidth(txt), 470 * f2)
+
+			context.drawText("Action Speed", w - (528 * f2), 490 * f2)
+			txt = tostring(math.floor(15))
+			context.drawText("" .. txt, w - (390 * f2) - context.getTextWidth(txt), 490 * f2)
+
+			context.drawText("Block", w - (528 * f2), 510 * f2)
+			txt = tostring(math.floor(functions.script.getBlockChance(champion) * 100))
+			context.drawText("" .. txt, w - (390 * f2) - context.getTextWidth(txt), 510 * f2)
+
+			-- Left Hand
+			context.drawText("Dmg", w - (528 * f2), 590 * f2)
+			local dmg = functions.script.getDamage(champion, ItemSlot.Weapon)
+			txt = tostring(math.floor(dmg[0])) .. " - " .. tostring(math.floor(dmg[1]))
+			context.drawText("" .. txt , w - (412 * f2) - context.getTextWidth(txt), 590 * f2)
+
+			context.drawText("Acc", w - (528 * f2), 610 * f2)
+			txt = tostring(math.floor(functions.script.getAccuracy(champion, ItemSlot.Weapon) * 1))
+			context.drawText("" .. txt, w - (412 * f2) - context.getTextWidth(txt), 610 * f2)
+
+			context.drawText("Crit", w - (402 * f2), 590 * f2)
+			txt = tostring(math.floor(functions.script.getCrit(champion, ItemSlot.Weapon) * 1)) .. "%"
+			context.drawText("" .. txt, w - (312 * f2) - context.getTextWidth(txt), 590 * f2)
+
+			context.drawText("Pierce", w - (402 * f2), 610 * f2)
+			txt = tostring(math.floor(functions.script.getPierce(champion, ItemSlot.Weapon) * 1))
+			context.drawText("" .. txt, w - (312 * f2) - context.getTextWidth(txt), 610 * f2)
+
+			-- Right Hand
+			context.drawText("Dmg", w - ((528-254) * f2), 590 * f2)
+			local dmg = functions.script.getDamage(champion, ItemSlot.OffHand)
+			txt = tostring(math.floor(dmg[0])) .. " - " .. tostring(math.floor(dmg[1]))
+			context.drawText("" .. txt , w - ((412-254) * f2) - context.getTextWidth(txt), 590 * f2)
+
+			context.drawText("Acc", w - ((528-254) * f2), 610 * f2)
+			txt = tostring(math.floor(functions.script.getAccuracy(champion, ItemSlot.OffHand) * 1))
+			context.drawText("" .. txt, w - ((412-254) * f2) - context.getTextWidth(txt), 610 * f2)
+
+			context.drawText("Crit", w - ((402-254) * f2), 590 * f2)
+			txt = tostring(math.floor(functions.script.getCrit(champion, ItemSlot.OffHand) * 1)) .. "%"
+			context.drawText("" .. txt, w - ((312-254) * f2) - context.getTextWidth(txt), 590 * f2)
+
+			context.drawText("Pierce", w - ((402-254) * f2), 610 * f2)
+			txt = tostring(math.floor(functions.script.getPierce(champion, ItemSlot.OffHand) * 1))
+			context.drawText("" .. txt, w - ((312-254) * f2) - context.getTextWidth(txt), 610 * f2)
+			
+			-- local firemulti = functions.script.empowerElement(champion, "poison", 1)
+			-- context.drawText("poison damage: " .. firemulti, w - (530 * f2), 230 * f2)
 		end, 
 
 		onDrawSkills = function(self, context, champion)

@@ -587,7 +587,7 @@ defineCondition{
 	name = "drown_sorrows_exp",
 	uiName = "Reduced Experience Gain",
 	description = "Gaining less experience after drinking a little too much.",
-	icon = 1,
+	icon = 37,
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
 	harmful = false,
@@ -660,7 +660,7 @@ defineCondition{
 
 defineCondition{
 	name = "sneak_attack",
-	uiName = "",
+	uiName = "Sneak Attack",
 	description = "Gain 100 Evasion and 15% Critical Chance. Your first physical attack has a 50% chance to poison the target.",
 	icon = 38,
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",

@@ -79,6 +79,11 @@ function keypressDelayGet()
 	return keypressDelay
 end
 
+function intAlignRight(text, x, width)
+	x = x - width
+	return x
+end
+
 --------------------------------------------------------------------------
 -- Test Stuff                                                           --
 --------------------------------------------------------------------------
@@ -162,14 +167,14 @@ function teststart()
 		for c=1,4 do
 			local champion = party.party:getChampionByOrdinal(c)
 			if champion:getClass() == defaultPartyCheck[i] then
-				-- setDefaultParty()
+				setDefaultParty()
 			end
 		end
 	end
 
 	if Editor.isRunning() then
 		--setDefaultParty()
-		party.party:getChampionByOrdinal(1):setClass("tinkerer")
+		party.party:getChampionByOrdinal(1):setClass("druid")
 		party.party:getChampionByOrdinal(2):setClass("hunter")
 		party.party:getChampionByOrdinal(3):setClass("monk")
 		party.party:getChampionByOrdinal(4):setClass("elementalist")
@@ -181,10 +186,10 @@ function teststart()
 			local champion = party.party:getChampionByOrdinal(i)
 			if not champion:getItem(32) then champion:insertItem(32,spawn("torch").item) end
 			--champion:addSkillPoints(1)
-			if i == 1 then
-				champion:removeItemFromSlot(31)
-				champion:insertItem(31,spawn("enchanted_timepiece").item)
-			end
+			-- if i == 1 then
+			-- 	champion:removeItemFromSlot(31)
+			-- 	champion:insertItem(31,spawn("enchanted_timepiece").item)
+			-- end
 			-- Classes
 			if champion:getClass() == "berserker" then
 				for s=13,19 do champion:removeItemFromSlot(s) end
@@ -221,7 +226,10 @@ function teststart()
 			end
 			
 			if champion:getClass() == "druid" then
-				for s=13,19 do
+				for s=13, 19 do
+					champion:removeItemFromSlot(s)
+				end
+				for s=ItemSlot.Weapon, ItemSlot.Bracers do
 					champion:removeItemFromSlot(s)
 				end
 				champion:insertItem(13,spawn("blooddrop_cap").item)
@@ -235,6 +243,15 @@ function teststart()
 				champion:insertItem(17,spawn("blackmoss").item)
 				champion:insertItem(18,spawn("crystal_flower").item)
 				champion:insertItem(19,spawn("mortar").item)
+				champion:insertItem(ItemSlot.Gloves, spawn("leather_gloves").item)
+				champion:insertItem(ItemSlot.Feet, spawn("leather_boots").item)
+				champion:insertItem(ItemSlot.Legs, spawn("leather_pants").item)
+				champion:insertItem(ItemSlot.Chest, spawn("doublet").item)
+				champion:insertItem(ItemSlot.Head, spawn("peasant_cap").item)
+				champion:insertItem(ItemSlot.Bracers, spawn("leafbond_bracelet").item)
+				champion:insertItem(ItemSlot.Necklace, spawn("runestone_necklace").item)
+				champion:insertItem(ItemSlot.Cloak, spawn("shaman_cloak").item)
+				champion:insertItem(ItemSlot.Weapon, spawn("hand_axe").item)				
 			end
 			
 			if champion:getClass() == "corsair" then
@@ -907,7 +924,7 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 		if get_c("bite", champion:getOrdinal()) == nil or get_c("bite", champion:getOrdinal()) == 0 then
 			set_c("bite", champion:getOrdinal(), 30 - (math.floor(champion:getLevel() / 5) * 5 ) )
 			set_c("bite_damage", champion:getOrdinal(), champion:getCurrentStat("dexterity") - 5 )
-			set_c("bite_accuracy", champion:getOrdinal(), getAccuracy( champion:getOrdinal() ) )
+			set_c("bite_accuracy", champion:getOrdinal(), getAccuracy(champion) )
 			delayedCall("functions", 0.1, "bite", champion:getOrdinal())
 		end
 	end
@@ -948,19 +965,6 @@ function onThrowAttack(self, champion, slot, chainIndex, item)
 	if champion:hasTrait("precision") then
 		self:setAttackPower(self:getAttackPower() + (math.random() * 20 + 5))
 	end
-	
-	-- if self.go.bombitem then
-		-- print("bomb")
-		-- local bomb = self.go.bombitem
-		-- print("before: " .. bomb:getBombPower())
-		-- bomb:setBombPower(1)
-		-- print("after: " .. bomb:getBombPower())
-	-- else
-		-- print("knife")
-		-- print("before: " .. self:getAttackPower())
-		-- self:setAttackPower(1)
-		-- print("after: " .. self:getAttackPower())
-	-- end
 	
 	-- Trigger psionic missile
 	local id = champion:getOrdinal()
@@ -1389,11 +1393,8 @@ function onMonsterDealDamage(self, champion, damage)
 
 	-- Shield bash and blocking
 	if (item1 and item1:hasTrait("shield")) or (item2 and item2:hasTrait("shield")) or isArmorSetEquipped(champion, "chitin") then
-		local addedChance = champion:getSkillLevel("block") / 50 + 0.5
-		if champion:hasTrait("block") then addedChance = addedChance + 0.08 end
-		addedChance = get_c("shield_bearer", c) and addedChance + (get_c("shield_bearer", c) * 0.01) or addedChance
-		if champion:hasCondition("ancestral_charge") then addedChance = addedChance * 1.5 end
-		if math.random() <= addedChance then
+		local chance = getBlockChance(champion)
+		if math.random() <= chance then
 			champion:setHealth(champion:getHealth() + math.ceil(damage * 0.51))
 			if champion:hasTrait("shield_bash") then
 				local dx,dy = getForward(party.facing)
@@ -2353,6 +2354,7 @@ function empowerElement(champion, element, multi)
 			f = f * (1.05 + (champion:getLevel() >= 8 and 0.1 or 0) + (champion:getLevel() >= 12 and 0.1 or 0))
 		end
 		
+		-- Body and Mind bonus based on vitality
 		if champion:hasTrait("persistence") then
 			local vitality = champion:getCurrentStat("vitality")
 			local addVitality = ((vitality+1)^(1-0.95) - 1) / (1-0.95) * 0.95	
@@ -2382,92 +2384,233 @@ function empowerAttackType(champion, attackType, multi)
 	return f
 end
 
-function getAccuracy(id)
-	local champion = party.party:getChampionByOrdinal(id)
+function getAccuracy(champion, slot)
 	local acc = 0
-	local add = 0
-	for slot = 1,ItemSlot.Bracers do
-		local item = champion:getItem(slot)
-		if item and item.equipmentitem then
-			add = item.equipmentitem:getAccuracy()
-			if add and add ~= 0 then acc = acc + add end
-		end
+	local add = nil
+	local c = champion:getOrdinal()
+	-- Get acc bonus from equipment
+	for s = ItemSlot.Weapon, ItemSlot.Bracers do
+		local item = champion:getItem(s)
 		if item then
-			if item.meleeattack then
-				add = item.meleeattack:getAccuracy()
-				if add and add ~= 0 then acc = acc + add end
-			end
-			if (item.rangedattack or item.throwattack) and champion:hasTrait("bullseye") then
-				acc = acc + 15
-			end
-			if item:hasTrait("mage_weapon") then
-				acc = acc + (champion:getSkillLevel("spellblade") * 3)
+			if item.go.equipmentitem then
+				add = item.go.equipmentitem:getAccuracy()
+				acc = add and acc + add or acc
 			end
 		end
 	end
-	if get_c("duelist", id) == 1 then
+
+	-- Get acc bonus from weapon used
+	local item = champion:getItem(slot)
+	if item then
+		if item.go.meleeattack then
+			add = item.go.meleeattack:getAccuracy()
+			acc = add and acc + add or acc
+		end
+
+		if item.go.firearmattack then
+			add = item.go.firearmattack:getAccuracy()
+			acc = add and acc + add or acc
+		end
+
+		if (item.go.rangedattack or item.go.throwattack) and champion:hasTrait("bullseye") then
+			acc = acc + 15
+		end
+
+		if item:hasTrait("mage_weapon") then
+			acc = acc + (champion:getSkillLevel("spellblade") * 3)
+		end
+	end
+
+	-- Wide vision
+	if champion:hasTrait("wide_vision") then
+		add = functions.script.get_c("wide_vision", champion:getOrdinal())
+		acc = add and acc + (add * 5) or acc
+
+		for i=1,4 do
+			local c = party.party:getChampionByOrdinal(i)
+			if c:hasTrait("wide_vision") and not c:hasTrait("wide_vision_minor") then
+				add = functions.script.get_c("wide_vision", c:getOrdinal())
+				acc = add and acc + (add * 2) or acc
+			end
+		end
+	end
+	
+	-- Corsair +10 acc vs single foe
+	if champion:getClass() == "corsair" and get_c("duelist", c) == 1 then
 		acc = acc + 10
 	end
+
+	-- Stalker acc bonus
 	if champion:getClass() == "stalker" then
 		acc = acc + ((2 + (champion:getLevel() - 1)) * (champion:hasTrait("night_stalker") and 2 or 1))
 	end
+
+	-- Accuracy skill +10 per point
 	acc = acc + (champion:getSkillLevel("accuracy") * 10)
+
+	-- Dexterity +2 per point
 	acc = acc + math.max(((champion:getCurrentStat("dexterity") - 10) * 2), 0)
-	if get_c("clutch", id) then
-		acc = acc + get_c("clutch", id)
+
+	-- Clutch +50 bonus
+	if get_c("clutch", c) then
+		acc = acc + get_c("clutch", c)
 	end
+
 	return acc
 end
 
-function getCrit(id)
-	local champion = party.party:getChampionByOrdinal(id)
-	local crit = 0
-	for slot = 1,ItemSlot.Bracers do
-		local item = champion:getItem(slot)
+function getCrit(champion, slot)
+	local c = champion:getOrdinal()
+	local crit = 5
+	local add = 0
+
+	-- Get crit from body equips
+	for s = ItemSlot.Head,ItemSlot.Bracers do
+		local item = champion:getItem(s)
 		if item and item.equipmentitem then
-			local add = item.equipmentitem:getCriticalChance()
-			if add and add ~= 0 then crit = crit + add end
+			add = item.equipmentitem:getCriticalChance() * (champion:hasTrait("weapons_specialist") and 2 or 1)
+			crit = add and crit + add or crit
 		end
 	end
-	if get_c("duelist", id) == 1 then
+
+	-- Get crit from weapon used
+	local item = champion:getItem(slot)
+	if item then 
+		if item.equipmentitem then
+			add = item.equipmentitem:getCriticalChance() * (champion:hasTrait("weapons_specialist") and 2 or 1)
+			crit = add and crit + add or crit
+		end
+
+		if (item.rangedattack or item.throwattack) and champion:hasTrait("bullseye") then
+			crit = crit + 5
+		end
+	end
+
+	-- Corsair's +5 crit vs single foe
+	if champion:getClass() == "corsair" and get_c("duelist", c) == 1 then
 		crit = crit + 5
 	end
+
+	-- Stalker's crit bonus
 	if champion:getClass() == "stalker" then
 		crit = crit + ((2 + (champion:getLevel() - 1)) * (champion:hasTrait("night_stalker") and 2 or 1))
 	end
+
+	-- Hunter's Thrill of the Hunt stacks
+	if functions.script.hunter_crit[champion:getOrdinal()] then
+		add = functions.script.hunter_crit[champion:getOrdinal()]
+		crit = add and crit + add or crit
+	end
+
+	-- Ratling's Sneak Attack
+	if champion:hasTrait("sneak_attack") and get_c("sneak_attack", champion:getOrdinal()) then
+		add = get_c("sneak_attack", champion:getOrdinal())
+		crit = add and crit + (add * 15) or crit
+	end
+
+	-- Critical skill +3 per point
 	crit = crit + (champion:getSkillLevel("critical") * 3)
+
 	return crit
 end
 
-function getDamage(id, slot)
-	local champion = party.party:getChampionByOrdinal(id)
+function getPierce(champion, slot)
+	local c = champion:getOrdinal()
+	local pierce = 0
+	local add = 0
+
+	-- Get pierce from weapon used
+	local item = champion:getItem(slot)
+	if item then 
+		if item.go.meleeattack then
+			add = item.go.meleeattack:getPierce()
+			pierce = add and pierce + add or pierce
+
+			if champion:hasTrait("precision") then
+				pierce = pierce + 10
+			end
+		end
+
+		if item.go.firearmattack then
+			add = item.go.firearmattack:getAgetPierceccuracy()
+			pierce = add and pierce + add or pierce
+
+			if champion:hasTrait("precision") then
+				pierce = pierce + 5
+			end
+		end
+	end
+
+	return pierce
+end
+
+function getDamage(champion, slot)
+	local c = champion:getOrdinal()
 	if slot == nil then slot = ItemSlot.Weapon end
 	local item = champion:getItem(slot)
 	
-	local dmg = 0
-	if item and item.go.rangedattack then
-		dmg = item.go.rangedattack:getAttackPower() or 0
-		dmg = dmg + math.max(((champion:getCurrentStat(item.go.rangedattack:getBaseDamageStat()) - 10) * 1.5), 0)
-		dmg = dmg * ((champion:getSkillLevel("ranged_attack") * 0.2) + 1)
-	elseif item and item.go.throwattack then
-		dmg = item.go.throwattack:getAttackPower() or 0	
-		dmg = dmg + math.max(((champion:getCurrentStat(item.go.throwattack:getBaseDamageStat()) - 10) * 1.5), 0)
-		dmg = dmg * ((champion:getSkillLevel("ranged_attack") * 0.2) + 1)
-	elseif item and item.go.firearmattack then
-		dmg = item.go.firearmattack:getAttackPower() or 0	
-		dmg = dmg + math.max(((champion:getCurrentStat(item.go.firearmattack:getBaseDamageStat()) - 10) * 1.5), 0)
-		dmg = dmg * ((champion:getSkillLevel("firearms") * 0.2) + 1)
-	elseif item and item.go.meleeattack then
-		dmg = item.go.meleeattack:getAttackPower() or 0	
-		dmg = dmg + math.max(((champion:getCurrentStat(item.go.meleeattack:getBaseDamageStat()) - 10) * 1.5), 0)
-		if item:hasTrait("heavy_weapon") then
-			dmg = dmg * ((champion:getSkillLevel("heavy_weapons") * 0.2) + 1)
-		else
-			dmg = dmg * ((champion:getSkillLevel("light_weapons") * 0.2) + 1)
-		end
+	local dmg = { 0, 0 }
+	if champion:hasCondition("bear_form") then
+		ap = 14
+		dmg[0] = math.floor(ap * 0.5)
+		dmg[1] = math.ceil(ap * 1.5)
+		dmg[0] = math.floor(dmg[0] + math.max((math.ceil(champion:getCurrentStat("strength") - 10) * 0.5), 1))
+		dmg[1] = math.floor(dmg[1] + math.max(((champion:getCurrentStat("strength") - 10) * 1.0), 2))
+		return dmg
 	end
-	--dmg = dmg - (dmg * 0.5) + (dmg * math.random() * 1)
+
+	if item then
+		local ap = 0
+		local itemComp = nil
+		local skillLevel = 0
+		if item.go.rangedattack then
+			itemComp = item.go.rangedattack
+			ap = itemComp:getAttackPower() or 0
+			skillLevel = (champion:getSkillLevel("ranged_weapons") * 0.2) + 1
+		elseif item.go.throwattack then
+			itemComp = item.go.throwattack
+			ap = itemComp:getAttackPower() or 0
+			skillLevel = (champion:getSkillLevel("ranged_weapons") * 0.2) + 1
+		elseif item.go.firearmattack then
+			itemComp = item.go.firearmattack
+			ap = itemComp:getAttackPower() or 0
+			skillLevel = (champion:getSkillLevel("firearms") * 0.2) + 1
+		elseif item.go.meleeattack then
+			itemComp = item.go.meleeattack
+			ap = itemComp:getAttackPower() or 0
+			skillLevel = item:hasTrait("heavy_weapon") and (champion:getSkillLevel("heavy_weapons") * 0.2) + 1 or (champion:getSkillLevel("light_weapons") * 0.2) + 1
+		else
+			dmg[0] = 0
+			dmg[1] = 0
+			return dmg
+		end
+
+		dmg[0] = math.floor(ap * 0.5 * skillLevel)
+		dmg[1] = math.floor(ap * 1.5 * skillLevel)
+
+		dmg[0] = math.floor(dmg[0] + math.max((math.ceil(champion:getCurrentStat(itemComp:getBaseDamageStat()) - 10) * 0.5), 0))
+		dmg[1] = math.floor(dmg[1] + math.max(((champion:getCurrentStat(itemComp:getBaseDamageStat()) - 10) * 1.0), 0))
+	else
+		dmg[0] = 1 + math.max((math.ceil(champion:getCurrentStat("strength") - 10) * 0.5), 1)
+		dmg[1] = 1 + math.max(((champion:getCurrentStat("strength") - 10) * 1.0), 2)
+	end
+
+	-- dmg = empowerElement(champion, "physical", dmg)
+
 	return dmg
+end
+
+function getBlockChance(champion)
+	local chance = 0
+	local item1 = champion:getItem(ItemSlot.Weapon)
+	local item2 = champion:getOtherHandItem(ItemSlot.Weapon)
+	if (item1 and item1:hasTrait("shield")) or (item2 and item2:hasTrait("shield")) or isArmorSetEquipped(champion, "chitin") then
+		chance = champion:getSkillLevel("block") / 50
+		if champion:hasTrait("block") then chance = chance + 0.08 end
+		chance = get_c("shield_bearer", champion:getOrdinal()) and chance + (get_c("shield_bearer", champion:getOrdinal()) * 0.01) or chance
+		if champion:hasCondition("ancestral_charge") then chance = chance * 1.5 end
+	end
+	return chance
 end
 
 function isArmorSetEquipped(champion, set)
@@ -2935,20 +3078,24 @@ function tinkererUpgrade(self, champion, slot, materials)
 						tempTable = res
 					end
 
+					local linesOfTextAdded = 0
 					for index, upgrade in ipairs(tempTable) do
 						local newText = ""
 
 						if upgrade == "critical" then
 							newText = "Critical Chance +" .. item.go.equipmentitem:getCriticalChance() .. "%"
+							linesOfTextAdded = linesOfTextAdded + 1
 						end
 
-						if gameEffect ~= "" then
-							item:setGameEffect(gameEffect .. "\n" .. newText)
-						else
-							if index == 1 then
-								item:setGameEffect(gameEffect .. newText)
-							else
+						if newText ~= "" then
+							if gameEffect ~= "" then
 								item:setGameEffect(gameEffect .. "\n" .. newText)
+							else
+								if linesOfTextAdded == 1 then
+									item:setGameEffect(gameEffect .. newText)
+								else
+									item:setGameEffect(gameEffect .. "\n" .. newText)
+								end
 							end
 						end
 					end	
