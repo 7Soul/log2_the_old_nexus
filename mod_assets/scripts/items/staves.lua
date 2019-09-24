@@ -12,6 +12,7 @@ defineObject{
 			description = "A beautifully crafted wooden wand that can be used to channel a wizard's energy.",
 			gfxIndex = 56,
 			impactSound = "impact_blunt",
+			traits = { "orb" },
 			weight = 3.5,
 		},
 		{
@@ -43,6 +44,7 @@ defineObject{
 			gfxIndexPowerAttack = 452,
 			impactSound = "impact_blunt",
 			-- special: faster spell casting
+			traits = { "orb" },
 			weight = 2.0,
 			secondaryAction = "light",
 		},
@@ -85,7 +87,7 @@ defineObject{
 			impactSound = "impact_blunt",
 			weight = 3.3,
 			gameEffect = "Poison spells deal 20% more damage",
-			traits = { "earthbound" },
+			traits = { "earthbound2", "orb" },
 			secondaryAction = "poisonBolt",
 		},
 		{
@@ -128,6 +130,7 @@ defineObject{
 			impactSound = "impact_blunt",
 			achievement = "find_zhanduls_orb",
 			weight = 2.5,
+			traits = { "orb" },
 			gameEffect = "Intense Fire (Fireball and Fireburst spells deal more damage)",
 			secondaryAction = "fireball",
 		},
@@ -168,6 +171,7 @@ defineObject{
 			gfxIndex = 251,
 			impactSound = "impact_blunt",
 			weight = 3.5,
+			traits = { "orb" },
 		},
 		{
 			class = "RunePanel",
@@ -197,6 +201,7 @@ defineObject{
 			gfxIndex = 234,
 			impactSound = "impact_blunt",
 			weight = 3.5,
+			traits = { "orb" },
 		},
 		{
 			class = "RunePanel",
@@ -228,6 +233,7 @@ defineObject{
 			gfxIndexPowerAttack = 449,
 			impactSound = "impact_blunt",
 			weight = 3.5,
+			traits = { "orb" },
 			secondaryAction = "invisibility",
 		},
 		{
@@ -268,6 +274,7 @@ defineObject{
 			gfxIndexPowerAttack = 448,
 			impactSound = "impact_blunt",
 			weight = 3.5,
+			traits = { "orb" },
 			secondaryAction = "forceField",
 		},
 		{
@@ -310,6 +317,7 @@ defineObject{
 			gfxIndexPowerAttack = 451,
 			impactSound = "impact_blunt",
 			weight = 2.0,
+			traits = { "orb" },
 			secondaryAction = "lightningBolt",
 		},
 		{
@@ -352,6 +360,7 @@ defineObject{
 			gfxIndexPowerAttack = 443,
 			impactSound = "impact_blunt",
 			weight = 3.5,
+			traits = { "orb" },
 			secondaryAction = "causeFear",
 		},
 		{
@@ -438,6 +447,7 @@ defineObject{
 			gfxIndexPowerAttack = 450,
 			impactSound = "impact_blunt",
 			weight = 3.5,
+			traits = { "orb" },
 			secondaryAction = "dispel",
 		},
 		{
@@ -479,7 +489,7 @@ defineObject{
 			impactSound = "impact_blunt",
 			weight = 3.5,
 			secondaryAction = "disintegrate",
-			traits = { "epic" },
+			traits = { "epic", "orb" },
 		},
 		{
 			class = "RunePanel",
@@ -626,6 +636,7 @@ defineObject{
 			gfxIndexPowerAttack = 441,
 			impactSound = "impact_blunt",
 			weight = 1.7,
+			traits = { "orb" },
 			secondaryAction = "shock",
 		},
 		{
@@ -671,6 +682,7 @@ defineObject{
 			gfxIndexPowerAttack = 442,
 			impactSound = "impact_blunt",
 			weight = 2.6,
+			traits = { "orb" },
 			secondaryAction = "spit",
 		},
 		{

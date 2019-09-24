@@ -16,7 +16,7 @@ defineObject{
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
 			gfxIndex = 39,
 			weight = 0.5,
-			traits = { "bracers", "upgradable" },
+			traits = { "bracers", "upgradable", "frostbound2" },
 		},
 		{
 			class = "EquipmentItem",
@@ -105,7 +105,7 @@ defineObject{
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
 			gfxIndex = 40,
 			weight = 0.3,
-			traits = { "bracers", "upgradable" },
+			traits = { "bracers", "upgradable", "firebound2" },
 		},
 		{
 			class = "EquipmentItem",
@@ -229,7 +229,7 @@ defineObject{
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
 			gfxIndex = 41,
 			weight = 0.7,
-			traits = { "bracers", "upgradable" },
+			traits = { "bracers", "upgradable", "shockbound2" },
 		},
 		{
 			class = "EquipmentItem",
@@ -335,11 +335,11 @@ defineObject{
 			class = "Item",
 			uiName = "Serpent Bracer",
 			description = "A bracer fashioned after a venomous tropical snake. The teeth of the snake bite into the forearm of its wearer.",
-			gameEffect = [[Poison damage +15%.
+			gameEffect = [[Poison damage +20%.
 			Adds 10% chance to poison enemies with melee and ranged attacks.]],
 			gfxIndex = 29,
 			weight = 0.5,
-			traits = { "bracers", "upgradable", "venomancer" },
+			traits = { "bracers", "upgradable", "venomancer", "earthbound2" },
 		},
 		{
 			class = "EquipmentItem",

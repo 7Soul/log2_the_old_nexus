@@ -44,7 +44,30 @@ defOrdered =
 	description = "",
 	onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
 		local ord = champion:getOrdinal()
-		local base = functions.script.getDamage(ord, nil) + functions.script.getAccuracy(champion)
+		local base = 0
+
+		local item1 = champion:getItem(ItemSlot.Weapon)
+		local item2 = champion:getOtherHandItem(ItemSlot.Weapon)
+		if item1 and not item2 then
+			if item1.go.rangedattack or item1.go.throwattack then
+				base = functions.script.getDamage(champion, ItemSlot.Weapon) + functions.script.getAccuracy(champion, ItemSlot.Weapon)
+			end
+
+		elseif item2 and not item1 then
+			if item2.go.rangedattack or item2.go.throwattack then
+				base = functions.script.getDamage(champion, ItemSlot.OffHand) + functions.script.getAccuracy(champion, ItemSlot.OffHand)				
+			end
+
+		elseif item1 and item2 then
+			if item1.go.rangedattack or item1.go.throwattack then
+				base = functions.script.getDamage(champion, ItemSlot.Weapon) + functions.script.getAccuracy(champion, ItemSlot.Weapon)
+			end
+
+			if item2.go.rangedattack or item2.go.throwattack then
+				base = base + functions.script.getDamage(champion, ItemSlot.OffHand) + functions.script.getAccuracy(champion, ItemSlot.OffHand)				
+			end
+		end
+
 		local power = spells_functions.script.getPower(base, champion, "missile_weapons", "neutral", 1)			
 		spells_functions.script.missile("psionic_arrow", ord, power, nil, true)
 		spells_functions.script.stopInvisibility()
@@ -910,8 +933,8 @@ end,
 	uiName = "Blizzard",
 	gesture = 0,
 	manaCost = 0,
-	skill = "elemental_mastery",
-	requirements = { "elemental_mastery", 1 },	
+	skill = "elemental_magic",
+	requirements = { "elemental_magic", 1 },	
 	icon = 62,
 	spellIcon = 2,
 	description = [[]],
@@ -2199,28 +2222,12 @@ function getPower(base, champion, skill, element, tier, spellName)
 	if not tier then tier = 1 end
 	local f = 1
 	if skill then
-		f = getSkillPower(champion, skill) + champion:getCurrentStat("willpower")/50 + 1
+		-- f = getSkillPower(champion, skill)
 	end
 	
-	local arcaneWarrior = 0
-	
-	if champion:hasTrait("persistence") then
-		local strength = champion:getCurrentStat("vitality")
-		local addStrength = ((strength+1)^(1-0.95) - 1) / (1-0.95) * 0.95
-		addStrength = addStrength + (champion:getCurrentStat("vitality") * 0.005)
-		f = f * (1.00 + (addStrength * 0.1))
-	end	
-	
-	f = functions.script.empowerElement(champion, element, f)
-	
-	if tier < 3 then
-		if champion:hasTrait("arcane_warrior") then
-			local ap1, acc1 = 0, 0
-			ap = functions.script.getDamage(champion:getOrdinal()) * 0.1
-			acc = functions.script.getAccuracy(champion) * 0.1
-			arcaneWarrior = ap + acc
-		end
-	end
+	f = functions.script.empowerElement(champion, element, f, false, tier, true)
+
+	f = f * functions.script.empowerAttackType(champion, "spell", f, false, tier)
 	
 	if champion:hasTrait("intensify_spell") and spellName and not defByName[spellName].hidden then
 		local intensify = functions.script.get_c("intensifySpell", champion:getOrdinal())
@@ -2238,7 +2245,7 @@ function getPower(base, champion, skill, element, tier, spellName)
 		f = f * multi
 	end
 	
-	return (base * f) + arcaneWarrior
+	return (base * f)
 end
 
 function getCost(champion, base, element, spellName)

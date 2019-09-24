@@ -1007,7 +1007,10 @@ defineObject{
 			end
 
 			context.drawImage2("mod_assets/textures/gui/stats_background.dds", w - (558 * f2), 280 * f2, 0, 0, 528, 350, 528*f2, 350*f2)
-			local dummy1, dummy2 = context.button("dummy",w - (558), 280, 528, 350)
+			-- context.drawRect(w - 536, 267, 510, 312)
+			local dummy1, dummy2 = context.button("dummy",w - 536, 267, 510, 312)
+			if dummy1 or dummy2 then
+			end
 
 			if champion:getClass() == "assassin_class" then
 				context.drawText("Assassinations: " .. functions.script.assassinations[champion:getOrdinal()], w - (530 * f2), 618 * f2)
@@ -1016,6 +1019,8 @@ defineObject{
 			if champion:getClass() == "stalker" then
 				context.drawText("Invisibility Casts: " .. functions.script.night_stalker[champion:getOrdinal()], w - (530 * f2), 618 * f2)
 			end
+
+			local hover1, hover2 = {}, {}
 			
 			local txt = ""
 			local x = 0
@@ -1026,18 +1031,27 @@ defineObject{
 			context.drawText("Strength", w - (x * f2), y * f2)
 			txt = tostring(math.floor(champion:getCurrentStat("strength")))
 			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+			hover1[1], hover2[1] = context.button("hover"..1, w - x, y-20, 100, 20)
 
-			context.drawText("Dexterity", w - (x * f2), (y + 20) * f2)
+			y = y + 20
+			context.drawText("Dexterity", w - (x * f2), y * f2)
 			txt = tostring(math.floor(champion:getCurrentStat("dexterity")))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 20) * f2)
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+			hover1[2], hover2[2] = context.button("hover"..2, w - x, y-20, 100, 20)
 
-			context.drawText("Vitality", w - (x * f2), (y + 40) * f2)
+			y = y + 20
+			context.drawText("Vitality", w - (x * f2), y * f2)
 			txt = tostring(math.floor(champion:getCurrentStat("vitality")))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 40) * f2)
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+			hover1[3], hover2[3] = context.button("hover"..3, w - (x), y, 100, 20)
 
-			context.drawText("Willpower", w - (x * f2), (y + 60) * f2)
+			y = y + 20
+			context.drawText("Willpower", w - (x * f2), y * f2)
 			txt = tostring(math.floor(champion:getCurrentStat("willpower")))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 60) * f2)
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+			hover1[4], hover2[4] = context.button("hover"..4, w - (x), y, 100, 20)
+
+			
 
 			-- MISC
 			x = 530
@@ -1118,46 +1132,75 @@ defineObject{
 			-- MULTIPLIERS
 			x = 198
 			y = 334
-			context.drawText("Fire", w - (x * f2), y * f2)
-			txt = tostring(math.floor( functions.script.empowerElement(champion, "fire", 100, true) - 100 ))
+			context.drawText("Spells", w - (x * f2), (y + 0) * f2)
+			txt = tostring(math.floor( functions.script.empowerAttackType(champion, "spell", 100, true) - 100 ))
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 0) * f2)
+
+			y = y + 20
+			context.drawText("Ele", w - (x * f2), y * f2)
+			local fire = tostring(math.floor( functions.script.empowerElement(champion, "fire", 100, true, 0, true) - 100 ))
+			local shock = tostring(math.floor( functions.script.empowerElement(champion, "shock", 100, true, 0, true) - 100 ))
+			local cold = tostring(math.floor( functions.script.empowerElement(champion, "cold", 100, true, 0, true) - 100 ))
+
+			context.color(145, 155, 255, 255)
+			context.drawText("" .. cold, w - ((x-138) * f2) - context.getTextWidth(cold), y * f2)
+			context.color(255, 255, 255, 255)
+			context.drawText("/", w - ((x-138) * f2) - context.getTextWidth(cold .. "/"), y * f2)
+
+			context.color(120, 255, 190, 255)
+			context.drawText("/" .. shock, w - ((x-138) * f2) - context.getTextWidth(cold .. "/" .. shock .. "/"), y * f2)	
+			context.color(255, 255, 255, 255)
+			context.drawText("/", w - ((x-138) * f2) - context.getTextWidth(cold .. "/" .. shock .. "/"), y * f2)	
+
+			context.color(255, 120, 100, 255)
+			context.drawText("" .. fire, w - ((x-138) * f2) - context.getTextWidth(cold .. "/" .. shock .. "/" .. fire), y * f2)			
+			context.color(255, 255, 255, 255)
+
+			y = y + 20
+			context.drawText("Poison", w - (x * f2), y * f2)
+			txt = tostring(math.floor( functions.script.empowerElement(champion, "poison", 100, true, 0, true) - 100 ))
 			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
 
-			context.drawText("Shock", w - (x * f2), (y + 20) * f2)
-			txt = tostring(math.floor( functions.script.empowerElement(champion, "shock", 100, true) - 100 ))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 20) * f2)
+			y = y + 20
+			context.drawText("Neutral", w - (x * f2), y * f2)
+			txt = tostring(math.floor( functions.script.empowerElement(champion, "neutral", 100, true, 0, true) - 100 ))
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
 
-			context.drawText("Poison", w - (x * f2), (y + 40) * f2)
-			txt = tostring(math.floor( functions.script.empowerElement(champion, "poison", 100, true) - 100 ))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 40) * f2)
+			y = y + 20
+			context.drawText("Physical", w - (x * f2), y * f2)
+			txt = tostring(math.floor( functions.script.empowerElement(champion, "physical", 100, true, 0, true) - 100 ))
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y* f2)
+			
 
-			context.drawText("Cold", w - (x * f2), (y + 60) * f2)
-			txt = tostring(math.floor( functions.script.empowerElement(champion, "cold", 100, true) - 100 ))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 60) * f2)
+			y = y + 24
+			context.drawText("Melee", w - (x * f2), y * f2)
+			txt = tostring(math.floor( functions.script.empowerAttackType(champion, "melee", 100, true) - 100 ))
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
 
-			context.drawText("Neutral", w - (x * f2), (y + 80) * f2)
-			txt = tostring(math.floor( functions.script.empowerElement(champion, "neutral", 100, true) - 100 ))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 80) * f2)
-
-			y = 334 + 124
+			y = y + 20
 			context.drawText("L.Weapons", w - (x * f2), y * f2)
 			txt = tostring(math.floor( functions.script.empowerAttackType(champion, "light_weapons", 100, true) - 100 ))
 			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
 
-			context.drawText("H.Weapons", w - (x * f2), (y + 20) * f2)
+			y = y + 20
+			context.drawText("H.Weapons", w - (x * f2), y * f2)
 			txt = tostring(math.floor( functions.script.empowerAttackType(champion, "heavy_weapons", 100, true) - 100 ))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 20) * f2)
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
 
-			context.drawText("Dual Wield", w - (x * f2), (y + 40) * f2)
-			txt = tostring(math.floor( functions.script.empowerAttackType(champion, "dual_wielding", 100, true) - 100 ))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 40) * f2)
-
-			context.drawText("Ranged", w - (x * f2), (y + 60) * f2)
+			y = y + 20
+			context.drawText("Ranged", w - (x * f2), y * f2)
 			txt = tostring(math.floor( functions.script.empowerAttackType(champion, "ranged", 100, true) - 100 ))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 60) * f2)
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
 
-			context.drawText("Firearms", w - (x * f2), (y + 80) * f2)
+			y = y + 20
+			context.drawText("Firearms", w - (x * f2), y * f2)
 			txt = tostring(math.floor( functions.script.empowerAttackType(champion, "firearms", 100, true) - 100 ))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 80) * f2)
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+
+			y = y + 20
+			context.drawText("Dual Wielding", w - (x * f2), y * f2)
+			txt = tostring(math.floor( functions.script.empowerAttackType(champion, "dual_wield", 100, true) - 100 ))
+			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
 
 
 			-- Left Hand
@@ -1204,8 +1247,20 @@ defineObject{
 			txt = tostring(math.floor(functions.script.getPierce(champion, ItemSlot.OffHand) * 1))
 			context.drawText("" .. txt, w - ((x-88) * f2) - context.getTextWidth(txt), (y + 20) * f2)
 			
-			-- local firemulti = functions.script.empowerElement(champion, "poison", 1)
-			-- context.drawText("poison damage: " .. firemulti, w - (530 * f2), 230 * f2)
+			for h = 1, 4 do
+				local hoverTxt = ""
+				if hover2[h] then
+					if h == 1 then
+						hoverTxt = "Strength"
+						context.drawText(hoverTxt, MX - (context.getTextWidth(hoverTxt) / 2), MY - 24)
+					elseif h == 2 then
+						hoverTxt = "Dexterity"
+						context.drawText(hoverTxt, MX - (context.getTextWidth(hoverTxt) / 2), MY - 24)
+					end
+					break
+				end
+			end
+
 		end, 
 
 		onDrawSkills = function(self, context, champion)
@@ -1217,8 +1272,8 @@ defineObject{
 				local MX, MY = context.mouseX, context.mouseY
 				-- Cover original skill window up
 				context.drawImage2("mod_assets/textures/gui/skills_back.dds", w - (548 * f2), 287 * f2, 0, 0, 510, 292, 510*f2, 292*f2)
-				local dummy1, dummy2 = context.button("dummy",w - (556), 287, 510, 292)
-				-- Variables
+				local dummy1, dummy2 = context.button("dummy",w - 536, 267, 510, 312)
+				-- -- Variables
 				local skill_x, skill_y = 0, 0
 				local val1, val2, valX, valY = {}, {}, {}, {}
 				local skill1_p = { 2,4,5 } -- athletics
@@ -1234,7 +1289,7 @@ defineObject{
 				local skill11_p = { 3,4,5 } -- light weapons
 				local skill12_p = { 3,4,5 } -- heavy weapons
 				local skill13_p = { 1,2,4,5 } -- spellblade
-				local skill14_p = { 4,5 } -- elemental
+				local skill14_p = { 2,4,5 } -- elemental
 				local skill15_p = { 2,4,5 } -- poison
 				local skill16_p = { 3,4,5 } -- concentration
 				local skill17_p = { 1,4,5 } -- witchcraft
@@ -1356,7 +1411,7 @@ defineObject{
 						-- Draw icon
 						context.drawImage2("mod_assets/textures/gui/skills.dds", w - (1228*f2), MY - 110 + 16, ((j-1)%13)*75, math.floor((j-1)/13)*75, 75, 75, 75*f3, 75*f3)
 						break
-					end			
+					end	
 				end
 			end
 		end, 

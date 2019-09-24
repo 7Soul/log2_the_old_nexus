@@ -503,6 +503,7 @@ supertable = { b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b20  }
 
 function onEquipItem(self, champion, slot)	
 	local name = self.go.id
+
 	if slot >= ItemSlot.BackpackFirst and slot <= ItemSlot.BackpackLast then
 		
 	else
@@ -796,56 +797,48 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 	supertable[1][item.go.id] = self:getAttackPower()
 	supertable[2][item.go.id] = self:getCooldown()
 	supertable[4][self.go.id] = self:getPierce() ~= nil and self:getPierce() or 0
-	supertable[6][self.go.id] = self.go.equipmentitem and self.go.equipmentitem:getCriticalChance() or 0
+	-- supertable[6][self.go.id] = self.go.equipmentitem and self.go.equipmentitem:getCriticalChance() or 0
 	
-	-- Melee Light/Heavy Weapons skill bonus
-	if item:hasTrait("light_weapon") then
-		self:setAttackPower(self:getAttackPower() * (1 + champion:getSkillLevel("light_weapons") * 0.2))
-	elseif item:hasTrait("heavy_weapon") then
-		self:setAttackPower(self:getAttackPower() * (1 + champion:getSkillLevel("heavy_weapons") * 0.2))
+	-- All physical attack bonuses	
+	if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "fire_gauntlets" then
+		-- Fire Gauntlets damage is amplified by other sources of + fire damage
+		self:setAttackPower(self:getAttackPower() * empowerElement(champion, "fire", 1))
+	else
+		self:setAttackPower(self:getAttackPower() * empowerElement(champion, "physical", 1))
 	end
-	
-	-- All physical attack boosts
-	self:setAttackPower(self:getAttackPower() * empowerElement(champion, "physical", 1))
-	
+
+	-- All melee bonuses
+	self:setAttackPower(self:getAttackPower() * empowerAttackType(champion, "melee", 1))
+
+	-- Light/Heavy Weapons bonuses
+	if item:hasTrait("light_weapon") then
+		self:setAttackPower(self:getAttackPower() * empowerAttackType(champion, "light_weapons", 1))
+	elseif item:hasTrait("heavy_weapon") then
+		self:setAttackPower(self:getAttackPower() * empowerAttackType(champion, "heavy_weapons", 1))
+	end
+
+	-- Dual Wielding bonuses
+	if champion:isDualWielding() then
+		self:setAttackPower(self:getAttackPower() * empowerAttackType(champion, "dual_wield", 1))
+	end
+
 	-- Precision Pierce bonus
 	if champion:hasTrait("precision") then
-		if not self:getPierce() then
-			self:setPierce(supertable[4][self.go.id] + (math.random() * 15 + 5))
-		else
-			self:setPierce(self:getPierce() + (math.random() * 15 + 5))
-		end	
-	end
-	
-	-- Assassin dual wielding bonus
-	if champion:getClass() == "assassin_class" and champion:isDualWielding() then
-		self:setAttackPower(self:getAttackPower() * (1.25 + (assassinations[c] * 0.05)) )
-	end	
-	
-	-- Corsair fires gun with light weapon melee attack
-	if champion:getClass() == "corsair" and item:hasTrait("light_weapon") then
-		local item2 = champion:getOtherHandItem(slot)
-		if item2 and item2:hasTrait("firearm") then
-			delayedCall("functions", 0.25, "duelistSword", c, item.go.name, slot)
+		if supertable[4][name] ~= nil then
+			local real_pierce = tinker_item[4][name] and tinker_item[4][name] or supertable[4][name]
+			real_pierce = real_pierce + (math.random() * 15 + 5)
+			self:setPierce(real_pierce)
 		end
 	end
-	
-	-- Tinkerer Melee reduction before conversion
-	if champion:getClass() == "tinkerer" then
-		self:setAttackPower(self:getAttackPower() * 0.5 )
-	end
-	
+
 	-- Druid's Mudwort attack bonus against poisoned enemies
 	if champion:getClass() == "druid" then
-		--if secondary ~= self then
-			local poisonedMonster = functions.script.get_c("poisonedMonster", c)
-			if poisonedMonster then
-				local monster = findEntity(poisonedMonster).monster
-				--secondary:setAttackPower(secondary:getAttackPower() * 1.3)
-				self:setAttackPower(self:getAttackPower() * 1.15 )
-				monster:setCondition("poisoned", 0)
-			end
-		--end
+		local poisonedMonster = functions.script.get_c("poisonedMonster", c)
+		if poisonedMonster then
+			local monster = findEntity(poisonedMonster).monster
+			self:setAttackPower(self:getAttackPower() * 1.15 )
+			monster:setCondition("poisoned", 0)
+		end
 	end
 
 	if item:hasTrait("poison_mace") and champion:getSkillLevel("poison_mastery") == 5 then
@@ -862,40 +855,13 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 			secondary:setAttackPower(secondary:getAttackPower() * amount)
 		end
 	end
-
-	-- Steel Armband
-	if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "steel_armband" then
-		local bonus = 4
-		if champion:getItem(ItemSlot.Head) then bonus = bonus - 1 end
-		if champion:getItem(ItemSlot.Chest) then bonus = bonus - 1 end
-		if champion:getItem(ItemSlot.Legs) then bonus = bonus - 1 end
-		if champion:getItem(ItemSlot.Feet) then bonus = bonus - 1 end
-		if bonus > 0 then
-			if secondary ~= self then
-				secondary:setAttackPower(secondary:getAttackPower() * (1 + (bonus * 0.1)))
-			end
+	
+	-- Corsair fires gun with light weapon melee attack
+	if champion:getClass() == "corsair" and item:hasTrait("light_weapon") then
+		local item2 = champion:getOtherHandItem(slot)
+		if item2 and item2:hasTrait("firearm") then
+			delayedCall("functions", 0.25, "duelistSword", c, item.go.name, slot)
 		end
-	end
-	
-	-- Brutalizer damage bonus to melee
-	if champion:hasTrait("brutalizer") then
-		self:setAttackPower(self:getAttackPower() * (1.00 + (champion:getCurrentStat("strength") * 0.01)))		
-	end	
-	
-	-- Sea Dog damage bonus to backline
-	if champion:hasTrait("sea_dog") and (champion == party.party:getChampion(3) or champion == party.party:getChampion(4)) then
-		self:setAttackPower(self:getAttackPower() * 1.25)
-	end	
-	
-	-- Power Grip damage bonus to heavy weapons
-	if champion:hasTrait("power_grip") and item.go.item:hasTrait("heavy_weapon") then
-		local bonus = (math.floor(champion:getHealth() / 5) + (math.floor(champion:getHealth() / 100) * 10)) * 0.01
-		self:setAttackPower(self:getAttackPower() * (bonus + 1))
-	end	
-	
-	-- Fire Gauntlets damage is amplified by other sources of + fire damage
-	if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "fire_gauntlets" then
-		self:setAttackPower(self:getAttackPower() * empowerElement(champion, "fire", 1))
 	end
 	
 	-- Double attack
@@ -931,11 +897,9 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 		end
 	end
 	
-	if not item.go.equipmentitem then
-		item.go:createComponent("EquipmentItem", "equipmentitem")
-	end	
-	
-	item.go.equipmentitem:setCriticalChance(supertable[6][self.go.id])
+	if not item.go.equipmentitem then item.go:createComponent("EquipmentItem", "equipmentitem") end	
+	local real_crit = tinker_item[6][name] and tinker_item[6][name] or (supertable[6][name] and supertable[6][name] or 0)
+	if self.go.equipmentitem then self.go.equipmentitem:setCriticalChance(real_crit) end
 	
 	delayedCall("functions", 0.01, "resetItem", self, self.go.id)
 end
@@ -955,14 +919,15 @@ end
 function onThrowAttack(self, champion, slot, chainIndex, item)
 	supertable[1][item.go.id] = self:getAttackPower()
 	supertable[2][item.go.id] = self:getCooldown()
-	supertable[6][self.go.id] = self.go.equipmentitem and self.go.equipmentitem:getCriticalChance() or 0
+	-- supertable[6][self.go.id] = self.go.equipmentitem and self.go.equipmentitem:getCriticalChance() or 0
 	
 	-- Ranged Weapons skill bonus
-	self:setAttackPower(self:getAttackPower() * (1 + champion:getSkillLevel("ranged_weapons") * 0.2))
+	-- self:setAttackPower(self:getAttackPower() * (1 + champion:getSkillLevel("ranged_weapons") * 0.2))
 	
 	-- All physical attack boosts
 	self:setAttackPower(self:getAttackPower() * empowerElement(champion, "physical", 1))	
 	self:setAttackPower(self:getAttackPower() * empowerAttackType(champion, "ranged", 1))
+	self:setAttackPower(self:getAttackPower() * empowerAttackType(champion, "throwing", 1))
 	
 	if champion:hasTrait("precision") then
 		self:setAttackPower(self:getAttackPower() + (math.random() * 20 + 5))
@@ -1012,7 +977,7 @@ end
 function onMissileAttack(self, champion, slot, chainIndex, item)
 	supertable[1][self.go.id] = self:getAttackPower()
 	supertable[2][self.go.id] = self:getCooldown()
-	supertable[6][self.go.id] = self.go.equipmentitem and self.go.equipmentitem:getCriticalChance() or 0
+	-- supertable[6][self.go.id] = self.go.equipmentitem and self.go.equipmentitem:getCriticalChance() or 0
 	local secondaryAction = self.go.item:getSecondaryAction()
 	local secondary = nil
 	if secondaryAction ~= nil and self.go:getComponent(secondaryAction):getClass() ~= "CastSpellComponent" then
@@ -1020,11 +985,12 @@ function onMissileAttack(self, champion, slot, chainIndex, item)
 	end
 	
 	-- Ranged Weapons skill bonus
-	self:setAttackPower(self:getAttackPower() * (1 + champion:getSkillLevel("ranged_weapons") * 0.2))
+	-- self:setAttackPower(self:getAttackPower() * (1 + champion:getSkillLevel("ranged_weapons") * 0.2))
 	
 	-- All physical attack boosts
 	self:setAttackPower(self:getAttackPower() * empowerElement(champion, "physical", 1))	
 	self:setAttackPower(self:getAttackPower() * empowerAttackType(champion, "ranged", 1))
+	self:setAttackPower(self:getAttackPower() * empowerAttackType(champion, "missile", 1))
 	
 	if champion:hasTrait("precision") then
 		self:setAttackPower(self:getAttackPower() + (math.random() * 20 + 5))
@@ -1035,39 +1001,31 @@ function onMissileAttack(self, champion, slot, chainIndex, item)
 		delayedCall("functions", 0.1, "psionicArrow", id)
 	end
 
-	if not item.go.equipmentitem then
-		item.go:createComponent("EquipmentItem", "equipmentitem")
-	end	
-	item.go.equipmentitem:setCriticalChance(supertable[6][self.go.id])
+	if not item.go.equipmentitem then item.go:createComponent("EquipmentItem", "equipmentitem") end	
+	local real_crit = tinker_item[6][name] and tinker_item[6][name] or supertable[6][name]
+	if self.go.equipmentitem then self.go.equipmentitem:setCriticalChance(real_crit) end
 	
 	-- Double shot
 	if self ~= secondary then
-		-- Double shot
-	local otherItem = nil
-	local otherSlotList = {2,1}	
-	if get_c("double_attack", champion:getOrdinal()) == nil then
-		local chance = 0
-		if champion:hasTrait("double_shot") and self.go.rangedattack then
-			chance = 1
-		end
+		local otherItem = nil
+		local otherSlotList = {2,1}	
+		if get_c("double_attack", champion:getOrdinal()) == nil then
+			local chance = 0
+			if champion:hasTrait("double_shot") and self.go.rangedattack then
+				chance = 1
+			end
 
-		if isArmorSetEquipped(champion, "rogue") and self.go.rangedattack then
-			chance = chance + 0.25
-		end
+			if isArmorSetEquipped(champion, "rogue") and self.go.rangedattack then
+				chance = chance + 0.25
+			end
 
-		if math.random() <= chance then
-			set_c("double_attack", champion:getOrdinal(), slot)
-			delayedCall("functions", 0.25, "secondShot", champion:getOrdinal(), slot)
+			if math.random() <= chance then
+				set_c("double_attack", champion:getOrdinal(), slot)
+				delayedCall("functions", 0.25, "secondShot", champion:getOrdinal(), slot)
+			end
+		else
+			set_c("double_attack", champion:getOrdinal(), nil)
 		end
-	else
-		set_c("double_attack", champion:getOrdinal(), nil)
-	end
-	end
-
-	-- Item bonuses
-	-- Huntsman Cloak
-	if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).name == "huntsman_cloak" then
-		self:setAttackPower(self:getAttackPower() * (champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 1.2 or 1.1))
 	end
 end
 
@@ -2230,40 +2188,31 @@ function class_skill(skill, champion)
 	end
 end
 
-
-
-
-function empowerElement(champion, element, multi, return_only)
-	local f = multi
+function empowerElement(champion, element, f, return_only, tier, spell)
+	return_only = return_only and return_only or false
+	tier = tier and tier or 0
+	spell = spell and spell or false -- defines if it's a spell or attack
 	local ord = champion:getOrdinal()
-	if champion:getClass() == "elementalist" and element ~= "physical" then
-		f = functions.script.elementalistPower(element, champion, f, return_only)
-	end
 	
-	if element ~= "physical" and champion:hasTrait("moon_rites") and GameMode.getTimeOfDay() > 1.01 then
-		f = f * 1.1
+	if spell then -- it's a spell
+		
+	else -- it's an attack
+
 	end
+
 	
-	if champion:getClass() == "druid" and element == "physical" then
-		local conversion = 0.2
-		for slot = 8,10 do
-			local druidItem = functions.script.get_c("druid_item"..slot, champion:getOrdinal())
-			if druidItem and druidItem == "blackmoss" then
-				conversion = conversion + 0.1
-			end
-		end
-		f = f * (1 - conversion)
-	end
-	
-	if element == "poison" then
-		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "serpent_bracer" then
-			f = f * 1.15
+	if element ~= "physical" then -- non physical
+		if champion:getClass() == "elementalist" then
+			f = functions.script.elementalistPower(element, champion, f, return_only)
 		end
 		
-		if isArmorSetEquipped(champion, "embalmers") then
-			f = f * 1.15
+		if champion:hasTrait("moon_rites") and GameMode.getTimeOfDay() > 1.01 then
+			f = f * 1.1
 		end
-		
+	end
+	
+	if element == "poison" then		
+		-- Classes
 		if champion:getClass() == "druid" then
 			local multi = 0
 			for slot = 8,10 do
@@ -2279,32 +2228,38 @@ function empowerElement(champion, element, multi, return_only)
 			f = f * (1 + multi)
 		end
 		
-		if champion:hasTrait("imperium_arcana") then
-			local bonus = (champion:getMaxEnergy() / 100 * 15 * 0.01) + 1
-			f = f * bonus
-		end
-
-		for slot = 1,ItemSlot.Bracers do
+		-- Skills
+		f = f * ((champion:getSkillLevel("poison_mastery") * 0.02) + 1)
+		
+		-- Items
+		for slot = ItemSlot.Weapon, ItemSlot.Bracers do
 			local item = champion:getItem(slot)
-			if item and item:hasTrait("earthbound") then
-				f = f * 1.2
-			end
+			local isHandItem = isHandItem(item, slot)
+			if item and isHandItem then
+				if item:hasTrait("earthbound1") then -- Items with earthbound trait gives poison damage
+					f = f * 1.1
+				elseif item:hasTrait("earthbound2") then
+					f = f * 1.2
+				elseif item:hasTrait("earthbound3") then
+					f = f * 1.3
+				end
+			end	
+		end
+		-- Sets
+		if isArmorSetEquipped(champion, "embalmers") then
+			f = f * 1.15
 		end
 		
 	elseif element == "fire" then
-		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "forestfire_bracer" then
-			f = f * 1.2
-		end
-		
+		-- Classes
 		if champion:getClass() == "tinkerer" then
 			f = f * ((champion:getResistance("fire") * 0.01) + 1)
 		end
-		
-		if champion:hasTrait("imperium_arcana") then
-			local bonus = (champion:getMaxEnergy() / 100 * 15 * 0.01) + 1
-			f = f * bonus
-		end
-		
+
+		-- Skills
+		f = f * ((champion:getSkillLevel("elemental_magic") * 0.2) + 1)
+				
+		-- Fire Ruby
 		local gem_charges = functions.script.get_c("ruby_charges", ord)
 		if gem_charges and gem_charges > 0 then
 			f = f * functions.script.get_c("ruby_power", ord)
@@ -2312,21 +2267,24 @@ function empowerElement(champion, element, multi, return_only)
 		elseif gem_charges == 0 then
 			functions.script.set_c("ruby_charges", ord, nil)
 		end
-		
-	elseif element == "cold" then
-		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "coldspike_bracelet" then
-			f = f * 1.2
-		end	
-		
-		if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "nomad_mittens" then
-			f = (champion:getItem(ItemSlot.Gloves):hasTrait("upgraded") and f * 1.15 or f * 1.05)
-		end	
-		
-		if champion:hasTrait("imperium_arcana") then
-			local bonus = (champion:getMaxEnergy() / 100 * 15 * 0.01) + 1
-			f = f * bonus
+
+		-- Items
+		for slot = ItemSlot.Weapon, ItemSlot.Bracers do
+			local item = champion:getItem(slot)
+			local isHandItem = isHandItem(item, slot)
+			if item and isHandItem then
+				if item:hasTrait("firebound1") then -- Items with firebound trait gives fire damage
+					f = f * 1.1
+				elseif item:hasTrait("firebound2") then
+					f = f * 1.2
+				elseif item:hasTrait("firebound3") then
+					f = f * 1.3
+				end
+			end			
 		end
 		
+	elseif element == "cold" then
+		-- Cold Aquamarine
 		local gem_charges = functions.script.get_c("aquamarine_charges", ord)
 		if gem_charges and gem_charges > 0 then
 			f = f * functions.script.get_c("aquamarine_power", ord)
@@ -2334,21 +2292,38 @@ function empowerElement(champion, element, multi, return_only)
 		elseif gem_charges == 0 then
 			functions.script.set_c("aquamarine_charges", ord, nil)
 		end
+
+		-- Skills
+		f = f * ((champion:getSkillLevel("elemental_magic") * 0.2) + 1)
+
+		-- Items
+		for slot = ItemSlot.Weapon, ItemSlot.Bracers do
+			local item = champion:getItem(slot)
+			local isHandItem = isHandItem(item, slot)
+			if item and isHandItem then
+				if item:hasTrait("frostbound1") then -- Items with frostbound trait gives cold damage
+					f = f * 1.1
+				elseif item:hasTrait("frostbound2") then
+					f = f * 1.2
+				elseif item:hasTrait("frostbound3") then
+					f = f * 1.3
+				end
+				if item.go.name == "nomad_mittens" then
+					f = item:hasTrait("upgraded") and f * 1.15 or f * 1.05
+				end
+			end
+		end
 		
 	elseif element == "shock" then
-		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "torment_bracer" then
-			f = f * 1.2
-		end	
-		
+		-- Classes
 		if champion:getClass() == "tinkerer" then
 			f = f * ((champion:getResistance("shock") * 0.01) + 1)
 		end
 		
-		if champion:hasTrait("imperium_arcana") then
-			local bonus = (champion:getMaxEnergy() / 100 * 15 * 0.01) + 1
-			f = f * bonus
-		end
-		
+		-- Skills
+		f = f * ((champion:getSkillLevel("elemental_magic") * 0.2) + 1)
+
+		-- Shock Topaz
 		local gem_charges = functions.script.get_c("topaz_charges", ord)
 		if gem_charges and gem_charges > 0 then
 			f = f * functions.script.get_c("topaz_power", ord)
@@ -2356,61 +2331,162 @@ function empowerElement(champion, element, multi, return_only)
 		elseif gem_charges == 0 then
 			functions.script.set_c("topaz_charges", ord, nil)
 		end
+
+		-- Items
+		for slot = ItemSlot.Weapon, ItemSlot.Bracers do
+			local item = champion:getItem(slot)
+			local isHandItem = isHandItem(item, slot)
+			if item and isHandItem then
+				if item:hasTrait("shockbound1") then -- Items with shockbound trait gives shock damage
+					f = f * 1.1
+				elseif item:hasTrait("shockbound2") then
+					f = f * 1.2
+				elseif item:hasTrait("shockbound3") then
+					f = f * 1.3
+				end
+			end
+		end
 		
 	elseif element == "neutral" then
+		-- Classes
 		if champion:getClass() == "stalker" then
 			local bonus = champion:hasTrait("night_stalker") and 2 or 1
 			f = f * (1 + ((champion:getCurrentStat("dexterity") * 0.01 * bonus) + (math.floor(champion:getCurrentStat("dexterity") / 7) * 0.1 * bonus)))
 		end
 		
+		-- Skills
 		if champion:hasTrait("imperium_arcana") then
 			local bonus = (champion:getMaxEnergy() / 100 * 30 * 0.01) + 1
 			f = f * bonus
 		end
 		
 	elseif element == "physical" then
+		-- Races
 		-- Ratling's Sneak Attack
-		if functions.script.get_c("sneak_attack", ord) then
-			f = f * (1.05 + (champion:getLevel() >= 8 and 0.1 or 0) + (champion:getLevel() >= 12 and 0.1 or 0))
-		end
+		-- if functions.script.get_c("sneak_attack", ord) then
+		-- 	f = f * (1.05 + (champion:getLevel() >= 8 and 0.1 or 0) + (champion:getLevel() >= 12 and 0.1 or 0))
+		-- end
 		
+		-- Classes
+		-- Druid conversion
+		if champion:getClass() == "druid" then
+			local conversion = 0.2
+			for slot = 8,10 do
+				local druidItem = functions.script.get_c("druid_item"..slot, champion:getOrdinal())
+				if druidItem and druidItem == "blackmoss" then
+					conversion = conversion + 0.1
+				end
+			end
+			f = f * (1 - conversion)
+		end
+
+		-- Tinkerer Melee conversion
+		if champion:getClass() == "tinkerer" then
+			f = f * 0.5
+		end
+
+		-- Skills
+		if champion:hasTrait("imperium_arcana") then
+			local bonus = (champion:getMaxEnergy() / 100 * 35 * 0.01) + 1
+			f = f * bonus
+		end
+	end
+	
+	return f
+end
+
+function empowerAttackType(champion, attackType, multi, return_only, tier)
+	local f = multi
+	local ord = champion:getOrdinal()
+	tier = tier and tier or 0
+	if attackType == "melee" then
+		-- Race bonuses
+		-- Brutalizer
+		if champion:hasTrait("brutalizer") then
+			f = f * (1.00 + (champion:getCurrentStat("strength") * 0.01))	
+		end
+
+		-- Skill bonuses
+		if champion:hasTrait("sea_dog") and (champion == party.party:getChampion(3) or champion == party.party:getChampion(4)) then
+			f = f * 1.25
+		end
+
+		-- Item bonuses
+		-- Steel Armband
+		if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "steel_armband" then
+			local bonus = 4
+			if champion:getItem(ItemSlot.Head) then bonus = bonus - 1 end
+			if champion:getItem(ItemSlot.Chest) then bonus = bonus - 1 end
+			if champion:getItem(ItemSlot.Legs) then bonus = bonus - 1 end
+			if champion:getItem(ItemSlot.Feet) then bonus = bonus - 1 end
+			if bonus > 0 then
+				if secondary ~= self then
+					secondary:setAttackPower(secondary:getAttackPower() * (1 + (bonus * 0.1)))
+				end
+			end
+		end
+
+	elseif attackType == "spell" then
+		f = f * ((champion:getCurrentStat("willpower") * 0.02) + 1)
+
 		-- Body and Mind bonus based on vitality
 		if champion:hasTrait("persistence") then
 			local vitality = champion:getCurrentStat("vitality")
 			local addVitality = ((vitality+1)^(1-0.95) - 1) / (1-0.95) * 0.95	
 			addVitality = addVitality + (champion:getCurrentStat("vitality") * 0.005)			
 			f = f * (1.00 + (addVitality * 0.1))
-		end	
+		end
 
-	end
+		-- Arcane Warrior
+		if tier < 3 then
+			if champion:hasTrait("arcane_warrior") then
+				local acc, dmg, avg = 0, 0
+				dmg = functions.script.getDamage(champion)
+				avg = (dmg[0] + dmg[1]) / 2 * 0.002
+				acc = functions.script.getAccuracy(champion) * 0.001
+				f = f * (avg + acc + 1)
+			end
+		end
 	
-	return f
-end
-
-function empowerAttackType(champion, attackType, multi, return_only)
-	local f = multi
-	local ord = champion:getOrdinal()
-	if attackType == "light_weapons" or attackType == "heavy_weapons" then
-		if champion:hasTrait("sea_dog") and (champion == party.party:getChampion(3) or champion == party.party:getChampion(4)) then
-			f = f * 1.25
-		end	
-	end
-	
-	if attackType == "ranged" then
-		f = f * ((champion:getSkillLevel("ranged_weapons") * 0.2) + 1)
-
-		if champion:hasTrait("sea_dog") and (champion == party.party:getChampion(1) or champion == party.party:getChampion(2)) then
-			f = f * 1.25
-		end	
-		
+	elseif attackType == "ranged" then
+		-- Class bonuses
 		if champion:getClass() == "assassin_class" then
 			f = f * (1 + (assassinations[ord] * 0.05))
 		end	
 
+		-- Skill bonuses
+		f = f * ((champion:getSkillLevel("ranged_weapons") * 0.2) + 1)
+
+		if champion:hasTrait("sea_dog") and (champion == party.party:getChampion(1) or champion == party.party:getChampion(2)) then
+			f = f * 1.25
+		end
+
+		-- Item bonuses
+
+	elseif attackType == "missile" then
+		-- Item bonuses
+		-- Huntsman Cloak
+		if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).name == "huntsman_cloak" then
+			self:setAttackPower(self:getAttackPower() * (champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 1.2 or 1.1))
+		end
+
+	elseif attackType == "throwing" then
+
 	elseif attackType == "light_weapons" then
+		-- Skill bonuses
 		f = f * ((champion:getSkillLevel("light_weapons") * 0.2) + 1)
 
-	elseif attackType == "dual_wielding" then		
+	elseif attackType == "heavy_weapons" then
+		-- Skill bonuses
+		f = f * ((champion:getSkillLevel("heavy_weapons") * 0.2) + 1)
+
+		-- Power Grip
+		if champion:hasTrait("power_grip") and item.go.item:hasTrait("heavy_weapon") then
+			local bonus = (math.floor(champion:getHealth() / 5) + (math.floor(champion:getHealth() / 100) * 10)) * 0.01
+			self:setAttackPower(self:getAttackPower() * (bonus + 1))
+		end	
+
+	elseif attackType == "dual_wielding" then
 		if champion:getClass() == "assassin_class" then
 			f = f * 0.75
 			f = f * (1 + (assassinations[ord] * 0.05))
@@ -2429,6 +2505,7 @@ end
 function getAccuracy(champion, slot)
 	local acc = 0
 	local add = nil
+	if slot == nil then slot = ItemSlot.Weapon end
 	local c = champion:getOrdinal()
 	-- Get acc bonus from equipment
 	for s = ItemSlot.Weapon, ItemSlot.Bracers do
@@ -2505,6 +2582,7 @@ function getCrit(champion, slot)
 	local c = champion:getOrdinal()
 	local crit = 5
 	local add = 0
+	if slot == nil then slot = ItemSlot.Weapon end
 
 	-- Get crit from body equips
 	for s = ItemSlot.Head,ItemSlot.Bracers do
@@ -2560,6 +2638,7 @@ function getPierce(champion, slot)
 	local c = champion:getOrdinal()
 	local pierce = 0
 	local add = 0
+	if slot == nil then slot = ItemSlot.Weapon end
 
 	-- Get pierce from weapon used
 	local item = champion:getItem(slot)
@@ -2586,6 +2665,7 @@ function getPierce(champion, slot)
 	return pierce
 end
 
+-- Returns the multiplier for a weapon's damage
 function getDamage(champion, slot)
 	local c = champion:getOrdinal()
 	if slot == nil then slot = ItemSlot.Weapon end
@@ -2746,7 +2826,6 @@ function getMiscResistance(champion, name)
 			end
 		end
 
-
 	end
 	return resist
 end
@@ -2811,6 +2890,21 @@ function isArmorSetEquipped(champion, set)
 	end
 	
 	return setCount == armorSetPieces[set]
+end
+
+function isHandItem(item, slot) -- returns true if item is in the appropriate slot, so you don't gain a bonus if an armor is in the hand, etc
+	if item then
+		if slot == ItemSlot.Weapon or slot == ItemSlot.OffHand then
+			if item.go.meleeattack or item.go.rangedattack or item.go.throwattack or item.go.firearmattack or item:hasTrait("orb") then
+				return true -- item in hand is a weapon, staff, etc
+			else
+				return false -- item in hand is not a weapon
+			end
+		else
+			return true -- slot isn't a hand slot
+		end
+	end
+	return true
 end
 -------------------------------------------------------------------------------------------------------
 -- Tinkerer Events                                                                                   --    

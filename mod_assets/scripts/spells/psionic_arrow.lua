@@ -31,12 +31,12 @@ defineObject{
 				local hit = self.go:spawn("psionic_arrow_blast")
 				hit.tiledamager:setCastByChampion(self:getCastByChampion())
 				local damage = self.go.data:get("attackPower")
-				damage = damage - (damage * 0.5) + (damage * math.random())
+				damage = damage * (0.5 + math.random())
 				damage = damage * 0.33
 				local protection = 0
 				if entity and entity.monster ~= nil then
 					protection = entity.monster:getProtection()
-					protection = (protection * 0.5) + (protection * math.random())
+					protection = protection * (0.5 + math.random())
 				end				
 				damage = damage - (protection / 2)
 				hit.tiledamager:setAttackPower(math.ceil(damage))
@@ -84,7 +84,20 @@ defineObject{
 			end,
 			onHitMonster = function(self, monster)			
 				local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
-				local accuracy = functions.script.getAccuracy(champion)
+				local accuracy = 0
+
+				local item1 = champion:getItem(ItemSlot.Weapon)
+				local item2 = champion:getOtherHandItem(ItemSlot.Weapon)
+				if item1 then
+					if item1.go.rangedattack or item1.go.throwattack then
+						accuracy = functions.script.getAccuracy(champion, ItemSlot.Weapon)
+					end
+				elseif item2 then
+					if item2.go.rangedattack or item2.go.throwattack then
+						accuracy = functions.script.getAccuracy(champion, ItemSlot.OffHand)					
+					end
+				end
+
 				local evasion = monster:getEvasion()
 				local hitChance = math.clamp(60 + accuracy - evasion, 5, 95) / 100
 				if math.random() > hitChance then
