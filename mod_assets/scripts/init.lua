@@ -990,277 +990,436 @@ defineObject{
 		end,
 		
 		onDrawStats = function(self, context, champion)	
-			local w, h, r = context.width, 		context.height, 	context.width / context.height
-			local f = (r < 1.3 and 0.8 or r < 1.4 and 0.9 or 1) * context.height/1080
-			local f2 = (context.height/1080)
-			local MX, MY = context.mouseX, context.mouseY
-			local mLeft, mRight = context.mouseDown(0), context.mouseDown(2)
-			
-			if f2 > 0.8 then
-				context.font("small")
-			elseif f2 > 0.7 then
-				context.font("small")
-			elseif f2 > 0.6 then
-				context.font("small")
-			elseif f2 < 0.5 then
-				context.font("tiny")
-			end
-
-			context.drawImage2("mod_assets/textures/gui/stats_background.dds", w - (558 * f2), 280 * f2, 0, 0, 528, 350, 528*f2, 350*f2)
-			-- context.drawRect(w - 536, 267, 510, 312)
-			local dummy1, dummy2 = context.button("dummy",w - 536, 267, 510, 312)
-			if dummy1 or dummy2 then
-			end
-
-			if champion:getClass() == "assassin_class" then
-				context.drawText("Assassinations: " .. functions.script.assassinations[champion:getOrdinal()], w - (530 * f2), 618 * f2)
-			end
-
-			if champion:getClass() == "stalker" then
-				context.drawText("Invisibility Casts: " .. functions.script.night_stalker[champion:getOrdinal()], w - (530 * f2), 618 * f2)
-			end
-
-			local hover1, hover2 = {}, {}
-			
-			local txt = ""
-			local x = 0
-			local y = 0
-			-- ATTRIBUTES
-			x = 530
-			y = 334
-			context.drawText("Strength", w - (x * f2), y * f2)
-			txt = tostring(math.floor(champion:getCurrentStat("strength")))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
-			hover1[1], hover2[1] = context.button("hover"..1, w - x, y-20, 100, 20)
-
-			y = y + 20
-			context.drawText("Dexterity", w - (x * f2), y * f2)
-			txt = tostring(math.floor(champion:getCurrentStat("dexterity")))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
-			hover1[2], hover2[2] = context.button("hover"..2, w - x, y-20, 100, 20)
-
-			y = y + 20
-			context.drawText("Vitality", w - (x * f2), y * f2)
-			txt = tostring(math.floor(champion:getCurrentStat("vitality")))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
-			hover1[3], hover2[3] = context.button("hover"..3, w - (x), y, 100, 20)
-
-			y = y + 20
-			context.drawText("Willpower", w - (x * f2), y * f2)
-			txt = tostring(math.floor(champion:getCurrentStat("willpower")))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
-			hover1[4], hover2[4] = context.button("hover"..4, w - (x), y, 100, 20)
-
-			
-
-			-- MISC
-			x = 530
-			y = 452
-			context.drawText("Hp Regen", w - (x * f2), y * f2)
-			txt = tostring(math.floor(champion:getCurrentStat("health_regeneration_rate") - 100))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
-			
-			context.drawText("En Regen", w - (x * f2), (y + 20) * f2)
-			txt = tostring(math.floor(champion:getCurrentStat("energy_regeneration_rate") - 100))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 20) * f2)
-
-			context.drawText("Action Speed", w - (x * f2), (y + 40) * f2)
-			txt = tostring(100 - math.floor(functions.script.getActionSpeed(champion) * 100))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 40) * f2)
-
-			context.drawText("Block", w - (x * f2), (y + 60) * f2)
-			txt = tostring(math.floor(functions.script.getBlockChance(champion) * 100))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 60) * f2)
-
-			-- RESISTANCES
-			x = 365
-			y = 334
-			context.drawText("Fire", w - (x * f2), y * f2)
-			txt = tostring(math.floor(champion:getResistance("fire")))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
-
-			context.drawText("Shock", w - (x * f2), (y + 20) * f2)
-			txt = tostring(math.floor(champion:getResistance("shock")))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 20) * f2)
-
-			context.drawText("Poison", w - (x * f2), (y + 40) * f2)
-			txt = tostring(math.floor(champion:getResistance("poison")))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 40) * f2)
-
-			context.drawText("Cold", w - (x * f2), (y + 60) * f2)
-			txt = tostring(math.floor(champion:getResistance("cold")))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 60) * f2)
-
-			context.drawText("Disease", w - (x * f2), (y + 80) * f2)
-			txt = tostring(math.floor(functions.script.getMiscResistance(champion, "disease")))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 80) * f2)
-
-			context.drawText("Bleeding", w - (x * f2), (y + 100) * f2)
-			txt = tostring(math.floor(functions.script.getMiscResistance(champion, "bleeding")))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 100) * f2)
-
-			context.drawText("Poisoned", w - (x * f2), (y + 120) * f2)
-			txt = tostring(math.floor(functions.script.getMiscResistance(champion, "poisoned")))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 120) * f2)
-
-			-- WOUND RESISTS
-			x = 365
-			y = 334+175
-			local wound_res = functions.script.getWoundResistance(champion)
-			context.drawText("Head", w - (x * f2), y * f2)
-			txt = tostring(math.floor(wound_res[1]))
-			context.drawText("" .. txt, w - ((x-69) * f2) - context.getTextWidth(txt), y * f2)
-			context.drawText("Chest", w - (x * f2), (y + 16) * f2)
-			txt = tostring(math.floor(wound_res[2]))
-			context.drawText("" .. txt, w - ((x-69) * f2) - context.getTextWidth(txt), (y + 16) * f2)
-			context.drawText("Legs", w - (x * f2), (y + 32) * f2)
-			txt = tostring(math.floor(wound_res[3]))
-			context.drawText("" .. txt, w - ((x-69) * f2) - context.getTextWidth(txt), (y + 32) * f2)
-			
-			x = 296-4
-			y = 334+175
-			context.drawText("Feet", w - (x * f2), y * f2)
-			txt = tostring(math.floor(wound_res[4]))
-			context.drawText("" .. txt, w - ((x-69) * f2) - context.getTextWidth(txt), y * f2)
-			context.drawText("L.Hand", w - (x * f2), (y + 16) * f2)
-			txt = tostring(math.floor(wound_res[5]))
-			context.drawText("" .. txt, w - ((x-69) * f2) - context.getTextWidth(txt), (y + 16) * f2)
-			context.drawText("R.Hand", w - (x * f2), (y + 32) * f2)
-			txt = tostring(math.floor(wound_res[6]))
-			context.drawText("" .. txt, w - ((x-69) * f2) - context.getTextWidth(txt), (y + 32) * f2)
-
-			-- MULTIPLIERS
-			x = 198
-			y = 334
-			context.drawText("Spells", w - (x * f2), (y + 0) * f2)
-			txt = tostring(math.floor( functions.script.empowerAttackType(champion, "spell", 100, true) - 100 ))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 0) * f2)
-
-			y = y + 20
-			context.drawText("Ele", w - (x * f2), y * f2)
-			local fire = tostring(math.floor( functions.script.empowerElement(champion, "fire", 100, true, 0, true) - 100 ))
-			local shock = tostring(math.floor( functions.script.empowerElement(champion, "shock", 100, true, 0, true) - 100 ))
-			local cold = tostring(math.floor( functions.script.empowerElement(champion, "cold", 100, true, 0, true) - 100 ))
-
-			context.color(145, 155, 255, 255)
-			context.drawText("" .. cold, w - ((x-138) * f2) - context.getTextWidth(cold), y * f2)
-			context.color(255, 255, 255, 255)
-			context.drawText("/", w - ((x-138) * f2) - context.getTextWidth(cold .. "/"), y * f2)
-
-			context.color(120, 255, 190, 255)
-			context.drawText("/" .. shock, w - ((x-138) * f2) - context.getTextWidth(cold .. "/" .. shock .. "/"), y * f2)	
-			context.color(255, 255, 255, 255)
-			context.drawText("/", w - ((x-138) * f2) - context.getTextWidth(cold .. "/" .. shock .. "/"), y * f2)	
-
-			context.color(255, 120, 100, 255)
-			context.drawText("" .. fire, w - ((x-138) * f2) - context.getTextWidth(cold .. "/" .. shock .. "/" .. fire), y * f2)			
-			context.color(255, 255, 255, 255)
-
-			y = y + 20
-			context.drawText("Poison", w - (x * f2), y * f2)
-			txt = tostring(math.floor( functions.script.empowerElement(champion, "poison", 100, true, 0, true) - 100 ))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
-
-			y = y + 20
-			context.drawText("Neutral", w - (x * f2), y * f2)
-			txt = tostring(math.floor( functions.script.empowerElement(champion, "neutral", 100, true, 0, true) - 100 ))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
-
-			y = y + 20
-			context.drawText("Physical", w - (x * f2), y * f2)
-			txt = tostring(math.floor( functions.script.empowerElement(champion, "physical", 100, true, 0, true) - 100 ))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y* f2)
-			
-
-			y = y + 24
-			context.drawText("Melee", w - (x * f2), y * f2)
-			txt = tostring(math.floor( functions.script.empowerAttackType(champion, "melee", 100, true) - 100 ))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
-
-			y = y + 20
-			context.drawText("L.Weapons", w - (x * f2), y * f2)
-			txt = tostring(math.floor( functions.script.empowerAttackType(champion, "light_weapons", 100, true) - 100 ))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
-
-			y = y + 20
-			context.drawText("H.Weapons", w - (x * f2), y * f2)
-			txt = tostring(math.floor( functions.script.empowerAttackType(champion, "heavy_weapons", 100, true) - 100 ))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
-
-			y = y + 20
-			context.drawText("Ranged", w - (x * f2), y * f2)
-			txt = tostring(math.floor( functions.script.empowerAttackType(champion, "ranged", 100, true) - 100 ))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
-
-			y = y + 20
-			context.drawText("Firearms", w - (x * f2), y * f2)
-			txt = tostring(math.floor( functions.script.empowerAttackType(champion, "firearms", 100, true) - 100 ))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
-
-			y = y + 20
-			context.drawText("Dual Wielding", w - (x * f2), y * f2)
-			txt = tostring(math.floor( functions.script.empowerAttackType(champion, "dual_wield", 100, true) - 100 ))
-			context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
-
-
-			-- Left Hand
-			x = 530
-			y = 592
-			context.drawText("Dmg", w - (x * f2), y * f2)
-			local dmg = functions.script.getDamage(champion, ItemSlot.Weapon)
-			txt = tostring(math.floor(dmg[0])) .. " - " .. tostring(math.floor(dmg[1]))
-			context.drawText("" .. txt , w - ((x-116) * f2) - context.getTextWidth(txt), y * f2)
-
-			context.drawText("Acc", w - (x * f2), (y + 20) * f2)
-			txt = tostring(math.floor(functions.script.getAccuracy(champion, ItemSlot.Weapon) * 1))
-			context.drawText("" .. txt, w - ((x-116) * f2) - context.getTextWidth(txt), (y + 20) * f2)
-
-			x = x-128
-			y = 592
-			context.drawText("Crit", w - (x * f2), y * f2)
-			txt = tostring(math.floor(functions.script.getCrit(champion, ItemSlot.Weapon) * 1)) .. "%"
-			context.drawText("" .. txt, w - ((x-88) * f2) - context.getTextWidth(txt), y * f2)
-
-			context.drawText("Pierce", w - (x * f2), (y + 20) * f2)
-			txt = tostring(math.floor(functions.script.getPierce(champion, ItemSlot.Weapon) * 1))
-			context.drawText("" .. txt, w - ((x-88) * f2) - context.getTextWidth(txt), (y + 20) * f2)
-
-			-- Right Hand
-			x = 276
-			y = 592
-			context.drawText("Dmg", w - (x * f2), y * f2)
-			local dmg = functions.script.getDamage(champion, ItemSlot.OffHand)
-			txt = tostring(math.floor(dmg[0])) .. " - " .. tostring(math.floor(dmg[1]))
-			context.drawText("" .. txt , w - ((x-116) * f2) - context.getTextWidth(txt), y * f2)
-
-			context.drawText("Acc", w - (x * f2), (y + 20) * f2)
-			txt = tostring(math.floor(functions.script.getAccuracy(champion, ItemSlot.OffHand) * 1))
-			context.drawText("" .. txt, w - ((x-116) * f2) - context.getTextWidth(txt), (y + 20) * f2)
-
-			x = x-128
-			y = 592
-			context.drawText("Crit", w - (x * f2), y * f2)
-			txt = tostring(math.floor(functions.script.getCrit(champion, ItemSlot.OffHand) * 1)) .. "%"
-			context.drawText("" .. txt, w - ((x-88) * f2) - context.getTextWidth(txt), y * f2)
-
-			context.drawText("Pierce", w - (x * f2), (y + 20) * f2)
-			txt = tostring(math.floor(functions.script.getPierce(champion, ItemSlot.OffHand) * 1))
-			context.drawText("" .. txt, w - ((x-88) * f2) - context.getTextWidth(txt), (y + 20) * f2)
-			
-			for h = 1, 4 do
-				local hoverTxt = ""
-				if hover2[h] then
-					if h == 1 then
-						hoverTxt = "Strength"
-						context.drawText(hoverTxt, MX - (context.getTextWidth(hoverTxt) / 2), MY - 24)
-					elseif h == 2 then
-						hoverTxt = "Dexterity"
-						context.drawText(hoverTxt, MX - (context.getTextWidth(hoverTxt) / 2), MY - 24)
-					end
-					break
+			local customStats = true
+			if customStats then
+				local w, h, r = context.width, 		context.height, 	context.width / context.height
+				local f = (r < 1.3 and 0.8 or r < 1.4 and 0.9 or 1) * context.height/1080
+				local f2 = (context.height/1080)
+				local MX, MY = context.mouseX, context.mouseY
+				local mLeft, mRight = context.mouseDown(0), context.mouseDown(2)
+				
+				if f2 > 0.8 then
+					context.font("small")
+				elseif f2 > 0.7 then
+					context.font("small")
+				elseif f2 > 0.6 then
+					context.font("small")
+				elseif f2 < 0.5 then
+					context.font("tiny")
 				end
-			end
 
+				context.drawImage2("mod_assets/textures/gui/stats_background.dds", w - (558 * f2), 280 * f2, 0, 0, 528, 350, 528*f2, 350*f2)
+				-- context.drawRect(w - 536, 267, 510, 312)
+				local dummy1, dummy2 = context.button("dummy",w - 536, 267, 510, 312)
+
+				if champion:getClass() == "assassin_class" then
+					context.drawText("Assassinations: " .. functions.script.assassinations[champion:getOrdinal()], w - (530 * f2), 618 * f2)
+				end
+
+				if champion:getClass() == "stalker" then
+					context.drawText("Invisibility Casts: " .. functions.script.night_stalker[champion:getOrdinal()], w - (530 * f2), 618 * f2)
+				end
+
+				local hover1, hover2 = {}, {}
+				
+				local txt = ""
+				local x = 0
+				local y = 0
+				-- ATTRIBUTES
+				x = 530
+				y = 334
+				context.drawText("Strength", w - (x * f2), y * f2)
+				txt = tostring(math.floor(champion:getCurrentStat("strength")))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[1], hover2[1] = context.button("hover"..1, w - x - 6, y-18, 150, 23)
+
+				y = y + 20
+				context.drawText("Dexterity", w - (x * f2), y * f2)
+				txt = tostring(math.floor(champion:getCurrentStat("dexterity")))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[2], hover2[2] = context.button("hover"..2, w - x - 6, y-18, 150, 23)
+
+				y = y + 20
+				context.drawText("Vitality", w - (x * f2), y * f2)
+				txt = tostring(math.floor(champion:getCurrentStat("vitality")))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[3], hover2[3] = context.button("hover"..3, w - x - 6, y-18, 150, 23)
+
+				y = y + 20
+				context.drawText("Willpower", w - (x * f2), y * f2)
+				txt = tostring(math.floor(champion:getCurrentStat("willpower")))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[4], hover2[4] = context.button("hover"..4, w - x - 6, y-18, 150, 23)
+
+				-- MISC
+				x = 530
+				y = 452
+				context.drawText("Hp Regen", w - (x * f2), y * f2)
+				txt = tostring(math.floor(champion:getCurrentStat("health_regeneration_rate") - 100))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[5], hover2[5] = context.button("hover"..5, w - x - 6, y-18, 150, 23)
+				
+				y = y + 20
+				context.drawText("En Regen", w - (x * f2), y * f2)
+				txt = tostring(math.floor(champion:getCurrentStat("energy_regeneration_rate") - 100))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[6], hover2[6] = context.button("hover"..6, w - x - 6, y-18, 150, 23)
+
+				y = y + 20
+				context.drawText("Action Speed", w - (x * f2), y * f2)
+				txt = tostring(100 - math.floor(functions.script.getActionSpeed(champion) * 100))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[7], hover2[7] = context.button("hover"..7, w - x - 6, y-18, 150, 23)
+
+				y = y + 20
+				context.drawText("Block", w - (x * f2), y * f2)
+				txt = tostring(math.floor(functions.script.getBlockChance(champion) * 100))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[8], hover2[8] = context.button("hover"..8, w - x - 6, y-18, 150, 23)
+
+				-- RESISTANCES
+				x = 365
+				y = 334
+				context.drawText("Fire", w - (x * f2), y * f2)
+				txt = tostring(math.floor(champion:getResistance("fire")))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[9], hover2[9] = context.button("hover"..9, w - x - 6, y-18, 150, 23)
+
+				y = y + 20
+				context.drawText("Shock", w - (x * f2), y * f2)
+				txt = tostring(math.floor(champion:getResistance("shock")))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[10], hover2[10] = context.button("hover"..10, w - x - 6, y-18, 150, 23)
+
+				y = y + 20
+				context.drawText("Poison", w - (x * f2), y * f2)
+				txt = tostring(math.floor(champion:getResistance("poison")))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[11], hover2[11] = context.button("hover"..11, w - x - 6, y-18, 150, 23)
+
+				y = y + 20
+				context.drawText("Cold", w - (x * f2), y * f2)
+				txt = tostring(math.floor(champion:getResistance("cold")))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[12], hover2[12] = context.button("hover"..12, w - x - 6, y-18, 150, 23)
+
+				y = y + 20
+				context.drawText("Disease", w - (x * f2), y * f2)
+				txt = tostring(math.floor(functions.script.getMiscResistance(champion, "disease")))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[13], hover2[13] = context.button("hover"..13, w - x - 6, y-18, 150, 23)
+
+				y = y + 20
+				context.drawText("Bleeding", w - (x * f2), y * f2)
+				txt = tostring(math.floor(functions.script.getMiscResistance(champion, "bleeding")))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[14], hover2[14] = context.button("hover"..14, w - x - 6, y-18, 150, 23)
+
+				y = y + 20
+				context.drawText("Poisoned", w - (x * f2), y * f2)
+				txt = tostring(math.floor(functions.script.getMiscResistance(champion, "poisoned")))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[15], hover2[15] = context.button("hover"..15, w - x - 6, y-18, 150, 23)
+
+				-- WOUND RESISTS
+				x = 365
+				y = 334+175
+				local wound_res = functions.script.getWoundResistance(champion)
+				context.drawText("Head", w - (x * f2), y * f2)
+				txt = tostring(math.floor(wound_res[1]))
+				context.drawText("" .. txt, w - ((x-69) * f2) - context.getTextWidth(txt), y * f2)
+				context.drawText("Chest", w - (x * f2), (y + 16) * f2)
+				txt = tostring(math.floor(wound_res[2]))
+				context.drawText("" .. txt, w - ((x-69) * f2) - context.getTextWidth(txt), (y + 16) * f2)
+				context.drawText("Legs", w - (x * f2), (y + 32) * f2)
+				txt = tostring(math.floor(wound_res[3]))
+				context.drawText("" .. txt, w - ((x-69) * f2) - context.getTextWidth(txt), (y + 32) * f2)
+				
+				x = 296-4
+				y = 334+175
+				context.drawText("Feet", w - (x * f2), y * f2)
+				txt = tostring(math.floor(wound_res[4]))
+				context.drawText("" .. txt, w - ((x-69) * f2) - context.getTextWidth(txt), y * f2)
+				context.drawText("L.Hand", w - (x * f2), (y + 16) * f2)
+				txt = tostring(math.floor(wound_res[5]))
+				context.drawText("" .. txt, w - ((x-69) * f2) - context.getTextWidth(txt), (y + 16) * f2)
+				context.drawText("R.Hand", w - (x * f2), (y + 32) * f2)
+				txt = tostring(math.floor(wound_res[6]))
+				context.drawText("" .. txt, w - ((x-69) * f2) - context.getTextWidth(txt), (y + 32) * f2)
+
+				-- MULTIPLIERS
+				x = 198
+				y = 334
+				context.drawText("Spells", w - (x * f2), (y + 0) * f2)
+				txt = tostring(math.floor( functions.script.empowerAttackType(champion, "spell", 100, true) - 100 ))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), (y + 0) * f2)
+				hover1[16], hover2[16] = context.button("hover"..16, w - x - 6, y-18, 150, 23)
+
+				y = y + 20
+				context.drawText("Ele", w - (x * f2), y * f2)
+				local fire = tostring(math.floor( functions.script.empowerElement(champion, "fire", 100, true, 0, true) - 100 ))
+				local shock = tostring(math.floor( functions.script.empowerElement(champion, "shock", 100, true, 0, true) - 100 ))
+				local cold = tostring(math.floor( functions.script.empowerElement(champion, "cold", 100, true, 0, true) - 100 ))
+
+				context.color(145, 155, 255, 255)
+				context.drawText("" .. cold, w - ((x-138) * f2) - context.getTextWidth(cold), y * f2)
+				context.color(255, 255, 255, 255)
+				context.drawText("/", w - ((x-138) * f2) - context.getTextWidth(cold .. "/"), y * f2)
+
+				context.color(120, 255, 190, 255)
+				context.drawText("/" .. shock, w - ((x-138) * f2) - context.getTextWidth(cold .. "/" .. shock .. "/"), y * f2)	
+				context.color(255, 255, 255, 255)
+				context.drawText("/", w - ((x-138) * f2) - context.getTextWidth(cold .. "/" .. shock .. "/"), y * f2)	
+
+				context.color(255, 120, 100, 255)
+				context.drawText("" .. fire, w - ((x-138) * f2) - context.getTextWidth(cold .. "/" .. shock .. "/" .. fire), y * f2)			
+				context.color(255, 255, 255, 255)
+
+				hover1[17], hover2[17] = context.button("hover"..17, w - x - 6, y-18, 150, 23)
+
+				y = y + 20
+				context.drawText("Poison", w - (x * f2), y * f2)
+				txt = tostring(math.floor( functions.script.empowerElement(champion, "poison", 100, true, 0, true) - 100 ))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[18], hover2[18] = context.button("hover"..18, w - x - 6, y-18, 150, 23)
+
+				y = y + 20
+				context.drawText("Neutral", w - (x * f2), y * f2)
+				txt = tostring(math.floor( functions.script.empowerElement(champion, "neutral", 100, true, 0, true) - 100 ))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[19], hover2[19] = context.button("hover"..19, w - x - 6, y-18, 150, 23)
+
+				y = y + 20
+				context.drawText("Physical", w - (x * f2), y * f2)
+				txt = tostring(math.floor( functions.script.empowerElement(champion, "physical", 100, true, 0, true) - 100 ))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y* f2)
+				hover1[20], hover2[20] = context.button("hover"..20, w - x - 6, y-18, 150, 23)
+				
+
+				y = y + 24
+				context.drawText("Melee", w - (x * f2), y * f2)
+				txt = tostring(math.floor( functions.script.empowerAttackType(champion, "melee", 100, true) - 100 ))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[21], hover2[21] = context.button("hover"..21, w - x - 6, y-18, 150, 23)
+
+				y = y + 20
+				context.drawText("L.Weapons", w - (x * f2), y * f2)
+				txt = tostring(math.floor( functions.script.empowerAttackType(champion, "light_weapons", 100, true) - 100 ))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[22], hover2[22] = context.button("hover"..22, w - x - 6, y-18, 150, 23)
+
+				y = y + 20
+				context.drawText("H.Weapons", w - (x * f2), y * f2)
+				txt = tostring(math.floor( functions.script.empowerAttackType(champion, "heavy_weapons", 100, true) - 100 ))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[23], hover2[23] = context.button("hover"..23, w - x - 6, y-18, 150, 23)
+
+				y = y + 20
+				context.drawText("Ranged", w - (x * f2), y * f2)
+				txt = tostring(math.floor( functions.script.empowerAttackType(champion, "ranged", 100, true) - 100 ))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[24], hover2[24] = context.button("hover"..24, w - x - 6, y-18, 150, 23)
+
+				y = y + 20
+				context.drawText("Firearms", w - (x * f2), y * f2)
+				txt = tostring(math.floor( functions.script.empowerAttackType(champion, "firearms", 100, true) - 100 ))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[25], hover2[25] = context.button("hover"..25, w - x - 6, y-18, 150, 23)
+
+				y = y + 20
+				context.drawText("Dual Wield", w - (x * f2), y * f2)
+				txt = tostring(math.floor( functions.script.empowerAttackType(champion, "dual_wielding", 100, true) - 100 ))
+				context.drawText("" .. txt, w - ((x-138) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[26], hover2[26] = context.button("hover"..26, w - x - 6, y-18, 150, 23)
+
+
+				-- Left Hand
+				x = 530
+				y = 592
+				context.drawText("Dmg", w - (x * f2), y * f2)
+				local dmg = functions.script.getDamage(champion, ItemSlot.Weapon)
+				txt = tostring(math.floor(dmg[0])) .. " - " .. tostring(math.floor(dmg[1]))
+				context.drawText("" .. txt , w - ((x-116) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[33], hover2[33] = context.button("hover"..33, w - x - 6, y-18, 150, 23)
+
+				y = y + 20
+				context.drawText("Acc", w - (x * f2), y * f2)
+				txt = tostring(math.floor(functions.script.getAccuracy(champion, ItemSlot.Weapon) * 1))
+				context.drawText("" .. txt, w - ((x-116) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[34], hover2[34] = context.button("hover"..34, w - x - 6, y-18, 150, 23)
+
+				x = x-128
+				y = 592
+				context.drawText("Crit", w - (x * f2), y * f2)
+				txt = tostring(math.floor(functions.script.getCrit(champion, ItemSlot.Weapon) * 1)) .. "%"
+				context.drawText("" .. txt, w - ((x-88) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[35], hover2[35] = context.button("hover"..35, w - x - 6, y-18, 100, 23)
+
+				y = y + 20
+				context.drawText("Pierce", w - (x * f2), y * f2)
+				txt = tostring(math.floor(functions.script.getPierce(champion, ItemSlot.Weapon) * 1))
+				context.drawText("" .. txt, w - ((x-88) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[36], hover2[36] = context.button("hover"..36, w - x - 6, y-18, 100, 23)
+
+				-- Right Hand
+				x = 276
+				y = 592
+				context.drawText("Dmg", w - (x * f2), y * f2)
+				local dmg = functions.script.getDamage(champion, ItemSlot.OffHand)
+				txt = tostring(math.floor(dmg[0])) .. " - " .. tostring(math.floor(dmg[1]))
+				context.drawText("" .. txt , w - ((x-116) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[37], hover2[37] = context.button("hover"..37, w - x - 6, y-18, 150, 23)
+
+				y = y + 20
+				context.drawText("Acc", w - (x * f2), y * f2)
+				txt = tostring(math.floor(functions.script.getAccuracy(champion, ItemSlot.OffHand) * 1))
+				context.drawText("" .. txt, w - ((x-116) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[38], hover2[38] = context.button("hover"..38, w - x - 6, y-18, 150, 23)
+
+				x = x-128
+				y = 592
+				context.drawText("Crit", w - (x * f2), y * f2)
+				txt = tostring(math.floor(functions.script.getCrit(champion, ItemSlot.OffHand) * 1)) .. "%"
+				context.drawText("" .. txt, w - ((x-88) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[39], hover2[39] = context.button("hover"..39, w - x - 6, y-18, 100, 23)
+
+				y = y + 20
+				context.drawText("Pierce", w - (x * f2), y * f2)
+				txt = tostring(math.floor(functions.script.getPierce(champion, ItemSlot.OffHand) * 1))
+				context.drawText("" .. txt, w - ((x-88) * f2) - context.getTextWidth(txt), y * f2)
+				hover1[40], hover2[40] = context.button("hover"..40, w - x - 6, y-18, 100, 23)
+				-- local dummy3, dummy4 = context.button("dummy",w - 536, 267, 510, 312)
+				-- hover1[1], hover2[1] = context.button("hover"..1, w - x, y-20, 100, 21)
+				for h = 1, 40 do
+					local hoverTxt1 = ""
+					local hoverTxt2 = ""
+					if hover2[h] then
+						if h == 1 then
+							hoverTxt1 = "Strength"
+							hoverTxt2 = "Strength increases your carrying capacity, fire\nresistance and damage you deal with most\nmelee and throwing weapons."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 3)
+						elseif h == 2 then
+							hoverTxt1 = "Dexterity"
+							hoverTxt2 = "Dexterity affects your Accuracy, Evasion,\nshock resistance and damage you deal with\nmany missile weapons."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 3)
+						elseif h == 3 then
+							hoverTxt1 = "Vitality"
+							hoverTxt2 = "Vitality affects the amount of Health\npoints you have and your health regeneration\nrate. Vitality also increases your poison\nresistance."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 4)
+						elseif h == 4 then
+							hoverTxt1 = "Willpower"
+							hoverTxt2 = "Willpower affects the amount of Energy\npoints you have and your energy regeneration\nrate. Willpower also increases your cold\nresistance."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 4)
+						elseif h == 5 then
+							hoverTxt1 = "Health Regeneration Rate"
+							hoverTxt2 = "Affects how quickly you regain health over\ntime. By default you gain 1 HP every 5 seconds,\nand this number increases that by a\npercentage."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 4)
+						elseif h == 6 then
+							hoverTxt1 = "Energy Regeneration Rate"
+							hoverTxt2 = "Affects how quickly you regain energy over\ntime. By default you gain 1 HP every 5 seconds,\nand this number increases that by a\npercentage."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 4)
+						elseif h == 7 then
+							hoverTxt1 = "Action Speed"
+							hoverTxt2 = "Your Action Speed is how fast you recover\nafter attaking or using a spell."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 2)
+						elseif h == 8 then
+							hoverTxt1 = "Block Chance"
+							hoverTxt2 = "Your chance to block an attack when\nholding a shield. Blocking reduces the damage\ntaken by half."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 3)
+						elseif h == 9 then
+							hoverTxt1 = "Fire Resistance"
+							hoverTxt2 = "Resist Fire reduces the damage you take from\nfire, steam and heat based attacks."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 2)
+						elseif h == 10 then
+							hoverTxt1 = "Shock Resistance"
+							hoverTxt2 = "Resist Shock reduces damage you take from\nlightning and electrical attacks."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 2)
+						elseif h == 11 then
+							hoverTxt1 = "Poison Resistance"
+							hoverTxt2 = "Resist Poison reduces the damage you take\nfrom poisonous attacks."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 2)
+						elseif h == 12 then
+							hoverTxt1 = "Cold Resistance"
+							hoverTxt2 = "Resist Cold reduces the damage you take from\nicy and cold attacks."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 2)
+						elseif h == 13 then
+							hoverTxt1 = "Disease Resistance"
+							hoverTxt2 = "Affects how likely you are to get infected with\ndisease. While diseased you don't recover\nhealth."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 3)
+						elseif h == 14 then
+							hoverTxt1 = "Bleeding Resistance"
+							hoverTxt2 = "Affects how likely you are to start bleeding\nwhen attacked. While bleeding you take a lot\nof damage if you try to move."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 3)
+						elseif h == 15 then
+							hoverTxt1 = "Poisoning Resistance"
+							hoverTxt2 = "Affects how likely you are to get poisoned.\nWhile poisoned you take damage over time."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 3)
+						elseif h == 16 then
+							hoverTxt1 = "Spell Multi"
+							hoverTxt2 = "Increases the damage you deal with all spells."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 1)
+						elseif h == 17 then
+							hoverTxt1 = "Elemental Multi"
+							hoverTxt2 = "The multipliers for Fire, Shock and Cold.\nIncreases the damage you deal with elemental\nattacks."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 3)
+						elseif h == 18 then
+							hoverTxt1 = "Poison Multi"
+							hoverTxt2 = "Increases the damage you deal with poison\nattacks, but not the \"poisoned\" condition."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 2)
+						elseif h == 19 then
+							hoverTxt1 = "Neutral Multi"
+							hoverTxt2 = "Increases the damage you deal with neutral\nspells."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 2)
+						elseif h == 20 then
+							hoverTxt1 = "Physical Multi"
+							hoverTxt2 = "Increases the damage you deal with physical\nattacks and spells. Affects all weapon\ntypes."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 3)
+						elseif h == 21 then
+							hoverTxt1 = "Melee Multi"
+							hoverTxt2 = "Increases the damage you deal with melee\nattacks. Does not affect unnarmed or bear\nform attacks."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 3)
+						elseif h == 22 then
+							hoverTxt1 = "Light Weapons Multi"
+							hoverTxt2 = "Increases the damage you deal with light\nweapons."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 2)
+						elseif h == 23 then
+							hoverTxt1 = "Heavy Weapons Multi"
+							hoverTxt2 = "Increases the damage you deal with heavy\nweapons."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 2)
+						elseif h == 24 then
+							hoverTxt1 = "Ranged Weapons Multi"
+							hoverTxt2 = "Increases the damage you deal with missile\nand throwing weapons."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 2)
+						elseif h == 25 then
+							hoverTxt1 = "Firearms Weapons Multi"
+							hoverTxt2 = "Increases the damage you deal with firearms."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 1)
+						elseif h == 26 then
+							hoverTxt1 = "Dual Wielding Multi"
+							hoverTxt2 = "Increases the damage you deal while dual\nwielding weapons, which by default is -40%."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 2)
+						elseif h == 33 or h == 37 then
+							hoverTxt1 = "Damage"
+							hoverTxt2 = "The range of physical damage you deal with\nattacks. It's affected by your stats, items, skills\nand the Physical multiplier."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 3)
+						elseif h == 34 or h == 38 then
+							hoverTxt1 = "Accuracy"
+							hoverTxt2 = "The higher your accuracy, the better chance\nyou have of hitting a target. Each point of\naccuracy translates to 1% chance of hitting a\ntarget with no evasion."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 4)
+						elseif h == 35 or h == 39 then
+							hoverTxt1 = "Critical Chance"
+							hoverTxt2 = "Percentile chance of scoring a critical strike\nwith a weapon."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 2)
+						elseif h == 36 or h == 40 then
+							hoverTxt1 = "Piercing"
+							hoverTxt2 = "The amount of a target's protection you can\npierce with your weapon."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, MX - (370 / 2), MY - 24, 2)
+						end
+						break
+					end
+				end
+				
+			end
 		end, 
 
 		onDrawSkills = function(self, context, champion)

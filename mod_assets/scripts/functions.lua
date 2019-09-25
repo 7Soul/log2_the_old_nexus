@@ -2245,6 +2245,7 @@ function empowerElement(champion, element, f, return_only, tier, spell)
 				end
 			end	
 		end
+		
 		-- Sets
 		if isArmorSetEquipped(champion, "embalmers") then
 			f = f * 1.15
@@ -2892,7 +2893,7 @@ function isArmorSetEquipped(champion, set)
 	return setCount == armorSetPieces[set]
 end
 
-function isHandItem(item, slot) -- returns true if item is in the appropriate slot, so you don't gain a bonus if an armor is in the hand, etc
+function isHandItem(item, slot) -- returns true if a held item is in the appropriate slot, so you don't gain a bonus if an armor is in the hand, etc
 	if item then
 		if slot == ItemSlot.Weapon or slot == ItemSlot.OffHand then
 			if item.go.meleeattack or item.go.rangedattack or item.go.throwattack or item.go.firearmattack or item:hasTrait("orb") then
@@ -2901,11 +2902,46 @@ function isHandItem(item, slot) -- returns true if item is in the appropriate sl
 				return false -- item in hand is not a weapon
 			end
 		else
-			return true -- slot isn't a hand slot
+			if slot ~= ItemSlot.Weapon2 and slot ~= ItemSlot.OffHand2 then
+				return true -- slot isn't a hand slot and not a swapped slot
+			end
 		end
 	end
 	return true
 end
+
+function statToolTip(context, hoverTxt1, hoverTxt2, x, y, lineCount)
+	local f2 = (context.height/1080)
+
+	y = y - 18 - (lineCount * 26)
+	context.color(0, 0, 0, 220)
+	if x > 1500 then x = 1500 end
+
+	local backX = x - 7
+	local backY = y - 30
+	local width = 412
+	local height = 41 + (lineCount * 26)
+
+	context.drawRect(backX, backY, width, height)
+	context.color(255, 255, 255, 255)
+	
+	context.drawImage2("mod_assets/textures/gui/tooltip_border.dds", backX - 7, backY - 7, 0, 0, 7, 7, 7, 7) -- top left
+	context.drawImage2("mod_assets/textures/gui/tooltip_border.dds", backX, backY - 7, 7, 0, 7, 7, width, 7) -- top
+	context.drawImage2("mod_assets/textures/gui/tooltip_border.dds", backX + width, backY - 7, 14, 0, 7, 7, 7, 7) -- top right
+	context.drawImage2("mod_assets/textures/gui/tooltip_border.dds", backX - 7, backY, 0, 7, 7, 7, 7, height) -- left
+	context.drawImage2("mod_assets/textures/gui/tooltip_border.dds", backX - 7, backY + height, 0, 14, 7, 7, 7, 7) -- bot left
+	context.drawImage2("mod_assets/textures/gui/tooltip_border.dds", backX, backY + height, 7, 14, 7, 7, width, 7) -- bottom
+	context.drawImage2("mod_assets/textures/gui/tooltip_border.dds", backX + width, backY + height, 14, 14, 7, 7, 7, 7) -- bot right
+	context.drawImage2("mod_assets/textures/gui/tooltip_border.dds", backX + width, backY, 14, 7, 7, 7, 7, height) -- right
+
+	context.font("large")
+	context.color(255, 255, 255, 255)
+	context.drawText(hoverTxt1, x, y)
+	context.font("medium")
+	context.drawText(hoverTxt2, x, y + 28)
+end
+
+
 -------------------------------------------------------------------------------------------------------
 -- Tinkerer Events                                                                                   --    
 -------------------------------------------------------------------------------------------------------
