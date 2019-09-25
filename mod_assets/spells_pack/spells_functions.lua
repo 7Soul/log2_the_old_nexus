@@ -47,29 +47,15 @@ defOrdered =
 		local base = 0
 
 		local item1 = champion:getItem(ItemSlot.Weapon)
-		local item2 = champion:getOtherHandItem(ItemSlot.Weapon)
-		if item1 and not item2 then
+		if item1 then
 			if item1.go.rangedattack or item1.go.throwattack then
-				base = functions.script.getDamage(champion, ItemSlot.Weapon) + functions.script.getAccuracy(champion, ItemSlot.Weapon)
-			end
-
-		elseif item2 and not item1 then
-			if item2.go.rangedattack or item2.go.throwattack then
-				base = functions.script.getDamage(champion, ItemSlot.OffHand) + functions.script.getAccuracy(champion, ItemSlot.OffHand)				
-			end
-
-		elseif item1 and item2 then
-			if item1.go.rangedattack or item1.go.throwattack then
-				base = functions.script.getDamage(champion, ItemSlot.Weapon) + functions.script.getAccuracy(champion, ItemSlot.Weapon)
-			end
-
-			if item2.go.rangedattack or item2.go.throwattack then
-				base = base + functions.script.getDamage(champion, ItemSlot.OffHand) + functions.script.getAccuracy(champion, ItemSlot.OffHand)				
+				local dmg = functions.script.getDamage(champion, ItemSlot.Weapon)
+				local acc = functions.script.getAccuracy(champion, ItemSlot.Weapon)
+				base = ((dmg[0] + dmg[1]) / 2) + acc
 			end
 		end
-
-		local power = spells_functions.script.getPower(base, champion, "missile_weapons", "neutral", 1)			
-		spells_functions.script.missile("psionic_arrow", ord, power, nil, true)
+		
+		spells_functions.script.missile("psionic_arrow", ord, base, nil, true)
 		spells_functions.script.stopInvisibility()
 	end
 },
@@ -881,52 +867,102 @@ end,
 },
 
 {
-	name = "freeze_rune",
-	uiName = "Freeze Rune",
+	name = "ice_sword",
+	uiName = "Conjure Ice Sword",
+	gesture = 9654,
+	manaCost = 0,
 	skill = "elemental_magic",
-	requirements = {"elemental_magic", 4},
-	gesture = 0,
-	manaCost = 50,
-	description = "Creates a rune trap that freezes anyone who steps on it. You can have up to 1 + Concentration traps at any time.\n- Cost : 50 energy\n- Power : 10",
+	requirements = { "elemental_magic", 2, "light_weapons_c", 1 },
+	icon = 68,
+	spellIcon = 14,
+	description = "Conjures a magical Ice Fang with attack power, cooldown and duration based on your Cold Damage multiplier.\n- Cost : 55 energy",
 	onCast = function(champion, x, y, direction, elevation, skillLevel)
-		playSound("generic_spell")
-		local power = spells_functions.script.getPower(10, champion, "elemental_magic", "cold")
-		spells_functions.script.ward("freeze_trap", power, champion:getOrdinal(), vec(0, 0.5, 1))
-		spells_functions.script.partyLight("water", 1, vec(0, 0.5, 1), 10)
-	end,
-},
+		local cost = 55
+		cost = spells_functions.script.getCost(champion, cost, "cold", "ice_sword")
+		spells_functions.script.paySpellCost(champion, cost, "cold", "ice_sword")
 
-{
-	name = "conjure_ice",
-	uiName = "Conjure Ice",
-	skill = "elemental_magic",
-	requirements = {"elemental_magic", 5},
-	gesture = 0,
-	manaCost = 50,
-	description = "Conjures a block of ice in front of the party. It can take as much damage as the spell power before it breaks. It takes one damage each second or when it is walked on, traps an ennemy, is pushed, or more if it hits the ground or is struck.\nCost : 50 energy\n- Power : 20\n\n[Cold-blooded]:\nPower increased by 10.",
-	onCast = function(champion, x, y, direction, elevation, skillLevel)
-		playSound("frostburst")
-		local x,y = spells_functions.script.getFrontTarget(true) -- blockedByHealth = true
-		local power = spells_functions.script.getPower(champion:hasTrait("cold_resistant") and 30 or 20, champion, "elemental_magic")
-		local cube = spawn("ice_cube", party.level, x, y, party.facing, party.elevation).health:setHealth(power)
-		spells_functions.script.partyLight("water", 1, vec(0, 0.5, 1), 10)
-	end,
-},
+		for c=1,4 do
+			local champ = party.party:getChampionByOrdinal(c)
+			for slot=1,32 do
+				local item = champ:getItem(slot)
+				if item and item.go.name == "ice_sword" then
+					champ:removeItem(item)
+				end
+			end
+		end
 
-{
-	name = "ice_storm",
-	uiName = "Ice Storm",
-	skill = "elemental_magic",
-	requirements = {"elemental_magic", 5, "concentration", 3},
-	gesture = 96547,
-	manaCost = 69,
-	description = "Unleashes a devastating storm of ice on your foes.\n- Cost : 69 energy\n- Power : 15 per bolt",
-	onCast = function(champion, x, y, direction, elevation, skillLevel)
-		local power = spells_functions.script.getPower(2.5, champion, "elemental_magic", "cold")
-		spells_functions.script.missiles(power, {"frostbolt_cast"}, champion:getOrdinal(), 1, true)
+		for slot=13,32 do
+			if champion:getItem(slot) == nil then
+				champion:insertItem(slot, spawn("ice_sword").item)
+				local item = champion:getItem(slot)
+				item.go.meleeattack:setAttackPower(functions.script.empowerElement(champion, "cold", 17, true))	
+				item.go.meleeattack:setCooldown(4.5 - functions.script.empowerElement(champion, "cold", 0.5, true))
+				
+				local b_timer = math.ceil((math.random() * 25) + 100 + functions.script.empowerElement(champion, "cold", 25, true))
+				print("Ice Fang will last", b_timer, "steps")
+				if item.go.data:get("parent") == nil then item.go.data:set("parent", champion:getOrdinal()) end
+				item.go.data:set("b_timer", b_timer)
+				break
+			elseif slot==32 then
+				hudPrint("You need a free inventory slot to use this spell")
+			end
+		end
 		spells_functions.script.stopInvisibility()
-	end
+	end,
+	preCast = function(champion, x, y, direction, elevation, skillLevel)
+		local cost = 55
+		cost = spells_functions.script.getCost(champion, cost, "cold", "ice_sword")
+		if champion:getEnergy() < cost then return false,"no_energy" end
+	end,
 },
+
+-- {
+-- 	name = "freeze_rune",
+-- 	uiName = "Freeze Rune",
+-- 	skill = "elemental_magic",
+-- 	requirements = {"elemental_magic", 4},
+-- 	gesture = 0,
+-- 	manaCost = 50,
+-- 	description = "Creates a rune trap that freezes anyone who steps on it. You can have up to 1 + Concentration traps at any time.\n- Cost : 50 energy\n- Power : 10",
+-- 	onCast = function(champion, x, y, direction, elevation, skillLevel)
+-- 		playSound("generic_spell")
+-- 		local power = spells_functions.script.getPower(10, champion, "elemental_magic", "cold")
+-- 		spells_functions.script.ward("freeze_trap", power, champion:getOrdinal(), vec(0, 0.5, 1))
+-- 		spells_functions.script.partyLight("water", 1, vec(0, 0.5, 1), 10)
+-- 	end,
+-- },
+
+-- {
+-- 	name = "conjure_ice",
+-- 	uiName = "Conjure Ice",
+-- 	skill = "elemental_magic",
+-- 	requirements = {"elemental_magic", 5},
+-- 	gesture = 0,
+-- 	manaCost = 50,
+-- 	description = "Conjures a block of ice in front of the party. It can take as much damage as the spell power before it breaks. It takes one damage each second or when it is walked on, traps an ennemy, is pushed, or more if it hits the ground or is struck.\nCost : 50 energy\n- Power : 20\n\n[Cold-blooded]:\nPower increased by 10.",
+-- 	onCast = function(champion, x, y, direction, elevation, skillLevel)
+-- 		playSound("frostburst")
+-- 		local x,y = spells_functions.script.getFrontTarget(true) -- blockedByHealth = true
+-- 		local power = spells_functions.script.getPower(champion:hasTrait("cold_resistant") and 30 or 20, champion, "elemental_magic")
+-- 		local cube = spawn("ice_cube", party.level, x, y, party.facing, party.elevation).health:setHealth(power)
+-- 		spells_functions.script.partyLight("water", 1, vec(0, 0.5, 1), 10)
+-- 	end,
+-- },
+
+-- {
+-- 	name = "ice_storm",
+-- 	uiName = "Ice Storm",
+-- 	skill = "elemental_magic",
+-- 	requirements = {"elemental_magic", 5, "concentration", 3},
+-- 	gesture = 96547,
+-- 	manaCost = 69,
+-- 	description = "Unleashes a devastating storm of ice on your foes.\n- Cost : 69 energy\n- Power : 15 per bolt",
+-- 	onCast = function(champion, x, y, direction, elevation, skillLevel)
+-- 		local power = spells_functions.script.getPower(2.5, champion, "elemental_magic", "cold")
+-- 		spells_functions.script.missiles(power, {"frostbolt_cast"}, champion:getOrdinal(), 1, true)
+-- 		spells_functions.script.stopInvisibility()
+-- 	end
+-- },
 
 {
 	name = "blizzard",

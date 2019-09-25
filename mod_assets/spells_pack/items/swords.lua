@@ -205,7 +205,7 @@ defineObject{
       cooldown = 3.7,
       swipe = "vertical",
       attackSound = "swipe",
-      requirements = { "light_weapons", 1 },
+      requirements = { "light_weapons_c", 1 },
     },
     {
       class = "CastSpell",

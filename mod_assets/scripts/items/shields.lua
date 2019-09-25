@@ -11,7 +11,7 @@ defineObject{
 			uiName = "Buckler",
 			gfxIndex = 314,
 			weight = 2.7,
-			traits = { "shield", "bracers", "metal" },
+			traits = { "shield", "bracers", "metal", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -274,7 +274,7 @@ defineObject{
 			gfxIndexPowerAttack = 204,
 			weight = 3.5,
 			secondaryAction = "anticurse",
-			traits = { "shield", "epic", "metal" },
+			traits = { "shield", "epic", "metal", "upgradable" },
 			gameEffect = [[Wearer gains immunity to petrify condition.
 			
 			Special: Gives petrify immunity to the entire party for 45 seconds.
@@ -319,7 +319,7 @@ defineObject{
 			gfxIndexPowerAttack = 474,			
 			weight = 5.5,
 			secondaryAction = "fireShield",
-			traits = { "shield", "epic", "metal" },
+			traits = { "shield", "epic", "metal", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",

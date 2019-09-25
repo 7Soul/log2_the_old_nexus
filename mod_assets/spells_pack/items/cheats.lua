@@ -39,7 +39,7 @@ defineObject{
           local missing = 0
           local skills = { 
 	         "accuracy","athletics", "light_armor", "heavy_armor", "critical", "ranged_weapons",
-	         "throwing", "firearms", "light_weapons", "heavy_weapons", "concentration", "alchemy",
+	         "throwing", "firearms", "light_weapons_c", "heavy_weapons_c", "concentration", "alchemy",
 	         "elemental_magic","poison_mastery","spellslinger" 
           }
           for _,skill in ipairs(skills) do
@@ -88,7 +88,7 @@ defineObject{
           local c = party.party:getChampionByOrdinal(i)
           local skills = { 
 	         "accuracy","athletics", "armors", "critical", "dodge", "ranged_weapons",
-	         "throwing", "firearms", "light_weapons", "heavy_weapons", "concentration", "alchemy",
+	         "throwing", "firearms", "light_weapons_c", "heavy_weapons_c", "concentration", "alchemy",
 	         "fire_magic","earth_magic","water_magic","air_magic" 
           }
           for _,skill in ipairs(skills) do

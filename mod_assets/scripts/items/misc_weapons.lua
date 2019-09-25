@@ -209,7 +209,7 @@ defineObject{
 			critChance = 5,
 			critMultiplier = 3,
 			swipe = "horizontal",
-			requirements = { "heavy_weapons", 2 },
+			requirements = { "heavy_weapons_c", 2 },
 		},
 		{
 			class = "EquipmentItem",
@@ -225,7 +225,7 @@ defineObject{
 			critMultiplier = 10,
 			cooldown = 3.5,
 			swipe = "horizontal",
-			requirements = { "heavy_weapons", 4, "critical", 2 },
+			requirements = { "heavy_weapons_c", 4, "critical", 2 },
 			gameEffect = "A deadly swing that has a chance of scoring x10 damage on a critical hit.",
 		},
 	},

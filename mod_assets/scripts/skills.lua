@@ -203,7 +203,7 @@ defineSkill{
 }
 
 defineSkill{
-	name = "light_weapons",
+	name = "light_weapons_c",
 	uiName = "Light Weapons",
 	priority = 110,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
@@ -218,7 +218,7 @@ defineSkill{
 }
 
 defineSkill{
-	name = "heavy_weapons",
+	name = "heavy_weapons_c",
 	uiName = "Heavy Weapons",
 	priority = 120,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",

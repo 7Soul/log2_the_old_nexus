@@ -175,6 +175,21 @@ defineObject{
 							print("Item", item.go.name, "reached a burnout of", item.go.data:get("burnout"), "out of a max", b_timer)
 						end
 					end
+					if item and item.go.name == "ice_sword" then
+						if item.go.data:get("burnout") == nil then item.go.data:set("burnout", 0) end
+						local parent = party:getChampionByOrdinal(item.go.data:get("parent"))
+						local b_timer = item.go.data:get("b_timer")
+						
+						item.go.data:set("burnout", math.min(item.go.data:get("burnout") + 1, b_timer))
+						if item.go.data:get("burnout") >= b_timer then
+							champion:removeItem(item)
+						end
+						if item.go.data:get("burnout") > b_timer * 0.5 and item.go.data:get("burnout") < b_timer * 0.9 then
+							item:setGameEffect("You get frostburn if your Cold Resist is under 50.\nYou can feel the sword's cold begin to fade.")
+						elseif item.go.data:get("burnout") >= b_timer * 0.9  then
+							item:setGameEffect("You get frostburn if your Cold Resist is under 50.\nIt's starting to melt.")
+						end
+					end
 				end
 				
 				if champion:hasCondition("bleeding") and math.random() <= 0.33 then
@@ -1714,6 +1729,17 @@ defineObject{
 				if entity.monster then
 					local monster = entity.monster
 					functions.script.bleed(monster, "dot")
+				end
+			end
+
+			for i=1,4 do
+				local champion = party.party:getChampionByOrdinal(i)
+				local item = champion:getItem(ItemSlot.Weapon)
+				if item and item.go.name == "ice_sword" and champion:getResistance("cold") < 50 then
+					local chance = 1 - math.min((champion:getResistance("cold") * 0.02), 0.7)
+					if math.random() < chance then
+						champion:damage(6 + (math.random() * 12), "cold")
+					end
 				end
 			end
 

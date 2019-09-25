@@ -29,7 +29,7 @@ end
 champSkillTemp1, champSkillTemp2 = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 champSkillTemp3, champSkillTemp4 = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 partySkillTemp = {champSkillTemp1, champSkillTemp2, champSkillTemp3, champSkillTemp4 } 
-skillNames = { "athletics", "block", "light_armor", "heavy_armor", "accuracy", "critical", "firearms", "seafaring", "alchemy", "ranged_weapons", "light_weapons", "heavy_weapons", "spellblade", "elemental_magic", "poison_mastery", "concentration", "witchcraft", "tinkering" }
+skillNames = { "athletics", "block", "light_armor", "heavy_armor", "accuracy", "critical", "firearms", "seafaring", "alchemy", "ranged_weapons", "light_weapons_c", "heavy_weapons_c", "spellblade", "elemental_magic", "poison_mastery", "concentration", "witchcraft", "tinkering" }
 
 function addSkillTemp(champion, skill)
 	local champ = champion:getOrdinal()
@@ -117,7 +117,7 @@ function setDefaultParty()
 		-- Reset Level
 		champion:resetExp(0)
 		-- Reset Skills
-		skillNames = { "athletics", "block", "light_armor", "heavy_armor", "accuracy", "critical", "firearms", "seafaring", "alchemy", "ranged_weapons", "light_weapons", "heavy_weapons", "spellblade", "elemental_magic", "poison_mastery", "concentration", "witchcraft", "tinkering" }
+		skillNames = { "athletics", "block", "light_armor", "heavy_armor", "accuracy", "critical", "firearms", "seafaring", "alchemy", "ranged_weapons", "light_weapons_c", "heavy_weapons_c", "spellblade", "elemental_magic", "poison_mastery", "concentration", "witchcraft", "tinkering" }
 		for i=1,#skillNames do
 			local s = champion:getSkillLevel(skillNames[i])
 			champion:trainSkill(skillNames[i], s * -1, false)
@@ -131,14 +131,14 @@ function setDefaultParty()
 	champion:setRace("insectoid")
 	champion:setClass("monk")
 	champion:addTrait("persistence")
-	champion:trainSkill("heavy_weapons", 1, false)
+	champion:trainSkill("heavy_weapons_c", 1, false)
 	champion:trainSkill("athletics", 1, false)
 
 	champion = party.party:getChampionByOrdinal(2)
 	champion:setRace("lizardman")
 	champion:setClass("assassin_class")
 	champion:addTrait("wide_vision")
-	champion:trainSkill("light_weapons", 1, false)
+	champion:trainSkill("light_weapons_c", 1, false)
 	champion:trainSkill("critical", 1, false)
 
 	champion = party.party:getChampionByOrdinal(3)
@@ -257,12 +257,14 @@ function teststart()
 			end
 			
 			if champion:getClass() == "corsair" then
-				for s=13,16 do	champion:removeItemFromSlot(s)	end
+				for s=13,17 do	champion:removeItemFromSlot(s)	end
 				champion:insertItem(13,spawn("flintlock").item)
 				champion:insertItem(14,spawn("flintlock").item)
 				champion:insertItem(15,spawn("pellet_box").item)
 				champion:getItem(15):setStackSize(100)
 				champion:insertItem(16,spawn("rapier").item)
+				champion:insertItem(17,spawn("throwing_knife").item)
+				champion:getItem(17):setStackSize(20)
 			end
 			
 			if champion:getClass() == "elementalist" then
@@ -760,7 +762,6 @@ end
 function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 	local c = champion:getOrdinal()
 	local secondary = self.go:getComponent(self.go.item:getSecondaryAction() and self.go.item:getSecondaryAction() or "")
-	--print(item:getSecondaryAction() )
 
 	if self.go.item:getSecondaryAction() and self == self.go:getComponent(self.go.item:getSecondaryAction()) then
 		champion:removeItem(item)
@@ -811,10 +812,10 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 	self:setAttackPower(self:getAttackPower() * empowerAttackType(champion, "melee", 1))
 
 	-- Light/Heavy Weapons bonuses
-	if item:hasTrait("light_weapon") then
-		self:setAttackPower(self:getAttackPower() * empowerAttackType(champion, "light_weapons", 1))
-	elseif item:hasTrait("heavy_weapon") then
-		self:setAttackPower(self:getAttackPower() * empowerAttackType(champion, "heavy_weapons", 1))
+	if getTrait(champion, item, "light_weapon") then
+		self:setAttackPower(self:getAttackPower() * empowerAttackType(champion, "light_weapons_c", 1))
+	elseif getTrait(champion, item, "heavy_weapon") then
+		self:setAttackPower(self:getAttackPower() * empowerAttackType(champion, "heavy_weapons_c", 1))
 	end
 
 	-- Dual Wielding bonuses
@@ -857,7 +858,7 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 	end
 	
 	-- Corsair fires gun with light weapon melee attack
-	if champion:getClass() == "corsair" and item:hasTrait("light_weapon") then
+	if champion:getClass() == "corsair" and getTrait(champion, item, "light_weapon") then
 		local item2 = champion:getOtherHandItem(slot)
 		if item2 and item2:hasTrait("firearm") then
 			delayedCall("functions", 0.25, "duelistSword", c, item.go.name, slot)
@@ -865,35 +866,19 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 	end
 	
 	-- Double attack
-	if get_c("double_attack", champion:getOrdinal()) == nil then
-		local chance = 0
-		if champion:hasTrait("double_attack") and self.go.meleeattack and item:hasTrait("light_weapon") then
-			chance = chance + 0.2
-		end
-		if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "steel_knuckles" then
-			if (item and item:hasTrait("light_weapon")) or (item and item:hasTrait("staff")) then
-				chance = (champion:getItem(ItemSlot.Gloves):hasTrait("upgraded") and chance + 0.12 or chance + 0.06 )
-			end
-		end
-		if isArmorSetEquipped(champion, "rogue") then
-			chance = chance + 0.25
-		end
-
-		if math.random() <= chance then
-			set_c("double_attack", champion:getOrdinal(), slot)
-			delayedCall("functions", 0.3, "secondShot", champion:getOrdinal(), slot)
-		end
+	if get_c("double_attack", c) == nil then
+		processSecondAttack(self, champion, "melee", slot)
 	else
-		set_c("double_attack", champion:getOrdinal(), nil)
+		set_c("double_attack", c, nil)
 	end
 	
 	-- Lizardman Bite
 	if champion:hasTrait("bite") then
-		if get_c("bite", champion:getOrdinal()) == nil or get_c("bite", champion:getOrdinal()) == 0 then
-			set_c("bite", champion:getOrdinal(), 30 - (math.floor(champion:getLevel() / 5) * 5 ) )
-			set_c("bite_damage", champion:getOrdinal(), champion:getCurrentStat("dexterity") - 5 )
-			set_c("bite_accuracy", champion:getOrdinal(), getAccuracy(champion) )
-			delayedCall("functions", 0.1, "bite", champion:getOrdinal())
+		if get_c("bite", c) == nil or get_c("bite", c) == 0 then
+			set_c("bite", c, 30 - (math.floor(champion:getLevel() / 5) * 5 ) )
+			set_c("bite_damage",c, champion:getCurrentStat("dexterity") - 5 )
+			set_c("bite_accuracy", c, getAccuracy(champion, ItemSlot.Weapon) )
+			delayedCall("functions", 0.1, "bite", c)
 		end
 	end
 	
@@ -917,6 +902,7 @@ function addItemToMap(item,level,x,y,facing,elevation,wpos)
 end
 
 function onThrowAttack(self, champion, slot, chainIndex, item)
+	local c = champion:getOrdinal()
 	supertable[1][item.go.id] = self:getAttackPower()
 	supertable[2][item.go.id] = self:getCooldown()
 	-- supertable[6][self.go.id] = self.go.equipmentitem and self.go.equipmentitem:getCriticalChance() or 0
@@ -939,38 +925,15 @@ function onThrowAttack(self, champion, slot, chainIndex, item)
 		delayedCall("functions", 0.1, "psionicArrow", id)
 	end
 	
-	if not item.go.equipmentitem then
-		item.go:createComponent("EquipmentItem", "equipmentitem")
-	end	
-	item.go.equipmentitem:setCriticalChance(supertable[6][self.go.id])
+	if not item.go.equipmentitem then item.go:createComponent("EquipmentItem", "equipmentitem") end	
+	local real_crit = tinker_item[6][name] and tinker_item[6][name] or (supertable[6][name] and supertable[6][name] or 0)
+	if self.go.equipmentitem then self.go.equipmentitem:setCriticalChance(real_crit) end
 	
-	-- Double shot
-	local otherItem = nil
-	local otherSlotList = {2,1}	
-	if get_c("double_attack", champion:getOrdinal()) == nil then
-		local chance = 0
-		if champion:hasTrait("double_shot") and self.go.throwattack then
-			chance = 1
-		end
-
-		if isArmorSetEquipped(champion, "rogue") and self.go.throwattack then
-			chance = chance + 0.25
-		end
-
-		if math.random() <= chance then
-			local otherItem = champion:getOtherHandItem(slot)
-			
-			if otherItem and otherItem.go.throwattack then
-				slot = otherSlotList[slot]
-			elseif item and item:getStackSize() > 1 then
-				slot = slot
-			end
-			
-			set_c("double_attack", champion:getOrdinal(), slot)
-			delayedCall("functions", 0.25, "secondShot", champion:getOrdinal(), slot)
-		end
+	-- Throwing Double shot	
+	if get_c("double_attack", c) == nil then
+		processSecondAttack(self, champion, "throwing", slot)		
 	else
-		set_c("double_attack", champion:getOrdinal(), nil)
+		set_c("double_attack", c, nil)
 	end
 end
 
@@ -1005,26 +968,12 @@ function onMissileAttack(self, champion, slot, chainIndex, item)
 	local real_crit = tinker_item[6][name] and tinker_item[6][name] or supertable[6][name]
 	if self.go.equipmentitem then self.go.equipmentitem:setCriticalChance(real_crit) end
 	
-	-- Double shot
+	-- Missile Double shot
 	if self ~= secondary then
-		local otherItem = nil
-		local otherSlotList = {2,1}	
-		if get_c("double_attack", champion:getOrdinal()) == nil then
-			local chance = 0
-			if champion:hasTrait("double_shot") and self.go.rangedattack then
-				chance = 1
-			end
-
-			if isArmorSetEquipped(champion, "rogue") and self.go.rangedattack then
-				chance = chance + 0.25
-			end
-
-			if math.random() <= chance then
-				set_c("double_attack", champion:getOrdinal(), slot)
-				delayedCall("functions", 0.25, "secondShot", champion:getOrdinal(), slot)
-			end
+		if get_c("double_attack", c) == nil then
+			processSecondAttack(self, champion, "missile", slot)		
 		else
-			set_c("double_attack", champion:getOrdinal(), nil)
+			set_c("double_attack", c, nil)
 		end
 	end
 end
@@ -1188,36 +1137,38 @@ function onPostFirearmAttack(self, champion, slot, secondary2)
 			if secondary2 == 0 and champion:getItem(otherslot) and champion:getItem(otherslot):hasTrait("firearm") then
 				secondary = 1
 				set_c("double_attack", champion:getOrdinal(), otherslot)
-				delayedCall("functions", 0.25, "secondShot", champion:getOrdinal(), otherslot)
+				delayedCall("functions", 0.25, "doSecondShot", champion:getOrdinal(), otherslot)
 			else
 				secondary = 0
 			end
 		end
 	end
 	
-	-- Metal Slug trait - 7% chance to save a pellet
+	-- Pellet saving
+	local saveChance = 0
 	if champion:hasTrait("metal_slug") and item.go.name ~= "revolver" then
-		local pelletsSlot = nil
-		local pellets = nil
-		if math.random() >= 0.93 then
-			for i=1,32 do
-				if champion:getItem(i) ~= nil and champion:getItem(i).go.name == "pellet_box" then
-					pellets = champion:getItem(i)
-					pelletsSlot = i
-					local stack = pellets:getStackSize()
-					pellets:setStackSize(stack+1)
-					break
-				end
-			end
-		end
+		saveChance = saveChance + 0.07
 	end
-	
-	-- Bone Amulet - 5% chance to save a pellet
-	if champion:getItem(ItemSlot.Necklace) and champion:getItem(ItemSlot.Necklace).name == "bone_amulet" then
+
+	for slot = ItemSlot.Weapon, ItemSlot.Bracers do
+		local item = champion:getItem(slot)
+		local isHandItem = isHandItem(item, slot)
+		if item and isHandItem then
+			if item:hasTrait("metal_slug1") then -- Items with metal_slug trait
+				saveChance = saveChance + 0.03
+			elseif item:hasTrait("metal_slug2") then
+				saveChance = saveChance + 0.05
+			elseif item:hasTrait("metal_slug3") then
+				saveChance = saveChance + 0.07
+			end
+		end	
+	end
+
+	if saveChance > 0 then
 		local pelletsSlot = nil
 		local pellets = nil
-		if math.random() >= 0.95 then
-			for i=1,32 do
+		if math.random() < saveChance then
+			for i=1, ItemSlot.BackpackLast do
 				if champion:getItem(i) ~= nil and champion:getItem(i).go.name == "pellet_box" then
 					pellets = champion:getItem(i)
 					pelletsSlot = i
@@ -1230,14 +1181,77 @@ function onPostFirearmAttack(self, champion, slot, secondary2)
 	end
 end
 
-function secondShot(id, slot)
-	local champion = party.party:getChampionByOrdinal(id)
-	champion:attack(get_c("double_attack", id), false)
-	set_c("double_attack", champion:getOrdinal(), nil)
+function processSecondAttack(self, champion, type, slot)
+	local c = champion:getOrdinal()
+	local chance = 0
+	local delay = 0.25
+	local otherItem = nil
+	local otherSlotList = {2,1}	
+	local item = self.go.item
 
-	if math.random() <= (isArmorSetEquipped(champion, "rogue") and 0.25 or 0) and champion:getItem(slot) and (champion:getItem(slot).go.rangedattack or champion:getItem(slot).go.throwattack) then
-		set_c("double_attack", champion:getOrdinal(), slot)
-		delayedCall("functions", 0.3, "secondShot", champion:getOrdinal(), slot)
+	-- Rogue Set
+	if isArmorSetEquipped(champion, "rogue") then
+		chance = chance + 0.25
+	end
+
+	if type == "melee" then
+		delay = 0.3
+
+		-- Double Attack trait
+		if champion:hasTrait("double_attack") and self.go.meleeattack and getTrait(champion, item, "light_weapon") then
+			chance = chance + 0.2
+		end
+
+		-- Items
+		if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "steel_knuckles" then
+			if (item and getTrait(champion, item, "light_weapon")) or (item and item:hasTrait("staff")) then
+				chance = (champion:getItem(ItemSlot.Gloves):hasTrait("upgraded") and chance + 0.12 or chance + 0.06 )
+			end
+		end
+
+	elseif type == "throwing" then
+		-- Double Shot trait
+		if champion:hasTrait("double_shot") and self.go.throwattack then
+			chance = 1
+		end
+
+		if math.random() <= chance then
+			local otherItem = champion:getOtherHandItem(slot)
+			
+			if otherItem and otherItem.go.throwattack then
+				slot = otherSlotList[slot]
+			elseif item and item:getStackSize() > 1 then
+				slot = slot
+			end
+		end
+
+	elseif type == "missile" then
+		-- Double Shot trait
+		if champion:hasTrait("double_shot") and self.go.rangedattack then
+			chance = 1
+		end
+	end
+	
+	if math.random() <= chance then
+		set_c("double_attack", c, slot)
+		delayedCall("functions", delay, "doSecondShot", c, slot, chance)
+	end
+end
+
+function doSecondShot(c, slot, chance)
+	local champion = party.party:getChampionByOrdinal(c)
+	chance = chance and chance or 1	
+	champion:attack(get_c("double_attack", c), false)
+	set_c("double_attack", c, nil)
+
+	-- Third attack with ranged attacks when chance is over 1
+	chance = math.max(chance - 1, 0)
+	if chance > 0 then 
+		local item = champion:getItem(slot)
+		if math.random() <= chance and item and (item.go.rangedattack or item.go.throwattack) then
+			set_c("double_attack", champion:getOrdinal(), slot)
+			delayedCall("functions", 0.3, "doSecondShot", champion:getOrdinal(), slot)
+		end
 	end
 end
 
@@ -1571,7 +1585,7 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 		end
 
 		-- Assassin (trait) backstab bleed
-		if champion:hasTrait("assassin") and self.go.item:hasTrait("light_weapon") then
+		if champion:hasTrait("assassin") and getTrait(champion, self.go.item, "light_weapon") then
 			set_c("assassin_bleed", c, true)
 		end
 	end
@@ -2475,14 +2489,14 @@ function empowerAttackType(champion, attackType, multi, return_only, tier)
 
 	elseif attackType == "light_weapons" then
 		-- Skill bonuses
-		f = f * ((champion:getSkillLevel("light_weapons") * 0.2) + 1)
+		f = f * ((champion:getSkillLevel("light_weapons_c") * 0.2) + 1)
 
 	elseif attackType == "heavy_weapons" then
 		-- Skill bonuses
-		f = f * ((champion:getSkillLevel("heavy_weapons") * 0.2) + 1)
+		f = f * ((champion:getSkillLevel("heavy_weapons_c") * 0.2) + 1)
 
 		-- Power Grip
-		if champion:hasTrait("power_grip") and item.go.item:hasTrait("heavy_weapon") then
+		if champion:hasTrait("power_grip") and getTrait(champion, item, "heavy_weapon") then
 			local bonus = (math.floor(champion:getHealth() / 5) + (math.floor(champion:getHealth() / 100) * 10)) * 0.01
 			self:setAttackPower(self:getAttackPower() * (bonus + 1))
 		end	
@@ -2701,7 +2715,7 @@ function getDamage(champion, slot)
 		elseif item.go.meleeattack then
 			itemComp = item.go.meleeattack
 			ap = itemComp:getAttackPower() or 0
-			skillLevel = item:hasTrait("heavy_weapon") and (champion:getSkillLevel("heavy_weapons") * 0.2) + 1 or (champion:getSkillLevel("light_weapons") * 0.2) + 1
+			skillLevel = getTrait(champion, item, "heavy_weapon") and (champion:getSkillLevel("heavy_weapons_c") * 0.2) + 1 or (champion:getSkillLevel("light_weapons_c") * 0.2) + 1
 		else
 			dmg[0] = 0
 			dmg[1] = 0
@@ -2896,8 +2910,8 @@ end
 function isHandItem(item, slot) -- returns true if a held item is in the appropriate slot, so you don't gain a bonus if an armor is in the hand, etc
 	if item then
 		if slot == ItemSlot.Weapon or slot == ItemSlot.OffHand then
-			if item.go.meleeattack or item.go.rangedattack or item.go.throwattack or item.go.firearmattack or item:hasTrait("orb") then
-				return true -- item in hand is a weapon, staff, etc
+			if item.go.meleeattack or item.go.rangedattack or item.go.throwattack or item.go.firearmattack or item:hasTrait("orb") or item:hasTrait("shield") then
+				return true -- item in hand is a weapon, staff, shield, etc
 			else
 				return false -- item in hand is not a weapon
 			end
@@ -2908,6 +2922,23 @@ function isHandItem(item, slot) -- returns true if a held item is in the appropr
 		end
 	end
 	return true
+end
+
+function getTrait(champion, item, trait)
+	if item then
+		if item:hasTrait(trait) then
+			return true
+		else
+			if champion:getClass() == "assassin_class" then
+				if trait == "light_weapon" and item:hasTrait("heavy_weapon") then
+					return true
+				elseif trait == "heavy_weapon" and item:hasTrait("light_weapon") then
+					return true
+				end
+			end
+			return false
+		end	
+	end
 end
 
 function statToolTip(context, hoverTxt1, hoverTxt2, x, y, lineCount)
@@ -3072,8 +3103,8 @@ function tinkererUpgrade(self, champion, slot, materials)
 				bonus = getBonus(champion:getSkillLevel("firearms"), 0.05)
 			elseif item.go.meleeattack then
 				equipItem = item.go.meleeattack
-				if item:hasTrait("light_weapon") then bonus = getBonus(champion:getSkillLevel("light_weapons"), 0.05) end
-				if item:hasTrait("heavy_weapon") then bonus = getBonus(champion:getSkillLevel("heavy_weapons"), 0.05) end		
+				if item:hasTrait("light_weapon") then bonus = getBonus(champion:getSkillLevel("light_weapons_c"), 0.05) end
+				if item:hasTrait("heavy_weapon") then bonus = getBonus(champion:getSkillLevel("heavy_weapons_c"), 0.05) end		
 			elseif item.go.rangedattack then
 				equipItem = item.go.rangedattack
 				bonus = getBonus(champion:getSkillLevel("ranged_weapons"), 0.05)
@@ -3662,9 +3693,9 @@ function updateSecondary(meleeAttack, secondary, name, upgradeLevel)
 		secondary:setSwipe("vertical")
 		secondary:setUiName("Chop")
 		if secondary.go.item:hasTrait("light_weapon") then
-			secondary:setRequirements({ "light_weapons", math.min(upgradeLevel+1,5) })
+			secondary:setRequirements({ "light_weapons_c", math.min(upgradeLevel+1,5) })
 		elseif secondary.go.item:hasTrait("heavy_weapon") then
-			secondary:setRequirements({ "heavy_weapons", math.min(upgradeLevel+1,5) })
+			secondary:setRequirements({ "heavy_weapons_c", math.min(upgradeLevel+1,5) })
 		end
 		secondary.go.item:setSecondaryAction("chop")
 
@@ -3679,9 +3710,9 @@ function updateSecondary(meleeAttack, secondary, name, upgradeLevel)
 		secondary:setUiName("Dagger Throw")
 		--secondary:setSwipe("thrust")
 		if secondary.go.item:hasTrait("light_weapon") then
-			secondary:setRequirements({ "light_weapons", math.min(upgradeLevel+1,5) })
+			secondary:setRequirements({ "light_weapons_c", math.min(upgradeLevel+1,5) })
 		elseif secondary.go.item:hasTrait("heavy_weapon") then
-			secondary:setRequirements({ "heavy_weapons", math.min(upgradeLevel+1,5) })
+			secondary:setRequirements({ "heavy_weapons_c", math.min(upgradeLevel+1,5) })
 		end
 		secondary.go.item:setSecondaryAction("dagger_throw")
 		
@@ -3698,9 +3729,9 @@ function updateSecondary(meleeAttack, secondary, name, upgradeLevel)
 		secondary:setSwipe("vertical")
 		secondary:setUiName("Stun")
 		if secondary.go.item:hasTrait("light_weapon") then
-			secondary:setRequirements({"light_weapons", math.min(level+2,5)})
+			secondary:setRequirements({"light_weapons_c", math.min(level+2,5)})
 		elseif secondary.go.item:hasTrait("heavy_weapon") then
-			secondary:setRequirements({"heavy_weapons", math.min(level+2,5)})
+			secondary:setRequirements({"heavy_weapons_c", math.min(level+2,5)})
 		end
 		secondary.go.item:setSecondaryAction("stun")
 		
@@ -3715,9 +3746,9 @@ function updateSecondary(meleeAttack, secondary, name, upgradeLevel)
 		secondary:setSwipe("vertical")
 		secondary:setUiName("Cleave")
 		if secondary.go.item:hasTrait("light_weapon") then
-			secondary:setRequirements({"light_weapons", math.min(upgradeLevel+2,5)})
+			secondary:setRequirements({"light_weapons_c", math.min(upgradeLevel+2,5)})
 		elseif secondary.go.item:hasTrait("heavy_weapon") then
-			secondary:setRequirements({"heavy_weapons", math.min(upgradeLevel+2,5)})
+			secondary:setRequirements({"heavy_weapons_c", math.min(upgradeLevel+2,5)})
 		end
 		secondary.go.item:setSecondaryAction("cleave")
 	
@@ -3735,9 +3766,9 @@ function updateSecondary(meleeAttack, secondary, name, upgradeLevel)
 		secondary:setSwipe("flurry")
 		secondary:setUiName("Flurry of Slashes")
 		if secondary.go.item:hasTrait("light_weapon") then
-			secondary:setRequirements({"light_weapons", math.min(upgradeLevel+1,5), "accuracy", 1 })
+			secondary:setRequirements({"light_weapons_c", math.min(upgradeLevel+1,5), "accuracy", 1 })
 		elseif secondary.go.item:hasTrait("heavy_weapon") then
-			secondary:setRequirements({"heavy_weapons", math.min(upgradeLevel+1,5), "accuracy", 1 })
+			secondary:setRequirements({"heavy_weapons_c", math.min(upgradeLevel+1,5), "accuracy", 1 })
 		end
 		secondary.go.item:setSecondaryAction("flurry")
 		
@@ -3753,9 +3784,9 @@ function updateSecondary(meleeAttack, secondary, name, upgradeLevel)
 		secondary:setCameraShake(true)
 		secondary:setUiName("Devastate")
 		if secondary.go.item:hasTrait("light_weapon") then
-			secondary:setRequirements({"light_weapons", math.min(upgradeLevel+1,5), "critical", 1 })
+			secondary:setRequirements({"light_weapons_c", math.min(upgradeLevel+1,5), "critical", 1 })
 		elseif secondary.go.item:hasTrait("heavy_weapon") then
-			secondary:setRequirements({"heavy_weapons", math.min(upgradeLevel+1,5), "critical", 1 })
+			secondary:setRequirements({"heavy_weapons_c", math.min(upgradeLevel+1,5), "critical", 1 })
 		end
 		secondary.go.item:setSecondaryAction("devastate")
 		
@@ -3772,9 +3803,9 @@ function updateSecondary(meleeAttack, secondary, name, upgradeLevel)
 		secondary:setCameraShake(true)
 		secondary:setUiName("Banish")
 		if secondary.go.item:hasTrait("light_weapon") then
-			secondary:setRequirements({"light_weapons", math.min(upgradeLevel+1,5), "critical", 1 })
+			secondary:setRequirements({"light_weapons_c", math.min(upgradeLevel+1,5), "critical", 1 })
 		elseif secondary.go.item:hasTrait("heavy_weapon") then
-			secondary:setRequirements({"heavy_weapons", math.min(upgradeLevel+1,5), "critical", 1 })
+			secondary:setRequirements({"heavy_weapons_c", math.min(upgradeLevel+1,5), "critical", 1 })
 		end
 		secondary.go.item:setSecondaryAction("banish")
 	

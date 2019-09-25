@@ -439,7 +439,7 @@ defineObject{
 			gameEffect = [[5% chance to recover a pellet when firing with firearms.]],
 			gfxIndex = 65,
 			weight = 0.2,
-			traits = { "necklace", "upgradable" },
+			traits = { "necklace", "metal_slug2", "upgradable" },
 		},
 	},
 	tags = { "necklace" },

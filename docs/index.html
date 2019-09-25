@@ -22,6 +22,18 @@ body {
 	overflow-x: hidden;
 }
 
+.main {
+	border-radius: 8px;
+	border: solid 2px rgba(255,255,255,0.5);
+	background-color: rgba(0,0,0,0.7);
+	width: 549px;
+	min-width: 549px;
+	height: fit-content;
+	position:relative;
+	padding-bottom: 4px;
+	margin: 10px auto;
+}
+
 h1 {
 	clear:both;
 	display:block;
@@ -64,18 +76,6 @@ hr::after {
     margin-top: -14px;
     padding: 0 4px;
     color: rgba(255,255,255,0.85);
-}
-
-.main {
-	border-radius: 8px;
-	border: solid 2px rgba(255,255,255,0.5);
-	background-color: rgba(0,0,0,0.7);
-	width: 549px;
-	min-width: 549px;
-	height: fit-content;
-	position:relative;
-	padding-bottom: 4px;
-	margin: 10px auto;
 }
 
 .icon {
@@ -315,6 +315,9 @@ h2 em {
 		<li>Dual Wield and Ranged Damage increased by 5% per assassination.</li>
 		<li>Attacking from behind saps 2% of a target's health <em>(+0.5% per assassination)</em>.</li>
 		</ul>
+	</div>
+	<div class="class_trait">
+		<p><b>Mastery:</b> All Light Weapon bonuses are applied to Heavy Weapons and vice versa.</p>
 	</div>	
 </div>
 
@@ -1375,7 +1378,7 @@ h2 em {
 <div class="main">
 	<div class="top">
 		<div class="icon" style="background-position: 0px -900px;"></div>
-		<h1>Shock <em>Shock</em></h1>
+		<h1>Shock Rift <em>Shock</em></h1>
 		<h2>Conjures a blast of electricity that deals shock damage to all foes directly in front of you.</h2>
 		<h2><em>Requirements: Elemental Magic 1, Magic Training 1</em></h2>
 	</div>
@@ -1429,7 +1432,7 @@ h2 em {
 <div class="main">
 	<div class="top">
 		<div class="icon" style="background-position: 0px -900px;"></div>
-		<h1>Frostburst <em>Fire</em></h1>
+		<h1>Frost Gust <em>Cold</em></h1>
 		<h2>Conjures ice that deals damage to all foes directly in front of you.</h2>
 		<h2><em>Requirements: Elemental Magic 1, Magic Training 1</em></h2>
 	</div>
@@ -1438,6 +1441,21 @@ h2 em {
 		<b>Power:</b>15</p>		
 		<p><b>Freeze Chance:</b>20%, multiplied by double your Cold resistance.</p>
 		<p><b>Freeze Duration:</b>Random between 2 seconds and 1 second per point in Elemental Magic and Witchcraft.</p>
+	</div>	
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: 0px -900px;"></div>
+		<h1>Conjure Ice Sword <em>Cold</em></h1>
+		<h2>Conjures a magical Ice Fang with attack power, cooldown and duration based on your Cold Damage multiplier.</h2>
+		<h2><em>Requirements: Elemental Magic 2, Light Weapons 1</em></h2>
+	</div>
+	<div class="class_trait">
+		<p><b>Cost:</b>55 energy<br/>
+		<b>Power:</b>17</p>
+		<p>Only one Ice Fang may exist at a time.</p>
+		<p>To wield the Ice Fang, one must have a high Cold Resistance.</p>
 	</div>	
 </div>
 

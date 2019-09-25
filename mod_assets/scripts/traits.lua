@@ -324,7 +324,6 @@ defineTrait{
 			level = champion:getLevel()
 			champion:addStatModifier("max_health", 70 + (level-1) * 5)
 			champion:addStatModifier("max_energy", 40 + (level-1) * 5)
-			champion:addTrait("elemental_surge")
 		end	
 	end,
 }
