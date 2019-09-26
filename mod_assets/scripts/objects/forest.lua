@@ -2286,3 +2286,120 @@ defineObject{
 	minimalSaveState = true,
 	tags = { "level_decoration", "level_design" },
 }
+
+-- Waterfall
+defineObject{
+	name = "sx_forest_waterfall",
+	components = {
+		 {
+		 class = "Model",
+		  model = "mod_assets/models/env/sx_forest_waterfall.fbx",
+		  offset = vec(0, -0.7,-0.2),
+		  materialOverrides = { sx_forest_waterfall_01 = "sx_forest_waterfall_02" },
+	   },
+		 {
+		 class = "Model",
+		  model = "mod_assets/models/env/sx_forest_waterfall.fbx",
+		  name = "second_water_plane",
+		  offset = vec(0, -0.7,-0.2),
+	   },
+		 {
+		  class = "Model",
+		  name = "rock_base",
+		  model = "mod_assets/models/env/sx_forest_waterfall_base.fbx",
+		  offset = vec(0, -0.7, 0),
+	   },		
+	   {
+		  class = "Particle",
+		  emitterMesh = "mod_assets/models/env/sx_forest_waterfall_particle_rim.fbx",
+		  particleSystem = "sx_waterspray",
+		  offset = vec(0, -0.6, -2),
+	   },
+ },
+	placement = "pillar",
+	editorIcon = 108,
+	dontAdjustHeight = true,
+	minimalSaveState = true,
+ }
+ 
+ defineObject{
+	name = "sx_forest_waterfall_01_base",
+	components = {
+		 {
+		  class = "Model",
+		  model = "mod_assets/models/env/sx_forest_waterfall_base.fbx",
+		  offset = vec(0, 0, 0),
+	   },		
+ },
+	placement = "pillar",
+	editorIcon = 108,
+	dontAdjustHeight = true,
+	minimalSaveState = true,
+ }
+
+ defineParticleSystem{
+	name = "sx_waterspray",
+	emitters = {
+	
+		-- waterspay effect
+		{
+			emitterShape = "MeshShape",
+			emissionRate = 50,
+			emissionTime = 0,
+			maxParticles = 1000,
+			sprayAngle = {0,0},
+			velocity = {0,0},
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {1,5},
+			color0 = {1, 1, 1},
+			opacity = 0.9,
+			fadeIn = 1,
+			fadeOut = 4,
+			size = {1, 2},
+			gravity = {0,0.5,-0.2},
+			airResistance = 0.5,
+			rotationSpeed = 0.5,
+			blendMode = "Additive",
+			objectSpace = true,
+		}
+	}
+}
+
+defineObject{
+   name = "sx_waterspray_particles",
+   components = {
+		{
+         class = "Model",
+         model = "mod_assets/models/env/sx_forest_waterfall_particle_rim.fbx",
+		 castShadow = false,
+		 debugDraw = true,
+      },
+      {
+		 class = "Particle",
+		 emitterMesh = "mod_assets/models/env/sx_forest_waterfall_particle_rim.fbx",
+		 offset = vec(0, -0.3, -0.3),
+		 particleSystem = "sx_waterspray",
+		 debugDraw = true,
+	  },
+     {
+		 class = "Particle",
+		 name = "secondplane",
+		 emitterMesh = "mod_assets/models/env/sx_forest_waterfall_particle_rim.fbx",
+		 offset = vec(0, -0.3, -0.5),
+		 particleSystem = "sx_waterspray",
+		 debugDraw = true,
+	  },
+     {
+		 class = "Particle",
+		 name = "thirdplane",
+		 emitterMesh = "mod_assets/models/env/sx_forest_waterfall_particle_rim.fbx",
+		 offset = vec(0, -0.3, -0.7),
+		 particleSystem = "sx_waterspray",
+		 debugDraw = true,
+	  },
+},
+   placement = "pillar",
+   editorIcon = 108,
+   dontAdjustHeight = true,
+   minimalSaveState = true,
+}

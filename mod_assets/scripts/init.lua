@@ -930,7 +930,7 @@ defineObject{
 
 					if context.mouseDown(3) then
 						playSound("click_down")
-						if champion:isAlive() and champion:isReadyToAttack(0) and not champion:hasCondition("recharging") then
+						if party:getWorldPositionY() > -0.6 and champion:isAlive() and champion:isReadyToAttack(0) and not champion:hasCondition("recharging") then
 							--draw click button
 							context.color(255, 255, 255, 255)
 							context.drawImage2("mod_assets/textures/gui/class_skill_button.dds", w - (524 * f2), (662 + ((index - 1) * 62)) * f2, 104, 0, 52, 52, 52 * f2, 52 * f2)
@@ -1847,7 +1847,7 @@ defineObject{
 			for i=1,4 do
 				local champion = party.party:getChampionByOrdinal(i)
 				functions.script.checkWeights(i)
-				if champion:isReadyToAttack(1) then
+				if party:getWorldPositionY() > -0.6 and champion:isReadyToAttack(1) then
 					functions.script.set_c("attackedWith", i, nil)
 					functions.script.set_c("attacked", i, nil)
 				end
@@ -1893,7 +1893,7 @@ defineObject{
 					functions.script.set_c("poisonedMonster", i, poisonedMonster)
 				--end
 				
-				if champion:hasTrait("sneak_attack") and (champion:isReadyToAttack(0) or champion:isReadyToAttack(1)) and functions.script.get_c("sneak_attack", champion:getOrdinal()) then
+				if party:getWorldPositionY() > -0.6 and champion:hasTrait("sneak_attack") and (champion:isReadyToAttack(0) or champion:isReadyToAttack(1)) and functions.script.get_c("sneak_attack", champion:getOrdinal()) then
 					functions.script.set_c("sneak_attack", champion:getOrdinal(), nil)
 				end
 				

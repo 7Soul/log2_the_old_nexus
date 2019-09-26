@@ -45,3 +45,12 @@ defineSound{
 	minDistance = 1,
 	maxDistance = 5,
 }
+
+defineSound{
+	name = "sx_waterfall",
+	filename = "mod_assets/sounds/sx_waterfall.wav",
+	loop = true,
+	volume = 10.00,
+	minDistance = 0,
+	maxDistance = 8,
+}

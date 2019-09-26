@@ -485,3 +485,52 @@ defineMaterial{
 	glossiness = 10,
 	depthBias = 0,
 }
+
+defineMaterial{
+	name = "sx_forest_waterfall_01",
+	diffuseMap = "mod_assets/textures/env/sx_waterfall_scrolling_dif.tga",
+	normalMap = "assets/textures/env/ocean_normal.tga",
+	doubleSided = true,
+	lighting = true,
+	alphaTest = true,
+	castShadow = false,
+	blendMode = "Translucent",
+	textureAddressMode = "Wrap",
+	glossiness = 80,
+	depthBias = 0,
+	onUpdate = function(self, time)
+		self:setTexcoordScaleOffset(1, 1, 1, time*-0.4)
+	end,
+}
+
+defineMaterial{
+	name = "sx_forest_waterfall_02",
+	diffuseMap = "mod_assets/textures/env/sx_waterfall_scrolling_dif.tga",
+	normalMap = "assets/textures/env/ocean_normal.tga",
+	doubleSided = true,
+	lighting = true,
+	alphaTest = true,
+	castShadow = false,
+	blendMode = "Translucent",
+	textureAddressMode = "Wrap",
+	glossiness = 80,
+	depthBias = 0,
+	onUpdate = function(self, time)
+		self:setTexcoordScaleOffset(1, 1, 1, time*-0.2)
+	end,
+}
+
+defineMaterial{
+	name = "sx_forest_wall_waterfall",
+	diffuseMap = "assets/textures/env/forest_wall_01_dif.tga",
+	specularMap = "assets/textures/env/forest_wall_01_spec.tga",
+	normalMap = "assets/textures/env/forest_wall_01_normal.tga",
+	doubleSided = true,
+	lighting = true,
+	alphaTest = false,
+	blendMode = "Opaque",
+	textureAddressMode = "Wrap",
+	glossiness = 10,
+	depthBias = 0,
+}
+

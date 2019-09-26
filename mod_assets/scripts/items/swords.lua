@@ -401,13 +401,13 @@ defineObject{
 	components = {
 		{
 			class = "Model",
-			model = "assets/models/items/claymore.fbx",
+			model = "mod_assets/models/items/ice_fang.fbx",
 		},
 		{
 			class = "Item",
 			uiName = "Ice Fang",
 			description = "This enchanted ice blade is so cold, only a master of ice can yield it and not be killed.",
-			gameEffect = [[You get frostburn your Cold Resist is under 50.]],
+			gameEffect = [[You get frostburn if your Cold Resist is under 50.]],
 			gfxIndex = 401,
 			gfxIndexPowerAttack = 464,
 			impactSound = "impact_blade",

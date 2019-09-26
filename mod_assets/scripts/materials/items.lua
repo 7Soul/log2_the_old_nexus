@@ -3518,3 +3518,29 @@ defineMaterial{
 	glossiness = 60,
 	depthBias = 0,
 }
+
+defineMaterial{
+	name = "ice_equip",
+	diffuseMap  = "mod_assets/textures/items/ice_01_dif.tga",
+	specularMap = "mod_assets/textures/items/ice_01_spec.tga",
+	normalMap   = "mod_assets/textures/items/ice_01_normal.tga",
+	doubleSided = true,
+	lighting = true,
+	alphaTest = false,
+	blendMode = "Translucent",
+	textureAddressMode = "Wrap",
+	glossiness = 800,
+	depthBias = 0,
+}
+
+defineMaterial{
+	name = "ice_fang",
+	diffuseMap  = "mod_assets/textures/items/ice_fang_dif.tga",
+	specularMap = "mod_assets/textures/items/ice_fang_spec.tga",
+	lighting = true,
+	alphaTest = false,
+	blendMode = "Opaque",
+	textureAddressMode = "Wrap",
+	glossiness = 60,
+	depthBias = 0,
+}
