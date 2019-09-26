@@ -1062,6 +1062,13 @@ defineTrait{
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 70,
 	description = "After a block, gain +15% Action Speed and 50% Faster Buildup Time for special attacks for 20 seconds.",
+	onComputeCooldown = function(champion, weapon, attack, attackType, level)
+		if level > 0 then
+			if champion:hasCondition("shield_bearer") then
+				return 0.85
+			end
+		end
+	end,
 }
 
 -- Light Armor
@@ -1087,7 +1094,7 @@ defineTrait{
 	uiName = "Reflective",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 73,
-	description = "The first attack from an enemy is absorbed as Health and Energy over 5 seconds.",
+	description = "The first attack from an enemy is absorbed as Health and Energy over 5 seconds if wearing all light armor.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			local all_light = functions.script.wearingAll(champion, "light_armor", "clothes")
@@ -1102,16 +1109,21 @@ defineTrait{
 }
 
 defineTrait{
-	name = "nimble",
-	uiName = "Nimble",
+	name = "rush",
+	uiName = "Rush",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 74,
-	description = "Reduces action timers by 15% if wearing all light armor.",
+	description = "Gain +12% Action Speed and -24% Special Attack Cost if wearing all light armor.",
+	onRecomputeStats = function(champion, level)
+		if level > 0 then
+			functions.script.changeSecondary(champion, 0.76, "energycost")
+		end
+	end,
 	onComputeCooldown = function(champion, weapon, attack, attackType, level)
 		if level > 0 then
 			local all_light = functions.script.wearingAll(champion, "light_armor", "clothes")
 			if all_light then
-				return 0.85
+				return 0.88
 			end	
 		end
 	end,
@@ -1421,20 +1433,19 @@ defineTrait{
 }
 
 defineTrait{
-	name = "double_attack",
+	name = "improved_dual_wield",
 	uiName = "Double Attack",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 97,
-	description = "You gain 25% chance to attack twice with Light Weapons.",
+	icon = 98,
+	description = "You gain 20% chance to attack twice with Light Weapons.\nYou can dual wield any Light Weapons.",
 }
 
 defineTrait{
-	name = "improved_dual_wield",
-	uiName = "Dextrous",
+	name = "thunder_fury",
+	uiName = "Thunder Fury",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 98,
-	description = "You can dual wield any two Light Weapons. Both weapons still suffer a 40% penalty to the items' base damage when dual wielding.",
-	-- hardcoded skill
+	icon = 97,
+	description = "Chance to deal 50% of your weapon damage as Shock damage equal to your critical chance.",
 }
 
 -- Heavy Weapons

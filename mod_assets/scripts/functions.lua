@@ -500,7 +500,7 @@ function resetItemWeight(item, trait)
 	end
 end
 
-b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b20 = {}, {}, {}, {}, {}, {}, { {},{},{},{} }, { {},{},{},{},{},{} }, { {},{},{} }, {}, {}, {}, {{},{}}, {}
+b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b20 = {}, {}, {}, {}, {}, {}, { {},{},{},{} }, { {},{},{},{},{},{} }, { {},{},{} }, {}, {}, {}, {{},{},{}}, {}
 supertable = { b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b20  }
 
 function onEquipItem(self, champion, slot)	
@@ -555,6 +555,7 @@ function onEquipItem(self, champion, slot)
 			end
 			if secondary then supertable[13][1][name] = secondary:getAttackPower() end
 			if secondary then supertable[13][2][name] = secondary:getBuildup() end
+			if secondary then supertable[13][3][name] = secondary:getEnergyCost() end
 
 			-- if champion:hasTrait("weapons_specialist") then
 			-- 	self.go.equipmentitem:setCriticalChance(supertable[6][name] * 2)
@@ -737,6 +738,12 @@ function resetItem(self, name)
 		if tinker_item[13][2][name] then real_ap = tinker_item[13][2][name] else real_ap = supertable[13][2][name] end
 		secondary:setBuildup(real_ap)
 	end
+
+	if supertable[13][3][name] ~= nil and secondary then
+		local real_ap = 0
+		if tinker_item[13][3][name] then real_ap = tinker_item[13][3][name] else real_ap = supertable[13][3][name] end
+		secondary:setEnergyCost(real_ap)
+	end
 end
 
 function clearSupertable(self, name)
@@ -758,7 +765,7 @@ function clearSupertable(self, name)
 						supertable[i][j][name] = nil
 					end
 				elseif i == 13 then
-					for j=1,2 do
+					for j=1,3 do
 						supertable[i][j][name] = nil
 					end
 				end
@@ -882,7 +889,7 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 	else
 		set_c("double_attack", c, nil)
 	end
-	
+
 	-- Lizardman Bite
 	if champion:hasTrait("bite") then
 		if get_c("bite", c) == nil or get_c("bite", c) == 0 then
@@ -1209,7 +1216,7 @@ function processSecondAttack(self, champion, type, slot)
 		delay = 0.3
 
 		-- Double Attack trait
-		if champion:hasTrait("double_attack") and self.go.meleeattack and getTrait(champion, item, "light_weapon") then
+		if champion:hasTrait("improved_dual_wield") and self.go.meleeattack and getTrait(champion, item, "light_weapon") then
 			chance = chance + 0.2
 		end
 
@@ -1323,23 +1330,29 @@ function reloadAfter(id, cItem, slot, pelletsSlot)
 	end
 end
 
-function updateBuildup(champion, multi)
-	local item1 = champion:getItem(ItemSlot.Weapon)
-	local item2 = champion:getItem(ItemSlot.OffHand)
-	local secondary1 = nil
-	local secondary2 = nil
-	if item1 then
-		secondary1 = item1.go:getComponent(item1:getSecondaryAction() and item1:getSecondaryAction() or "")
-		if secondary1 and supertable[13][2][item1.go.id] then
-			secondary1:setBuildup(supertable[13][2][item1.go.id] * multi)
+function changeSecondary(champion, multi, property)
+	for i=ItemSlot.Weapon,ItemSlot.OffHand do
+		local item = champion:getItem(i)
+		local secondary = nil
+		if item then
+			secondary = item.go:getComponent(item:getSecondaryAction() and item:getSecondaryAction() or "")
+			if secondary then
+				if property == "buildup" and supertable[13][2][item.go.id] then
+					changeSecondaryBuildup(secondary, supertable[13][2][item.go.id], multi)
+				elseif property == "energycost" and supertable[13][3][item.go.id] then
+					changeSecondaryEnergyCost(secondary, supertable[13][3][item.go.id], multi)
+				end
+			end
 		end
 	end
-	if item2 then
-		secondary2 = item2.go:getComponent(item2:getSecondaryAction() and item2:getSecondaryAction() or "")
-		if secondary2 and supertable[13][2][item2.go.id] then
-			secondary2:setBuildup(supertable[13][2][item2.go.id] * multi)
-		end
-	end
+end
+
+function changeSecondaryBuildup(secondary, supertable, multi)
+	secondary:setBuildup(supertable * multi)
+end
+
+function changeSecondaryEnergyCost(secondary, supertable, multi)
+	secondary:setEnergyCost(supertable * multi)
 end
 
 -------------------------------------------------------------------------------------------------------
@@ -1583,6 +1596,14 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 		end
 		if self.go.meleeattack then
 			hitMonster(monster.go.id, damage, "CC3333", nil, "fire", champion:getOrdinal())
+		end
+	end
+
+	-- Thunder Fury
+	if champion:hasTrait("thunder_fury") and getTrait(champion, self.go.item, "light_weapon") then
+		if math.random() < getCrit(champion) * 0.01 then
+			local dmg = getDamage(champion)
+			delayedCall("functions", 0.15, "hitMonster", monster.go.id, math.random(dmg[0], dmg[1]) * 0.5, "FFFFFF", "Thunder Fury!", "shock", champion:getOrdinal())
 		end
 	end
 	
@@ -1835,10 +1856,12 @@ function hitMonster(id, damage, color, flair, damageType, championId)
 	local champion = party.party:getChampionByOrdinal(championId)
 	if not monster then return end
 	local resistances = monster:getResistance(damageType)
-	if monster:getHitEffect() then
-		local particle = monster.go:createComponent("Particle", "hit_effect")
+	color = "CCCCCC"
+	if monster:getHitEffect() and monster:getCurrentAction() ~= "damaged" then
+		local particle = monster.go.hit_effect and monster.go.hit_effect or monster.go:createComponent("Particle", "hit_effect")
 		particle:setParticleSystem(monster:getHitEffect())
-		particle:setOffset(vec(0,monster:getCapsuleHeight() * 0.5,0))
+		particle:restart()
+		particle:setOffset(vec(0,monster:getCapsuleHeight() * 2.5,0))
 	end
 	
 	local tside = math.random(1,4) - 1
@@ -1871,22 +1894,25 @@ function hitMonster(id, damage, color, flair, damageType, championId)
 		local protection = monster:getProtection() * (0.5 + math.random())
 		damage = math.max(damage - protection, 0)
 	end
-	damage = math.ceil(damage)
-	
-	color = "CCCCCC"
 
 	if resistances == "weak" then
 		color = "FF0000"
+		damage = damage * 2
 	elseif resistances == "vulnerable" then
 		color = "CC0000"
+		damage = damage * 1.5
 	elseif resistances == "resist" then
 		color = "CCCCCC"
+		damage = damage * 0.5
 	elseif resistances == "immune" then
 		color = "EEEEEE"
+		damage = damage * 0
 	elseif resistances == "absorb" then
 		color = "00FF00"
+		damage = damage * -1
 	end
 
+	damage = math.ceil(damage)
 	if flair then
 		monster.go.monster:showDamageText("" .. damage, color, flair) 
 	else 
@@ -1916,7 +1942,7 @@ function hitMonster(id, damage, color, flair, damageType, championId)
 	end
 	
 	-------
-	monster:setHealth(monster:getHealth() - math.ceil(damage))
+	monster:setHealth(monster:getHealth() - damage)
 	
 	monster.go.brain:stopGuarding()
 	monster.go.brain:pursuit()
@@ -2776,15 +2802,19 @@ function getActionSpeed(champion)
 		speed = speed * 0.9
 	end
 
+	if champion:hasCondition("shield_bearer") then
+		speed = speed * 0.85
+	end
+
 	if champion:hasTrait("chemical_processing") then
 		local food = (champion:getFood()-500) / 500
 		speed = speed * (1 - (0.15 * food))
 	end
 
-	if champion:hasTrait("nimble") then
+	if champion:hasTrait("rush") then
 		local all_light = wearingAll(champion, "light_armor", "clothes")
 		if all_light then
-			speed = speed * 0.85
+			speed = speed * 0.88
 		end	
 	end
 
@@ -3004,7 +3034,7 @@ end
 -------------------------------------------------------------------------------------------------------
 
 tinkering_level = { 0,0,0,0 }
-a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a20 = {}, {}, {}, {}, {}, {}, { {},{},{},{} }, { {},{},{},{},{},{} }, { {},{},{},{} }, {}, {}, {}, {{},{}}, {}
+a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a20 = {}, {}, {}, {}, {}, {}, { {},{},{},{} }, { {},{},{},{},{},{} }, { {},{},{},{} }, {}, {}, {}, {{},{},{}}, {}
 tinker_item = { a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a20  }
 
 function tinkererUpgrade(self, champion, slot, materials)
@@ -3172,7 +3202,9 @@ function tinkererUpgrade(self, champion, slot, materials)
 				if secondaryAction ~= nil and item.go:getComponent(secondaryAction):getClass() ~= "CastSpellComponent" then
 					secondary = item.go:getComponent(secondaryAction)
 				end
-				if secondary then supertable[13][name] = secondary:getAttackPower() end
+				if secondary then supertable[13][1][name] = secondary:getAttackPower() end
+				if secondary then supertable[13][2][name] = secondary:getBuildup() end
+				if secondary then supertable[13][3][name] = secondary:getEnergyCost() end
 				
 				if not item.go.equipmentitem then
 					item.go:createComponent("EquipmentItem")
@@ -3506,6 +3538,7 @@ function tinkererUpgrade(self, champion, slot, materials)
 
 					if secondary then tinker_item[13][1][name] = secondary:getAttackPower() end
 					if secondary then tinker_item[13][2][name] = secondary:getBuildup() end
+					if secondary then tinker_item[13][3][name] = secondary:getEnergyCost() end
 
 					tinker_item[14][item.go.id] = item:getWeight()
 
@@ -3718,7 +3751,7 @@ function updateSecondary(meleeAttack, secondary, name, upgradeLevel)
 		secondary:setGameEffect("A useful technique for chopping firewood and splitting the heads of your enemies. Deals double damage.")
 		secondary:setPierce(meleeAttack:getPierce() and meleeAttack:getPierce() or 0)
 		secondary:setSwipe("vertical")
-		secondary:setBuildup(1.5)
+		secondary:setBuildup(1.0)
 		secondary:setUiName("Chop")
 		if secondary.go.item:hasTrait("light_weapon") then
 			secondary:setRequirements({ "light_weapons_c", math.min(upgradeLevel+1,5) })

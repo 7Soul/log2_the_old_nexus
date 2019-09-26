@@ -6369,7 +6369,7 @@ turtle_1.detectedtimer:setTimerInterval(0)
 turtle_1.detectedtimer:setDisableSelf(false)
 turtle_1.detectedtimer:setTriggerOnStart(true)
 turtle_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("starting_location",14,9,3,0,"starting_location_1")
+spawn("starting_location",12,14,3,0,"starting_location_1")
 spawn("rogue_boots",19,14,1,0,"rogue_boots_1")
 rogue_boots_1.data:setSource("data = {}\
 function get(self,name)\

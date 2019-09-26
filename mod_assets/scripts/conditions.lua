@@ -843,15 +843,15 @@ defineCondition{
 	harmful = false,
 	tickInterval = 1,
 	onStart = function(self, champion)
-		functions.script.updateBuildup(champion, 0.5)
+		functions.script.changeSecondary(champion, 0.5, "buildup")
 	end,
 	onStop = function(self, champion)
-		functions.script.updateBuildup(champion, 1)
+		functions.script.changeSecondary(champion, 1, "buildup")
 	end,
 	onRecomputeStats = function(self, champion)
-		functions.script.updateBuildup(champion, 0.5)
+		functions.script.changeSecondary(champion, 0.5, "buildup")
 	end,
 	onTick = function(self, champion)
-		functions.script.updateBuildup(champion, 0.5)
+		functions.script.changeSecondary(champion, 0.5, "buildup")
 	end,	
 }

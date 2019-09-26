@@ -50,8 +50,8 @@ defineSkill{
 	Perks (when wearing light armor in all 5 slots):
 	- Light Wear | +5 Evasion and +2 Dexterity.
 	- Reflective | The first attack from an enemy is absorbed as Health and Energy over 5 seconds.
-	- Nimble     | Action timers reduced by 15%.]],
-	traits = { [2] = "light_wear", [4] = "reflective", [5] = "nimble" },
+	- Rush       | Gain +12% Action Speed and -24% Special Attack Cost.]],
+	traits = { [2] = "light_wear", [4] = "reflective", [5] = "rush" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 and functions ~= nil and Time.currentTime() > 3 then
 			local equip_slots = {3,4,5,6,9}
@@ -212,9 +212,9 @@ defineSkill{
 	
 	Perks:
 	- Dual Wield | You can dual wield Light Weapons as long one of them is a dagger.
-	- Double Attack | You gain 25% chance to attack twice.
-	- Dexterous | You can dual wield any Light Weapons. When dual wielding you suffer a 40% penalty to weapon damage.]],
-	traits = { [3] = "dual_wield", [4] = "double_attack", [5] = "improved_dual_wield" },
+	- Double Attack | You gain 20% chance to attack twice. You can dual wield any Light Weapons.
+	- Thunder Fury | Chance to deal 50% of your weapon damage as Shock damage equal to your critical chance.]],
+	traits = { [3] = "dual_wield", [4] = "improved_dual_wield", [5] = "thunder_fury" },
 }
 
 defineSkill{
