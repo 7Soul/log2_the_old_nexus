@@ -6199,7 +6199,7 @@ battle_axe_1.detectedtimer:setTimerInterval(0)
 battle_axe_1.detectedtimer:setDisableSelf(false)
 battle_axe_1.detectedtimer:setTriggerOnStart(true)
 battle_axe_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("skullcleave",12,10,3,0,"skullcleave_1")
+spawn("skullcleave",14,9,3,0,"skullcleave_1")
 skullcleave_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6232,18 +6232,6 @@ ice_crab_1.detectedtimer:setDisableSelf(false)
 ice_crab_1.detectedtimer:setTriggerOnStart(true)
 ice_crab_1.detectedtimer:setCurrentLevelOnly(true)
 spawn("force_field",16,11,3,0,"force_field_4")
-spawn("etherweed",17,10,2,0,"etherweed_3")
-etherweed_3.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-etherweed_3.detectedtimer:setTimerInterval(0)
-etherweed_3.detectedtimer:setDisableSelf(false)
-etherweed_3.detectedtimer:setTriggerOnStart(true)
-etherweed_3.detectedtimer:setCurrentLevelOnly(true)
 spawn("floor_trigger",9,18,0,0,"floor_trigger_41")
 floor_trigger_41.floortrigger:setTriggeredByParty(true)
 floor_trigger_41.floortrigger:setTriggeredByMonster(false)
@@ -6253,7 +6241,7 @@ floor_trigger_41.floortrigger:setDisableSelf(false)
 floor_trigger_41.floortrigger:addConnector("onActivate", "force_field_3", "deactivate")
 floor_trigger_41.floortrigger:addConnector("onActivate", "force_field_2", "deactivate")
 floor_trigger_41.floortrigger:addConnector("onActivate", "force_field_4", "deactivate")
-spawn("potion_bear_form",14,9,3,0,"potion_bear_form_1")
+spawn("potion_bear_form",13,9,3,0,"potion_bear_form_1")
 potion_bear_form_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6350,7 +6338,7 @@ crystal_shield_1.detectedtimer:setTimerInterval(0)
 crystal_shield_1.detectedtimer:setDisableSelf(false)
 crystal_shield_1.detectedtimer:setTriggerOnStart(true)
 crystal_shield_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("bear_skull_helm",14,9,2,0,"bear_skull_helm_1")
+spawn("bear_skull_helm",13,9,3,0,"bear_skull_helm_1")
 bear_skull_helm_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6362,7 +6350,7 @@ bear_skull_helm_1.detectedtimer:setTimerInterval(0)
 bear_skull_helm_1.detectedtimer:setDisableSelf(false)
 bear_skull_helm_1.detectedtimer:setTriggerOnStart(true)
 bear_skull_helm_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("potion_bear_form",14,9,3,0,"potion_bear_form_2")
+spawn("potion_bear_form",13,9,3,0,"potion_bear_form_2")
 potion_bear_form_2.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6766,18 +6754,6 @@ leather_1.detectedtimer:setTimerInterval(0)
 leather_1.detectedtimer:setDisableSelf(false)
 leather_1.detectedtimer:setTriggerOnStart(true)
 leather_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("mortar",10,14,1,0,"mortar_2")
-mortar_2.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-mortar_2.detectedtimer:setTimerInterval(0)
-mortar_2.detectedtimer:setDisableSelf(false)
-mortar_2.detectedtimer:setTriggerOnStart(true)
-mortar_2.detectedtimer:setCurrentLevelOnly(true)
 spawn("gold_bar",10,14,0,0,"gold_bar_1")
 gold_bar_1.data:setSource("data = {}\
 function get(self,name)\

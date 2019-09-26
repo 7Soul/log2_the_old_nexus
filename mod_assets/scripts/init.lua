@@ -256,6 +256,7 @@ defineObject{
 					--functions.script.set_c("attacked", c:getOrdinal(), nil)
 				end
 			end
+			
 			functions.script.set_c("attackedWith", champion:getOrdinal(), action.go.name)
 			functions.script.set_c("attacked", champion:getOrdinal(), champion:getOrdinal())
 			--functions.script.reset_attack(action.go.meleeattack, champion, slot, 0, action.go.item)
@@ -404,13 +405,13 @@ defineObject{
 							-- Sets target item to the other hand slot to the toolbox
 							local otherSlot = slot == ItemSlot.Weapon and ItemSlot.OffHand or ItemSlot.Weapon								
 							if champion:getItem(otherSlot) then
-								functions.script.set_c("tinkering", champion:getOrdinal(), otherSlot)
-							else
 								if champion:getItem(otherSlot):hasTrait("upgradable") then
 									functions.script.set_c("tinkering", champion:getOrdinal(), otherSlot)
 								else
 									hudPrint("Item is not upgradable.")
 								end
+							else
+								hudPrint("Needs target item in other hand.")
 							end
 						end
 
@@ -850,6 +851,11 @@ defineObject{
 					functions.script.keypressDelaySet(10)
 				end
 			end
+
+			-- if context.keyDown("V") and functions.script.keypressDelayGet() == 0 then
+			-- 		party.party:getChampion(1):setConditionValue("shield_bearer", 5)
+			-- 		functions.script.keypressDelaySet(10)
+			-- end
 
 			-- Display class skill buttons
 			

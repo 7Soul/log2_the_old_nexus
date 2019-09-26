@@ -831,3 +831,27 @@ defineCondition{
 		champion:regainHealth(champion:getMaxHealth() / 10)
 	end,	
 }
+
+
+defineCondition{
+	name = "shield_bearer",
+	uiName = "Shield Bearer",
+	description = "+15% Action Speed and 50% Faster Buildup Time for special attacks",
+	icon = 3,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
+	beneficial = true,
+	harmful = false,
+	tickInterval = 1,
+	onStart = function(self, champion)
+		functions.script.updateBuildup(champion, 0.5)
+	end,
+	onStop = function(self, champion)
+		functions.script.updateBuildup(champion, 1)
+	end,
+	onRecomputeStats = function(self, champion)
+		functions.script.updateBuildup(champion, 0.5)
+	end,
+	onTick = function(self, champion)
+		functions.script.updateBuildup(champion, 0.5)
+	end,	
+}

@@ -29,7 +29,6 @@ end
 local onPostAttack = function(self, champion, slot)
 	local secondary2 = functions.script.secondary
 	local item = self.go.item
-	print("on post attack")
 	functions.script.reset_attack(self, champion, slot, secondary2, item) -- (when misses)
 end
 

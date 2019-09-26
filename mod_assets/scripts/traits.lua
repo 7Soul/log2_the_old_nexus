@@ -1061,17 +1061,7 @@ defineTrait{
 	uiName = "Shield Bearer",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 70,
-	description = "Every time you are attacked, you gain 2 Protection and 1% Block Chance. This effect stacks until you block an attack.",
-	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			if (item1 and item1:hasTrait("shield")) or (item2 and item2:hasTrait("shield")) or functions.script.isArmorSetEquipped(champion, "chitin") then
-				local c = champion:getOrdinal()
-				local charges = functions.script.get_c("shield_bearer", c) and functions.script.get_c("shield_bearer", c) + 1 or 0
-				if champion:hasCondition("ancestral_charge") then charges = charges * 1.5 end
-				champion:addStatModifier("protection", math.floor(charges) * 2)
-			end
-		end
-	end,
+	description = "After a block, gain +15% Action Speed and 50% Faster Buildup Time for special attacks for 20 seconds.",
 }
 
 -- Light Armor

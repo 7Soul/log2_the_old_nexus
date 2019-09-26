@@ -178,7 +178,7 @@ function teststart()
 		--setDefaultParty()
 		party.party:getChampionByOrdinal(1):setClass("druid")
 		party.party:getChampionByOrdinal(2):setClass("hunter")
-		party.party:getChampionByOrdinal(3):setClass("corsair")
+		party.party:getChampionByOrdinal(3):setClass("tinkerer")
 		party.party:getChampionByOrdinal(4):setClass("elementalist")
 		party.party:getChampionByOrdinal(1):setRace("human")
 		party.party:getChampionByOrdinal(2):setRace("minotaur")
@@ -344,7 +344,7 @@ function teststart()
 				champion:addTrait("persistence")
 				champion:addTrait("chemical_processing")
 				champion:addTrait("intensify_spell")
-				for s=21,28 do champion:removeItemFromSlot(s) end
+				-- for s=21,28 do champion:removeItemFromSlot(s) end
 			end
 			
 			if champion:getRace() == "ratling" then
@@ -500,7 +500,7 @@ function resetItemWeight(item, trait)
 	end
 end
 
-b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b20 = {}, {}, {}, {}, {}, {}, { {},{},{},{} }, { {},{},{},{},{},{} }, { {},{},{} }, {}, {}, {}, {}, {}
+b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b20 = {}, {}, {}, {}, {}, {}, { {},{},{},{} }, { {},{},{},{},{},{} }, { {},{},{} }, {}, {}, {}, {{},{}}, {}
 supertable = { b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b20  }
 
 function onEquipItem(self, champion, slot)	
@@ -553,7 +553,8 @@ function onEquipItem(self, champion, slot)
 			if secondaryAction ~= nil and self.go:getComponent(secondaryAction):getClass() ~= "CastSpellComponent" then
 				secondary = self.go:getComponent(secondaryAction)
 			end
-			if secondary then supertable[13][name] = secondary:getAttackPower() end
+			if secondary then supertable[13][1][name] = secondary:getAttackPower() end
+			if secondary then supertable[13][2][name] = secondary:getBuildup() end
 
 			-- if champion:hasTrait("weapons_specialist") then
 			-- 	self.go.equipmentitem:setCriticalChance(supertable[6][name] * 2)
@@ -616,7 +617,7 @@ function resetItem(self, name)
 	if self.go.meleeattack then item = self.go.meleeattack end
 	if self.go.throwattack then item = self.go.throwattack end
 	if self.go.rangedattack then item = self.go.rangedattack end
-	
+
 	if supertable[1][name] ~= nil then
 		local real_ap = tinker_item[1][name] and tinker_item[1][name] or supertable[1][name]
 		item:setAttackPower(real_ap)
@@ -724,17 +725,24 @@ function resetItem(self, name)
 	if secondaryAction ~= nil and self.go:getComponent(secondaryAction):getClass() ~= "CastSpellComponent" then
 		secondary = self.go:getComponent(secondaryAction)
 	end
-	if supertable[13][name] ~= nil and secondary then
+
+	if supertable[13][1][name] ~= nil and secondary then
 		local real_ap = 0
-		if tinker_item[13][name] then real_ap = tinker_item[13][name] else real_ap = supertable[13][name] end
+		if tinker_item[13][1][name] then real_ap = tinker_item[13][1][name] else real_ap = supertable[13][1][name] end
 		secondary:setAttackPower(real_ap)
+	end
+
+	if supertable[13][2][name] ~= nil and secondary then
+		local real_ap = 0
+		if tinker_item[13][2][name] then real_ap = tinker_item[13][2][name] else real_ap = supertable[13][2][name] end
+		secondary:setBuildup(real_ap)
 	end
 end
 
 function clearSupertable(self, name)
 	for i=1,13 do
 		if i ~= 11 then
-			if i < 7 or i > 9 then
+			if (i < 7 or i > 9) and i ~= 13 then
 				supertable[i][name] = nil
 			else
 				if i == 7 then
@@ -745,7 +753,11 @@ function clearSupertable(self, name)
 					for j=1,6 do
 						supertable[i][j][name] = nil
 					end
-				else
+				elseif i == 9 then
+					for j=1,2 do
+						supertable[i][j][name] = nil
+					end
+				elseif i == 13 then
 					for j=1,2 do
 						supertable[i][j][name] = nil
 					end
@@ -758,12 +770,11 @@ end
 -------------------------------------------------------------------------------------------------------
 -- Attacking events                                                                                  --    
 -------------------------------------------------------------------------------------------------------
-
 function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 	local c = champion:getOrdinal()
 	local secondary = self.go:getComponent(self.go.item:getSecondaryAction() and self.go.item:getSecondaryAction() or "")
 
-	if self.go.item:getSecondaryAction() and self == self.go:getComponent(self.go.item:getSecondaryAction()) then
+	if self.go.item:getSecondaryAction() and self == self.go:getComponent(self.go.item:getSecondaryAction()) and self.go.item:getSecondaryAction() == "dagger_throw" then
 		champion:removeItem(item)
 		addItemToMap(item, party.level, 0, 0, 0, party.elevation, nil)
 		local dx, dy = getForward(party.facing)
@@ -1312,6 +1323,25 @@ function reloadAfter(id, cItem, slot, pelletsSlot)
 	end
 end
 
+function updateBuildup(champion, multi)
+	local item1 = champion:getItem(ItemSlot.Weapon)
+	local item2 = champion:getItem(ItemSlot.OffHand)
+	local secondary1 = nil
+	local secondary2 = nil
+	if item1 then
+		secondary1 = item1.go:getComponent(item1:getSecondaryAction() and item1:getSecondaryAction() or "")
+		if secondary1 and supertable[13][2][item1.go.id] then
+			secondary1:setBuildup(supertable[13][2][item1.go.id] * multi)
+		end
+	end
+	if item2 then
+		secondary2 = item2.go:getComponent(item2:getSecondaryAction() and item2:getSecondaryAction() or "")
+		if secondary2 and supertable[13][2][item2.go.id] then
+			secondary2:setBuildup(supertable[13][2][item2.go.id] * multi)
+		end
+	end
+end
+
 -------------------------------------------------------------------------------------------------------
 -- Reset Weapon Values                                                                               --    
 -------------------------------------------------------------------------------------------------------
@@ -1351,6 +1381,7 @@ function reset_attack(self, champion, slot, secondary2, item)
 			end
 		end
 	end
+
 	-- Reset item stats after attack
 	if supertable[1][item.go.id] == nil then return end	
 	functions.script.resetItem(self, self.go.id)
@@ -1378,15 +1409,11 @@ function onMonsterDealDamage(self, champion, damage)
 				champion:playDamageSound()
 				if champion:hasCondition("ancestral_charge") then damageBonus = damageBonus * 1.5 end
 				delayedCall("functions", 0.15, "hitMonster", monster.go.id, math.ceil(damageBase * damageBonus), "CCCCCC", "Shield Bash!", "physical", champion:getOrdinal())
-				set_c("shield_bearer", c, nil)
-				
 				--context.drawImage2("mod_assets/textures/gui/block.dds", x+48, y-68, 0, 0, 128, 75, 128, 75)
 			end
-		end
-
-		if champion:hasTrait("shield_bearer") then
-			local shield_bearer = get_c("shield_bearer", c) and get_c("shield_bearer", c) + 1 or 0
-			set_c("shield_bearer", c, shield_bearer  + 1)
+			if champion:hasTrait("shield_bearer") then
+				champion:setConditionValue("shield_bearer", 20)
+			end
 		end
 	end
 	
@@ -2793,7 +2820,6 @@ function getBlockChance(champion)
 		chance = chance + 0.02
 		chance = chance + champion:getSkillLevel("block") / 50
 		if champion:hasTrait("block") then chance = chance + 0.08 end
-		chance = get_c("shield_bearer", champion:getOrdinal()) and chance + (get_c("shield_bearer", champion:getOrdinal()) * 0.01) or chance
 		if champion:hasCondition("ancestral_charge") then chance = chance * 1.5 end
 	end
 	return chance
@@ -2978,7 +3004,7 @@ end
 -------------------------------------------------------------------------------------------------------
 
 tinkering_level = { 0,0,0,0 }
-a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a20 = {}, {}, {}, {}, {}, {}, { {},{},{},{} }, { {},{},{},{},{},{} }, { {},{},{},{} }, {}, {}, {}, {}, {}
+a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a20 = {}, {}, {}, {}, {}, {}, { {},{},{},{} }, { {},{},{},{},{},{} }, { {},{},{},{} }, {}, {}, {}, {{},{}}, {}
 tinker_item = { a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a20  }
 
 function tinkererUpgrade(self, champion, slot, materials)
@@ -3478,7 +3504,8 @@ function tinkererUpgrade(self, champion, slot, materials)
 						updateSecondary(equipItem, secondary, item:getSecondaryAction(), upgradeLevel)
 					end
 
-					if secondary then tinker_item[13][name] = secondary:getAttackPower() end
+					if secondary then tinker_item[13][1][name] = secondary:getAttackPower() end
+					if secondary then tinker_item[13][2][name] = secondary:getBuildup() end
 
 					tinker_item[14][item.go.id] = item:getWeight()
 
@@ -3691,6 +3718,7 @@ function updateSecondary(meleeAttack, secondary, name, upgradeLevel)
 		secondary:setGameEffect("A useful technique for chopping firewood and splitting the heads of your enemies. Deals double damage.")
 		secondary:setPierce(meleeAttack:getPierce() and meleeAttack:getPierce() or 0)
 		secondary:setSwipe("vertical")
+		secondary:setBuildup(1.5)
 		secondary:setUiName("Chop")
 		if secondary.go.item:hasTrait("light_weapon") then
 			secondary:setRequirements({ "light_weapons_c", math.min(upgradeLevel+1,5) })

@@ -30,7 +30,7 @@ defineSkill{
 	Perks (when holding a shield):
 	- Level 2 | 8% chance to block an attack.
 	- Level 4 | When blocking, you bash your attacker, doing damage based on your Protection.
-	- Level 5 | Every time you are attacked, you gain 2 Protection and 1% Block Chance. This effect stacks until you block an attack.]],
+	- Level 5 | After a block, gain +15% Action Speed and 50% Faster Buildup Time for special attacks for 20 seconds.]],
 	traits = { [2] = "block", [4] = "shield_bash", [5] = "shield_bearer" },
 	onRecomputeStats = function(champion, level)
 		local skillLevel = champion:getSkillLevel("block")
