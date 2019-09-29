@@ -2299,7 +2299,7 @@ function getCost(champion, base, element, spellName)
 		
 		-- Reduce energy cost for Spell Thief
 		if element == "neutral" and champion:getClass() == "stalker" then
-			base = base * (champion:hasTrait("night_stalker2") and 0.33 or 0.66
+			base = base * (champion:hasTrait("night_stalker2") and 0.33 or 0.66)
 		end
 
 		if element == "poison" then

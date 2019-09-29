@@ -31,14 +31,15 @@ defineTrait{
 	gameEffect = [[
 	- Health 80 (+5 per level, +15 per 10 Strength)
 	- Energy 20 (+5 per level)
-	- Can't wear heavy armor. Can't wear any Body Armor or Pants.
+	- Can't wear Body Armor or Pants. Can't wear any Heavy Armor.
+	- Action Speed +2% per 10 Strength.
 	
 	Berserker Frenzy: Gain a buff that fades over 20 seconds if party gets attacked.
 	- Protection up to +4 per level (+6 per 3 levels).
 	- Strength up to +2 (+1 per 3 levels).
+	- Heals up to 3% health per second based on current health.
 	
-	Berserker Reprisal: Gain a buff that fades over 60 seconds if a party member dies.
-	- Increased Frenzy effects and extra healing at low health.]],
+	Berserker Reprisal: Doubles Frenzy effects for 60 seconds when a party member is killed.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
@@ -46,6 +47,12 @@ defineTrait{
 			local str_add_more = math.floor(champion:getCurrentStat("strength") / 10) * 15
 			champion:addStatModifier("max_health", 80 + ((level-1) * 5) + str_add_more)
 			champion:addStatModifier("max_energy", 20 + (level-1) * 5)
+		end
+	end,
+	onComputeCooldown = function(champion, weapon, attack, attackType, level)
+		if level > 0 then
+			local bonus = math.floor(champion:getCurrentStat("strength") / 10)
+			return 1 - (0.02 * bonus)
 		end
 	end,
 }
@@ -1135,7 +1142,7 @@ defineTrait{
 	uiName = "Armored Up",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 75, 
-	description = "+5 Protection and +2 Strength. Doubled when this skill is maxed",
+	description = "+5 Protection and +2 Strength if wearing all heavy armor. Doubled when this skill is maxed",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
@@ -1155,7 +1162,7 @@ defineTrait{
 	uiName = "Conditioning",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 76,
-	description = "+40 Health and +6% Protection from equipment. Doubled when this skill is maxed",
+	description = "+40 Health and +6% Protection from equipment if wearing all heavy armor. Doubled when this skill is maxed",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()

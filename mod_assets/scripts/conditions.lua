@@ -4,17 +4,16 @@ defineCondition{
 	description = [[
 	Gains combat stats that fade slowly over 20 seconds.
 	- Protection up to +4 per level (+6 per 3 levels).
-	- Strength up to +2 (+1 per 3 levels).]],
+	- Strength up to +2 (+1 per 3 levels).
+	- Heals up to 3% health per second based on current health.]],
 	icon = 21,
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
 	harmful = false,
 	tickInterval = 1,
 	onStart = function(self, champion)
-		--playSound("dark_bolt")
 	end,
 	onStop = function(self, champion)
-		--hudPrint(champion:getName().."'s Berserk Rage is over.")
 	end,
 	onRecomputeStats = function(self, champion)
 		local level = champion:getLevel()
@@ -27,7 +26,14 @@ defineCondition{
 		end
 	end,
 	onTick = function(self, champion)
-		
+		local missing = 1 - (champion:getHealth() / champion:getMaxHealth())
+		if missing > 0.5 then
+			champion:regainHealth(missing * missing * 5.0 * 0.5)
+		elseif missing <= 0.5 and missing > 0.25 then
+			if math.random() < 0.5 then
+				champion:regainHealth(missing * missing * 5.0 * 0.5)
+			end
+		end
 	end,	
 }
 
@@ -38,17 +44,15 @@ defineCondition{
 	Gains combat stats that fade slowly over 60 seconds.
 	- Protection up to +6 per level (+8 per 3 levels).
 	- Strength up to +4 (+1 per 3 levels).
-	- Regain health based on missing amount.]],
+	- Heals up to 6% health per second based on current health.]],
 	icon = 22,
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
 	harmful = false,
 	tickInterval = 1,
 	onStart = function(self, champion)
-		--playSound("dark_bolt")
 	end,
 	onStop = function(self, champion)
-		--hudPrint(champion:getName().."'s Berserk Rage is over.")
 	end,
 	onRecomputeStats = function(self, champion)
 		local level = champion:getLevel()

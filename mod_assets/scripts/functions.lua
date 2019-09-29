@@ -174,7 +174,7 @@ function teststart()
 
 	if Editor.isRunning() then
 		--setDefaultParty()
-		party.party:getChampionByOrdinal(1):setClass("druid")
+		party.party:getChampionByOrdinal(1):setClass("berserker")
 		party.party:getChampionByOrdinal(2):setClass("hunter")
 		party.party:getChampionByOrdinal(3):setClass("tinkerer")
 		party.party:getChampionByOrdinal(4):setClass("elementalist")
@@ -2792,6 +2792,11 @@ end
 
 function getActionSpeed(champion)
 	local speed = 1
+	if champion:getClass() == "berserker" then
+		local bonus = math.floor(champion:getCurrentStat("strength") / 10)
+		speed = speed * (1 - (0.02 * bonus))
+	end
+
 	if champion:hasCondition("drown_sorrows") then
 		speed = speed * 0.5
 	end
