@@ -5,6 +5,7 @@ secondary = 0
 spellSlinger = {}
 stepCount = 0
 keypressDelay = 0
+skillNames = { "athletics", "block", "light_armor", "heavy_armor", "accuracy", "critical", "firearms", "seafaring", "alchemy", "ranged_weapons", "light_weapons_c", "heavy_weapons_c", "spellblade", "elemental_magic", "poison_mastery", "concentration", "witchcraft", "tinkering" }
 
 data = {}
 function get(name) return data[name] end
@@ -20,6 +21,15 @@ function stepCountIncrease()
 	stepCount = stepCount + 1
 end
 
+-- Allows for key presses
+function keypressDelaySet(n)
+	keypressDelay = n
+end
+
+function keypressDelayGet()
+	return keypressDelay
+end
+
 --------------------------------------------------------------------------
 -- Custom Skill Gui                                                     --
 --------------------------------------------------------------------------
@@ -27,7 +37,6 @@ end
 champSkillTemp1, champSkillTemp2 = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 champSkillTemp3, champSkillTemp4 = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 partySkillTemp = {champSkillTemp1, champSkillTemp2, champSkillTemp3, champSkillTemp4 } 
-skillNames = { "athletics", "block", "light_armor", "heavy_armor", "accuracy", "critical", "firearms", "seafaring", "alchemy", "ranged_weapons", "light_weapons_c", "heavy_weapons_c", "spellblade", "elemental_magic", "poison_mastery", "concentration", "witchcraft", "tinkering" }
 
 function addSkillTemp(champion, skill)
 	local champ = champion:getOrdinal()
@@ -70,44 +79,11 @@ function countAllSkills(champion)
 	return result
 end
 
--- Allows for key presses
-function keypressDelaySet(n)
-	keypressDelay = n
-end
-
-function keypressDelayGet()
-	return keypressDelay
-end
-
-function intAlignRight(text, x, width)
-	x = x - width
-	return x
-end
-
 --------------------------------------------------------------------------
 -- Test Stuff                                                           --
 --------------------------------------------------------------------------
 
-keydown = {}
-
-function resetKeydown(key)
-	keydown[key] = nil
-	print("set keydown to nil")
-end
-
-function setKeydown(key)
-	keydown[key] = key
-	print("set keydown to ".. tostring(key))
-end
-
-function getKeydown(key)
-	if key == keydown[key] then
-		return true 
-	else 
-		return false 
-	end
-end
-
+-- Failsafe for if the player loads a party with default classes
 function setDefaultParty()
 	local champion = nil
 	for c=1,4 do
@@ -115,7 +91,6 @@ function setDefaultParty()
 		-- Reset Level
 		champion:resetExp(0)
 		-- Reset Skills
-		skillNames = { "athletics", "block", "light_armor", "heavy_armor", "accuracy", "critical", "firearms", "seafaring", "alchemy", "ranged_weapons", "light_weapons_c", "heavy_weapons_c", "spellblade", "elemental_magic", "poison_mastery", "concentration", "witchcraft", "tinkering" }
 		for i=1,#skillNames do
 			local s = champion:getSkillLevel(skillNames[i])
 			champion:trainSkill(skillNames[i], s * -1, false)
@@ -173,15 +148,15 @@ function teststart()
 	end
 
 	if Editor.isRunning() then
-		--setDefaultParty()
 		party.party:getChampionByOrdinal(1):setClass("berserker")
 		party.party:getChampionByOrdinal(2):setClass("hunter")
 		party.party:getChampionByOrdinal(3):setClass("tinkerer")
 		party.party:getChampionByOrdinal(4):setClass("elementalist")
 		party.party:getChampionByOrdinal(1):setRace("human")
-		party.party:getChampionByOrdinal(2):setRace("minotaur")
+		party.party:getChampionByOrdinal(2):setRace("lizardman")
 		party.party:getChampionByOrdinal(3):setRace("insectoid")
 		party.party:getChampionByOrdinal(4):setRace("ratling")
+
 		for i=1,4 do
 			local champion = party.party:getChampionByOrdinal(i)
 			if not champion:getItem(32) then champion:insertItem(32,spawn("torch").item) end
@@ -191,20 +166,6 @@ function teststart()
 			-- 	champion:insertItem(31,spawn("enchanted_timepiece").item)
 			-- end
 			-- Classes
-			if champion:getClass() == "berserker" then
-				for s=13,19 do champion:removeItemFromSlot(s) end
-				champion:insertItem(13,spawn("great_axe").item)
-				champion:insertItem(14,spawn("potion_strength").item)
-				champion:getItem(14):setStackSize(20)
-				champion:insertItem(15,spawn("short_bow").item)
-				champion:insertItem(16,spawn("arrow").item)
-				champion:getItem(16):setStackSize(20)
-				champion:insertItem(17,spawn("dagger").item)
-				champion:insertItem(18,spawn("throwing_knife").item)
-				champion:getItem(18):setStackSize(20)
-				champion:insertItem(19,spawn("round_shield").item)
-			end
-			
 			if champion:getClass() == "assassin_class" then
 				for s=13,18 do champion:removeItemFromSlot(s) end
 				champion:insertItem(13,spawn("short_bow").item)
@@ -213,6 +174,14 @@ function teststart()
 				champion:insertItem(15,spawn("dagger").item)
 				champion:insertItem(16,spawn("throwing_knife").item)
 				champion:getItem(16):setStackSize(20)
+			end
+
+			if champion:getClass() == "berserker" then
+				for s=13,15 do champion:removeItemFromSlot(s) end
+				champion:insertItem(13,spawn("great_axe").item)
+				champion:insertItem(14,spawn("potion_strength").item)
+				champion:getItem(14):setStackSize(20)
+				champion:insertItem(15,spawn("round_shield").item)
 			end
 			
 			if champion:getClass() == "monk" then
@@ -359,6 +328,8 @@ function teststart()
 				champion:insertItem(24,spawn("falconskyre").item)
 				champion:getItem(24):setStackSize(5)
 			end
+			champion:setHealth(champion:getMaxHealth())
+			champion:setEnergy(champion:getMaxEnergy())
 		end
 	end
 	for i=1,4 do
@@ -2317,6 +2288,13 @@ function empowerElement(champion, element, f, return_only, tier, spell)
 		end
 		
 	elseif element == "fire" then
+		-- Races
+		if champion:hasTrait("lizard_blood") then
+			local fire = champion:getCurrentStat("resist_fire")
+			local bonus = iff(fire >= 100, 1.3, 1)
+			f = f * bonus
+		end
+
 		-- Classes
 		if champion:getClass() == "tinkerer" then
 			f = f * ((champion:getResistance("fire") * 0.01) + 1)
@@ -2350,6 +2328,13 @@ function empowerElement(champion, element, f, return_only, tier, spell)
 		end
 		
 	elseif element == "cold" then
+		-- Races
+		if champion:hasTrait("lizard_blood") then
+			local cold = champion:getCurrentStat("resist_cold")
+			local bonus = iff(cold >= 100, 1.3, 1)
+			f = f * bonus
+		end
+
 		-- Cold Aquamarine
 		local gem_charges = functions.script.get_c("aquamarine_charges", ord)
 		if gem_charges and gem_charges > 0 then
@@ -2381,6 +2366,13 @@ function empowerElement(champion, element, f, return_only, tier, spell)
 		end
 		
 	elseif element == "shock" then
+		-- Races
+		if champion:hasTrait("lizard_blood") then
+			local shock = champion:getCurrentStat("resist_shock")
+			local bonus = iff(shock >= 100, 1.3, 1)
+			f = f * bonus
+		end
+
 		-- Classes
 		if champion:getClass() == "tinkerer" then
 			f = f * ((champion:getResistance("shock") * 0.01) + 1)
@@ -3042,6 +3034,11 @@ function drawStatNumber(context, txt, x, y) -- Draws colored numbers in the Stat
 	end
 	context.drawText(txt, x - context.getTextWidth(txt), y)
 	context.color(255,255,255,255)
+end
+
+function intAlignRight(text, x, width) -- Align number right
+	x = x - width
+	return x
 end
 
 -------------------------------------------------------------------------------------------------------

@@ -445,11 +445,6 @@ defineTrait{
 	description = "As a minotaur you are bulky, simple and quick to anger. Your incredible stubbornness is tolerated by others only because of your incredible prowess in combat.\n- Your food consumption rate is 25% higher than normal.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			-- champion:addStatModifier("strength", 4)
-			-- champion:addStatModifier("dexterity", -3)
-			-- champion:addStatModifier("vitality", 4)
-			-- champion:addStatModifier("willpower", -3)
-			-- champion:addStatModifier("food_rate", 25)
 			local item = nil
 			for i=1,2 do
 				item = champion:getItem(i)
@@ -471,12 +466,11 @@ defineTrait{
 	description = "As a lizardman you are a social outcast and are mistrusted by other races because of your capricious and deceitful nature. What you lack in social skills you greatly make up for in stealth and dexterity.\n- Resist All +12%.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			-- champion:addStatModifier("dexterity", 2)
-			-- champion:addStatModifier("willpower", -2)
 			champion:addStatModifier("resist_fire", 12)
 			champion:addStatModifier("resist_cold", 12)
 			champion:addStatModifier("resist_poison", 12)
 			champion:addStatModifier("resist_shock", 12)
+
 			local item = nil
 			for i=1,2 do
 				item = champion:getItem(i)
@@ -498,10 +492,6 @@ defineTrait{
 	description = "As an insectoid, your thoughts are completely alien to other races. Your knowledge of the arcane is unrivaled. Insectoids come in many shapes and sizes but most often their bodies are covered with a thick shell.\n- Your chance of getting body parts injured is reduced by 50%.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			-- champion:addStatModifier("strength", 1)
-			-- champion:addStatModifier("dexterity", -3)
-			-- champion:addStatModifier("vitality", -1)
-			-- champion:addStatModifier("willpower", 2)
 			local item = nil
 			for i=1,2 do
 				item = champion:getItem(i)
@@ -528,10 +518,6 @@ defineTrait{
 	description = "As a ratling you may seem weak and disease ridden on the surface, but you are actually one of the most adaptable and hardy creatures in the world. You are a hoarder by nature and greatly enjoy fiddling with mechanical contraptions.\n- You are immune to diseases.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			-- champion:addStatModifier("strength", -4)
-			-- champion:addStatModifier("dexterity", 2)
-			-- champion:addStatModifier("evasion", 2)
-			-- champion:addStatModifier("max_load", 15)
 			local item = nil
 			for i=1,2 do
 				item = champion:getItem(i)
@@ -745,36 +731,37 @@ defineTrait{
 	icon = 45,
 	charGen = true,
 	requiredRace = "lizardman",
-	description = [[Your blood is warm during the day, giving you +2 Strength and +25 Fire Resist but -10 Cold Resist.\n\nYour skin is cold during the night, giving you +2 Willpower and +25 Cold Resist but -10 Fire Resist.
-	
-	You gain an extra +2 to all stats for each of the two resistances that reaches 100.]],
+	description = [[Lizardfolk can easily adapt for the hottest days or coldest nights.
+
+	Resist All +8%, plus:
+	- During the day, gain +15% Fire Resist.
+	- During the night, gain +15% Cold Resist.
+
+	For any Elemental Resist that reaches 100:
+	- Gain +30% to that element multiplier.
+	- Gain +2 to all stats.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 then
 			local curTime = GameMode.getTimeOfDay()
 			if curTime > 0 and curTime < 1.01 then
-				champion:addStatModifier("strength", 2)
-				champion:addStatModifier("resist_fire", 25)
-				champion:addStatModifier("resist_cold", -10)
+				champion:addStatModifier("resist_fire", 15)
 			else
-				champion:addStatModifier("willpower", 2)
-				champion:addStatModifier("resist_cold", 25)	
-				champion:addStatModifier("resist_fire", -10)
+				champion:addStatModifier("resist_cold", 15)
 			end
+			champion:addStatModifier("resist_fire", 8)
+			champion:addStatModifier("resist_cold", 8)
+			champion:addStatModifier("resist_shock", 8)
+			champion:addStatModifier("resist_poison", 8)
 			
 			local fire = champion:getCurrentStat("resist_fire")
 			local cold = champion:getCurrentStat("resist_cold")
-			if cold >= 100 then
-				champion:addStatModifier("strength", 2)
-				champion:addStatModifier("willpower", 2)
-				champion:addStatModifier("dexterity", 2)
-				champion:addStatModifier("vitality", 2)
-			end
-			if fire >= 100 then
-				champion:addStatModifier("strength", 2)
-				champion:addStatModifier("willpower", 2)
-				champion:addStatModifier("dexterity", 2)
-				champion:addStatModifier("vitality", 2)
-			end
+			local shock = champion:getCurrentStat("resist_shock")
+			local bonus = iff(fire >= 100, 2, 0) + iff(cold >= 100, 2, 0) + iff(shock >= 100, 2, 0)
+
+			champion:addStatModifier("strength", bonus)
+			champion:addStatModifier("willpower", bonus)
+			champion:addStatModifier("dexterity", bonus)
+			champion:addStatModifier("vitality", bonus)			
 		end
 	end,
 }
@@ -980,13 +967,13 @@ defineTrait{
 	icon = 53,
 	charGen = true,
 	requiredRace = "ratling",
-	description = "Poison resistance +50%, other resistances -10%. You gain 1 Maximum Health for each extra point of poison resistance (even if you get more than 100%).",
+	description = "Poison resistance +50%, other resistances -15%. You gain 1 Maximum Health for each extra point of poison resistance (even if you get more than 100%).",
 	onRecomputeStats = function(champion, level)
 		--if level > 0 then
 			champion:addStatModifier("resist_poison", 50)
-			champion:addStatModifier("resist_fire", -10)
-			champion:addStatModifier("resist_cold", -10)
-			champion:addStatModifier("resist_shock",-10)
+			champion:addStatModifier("resist_fire", -15)
+			champion:addStatModifier("resist_cold", -15)
+			champion:addStatModifier("resist_shock",-15)
 			local health = math.max(champion:getCurrentStat("resist_poison") - 50, 0) + math.max((champion:getCurrentStat("vitality") - 10) * 2, 0)
 			champion:addStatModifier("max_health", health)
 			champion:addStatModifier("health", health)

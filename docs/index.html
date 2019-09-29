@@ -328,7 +328,7 @@ h2 em {
 	<div class="top">
 		<div class="icon" style="background-position: -75px -150px;"></div>
 		<h1>Berserker <em>Tags: Tank, Strength User</em></h1>
-		<h2>A prideful warrior of the Red Hills</h2>
+		<h2>A prideful warrior of the Red Hills. Berserkers are fueled by rage and prefer to keep their bodies unencumbered by armor.</h2>
 	</div>
 	<div class="class_base">
 		<div class="stats">
@@ -356,7 +356,7 @@ h2 em {
 	<div class="top">
 		<div class="icon" style="background-position: -150px -150px;"></div>
 		<h1>Champion <em>Tags: Healer, Jack of all Trades</em></h1>
-		<h2>A monk who has trained in the path of light to achieve inner balance.</h2>
+		<h2>A monk who has trained in the path of light to achieve perfect balance.</h2>
 	</div>
 	<div class="class_base">
 		<div class="stats">
@@ -448,7 +448,12 @@ h2 em {
 		</div>
 	</div>
 	<div class="class_trait">
-		<p><b>Trine Aegis:</b> Casting elemental magic will shield you from that element for 10 seconds <em>(+3 per 3 levels)</em></p>
+		<p><b>Trine Aegis:</b> You gain damage multipliers based on resistances <em>(33% conversion)</em>.</p>
+		<ul>
+		<li>Gain Fire Multi based on Shock and Cold resistances.</li>
+		<li>Gain Shock Multi based on Cold and Fire resistance.</li>
+		<li>Gain Cold Multi based on Fire and Shock resistance.</li>
+		</ul>
 	</div>	
 	
 	<div class="class_trait">
@@ -712,8 +717,22 @@ h2 em {
 	<div class="top">
 		<div class="icon" style="background-position: -450px -225px;"></div>
 		<h1>Lizard Blood<em>Lizardman</em></h1>
-		<h2>Your blood is warm during the day, giving you +2 Strength and +25 Fire Resist but -10 Cold Resist.<br/><br/>Your skin is cold during the night, giving you +2 Willpower and +25 Cold Resist but -10 Fire Resist.</h2>
-		<h2>You gain an extra +2 to all stats for each of the two resistances that reaches 100.</h2>
+		<h2>Lizardfolk can easily adapt for the hottest days or coldest nights.</h2>
+		<h2>Resist All +8%, plus:</h2>
+		<div class="class_trait">
+			<ul>
+				<li>During the day, gain +15% Fire Resist.</li>
+				<li>During the night, gain +15% Cold Resist.</li>
+			</ul>
+		</div>
+		
+		<h2>For any resistance that reaches 100:</h2>
+		<div class="class_trait">
+			<ul>
+				<li>Gain +30% to that element multiplier.</li>
+				<li>Gain +2 to all stats.</li>
+			</ul>
+		</div>
 	</div>
 </div>
 
@@ -811,7 +830,7 @@ h2 em {
 	<div class="top">
 		<div class="icon" style="background-position: -75px -300px;"></div>
 		<h1>Built Resistance<em>Ratling</em></h1>
-		<h2>Poison resistance +50%, other resistances -10%.</h2>
+		<h2>Poison resistance +50%, other resistances -15%.</h2>
 	</div>
 	<div class="class_trait">
 	<p>For each extra point of poison resistance past 50% you gain:</p>

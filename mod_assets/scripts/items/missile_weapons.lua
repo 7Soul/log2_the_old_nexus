@@ -473,3 +473,9 @@ defineObject{
 --		},
 --	},
 --}
+
+-- Cold enchanted bow:
+-- Every 30 seconds, becomes enchanted with ice. Shots deal 30% of damage as cold to the target, and an AOE with (total damage * 0.3)
+-- Willpower +4
+-- Cold damage +20
+-- Cold resist +20
