@@ -74,8 +74,8 @@ defineSkill{
 	description = [[Each point reduces the evasion penalties from wearing Heavy Armor by 20% and weight by 10%.
 	
 	Perks when wearing heavy armor in all 5 slots:
-	- Armored Up     | +5% Protection and +2 Strength. Doubled when this skill is maxed.
-	- Conditioning   | +40 Health and +10% Protection. Doubled when this skill is maxed.
+	- Armored Up     | +5 Protection and +2 Strength. Doubled when this skill is maxed.
+	- Conditioning   | +40 Health and +6% Protection. Doubled when this skill is maxed.
 	- Armor Training | Sets and Heavy Armor perks work even without Helmet and Gloves. Other armor types in those slots gain an extra 20% protection.]],
 	traits = { [2] = "armored_up", [4] = "heavy_conditioning", [5]="armor_training" },
 	onRecomputeStats = function(champion, level)

@@ -1,5 +1,3 @@
-assassinations = {0,0,0,0}
-night_stalker = {1,1,1,1}
 hunter_crit = {0,0,0,0}
 hunter_timer = {0,0,0,0}
 hunter_max = {0,0,0,0}
@@ -369,8 +367,8 @@ function teststart()
 			champion:addTrait("assassination")
 		end
 		if champion:getClass() == "stalker" then
-			local bonus = math.floor(party.party:getChampionByOrdinal(i):getLevel() / 3)
-			night_stalker[i] = 1 + bonus
+			local bonus = 1 + math.floor(party.party:getChampionByOrdinal(i):getLevel() / 3)
+			set_c("night_stalker", i, bonus)
 		end
 	end
 	findCrystalArea()
@@ -1627,7 +1625,7 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 	if tside == 2 then
 		-- Assassin (class) backstab leech
 		if champion:getClass() == "assassin_class" then
-			local sap = monster:getMaxHealth() * ((assassinations[c] * 0.005) + 0.02)
+			local sap = monster:getMaxHealth() * ((get_c("assassination", c) * 0.005) + 0.02)
 			delayedCall("functions", 0.15, "hitMonster", monster.go.id, sap, "CC9999", nil, "physical", c)
 			champion:regainHealth(math.max(sap * (1 - (champion:getHealth() / champion:getMaxHealth())) * 0.5, 1))			
 		end
@@ -1686,7 +1684,7 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 		if champion:getClass() == "druid" then
 			local conversion = 0.8
 			for slot = 8,10 do
-				local druidItem = functions.script.get_c("druid_item"..slot, champion:getOrdinal())
+				local druidItem = functions.script.get_c("druid_item"..slot, c)
 				if druidItem then
 					if druidItem == "falconskyre" then
 						poisonChance = poisonChance + 0.08
@@ -1699,17 +1697,17 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 
 			-- Conversion damage
 			if self.go.firearmattack then
-				hitMonster(monster.go.id, damage / conversion * (1 - conversion), "33CC33", nil, "poison", champion:getOrdinal())
+				hitMonster(monster.go.id, damage / conversion * (1 - conversion), "33CC33", nil, "poison", c)
 			end
 			if self.go.meleeattack then
-				hitMonster(monster.go.id, damage / conversion * (1 - conversion), "33CC33", nil, "poison", champion:getOrdinal())
+				hitMonster(monster.go.id, damage / conversion * (1 - conversion), "33CC33", nil, "poison", c)
 			end	
 		end
 		
 		-- Ratling's Sneak Attack
-		if functions.script.get_c("sneak_attack", champion:getOrdinal()) then
+		if functions.script.get_c("sneak_attack", c) then
 			poisonChance = poisonChance + 0.5
-			functions.script.set_c("sneak_attack", champion:getOrdinal(), false)
+			functions.script.set_c("sneak_attack", c, false)
 		end
 		
 		-- Assassination - when monster takes a hit and dies
@@ -1721,8 +1719,8 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 		
 		-- Assassin's Backstab health sap
 		if champion:getClass() == "assassin_class" and backAttack then
-			local sap = self:getMaxHealth() * ((assassinations[champion:getOrdinal()] * 0.005) + 0.02)
-			delayedCall("functions", 0.15, "hitMonster", self.go.id, sap, "CC9999", nil, "physical", champion:getOrdinal())
+			local sap = self:getMaxHealth() * ((get_c("assassination", c) * 0.005) + 0.02)
+			delayedCall("functions", 0.15, "hitMonster", self.go.id, sap, "CC9999", nil, "physical", c)
 			champion:regainHealth(math.max(sap * (1 - (champion:getHealth() / champion:getMaxHealth())) * 0.5, 1))
 		end	
 		
@@ -1742,11 +1740,11 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 		-- Poison chance
 		if poisonChance > 0 and math.random() < poisonChance then	
 			monster:setCondition("poisoned", 25)
-			if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
+			if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(c)  end
 		end
 
 		if specialDamage then
-			hitMonster(monster.go.id, specialDamage, "FFFFFF", nil, "physical", champion:getOrdinal())
+			hitMonster(monster.go.id, specialDamage, "FFFFFF", nil, "physical", c)
 			return false
 		else
 			return true
@@ -1992,7 +1990,7 @@ function assassination(champion, monster)
 		hudPrint(champion:getName() .. " gained +1 Willpower and " .. expAdd .. " Exp after the assassination.")
 	end
 	champion:gainExp(expAdd)
-	assassinations[champion:getOrdinal()] = assassinations[champion:getOrdinal()] + 1
+	add_c("assassination", champion:getOrdinal(), 1)
 	monster:showDamageText("Assassination!", "FF7700")
 	playSound("assassination")
 end
@@ -2519,7 +2517,7 @@ function empowerAttackType(champion, attackType, multi, return_only, tier)
 	elseif attackType == "ranged" then
 		-- Class bonuses
 		if champion:getClass() == "assassin_class" then
-			f = f * (1 + (assassinations[ord] * 0.05))
+			f = f * (1 + (get_c("assassination", ord) * 0.05))
 		end	
 
 		-- Skill bonuses
@@ -2557,7 +2555,7 @@ function empowerAttackType(champion, attackType, multi, return_only, tier)
 	elseif attackType == "dual_wielding" then
 		if champion:getClass() == "assassin_class" then
 			f = f * 0.75
-			f = f * (1 + (assassinations[ord] * 0.05))
+			f = f * (1 + (get_c("assassination", ord) * 0.05))
 		else
 			f = f * 0.6
 		end
@@ -2997,7 +2995,7 @@ function getTrait(champion, item, trait)
 	end
 end
 
-function statToolTip(context, hoverTxt1, hoverTxt2, x, y, lineCount)
+function statToolTip(context, hoverTxt1, hoverTxt2, x, y, lineCount) -- Draws the tooltip text and background for the Stats tab
 	local f2 = (context.height/1080)
 
 	y = y - 18 - (lineCount * 26)
@@ -3023,11 +3021,23 @@ function statToolTip(context, hoverTxt1, hoverTxt2, x, y, lineCount)
 
 	context.font("large")
 	context.color(255, 255, 255, 255)
-	context.drawText(hoverTxt1, x, y)
+	context.drawParagraph(hoverTxt1, x, y, width - 7)
 	context.font("medium")
-	context.drawText(hoverTxt2, x, y + 28)
+	context.drawParagraph(hoverTxt2, x, y + 28, width - 7)
 end
 
+function drawStatNumber(context, txt, x, y) -- Draws colored numbers in the Stats tab
+	context.color(255,255,255,255)
+	if tonumber(txt) < 0 then 
+		context.color(255,35,35,255)
+	elseif tonumber(txt) == 0 then 
+		context.color(255,255,255,190)
+	elseif tonumber(txt) >= 100 then 
+		context.color(255,255,210,255)
+	end
+	context.drawText(txt, x - context.getTextWidth(txt), y)
+	context.color(255,255,255,255)
+end
 
 -------------------------------------------------------------------------------------------------------
 -- Tinkerer Events                                                                                   --    

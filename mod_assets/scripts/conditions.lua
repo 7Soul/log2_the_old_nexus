@@ -38,7 +38,7 @@ defineCondition{
 	Gains combat stats that fade slowly over 60 seconds.
 	- Protection up to +6 per level (+8 per 3 levels).
 	- Strength up to +4 (+1 per 3 levels).
-	- Health Regeneration +500%.]],
+	- Regain health based on missing amount.]],
 	icon = 22,
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
@@ -58,7 +58,6 @@ defineCondition{
 		if level > 0 then
 			champion:addStatModifier("protection",  math.ceil(((level * 6) + (level2 * 8)) * dur))
 			champion:addStatModifier("strength", math.ceil((4 + level2) * 1 * dur))
-			champion:addStatModifier("health_regeneration_rate", math.ceil(500 * dur))
 		end
 	end,
 	onTick = function(self, champion)

@@ -1135,25 +1135,16 @@ defineTrait{
 	uiName = "Armored Up",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 75, 
-	description = "+5% Protection and +2 Strength.",
+	description = "+5 Protection and +2 Strength. Doubled when this skill is maxed",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
 			local all_heavy = functions.script.wearingAll(champion, "heavy_armor")
 			if all_heavy then
 				local multi = champion:hasTrait("armor_training") and 2 or 1
-				if champion:hasCondition("ancestral_charge") then multi = multi + 0.5 end
+				if champion:hasCondition("ancestral_charge") then multi = multi * 1.5 end
 				champion:addStatModifier("strength", math.floor(2 * multi))
-				
-				local bonusProt = 0
-				local equip_slots = {3,4,5,6,9}
-				for i, v in pairs(equip_slots) do
-					if champion:getItem(v) and champion:getItem(v).go.equipmentitem and champion:getItem(v).go.equipmentitem:getProtection() then
-						bonusProt = bonusProt + champion:getItem(v).go.equipmentitem:getProtection()
-					end
-				end
-				bonusProt = bonusProt * 0.1
-				champion:addStatModifier("protection", math.ceil(bonusProt * multi))
+				champion:addStatModifier("protection", math.ceil(2 * multi))
 			end
 		end
 	end,
@@ -1161,17 +1152,17 @@ defineTrait{
 
 defineTrait{
 	name = "heavy_conditioning",
-	uiName = "Heavy Conditioning",
+	uiName = "Conditioning",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 76,
-	description = "+40 Health and +10% Protection.",
+	description = "+40 Health and +6% Protection from equipment. Doubled when this skill is maxed",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
 			local all_heavy = functions.script.wearingAll(champion, "heavy_armor")
 			if all_heavy then
 				local multi = champion:hasTrait("armor_training") and 2 or 1
-				if champion:hasCondition("ancestral_charge") then multi = multi + 0.5 end
+				if champion:hasCondition("ancestral_charge") then multi = multi * 1.5 end
 				champion:addStatModifier("max_health", math.ceil(40 * multi))
 				
 				local bonusProt = 0
@@ -1181,7 +1172,7 @@ defineTrait{
 						bonusProt = bonusProt + champion:getItem(v).go.equipmentitem:getProtection()
 					end
 				end
-				bonusProt = bonusProt * 0.1
+				bonusProt = bonusProt * 0.06
 				champion:addStatModifier("protection", math.ceil(bonusProt * multi))
 			end
 		end
@@ -1193,10 +1184,12 @@ defineTrait{
 	uiName = "Armor Training",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 77,
-	description = [[Sets and Heavy Armor perks work even without Helmet and Gloves. Other armor types in those slots gain an extra 10% protection.]],
+	description = [[Sets and Heavy Armor perks work even without Helmet and Gloves. Other armor types in those slots gain an extra 20% protection.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
+			local multi = champion:hasTrait("armor_training") and 2 or 1
+			if champion:hasCondition("ancestral_charge") then multi = multi * 1.5 end
 			local all_heavy = functions.script.wearingAll(champion, "heavy_armor")
 			if all_heavy then				
 				local bonusProt = 0
@@ -1206,7 +1199,7 @@ defineTrait{
 						bonusProt = bonusProt + champion:getItem(v).go.equipmentitem:getProtection()
 					end
 				end
-				bonusProt = bonusProt * 0.2
+				bonusProt = bonusProt * 0.2 * multi
 				champion:addStatModifier("protection", math.ceil(bonusProt))
 			end
 		end

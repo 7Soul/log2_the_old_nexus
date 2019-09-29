@@ -2285,23 +2285,21 @@ function getPower(base, champion, skill, element, tier, spellName)
 end
 
 function getCost(champion, base, element, spellName)
+	local c = champion:getOrdinal()
 	if spellName and not defByName[spellName].hidden then
 		if champion:hasTrait("intensify_spell") then
-			local intensify = functions.script.get_c("intensifySpell", champion:getOrdinal())
+			local intensify = functions.script.get_c("intensifySpell", c)
 			if intensify and intensify == spellName then
 				local multi = 1.3 - (math.floor(champion:getLevel() / 4) * 0.1)
 				base = base * multi
-				functions.script.set_c("intensifySpell", champion:getOrdinal(), nil)
+				functions.script.set_c("intensifySpell", c, nil)
 				champion:damage(base * -1 * 0.5, "pure")
 			end
 		end
 		
+		-- Reduce energy cost for Spell Thief
 		if element == "neutral" and champion:getClass() == "stalker" then
-			base = base * (champion:getClass() == "stalker" and (champion:hasTrait("night_stalker") and 0.33 or 0.66) or 1)
-			
-			local night_stalker_charges = functions.script.night_stalker[champion:getOrdinal()]
-			if not night_stalker_charges then night_stalker_charges = 0 end
-			base = base * (night_stalker_charges > 0 and 0 or 1)
+			base = base * (champion:hasTrait("night_stalker2") and 0.33 or 0.66
 		end
 
 		if element == "poison" then
