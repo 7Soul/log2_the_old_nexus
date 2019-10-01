@@ -302,10 +302,11 @@ defineCondition{
 	onStart = function(self, champion)
 	end,
 	onStop = function(self, champion)
-		local stacks = functions.script.hunter_crit[champion:getOrdinal()]
-		if stacks > 0 then
-			local id = champion:getOrdinal()
-			delayedCall("functions", 0.1, "hunterCrit", id, -1, 3)
+		local stacks = functions.script.get_c("hunter_crit", champion:getOrdinal())
+		if stacks and stacks > 0 then
+			local c = champion:getOrdinal()
+			-- functions.script.hunterCrit(c, -1, 3)
+			delayedCall("functions", 0.1, "hunterCrit", c, -1, 3)
 		end
 	end,
 }

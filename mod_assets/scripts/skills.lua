@@ -155,9 +155,10 @@ defineSkill{
 	description = [[Each point increases evasion by 3 when fighting multiple foes.
 	
 	Perks:
-	- Sea Dog | You deal 25% more Melee damage from the backline and 25% more Ranged and Firearms damage from the frontline.
-	- Freebooter | Cannon balls in your inventory weight 80% less.
-	- Broadside | Pellets and Cannon Balls have a 40% chance to create shrapnel on impact, doing half damage to a 3-tile area behind the target.]],
+	- Sea Dog | Gain 25% more melee damage from the backline and 25% more ranged and firearm damage from the frontline.
+	- Freebooter | Ammo in your inventory weight 60% less.
+	- Broadside | Shots have a 40% chance to create shrapnel on impact, doing half damage to a 3-tile area behind the target.
+	- Lucky Blow | Every 3rd attack gains +50% Crit and attack power equal to 1/5 of your Dexterity.]],
 	traits = { [2] = "sea_dog", [4] = "freebooter", [5] = "broadside" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 then

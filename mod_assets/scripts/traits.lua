@@ -247,8 +247,9 @@ defineTrait{
 		if level > 0 then
 			level = champion:getLevel()
 			if not functions then return end
-			if functions.script.hunter_crit[champion:getOrdinal()] > 0 then
-				return functions.script.hunter_crit[champion:getOrdinal()]
+			local stacks = functions.script.get_c("hunter_crit", champion:getOrdinal()) or 0
+			if stacks > 0 then
+				return stacks
 			end
 		end
 	end,
@@ -259,8 +260,9 @@ defineTrait{
 			champion:addStatModifier("max_energy", 40 + (level-1) * 9)
 			
 			if not functions then return end
-			if functions.script.hunter_crit[champion:getOrdinal()] > 0 then
-				champion:addStatModifier("willpower", functions.script.hunter_crit[champion:getOrdinal()])
+			local stacks = functions.script.get_c("hunter_crit", champion:getOrdinal()) or 0
+			if stacks > 0 then
+				champion:addStatModifier("willpower", stacks)
 			end
 		end	
 	end,
@@ -1365,7 +1367,7 @@ defineTrait{
 	uiName = "Sea Dog",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 90,
-	description = "You deal 30% more melee damage from the backline and 30% more firearm damage from the frontline."
+	description = "Gain 25% more melee damage from the backline and 25% more ranged and firearm damage from the frontline."
 }
 
 defineTrait{
@@ -1373,7 +1375,7 @@ defineTrait{
 	uiName = "Freebooter",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 91,
-	description = "Cannon balls in your inventory weight 80% less.",
+	description = "Ammo in your inventory weights 60% less.",
 }
 
 defineTrait{
@@ -1381,9 +1383,27 @@ defineTrait{
 	uiName = "Broadside",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 92,
-	description = "Pellets and cannon balls have a 40% chance to create shrapnel on impact, doing half damage to a 3-tile area behind the target.",
+	description = "Shots have a 40% chance to create shrapnel on impact, doing half damage to a 3-tile area behind the target.",
 }
 
+defineTrait{
+	name = "lucky_blow",
+	uiName = "Lucky Blow",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 92,
+	description = "Every 3rd attack gains +50% Crit and attack power equal to 1/5 of your Dexterity.",
+	onComputeCritChance = function(champion, weapon, attack, attackType, level)
+		if level > 0 then 
+			local count = get_c("lucky_blow", champion:getOrdinal()) or -1
+			local trigger = 3
+
+			if count % trigger == 0 then
+				return 50
+			end
+		end
+	end
+}
+-- every Xth attack with a firearm or sword has +50% critical chance and spends 5 energy
 -- Alchemy
 defineTrait{
 	name = "green_thumb",

@@ -6369,7 +6369,6 @@ turtle_1.detectedtimer:setTimerInterval(0)
 turtle_1.detectedtimer:setDisableSelf(false)
 turtle_1.detectedtimer:setTriggerOnStart(true)
 turtle_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("starting_location",12,14,3,0,"starting_location_1")
 spawn("rogue_boots",19,14,1,0,"rogue_boots_1")
 rogue_boots_1.data:setSource("data = {}\
 function get(self,name)\
@@ -6766,6 +6765,7 @@ gold_bar_1.detectedtimer:setTimerInterval(0)
 gold_bar_1.detectedtimer:setDisableSelf(false)
 gold_bar_1.detectedtimer:setTriggerOnStart(true)
 gold_bar_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("starting_location",13,14,3,0,"starting_location_1")
 
 --- level 4 ---
 
@@ -10247,6 +10247,7 @@ spawn("grass_planes_01",4,4,2,1,"grass_planes_01_29")
 spawn("grass_planes_01",2,4,2,1,"grass_planes_01_30")
 spawn("grass_planes_01",5,4,2,1,"grass_planes_01_31")
 spawn("time_hint_floorCircle",24,14,0,0,"time_hint_floorCircle_1")
+spawn("forest_lantern",16,5,3,0,"forest_lantern_35")
 
 --- level 6 ---
 
@@ -10417,8 +10418,7 @@ may break your bones.")
 spawn("beach_rock_pillar_decoration",9,18,2,0,"beach_rock_pillar_decoration_10")
 spawn("script_entity",7,17,0,0,"script_entity_8")
 script_entity_8.script:setSource("function sticksAndStones()\
-\9local result1 = \"\"\
-\9local result2 = \"\"\
+\9local result1, result2 = \"\", \"\"\
 \9local valid = {\"rock\", \"whitewood_wand\", \"branch\"}\
 \9for j=1,2 do\
 \9\9for _,c in findEntity(\"pedestal_\"..j).surface:contents() do\
@@ -10444,12 +10444,14 @@ script_entity_8.script:setSource("function sticksAndStones()\
 \9\9end\
 \9end\
 end\
+\
 stoneDoor = 0\
 function stoneDoor()\
-\9if stoneDoor == 1 then return end\
-\9stoneDoor = 1\
-\9beach_secret_door_4.controller:open()\
-\9spawner_6.controller:activate()\
+\9if stoneDoor == 0 then \9\9\
+\9\9beach_secret_door_4.controller:open()\
+\9\9spawner_6.controller:activate()\
+\9\9stoneDoor = 1\
+\9end\
 end\
 \
 function addItem(c)\

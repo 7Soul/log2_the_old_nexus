@@ -638,6 +638,7 @@ defineObject{
 			local f2 = context.height/1080
 			local MX, MY = context.mouseX, context.mouseY
 			local mLeft, mRight = context.mouseDown(0), context.mouseDown(2)
+			local c = champion:getOrdinal()
 			if f > 0.9 then
 				context.font("large")
 			elseif f > 0.5 then
@@ -710,15 +711,15 @@ defineObject{
 				local val1, val2 = context.button("tinkering_exit", x + 135, y + 89, 34, 25)
 				if val1 or val2 then			
 					if context.mouseDown(3) then
-						functions.script.set_c("tinkering", champion:getOrdinal(), nil)
+						functions.script.set_c("tinkering", c, nil)
 					end
 				end
 				-- Upgrade button
 				local upg1, upg2 = context.button("tinkering_confirm", x, y + 86, 132, 31)
 				if upg1 or upg2 then
 					if context.mouseDown(3) then
-						functions.script.tinkererUpgrade(self, champion, functions.script.get_c("tinkering", champion:getOrdinal()), materials)
-						functions.script.set_c("tinkering", champion:getOrdinal(), nil)
+						functions.script.tinkererUpgrade(self, champion, functions.script.get_c("tinkering", c), materials)
+						functions.script.set_c("tinkering", c, nil)
 					end
 				end
 
@@ -726,10 +727,10 @@ defineObject{
 			end
 			
 			if champion:getClass() == "monk" then
-				local healingLight = functions.script.get_c("healinglight", champion:getOrdinal())
+				local healingLight = functions.script.get_c("healinglight", c)
 				local healingMax = 400 + ((champion:getLevel() ^ 2) * 75)
 				if healingLight then
-					context.drawImage2("mod_assets/textures/gui/bar.dds", x-19, y-9, 0, 0, 64, 64, math.min(healingLight / healingMax * 59, 59), 3)
+					functions.script.drawBarOnPortrait(context, champion, x, y, healingLight, healingMax)				
 				end
 				-- if champion:hasCondition("healing_light") then
 					-- context.drawImage2("mod_assets/textures/gui/healing_light.dds", x-22, y-70, 0, 0, 64, 64, 68, 68)
@@ -737,33 +738,13 @@ defineObject{
 			end
 			
 			if champion:getClass() == "hunter" then
-				if functions.script.hunter_crit[champion:getOrdinal()] > 0 then
-					context.font("small")
-					local x2 = 0
-					local posx = 0
-					local posy = 0
-					context.color(225, 225, 195, 255)
-					if champion:getItem(ItemSlot.Weapon) then
-						x2 = 0
-						posx = (x + 18) + (x2 * 80)
-						posy = y + 28
-						context.drawText("" .. functions.script.hunter_crit[champion:getOrdinal()], posx, posy)
-						context.drawImage2("mod_assets/textures/gui/bar.dds", posx-6, posy+2, 0, 0, 64, 64, champion:getConditionValue("hunter_crit") / functions.script.hunter_max[champion:getOrdinal()] * 24, 3)
-					elseif champion:getItem(ItemSlot.OffHand) then
-						x2 = 1
-						posx = (x + 18) + (x2 * 80)
-						posy = y + 28
-						context.drawText("" .. functions.script.hunter_crit[champion:getOrdinal()], posx, posy)
-					end
-					local val1, val2 = context.button("rectButtoN", posx - 5, posy - 20, 20, 24)
-					if val1 or val2 then
-						context.color(255, 255, 255, 196)
-						local text = "Thrill of the Hunt"
-						context.drawText(text, posx - (context.getTextWidth(text) / 2), posy - 20)
-					end
-				end
+				local stacks = functions.script.get_c("hunter_crit", c) or 0
+				local hunterCur = champion:getConditionValue("hunter_crit") or 0
+				local hunterMax = functions.script.get_c("hunter_max", c) or 0
+
+				functions.script.drawCounterOnHand(context, champion, x, y, stacks, "Thrill of the Hunt")
+				functions.script.drawBarOnHand(context, champion, x, y, hunterCur, hunterMax)
 			end	
-			--return false
 		end,
 		
 		onDrawGui = function(self, context)			

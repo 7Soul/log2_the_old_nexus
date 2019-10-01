@@ -228,6 +228,7 @@ defineObject{
 			stackable = true,
 			sharpProjectile = true,
 			projectileRotationY = 90,
+			traits = { "ammo" },
 			weight = 0.1,
 		},
 		{
@@ -254,6 +255,7 @@ defineObject{
 			sharpProjectile = true,
 			projectileRotationY = 90,
 			convertToItemOnImpact = "arrow",	-- convert to normal arrow on impact
+			traits = { "ammo" },
 			weight = 0.1,
 		},
 		{
@@ -308,6 +310,7 @@ defineObject{
 			sharpProjectile = true,
 			projectileRotationY = 90,
 			convertToItemOnImpact = "arrow",	-- convert to normal arrow on impact
+			traits = { "ammo" },
 			weight = 0.1,
 		},
 		{
@@ -365,6 +368,7 @@ defineObject{
 			stackable = true,
 			sharpProjectile = true,
 			projectileRotationY = 90,
+			traits = { "ammo" },
 			weight = 0.2,
 		},
 		{

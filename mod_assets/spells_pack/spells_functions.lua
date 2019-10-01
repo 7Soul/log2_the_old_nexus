@@ -2242,8 +2242,8 @@ function getSpellCriticalChance(champion)
 			if crit and crit ~= 0 then chance = chance + crit end
 		end
 		if champion:getClass() == "hunter" then
-			if functions.script.hunter_crit[champion:getOrdinal()] > 0 then
-				chance = chance + (functions.script.hunter_crit[champion:getOrdinal()] * 0.01)
+			if functions.script.get_c("hunter_crit", champion:getOrdinal()) > 0 then
+				chance = chance + (functions.script.get_c("hunter_crit", champion:getOrdinal()) * 0.01)
 			end
 		end
 	end
