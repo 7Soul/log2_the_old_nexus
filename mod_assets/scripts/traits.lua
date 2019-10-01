@@ -3,16 +3,20 @@ defineTrait{
 	uiName = "Assassin",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 26,
-	description = "A contract killer who can improve their technique with each kill.",
+	description = "A contract killer who can pinpoint the weakness of their target.",
 	gameEffect = [[
 	- Health 44 (+4 per level)
 	- Energy 30 (+7 per level)
 	- Dual Wielding damage penalty reduced to 25% (normally 40%)
 	
-	Assassination: Once per level, when you kill an enemy from behind you get an Assassination stack.
-	- Increases a random stat by 1 and gives extra scaling exp.
-	- Dual Wield and Ranged Damage increased by 5% per assassination.
-	- Attacking from behind saps 2% of a target's health (+0.5% per assassination).]],
+	Assassination: Powerful attacks* add a charge to your weapon, up to 4.
+	- Melee attacks Gain +2 Pierce and +2 Crit per charge.
+	- Ranged attacks Gain +3 Attack Power and +2 Crit per charge.
+	- Back attacks spend all charges to deal 2% of a target's health per charge, while you heal for that much.
+	
+	Fleshbore: Ranged attacks reduce the target's armor by 1, stacking up to 10.
+	- Reduction per hit increased by 1 every 6 levels.
+	- Maximum stacks increased by 1 every 3 levels.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
@@ -20,7 +24,20 @@ defineTrait{
 			champion:addStatModifier("max_energy", 30 + (level-1) * 7)
 		end	
 	end,
+	onComputeCritChance = function(champion, weapon, attack, attackType, level)
+		if level > 0 then 
+			if not functions then return end
+			local charges = functions.script.get_c("assassination", champion:getOrdinal()) or 0
+			if charges then
+				return charges * 2
+			end
+		end
+	end,
 }
+
+-- backstab to gain a charge; max based on level
+-- gain pierce, crit and special cost reduction per charge
+-- special attacks spend a charge for added life sap
 
 defineTrait{
 	name = "berserker",
@@ -43,7 +60,6 @@ defineTrait{
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
-			--local str_add = math.floor(champion:getCurrentStat("strength") / 5) * 5
 			local str_add_more = math.floor(champion:getCurrentStat("strength") / 10) * 15
 			champion:addStatModifier("max_health", 80 + ((level-1) * 5) + str_add_more)
 			champion:addStatModifier("max_energy", 20 + (level-1) * 5)
@@ -340,17 +356,6 @@ defineTrait{
 ---------------------------------------------------------------------------------
 -- Class traits
 ---------------------------------------------------------------------------------
-
-defineTrait{
-	name = "assassination",
-	uiName = "Assassination",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 130,
-	description = "You're looking for your target...",
-	gameEffect = [[Kill an enemy from the back to complete the assassination.]],
-	onRecomputeStats = function(champion, level)
-	end,
-}
 
 defineTrait{
 	name = "night_stalker",
@@ -1251,7 +1256,7 @@ defineTrait{
 	uiName = "Deadly Aim",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 80,
-	description = "Melee and Firearm attacks pierce 5 to 15 armor, while Ranged attacks deal 5 to 20 extra damage.",
+	description = "Melee and Firearm attacks gain +1 Pierce per 6 Accuracy, while Ranged attacks gain +1 Damage per 5 Accuracy.",
 }
 
 -- Critical

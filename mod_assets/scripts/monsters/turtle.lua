@@ -41,6 +41,7 @@ defineObject{
 			capsuleRadius = 0.7,
 			health = 90,
 			evasion = -10,
+			protection = 1,
 			exp = 60,
 			lootDrop = { 75, "turtle_steak", 75, "turtle_steak" },
 			resistances = { 

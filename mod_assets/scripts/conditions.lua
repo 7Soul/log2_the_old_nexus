@@ -27,9 +27,9 @@ defineCondition{
 	end,
 	onTick = function(self, champion)
 		local missing = 1 - (champion:getHealth() / champion:getMaxHealth())
-		if missing > 0.5 then
+		if missing > 0.25 then -- heal under 25% health
 			champion:regainHealth(missing * missing * 5.0 * 0.5)
-		elseif missing <= 0.5 and missing > 0.25 then
+		elseif missing <= 0.25 and missing > 0.10 then -- extra under 10%
 			if math.random() < 0.5 then
 				champion:regainHealth(missing * missing * 5.0 * 0.5)
 			end
@@ -66,51 +66,13 @@ defineCondition{
 	end,
 	onTick = function(self, champion)
 		local missing = 1 - (champion:getHealth() / champion:getMaxHealth())
-		if missing > 0.5 then
+		if missing > 0.5 then -- heal under 50% health
 			champion:regainHealth(missing * missing * 5.0)
 		elseif missing <= 0.5 and missing > 0.25 then
 			if math.random() < 0.5 then
 				champion:regainHealth(missing * missing * 5.0)
 			end
 		end
-	end,	
-}
-
-defineCondition{
-	name = "blooddrop_rage",
-	uiName = "Blooddrop Fire Rage",
-	description = "",
-	icon = 1,
-	hidden = true,
-	--iconAtlas = "mod_assets/textures/conditions.tga",
-	beneficial = true,
-	harmful = false,
-	tickInterval = 1,
-	onStart = function(self, champion)
-		--playSound("dark_bolt")
-	end,
-	onStop = function(self, champion)
-		hudPrint(champion:getName().."'s Blooddrop Fire Rage is over.")
-		champion:removeTrait("blooddrop_rage")
-	end,	
-}
-
-defineCondition{
-	name = "etherweed_rage",
-	uiName = "Etherweed Cold Rage",
-	description = "",
-	icon = 1,
-	hidden = true,
-	--iconAtlas = "mod_assets/textures/conditions.tga",
-	beneficial = true,
-	harmful = false,
-	tickInterval = 1,
-	onStart = function(self, champion)
-		--playSound("dark_bolt")
-	end,
-	onStop = function(self, champion)
-		hudPrint(champion:getName().."'s Etherweed Cold Rage is over.")
-		champion:removeTrait("etherweed_rage")
 	end,	
 }
 

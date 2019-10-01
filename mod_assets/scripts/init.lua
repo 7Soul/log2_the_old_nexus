@@ -252,14 +252,14 @@ defineObject{
 			for i=1,4 do
 				local c = party:getChampionByOrdinal(i)				
 				if c ~= champion then
-					--functions.script.set_c("attackedWith", c:getOrdinal(), nil)
-					--functions.script.set_c("attacked", c:getOrdinal(), nil)
+					-- functions.script.set_c("attackedWith", c:getOrdinal(), nil)
+					-- functions.script.set_c("attacked", c:getOrdinal(), nil)
 				end
 			end
 			
 			functions.script.set_c("attackedWith", champion:getOrdinal(), action.go.name)
 			functions.script.set_c("attacked", champion:getOrdinal(), champion:getOrdinal())
-			--functions.script.reset_attack(action.go.meleeattack, champion, slot, 0, action.go.item)
+			-- functions.script.reset_attack(action.go.meleeattack, champion, slot, 0, action.go.item)
 		end,
 		-----------------------------------------------------------
 		-- On Damage Taken
@@ -745,6 +745,12 @@ defineObject{
 				functions.script.drawCounterOnHand(context, champion, x, y, stacks, "Thrill of the Hunt")
 				functions.script.drawBarOnHand(context, champion, x, y, hunterCur, hunterMax)
 			end	
+			
+			if champion:getClass() == "assassin_class" then
+				local stacks = functions.script.get_c("assassination", c) or 0
+
+				functions.script.drawCounterOnHand(context, champion, x, y, stacks, "Assassination")
+			end	
 		end,
 		
 		onDrawGui = function(self, context)			
@@ -998,8 +1004,8 @@ defineObject{
 				
 
 				if champion:getClass() == "assassin_class" then
-					local ass = functions.script.get_c("assassination", champion:getOrdinal()) and functions.script.get_c("assassination", champion:getOrdinal()) or 0
-					context.drawText("Assassinations: " .. ass, w - (530 * f2), 618 * f2)
+					-- local ass = functions.script.get_c("assassination", champion:getOrdinal()) and functions.script.get_c("assassination", champion:getOrdinal()) or 0
+					-- context.drawText("Assassinations: " .. ass, w - (530 * f2), 618 * f2)
 				end
 
 				if champion:getClass() == "stalker" then
@@ -1244,7 +1250,7 @@ defineObject{
 				y = 592
 				context.drawText("Dmg", w - (x * f2), y * f2)
 				local dmg = functions.script.getDamage(champion, ItemSlot.Weapon)
-				txt = tostring(math.floor(dmg[0])) .. " - " .. tostring(math.floor(dmg[1]))
+				txt = tostring(math.floor(dmg[1])) .. " - " .. tostring(math.floor(dmg[2]))
 				context.drawText("" .. txt , w - ((x-116) * f2) - context.getTextWidth(txt), y * f2)
 				hover1[33], hover2[33] = context.button("hover"..33, w - (x + 6), y-16, 130, buttonH)
 
@@ -1272,7 +1278,7 @@ defineObject{
 				y = 592
 				context.drawText("Dmg", w - (x * f2), y * f2)
 				local dmg = functions.script.getDamage(champion, ItemSlot.OffHand)
-				txt = tostring(math.floor(dmg[0])) .. " - " .. tostring(math.floor(dmg[1]))
+				txt = tostring(math.floor(dmg[1])) .. " - " .. tostring(math.floor(dmg[2]))
 				context.drawText("" .. txt , w - ((x-116) * f2) - context.getTextWidth(txt), y * f2)
 				hover1[37], hover2[37] = context.button("hover"..37, w - (x + 6), y-16, 130, buttonH)
 
@@ -1665,13 +1671,6 @@ defineObject{
 
 		onLevelUp = function(party,champion) 
 			--print(party.go.id,champion:getName(),'leveled up!') 
-			-- Assassin's gets 'assassination' on level up
-			if champion:getClass() == "assassin_class" then
-				if not champion:hasTrait("assassination") then
-					champion:addTrait("assassination")
-				end
-			end
-
 			if champion:getClass() == "tinkerer" then
 				local count = functions.script.get_c("crafting_expertise", champion:getOrdinal())
 				functions.script.set_c("crafting_expertise", champion:getOrdinal(), count ~= nil and math.min(count + 1, 3) or 1)

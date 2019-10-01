@@ -1,6 +1,3 @@
-hunter_crit = {0,0,0,0}
-hunter_timer = {0,0,0,0}
-hunter_max = {0,0,0,0}
 secondary = 0
 spellSlinger = {}
 stepCount = 0
@@ -148,7 +145,7 @@ function teststart()
 	end
 
 	-- if Editor.isRunning() then
-		party.party:getChampionByOrdinal(1):setClass("berserker")
+		party.party:getChampionByOrdinal(1):setClass("assassin_class")
 		party.party:getChampionByOrdinal(2):setClass("hunter")
 		party.party:getChampionByOrdinal(3):setClass("tinkerer")
 		party.party:getChampionByOrdinal(4):setClass("monk")
@@ -334,9 +331,6 @@ function teststart()
 	-- end
 	for i=1,4 do
 		local champion = party.party:getChampionByOrdinal(i)
-		if champion:getClass() == "assassin_class" then
-			champion:addTrait("assassination")
-		end
 		if champion:getClass() == "stalker" then
 			local bonus = 1 + math.floor(party.party:getChampionByOrdinal(i):getLevel() / 3)
 			set_c("night_stalker", i, bonus)
@@ -766,10 +760,9 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 	end
 
 	resetItem(self, self.go.id)
-	supertable[1][item.go.id] = self:getAttackPower()
-	supertable[2][item.go.id] = self:getCooldown()
-	supertable[4][self.go.id] = self:getPierce() ~= nil and self:getPierce() or 0
-	-- supertable[6][self.go.id] = self.go.equipmentitem and self.go.equipmentitem:getCriticalChance() or 0
+	supertable[1][self.go.id] = self:getAttackPower()
+	supertable[2][self.go.id] = self:getCooldown()
+	supertable[4][self.go.id] = self:getPierce() or 0
 	
 	-- All physical attack bonuses	
 	if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "fire_gauntlets" then
@@ -794,13 +787,22 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 		self:setAttackPower(self:getAttackPower() * empowerAttackType(champion, "dual_wield", 1))
 	end
 
+	-- Pierce bonuses --
+	if supertable[4][name] ~= nil then
+		local real_pierce = tinker_item[4][name] and tinker_item[4][name] or (supertable[4][name] and supertable[4][name] or 0)
+		self:setPierce(real_pierce)
+	end
+
 	-- Precision Pierce bonus
 	if champion:hasTrait("precision") then
-		if supertable[4][name] ~= nil then
-			local real_pierce = tinker_item[4][name] and tinker_item[4][name] or supertable[4][name]
-			real_pierce = real_pierce + (math.random() * 15 + 5)
-			self:setPierce(real_pierce)
-		end
+		local bonus = math.floor(getAccuracy(champion) / 6)
+		self:setPierce(self:getPierce() + bonus)
+	end
+
+	-- Assassination pierce bonus
+	if champion:getClass() == "assassin_class" then
+		local charges = (get_c("assassination", c) or 0) * 2
+		self:setPierce(self:getPierce() + charges)
 	end
 
 	-- Druid's Mudwort attack bonus against poisoned enemies
@@ -876,19 +878,24 @@ function onThrowAttack(self, champion, slot, chainIndex, item)
 	local c = champion:getOrdinal()
 	supertable[1][item.go.id] = self:getAttackPower()
 	supertable[2][item.go.id] = self:getCooldown()
-	-- supertable[6][self.go.id] = self.go.equipmentitem and self.go.equipmentitem:getCriticalChance() or 0
 	
-	-- Ranged Weapons skill bonus
-	-- self:setAttackPower(self:getAttackPower() * (1 + champion:getSkillLevel("ranged_weapons") * 0.2))
+	-- Increases to base damage
+	-- Precision Damage bonus
+	if champion:hasTrait("precision") then
+		local bonus = math.floor(getAccuracy(champion) / 5)
+		self:setAttackPower(self:getAttackPower() + charges)
+	end
+
+	-- Assassination Damage bonus 
+	if champion:getClass() == "assassin_class" then
+		local charges = (get_c("assassination", c) or 0) * 3
+		self:setAttackPower(self:getAttackPower() + charges)
+	end
 	
 	-- All physical attack boosts
 	self:setAttackPower(self:getAttackPower() * empowerElement(champion, "physical", 1))	
 	self:setAttackPower(self:getAttackPower() * empowerAttackType(champion, "ranged", 1))
 	self:setAttackPower(self:getAttackPower() * empowerAttackType(champion, "throwing", 1))
-	
-	if champion:hasTrait("precision") then
-		self:setAttackPower(self:getAttackPower() + (math.random() * 20 + 5))
-	end
 	
 	-- Trigger psionic missile
 	local id = champion:getOrdinal()
@@ -912,24 +919,29 @@ function onMissileAttack(self, champion, slot, chainIndex, item)
 	local c = champion:getOrdinal()
 	supertable[1][self.go.id] = self:getAttackPower()
 	supertable[2][self.go.id] = self:getCooldown()
-	-- supertable[6][self.go.id] = self.go.equipmentitem and self.go.equipmentitem:getCriticalChance() or 0
+	
 	local secondaryAction = self.go.item:getSecondaryAction()
 	local secondary = nil
 	if secondaryAction ~= nil and self.go:getComponent(secondaryAction):getClass() ~= "CastSpellComponent" then
 		secondary = self.go:getComponent(secondaryAction)
 	end
 	
-	-- Ranged Weapons skill bonus
-	-- self:setAttackPower(self:getAttackPower() * (1 + champion:getSkillLevel("ranged_weapons") * 0.2))
+	-- Increases to base damage
+	-- Precision Damage bonus
+	if champion:hasTrait("precision") then
+		local bonus = math.floor(getAccuracy(champion) / 5)
+		self:setAttackPower(self:getAttackPower() + charges)
+	end
+
+	if champion:getClass() == "assassin_class" then
+		local charges = (get_c("assassination", c) or 0) * 3
+		self:setAttackPower(self:getAttackPower() + charges)
+	end
 	
 	-- All physical attack boosts
 	self:setAttackPower(self:getAttackPower() * empowerElement(champion, "physical", 1))	
 	self:setAttackPower(self:getAttackPower() * empowerAttackType(champion, "ranged", 1))
 	self:setAttackPower(self:getAttackPower() * empowerAttackType(champion, "missile", 1))
-	
-	if champion:hasTrait("precision") then
-		self:setAttackPower(self:getAttackPower() + (math.random() * 20 + 5))
-	end
 
 	if champion:hasTrait("magic_missile") then
 		delayedCall("functions", 0.1, "psionicArrow", c)
@@ -966,18 +978,31 @@ corsairItem = nil
 corsairItemId = nil
 
 function onFirearmAttack(self, champion, slot)
+	supertable[1][self.go.id] = self:getAttackPower()
+	supertable[2][self.go.id] = self:getCooldown()
+	supertable[4][self.go.id] = self:getPierce() or 0
+	local c = champion:getOrdinal()
+
 	set_c("grazed_bullet", champion:getOrdinal(), false)
 	if math.random() < 0.25 - (champion:getSkillLevel("firearms") * 0.05) then
 		self:setAttackPower(self:getAttackPower() * 0.2)
 		set_c("grazed_bullet", champion:getOrdinal(), true)
 	end
 	
+	-- Pierce bonuses --
+	local real_pierce = tinker_item[4][name] and tinker_item[4][name] or (supertable[4][name] and supertable[4][name] or 0)
+	self:setPierce(real_pierce)
+
+	-- Precision Pierce bonus
 	if champion:hasTrait("precision") then
-		if not self:getPierce() then
-			self:setPierce(supertable[4][self.go.id] + (math.random() * 15 + 5))
-		else
-			self:setPierce(self:getPierce() + (math.random() * 15 + 5))
-		end	
+		local bonus = math.floor(getAccuracy(champion) / 6)
+		self:setPierce(self:getPierce() + bonus)
+	end
+
+	-- Assassination pierce bonus
+	if champion:getClass() == "assassin_class" then
+		local charges = (get_c("assassination", c) or 0) * 2
+		self:setPierce(self:getPierce() + charges)
 	end
 	
 	-- All physical attack boosts
@@ -1105,7 +1130,7 @@ function onPostFirearmAttack(self, champion, slot, secondary2)
 			if tinker_item[7][3][corsairItemId] then newItem.go.equipmentitem:setResistCold(tinker_item[7][3][corsairItemId]) end
 			if tinker_item[7][4][corsairItemId] then newItem.go.equipmentitem:setResistPoison(tinker_item[7][4][corsairItemId]) end
 			
-			champion:insertItem(otherslot, newItem)			
+			champion:insertItem(otherslot, newItem)
 			
 			if secondary2 == 0 and champion:getItem(otherslot) and champion:getItem(otherslot):hasTrait("firearm") then
 				secondary = 1
@@ -1442,14 +1467,29 @@ end
 -------------------------------------------------------------------------------------------------------
 -- Attack events                                                                                     --    
 -------------------------------------------------------------------------------------------------------
--- Melee attack hits monster
+-- Melee/Firearm attack hits monster
 function monster_attacked(self, monster, tside, damage, champion) -- self = meleeattack or firearmattack
 	local c = champion:getOrdinal()
+
 	-- Pickaxe Chip effect
 	if self:getUiName() == "Chip" then
-		local chip = self.go.item:hasTrait("upgraded") and -2 or -1
-		monster:setProtection(monster:getProtection() and monster:getProtection() + chip, 0)
+		local chip = self.go.item:hasTrait("upgraded") and 2 or 1
+		monster:setProtection(monster:getProtection() and monster:getProtection() - chip, 0)
 		monster:showDamageText(chip.." Armor", "FFFFFF", "Chip!")
+	end
+
+	if self.go.firearmattack then
+		if champion:getClass() == "assassin_class" then
+			local chip = math.floor((champion:getLevel()-1)/6) + 1 
+			local stacks = get(monster.go.id .. "fleshbore") or 0
+			local stacksMax = math.floor((champion:getLevel()-1)/3) + 10
+			if stacks < stacksMax then
+				chip = math.min(chip, stacksMax - stacks) -- don't chip more than the number of stacksMax
+				set(monster.go.id .. "fleshbore", math.min(stacks + chip, stacksMax))
+				monster:setProtection(monster:getProtection() and monster:getProtection() - chip, 0)
+				monster:showDamageText("", "FFFFFF", "Fleshbore!")
+			end
+		end
 	end
 	
 	-- Broadside Trait
@@ -1558,7 +1598,7 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 	if champion:hasTrait("thunder_fury") and getTrait(champion, self.go.item, "light_weapon") then
 		if math.random() < getCrit(champion) * 0.01 then
 			local dmg = getDamage(champion)
-			delayedCall("functions", 0.15, "hitMonster", monster.go.id, math.random(dmg[0], dmg[1]) * 0.5, "FFFFFF", "Thunder Fury!", "shock", champion:getOrdinal())
+			delayedCall("functions", 0.15, "hitMonster", monster.go.id, math.random(dmg[1], dmg[2]) * 0.5, "FFFFFF", "Thunder Fury!", "shock", champion:getOrdinal())
 		end
 	end
 	
@@ -1578,13 +1618,33 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 			champion:regainHealth(damage * (1 - champion:getHealth()/champion:getMaxHealth()) * 0.7)
 		end
 	end
+
+	-- Assassin charges
+	if champion:getClass() == "assassin_class" then
+		local dmg = getDamage(champion)
+		local threshold = dmg[2] - math.min(monster:getProtection() - getPierce(champion), dmg[1])
+		local charges = get_c("assassination", c) or 0
+		if damage > threshold then
+			set_c("assassination", c, math.min(charges + 1, 4))
+		end
+	end
 	
+	-- Melee attacks from the back
 	if tside == 2 then
 		-- Assassin (class) backstab leech
 		if champion:getClass() == "assassin_class" then
-			local sap = monster:getMaxHealth() * ((get_c("assassination", c) * 0.005) + 0.02)
-			delayedCall("functions", 0.15, "hitMonster", monster.go.id, sap, "CC9999", nil, "physical", c)
-			champion:regainHealth(math.max(sap * (1 - (champion:getHealth() / champion:getMaxHealth())) * 0.5, 1))			
+			local charges = get_c("assassination", c) or 0
+			if charges > 0 then
+				local sap = monster:getMaxHealth() * (charges * 0.02)
+				if monster:hasTrait("boss") then sap = sap * 0.5 end
+
+				delayedCall("functions", 0.15, "hitMonster", monster.go.id, sap, "000000", "Assassination!", "physical", c)
+				local hp_rate = 1 - (math.min(champion:getHealth() / champion:getMaxHealth(), 0.5))
+				champion:regainHealth(math.max(sap * hp_rate * 1.5, 1))
+				-- print("assassination did", sap)
+				-- print("healed for", math.max(sap * hp_rate * 1.5, 1))
+				set_c("assassination", c, nil)
+			end
 		end
 
 		-- Assassin (trait) backstab bleed
@@ -1600,9 +1660,7 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 	
 	-- Killing blow effects
 	if monster:getHealth() - damage <= 0 then
-		if champion:getClass() == "assassin_class" and champion:hasTrait("assassination") and tside == 2 then
-			assassination(champion, monster)
-		end
+		
 	end
 
 	-- Poison chance
@@ -1621,6 +1679,20 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 		local c = champion:getOrdinal()
 		local backAttack = self.go.facing == facing
 		local monster = self
+		
+		if item.go.rangedattack or item.go.ammoitem or item.go.throwattack then
+			if champion:getClass() == "assassin_class" then
+				local chip = math.floor((champion:getLevel()-1)/6) + 1 
+				local stacks = get(monster.go.id .. "fleshbore") or 0
+				local stacksMax = math.floor((champion:getLevel()-1)/3) + 10
+				if stacks < stacksMax then
+					chip = math.min(chip, stacksMax - stacks) -- don't chip more than the number of stacksMax
+					set(monster.go.id .. "fleshbore", math.min(stacks + chip, stacksMax))
+					monster:setProtection(monster:getProtection() and monster:getProtection() - chip, 0)
+					monster:showDamageText("", "FFFFFF", "Fleshbore!")
+				end
+			end
+		end
 
 		local poisonChance = 0
 		-- Venomancer for melee attacks
@@ -1667,19 +1739,34 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 			set_c("sneak_attack", c, false)
 		end
 		
-		-- Assassination - when monster takes a hit and dies
+		-- When monster takes a hit and dies
 		if self:getHealth() - damage <= 0 then
-			if champion:getClass() == "assassin_class" and champion:hasTrait("assassination") and backAttack then
-				assassination(champion, self)
-			end
+			
 		end
 		
+		-- Assassin charges increase
+		if champion:getClass() == "assassin_class" then
+			local dmg = getDamage(champion)
+			local threshold = dmg[2] - math.min(monster:getProtection() - getPierce(champion), dmg[1])
+			local charges = get_c("assassination", c) or 0
+			if damage > threshold then
+				set_c("assassination", c, math.min(charges + 1, 4))
+			end
+		end
+
 		-- Assassin's Backstab health sap
 		if champion:getClass() == "assassin_class" and backAttack then
-			local sap = self:getMaxHealth() * ((get_c("assassination", c) * 0.005) + 0.02)
-			delayedCall("functions", 0.15, "hitMonster", self.go.id, sap, "CC9999", nil, "physical", c)
-			champion:regainHealth(math.max(sap * (1 - (champion:getHealth() / champion:getMaxHealth())) * 0.5, 1))
-		end	
+			local charges = get_c("assassination", c) or 0			
+			if charges > 0 then
+				local sap = monster:getMaxHealth() * (charges * 0.02)
+				delayedCall("functions", 0.15, "hitMonster", monster.go.id, sap, "000000", "Assassination!", "physical", c)
+				local hp_rate = 1 - (math.min(champion:getHealth() / champion:getMaxHealth(), 0.5))
+				champion:regainHealth(math.max(sap * hp_rate * 1.5, 1))
+				-- print("assassination did", sap)
+				-- print("healed for", math.max(sap * hp_rate * 1.5, 1))
+				set_c("assassination", c, nil)
+			end
+		end
 		
 		if champion:getClass() == "hunter" then
 			hunterCrit(c, 1, 6 + (champion:getLevel() - 1))
@@ -1738,7 +1825,7 @@ function onDamageMonster(self, damage, damageType)
 			
 			-- Hunter's Wisdom of the Tribe -- when hit with magic
 			if functions.script.get_c("wisdom_of_the_tribe", i) and champion:getClass() == "hunter" then
-				hunterCrit(champion:getOrdinal(), 1, 6 + (champion:getLevel() - 1))
+				functions.script.hunterCrit(champion:getOrdinal(), 1, 6 + (champion:getLevel() - 1))
 				if self:hasTrait("animal") then
 					wisdom_of_the_tribe_heal(champion)
 					delayedCall("functions", 0.15, "hitMonster", self.go.id, math.ceil(damage * wisdom_of_the_tribe(champion)), "339933", nil, damageType, champion:getOrdinal())
@@ -1749,7 +1836,7 @@ function onDamageMonster(self, damage, damageType)
 			-- Monk's Healing Light
 			if champion:getClass() == "monk" then
 				if damage then
-				healingLight(champion, monster, damage)
+					healingLight(champion, monster, damage)
 				end
 			end
 			
@@ -1812,6 +1899,7 @@ function hitMonster(id, damage, color, flair, damageType, championId)
 	if not monster then return end
 	local resistances = monster:getResistance(damageType)
 	color = "CCCCCC"
+	if flair then color = "FFFFFF" end
 	if monster:getHitEffect() and monster:getCurrentAction() ~= "damaged" then
 		local particle = monster.go.hit_effect and monster.go.hit_effect or monster.go:createComponent("Particle", "hit_effect")
 		particle:setParticleSystem(monster:getHitEffect())
@@ -1934,29 +2022,6 @@ end
 function wisdom_of_the_tribe_heal(champion)
 	local missing = champion:getMaxHealth() - champion:getHealth()
 	champion:regainHealth(missing * 0.05)
-end
-
-function assassination(champion, monster)
-	champion:removeTrait("assassination")
-	local stat = math.random(1,4)
-	local expAdd = math.floor(20 + (champion:getLevel()^1.5 * 50))
-	if stat == 1 then
-		champion:addStatModifier("strength", 1)
-		hudPrint(champion:getName() .. " gained +1 Strength and " .. expAdd .. " Exp after the assassination.")		
-	elseif stat == 2 then
-		champion:addStatModifier("dexterity", 1)
-		hudPrint(champion:getName() .. " gained +1 Dexterity and " .. expAdd .. " Exp after the assassination.")
-	elseif stat == 3 then
-		champion:addStatModifier("vitality", 1)
-		hudPrint(champion:getName() .. " gained +1 Vitality and " .. expAdd .. " Exp after the assassination.")
-	elseif stat == 4 then
-		champion:addStatModifier("willpower", 1)
-		hudPrint(champion:getName() .. " gained +1 Willpower and " .. expAdd .. " Exp after the assassination.")
-	end
-	champion:gainExp(expAdd)
-	add_c("assassination", champion:getOrdinal(), 1)
-	monster:showDamageText("Assassination!", "FF7700")
-	playSound("assassination")
 end
 
 function healingLight(champion, monster, damage)
@@ -2451,6 +2516,8 @@ function empowerAttackType(champion, attackType, multi, return_only, tier)
 	local ord = champion:getOrdinal()
 	tier = tier and tier or 0
 	if attackType == "melee" then
+		-- Class bonuses
+		
 		-- Race bonuses
 		-- Brutalizer
 		if champion:hasTrait("brutalizer") then
@@ -2493,7 +2560,7 @@ function empowerAttackType(champion, attackType, multi, return_only, tier)
 			if champion:hasTrait("arcane_warrior") then
 				local acc, dmg, avg = 0, 0
 				dmg = getDamage(champion)
-				avg = (dmg[0] + dmg[1]) / 2 * 0.002
+				avg = (dmg[1] + dmg[2]) / 2 * 0.002
 				acc = getAccuracy(champion) * 0.001
 				f = f * (avg + acc + 1)
 			end
@@ -2501,9 +2568,6 @@ function empowerAttackType(champion, attackType, multi, return_only, tier)
 	
 	elseif attackType == "ranged" then
 		-- Class bonuses
-		if champion:getClass() == "assassin_class" then
-			f = f * (1 + (get_c("assassination", ord) * 0.05))
-		end	
 
 		-- Skill bonuses
 		f = f * ((champion:getSkillLevel("ranged_weapons") * 0.2) + 1)
@@ -2540,7 +2604,6 @@ function empowerAttackType(champion, attackType, multi, return_only, tier)
 	elseif attackType == "dual_wielding" then
 		if champion:getClass() == "assassin_class" then
 			f = f * 0.75
-			f = f * (1 + (get_c("assassination", ord) * 0.05))
 		else
 			f = f * 0.6
 		end
@@ -2689,7 +2752,7 @@ function getPierce(champion, slot)
 	local c = champion:getOrdinal()
 	local pierce = 0
 	local add = 0
-	if slot == nil then slot = ItemSlot.Weapon end
+	slot = slot or ItemSlot.Weapon
 
 	-- Get pierce from weapon used
 	local item = champion:getItem(slot)
@@ -2700,6 +2763,11 @@ function getPierce(champion, slot)
 
 			if champion:hasTrait("precision") then
 				pierce = pierce + 10
+			end
+
+			if champion:getClass() == "assassin_class" then
+				local charges = get_c("assassination", c) or 0
+				pierce = pierce + charges
 			end
 		end
 
@@ -2725,10 +2793,10 @@ function getDamage(champion, slot)
 	local dmg = { 0, 0 }
 	if champion:hasCondition("bear_form") then
 		ap = 14
-		dmg[0] = math.floor(ap * 0.5)
-		dmg[1] = math.ceil(ap * 1.5)
-		dmg[0] = math.floor(dmg[0] + math.max((math.ceil(champion:getCurrentStat("strength") - 10) * 0.5), 1))
-		dmg[1] = math.floor(dmg[1] + math.max(((champion:getCurrentStat("strength") - 10) * 1.0), 2))
+		dmg[1] = math.floor(ap * 0.5)
+		dmg[2] = math.ceil(ap * 1.5)
+		dmg[1] = math.floor(dmg[1] + math.max((math.ceil(champion:getCurrentStat("strength") - 10) * 0.5), 1))
+		dmg[2] = math.floor(dmg[2] + math.max(((champion:getCurrentStat("strength") - 10) * 1.0), 2))
 		return dmg
 	end
 
@@ -2753,21 +2821,21 @@ function getDamage(champion, slot)
 			ap = itemComp:getAttackPower() or 0
 			skillLevel = getTrait(champion, item, "heavy_weapon") and (champion:getSkillLevel("heavy_weapons_c") * 0.2) + 1 or (champion:getSkillLevel("light_weapons_c") * 0.2) + 1
 		else
-			dmg[0] = 0
 			dmg[1] = 0
+			dmg[2] = 0
 			return dmg
 		end
 
-		dmg[0] = math.floor(ap * 0.5 * skillLevel)
-		dmg[1] = math.floor(ap * 1.5 * skillLevel)
+		dmg[1] = math.floor(ap * 0.5 * skillLevel)
+		dmg[2] = math.floor(ap * 1.5 * skillLevel)
 
 		if itemComp:getBaseDamageStat() then
-			dmg[0] = math.floor(dmg[0] + math.max((math.ceil(champion:getCurrentStat(itemComp:getBaseDamageStat()) - 10) * 0.5), 0))
-			dmg[1] = math.floor(dmg[1] + math.max(((champion:getCurrentStat(itemComp:getBaseDamageStat()) - 10) * 1.0), 0))
+			dmg[1] = math.floor(dmg[1] + math.max((math.ceil(champion:getCurrentStat(itemComp:getBaseDamageStat()) - 10) * 0.5), 0))
+			dmg[2] = math.floor(dmg[2] + math.max(((champion:getCurrentStat(itemComp:getBaseDamageStat()) - 10) * 1.0), 0))
 		end
 	else
-		dmg[0] = 1 + math.max((math.ceil(champion:getCurrentStat("strength") - 10) * 0.5), 1)
-		dmg[1] = 1 + math.max(((champion:getCurrentStat("strength") - 10) * 1.0), 2)
+		dmg[1] = 1 + math.max((math.ceil(champion:getCurrentStat("strength") - 10) * 0.5), 1)
+		dmg[2] = 1 + math.max(((champion:getCurrentStat("strength") - 10) * 1.0), 2)
 	end
 
 	-- dmg = empowerElement(champion, "physical", dmg)
@@ -2973,13 +3041,13 @@ function getTrait(champion, item, trait)
 		if item:hasTrait(trait) then
 			return true
 		else
-			if champion:getClass() == "assassin_class" then
-				if trait == "light_weapon" and item:hasTrait("heavy_weapon") then
-					return true
-				elseif trait == "heavy_weapon" and item:hasTrait("light_weapon") then
-					return true
-				end
-			end
+			-- if champion:getClass() == "assassin_class" then
+			-- 	if trait == "light_weapon" and item:hasTrait("heavy_weapon") then
+			-- 		return true
+			-- 	elseif trait == "heavy_weapon" and item:hasTrait("light_weapon") then
+			-- 		return true
+			-- 	end
+			-- end
 			return false
 		end	
 	end
