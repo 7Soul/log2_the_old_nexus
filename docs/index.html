@@ -57,9 +57,29 @@ h2 {
 	display: block;
 	margin-left: 105px;
 	margin-top: 0;
-	/*margin-bottom: 32px;*/
 	color: #a2b7ce;
 	padding-right: 8px;
+}
+
+.main_trait h3 {
+	color: rgb(142, 146, 151);
+	font-size: 17px;
+	display: block;
+	margin-left: 18px;
+	margin-top: 4px;
+	padding-right: 8px;
+	font-style: italic; 
+	/* font-variant: italic; */
+}
+
+.main_trait h3::before {
+	color: rgb(107, 111, 117);
+	content: "\"";
+}
+
+.main_trait h3::after {
+	color: rgb(107, 111, 117);
+	content: "\"";
 }
 
 hr {
@@ -631,10 +651,10 @@ h2 em {
 <h1 id="racialtraits">/// Racial Traits ///</h1>
 <p style="clear:both;display:block;text-align:center;width:100%;">There are no general traits at character creation, instead, you choose 1 trait based on your race.</p>
 
-<div class="main">
+<div class="main main_trait">
 	<div class="top">
 		<div class="icon" style="background-position: 0px -225px;"></div>
-		<h1>Lore Master<em>Human</em></h1>
+		<h1>Lore Master<em>Human</em></h1>		
 		<h2>Carrying Spell Scrolls give you bonuses. For every 3 scrolls you gain a new additional effect:</h2>
 		<div class="class_trait">
 			<ul>
@@ -646,14 +666,15 @@ h2 em {
 			<li>(18) +3 Willpower.</li>
 			</ul>
 		</div>
+		<h3>The human race has far surpassed any other in chronicling the world, both the natural and mystical. The knowledges of yore push you forward.</h3>
 	</div>
 </div>
 
-<div class="main">
+<div class="main main_trait">
 	<div class="top">
 		<div class="icon" style="background-position: -75px -225px;"></div>
-		<h1>Average Joe<em>Human</em></h1>
-		<h2>Equipment that increases one stat will be divided by half and put into another stat, plus a bonus 10%.</h2>
+		<h1>Average Joe<em>Human</em></h1>		
+		<h2>Equipment that increases one stat will be divided into another stat, plus a bonus 10%.</h2>
 		<div class="class_trait">
 			<ul>
 			<li>Strength <-> Dexterity.</li>
@@ -663,20 +684,11 @@ h2 em {
 			<li>Resistance <-> Damage Multiplier.</li>
 			</ul>
 		</div>
-		<!-- <h2>Gain stats as to become more average <em>(if two stats are tied, the one at the bottom takes priority)</em>.</h2>
-		<div class="class_trait">
-				<ul>
-				<li>+2 to your lowest stat.</li>
-				<li>+25% to your lowest resistance.</li>
-				<li>+25% of energy as health, if energy is higher.</li>
-				<li>+25% of health as energy, if health is higher.</li>
-				</ul>
-			</div>
-		<h2>You gain experience 5% slower.<h2> -->
+		<h3>As a human you may not be the strongest or smartest, but your ability to adapt and overcome hardships is unrivalled.</h3>
 	</div>
 </div>
 
-<div class="main">
+<div class="main main_trait">
 	<div class="top">
 		<div class="icon" style="background-position: -150px -225px;"></div>
 		<h1>Drown Your Sorrows<em>Human</em></h1>
@@ -687,13 +699,14 @@ h2 em {
 			<li>Reduces Experience Gain by 15% for 1 day.</li>
 			</ul>
 		</div>
+		<h3>'Some say alcohol is a problem. Not to get technical, but according to chemistry, alcohol is a solution!' - Pundt Leighly</h3>
 	</div>
 </div>
 
-<div class="main">
+<div class="main main_trait">
 	<div class="top">
 		<div class="icon" style="background-position: -225px -225px;"></div>
-		<h1>Carnivorous<em>Minotaur</em></h1>
+		<h1>Carnivorous<em>Minotaur</em></h1>		
 		<h2>Increases chances of finding meat when defeating beasts.</h2>
 		<div class="class_trait">
 			<ul>
@@ -703,21 +716,24 @@ h2 em {
 			<li>You can't eat non-meat foods, like bread, bugs or even fish.</li>
 			</ul>
 		</div>
+		<h3>'You thought minotaurs were big? Wait till you see one a diet of pure protein!' - Thrad Ovvhrs</h3>
 	</div>
 </div>
 
-<div class="main">
+<div class="main main_trait">
 	<div class="top">
 		<div class="icon" style="background-position: -300px -225px;"></div>
 		<h1>Brutalizer<em>Minotaur</em></h1>
-		<h2>All melee attacks deal an extra 1% damage per Strength point but you also take 0.5% more damage per point.<br/>Every 2 levels you gain +1 to Strength.</h2>
+		<h2>All melee attacks deal an extra 1% damage per Strength point but you also take 0.5% more damage per point.</h2>
+		<h2>Every 2 levels you gain +1 to Strength.</h2>
+		<h3>The brutest and dumbest of minotaurs will make a great bodyguard. The training is so rigorous that many don't survive it.</h3>
 	</div>
 </div>
 
-<div class="main">
+<div class="main main_trait">
 	<div class="top">
 		<div class="icon" style="background-position: -375px -225px;"></div>
-		<h1>Ancestral Charge<em>Minotaur</em></h1>
+		<h1>Ancestral Charge<em>Minotaur</em></h1>		
 		<h2>You can summon a warrior spirit to charge and stun an enemy. This is a neutral type, ultimate tier spell.</h2>
 		<div class="class_trait">
 			<ul>
@@ -726,14 +742,15 @@ h2 em {
 			<li>Hitting an enemy boosts your Heavy Armor and Block skills' base bonuses and perks by 50% for 20 seconds.</li>
 			</ul>
 		</div>
+		<h3>Some minotaurs have surprising connection to the spiritual world, as far as being able to summon spirits of war and conquest.</h3>
 	</div>
 </div>
 
-<div class="main">
+<div class="main main_trait">
 	<div class="top">
 		<div class="icon" style="background-position: -450px -225px;"></div>
 		<h1>Lizard Blood<em>Lizardman</em></h1>
-		<h2>Lizardfolk can easily adapt for the hottest days or coldest nights.</h2>
+		<h2>A Lizardfolk's blood can easily adapt for the hottest days or coldest nights.</h2>
 		<h2>Resist All +8%, plus:</h2>
 		<div class="class_trait">
 			<ul>
@@ -749,14 +766,16 @@ h2 em {
 				<li>Gain +2 to all stats.</li>
 			</ul>
 		</div>
+		<h3>A Lizardfolk's blood can easily adapt for the hottest days or coldest nights, even after it leaves the body.</h3>
 	</div>
 </div>
 
-<div class="main">
+<div class="main main_trait">
 	<div class="top">
 		<div class="icon" style="background-position: -525px -225px;"></div>
-		<h1>Wide Vision<em>Lizardman</em></h1>
-		<h2>You can see attacks coming from all directions, warning your companions of danger.<br/><br/>For each monster next* to you:</h2>
+		<h1>Wide Vision<em>Lizardman</em></h1>	
+		<h2>Thanks to your hunter instincts, you can see attacks coming from all directions, warning you and your companions of danger.</h2>	
+		<h2>For each monster next* to you:</h2>
 		<div class="class_trait">
 			<ul>
 			<li>You gain +10 Evasion, +5 Accuracy and +3% Critical Chance.</li>
@@ -765,40 +784,44 @@ h2 em {
 		</div>
 	</div>
 	<p>*In the 3x3 area around your party.</p>
+	<h3>'To catch a lizard by surprise is like doing whatever other impossible thing I'll put here later.' - Cane Fundy</h3>
 </div>
 
-<div class="main">
+<div class="main main_trait">
 	<div class="top">
 		<div class="icon" style="background-position: -600px -225px;"></div>
 		<h1>Bite<em>Lizardman</em></h1>
-		<h2>When attacking with a melee weapon, you perform a bite attack. This action has a 30 second cooldown, which goes down by 5 seconds every 5 levels.</h2>
+		<h2>When attacking with a melee weapon, you perform a bite attack. This action has a 30 second cooldown, which goes down by 5 seconds every 5 levels.</h2>		
 	</div>
 	<div class="class_trait">
-			<ul>
-			<li>Damage is based on Dexterity.</li>
-			<li>Pierces 5 armor.</li>
-			</ul>
-		</div>
+		<ul>
+		<li>Damage is based on Dexterity.</li>
+		<li>Pierces 5 armor.</li>
+		</ul>
+	</div>
+	<h3>Lizardfolk aren't above using their teeth during a fight. Just be thankful you're not their meal.</h3>
 </div>
 
-<div class="main">
+<div class="main main_trait">
 	<div class="top">
 		<div class="icon" style="background-position: -675px -225px;"></div>
 		<h1>Body and Mind<em>Insectoid</em></h1>
 		<h2>Increases physical and magical damage by 4% for each point in Vitality <em>(has diminishing returns)</em></h2>
 		<h2>Gain +1 Vitality per 25 Energy.</em></h2>
 	</div>
+	<h3>Your intelect and regeneration power is the highest of any race. As such, Insectoids can train their minds and bodies to work as one.</h3>
 </div>
 
-<div class="main">
+<div class="main main_trait">
 	<div class="top">
 		<div class="icon" style="background-position: -750px -225px;"></div>
 		<h1>Chemical Processing<em>Insectoid</em></h1>
 		<h2>You are up to 15% faster when well-fed <em>(above 50% of hunger bar filled)</em>, but you get hungry 25% faster if your health is below half.</h2>
 	</div>
+	<h3>As an Insectoid, you can extract more energy from food and direct it to the muscles that need it the most.</h3>
 </div>
 
-<div class="main">
+<div class="main main_trait">
 	<div class="top">
 		<div class="icon" style="background-position: -825px -225px;"></div>
 		<h1>Intensify Spell<em>Insectoid</em></h1>
@@ -811,23 +834,26 @@ h2 em {
 		<li>Spend Health equal to 50% of the total Energy cost.</li>
 		</ul>
 	</div>
+	<h3>Thanks to the structure of your eyes, you are the race most perceptible to the magical leylines. You can connect your vital energy to them to benefit your spell casting.</h3>
 </div>
 
-<div class="main">
+<div class="main main_trait">
 	<div class="top">
 		<div class="icon" style="background-position: -900px -225px;"></div>
 		<h1>Rodent<em>Ratling</em></h1>
 		<h2>You can chew herbs <em>(but not Crystal Flowers and Blackmoss)</em>, reducing spell costs and cooldowns by 10% for 3 minutes.</h2>
+		<h2>When you are done chewing, you produce a Fermented Fiber Ball</h2>
 	</div>
 	<div class="class_trait">
 		<ul>
-		<li>When you are done chewing, you produce a Fermented Fiber Ball, which increases herb multiplication rate and can be used to heal diseases and poisoning.</li>
-		<li>The Fiber Ball dries out and loses its properties after a certain time, which is longer based on your level.</li>
+		<li>The Fiber Ball increases herb multiplication rate and can be used to heal diseases and poisoning. It dries out and loses its properties after a certain time, based on level.</li>
+		<li>Herb multiplication bonus is 5%, up to 15% with 10 balls.</li>
 		</ul>
 	</div>
+	<h3>You are part of a breed of rodents that possess a special digestive enzime, capable of processing herbs in a different way.</h3>
 </div>
 
-<div class="main">
+<div class="main main_trait">
 	<div class="top">
 		<div class="icon" style="background-position: 0px -300px;"></div>
 		<h1>Sneak Attack<em>Ratling</em></h1>
@@ -840,9 +866,10 @@ h2 em {
 		<li>Your first physical attack has a 50% chance to poison the target.</li>
 		</ul>
 	</div>
+	<h3>You spent your life living among predators. As such, you were able to adapt to your environment and evade danger like no other.</h3>
 </div>
 
-<div class="main">
+<div class="main main_trait">
 	<div class="top">
 		<div class="icon" style="background-position: -75px -300px;"></div>
 		<h1>Built Resistance<em>Ratling</em></h1>
@@ -855,6 +882,7 @@ h2 em {
 		<li>+0.1 Max Carry Load.</li>
 		</ul>
 	</div>
+	<h3>Over millenia, ratfolk have lived in the worst of conditions. Over time they evolved to resist most poisons, while scavenging for survival.</h3>
 </div>
 
 
