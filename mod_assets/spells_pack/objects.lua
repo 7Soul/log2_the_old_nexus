@@ -17,23 +17,25 @@ function hit(self, what, entity)
 		e.tiledamager:setCastByChampion(self:getCastByChampion() or 1)
 		if attackPower then e.tiledamager:setAttackPower(attackPower) end
 		if self:getCastByChampion() then
-			local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
-			functions.script.set_c("championUsedMagic", self:getCastByChampion(), true)
+			local c = self:getCastByChampion()
+			local champion = party.party:getChampionByOrdinal(c)			
+			functions.script.set_c("championUsedMagic", c, true)
 			-- Add elemental exploitation tag
 			if champion:hasTrait("elemental_exploitation") then			
-				functions.script.set_c("elemental_exploitation", self:getCastByChampion(), true)
+				functions.script.set_c("elemental_exploitation", c, true)
 			end	
 			if champion:hasTrait("ritual") then
-				functions.script.set_c("ritual", self:getCastByChampion(), true)
+				functions.script.set_c("ritual", c, true)
 			end	
 			if champion:getClass() == "hunter" then
-				functions.script.set_c("wisdom_of_the_tribe", self:getCastByChampion(), true)
+				functions.script.set_c("wisdom_of_the_tribe", c, true)
 			end
 		end
 	end
 	
 	if self:getCastByChampion() and entity.monster and e.tiledamager then
-		local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
+		local c = self:getCastByChampion()
+		local champion = party.party:getChampionByOrdinal(c)
 		if champion:hasTrait("voodoo") then
 			spells_functions.script.voodoo(self, e, champion, entity.monster)
 		end
@@ -45,6 +47,20 @@ function hit(self, what, entity)
 		end
 		if e.tiledamager:getDamageType() == "cold" then
 			functions.script.freezeMonster(self, e, champion, entity.monster)
+		end
+		if champion:hasTrait("lore_master") then
+			local lore_master = functions.script.get_c("lore_master_15", c)
+			local duration = 21
+			if lore_master and math.random() <= lore_master then			
+				local trigger = math.random(1,3)
+				if trigger == 1 then
+					functions.script.setPoisoned(entity.monster, duration, c, lore_master)
+				elseif trigger == 2 then
+					functions.script.setBurning(entity.monster, duration, c, lore_master)
+				else
+					functions.script.setFreezing(entity.monster, duration, c, lore_master)
+				end
+			end
 		end
 	end
 	
@@ -536,14 +552,14 @@ defineObject{
 			class = "TileDamager",
 			damageType = "fire",
 			sound = "fireburst",
-			screenEffect = "fireball_screen",
-			onHitMonster = function(self, monster)
-				local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
-				functions.script.burnMonster(self, self, champion, monster)
-				if champion:hasTrait("voodoo") then
-					spells_functions.script.voodoo(self, champion, monster)
-				end
-			end
+			screenEffect = "fireball_screen"
+			-- onHitMonster = function(self, monster)
+			-- 	local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
+			-- 	functions.script.burnMonster(self, self, champion, monster)
+			-- 	if champion:hasTrait("voodoo") then
+			-- 		spells_functions.script.voodoo(self, champion, monster)
+			-- 	end
+			-- end
 		},	
 	},
 }

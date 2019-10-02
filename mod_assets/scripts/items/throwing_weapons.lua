@@ -149,16 +149,7 @@ defineObject{
 			projectileRotationY = -90,
 			weight = 0.1,
 			traits = { "throwing_weapon" },
-			secondaryAction = "volley",
-			onThrowAttackHitMonster = function(self, monster)
-				for i=1,4 do
-					if functions.script.get_c("venomancerShot", i) then
-						monster:setCondition("poisoned", 25)
-						functions.script.set_c("venomancerShot", i, nil)
-						if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(i) end
-					end
-				end
-		 	end,
+			secondaryAction = "volley"
 		},
 		{
 			class = "ThrowAttack",
@@ -201,16 +192,7 @@ defineObject{
 			projectileRotationZ = 90,
 			weight = 0.5,
 			traits = { "throwing_weapon" },
-			secondaryAction = "powerThrow",
-			onThrowAttackHitMonster = function(self, monster)
-				for i=1,4 do
-					if functions.script.get_c("venomancerShot", i) then
-						monster:setCondition("poisoned", 25)
-						functions.script.set_c("venomancerShot", i, nil)
-						if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(i) end
-					end
-				end
-		 	end,
+			secondaryAction = "powerThrow"
 		},
 		{
 			class = "ThrowAttack",
@@ -375,16 +357,7 @@ defineObject{
 			gfxIndex = 289,
 			impactSound = "impact_blunt",
 			weight = 2.0,
-			traits = { "throwing_weapon" },
-			onThrowAttackHitMonster = function(self, monster)
-				for i=1,4 do
-					if functions.script.get_c("venomancerShot", i) then
-						monster:setCondition("poisoned", 25)
-						functions.script.set_c("venomancerShot", i, nil)
-						if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(i) end
-					end
-				end
-		 	end,
+			traits = { "throwing_weapon" }
 		},
 		{
 			class = "ThrowAttack",

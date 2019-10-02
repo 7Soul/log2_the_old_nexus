@@ -560,9 +560,9 @@ defineTrait{
 	
 	(3) +1 Willpower.
 	(6) +5% Experience gain.
-	(9) +10% Energy recovery from every source.
+	(9) +10% Energy recovery from every source (+1% per extra scroll).
 	(12) +2 Willpower.
-	(15) +5% Chance to freeze, burn or poison with spells and attacks.
+	(15) +5% Chance to freeze, burn or poison with spells and attacks (+1% per extra scroll).
 	(18) +3 Willpower.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
@@ -589,15 +589,20 @@ defineTrait{
 			end
 			functions.script.set_c("lore_master", champion:getOrdinal(), scrolls)
 			if scrolls == 9 then
-				functions.script.set_c("lore_master_9", champion:getOrdinal(), 1.1)
+				functions.script.set_c("lore_master_9", champion:getOrdinal(), 1.1 + ((scrolls - 9) * 0.01))
 			else
 				functions.script.set_c("lore_master_9", champion:getOrdinal(), 1)
 			end
-			champion:addStatModifier("exp_rate", scrolls == 6 and 5 or 0)
-			champion:addStatModifier("energy_regeneration_rate", scrolls == 9 and 10 or 0)
-			champion:addStatModifier("willpower", scrolls == 3 and 1 or 0)
-			champion:addStatModifier("willpower", scrolls == 12 and 2 or 0)
-			champion:addStatModifier("willpower", scrolls == 18 and 3 or 0)
+			if scrolls == 15 then
+				functions.script.set_c("lore_master_15", champion:getOrdinal(), 0.05 + ((scrolls - 15) * 0.01))
+			else
+				functions.script.set_c("lore_master_15", champion:getOrdinal(), 0)
+			end
+			champion:addStatModifier("exp_rate", scrolls >= 6 and 5 or 0)
+			champion:addStatModifier("energy_regeneration_rate", scrolls >= 9 and 10 + scrolls or 0)
+			champion:addStatModifier("willpower", scrolls >= 3 and 1 or 0)
+			champion:addStatModifier("willpower", scrolls >= 12 and 2 or 0)
+			champion:addStatModifier("willpower", scrolls >= 18 and 3 or 0)
 		end
 	end,
 }
@@ -615,33 +620,65 @@ defineTrait{
 	Gain experience 5% slower.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			local stats = { "strength", "dexterity", "vitality", "willpower" }
-			local lowest = 1
-			for i=1,4 do
-				if champion:getCurrentStat(stats[i]) <= champion:getCurrentStat(stats[lowest]) then
-					lowest = i
-				end
-			end
-			champion:addStatModifier(stats[lowest], 2)			
-			stats = { "resist_fire", "resist_cold", "resist_shock", "resist_poison" }
-			lowest = 1
-			for i=1,4 do
-				if champion:getCurrentStat(stats[i]) <= champion:getCurrentStat(stats[lowest]) then
-					lowest = i
-				end
-			end
-			champion:addStatModifier(stats[lowest], 25)
-			champion:addStatModifier("exp_rate", -5)
+			-- local stats = { "strength", "dexterity", "vitality", "willpower" }
+			-- local lowest = 1
+			-- for i=1,4 do
+			-- 	if champion:getCurrentStat(stats[i]) <= champion:getCurrentStat(stats[lowest]) then
+			-- 		lowest = i
+			-- 	end
+			-- end
+			-- champion:addStatModifier(stats[lowest], 2)
+			-- stats = { "resist_fire", "resist_cold", "resist_shock", "resist_poison" }
+			-- lowest = 1
+			-- for i=1,4 do
+			-- 	if champion:getCurrentStat(stats[i]) <= champion:getCurrentStat(stats[lowest]) then
+			-- 		lowest = i
+			-- 	end
+			-- end
+			-- champion:addStatModifier(stats[lowest], 25)
+			-- champion:addStatModifier("exp_rate", -5)
 			
-			local hp = champion:getCurrentStat("max_health")
-			local en = champion:getCurrentStat("max_energy")
-			if hp > en then
-				champion:addStatModifier("max_energy", math.floor((hp - en) / 4))
-			elseif en < hp then
-				champion:addStatModifier("max_health", math.floor((en - hp) / 4))
-			else
-				champion:addStatModifier("max_health", math.floor(en / 8))
-				champion:addStatModifier("max_energy", math.floor(hp / 8))
+			-- local hp = champion:getCurrentStat("max_health")
+			-- local en = champion:getCurrentStat("max_energy")
+			-- if hp > en then
+			-- 	champion:addStatModifier("max_energy", math.floor((hp - en) / 4))
+			-- elseif en < hp then
+			-- 	champion:addStatModifier("max_health", math.floor((en - hp) / 4))
+			-- else
+			-- 	champion:addStatModifier("max_health", math.floor(en / 8))
+			-- 	champion:addStatModifier("max_energy", math.floor(hp / 8))
+			-- end
+
+			local stats = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+			local replace = { 2, 1, 4, 3, 6, 5, 8, 7 }
+			local names = { "strength", "dexterity", "vitality", "willpower", "max_health", "max_energy", "protection", "evasion", "resist_fire", "resist_cold", "resist_shock", "resist_poison" }
+
+			for i=ItemSlot.Weapon, ItemSlot.Bracers do
+				local item = champion:getItem(i)
+				if item then 
+					local isHandItem = functions.script.isHandItem(item, i)
+					if item.go.equipmentitem and isHandItem then
+						stats[1] = stats[1] + ((item.go.equipmentitem:getStrength() or 0) / 2)
+						stats[2] = stats[2] + ((item.go.equipmentitem:getDexterity() or 0) / 2)
+						stats[3] = stats[3] + ((item.go.equipmentitem:getVitality() or 0) / 2)
+						stats[4] = stats[4] + ((item.go.equipmentitem:getWillpower() or 0) / 2)
+						stats[5] = stats[5] + ((item.go.equipmentitem:getHealth() or 0) / 2)
+						stats[6] = stats[6] + ((item.go.equipmentitem:getEnergy() or 0) / 2)
+						stats[7] = stats[7] + ((item.go.equipmentitem:getProtection() or 0) / 2)
+						stats[8] = stats[8] + ((item.go.equipmentitem:getEvasion() or 0) / 2)
+						stats[9] = stats[9] + ((item.go.equipmentitem:getResistFire() or 0) / 2)
+						stats[9] = stats[9] + ((item.go.equipmentitem:getResistCold() or 0) / 2)
+						stats[9] = stats[9] + ((item.go.equipmentitem:getResistShock() or 0) / 2)
+						stats[9] = stats[9] + ((item.go.equipmentitem:getResistPoison() or 0) / 2)
+					end
+				end
+			end
+
+			for i=1, #stats do
+				if i < 9 then -- replacing resists for damage takes place elsewhere
+					champion:addStatModifier( names[i], math.floor( stats[ replace[i] ] ) * 1.1 )
+				end
+				champion:addStatModifier( names[i], math.floor( stats[i] ) * -1 )
 			end
 		end
 	end,

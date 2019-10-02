@@ -811,7 +811,7 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 		if poisonedMonster then
 			local monster = findEntity(poisonedMonster).monster
 			self:setAttackPower(self:getAttackPower() * 1.15 )
-			monster:setCondition("poisoned", 0)
+			-- monster:setCondition("poisoned", 0)
 		end
 	end
 
@@ -1010,11 +1010,14 @@ function onFirearmAttack(self, champion, slot)
 	
 	-- Silver Bullet trait - Double damage on 6th shot
 	if champion:hasTrait("silver_bullet") then
-		local count = get_c("silver_bullet", champion:getOrdinal()) or -1
+		local count = get_c("silver_bullet", champion:getOrdinal()) or 0
 		local trigger = 6 - (champion:hasTrait("fast_fingers") and math.floor(champion:getCurrentStat("dexterity") / 20) or 0)
+		count = (count % trigger) + 1
 
-		if count % trigger == 0 then
+		if count == trigger then
+			print("before", self:getAttackPower())
 			self:setAttackPower(self:getAttackPower() * 2.0)
+			print("after", self:getAttackPower())
 		end
 		
 		add_c("silver_bullet", champion:getOrdinal(), 1)
@@ -1026,7 +1029,7 @@ function onFirearmAttack(self, champion, slot)
 		local trigger = 3
 		local bonus = math.floor(champion:getCurrentStat("dexterity") / 5)
 
-		if count % trigger == 0 then
+		if count == trigger then
 			self:setAttackPower(self:getAttackPower() + bonus)
 		end
 
@@ -1105,6 +1108,8 @@ function onFirearmAttack(self, champion, slot)
 			end
 		end
 	end
+
+	delayedCall("functions", 0.01, "resetItem", self, self.go.id)
 end
 
 function onPostFirearmAttack(self, champion, slot, secondary2)
@@ -1583,14 +1588,33 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 			hitMonster(monster.go.id, damage / conversion * (1 - conversion), "33CC33", nil, "poison", champion:getOrdinal())
 		end	
 	end
-	
+
+	-- Poison chance
+	poisonMonster(self, e, champion, monster, poisonChance)
+
+	-- Lore Master
+	if champion:hasTrait("lore_master") then
+		local lore_master = get_c("lore_master_15", c)
+		local duration = 21
+		if lore_master and math.random() <= lore_master then			
+			local trigger = math.random(1,3)
+			if trigger == 1 then
+				setPoisoned(monster, duration, c, lore_master)
+			elseif trigger == 2 then
+				setBurning(monster, duration, c, lore_master)
+			else
+				setFreezing(monster, duration, c, lore_master)
+			end
+		end
+	end
+
 	-- Tinkerer's Elemental Surge
 	if champion:getClass() == "tinkerer" then
 		if self.go.firearmattack then
 			hitMonster(monster.go.id, damage, "CC3333", nil, "fire", champion:getOrdinal())
 		end
 		if self.go.meleeattack then
-			hitMonster(monster.go.id, damage, "CC3333", nil, "fire", champion:getOrdinal())
+			hitMonster(monster.go.id, damage, "CC3333", nil, "shock", champion:getOrdinal())
 		end
 	end
 
@@ -1663,11 +1687,7 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 		
 	end
 
-	-- Poison chance
-	if poisonChance > 0 and math.random() < poisonChance then	
-		monster:setCondition("poisoned", 25)
-		if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(champion:getOrdinal())  end
-	end
+	
 end
 
 -- MonsterComponent - monster hit by projectile
@@ -1739,6 +1759,25 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 			set_c("sneak_attack", c, false)
 		end
 		
+		-- Poison chance
+		poisonMonster(self, e, champion, monster, poisonChance)
+
+		-- Lore Master
+		if champion:hasTrait("lore_master") then
+			local lore_master = get_c("lore_master_15", c)
+			local duration = 21
+			if lore_master and math.random() <= lore_master then			
+				local trigger = math.random(1,3)
+				if trigger == 1 then
+					setPoisoned(monster, duration, c, lore_master)
+				elseif trigger == 2 then
+					setBurning(monster, duration, c, lore_master)
+				else
+					setFreezing(monster, duration, c, lore_master)
+				end
+			end
+		end
+
 		-- When monster takes a hit and dies
 		if self:getHealth() - damage <= 0 then
 			
@@ -1779,12 +1818,6 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 		-- Monk's Healing Light
 		if champion:getClass() == "monk" then
 			healingLight(champion, monster, damage)
-		end
-
-		-- Poison chance
-		if poisonChance > 0 and math.random() < poisonChance then	
-			monster:setCondition("poisoned", 25)
-			if monster.go.poisoned then monster.go.poisoned:setCausedByChampion(c)  end
 		end
 
 		if specialDamage then
@@ -1898,7 +1931,7 @@ function hitMonster(id, damage, color, flair, damageType, championId)
 	local champion = party.party:getChampionByOrdinal(championId)
 	if not monster then return end
 	local resistances = monster:getResistance(damageType)
-	color = "CCCCCC"
+	color = "BBBBBB"
 	if flair then color = "FFFFFF" end
 	if monster:getHitEffect() and monster:getCurrentAction() ~= "damaged" then
 		local particle = monster.go.hit_effect and monster.go.hit_effect or monster.go:createComponent("Particle", "hit_effect")
@@ -1945,7 +1978,7 @@ function hitMonster(id, damage, color, flair, damageType, championId)
 		color = "CC0000"
 		damage = damage * 1.5
 	elseif resistances == "resist" then
-		color = "CCCCCC"
+		color = "BBBBBB"
 		damage = damage * 0.5
 	elseif resistances == "immune" then
 		color = "EEEEEE"
@@ -2180,8 +2213,26 @@ function bleed(monster, action) -- Called by monsters within their MonsterMove o
 	end
 end
 
-function burnMonster(self, e, champion, monster) -- self = projectile
+function poisonMonster(self, e, champion, monster, poisonChance)
+	local c = champion:getOrdinal()
+	local duration = 21 + champion:getSkillLevel("poison_mastery") + champion:getSkillLevel("witchcraft")
+	poisonChance = poisonChance or 0
+
+	if poisonChance > 0 and math.random() <= poisonChance then	
+		setPoisoned(monster, duration, c, poisonChance)
+	end
+end
+
+function setPoisoned(monster, duration, c, chance)
+	if monster:isAlive() then
+		monster:setCondition("poisoned", duration)
+		if monster.go.poisoned and c then monster.go.poisoned:setCausedByChampion(c)  end
+	end
+end
+
+function burnMonster(self, e, champion, monster) -- self = projectile, e = tiledamager
 	local skillLevel = champion:getSkillLevel("elemental_magic")
+	local c = champion:getOrdinal()
 	local baseChance = 0.2 + (skillLevel * 0.02)
 		if e.name == "fireburst" and champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "forestfire_bracer" then
 			baseChance = baseChance + 0.15
@@ -2189,19 +2240,23 @@ function burnMonster(self, e, champion, monster) -- self = projectile
 	local chance = baseChance * (1 + (champion:getResistance("fire") * 0.02))
 	local duration = math.min(math.max(math.random() * (6 + champion:getSkillLevel("elemental_magic") + champion:getSkillLevel("witchcraft")), 6), 18)
 
-	if monster:isAlive() and math.random() <= chance then
+	if chance > 0 and math.random() <= chance then
+		setBurning(monster, duration, c, chance)
+	end
+end
+
+function setBurning(monster, duration, c, chance)
+	if monster:isAlive() then
 		if chance > 1 then -- duration increses if chance over 100%
 			duration = duration * chance
 		end
 		monster:setCondition("burning", duration)
-		-- mark condition so that exp is awarded if monster is killed by the condition
-		local burning = monster.go.burning
-		local ordinal = self:getCastByChampion()
-		if burning and ordinal then burning:setCausedByChampion(ordinal) end
+		if  monster.go.burning and c then  monster.go.burning:setCausedByChampion(c) end
 	end
 end
 
-function freezeMonster(self, e, champion, monster) -- self = projectile
+function freezeMonster(self, e, champion, monster) -- self = projectile, e = tiledamager
+	local c = champion:getOrdinal()
 	local skillLevel = champion:getSkillLevel("elemental_magic")
 	local baseChance = 0.2
 		if e.name == "frostburst_cast" and champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "coldspike_bracelet" then
@@ -2214,12 +2269,19 @@ function freezeMonster(self, e, champion, monster) -- self = projectile
 		end
 	--if self.go.name == "frost_burst" then end
 
-	if monster:isAlive() and math.random() <= chance then	
+	if chance > 0 and math.random() <= chance then	
+		setFreezing(monster, duration, c, chance)
+	end
+end
+
+function setFreezing(monster, duration, c, chance)
+	if monster:isAlive() then
 		monster:setCondition("frozen", duration)
 	end
 end
 
-function shock_arc(self, e, champion, monster) -- self = projectile
+function shock_arc(self, e, champion, monster) -- self = projectile, e = tiledamager
+	local c = champion:getOrdinal()
 	local skillLevel = champion:getSkillLevel("witchcraft")
 	local damage = e.tiledamager and e.tiledamager:getAttackPower() * (0.75 + skillLevel / 20) or 0
 	local baseChance = 0.1
@@ -2242,7 +2304,7 @@ function shock_arc(self, e, champion, monster) -- self = projectile
 		if newMonster and newMonster ~= monster then
 			local a = spawn("shockburst", party.level, newMonster.go.x, newMonster.go.y, newMonster.go.facing, newMonster.go.elevation)
 			if a.tiledamager then 
-				a.tiledamager:setCastByChampion(champion:getOrdinal()) 
+				a.tiledamager:setCastByChampion(c) 
 				a.tiledamager:setAttackPower(damage)
 			end
 		end
@@ -2306,6 +2368,8 @@ function empowerElement(champion, element, f, return_only, tier, spell)
 	end
 	
 	if element == "poison" then		
+		-- Races
+		
 		-- Classes
 		if champion:getClass() == "druid" then
 			local multi = 0
@@ -2321,7 +2385,7 @@ function empowerElement(champion, element, f, return_only, tier, spell)
 			end
 			f = f * (1 + multi)
 		end
-		
+
 		-- Skills
 		f = f * ((champion:getSkillLevel("poison_mastery") * 0.02) + 1)
 		
@@ -2336,6 +2400,10 @@ function empowerElement(champion, element, f, return_only, tier, spell)
 					f = f * 1.2
 				elseif item:hasTrait("earthbound3") then
 					f = f * 1.3
+				end
+
+				if item.go.equipmentitem and champion:hasTrait("average_joe") then
+					f = f * (1 + ((item.go.equipmentitem:getResistPoison() or 0) / 2) * 0.01 * 1.1)
 				end
 			end	
 		end
@@ -2382,6 +2450,10 @@ function empowerElement(champion, element, f, return_only, tier, spell)
 				elseif item:hasTrait("firebound3") then
 					f = f * 1.3
 				end
+
+				if item.go.equipmentitem and champion:hasTrait("average_joe") then
+					f = f * (1 + ((item.go.equipmentitem:getResistFire() or 0) / 2) * 0.01 * 1.1)
+				end
 			end			
 		end
 		
@@ -2419,6 +2491,10 @@ function empowerElement(champion, element, f, return_only, tier, spell)
 				end
 				if item.go.name == "nomad_mittens" then
 					f = item:hasTrait("upgraded") and f * 1.15 or f * 1.05
+				end
+
+				if item.go.equipmentitem and champion:hasTrait("average_joe") then
+					f = f * (1 + ((item.go.equipmentitem:getResistCold() or 0) / 2) * 0.01 * 1.1)
 				end
 			end
 		end
@@ -2460,6 +2536,10 @@ function empowerElement(champion, element, f, return_only, tier, spell)
 				elseif item:hasTrait("shockbound3") then
 					f = f * 1.3
 				end
+
+				if item.go.equipmentitem and champion:hasTrait("average_joe") then
+					f = f * (1 + ((item.go.equipmentitem:getResistShock() or 0) / 2) * 0.01 * 1.1)
+				end
 			end
 		end
 		
@@ -2474,6 +2554,19 @@ function empowerElement(champion, element, f, return_only, tier, spell)
 		if champion:hasTrait("imperium_arcana") then
 			local bonus = (champion:getMaxEnergy() / 100 * 30 * 0.01) + 1
 			f = f * bonus
+		end
+
+		-- Items
+		for slot = ItemSlot.Weapon, ItemSlot.Bracers do
+			local item = champion:getItem(slot)
+			local isHandItem = isHandItem(item, slot)
+			if item and isHandItem then
+				for i=1,3 do
+					if item:hasTrait("normalbound_"..i) then -- Items with normalbound trait gives neutral damage
+						f = f * (1 + (i * 0.01))
+					end
+				end
+			end
 		end
 		
 	elseif element == "physical" then
@@ -2701,8 +2794,9 @@ function getCrit(champion, slot)
 	-- Get crit from body equips
 	for s = ItemSlot.Head,ItemSlot.Bracers do
 		local item = champion:getItem(s)
-		if item and item.equipmentitem then
-			add = item.equipmentitem:getCriticalChance() * (champion:hasTrait("weapons_specialist") and 2 or 1)
+		if item and item.go.equipmentitem then
+			local itemCrit = item.go.equipmentitem:getCriticalChance() or 0
+			add = itemCrit * (champion:hasTrait("weapons_specialist") and 2 or 1)
 			crit = add and crit + add or crit
 		end
 	end
@@ -2710,12 +2804,12 @@ function getCrit(champion, slot)
 	-- Get crit from weapon used
 	local item = champion:getItem(slot)
 	if item then 
-		if item.equipmentitem then
-			add = item.equipmentitem:getCriticalChance() * (champion:hasTrait("weapons_specialist") and 2 or 1)
+		if item.go.equipmentitem then
+			add = item.go.equipmentitem:getCriticalChance() * (champion:hasTrait("weapons_specialist") and 2 or 1)
 			crit = add and crit + add or crit
 		end
 
-		if (item.rangedattack or item.throwattack) and champion:hasTrait("bullseye") then
+		if (item.go.rangedattack or item.go.throwattack) and champion:hasTrait("bullseye") then
 			crit = crit + 5
 		end
 	end
@@ -3058,7 +3152,7 @@ function drawCounterOnHand(context, champion, x, y, value, tooltipText)
 	local posx, posy = x + 18, y + 28
 	local MX, MY = context.mouseX, context.mouseY
 
-	if value > 0 then
+	if value and value ~= 0 then
 		context.font("small")
 		context.color(225, 225, 195, 255)
 		if champion:getItem(ItemSlot.Weapon) then

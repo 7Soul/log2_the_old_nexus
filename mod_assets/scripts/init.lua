@@ -207,7 +207,7 @@ defineObject{
 		-- On Attack
 		-----------------------------------------------------------
 		onAttack = function(party, champion, action, slot)
-			print(champion:getName(), "is attacking with", action.go.name)
+			-- print(champion:getName(), "is attacking with", action.go.name)
 
 			if action.go.name == "tinkering_toolbox" then
 				-- Sets target item to the other hand slot to the toolbox
@@ -750,6 +750,14 @@ defineObject{
 				local stacks = functions.script.get_c("assassination", c) or 0
 
 				functions.script.drawCounterOnHand(context, champion, x, y, stacks, "Assassination")
+			end	
+			
+			if champion:hasTrait("silver_bullet") then
+				local count = functions.script.get_c("silver_bullet", c) or 0
+				local trigger = 6 - (champion:hasTrait("fast_fingers") and math.floor(champion:getCurrentStat("dexterity") / 20) or 0)
+				count = (count % trigger) + 1
+
+				functions.script.drawCounterOnHand(context, champion, x - 3, y, count .. "/" .. trigger, "Silver Bullet")
 			end	
 		end,
 		
