@@ -633,6 +633,10 @@ defineObject{
 			onRecomputeStats = function(self, champion)
 				if champion:isArmorSetEquipped("meteor") then
 					champion:addStatModifier("resist_fire", 50)
+
+					if champion:hasTrait("average_joe") then
+						champion:addStatModifier("resist_fire", -50)
+					end					
 				end
 			end,
 		},

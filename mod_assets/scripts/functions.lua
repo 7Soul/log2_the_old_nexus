@@ -2114,24 +2114,24 @@ function elementalistPower(element, champion, power, return_only)
 		if return_only then 
 			if element == "fire" then
 				if champion:hasCondition("elemental_balance_cold") or champion:hasCondition("elemental_balance_air") then
-					power = power * 1.25
+					power = power + 0.25
 				end
 
 			elseif element == "cold" then
 				if champion:hasCondition("elemental_balance_fire") or champion:hasCondition("elemental_balance_air") then
-					power = power * 1.25
+					power = power + 0.25
 				end
 
 			elseif element == "shock" then
 				if champion:hasCondition("elemental_balance_cold") or champion:hasCondition("elemental_balance_fire") then
-					power = power * 1.25
+					power = power + 0.25
 				end
 			end
 		else
 			if element == "fire" then
 				spells_functions.script.addConditionValue("elemental_balance_fire", 15, champion:getOrdinal())
 				if champion:hasCondition("elemental_balance_cold") or champion:hasCondition("elemental_balance_air") then
-					power = power * 1.25
+					power = power + 0.25
 					delayedCall("functions", 0.5, "regainEnergy", champion:getOrdinal(), champion:getMaxEnergy() * (0.05 + champion:getCurrentStat("willpower") * 0.001))
 					champion:removeCondition("elemental_balance_cold")
 					champion:removeCondition("elemental_balance_air")
@@ -2143,7 +2143,7 @@ function elementalistPower(element, champion, power, return_only)
 			elseif element == "cold" then
 				spells_functions.script.addConditionValue("elemental_balance_cold", 15, champion:getOrdinal())
 				if champion:hasCondition("elemental_balance_fire") or champion:hasCondition("elemental_balance_air") then
-					power = power * 1.25
+					power = power + 0.25
 					delayedCall("functions", 0.5, "regainEnergy", champion:getOrdinal(), champion:getMaxEnergy() * (0.05 + champion:getCurrentStat("willpower") * 0.001))
 					champion:removeCondition("elemental_balance_fire")
 					champion:removeCondition("elemental_balance_air")
@@ -2155,7 +2155,7 @@ function elementalistPower(element, champion, power, return_only)
 			elseif element == "shock" then
 				spells_functions.script.addConditionValue("elemental_balance_air", 15, champion:getOrdinal())
 				if champion:hasCondition("elemental_balance_cold") or champion:hasCondition("elemental_balance_fire") then
-					power = power * 1.25
+					power = power + 0.25
 					delayedCall("functions", 0.5, "regainEnergy", champion:getOrdinal(), champion:getMaxEnergy() * (0.05 + champion:getCurrentStat("willpower") * 0.001))
 					champion:removeCondition("elemental_balance_cold")
 					champion:removeCondition("elemental_balance_fire")
@@ -2344,7 +2344,8 @@ function class_skill(skill, champion)
 	end
 end
 
-function empowerElement(champion, element, f, return_only, tier, spell)
+function empowerElement(champion, element, base, return_only, tier, spell)
+	f = base
 	return_only = return_only and return_only or false
 	tier = tier and tier or 0
 	spell = spell and spell or false -- defines if it's a spell or attack
@@ -2359,15 +2360,19 @@ function empowerElement(champion, element, f, return_only, tier, spell)
 	
 	if element ~= "physical" then -- non physical
 		if champion:getClass() == "elementalist" then
-			f = elementalistPower(element, champion, f, return_only)
+			f = f + (elementalistPower(element, champion, 0, return_only) * base)
 		end
 		
 		if champion:hasTrait("moon_rites") and GameMode.getTimeOfDay() > 1.01 then
-			f = f * 1.1
+			f = f + (0.1 * base)
 		end
 	end
 	
 	if element == "poison" then		
+		-- Items
+		local itemPoisonBonus = getEquippedMultiBonus(champion, "poison", true)
+		f = f + (itemPoisonBonus * base)
+
 		-- Races
 		
 		-- Classes
@@ -2383,199 +2388,127 @@ function empowerElement(champion, element, f, return_only, tier, spell)
 					end
 				end
 			end
-			f = f * (1 + multi)
+			f = f + (multi * base)
 		end
 
 		-- Skills
-		f = f * ((champion:getSkillLevel("poison_mastery") * 0.02) + 1)
-		
-		-- Items
-		for slot = ItemSlot.Weapon, ItemSlot.Bracers do
-			local item = champion:getItem(slot)
-			local isHandItem = isHandItem(item, slot)
-			if item and isHandItem then
-				if item:hasTrait("earthbound1") then -- Items with earthbound trait gives poison damage
-					f = f * 1.1
-				elseif item:hasTrait("earthbound2") then
-					f = f * 1.2
-				elseif item:hasTrait("earthbound3") then
-					f = f * 1.3
-				end
-
-				if item.go.equipmentitem and champion:hasTrait("average_joe") then
-					f = f * (1 + ((item.go.equipmentitem:getResistPoison() or 0) / 2) * 0.01 * 1.1)
-				end
-			end	
-		end
+		f = f + ((champion:getSkillLevel("poison_mastery") * 0.02) * base)
 		
 		-- Sets
 		if isArmorSetEquipped(champion, "embalmers") then
-			f = f * 1.15
+			f = f + (0.15 * base)
 		end
 		
 	elseif element == "fire" then
+		-- Items
+		local itemFireBonus = getEquippedMultiBonus(champion, "fire", true)
+		f = f + (itemFireBonus * base)
+
 		-- Races
 		if champion:hasTrait("lizard_blood") then
 			local fire = champion:getCurrentStat("resist_fire")
-			local bonus = iff(fire >= 100, 1.3, 1)
-			f = f * bonus
+			local bonus = iff(fire >= 100, 0.3, 0)
+			f = f + (bonus * base)
 		end
 
 		-- Classes
 		if champion:getClass() == "tinkerer" then
-			f = f * ((champion:getResistance("fire") * 0.01) + 1)
+			local bonus = (champion:getResistance("fire") * 0.01)
+			f = f + (bonus * base) 
 		end
 
 		-- Skills
-		f = f * ((champion:getSkillLevel("elemental_magic") * 0.2) + 1)
+		f = f + ((champion:getSkillLevel("elemental_magic") * 0.2) * base)
 				
 		-- Fire Ruby
 		local gem_charges = get_c("ruby_charges", ord)
 		if gem_charges and gem_charges > 0 then
-			f = f * get_c("ruby_power", ord)
+			f = f + (get_c("ruby_power", ord) * base)
 			set_c("ruby_charges", ord, gem_charges - 1)
 		elseif gem_charges == 0 then
 			set_c("ruby_charges", ord, nil)
 		end
 
-		-- Items
-		for slot = ItemSlot.Weapon, ItemSlot.Bracers do
-			local item = champion:getItem(slot)
-			local isHandItem = isHandItem(item, slot)
-			if item and isHandItem then
-				if item:hasTrait("firebound1") then -- Items with firebound trait gives fire damage
-					f = f * 1.1
-				elseif item:hasTrait("firebound2") then
-					f = f * 1.2
-				elseif item:hasTrait("firebound3") then
-					f = f * 1.3
-				end
-
-				if item.go.equipmentitem and champion:hasTrait("average_joe") then
-					f = f * (1 + ((item.go.equipmentitem:getResistFire() or 0) / 2) * 0.01 * 1.1)
-				end
-			end			
-		end
-		
 	elseif element == "cold" then
+		-- Items
+		local itemColdBonus = getEquippedMultiBonus(champion, "cold", true)
+		f = f + (itemColdBonus * base)
+
 		-- Races
 		if champion:hasTrait("lizard_blood") then
 			local cold = champion:getCurrentStat("resist_cold")
-			local bonus = iff(cold >= 100, 1.3, 1)
-			f = f * bonus
+			local bonus = iff(cold >= 100, 0.3, 0)
+			f = f + (bonus * base)
 		end
 
 		-- Cold Aquamarine
 		local gem_charges = get_c("aquamarine_charges", ord)
 		if gem_charges and gem_charges > 0 then
-			f = f * get_c("aquamarine_power", ord)
+			f = f + (get_c("aquamarine_power", ord) * base)
 			set_c("aquamarine_charges", ord, gem_charges - 1)
 		elseif gem_charges == 0 then
 			set_c("aquamarine_charges", ord, nil)
 		end
 
 		-- Skills
-		f = f * ((champion:getSkillLevel("elemental_magic") * 0.2) + 1)
-
-		-- Items
-		for slot = ItemSlot.Weapon, ItemSlot.Bracers do
-			local item = champion:getItem(slot)
-			local isHandItem = isHandItem(item, slot)
-			if item and isHandItem then
-				if item:hasTrait("frostbound1") then -- Items with frostbound trait gives cold damage
-					f = f * 1.1
-				elseif item:hasTrait("frostbound2") then
-					f = f * 1.2
-				elseif item:hasTrait("frostbound3") then
-					f = f * 1.3
-				end
-				if item.go.name == "nomad_mittens" then
-					f = item:hasTrait("upgraded") and f * 1.15 or f * 1.05
-				end
-
-				if item.go.equipmentitem and champion:hasTrait("average_joe") then
-					f = f * (1 + ((item.go.equipmentitem:getResistCold() or 0) / 2) * 0.01 * 1.1)
-				end
-			end
-		end
+		f = f + ((champion:getSkillLevel("elemental_magic") * 0.2) * base)
 		
 	elseif element == "shock" then
+		-- Items
+		local itemShockBonus = getEquippedMultiBonus(champion, "shock", true)
+		f = f + (itemShockBonus * base)
+		
 		-- Races
 		if champion:hasTrait("lizard_blood") then
 			local shock = champion:getCurrentStat("resist_shock")
-			local bonus = iff(shock >= 100, 1.3, 1)
-			f = f * bonus
+			local bonus = iff(shock >= 100, 0.3, 0)
+			f = f + (bonus * base)
 		end
 
 		-- Classes
 		if champion:getClass() == "tinkerer" then
-			f = f * ((champion:getResistance("shock") * 0.01) + 1)
+			local bonus = champion:getResistance("shock") * 0.01
+			f = f + (bonus * base)
 		end
 		
 		-- Skills
-		f = f * ((champion:getSkillLevel("elemental_magic") * 0.2) + 1)
+		f = f + ((champion:getSkillLevel("elemental_magic") * 0.2) * base)
 
 		-- Shock Topaz
 		local gem_charges = get_c("topaz_charges", ord)
 		if gem_charges and gem_charges > 0 then
-			f = f * get_c("topaz_power", ord)
+			f = f + (get_c("topaz_power", ord) * base)
 			set_c("topaz_charges", ord, gem_charges - 1)
 		elseif gem_charges == 0 then
 			set_c("topaz_charges", ord, nil)
 		end
 
-		-- Items
-		for slot = ItemSlot.Weapon, ItemSlot.Bracers do
-			local item = champion:getItem(slot)
-			local isHandItem = isHandItem(item, slot)
-			if item and isHandItem then
-				if item:hasTrait("shockbound1") then -- Items with shockbound trait gives shock damage
-					f = f * 1.1
-				elseif item:hasTrait("shockbound2") then
-					f = f * 1.2
-				elseif item:hasTrait("shockbound3") then
-					f = f * 1.3
-				end
-
-				if item.go.equipmentitem and champion:hasTrait("average_joe") then
-					f = f * (1 + ((item.go.equipmentitem:getResistShock() or 0) / 2) * 0.01 * 1.1)
-				end
-			end
-		end
-		
 	elseif element == "neutral" then
+		-- Items
+		local itemNeutralBonus = getEquippedMultiBonus(champion, "neutral", true)
+		f = f + (itemNeutralBonus * base)
+		
 		-- Classes
 		if champion:getClass() == "stalker" then
 			local bonus = champion:hasTrait("night_stalker") and 2 or 1
-			f = f * (1 + ((champion:getCurrentStat("dexterity") * 0.01 * bonus) + (math.floor(champion:getCurrentStat("dexterity") / 7) * 0.1 * bonus)))
+			f = f + ((champion:getCurrentStat("dexterity") * 0.01 * bonus) + (math.floor(champion:getCurrentStat("dexterity") / 7) * 0.1 * bonus) * base)
 		end
 		
 		-- Skills
 		if champion:hasTrait("imperium_arcana") then
-			local bonus = (champion:getMaxEnergy() / 100 * 30 * 0.01) + 1
-			f = f * bonus
+			local bonus = champion:getMaxEnergy() / 100 * 30 * 0.01
+			f = f + (bonus * base)
 		end
 
-		-- Items
-		for slot = ItemSlot.Weapon, ItemSlot.Bracers do
-			local item = champion:getItem(slot)
-			local isHandItem = isHandItem(item, slot)
-			if item and isHandItem then
-				for i=1,3 do
-					if item:hasTrait("normalbound_"..i) then -- Items with normalbound trait gives neutral damage
-						f = f * (1 + (i * 0.01))
-					end
-				end
-			end
-		end
-		
 	elseif element == "physical" then
 		-- Races
-		-- Ratling's Sneak Attack
-		-- if get_c("sneak_attack", ord) then
-		-- 	f = f * (1.05 + (champion:getLevel() >= 8 and 0.1 or 0) + (champion:getLevel() >= 12 and 0.1 or 0))
-		-- end
 		
+		-- Skills
+		if champion:hasTrait("imperium_arcana") then
+			local bonus = champion:getMaxEnergy() / 100 * 35 * 0.01
+			f = f + (bonus * base)
+		end
+
 		-- Classes
 		-- Druid conversion
 		if champion:getClass() == "druid" then
@@ -2586,26 +2519,20 @@ function empowerElement(champion, element, f, return_only, tier, spell)
 					conversion = conversion + 0.1
 				end
 			end
-			f = f * (1 - conversion)
+			f = f * ((1 - conversion) * base)
 		end
 
-		-- Tinkerer Melee conversion
-		if champion:getClass() == "tinkerer" then
-			f = f * 0.5
-		end
-
-		-- Skills
-		if champion:hasTrait("imperium_arcana") then
-			local bonus = (champion:getMaxEnergy() / 100 * 35 * 0.01) + 1
-			f = f * bonus
-		end
+		-- Tinkerer Melee conversion -- already reduced attack power? probably enough!
+		-- if champion:getClass() == "tinkerer" then
+		-- 	f = f * 0.5
+		-- end
 	end
 	
 	return f
 end
 
-function empowerAttackType(champion, attackType, multi, return_only, tier)
-	local f = multi
+function empowerAttackType(champion, attackType, base, return_only, tier)
+	local f = base
 	local ord = champion:getOrdinal()
 	tier = tier and tier or 0
 	if attackType == "melee" then
@@ -2709,6 +2636,46 @@ function empowerAttackType(champion, attackType, multi, return_only, tier)
 	return f
 end
 
+function getEquippedMultiBonus(champion, type, useJoeBonus)
+	local multi = 0
+	local trait = { ["poison"] = "earthbound", ["fire"] = "firebound", ["cold"] = "coldbound" , ["shock"] = "shockbound", ["neutral"] = "neutralbound" }
+
+	-- Armor set bonuses
+	if type == "fire" and champion:isArmorSetEquipped("meteor") then
+		multi = multi + 0.5
+	end
+
+	for slot = ItemSlot.Weapon, ItemSlot.Bracers do
+		local item = champion:getItem(slot)
+		local isHandItem = isHandItem(item, slot)
+		if item and isHandItem then
+			for i=1,3 do
+				if item:hasTrait(trait[type] .. i) then
+					multi = multi + (i * 0.1)
+				end
+			end	
+
+			if item.go.equipmentitem and champion:hasTrait("average_joe") and type ~= "neutral" then
+				if useJoeBonus then -- prevents recursion
+					local resist = { 
+						["poison"] = item.go.equipmentitem:getResistPoison(), 
+						["fire"] = item.go.equipmentitem:getResistFire(), 
+						["cold"] = item.go.equipmentitem:getResistCold() , 
+						["shock"] = item.go.equipmentitem:getResistShock(), 
+					}
+					multi = multi + ((resist[type] or 0) * 0.01 * 1.1)
+				end
+			end
+		end
+	end
+
+	if champion:hasTrait("average_joe") and type ~= "neutral" then
+		multi = multi * 0.5		
+	end
+	
+	return multi
+end
+
 function getAccuracy(champion, slot)
 	local acc = 0
 	local add = nil
@@ -2805,7 +2772,8 @@ function getCrit(champion, slot)
 	local item = champion:getItem(slot)
 	if item then 
 		if item.go.equipmentitem then
-			add = item.go.equipmentitem:getCriticalChance() * (champion:hasTrait("weapons_specialist") and 2 or 1)
+			local itemCrit = item.go.equipmentitem:getCriticalChance() or 0
+			add = itemCrit * (champion:hasTrait("weapons_specialist") and 2 or 1)
 			crit = add and crit + add or crit
 		end
 

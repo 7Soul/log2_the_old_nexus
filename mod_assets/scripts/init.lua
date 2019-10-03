@@ -1486,7 +1486,7 @@ defineObject{
 				local skill5_p = { 1,4,5 } -- accuracy
 				local skill6_p = { 2,4,5 } -- critical
 				local skill7_p = { 3,4,5 } -- firearms
-				local skill8_p = { 2,4,5 } -- seafaring
+				local skill8_p = { 2,3,4,5 } -- seafaring
 				local skill9_p = { 1,4,5 } -- alchemy
 				local skill10_p = { 2,4,5 } -- ranged weapons
 				local skill11_p = { 3,4,5 } -- light weapons

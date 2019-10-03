@@ -6765,7 +6765,79 @@ gold_bar_1.detectedtimer:setTimerInterval(0)
 gold_bar_1.detectedtimer:setDisableSelf(false)
 gold_bar_1.detectedtimer:setTriggerOnStart(true)
 gold_bar_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("starting_location",13,14,3,0,"starting_location_1")
+spawn("starting_location",20,15,3,0,"starting_location_1")
+spawn("meteor_cuirass",20,15,3,0,"meteor_cuirass_2")
+meteor_cuirass_2.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+meteor_cuirass_2.detectedtimer:setTimerInterval(0)
+meteor_cuirass_2.detectedtimer:setDisableSelf(false)
+meteor_cuirass_2.detectedtimer:setTriggerOnStart(true)
+meteor_cuirass_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("meteor_boots",20,15,3,0,"meteor_boots_1")
+meteor_boots_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+meteor_boots_1.detectedtimer:setTimerInterval(0)
+meteor_boots_1.detectedtimer:setDisableSelf(false)
+meteor_boots_1.detectedtimer:setTriggerOnStart(true)
+meteor_boots_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("meteor_gauntlets",20,15,3,0,"meteor_gauntlets_1")
+meteor_gauntlets_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+meteor_gauntlets_1.detectedtimer:setTimerInterval(0)
+meteor_gauntlets_1.detectedtimer:setDisableSelf(false)
+meteor_gauntlets_1.detectedtimer:setTriggerOnStart(true)
+meteor_gauntlets_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("meteor_helmet",20,15,3,0,"meteor_helmet_1")
+meteor_helmet_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+meteor_helmet_1.detectedtimer:setTimerInterval(0)
+meteor_helmet_1.detectedtimer:setDisableSelf(false)
+meteor_helmet_1.detectedtimer:setTriggerOnStart(true)
+meteor_helmet_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("meteor_shield",20,15,3,0,"meteor_shield_1")
+meteor_shield_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+meteor_shield_1.detectedtimer:setTimerInterval(0)
+meteor_shield_1.detectedtimer:setDisableSelf(false)
+meteor_shield_1.detectedtimer:setTriggerOnStart(true)
+meteor_shield_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("meteor_cuisse",20,15,3,0,"meteor_cuisse_1")
+meteor_cuisse_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+meteor_cuisse_1.detectedtimer:setTimerInterval(0)
+meteor_cuisse_1.detectedtimer:setDisableSelf(false)
+meteor_cuisse_1.detectedtimer:setTriggerOnStart(true)
+meteor_cuisse_1.detectedtimer:setCurrentLevelOnly(true)
 
 --- level 4 ---
 

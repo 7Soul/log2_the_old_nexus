@@ -667,9 +667,9 @@ defineTrait{
 						stats[7] = stats[7] + ((item.go.equipmentitem:getProtection() or 0) / 2)
 						stats[8] = stats[8] + ((item.go.equipmentitem:getEvasion() or 0) / 2)
 						stats[9] = stats[9] + ((item.go.equipmentitem:getResistFire() or 0) / 2)
-						stats[9] = stats[9] + ((item.go.equipmentitem:getResistCold() or 0) / 2)
-						stats[9] = stats[9] + ((item.go.equipmentitem:getResistShock() or 0) / 2)
-						stats[9] = stats[9] + ((item.go.equipmentitem:getResistPoison() or 0) / 2)
+						stats[10] = stats[10] + ((item.go.equipmentitem:getResistCold() or 0) / 2)
+						stats[11] = stats[11] + ((item.go.equipmentitem:getResistShock() or 0) / 2)
+						stats[12] = stats[12] + ((item.go.equipmentitem:getResistPoison() or 0) / 2)
 					end
 				end
 			end
@@ -680,6 +680,11 @@ defineTrait{
 				end
 				champion:addStatModifier( names[i], math.floor( stats[i] ) * -1 )
 			end
+
+			champion:addStatModifier("resist_fire", math.floor(100 * functions.script.getEquippedMultiBonus(champion, "fire", false) ) )
+			champion:addStatModifier("resist_cold", math.floor(100 * functions.script.getEquippedMultiBonus(champion, "cold", false) ) )
+			champion:addStatModifier("resist_shock", math.floor(100 * functions.script.getEquippedMultiBonus(champion, "shock", false) ) )
+			champion:addStatModifier("resist_poison", math.floor(100 * functions.script.getEquippedMultiBonus(champion, "poison", false) ) )
 		end
 	end,
 }
@@ -950,10 +955,10 @@ defineTrait{
 	icon = 50,
 	charGen = true,
 	requiredRace = "insectoid",
-	description = [[After casting a spell, you can choose to empower it, so that the next time it is cast it does increased damage while costing more energy.
+	description = [[After casting a spell, you can choose to empower the next cast of it, increasing power at the cost of energy and health.
 	
-	- Damage +25% (+10% per 4 levels).
-	- Energy cost +40% (-10% per 4 levels).	]],
+	- Damage +50%, Energy cost +20%.
+	- Spend Health equal to half of the total Energy cost.]],
 }
 
 defineTrait{
@@ -1432,11 +1437,11 @@ defineTrait{
 	name = "lucky_blow",
 	uiName = "Lucky Blow",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 92,
+	icon = 68,
 	description = "Every 3rd attack gains +50% Crit and attack power equal to 1/5 of your Dexterity.",
 	onComputeCritChance = function(champion, weapon, attack, attackType, level)
 		if level > 0 then 
-			local count = get_c("lucky_blow", champion:getOrdinal()) or -1
+			local count = functions.script.get_c("lucky_blow", champion:getOrdinal()) or -1
 			local trigger = 3
 
 			if count % trigger == 0 then
@@ -1711,7 +1716,7 @@ defineTrait{
 	uiName = "Voodoo",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 122,
-	description = "Hitting one enemy with a spell also affects nearby enemies* in a range of 2 tiles.",
+	description = "Hitting one enemy with a spell also damages and bleeds* a random nearby enemy in a range of 2 tiles.",
 }
 
 -- Tinkering

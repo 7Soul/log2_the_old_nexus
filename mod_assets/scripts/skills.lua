@@ -159,7 +159,7 @@ defineSkill{
 	- Freebooter | Ammo in your inventory weight 60% less.
 	- Broadside | Shots have a 40% chance to create shrapnel on impact, doing half damage to a 3-tile area behind the target.
 	- Lucky Blow | Every 3rd attack gains +50% Crit and attack power equal to 1/5 of your Dexterity.]],
-	traits = { [2] = "sea_dog", [4] = "freebooter", [5] = "broadside" },
+	traits = { [2] = "sea_dog", [3] = "freebooter", [4] = "broadside", [5] = "lucky_blow" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 then
 			local stat = functions.script.get_c("seafaring", champion:getOrdinal())

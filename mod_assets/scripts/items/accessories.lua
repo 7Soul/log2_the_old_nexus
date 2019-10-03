@@ -1153,11 +1153,11 @@ defineObject{
 			class = "Item",
 			uiName = "Nomad Mittens",
 			description = "Thick mittens worn by the tribesmen who live and travel with horned beasts in the far away tundras.",
-			gameEffect = [[Cold damage +5%
+			gameEffect = [[Cold damage +10%
 			Cold spells freeze for 1 more second.]],
 			gfxIndex = 52,
 			weight = 0.4,
-			traits = { "gloves" },
+			traits = { "gloves", "coldbound1" },
 		},
 		{
 			class = "EquipmentItem",
