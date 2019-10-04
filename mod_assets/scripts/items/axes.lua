@@ -57,13 +57,6 @@ defineObject{
 		{
 			class = "MeleeAttack",
 			name = "chip",
-			uiName = "Chip",
-			energyCost = 20,
-			attackPower = 20,
-			cooldown = 5,
-			swipe = "vertical",
-			requirements = { "light_weapons_c", 1 },
-			gameEffect = "This attack chips away 1 armor from the enemy with each hit.",
 		},
 	},
 	tags = { "weapon", "weapon_light", "weapon_axe" },
@@ -98,13 +91,6 @@ defineObject{
 		{
 			class = "MeleeAttack",
 			name = "chop",
-		-- 	-- onHitMonster = function(self, monster, tside, damage, champion)
-		-- 	-- 	local secondary2 = functions.script.secondary
-		-- 	-- 	local item = self.go.item
-		-- 	-- 	functions.script.monster_attacked(self, monster, tside, damage, champion)
-		-- 	-- 	functions.script.reset_attack(self, champion, slot, secondary2, item) -- (when hit)
-		-- 	-- end
-			
 		},
 	},
 	tags = { "weapon", "weapon_heavy", "weapon_axe" },
@@ -135,6 +121,10 @@ defineObject{
 			swipe = "horizontal",
 			attackSound = "swipe",
 		},
+		{
+			class = "MeleeAttack",
+			name = "chop",
+		},
 	},
 	tags = { "weapon", "weapon_heavy", "weapon_axe" },
 }
@@ -164,6 +154,10 @@ defineObject{
 			swipe = "vertical",
 			attackSound = "swipe",
 			requirements = { "heavy_weapons_c", 2 },
+		},
+		{
+			class = "MeleeAttack",
+			name = "cleave",	
 		},
 	},
 	tags = { "weapon", "weapon_heavy", "weapon_axe" },
@@ -196,6 +190,10 @@ defineObject{
 			attackSound = "swipe",
 			requirements = { "heavy_weapons_c", 3 },
 		},
+		{
+			class = "MeleeAttack",
+			name = "flurry",
+		},
 	},
 	tags = { "weapon", "weapon_heavy", "weapon_axe" },
 }
@@ -225,6 +223,10 @@ defineObject{
 			cooldown = 6,
 			swipe = "vertical",
 			attackSound = "swipe_heavy",
+		},
+		{
+			class = "MeleeAttack",
+			name = "cleave",
 		},
 	},
 	tags = { "weapon", "weapon_heavy", "weapon_axe" },
@@ -261,15 +263,6 @@ defineObject{
 		{
 			class = "MeleeAttack",
 			name = "banish",
-			uiName = "Banish",
-			energyCost = 80,
-			attackPower = 55*2.5,
-			critChance = 9,
-			cooldown = 12.6,
-			cameraShake = true,
-			swipe = "horizontal",
-			requirements = { "heavy_weapons_c", 5, "critical", 1 },
-			gameEffect = "An extremely powerful attack. Deals 2.5x damage and has +9% critical chance.",
 		},
 	},
 	tags = { "weapon", "weapon_heavy", "weapon_axe" },

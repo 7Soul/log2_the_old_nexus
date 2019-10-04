@@ -6364,7 +6364,6 @@ potion_bear_form_2.detectedtimer:setTriggerOnStart(true)
 potion_bear_form_2.detectedtimer:setCurrentLevelOnly(true)
 spawn("turtle",11,14,1,0,"turtle_1")
 turtle_1.monster:setHealth(900)
-turtle_1.brain:disable()
 turtle_1.detectedtimer:setTimerInterval(0)
 turtle_1.detectedtimer:setDisableSelf(false)
 turtle_1.detectedtimer:setTriggerOnStart(true)
@@ -6765,7 +6764,7 @@ gold_bar_1.detectedtimer:setTimerInterval(0)
 gold_bar_1.detectedtimer:setDisableSelf(false)
 gold_bar_1.detectedtimer:setTriggerOnStart(true)
 gold_bar_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("starting_location",20,15,3,0,"starting_location_1")
+spawn("starting_location",12,10,3,0,"starting_location_1")
 spawn("meteor_cuirass",20,15,3,0,"meteor_cuirass_2")
 meteor_cuirass_2.data:setSource("data = {}\
 function get(self,name)\
@@ -6838,6 +6837,186 @@ meteor_cuisse_1.detectedtimer:setTimerInterval(0)
 meteor_cuisse_1.detectedtimer:setDisableSelf(false)
 meteor_cuisse_1.detectedtimer:setTriggerOnStart(true)
 meteor_cuisse_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("skullcleave",12,10,3,0,"skullcleave_2")
+skullcleave_2.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+skullcleave_2.detectedtimer:setTimerInterval(0)
+skullcleave_2.detectedtimer:setDisableSelf(false)
+skullcleave_2.detectedtimer:setTriggerOnStart(true)
+skullcleave_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("bane",12,10,3,0,"bane_1")
+bane_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+bane_1.detectedtimer:setTimerInterval(0)
+bane_1.detectedtimer:setDisableSelf(false)
+bane_1.detectedtimer:setTriggerOnStart(true)
+bane_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("rapier",12,10,3,0,"rapier_2")
+rapier_2.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+rapier_2.detectedtimer:setTimerInterval(0)
+rapier_2.detectedtimer:setDisableSelf(false)
+rapier_2.detectedtimer:setTriggerOnStart(true)
+rapier_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("bone_blade",11,12,0,0,"bone_blade_1")
+bone_blade_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+bone_blade_1.detectedtimer:setTimerInterval(0)
+bone_blade_1.detectedtimer:setDisableSelf(false)
+bone_blade_1.detectedtimer:setTriggerOnStart(true)
+bone_blade_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("ancient_claymore",10,12,0,0,"ancient_claymore_1")
+ancient_claymore_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+ancient_claymore_1.detectedtimer:setTimerInterval(0)
+ancient_claymore_1.detectedtimer:setDisableSelf(false)
+ancient_claymore_1.detectedtimer:setTriggerOnStart(true)
+ancient_claymore_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("cutlass",11,12,0,0,"cutlass_1")
+cutlass_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+cutlass_1.detectedtimer:setTimerInterval(0)
+cutlass_1.detectedtimer:setDisableSelf(false)
+cutlass_1.detectedtimer:setTriggerOnStart(true)
+cutlass_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("fire_blade",10,12,0,0,"fire_blade_1")
+fire_blade_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+fire_blade_1.detectedtimer:setTimerInterval(0)
+fire_blade_1.detectedtimer:setDisableSelf(false)
+fire_blade_1.detectedtimer:setTriggerOnStart(true)
+fire_blade_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("lightning_blade",10,12,0,0,"lightning_blade_2")
+lightning_blade_2.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+lightning_blade_2.detectedtimer:setTimerInterval(0)
+lightning_blade_2.detectedtimer:setDisableSelf(false)
+lightning_blade_2.detectedtimer:setTriggerOnStart(true)
+lightning_blade_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("long_sword",11,12,0,0,"long_sword_1")
+long_sword_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+long_sword_1.detectedtimer:setTimerInterval(0)
+long_sword_1.detectedtimer:setDisableSelf(false)
+long_sword_1.detectedtimer:setTriggerOnStart(true)
+long_sword_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("machete",11,12,0,0,"machete_1")
+machete_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+machete_1.detectedtimer:setTimerInterval(0)
+machete_1.detectedtimer:setDisableSelf(false)
+machete_1.detectedtimer:setTriggerOnStart(true)
+machete_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("rapier",11,12,0,0,"rapier_3")
+rapier_3.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+rapier_3.detectedtimer:setTimerInterval(0)
+rapier_3.detectedtimer:setDisableSelf(false)
+rapier_3.detectedtimer:setTriggerOnStart(true)
+rapier_3.detectedtimer:setCurrentLevelOnly(true)
+spawn("sabre",11,12,0,0,"sabre_1")
+sabre_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+sabre_1.detectedtimer:setTimerInterval(0)
+sabre_1.detectedtimer:setDisableSelf(false)
+sabre_1.detectedtimer:setTriggerOnStart(true)
+sabre_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("sickle_sword",11,12,0,0,"sickle_sword_1")
+sickle_sword_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+sickle_sword_1.detectedtimer:setTimerInterval(0)
+sickle_sword_1.detectedtimer:setDisableSelf(false)
+sickle_sword_1.detectedtimer:setTriggerOnStart(true)
+sickle_sword_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("two_handed_sword",11,12,0,0,"two_handed_sword_1")
+two_handed_sword_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+two_handed_sword_1.detectedtimer:setTimerInterval(0)
+two_handed_sword_1.detectedtimer:setDisableSelf(false)
+two_handed_sword_1.detectedtimer:setTriggerOnStart(true)
+two_handed_sword_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("baton",13,10,3,0,"baton_1")
+baton_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+baton_1.detectedtimer:setTimerInterval(0)
+baton_1.detectedtimer:setDisableSelf(false)
+baton_1.detectedtimer:setTriggerOnStart(true)
+baton_1.detectedtimer:setCurrentLevelOnly(true)
 
 --- level 4 ---
 

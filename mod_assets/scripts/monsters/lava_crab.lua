@@ -49,7 +49,7 @@ defineObject{
 			meshName = "crab_mesh",
 			hitSound = "crab_hit",
 			dieSound = "crab_die",
-			hitEffect = "hit_fire",
+			hitEffect = "hit_flame",
 			capsuleHeight = 0.4,
 			capsuleRadius = 0.6,
 			health = 650,

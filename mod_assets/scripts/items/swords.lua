@@ -13,7 +13,8 @@ defineObject{
 			gfxIndexPowerAttack = 429,
 			impactSound = "impact_blade",
 			weight = 3.2,
-			traits = { "light_weapon", "sword", "thrust" },
+			traits = { "light_weapon", "sword", "thrust", "upgradable", "dismantle" },
+			secondaryAction = "thrust",
 		},
 		{
 			class = "MeleeAttack",
@@ -22,8 +23,12 @@ defineObject{
 			cooldown = 3.4,
 			swipe = "thrust",
 			requirements = { "light_weapons_c", 1 },
-			powerAttackTemplate = "thrust",
 		},
+		{
+			class = "MeleeAttack",
+			name = "thrust",
+		},
+
 	},
 	tags = { "weapon_sword", "weapon_light" },
 }
@@ -42,7 +47,7 @@ defineObject{
 			gfxIndex = 23,
 			impactSound = "impact_blade",
 			weight = 2.2,
-			traits = { "light_weapon", "sword" },
+			traits = { "light_weapon", "sword", "upgradable", "dismantle" },
 		},
 		{
 			class = "MeleeAttack",
@@ -72,7 +77,8 @@ defineObject{
 			impactSound = "impact_blade",
 			weight = 3.2,
 			description = "A mighty weapon, the longsword is the weapon of choice for Theareonan Knights. It is renowned for its ability to impale even well-armored foes.",
-			traits = { "light_weapon", "sword", "thrust" },
+			traits = { "light_weapon", "sword", "thrust", "upgradable", "dismantle" },
+			secondaryAction = "thrust",
 		},
 		{
 			class = "MeleeAttack",
@@ -81,6 +87,10 @@ defineObject{
 			cooldown = 3.7,
 			swipe = "horizontal",
 			requirements = { "light_weapons_c", 1 },
+		},
+		{
+			class = "MeleeAttack",
+			name = "thrust",
 		},
 	},
 	tags = { "weapon_sword", "weapon_light" },
@@ -103,7 +113,7 @@ defineObject{
 			impactSound = "impact_blade",
 			weight = 3.2,
 			secondaryAction = "lightningBolt",
-			traits = { "light_weapon", "sword" },
+			traits = { "light_weapon", "sword", "upgradable", "dismantle" },
 		},
 		{
 			class = "MeleeAttack",
@@ -149,7 +159,7 @@ defineObject{
 			impactSound = "impact_blade",
 			weight = 3.2,
 			secondaryAction = "fireball",
-			traits = { "light_weapon", "sword" },
+			traits = { "light_weapon", "sword", "upgradable", "dismantle" },
 		},
 		{
 			class = "MeleeAttack",
@@ -193,7 +203,8 @@ defineObject{
 			gfxIndexPowerAttack = 463,
 			impactSound = "impact_blade",
 			weight = 4.5,
-			traits = { "heavy_weapon", "two_handed", "sword", "cleave" },
+			traits = { "heavy_weapon", "two_handed", "sword", "cleave", "upgradable", "dismantle" },
+			secondaryAction = "cleave"
 		},
 		{
 			class = "MeleeAttack",
@@ -203,6 +214,10 @@ defineObject{
 			swipe = "vertical",
 			attackSound = "swipe_heavy",
 			requirements = { "heavy_weapons_c", 3 },
+		},		
+		{
+			class = "MeleeAttack",
+			name = "cleave",
 		},
 	},
 	tags = { "weapon_sword", "weapon_heavy" },
@@ -223,7 +238,8 @@ defineObject{
 			gfxIndexPowerAttack = 200,
 			impactSound = "impact_blade",
 			weight = 3.5,
-			traits = { "light_weapon", "sword", "flurry" },
+			traits = { "light_weapon", "sword", "flurry", "upgradable", "dismantle" },
+			secondaryAction = "flurry"
 		},
 		{
 			class = "MeleeAttack",
@@ -232,6 +248,10 @@ defineObject{
 			cooldown = 3.3,
 			swipe = "horizontal",
 			requirements = { "light_weapons_c", 1 },
+		},	
+		{
+			class = "MeleeAttack",
+			name = "flurry",
 		},
 	},
 	tags = { "weapon_sword", "weapon_light" },
@@ -254,7 +274,7 @@ defineObject{
 			gfxIndexPowerAttack = 433,
 			impactSound = "impact_blade",
 			weight = 3.2,
-			traits = { "light_weapon", "sword", "leech" },
+			traits = { "light_weapon", "sword", "leech", "upgradable", "dismantle" },
 			secondaryAction = "leech",
 		},
 		{
@@ -264,34 +284,10 @@ defineObject{
 			cooldown = 3.4,
 			swipe = "horizontal",
 			requirements = { "light_weapons_c", 2 },
-		},
+		},		
 		{
 			class = "MeleeAttack",
 			name = "leech",
-			uiName = "Leech",
-			attackPower = 35,
-			accuracy = 20,
-			cooldown = 4.5,
-			energyCost = 25,
-			swipe = "vertical",
-			attackSound = "swipe_light",
-			requirements = { "light_weapons_c", 4 },
-			onHitMonster = function(self, monster, side, dmg, champion)
-				if monster:hasTrait("undead") then
-					-- draining undeads is not wise
-					monster:showDamageText("Backlash", "FF0000")
-					champion:damage(dmg*0.7, "physical")
-					champion:playDamageSound()
-					return false
-				elseif monster:hasTrait("elemental") or monster:hasTrait("construct") then
-					-- elementals are constructs are immune to leech
-					monster:showDamageText("Immune")
-					return false
-				else
-					champion:regainHealth(dmg*0.5)
-				end
-			end,
-			gameEffect = "Successful hit drains life from target and heals you.",
 		},
 	},
 	tags = { "weapon_sword", "weapon_light" },
@@ -313,7 +309,8 @@ defineObject{
 			gfxIndexPowerAttack = 457,
 			impactSound = "impact_blade",
 			weight = 2.4,
-			traits = { "light_weapon", "sword" },
+			traits = { "light_weapon", "sword", "flurry", "upgradable", "dismantle" },
+			secondaryAction = "flurry"
 		},
 		{
 			class = "MeleeAttack",
@@ -323,7 +320,10 @@ defineObject{
 			swipe = "vertical",
 			attackSound = "swipe",
 			requirements = { "light_weapons_c", 3 },
-			powerAttackTemplate = "flurry",
+		},		
+		{
+			class = "MeleeAttack",
+			name = "flurry",
 		},
 	},
 	tags = { "weapon_sword", "weapon_light" },
@@ -345,7 +345,8 @@ defineObject{
 			gfxIndexPowerAttack = 462,
 			impactSound = "impact_blade",
 			weight = 2.4,
-			traits = { "heavy_weapon", "sword" },
+			traits = { "heavy_weapon", "sword", "flurry", "upgradable", "dismantle" },
+			secondaryAction = "flurry"
 		},
 		{
 			class = "MeleeAttack",
@@ -356,7 +357,10 @@ defineObject{
 			swipe = "vertical",
 			attackSound = "swipe",
 			requirements = { "heavy_weapons_c", 3 },
-			powerAttackTemplate = "flurry",
+		},
+		{
+			class = "MeleeAttack",
+			name = "flurry",
 		},
 	},
 	tags = { "weapon_sword", "weapon_heavy" },
@@ -378,7 +382,8 @@ defineObject{
 			gfxIndexPowerAttack = 464,
 			impactSound = "impact_blade",
 			weight = 4.2,
-			traits = { "heavy_weapon", "two_handed", "sword", "epic", "upgradable" },
+			traits = { "heavy_weapon", "two_handed", "cleave", "sword", "epic", "upgradable" },
+			secondaryAction = "cleave"
 		},
 		{
 			class = "MeleeAttack",
@@ -389,7 +394,10 @@ defineObject{
 			swipe = "vertical",
 			attackSound = "swipe_heavy",
 			requirements = { "heavy_weapons_c", 5 },
-			powerAttackTemplate = "cleave",
+		},
+		{
+			class = "MeleeAttack",
+			name = "cleave",
 		},
 	},
 	tags = { "weapon_sword", "weapon_heavy" },
@@ -423,7 +431,6 @@ defineObject{
 			swipe = "vertical",
 			attackSound = "swipe",
 			requirements = { "light_weapons_c", 1 },
-			powerAttackTemplate = "cleave",
 		},
 	},
 	tags = { "weapon_sword", "weapon_light" },

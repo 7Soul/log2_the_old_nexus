@@ -13,7 +13,7 @@ defineObject{
 			gfxIndex = 333,
 			impactSound = "impact_blunt",
 			weight = 1.1,			
-			traits = { "firearm", "upgradable" },
+			traits = { "firearm", "dismantle", "upgradable" },
 		},
 		{
 			class = "FirearmAttack",
@@ -43,7 +43,7 @@ defineObject{
 			gfxIndex = 331,
 			impactSound = "impact_blunt",
 			weight = 3.5,
-			traits = { "firearm" },
+			traits = { "firearm", "dismantle", "upgradable" },
 		},
 		{
 			class = "FirearmAttack",
@@ -75,7 +75,7 @@ defineObject{
 			impactSound = "impact_blunt",
 			secondaryAction = "reload",
 			weight = 1.5,
-			traits = { "firearm" },
+			traits = { "firearm", "dismantle", "upgradable" },
 		},
 		{
 			class = "FirearmAttack",
@@ -118,7 +118,7 @@ defineObject{
 			impactSound = "impact_blunt",
 			weight = 4.4,
 			secondaryAction = "repeatFire",
-			traits = { "firearm" },
+			traits = { "firearm", "dismantle", "upgradable" },
 		},
 		{
 			class = "FirearmAttack",
@@ -164,7 +164,7 @@ defineObject{
 			impactSound = "impact_blunt",
 			secondaryAction = "bigShot",
 			weight = 15.0,
-			traits = { "firearm" },
+			traits = { "firearm", "dismantle", "upgradable" },
 		},
 		{
 			class = "FirearmAttack",

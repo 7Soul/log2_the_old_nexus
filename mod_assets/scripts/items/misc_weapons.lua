@@ -87,7 +87,7 @@ defineObject{
 			reachWeapon = true,
 		},
 	},
-	tags = { "weapon" },
+	tags = { "weapon_light", "weapon" },
 }
 
 defineObject{
@@ -106,7 +106,8 @@ defineObject{
 			impactSound = "impact_blade",
 			weight = 1.0,
 			projectileRotationY = 90,
-			traits = { "light_weapon", "two_handed", "spear", "aquatic" },
+			traits = { "light_weapon", "two_handed", "spear", "aquatic", "dagger_throw" },
+			secondaryAction = "dagger_throw",
 		},
 		{
 			class = "MeleeAttack",
@@ -116,10 +117,13 @@ defineObject{
 			swipe = "thrust",
 			attackSound = "swipe",
 			reachWeapon = true,
-			powerAttackTemplate = "throw",
+		},
+		{
+			class = "MeleeAttack",
+			name = "dagger_throw",
 		},
 	},
-	tags = { "weapon" },
+	tags = { "weapon_light", "weapon" },
 }
 
 defineObject{
@@ -139,7 +143,8 @@ defineObject{
 			impactSound = "impact_blade",
 			weight = 3.0,
 			projectileRotationY = 90,
-			traits = { "light_weapon", "two_handed", "spear", "aquatic" },
+			traits = { "light_weapon", "two_handed", "spear", "aquatic", "thrust" },
+			secondaryAction = "thrust",
 		},
 		{
 			class = "MeleeAttack",
@@ -149,10 +154,13 @@ defineObject{
 			swipe = "thrust",
 			attackSound = "swipe",
 			reachWeapon = true,
-			powerAttackTemplate = "thrust",
+		},
+		{
+			class = "MeleeAttack",
+			name = "thrust",
 		},
 	},
-	tags = { "weapon" },
+	tags = { "weapon_light", "weapon" },
 }
 
 defineObject{
@@ -173,15 +181,15 @@ defineObject{
 		},
 		{
 			class = "MeleeAttack",
-			attackPower = 8,
+			attackPower = 15,
 			accuracy = 0,
-			cooldown = 4,
+			cooldown = 3.5,
 			swipe = "horizontal",
 			attackSound = "swipe",
 			reachWeapon = true,
 		},
 	},
-	tags = { "weapon" },
+	tags = { "weapon_light", "weapon" },
 }
 
 defineObject{
@@ -200,7 +208,8 @@ defineObject{
 			impactSound = "impact_blade",
 			weight = 3.2,
 			secondaryAction = "reap",
-			traits = { "heavy_weapon", "two_handed" },
+			traits = { "heavy_weapon", "two_handed", "reap" },
+			secondaryAction = "reap",
 		},
 		{
 			class = "MeleeAttack",
@@ -213,21 +222,12 @@ defineObject{
 		},
 		{
 			class = "EquipmentItem",
-			criticalChance = 0
+			criticalChance = 5,
 		},
 		{
 			class = "MeleeAttack",
 			name = "reap",
-			uiName = "Harvest Time",
-			energyCost = 40,
-			attackPower = 23,
-			critChance = 10,
-			critMultiplier = 10,
-			cooldown = 3.5,
-			swipe = "horizontal",
-			requirements = { "heavy_weapons_c", 4, "critical", 2 },
-			gameEffect = "A deadly swing that has a chance of scoring x10 damage on a critical hit.",
 		},
 	},
-	tags = { "weapon" },
+	tags = { "weapon_heavy", "weapon" },
 }

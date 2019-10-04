@@ -225,7 +225,7 @@ defineObject{
 			
 			if action.go.item:getSecondaryAction() == "dagger_throw" and action.go.dagger_throw == action then
 				if action.go.meleeattack then
-					functions.script.onMeleeAttack(action.go.dagger_throw, action.go.item, champion, slot, 0, nil)
+					-- functions.script.onMeleeAttack(action.go.dagger_throw, action.go.item, champion, slot, 0, nil)
 				end
 			end
 
@@ -1856,6 +1856,7 @@ defineObject{
 				end
 			end
 			
+			local aggroMonsters = 0
 			for entity in Dungeon.getMap(party.level):allEntities() do
 				if entity.monster then
 					local monster = entity.monster
@@ -1863,8 +1864,16 @@ defineObject{
 						local wave = math.abs(math.sin(self.go.gametime2:getValue() * 0.05))
 						monster.go.model:setEmissiveColor(vec(0.05,-.02,-.02) * wave)
 					end
+
+					if entity.brain.seesParty and entity.brain.partyOnLevel then
+						aggroMonsters = aggroMonsters + 1
+					end
+					-- print(entity.name, "sees party", entity.brain.seesParty)
+					-- print(entity.name, "detected timer", entity.detectedtimer)
 				end
 			end
+			-- print("aggro count", aggroMonsters)
+			functions.script.set("aggroMonsters", aggroMonsters)
 			
 			for i=1,4 do
 				local champion = party.party:getChampionByOrdinal(i)
@@ -1874,10 +1883,7 @@ defineObject{
 					functions.script.set_c("attacked", i, nil)
 				end
 				
-				functions.script.set_c("wide_vision", i, nil)
-				functions.script.set_c("sea_faring", i, nil)
-				functions.script.set_c("duelist", i, nil)
-				
+				functions.script.set_c("wide_vision", i, nil)				
 				if champion:hasTrait("wide_vision") or champion:getSkillLevel("sea_faring") > 0 or champion:getClass() == "corsair" then
 					local monsterCount = 0
 					for d=1,4 do
@@ -1893,12 +1899,6 @@ defineObject{
 					if monsterCount then
 						if champion:hasTrait("wide_vision") then
 							functions.script.set_c("wide_vision", i, monsterCount)
-						end
-						if champion:getSkillLevel("sea_faring") > 0 then
-							functions.script.set_c("sea_faring", i, monsterCount)
-						end
-						if champion:getClass() == "corsair" then
-							functions.script.set_c("duelist", i, monsterCount)
 						end
 					end
 				end

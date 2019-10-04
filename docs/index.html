@@ -403,7 +403,7 @@ h2 em {
 	<div class="class_trait">
 		<p><b>Holy Light:</b> You gain a temporary random bonus of 0 to 3 to all stats <em>(+1 max per 3 levels)</em>.</p>
 		<ul>
-		<li>Begins when <b>Healing Light</b> ends.</li>
+		<li>Begins when <b>Healing Aura</b> ends.</li>
 		<li>Duration is 1 minute <em>(+30 seconds per 4 levels)</em>.</li>
 		</ul>
 	</div>	
@@ -419,19 +419,29 @@ h2 em {
 		<div class="stats">
 			<p>70 <em>(+7 per level)</em></p>
 			<p>30 <em>(+4 per level)</em></p>
-			<p>- Flintlock Pistols do 10% more damage <em>(+10% per level)</em>.</p>
+			<p>- You plunder items when attacking humanoid enemies and when you dig treasure.</p>
+			<!-- Food, Pellets, Herbs, Materials, Arrows (very low), Potions (very low), Dubloon, Cursed Dubloon -->
+			<!-- Dubloon: Each increases firearm and one-handed damage by 1%, plust another 2% per 10 -->
+			<!-- Cursed Dubloon: Each reduces evasion by 10 and hp regen by 10%. Curse is lifted at random when killing an enemy, but only after 10 enemies -->
 		</div>
 	</div>
 	<div class="class_trait">
-		<p><b>Pistolero:</b> Your reloading times are 40% slower <em>(improves at 1.5% per level)</em> when dual wielding with a pistol.</p>
+		<p><b>Pistolero:</b> You can dual wield with a pistol, be it another pistol or a melee weapon. You attack with both in quick succession.</p>
 		<ul>
-		<li>Can dual wield Pistols, firing both in quick succession.</li>
-		<li>Can dual wield a Light Weapon and a Pistol, attacking with both.</li>
+		<li>Your Action Speed is 40% slower (+1.5 per level).</li>
+		<li>You automatically use pellets from your inventory.</li>
 		</ul>
 	</div>	
 	
 	<div class="class_trait">
-		<p><b>Duelist:</b> Melee attacks gain +10 Accuracy and +5% Critical Chance when fighting a single foe.</p>
+		<p><b>Dirty Fighting:</b> When using a melee attack, you have a 2% chance <em>(+1% per level)</em> of performing a secondary action with +20 Accuracy:</p>
+		<ul>
+		<li>Haymaker: Has a chance to stun. Needs a free hand.</li>
+		<li>Pistol-whip: Does melee damage with your firearm.</li>
+		<li>Headbutt: May cause head injury.</li>
+		<li>Boot Knife: Pierces 5 armor.</li><br/>
+		<li>Chance is doubled when fighting a single foe.</li>
+		</ul>
 	</div>	
 </div>
 

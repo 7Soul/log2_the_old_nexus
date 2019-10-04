@@ -162,7 +162,7 @@ defineSkill{
 	traits = { [2] = "sea_dog", [3] = "freebooter", [4] = "broadside", [5] = "lucky_blow" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 then
-			local stat = functions.script.get_c("seafaring", champion:getOrdinal())
+			local stat = functions.script.get("aggroMonsters")
 			if not stat then return end
 			champion:addStatModifier("evasion", stat * 3)
 		end

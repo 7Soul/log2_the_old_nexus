@@ -148,7 +148,7 @@ defineObject{
 			projectileRotationX = 90,
 			projectileRotationY = -90,
 			weight = 0.1,
-			traits = { "throwing_weapon" },
+			traits = { "throwing_weapon", "volley" },
 			secondaryAction = "volley"
 		},
 		{
@@ -158,15 +158,8 @@ defineObject{
 		},
 		{
 			class = "ThrowAttack",
-			uiName = "Volley of Stars",
 			name = "volley",
-			attackPower = 14,
-			cooldown = 3.5,
-			energyCost = 30,
-			repeatCount = 3,
 			spread = 0.4,
-			requirements = { "throwing", 3 },
-			gameEffect = "Quickly throw three shurikens at once."
 		},
 	},
 	tags = { "weapon", "weapon_throwing" },

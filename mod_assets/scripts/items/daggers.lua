@@ -27,6 +27,10 @@ defineObject{
 			swipe = "vertical",
 			attackSound = "swipe_light",
 		},
+		{
+			class = "MeleeAttack",
+			name = "dagger_throw",
+		},
 	},
 	tags = { "weapon", "weapon_light", "weapon_dagger" },
 }
@@ -49,7 +53,7 @@ defineObject{
 			impactSound = "impact_blade",
 			weight = 0.8,
 			secondaryAction = "poisonBolt",
-			traits = { "light_weapon", "dagger", "poison_dagger" },
+			traits = { "light_weapon", "dagger", "poison_dagger", "dismantle", "upgradable" },
 		},
 		{
 			class = "MeleeAttack",
@@ -94,7 +98,7 @@ defineObject{
 			impactSound = "impact_blade",
 			weight = 2.4,
 			secondaryAction = "leech",
-			traits = { "light_weapon", "dagger", "leech" },
+			traits = { "light_weapon", "dagger", "leech", "dismantle", "upgradable" },
 		},
 		{
 			class = "MeleeAttack",
@@ -107,29 +111,6 @@ defineObject{
 		{
 			class = "MeleeAttack",
 			name = "leech",
-			uiName = "Leech",
-			attackPower = 20,
-			accuracy = 20,
-			cooldown = 4.5,
-			energyCost = 25,
-			swipe = "vertical",
-			attackSound = "swipe_light",
-			requirements = { "light_weapons_c", 3 },
-			onHitMonster = function(self, monster, side, dmg, champion)
-				if monster:hasTrait("undead") then
-					-- draining undeads is not wise
-					monster:showDamageText("Backlash", "FF0000")
-					champion:damage(dmg*0.7, "physical")
-					return false
-				elseif monster:hasTrait("elemental") or monster:hasTrait("construct") then
-					-- elementals are constructs are immune to leech
-					monster:showDamageText("Immune")
-					return false
-				else
-					champion:regainHealth(dmg*0.7)
-				end
-			end,
-			gameEffect = "Successful hit drains life from target and heals you.",
 		},
 	},
 	tags = { "weapon", "weapon_light", "weapon_dagger" },
@@ -150,7 +131,7 @@ defineObject{
 			gfxIndexPowerAttack = 461,
 			impactSound = "impact_blade",
 			weight = 1.5,
-			traits = { "light_weapon", "dagger" },
+			traits = { "light_weapon", "dagger", "dismantle", "upgradable" },
 		},
 		{
 			class = "MeleeAttack",
@@ -182,7 +163,8 @@ defineObject{
 			gfxIndexPowerAttack = 458,
 			impactSound = "impact_blade",
 			weight = 2.4,
-			traits = { "light_weapon", "dagger" },
+			traits = { "light_weapon", "dagger", "flurry", "dismantle", "upgradable" },
+			secondaryAction = "flurry"
 		},
 		{
 			class = "MeleeAttack",
@@ -192,7 +174,10 @@ defineObject{
 			swipe = "vertical",
 			attackSound = "swipe",
 			requirements = { "light_weapons_c", 4 },
-			powerAttackTemplate = "flurry",
+		},
+		{
+			class = "MeleeAttack",
+			name = "flurry",
 		},
 	},
 	tags = { "weapon", "weapon_light", "weapon_dagger" },
@@ -210,7 +195,7 @@ defineObject{
 			class = "Item",
 			uiName = "Assassin's Dagger",
 			description = "A slender, wave-bladed dagger that only the most vile of the lizardmen assassins dare to use.",
-			traits = { "light_weapon", "dagger" },
+			traits = { "light_weapon", "dagger", "base_leech", "dismantle", "upgradable" },
 			gfxIndex = 402,
 			impactSound = "impact_blade",
 			gameEffect = "Life Leech: Successful hit drains life from target and heals you",
@@ -245,7 +230,7 @@ defineObject{
 			gfxIndex = 329,
 			impactSound = "impact_blade",
 			weight = 3.2,
-			traits = { "light_weapon", "dagger", "poison_dagger" },
+			traits = { "light_weapon", "dagger", "poison_dagger", "dismantle", "upgradable" },
 		},
 		{
 			class = "MeleeAttack",
@@ -274,7 +259,7 @@ defineObject{
 			gfxIndex = 455,
 			impactSound = "impact_blade",
 			weight = 0.2,
-			traits = { "light_weapon", "dagger" },
+			traits = { "light_weapon", "dagger", "upgradable" },
 		},
 		{
 			class = "MeleeAttack",

@@ -140,7 +140,7 @@ defineTrait{
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
 		if level > 0 and attackType == "melee" then 
 			if not functions then return end
-			if functions.script.get_c("duelist", champion:getOrdinal()) == 1 then
+			if functions.script.get("aggroMonsters") and functions.script.get("aggroMonsters") <= 1 then
 				level = champion:getLevel() - 1
 				return 10
 			end
@@ -149,7 +149,7 @@ defineTrait{
 	onComputeCritChance = function(champion, weapon, attack, attackType, level)
 		if level > 0 and attackType == "melee" then 
 			if not functions then return end
-			if functions.script.get_c("duelist", champion:getOrdinal()) == 1 then
+			if functions.script.get("aggroMonsters") and functions.script.get("aggroMonsters") <= 1 then
 				level = champion:getLevel() - 1
 				return 5
 			end
@@ -442,7 +442,7 @@ defineTrait{
 				end
 			end
 		end
-	end,	
+	end,
 }
 
 defineTrait{
@@ -587,6 +587,7 @@ defineTrait{
 					end
 				end
 			end
+
 			functions.script.set_c("lore_master", champion:getOrdinal(), scrolls)
 			if scrolls == 9 then
 				functions.script.set_c("lore_master_9", champion:getOrdinal(), 1.1 + ((scrolls - 9) * 0.01))
@@ -1326,7 +1327,7 @@ defineTrait{
 					crit = crit + item.go.equipmentitem:getCriticalChance()
 				end
 			end
-			return crit
+			return crit	
 		end
 	end,
 }
