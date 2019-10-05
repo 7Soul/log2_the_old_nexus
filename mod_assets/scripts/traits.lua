@@ -130,36 +130,41 @@ defineTrait{
 	gameEffect = [[
 	- Health 70 (+7 per level)
 	- Energy 30 (+4 per level)
-	- Flintlock Pistols do 10% more damage (+10% per level).
+	- You plunder items when attacking humanoid enemies and when you dig treasure.
 	
-	Pistolero: Your reloading times are 40% slower (-1.5% per level) when dual wielding with a pistol.
-	- Can dual wield Pistols, firing both in quick succession.
-	- Can dual wield a Light Weapon and a Pistol, attacking with both.
+	Pistolero: You can dual wield with a pistol, be it another pistol or a melee weapon. You attack with both in quick succession.
+	- Your Action Speed becomes 40% slower (+1.5 per level).
+	- You automatically use pellets from your inventory.
 	
-	Duelist: Melee attacks gain +10 Accuracy and +5% Critical Chance when fighting a single foe.]],
-	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
-		if level > 0 and attackType == "melee" then 
-			if not functions then return end
-			if functions.script.get("aggroMonsters") and functions.script.get("aggroMonsters") <= 1 then
-				level = champion:getLevel() - 1
-				return 10
-			end
-		end
-	end,
-	onComputeCritChance = function(champion, weapon, attack, attackType, level)
-		if level > 0 and attackType == "melee" then 
-			if not functions then return end
-			if functions.script.get("aggroMonsters") and functions.script.get("aggroMonsters") <= 1 then
-				level = champion:getLevel() - 1
-				return 5
-			end
-		end
-	end,
+	Dirty Fighting: When using a melee attack, you have a 2% chance (+1% per level) of performing a secondary action with +20 Accuracy.
+	- Haymaker: Has a chance to stun. Needs a free hand.
+	- Pistol-whip: Does melee damage with your firearm.
+	- Headbutt: May cause head injury.
+	- Boot Knife: Pierces 5 armor.	
+	(Chance is doubled when fighting a single foe.)]],
+	-- onComputeAccuracy = function(champion, weapon, attack, attackType, level)
+	-- 	if level > 0 and attackType == "melee" then 
+	-- 		if not functions then return end
+	-- 		if functions.script.get("aggroMonsters") and functions.script.get("aggroMonsters") <= 1 then
+	-- 			level = champion:getLevel() - 1
+	-- 			return 10
+	-- 		end
+	-- 	end
+	-- end,
+	-- onComputeCritChance = function(champion, weapon, attack, attackType, level)
+	-- 	if level > 0 and attackType == "melee" then 
+	-- 		if not functions then return end
+	-- 		if functions.script.get("aggroMonsters") and functions.script.get("aggroMonsters") <= 1 then
+	-- 			level = champion:getLevel() - 1
+	-- 			return 5
+	-- 		end
+	-- 	end
+	-- end,
 	onComputeCooldown = function(champion, weapon, attack, attackType, level)
 		if level > 0 then
 			local item1 = champion:getItem(ItemSlot.Weapon)
 			local item2 = champion:getItem(ItemSlot.OffHand)
-			if (item1 and item1.go.firearmattack) and (item2 and item2.go.firearmattack) then
+			if ((item1 and item1.go.firearmattack) and (item2 and item2.go.firearmattack)) or ((item1 and item1.go.meleeattack) and (item2 and item2.go.firearmattack)) or ((item1 and item1.go.firearmattack) and (item2 and item2.go.meleeattack)) then
 				level = champion:getLevel()
 				return 1.4 - (level * 0.015)
 			end
@@ -168,6 +173,34 @@ defineTrait{
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel()
+
+			if party.party:isCarrying("cursed_doubloon") then
+				local coins = 0
+				for i=1,ItemSlot.MaxSlots do
+					local item = champion:getItem(i)
+					if item then
+						if item.go.name == "cursed_doubloon" then
+							coins = coins + 1
+						else
+							local container = item.go.containeritem
+							if container then
+								local capacity = container:getCapacity()
+								for j=1,capacity do
+									local item2 = container:getItem(j)
+									if item2 and item2.go.name == "cursed_doubloon" then
+										coins = coins + 1
+									end
+								end
+							end
+						end
+					end
+				end
+				local curse = { 5,10,15,20,24,28,29,31,32,33 }
+				champion:addStatModifier("evasion", coins > 0 and curse[math.min(coins, 10)] * -1 or 0)
+				champion:addStatModifier("health_regeneration_rate", coins > 0 and curse[math.min(coins, 10)] * -1 or 0)
+				champion:addStatModifier("energy_regeneration_rate", coins > 0 and curse[math.min(coins, 10)] * -1 or 0)
+			end
+
 			champion:addStatModifier("max_health", 70 + (level-1) * 7)
 			champion:addStatModifier("max_energy", 30 + (level-1) * 4)
 		end	
@@ -228,7 +261,7 @@ defineTrait{
 	- Health 35 (+5 per level)
 	- Energy 60 (+9 per level)
 	
-	Trine Aegis: Casting elemental magic will shield the user from that element for 10 seconds (+3 per 3 levels).
+	Trine Imperium: Casting elemental magic will shield the user from that element for 10 seconds (+3 per 3 levels).
 	
 	Elemental Balance: Casting one element increases damage with other elements by 25% for 10 seconds.
 	- You regain 5% Max Energy (+1% per 10 Willpower) when using this bonus.]],

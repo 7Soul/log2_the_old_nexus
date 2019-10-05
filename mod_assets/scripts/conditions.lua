@@ -229,17 +229,17 @@ defineCondition{
 	uiName = "Elemental Balance (Fire)",
 	icon = 29,
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
-	description = "Cold and Air spells +40% damage.",
+	description = "Cold and Shock spells +25% damage.",
 	onRecomputeStats = function(self, champion)
 	end,
 }
 
 defineCondition{
-	name = "elemental_balance_air",
-	uiName = "Elemental Balance (Air)",
+	name = "elemental_balance_shock",
+	uiName = "Elemental Balance (Shock)",
 	icon = 30,
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
-	description = "Fire and Cold spells +40% damage.",
+	description = "Fire and Cold spells +25% damage.",
 	onRecomputeStats = function(self, champion)
 	end,
 }
@@ -249,7 +249,7 @@ defineCondition{
 	uiName = "Elemental Balance (Cold)",
 	icon = 31,
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
-	description = "Fire and Air spells +40% damage.",
+	description = "Fire and Shock spells +25% damage.",
 	onRecomputeStats = function(self, champion)
 	end,
 }

@@ -742,14 +742,22 @@ defineObject{
 				local hunterCur = champion:getConditionValue("hunter_crit") or 0
 				local hunterMax = functions.script.get_c("hunter_max", c) or 0
 
-				functions.script.drawCounterOnHand(context, champion, x, y, stacks, "Thrill of the Hunt")
+				functions.script.drawCounterOnHand(context, champion, x, y, stacks, "Thrill of the Hunt", "+".. stacks .." Willpower\n+".. stacks .."% Crit")
 				functions.script.drawBarOnHand(context, champion, x, y, hunterCur, hunterMax)
 			end	
 			
 			if champion:getClass() == "assassin_class" then
 				local stacks = functions.script.get_c("assassination", c) or 0
-
-				functions.script.drawCounterOnHand(context, champion, x, y, stacks, "Assassination")
+				local item = champion:getItem(ItemSlot.Weapon)
+				local desc = " "
+				if item then 
+					if item.go.meleeattack or item.go.firearmattack then
+						desc = "+".. stacks * 2 .." Pierce\n+".. stacks * 2 .."% Crit"
+					elseif item.go.rangedattack or item.go.throwattack then
+						desc = "+".. stacks * 3 .." Attack Power\n+".. stacks * 2 .."% Crit"
+					end
+					functions.script.drawCounterOnHand(context, champion, x, y, stacks, "Assassination", desc)
+				end	
 			end	
 			
 			if champion:hasTrait("silver_bullet") then
@@ -1618,7 +1626,7 @@ defineObject{
 				end
 			end
 		end, 
-		
+
 		--onDrawTraits = function(g,champion) print('traits') end, 
 		
 		-- WORKS
@@ -1687,6 +1695,16 @@ defineObject{
 				end
 			end
 
+			if champion:getClass() == "assassin_class" and (champion:getLevel()-1) % 3 == 0 then
+				functions.script.set_c("level_up_message", champion:getOrdinal(), champion:getName() .. " gained +1 maximum armor break with Fleshbore.")
+				functions.script.set_c("level_up_message_timer", champion:getOrdinal(), 8)
+			end
+
+			if champion:getClass() == "assassin_class" and (champion:getLevel()-1) % 6 == 0 then
+				functions.script.set_c("level_up_message_2", champion:getOrdinal(), champion:getName() .. " gained +1 armor break with Fleshbore.")
+				functions.script.set_c("level_up_message_2_timer", champion:getOrdinal(), 8)
+			end
+
 			if champion:getClass() == "berserker" and (champion:getLevel()-1) % 3 == 0 then
 				functions.script.set_c("level_up_message", champion:getOrdinal(), champion:getName() .. " gained +6 Protection and +1 Strenght to Berserker Frenzy.")
 				functions.script.set_c("level_up_message_timer", champion:getOrdinal(), 8)
@@ -1699,11 +1717,6 @@ defineObject{
 
 			if champion:getClass() == "hunter" then
 				functions.script.set_c("level_up_message", champion:getOrdinal(), champion:getName() .. " gained +1 second duration to Thrill of the Hunt.")
-				functions.script.set_c("level_up_message_timer", champion:getOrdinal(), 8)
-			end
-
-			if champion:getClass() == "elementalist" and (champion:getLevel()-1) % 3 == 0 then
-				functions.script.set_c("level_up_message", champion:getOrdinal(), champion:getName() .. " gained +3 seconds duration to Trine Aegis.")
 				functions.script.set_c("level_up_message_timer", champion:getOrdinal(), 8)
 			end
 

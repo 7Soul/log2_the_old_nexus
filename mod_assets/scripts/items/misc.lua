@@ -1240,3 +1240,43 @@ defineObject{
 		},
 	},
 }
+
+defineObject{
+	name = "doubloon",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/rock.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Doubloon",
+			description = "A golden coin.",
+			gfxAtlas = "mod_assets/textures/gui/items.dds",
+			gfxIndex = 42,
+			weight = 0.01,
+			stackable = true,
+		},
+	},
+}
+
+defineObject{
+	name = "cursed_doubloon",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/rock.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Cursed Doubloon",
+			description = "A golden coin that attracts bad omens.",
+			gfxAtlas = "mod_assets/textures/gui/items.dds",
+			gfxIndex = 42,
+			weight = 0.01,
+			stackable = true,
+		},
+	},
+}

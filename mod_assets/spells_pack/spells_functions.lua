@@ -2532,13 +2532,13 @@ function onDie(champion)
 end
 
 function onReceiveCondition(champion, condition)
-	if condition == "petrified" or condition == "paralyzed" then
-		if hasEffectIcons("cure_petrify") then return false end
-	elseif condition == "head_wound" then
-		if hasEffectIcons("force_of_will", champion:getOrdinal()) then return false end
-	elseif condition == "poison" then
-		if champion:hasTrait("poison_immunity") then return false end
-	end
+	-- if condition == "petrified" or condition == "paralyzed" then
+	-- 	if hasEffectIcons("cure_petrify") then return false end
+	-- elseif condition == "head_wound" then
+	-- 	if hasEffectIcons("force_of_will", champion:getOrdinal()) then return false end
+	-- elseif condition == "poison" then
+	-- 	if champion:hasTrait("poison_immunity") then return false end
+	-- end
 	if tauntTank > 0 and tauntTank ~= champion:getOrdinal() then
 		if party.gametime:getValue() < tauntTime then
 			for _,c in ipairs(negative_conditions) do
