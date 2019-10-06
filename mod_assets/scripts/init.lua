@@ -1114,19 +1114,19 @@ defineObject{
 
 				y = y + 20
 				context.drawText("Disease", w - (x * f2), y * f2)
-				txt = tostring(math.floor(functions.script.getMiscResistance(champion, "disease")))
+				txt = tostring(math.floor(functions.script.getMiscResistance(champion, "disease") * 100))
 				functions.script.drawStatNumber(context, txt, w - ((x-138) * f2), y* f2)
 				hover1[13], hover2[13] = context.button("hover"..13, w - (x + 6), y-16, buttonW, buttonH)
 
 				y = y + 20
 				context.drawText("Bleeding", w - (x * f2), y * f2)
-				txt = tostring(math.floor(functions.script.getMiscResistance(champion, "bleeding")))
+				txt = tostring(math.floor(functions.script.getMiscResistance(champion, "bleeding") * 100))
 				functions.script.drawStatNumber(context, txt, w - ((x-138) * f2), y* f2)
 				hover1[14], hover2[14] = context.button("hover"..14, w - (x + 6), y-16, buttonW, buttonH)
 
 				y = y + 20
 				context.drawText("Poisoned", w - (x * f2), y * f2)
-				txt = tostring(math.floor(functions.script.getMiscResistance(champion, "poisoned")))
+				txt = tostring(math.floor(functions.script.getMiscResistance(champion, "poisoned") * 100))
 				functions.script.drawStatNumber(context, txt, w - ((x-138) * f2), y* f2)
 				hover1[15], hover2[15] = context.button("hover"..15, w - (x + 6), y-16, buttonW, buttonH)
 
@@ -1380,8 +1380,8 @@ defineObject{
 							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, hoverX, hoverY, 3)
 						elseif h == 15 then
 							hoverTxt1 = "Resistance to being Poisoned"
-							hoverTxt2 = "Affects how likely you are to get poisoned. While poisoned you take damage over time."
-							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, hoverX, hoverY, 2)
+							hoverTxt2 = "Affects how likely you are to get poisoned and how long it lasts. While poisoned you take damage over time."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, hoverX, hoverY, 3)
 						elseif h == 16 then
 							hoverTxt1 = "Spell Multi"
 							hoverTxt2 = "Increases the damage you deal with all spells."
@@ -1763,7 +1763,7 @@ defineObject{
 			for entity in Dungeon.getMap(party.level):allEntities() do
 				if entity.monster then
 					local monster = entity.monster
-					functions.script.bleed(monster, "dot")
+					functions.script.takeBleedDamage(monster, "dot")
 				end
 			end
 

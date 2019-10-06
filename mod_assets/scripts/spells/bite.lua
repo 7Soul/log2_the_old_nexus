@@ -101,7 +101,7 @@ defineObject{
 				return false
 			end,
 			onHitMonster = function(self, monster)
-				monster:addTrait("bleeding")
+				bleedMonster(nil, nil, champion, monster, 1)
 			end
 		},
 		{

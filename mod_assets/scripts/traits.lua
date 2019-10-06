@@ -35,10 +35,6 @@ defineTrait{
 	end,
 }
 
--- backstab to gain a charge; max based on level
--- gain pierce, crit and special cost reduction per charge
--- special attacks spend a charge for added life sap
-
 defineTrait{
 	name = "berserker",
 	uiName = "Berserker",
@@ -101,7 +97,6 @@ defineTrait{
 			local dexterity = champion:getBaseStat("dexterity")
 			local vitality = champion:getBaseStat("vitality")
 			local willpower = champion:getBaseStat("willpower")
-			-- champion:addStatModifier("food_rate", -25)
 			if Dungeon.getMaxLevels() ~= 0 then
 				local str = functions.script.get_c("monkstrength", champion:getOrdinal()) and functions.script.get_c("monkstrength", champion:getOrdinal()) or 0
 				local dex = functions.script.get_c("monkdexterity", champion:getOrdinal()) and functions.script.get_c("monkdexterity", champion:getOrdinal()) or 0
@@ -485,6 +480,7 @@ defineTrait{
 	description = "As a minotaur you are bulky, simple and quick to anger. Your incredible stubbornness is tolerated by others only because of your incredible prowess in combat.\n- Your food consumption rate is 25% higher than normal.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
+			champion:addStatModifier("food_rate", 25)
 			local item = nil
 			for i=1,2 do
 				item = champion:getItem(i)
@@ -762,7 +758,6 @@ defineTrait{
 	- You can't eat non-meat foods, like bread, bugs or even fish.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			champion:addStatModifier("food_rate", 1)
 			champion:addStatModifier("health_regeneration_rate", champion:getCurrentStat("vitality"))
 
 			local meatBonus = functions.script.get_c("meat_bonus", champion:getOrdinal()) or 0

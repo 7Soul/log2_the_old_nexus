@@ -847,16 +847,6 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 		set_c("double_attack", c, nil)
 	end
 
-	-- Lizardman Bite
-	if champion:hasTrait("bite") then
-		if get_c("bite", c) == nil or get_c("bite", c) == 0 then
-			set_c("bite", c, 30 - (math.floor(champion:getLevel() / 5) * 5 ) )
-			set_c("bite_damage",c, champion:getCurrentStat("dexterity") - 5 )
-			set_c("bite_accuracy", c, getAccuracy(champion, ItemSlot.Weapon) )
-			delayedCall("functions", 0.1, "bite", c)
-		end
-	end
-
 	-- Critical boosts
 	if not item.go.equipmentitem then item.go:createComponent("EquipmentItem", "equipmentitem") end	
 	local real_crit = tinker_item[6][name] and tinker_item[6][name] or (supertable[6][name] and supertable[6][name] or 0)
@@ -1423,7 +1413,7 @@ function onMonsterDealDamage(self, champion, damage)
 				local damageBonus = 1 + (1 - (100 / (math.min(champion:getProtection(), 100) + 150))) -- 1.0 to 1.4 from 0 prot to 100 prot
 				champion:playDamageSound()
 				if champion:hasCondition("ancestral_charge") then damageBonus = damageBonus * 1.5 end
-				delayedCall("functions", 0.15, "hitMonster", monster.go.id, math.ceil(damageBase * damageBonus), "CCCCCC", "Shield Bash!", "physical", champion:getOrdinal())
+				delayedCall("functions", 0.15, "hitMonster", monster.go.id, math.ceil(damageBase * damageBonus), "Shield Bash!", "physical", champion:getOrdinal())
 				--context.drawImage2("mod_assets/textures/gui/block.dds", x+48, y-68, 0, 0, 128, 75, 128, 75)
 			end
 			if champion:hasTrait("shield_bearer") then
@@ -1522,6 +1512,14 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 			dirty_fighting(self, champion, monster)
 		end
 	end
+
+	-- Lizardman Bite
+	if self.go.meleeattack and champion:getRace() == "lizardman" and champion:hasTrait("bite") then
+		if get_c("bite", c) == nil or get_c("bite", c) == 0 then
+			set_c("bite", c, 30 - (math.floor(champion:getLevel() / 5) * 5 ) )
+			lizardman_bite(self, champion, monster)
+		end
+	end
 	
 	-- Broadside Trait
 	if champion:hasTrait("broadside") and math.random() <= 0.4 then
@@ -1541,10 +1539,8 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 
 	if champion:hasTrait("rend") and self.go.item:getSecondaryAction() and self.go:getComponent(self.go.item:getSecondaryAction()):getName() == self.go.item:getSecondaryAction() then
 		local secondary = self.go:getComponent(self.go.item:getSecondaryAction() and self.go.item:getSecondaryAction() or "")
-		if secondary == self and math.random() <= 0.3 then
-			if not monster:isImmuneTo("physical") then
-				monster:addTrait("bleeding")
-			end
+		if secondary == self then
+			bleedMonster(nil, nil, champion, monster, 0.3)
 		end
 	end	
 		
@@ -1559,7 +1555,7 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 		hunterCrit(c, 1, 6 + (champion:getLevel() - 1))
 		if monster:hasTrait("animal") then
 			functions.script.wisdom_of_the_tribe_heal(champion)
-			delayedCall("functions", 0.15, "hitMonster", monster.go.id, math.ceil(damage * wisdom_of_the_tribe(champion) ), "FFFFFF", nil, "physical", c)
+			delayedCall("functions", 0.15, "hitMonster", monster.go.id, math.ceil(damage * wisdom_of_the_tribe(champion) ), nil, "physical", c)
 		end
 	end	
 	
@@ -1610,10 +1606,10 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 
 		-- Conversion damage
 		if self.go.firearmattack then
-			hitMonster(monster.go.id, damage / conversion * (1 - conversion), "33CC33", nil, "poison", champion:getOrdinal())
+			hitMonster(monster.go.id, damage / conversion * (1 - conversion), nil, "poison", champion:getOrdinal())
 		end
 		if self.go.meleeattack then
-			hitMonster(monster.go.id, damage / conversion * (1 - conversion), "33CC33", nil, "poison", champion:getOrdinal())
+			hitMonster(monster.go.id, damage / conversion * (1 - conversion), nil, "poison", champion:getOrdinal())
 		end	
 	end
 
@@ -1639,10 +1635,10 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 	-- Tinkerer's Elemental Surge
 	if champion:getClass() == "tinkerer" then
 		if self.go.firearmattack then
-			hitMonster(monster.go.id, damage, "CC3333", nil, "fire", champion:getOrdinal())
+			hitMonster(monster.go.id, damage, nil, "fire", champion:getOrdinal())
 		end
 		if self.go.meleeattack then
-			hitMonster(monster.go.id, damage, "CC3333", nil, "shock", champion:getOrdinal())
+			hitMonster(monster.go.id, damage, nil, "shock", champion:getOrdinal())
 		end
 	end
 
@@ -1650,7 +1646,7 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 	if champion:hasTrait("thunder_fury") and getTrait(champion, self.go.item, "light_weapon") then
 		if math.random() < getCrit(champion) * 0.01 then
 			local dmg = getDamage(champion)
-			delayedCall("functions", 0.15, "hitMonster", monster.go.id, math.random(dmg[1], dmg[2]) * 0.5, "FFFFFF", "Thunder Fury!", "shock", champion:getOrdinal())
+			delayedCall("functions", 0.15, "hitMonster", monster.go.id, math.random(dmg[1], dmg[2]) * 0.5, "Thunder Fury!", "shock", champion:getOrdinal())
 		end
 	end
 	
@@ -1667,7 +1663,7 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 			monster:showDamageText("Leech Immune")
 			return false
 		else
-			champion:regainHealth(damage * (1 - champion:getHealth()/champion:getMaxHealth()) * 0.7)
+			regainHealth(c, damage * (1 - champion:getHealth()/champion:getMaxHealth()) * 0.7)
 		end
 	end
 
@@ -1690,9 +1686,9 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 				local sap = monster:getMaxHealth() * (charges * 0.02)
 				if monster:hasTrait("boss") then sap = sap * 0.5 end
 
-				delayedCall("functions", 0.15, "hitMonster", monster.go.id, sap, "000000", "Assassination!", "physical", c)
+				delayedCall("functions", 0.15, "hitMonster", monster.go.id, sap, "Assassination!", "physical", c)
 				local hp_rate = 1 - (math.min(champion:getHealth() / champion:getMaxHealth(), 0.5))
-				champion:regainHealth(math.max(sap * hp_rate * 1.5, 1))
+				regainHealth(c, math.max(sap * hp_rate * 1.5, 1))
 				-- print("assassination did", sap)
 				-- print("healed for", math.max(sap * hp_rate * 1.5, 1))
 				set_c("assassination", c, nil)
@@ -1706,10 +1702,8 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 	end
 
 	if champion:hasTrait("assassin") and get_c("assassin_bleed", c) and math.random() <= 0.20 then
-		if not monster:isImmuneTo("physical") then
-			monster:addTrait("bleeding")
-			set_c("assassin_bleed", c, nil)
-		end
+		bleedMonster(nil, nil, champion, monster, 1)
+		set_c("assassin_bleed", c, nil)
 	end
 
 	if champion:getClass() == "corsair" then
@@ -1787,7 +1781,7 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 			monster:showDamageText("Immune")
 			return false
 		else
-			champion:regainHealth(damage * upgrade)
+			regainHealth(c, damage * upgrade)
 		end
 	end
 
@@ -1857,10 +1851,10 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 
 			-- Conversion damage
 			if self.go.firearmattack then
-				hitMonster(monster.go.id, damage / conversion * (1 - conversion), "33CC33", nil, "poison", c)
+				hitMonster(monster.go.id, damage / conversion * (1 - conversion), nil, "poison", c)
 			end
 			if self.go.meleeattack then
-				hitMonster(monster.go.id, damage / conversion * (1 - conversion), "33CC33", nil, "poison", c)
+				hitMonster(monster.go.id, damage / conversion * (1 - conversion), nil, "poison", c)
 			end	
 		end
 		
@@ -1909,9 +1903,9 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 			local charges = get_c("assassination", c) or 0			
 			if charges > 0 then
 				local sap = monster:getMaxHealth() * (charges * 0.02)
-				delayedCall("functions", 0.15, "hitMonster", monster.go.id, sap, "000000", "Assassination!", "physical", c)
+				delayedCall("functions", 0.15, "hitMonster", monster.go.id, sap, "Assassination!", "physical", c)
 				local hp_rate = 1 - (math.min(champion:getHealth() / champion:getMaxHealth(), 0.5))
-				champion:regainHealth(math.max(sap * hp_rate * 1.5, 1))
+				regainHealth(c, math.max(sap * hp_rate * 1.5, 1))
 				-- print("assassination did", sap)
 				-- print("healed for", math.max(sap * hp_rate * 1.5, 1))
 				set_c("assassination", c, nil)
@@ -1922,7 +1916,7 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 			hunterCrit(c, 1, 6 + (champion:getLevel() - 1))
 			if self:hasTrait("animal") then
 				functions.script.wisdom_of_the_tribe_heal(champion)
-				delayedCall("functions", 0.15, "hitMonster", self.go.id, math.ceil(damage * wisdom_of_the_tribe(champion) ), "339933", nil, damageType, champion:getOrdinal())
+				delayedCall("functions", 0.15, "hitMonster", self.go.id, math.ceil(damage * wisdom_of_the_tribe(champion) ), nil, damageType, champion:getOrdinal())
 			end	
 		end	
 		
@@ -1944,7 +1938,7 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 		end
 
 		if specialDamage then
-			hitMonster(monster.go.id, specialDamage, "FFFFFF", nil, "physical", c)
+			hitMonster(monster.go.id, specialDamage, nil, "physical", c)
 			return false
 		else
 			return true
@@ -1961,7 +1955,7 @@ function onDamageMonster(self, damage, damageType)
 		if functions.script.get_c("championUsedMagic", i) then
 			-- Elemental Exploitation
 			if functions.script.get_c("elemental_exploitation", i) and champion:hasTrait("elemental_exploitation") and resistances == "weak" then
-				delayedCall("functions", 0.25, "hitMonster", self.go.id, math.ceil(damage * 0.25), "FF0000", nil, damageType, champion:getOrdinal())
+				delayedCall("functions", 0.25, "hitMonster", self.go.id, math.ceil(damage * 0.25), nil, damageType, champion:getOrdinal())
 				functions.script.set_c("elemental_exploitation", i, nil)
 			end
 			
@@ -1970,11 +1964,11 @@ function onDamageMonster(self, damage, damageType)
 				for j=1,4 do
 					local c = party.party:getChampionByOrdinal(j)
 					if c:isAlive() then
-						c:regainHealth(math.ceil(damage * 0.05))
+						regainHealth(c:getOrdinal(), math.ceil(damage * 0.05))
 					end
 				end
 				if champion:isAlive() then
-					champion:regainHealth(math.ceil(damage * 0.05))
+					regainHealth(champion:getOrdinal(), math.ceil(damage * 0.05))
 				end
 				functions.script.set_c("ritual", i, nil)
 			end
@@ -1985,7 +1979,7 @@ function onDamageMonster(self, damage, damageType)
 				if self:hasTrait("animal") then
 					functions.script.wisdom_of_the_tribe_heal(champion)
 					local bonus = functions.script.wisdom_of_the_tribe(champion)
-					delayedCall("functions", 0.15, "hitMonster", self.go.id, math.ceil(damage * bonus), "339933", nil, damageType, champion:getOrdinal())
+					delayedCall("functions", 0.15, "hitMonster", self.go.id, math.ceil(damage * bonus), nil, damageType, champion:getOrdinal())
 				end
 				functions.script.set_c("wisdom_of_the_tribe", i, nil)
 			end
@@ -2012,7 +2006,7 @@ function onDamageMonster(self, damage, damageType)
 					end
 				end
 				if health > 0 then
-					champion:regainHealth(damage * math.random(health/3,health) * 0.01)
+					regainHealth(champion:getOrdinal(), damage * math.random(health/3,health) * 0.01)
 				end
 				if energy > 0 then
 					regainEnergy(champion:getOrdinal(), damage * math.random(health/3,health) * 0.01)
@@ -2050,15 +2044,18 @@ function onAnimationEvent(self, event)
 	
 end
 
-function hitMonster(id, damage, color, flair, damageType, championId, pierce, accuracy)
+function hitMonster(id, damage, flair, damageType, c, pierce_add, acc_add)
 	local monster = findEntity(id).monster
-	local champion = party.party:getChampionByOrdinal(championId)
-	if not monster then return end
-	local resistances = monster:getResistance(damageType)
-	color = "BBBBBB"
-	pierce = pierce or 0
-	accuracy = accuracy or 0
+	local champion = party.party:getChampionByOrdinal(c)
+	if not monster or not champion or not damage then return end
+	local color = "BBBBBB"
 	if flair then color = "FFFFFF" end
+	pierce_add = pierce_add or 0
+	acc_add = acc_add or 0
+	local pierce = getPierce(champion) + pierce_add
+	local accuracy = getAccuracy(champion) + acc_add	
+
+	-- Monster animation and particles --
 	if monster:getHitEffect() and monster:getCurrentAction() ~= "damaged" then
 		local particle = monster.go.hit_effect and monster.go.hit_effect or monster.go:createComponent("Particle", "hit_effect")
 		particle:setParticleSystem(monster:getHitEffect())
@@ -2090,17 +2087,25 @@ function hitMonster(id, damage, color, flair, damageType, championId, pierce, ac
 		monster:performAction("damaged")
 	end
 
-	damage = empowerElement(champion, damageType, damage)
+	-- Damage Calculations
+	damage = empowerElement(champion, damageType, damage, true)
 
 	if damageType == "physical" then
-		local protection = (monster:getProtection() - pierce) * (0.5 + math.random())
+		local protection = math.max(monster:getProtection() - pierce, 0) * (0.5 + math.random())
 		damage = math.max(damage - protection, 0)
-		local evade = (monster:getEvasion() - accuracy) * (0.5 + math.random())
-		if evade > 0 then 
+
+		local luck = (get_c("luck", c) or 0) * 3
+		local evade =  math.clamp(60 + accuracy + luck - monster:getEvasion(), 5, 95) / 100
+		if monster:getEvasion() < 1000 and (math.random() < evade) and not monster.go.sleep and not monster.go.frozen then 
 			damage = 0
+			set_c("luck", c, math.min(luck + 1, 5) )
+		else
+			set_c("luck", c, 0)
 		end
 	end
 
+	-- Calculate resistances
+	local resistances = monster:getResistance(damageType)
 	if resistances == "weak" then
 		color = "FF0000"
 		damage = damage * 2
@@ -2120,15 +2125,16 @@ function hitMonster(id, damage, color, flair, damageType, championId, pierce, ac
 
 	damage = math.ceil(damage)
 
-	if damage then
+	-- Show damage text
+	if damageType == "physical" and damage == 0 then
+		monster.go.monster:showDamageText("miss", "BBBBBB") 
+		return false
+	else
 		if flair then
 			monster.go.monster:showDamageText("" .. damage, color, flair) 
 		else 
 			monster.go.monster:showDamageText("" .. damage, color) 
 		end
-	else
-		monster.go.monster:showDamageText("miss", "BBBBBB") 
-		return false
 	end
 	
 	-- Druid's Herb effects
@@ -2136,7 +2142,7 @@ function hitMonster(id, damage, color, flair, damageType, championId, pierce, ac
 		local health = 0
 		local energy = 0
 		for slot = 8,10 do
-			local druidItem = get_c("druid_item"..slot, champion:getOrdinal())
+			local druidItem = get_c("druid_item"..slot, c)
 			if druidItem then
 				if druidItem == "blooddrop_cap" then
 					health = health + 25
@@ -2146,10 +2152,10 @@ function hitMonster(id, damage, color, flair, damageType, championId, pierce, ac
 			end
 		end
 		if health > 0 then
-			champion:regainHealth(damage * math.random(health/3,health) * 0.01)
+			regainHealth(c, damage * math.random(health/3,health) * 0.01)
 		end
 		if energy > 0 then
-			regainEnergy(champion:getOrdinal(), damage * math.random(health/3,health) * 0.0)
+			regainEnergy(c, damage * math.random(health/3,health) * 0.01)
 		end
 	end
 	
@@ -2158,8 +2164,9 @@ function hitMonster(id, damage, color, flair, damageType, championId, pierce, ac
 	
 	monster.go.brain:stopGuarding()
 	monster.go.brain:pursuit()
+
 	if monster:getHealth() <= 0 then
-		monster:die()
+		monster:die(true) -- true -> awards experience
 	end
 end
 
@@ -2167,10 +2174,15 @@ end
 -- Misc Functions                                                                                    --    
 -------------------------------------------------------------------------------------------------------
 
-function bite(id)
-	local champion = party.party:getChampionByOrdinal(id)
-	local spell = spells_functions.script.defByName["liz_bite"]
-	spell.onCast(champion, party.x, party.y, party.facing, party.elevation)
+function lizardman_bite(attack, champion, monster)
+	local c = party.party:getChampionByOrdinal(champion)
+	local str = { math.ceil(champion:getCurrentStat("strength") * 0.5), math.ceil(champion:getCurrentStat("strength") * 1.5) }
+	local dex = { math.ceil(champion:getCurrentStat("dexterity") * 0.5), math.ceil(champion:getCurrentStat("dexterity") * 1.5) }
+	local pierce = 5
+	local accuracy = 0
+	local damage = math.random((dex[1] + str[1]) / 2, (dex[2] + str[2]) / 2)
+
+	delayedCall("functions", 0.25, "hitMonster", monster.go.id, damage, "Bite", "physical", c, pierce, accuracy)
 end
 
 function dirty_fighting(attack, champion, monster)
@@ -2184,7 +2196,6 @@ function dirty_fighting(attack, champion, monster)
 	local dmg1 = math.random(damageWeapon[1], damageWeapon[2])
 	local dmg2 = math.random(damageOffhand[1], damageOffhand[2])
 	local hasGun = champion:getItem(ItemSlot.OffHand) and champion:getItem(ItemSlot.OffHand):hasTrait("firearm")
-	print(hasGun)
 	local hasHand = (not champion:getItem(ItemSlot.OffHand))
 	local useAttackList = { 
 		["haymaker"] 	= 	{ name = "Haymaker", 		canUse = hasHand, 	damage = math.ceil(math.random(str[1], str[2]) + 1), 														pierce = 0, 	proc = "stun" },
@@ -2207,7 +2218,7 @@ function dirty_fighting(attack, champion, monster)
 				champion:setCondition("head_wound")
 			end
 		end
-		delayedCall("functions", 0.25, "hitMonster", monster.go.id, useDamage, "FF0000", useName, "physical", c, usePierce, accuracy)
+		delayedCall("functions", 0.25, "hitMonster", monster.go.id, useDamage, useName, "physical", c, usePierce, accuracy)
 	end
 end
 
@@ -2228,7 +2239,7 @@ end
 
 function wisdom_of_the_tribe_heal(champion)
 	local missing = champion:getMaxHealth() - champion:getHealth()
-	champion:regainHealth(missing * 0.05)
+	regainHealth(champion:getOrdinal(), missing * 0.05)
 end
 
 function healingLight(champion, monster, damage)
@@ -2332,6 +2343,15 @@ function elementalistPower(element, champion, return_only)
 	return power
 end
 
+function regainHealth(id, amount)
+	if not id then return end
+	if not amount then return end
+	local champion = party.party:getChampionByOrdinal(id)
+	local diseased = champion:hasCondition("diseased") and 0 or 1
+	amount = math.ceil(amount * diseased)
+	champion:regainHealth(amount)
+end
+
 function regainEnergy(id, amount)
 	if not id then return end
 	if not amount then return end
@@ -2356,17 +2376,36 @@ function championBleed(champion, action)
 	end
 end
 
-function bleed(monster, action) -- Called by monsters within their MonsterMove object
-	if monster:hasTrait("bleeding") and monster:isAlive() then
+function bleedMonster(self, e, champion, monster, bleedChance) -- self = projectile, e = tiledamager
+	local c = champion:getOrdinal()
+	bleedChance = bleedChance or 0
+	if champion:getClass() == "assassin_class" then set_c("assassin_bleed", c, nil) end
+
+	if bleedChance > 0 and math.random() <= bleedChance then	
+		setBleeding(monster, c)
+	end
+end
+
+function setBleeding(monster, c)
+	if monster:isAlive() and not monster:isImmuneTo("physical") then	
+		monster:addTrait("bleeding")
+		set(monster.go.id .. "bleeding", c)
+	end
+end
+
+function takeBleedDamage(monster, action) -- Called by monsters within their MonsterMove object
+	if monster:hasTrait("bleeding") and monster:isAlive() and not monster:isImmuneTo("physical") then
+		local causedByChampion = get(monster.go.id .. "bleeding")
 		if math.random() < 0.05 then -- 5% chance to stop bleeding
 			monster:removeTrait("bleeding")
 			monster.go.model:setEmissiveColor(vec(0,0,0))
 		end
+
 		if math.random() <= 0.5 then
 			if action == "walk" then
-				hitMonster(monster.go.id, math.random(monster:getHealth() * 0.015, monster:getHealth() * 0.03), "FF0000", nil, "physical", 1)
+				hitMonster(monster.go.id, math.random(monster:getHealth() * 0.015, monster:getHealth() * 0.03), nil, "pure", causedByChampion)
 			elseif action == "dot" then
-				hitMonster(monster.go.id, math.random(monster:getHealth() * 0.005, monster:getHealth() * 0.01), "FF0000", nil, "physical", 1)
+				hitMonster(monster.go.id, math.random(monster:getHealth() * 0.005, monster:getHealth() * 0.01), nil, "pure", causedByChampion)
 			end
 			monster.go:createComponent("Particle", "splatter")
 			monster.go.splatter:setOffset(vec(math.random() - 0.4, math.random() - 0.4 + 1, math.random() - 0.4))
@@ -2876,6 +2915,25 @@ function getEquippedMultiBonus(champion, type, useJoeBonus)
 	return multi
 end
 
+function getEquippedExtraResistBonus(champion, type) -- for bleeding, diseased and poisoned resistances
+	local multi = 0
+	local trait = { ["poisoned"] = "anti_poisoned", ["bleeding"] = "anti_bleeding", ["disease"] = "anti_diseased" }
+
+	for slot = ItemSlot.Weapon, ItemSlot.Bracers do
+		local item = champion:getItem(slot)
+		local isHandItem = isHandItem(item, slot)
+		if item and isHandItem then
+			for i=1,5 do
+				if item:hasTrait(trait[type] .. i) then
+					multi = multi + (i * 0.2)
+				end
+			end	
+		end
+	end
+
+	return multi
+end
+
 function getAccuracy(champion, slot)
 	local acc = 0
 	local add = nil
@@ -2947,6 +3005,11 @@ function getAccuracy(champion, slot)
 	-- Clutch +50 bonus
 	if get_c("clutch", c) then
 		acc = acc + get_c("clutch", c)
+	end
+
+	-- Penalties
+	if champion:hasCondition("head_wound") or champion:hasCondition("blind") then
+		acc = acc - 50
 	end
 
 	return acc
@@ -3190,19 +3253,22 @@ function getMiscResistance(champion, name)
 	local resist = 0
 	local add = 0
 
+	resist = resist + getEquippedExtraResistBonus(champion, name)
+
 	if name == "disease" then
 		if champion:getRace() == "ratling" then
-			return 100
+			return 1
 		end
 
 		for s = ItemSlot.Head,ItemSlot.Bracers do
 			local item = champion:getItem(s)
 			if item then
 				if item.go.name == "crystal_amulet" then
-					return 100
+					return 1
 				end
 			end
 		end
+		
 	elseif name == "bleeding" then
 		resist = get_c("bleeding_resist", c) and get_c("bleeding_resist", c) or 0
 		
@@ -3210,7 +3276,7 @@ function getMiscResistance(champion, name)
 			local item = champion:getItem(s)
 			if item then
 				if item.go.name == "pit_gauntlets" then
-					resist = resist + 25
+					resist = resist + 0.25
 				end
 			end
 		end	
@@ -3222,7 +3288,7 @@ function getMiscResistance(champion, name)
 			local item = champion:getItem(s)
 			if item then
 				if item.go.name == "crystal_amulet" then
-					return 100
+					return 1
 				end
 			end
 		end

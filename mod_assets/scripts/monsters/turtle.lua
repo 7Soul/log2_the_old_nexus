@@ -65,7 +65,7 @@ defineObject{
 			cooldown = 10,
 			dashChance = 50,
 			onBeginAction = function(self)
-				functions.script.bleed(self.go.monster)
+				functions.script.takeBleedDamage(self.go.monster)
 			end,
 		},
 		{

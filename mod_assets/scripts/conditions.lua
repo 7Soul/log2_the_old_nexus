@@ -28,10 +28,10 @@ defineCondition{
 	onTick = function(self, champion)
 		local missing = 1 - (champion:getHealth() / champion:getMaxHealth())
 		if missing > 0.25 then -- heal under 25% health
-			champion:regainHealth(missing * missing * 5.0 * 0.5)
+			functions.script.regainHealth(champion:getOrdinal(), missing * missing * 5.0 * 0.5)
 		elseif missing <= 0.25 and missing > 0.10 then -- extra under 10%
 			if math.random() < 0.5 then
-				champion:regainHealth(missing * missing * 5.0 * 0.5)
+				functions.script.regainHealth(champion:getOrdinal(), missing * missing * 5.0 * 0.5)
 			end
 		end
 	end,	
@@ -67,10 +67,10 @@ defineCondition{
 	onTick = function(self, champion)
 		local missing = 1 - (champion:getHealth() / champion:getMaxHealth())
 		if missing > 0.5 then -- heal under 50% health
-			champion:regainHealth(missing * missing * 5.0)
+			functions.script.regainHealth(champion:getOrdinal(), missing * missing * 5.0)
 		elseif missing <= 0.5 and missing > 0.25 then
 			if math.random() < 0.5 then
-				champion:regainHealth(missing * missing * 5.0)
+				functions.script.regainHealth(champion:getOrdinal(), missing * missing * 5.0)
 			end
 		end
 	end,	
@@ -96,7 +96,7 @@ defineCondition{
 	onRecomputeStats = function(self, champion)		
 	end,
 	onTick = function(self, champion)
-		champion:regainHealth(champion:getMaxHealth() / 100)
+		functions.script.regainHealth(champion:getOrdinal(), champion:getMaxHealth() / 100)
 		functions.script.regainEnergy(champion:getOrdinal(), champion:getMaxEnergy() / 100)
 	end,	
 }
@@ -163,7 +163,7 @@ defineCondition{
 	onRecomputeStats = function(self, champion)		
 	end,
 	onTick = function(self, champion)
-		champion:regainHealth(champion:getMaxHealth() / 100)
+		functions.script.regainHealth(champion:getOrdinal(), champion:getMaxHealth() / 100)
 		functions.script.regainEnergy(champion:getOrdinal(), champion:getMaxEnergy() / 100)
 		
 	end,	
@@ -319,7 +319,7 @@ defineCondition{
 	tickInterval = 1,
 	onStart = function(self, champion)
 		if champion:hasTrait("refreshed") then
-			champion:regainHealth(12)
+			functions.script.regainHealth(champion:getOrdinal(), 12)
 		end
 		-- Party Arcane Extraction
 		for i=1,4 do
@@ -340,7 +340,7 @@ defineCondition{
 	end,
 	onTick = function(self, champion)
 		local heal = champion:hasTrait("refreshed") and 3.9 or 3.125
-		champion:regainHealth(heal)
+		functions.script.regainHealth(heal)
 		local cond = { "head_wound", "chest_wound", "leg_wound", "feet_wound", "right_hand_wound", "left_hand_wound", "bleeding" }
 		local recoverChance = champion:hasTrait("refreshed") and 0.2 or 0.1
 		local recoverStart = champion:hasTrait("refreshed") and 12 or 8
@@ -368,7 +368,7 @@ defineCondition{
 	tickInterval = 1,
 	onStart = function(self, champion)
 		if champion:hasTrait("refreshed") then
-			champion:regainHealth(37)
+			functions.script.regainHealth(champion:getOrdinal(), 37)
 		end
 		-- Party Arcane Extraction
 		for i=1,4 do
@@ -389,7 +389,7 @@ defineCondition{
 	end,
 	onTick = function(self, champion)
 		local heal = champion:hasTrait("refreshed") and 23.4375 or 18.75
-		champion:regainHealth(heal)
+		functions.script.regainHealth(heal)
 		local cond = { "head_wound", "chest_wound", "leg_wound", "feet_wound", "right_hand_wound", "left_hand_wound", "bleeding" }
 		local recoverChance = champion:hasTrait("refreshed") and 0.2 or 0.1
 		local recoverStart = champion:hasTrait("refreshed") and 12 or 8
@@ -421,9 +421,9 @@ defineCondition{
 			local c = party.party:getChampionByOrdinal(i)
 			if c:hasTrait("arcane_extraction") then
 				if c ~= champion then
-					champion:regainHealth(8)
+					functions.script.regainHealth(champion:getOrdinal(), 8)
 				else
-					champion:regainHealth(25)
+					functions.script.regainHealth(champion:getOrdinal(), 25)
 				end
 				break
 			end
@@ -466,9 +466,9 @@ defineCondition{
 			local c = party.party:getChampionByOrdinal(i)
 			if c:hasTrait("arcane_extraction") then
 				if c ~= champion then
-					champion:regainHealth(8)
+					functions.script.regainHealth(champion:getOrdinal(), 8)
 				else
-					champion:regainHealth(25)
+					functions.script.regainHealth(champion:getOrdinal(), 25)
 				end
 				break
 			end
@@ -572,28 +572,6 @@ defineCondition{
 }
 
 defineCondition{
-	name = "bleeding",
-	uiName = "Bleeding",
-	description = "Take damage over time, doubled when moving and tripled when attacking.",
-	icon = 23,
-	iconAtlas = "mod_assets/textures/gui/conditions.dds",
-	beneficial = false,
-	harmful = true,
-	tickInterval = 3,
-	onStart = function(self, champion)
-		champion:setConditionValue("bleeding", 60)
-		
-	end,
-	onStop = function(self, champion)
-	end,
-	onRecomputeStats = function(self, champion)
-	end,
-	onTick = function(self, champion)
-		functions.script.championBleed(champion, "dot")	
-	end,	
-}
-
-defineCondition{
 	name = "chewing",
 	uiName = "Chewing",
 	description = "You are chewing on a herb.",
@@ -683,7 +661,7 @@ defineCondition{
 	end,
 	onTick = function(self, champion)
 		local heal = functions.script.get_c("reflective_damage", champion:getOrdinal())
-		champion:regainHealth(heal / 5)
+		functions.script.regainHealth(champion:getOrdinal(), heal / 5)
 		functions.script.regainEnergy(champion:getOrdinal(), heal / 5)
 	end,	
 }
@@ -788,14 +766,14 @@ defineCondition{
 	tickInterval = 0.5,
 	onStart = function(self, champion)
 		champion:removeTrait("crystal_health")
-		champion:regainHealth(champion:getMaxHealth() / 5)
+		functions.script.regainHealth(champion:getOrdinal(), champion:getMaxHealth() / 5)
 	end,
 	onStop = function(self, champion)
 	end,
 	onRecomputeStats = function(self, champion)
 	end,
 	onTick = function(self, champion)
-		champion:regainHealth(champion:getMaxHealth() / 10)
+		functions.script.regainHealth(champion:getOrdinal(), champion:getMaxHealth() / 10)
 	end,	
 }
 
@@ -821,4 +799,102 @@ defineCondition{
 	onTick = function(self, champion)
 		functions.script.changeSecondary(champion, 0.5, "buildup")
 	end,	
+}
+
+defineCondition{
+	name = "poison",
+	uiName = "Poisoned",
+	description = "You take poison damage every few seconds. Over time it becomes more severe.",
+	icon = 2,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
+	beneficial = false,
+	harmful = true,
+	tickInterval = 1,
+	onStart = function(self, champion)
+		local c = champion:getOrdinal()
+		local resist = functions.script.getMiscResistance(champion, "poisoned") -- 0 to 1
+		if math.random() >= resist then	
+			local dur = math.floor(math.random(45 + ((champion:getLevel()-1) * 4), 85 + ((champion:getLevel()-1) * 5) ) * math.max(1 - resist, 0.33))
+			self:setDuration(dur)
+			functions.script.set_c("poisonDurMax", c, dur)
+		end
+	end,
+
+	onStop = function(self, champion)
+		local c = champion:getOrdinal()
+		functions.script.set_c("poisonTick", c, nil)
+	end,
+	
+	onTick = function(self, champion)		
+		local c = champion:getOrdinal()
+		local poisonDurMax = functions.script.get_c("poisonDurMax", c) or 0
+		functions.script.add_c("poisonTick", c, 1)
+		local tick = functions.script.get_c("poisonTick", c) or 0
+
+		local multi_upper = math.min(math.floor((1 - (self:getDuration() / poisonDurMax)) * 5), champion:getLevel() + 1) -- every 20 seconds raises max damage, upper limit is champion level + 1
+		local multi_lower = math.min(math.floor((1 - (self:getDuration() / poisonDurMax)) * 2.5), champion:getLevel())	 -- every 40 seconds raises min damage, upper limit is champion level
+
+		print("multis", multi_lower, multi_upper)
+		if (tick >= 5 and math.random() < 0.12 + ((tick-5) * 0.12) ) then -- damages every 5 to 13 ticks
+			local damage = math.random( 1 + multi_lower , 5 + multi_upper ) + (champion:getLevel()-1)
+			if champion:getHealth() - damage * (1-(champion:getResistance("poison")*0.01)) > 0 then
+				champion:damage(damage, "poison")
+			end
+			functions.script.set_c("poisonTick", c, 0)
+		end
+	end,	
+}
+
+defineCondition{
+	name = "diseased",
+	uiName = "Diseased",
+	description = "Can't get healed from any source. Hunger increased by 25%.",
+	icon = 2,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
+	beneficial = false,
+	harmful = true,
+	tickInterval = 1,
+	onStart = function(self, champion)
+		local resist = functions.script.getMiscResistance(champion, "disease") -- 0 to 1
+		if math.random() >= resist then
+			self:setDuration(math.random(200,400) * math.max(1 - resist, 0.33) )
+		end
+	end,
+
+	onRecomputeStats = function(self, champion)
+		champion:addStatModifier("food_rate", 25)
+	end,
+}
+
+defineCondition{
+	name = "bleeding",
+	uiName = "Bleeding",
+	description = "Take damage over time, doubled when moving and tripled when attacking.",
+	icon = 23,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
+	beneficial = false,
+	harmful = true,
+	tickInterval = 1,
+	onStart = function(self, champion)
+		local resist = functions.script.getMiscResistance(champion, "bleeding") -- 0 to 1
+		if math.random() >= resist then
+			self:setDuration(math.random(60,90) * math.max(1 - resist, 0.33) )
+		end
+	end,
+	
+	onStop = function(self, champion)
+		local c = champion:getOrdinal()
+		functions.script.set_c("bleedTick", c, nil)
+	end,
+
+	onTick = function(self, champion)
+		local c = champion:getOrdinal()
+		functions.script.add_c("bleedTick", c, 1)
+		local tick = functions.script.get_c("bleedTick", c) or 0
+
+		if (tick >= 3 and math.random() < 0.25) or tick >= 6 then
+			functions.script.championBleed(champion, "dot")	
+			functions.script.set_c("bleedTick", c, 0)
+		end
+	end,
 }

@@ -6364,6 +6364,7 @@ potion_bear_form_2.detectedtimer:setTriggerOnStart(true)
 potion_bear_form_2.detectedtimer:setCurrentLevelOnly(true)
 spawn("turtle",11,14,1,0,"turtle_1")
 turtle_1.monster:setHealth(9000)
+turtle_1.brain:disable()
 turtle_1.detectedtimer:setTimerInterval(0)
 turtle_1.detectedtimer:setDisableSelf(false)
 turtle_1.detectedtimer:setTriggerOnStart(true)
@@ -7017,6 +7018,18 @@ baton_1.detectedtimer:setTimerInterval(0)
 baton_1.detectedtimer:setDisableSelf(false)
 baton_1.detectedtimer:setTriggerOnStart(true)
 baton_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("crystal_amulet",12,14,3,0,"crystal_amulet_1")
+crystal_amulet_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+crystal_amulet_1.detectedtimer:setTimerInterval(0)
+crystal_amulet_1.detectedtimer:setDisableSelf(false)
+crystal_amulet_1.detectedtimer:setTriggerOnStart(true)
+crystal_amulet_1.detectedtimer:setCurrentLevelOnly(true)
 
 --- level 4 ---
 
