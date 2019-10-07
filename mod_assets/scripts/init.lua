@@ -14,6 +14,7 @@ import "mod_assets/scripts/objects/stone_philosophers.lua"
 import "mod_assets/scripts/objects/sky.lua"
 import "mod_assets/scripts/objects/pushable_block.lua"
 import "mod_assets/scripts/materials/tomb.lua"
+import "mod_assets/scripts/materials/beach.lua"
 import "mod_assets/scripts/materials/generic.lua"
 import "mod_assets/scripts/materials/monsters.lua"
 import "mod_assets/scripts/materials/items.lua"
@@ -288,7 +289,7 @@ defineObject{
 		onDie = function(party,champion) 
 			--print(party.go.id,champion:getName(),'died') 
 			for i=1,4 do
-				if party:getChampion(i):getClass() == "berserker" and party:getChampion(i):isAlive() then
+				if party:getChampion(i):getClass() == "fighter" and party:getChampion(i):isAlive() then
 					party:getChampion(i):setConditionValue("berserker_revenge", 60)
 					if party:getChampion(i):hasCondition("berserker_rage") then
 						party:getChampion(i):removeCondition("berserker_rage")
@@ -524,7 +525,7 @@ defineObject{
 				end
 			end
 			
-			-- if champion:getClass() == "berserker" then
+			-- if champion:getClass() == "fighter" then
 				-- local item = getMouseItem()				
 				-- if item and item.go:getComponent("equipmentitem") then
 					-- local i = nil
@@ -1705,7 +1706,7 @@ defineObject{
 				functions.script.set_c("level_up_message_2_timer", champion:getOrdinal(), 8)
 			end
 
-			if champion:getClass() == "berserker" and (champion:getLevel()-1) % 3 == 0 then
+			if champion:getClass() == "fighter" and (champion:getLevel()-1) % 3 == 0 then
 				functions.script.set_c("level_up_message", champion:getOrdinal(), champion:getName() .. " gained +6 Protection and +1 Strenght to Berserker Frenzy.")
 				functions.script.set_c("level_up_message_timer", champion:getOrdinal(), 8)
 			end

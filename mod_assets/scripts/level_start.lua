@@ -159,56 +159,52 @@ function start()
 	-- Bridge of Ages --
 	--------------------
 	if short_bow_1 then
-	short_bow_1:setWorldPosition(vec(73.55,0.76,32.91))
-	short_bow_1:setWorldRotationAngles(101,-2.4,72)
-	short_bow_1.gravity:disable()	
-	arrow_1:setWorldPosition(vec(73.26,0.36,32.69))
-	arrow_1:setWorldRotationAngles(13.6,13.6,55.2)
-	arrow_1.gravity:disable()
-	arrow_2:setWorldPosition(vec(73.58,0.47,32.81))
-	arrow_2:setWorldRotationAngles(75.2,6.4,81.6)
-	arrow_2.gravity:disable()
-	arrow_3:setWorldPosition(vec(48.43,0.49,33.9))
-	arrow_3:setWorldRotationAngles(55.2,127.2,268)
-	arrow_3.gravity:disable()
-	
-	for i=1,4 do
-		findEntity("demo_pillar_"..i):setWorldPosition(vec(81, 0, 59.4 + (i*3) - 3))
-		findEntity("demo_button_"..i):setWorldPosition(vec(80.87, 0, 59.4 + (i*3) - 3))
-		findEntity("gate_demo_"..i.."_bot"):setWorldPosition(findEntity("gate_demo_"..i.."_top"):getWorldPosition() + vec(0,-0.5,0))
-	end
-	beach_wall_button_5:setWorldPosition(vec(78.4, 0, 64.5))
+		short_bow_1:setWorldPosition(vec(73.55,0.76,32.91))
+		short_bow_1:setWorldRotationAngles(101,-2.4,72)
+		short_bow_1.gravity:disable()	
+		arrow_1:setWorldPosition(vec(73.26,0.36,32.69))
+		arrow_1:setWorldRotationAngles(13.6,13.6,55.2)
+		arrow_1.gravity:disable()
+		arrow_2:setWorldPosition(vec(73.58,0.47,32.81))
+		arrow_2:setWorldRotationAngles(75.2,6.4,81.6)
+		arrow_2.gravity:disable()
+		arrow_3:setWorldPosition(vec(48.43,0.49,33.9))
+		arrow_3:setWorldRotationAngles(55.2,127.2,268)
+		arrow_3.gravity:disable()
+		
+		for i=1,4 do
+			findEntity("demo_pillar_"..i):setWorldPosition(vec(81, 0, 59.4 + (i*3) - 3))
+			findEntity("demo_button_"..i):setWorldPosition(vec(80.87, 0, 59.4 + (i*3) - 3))
+			findEntity("gate_demo_"..i.."_bot"):setWorldPosition(findEntity("gate_demo_"..i.."_top"):getWorldPosition() + vec(0,-0.5,0))
+		end
+		beach_wall_button_5:setWorldPosition(vec(78.4, 0, 64.5))
 	end
 	
 	--------------------
 	--  Ruined City   --
 	--------------------
 	if mine_ceiling_lantern_6 then
-	mine_ceiling_lantern_6:setWorldPosition(vec(7.5,-0.25,39))
-	forest_lantern_blue_4:setWorldPosition(vec(14.6,-3,46.5))
-	turnButton:setWorldPosition(vec(51.3,0,70.5))
-	castle_pressure_plate_1:setWorldPositionY(-0.01)
-	--castle_pressure_plate_1:setWorldPosition(vec(17.75,-0.01,73.5))
-	--wall_button_2:setWorldPosition(vec(18.41,-0.96,72.75))
-	--beach_lock_gold_2:setWorldPosition(vec(18.41,-0.96,72.75))
-	--beach_lock_gold_2:createComponent("Door")
+		mine_ceiling_lantern_6:setWorldPosition(vec(7.5,-0.25,39))
+		forest_lantern_blue_4:setWorldPosition(vec(14.6,-3,46.5))
+		city_lock_ornate_1:setWorldPosition(vec(75.4,0,82.5))
+		turnButton:setWorldPosition(vec(51.3,0,70.5))
 	end
 	
 	--------------------
 	--  Unnamed Cave  --
 	--------------------
 	if blowpipe_1 then
-	blowpipe_1:setWorldPosition(vec(5.5,0.51,30.19))
-	blowpipe_1:setWorldRotationAngles(0,5.6,104)
+		blowpipe_1:setWorldPosition(vec(5.5,0.51,30.19))
+		blowpipe_1:setWorldRotationAngles(0,5.6,104)
 	end
 	
 	------------------------
 	--  Castle Courtyard  --
 	------------------------
 	if forest_fountain_1 then
-	forest_fountain_1:setWorldPosition(vec(45,0,66))
-	forest_plant_cluster_01_67.model:setEmissiveColor(vec(0.05,-0.02,-0.01))
-	forest_spruce_sapling_01_16.model:setEmissiveColor(vec(0.05,-0.02,-0.01))
+		forest_fountain_1:setWorldPosition(vec(45,0,66))
+		forest_plant_cluster_01_67.model:setEmissiveColor(vec(0.05,-0.02,-0.01))
+		forest_spruce_sapling_01_16.model:setEmissiveColor(vec(0.05,-0.02,-0.01))
 	end
 	
 	-------------------------
@@ -251,8 +247,8 @@ function start()
 		dead_crystal_1:setWorldRotation(m)
 	end
 	
-	-- local pos = forest_fireflies_4:getWorldPosition()
-	local pos = findEntity(objname):getComponent(objname2):getOffset()
+	local pos = city_lock_ornate_1:getWorldPosition()
+	-- local pos = findEntity(objname):getComponent(objname2):getOffset()
 	posx = pos.x
 	posy = pos.y
 	posz = pos.z
@@ -262,29 +258,28 @@ function start()
 	rotz = rot.z
 end
 
-objname = "lava_crab_1"
-objname2 = "shieldback2"
+objname = "city_lock_ornate_1"
 
 function move(x,y,z)
 	xx = xx + x*1
 	yy = yy + y*1
 	zz = zz + z*1
 	-- Model within object
-	findEntity(objname):getComponent(objname2):setOffset(vec(posx + xx, posy + yy, posz + zz))
+	-- findEntity(objname):getComponent(objname2):setOffset(vec(posx + xx, posy + yy, posz + zz))
 	-- Object
-	--findEntity(objname):setWorldPosition(vec(posx + xx, posy + yy, posz + zz))
-	--findEntity(objname):getComponent("socket"):setOffset(vec(xx, yy, zz))
-	--print("Offset: ", findEntity(objname):getWorldPosition())
-	print("Offset: ", findEntity(objname):getComponent(objname2):getOffset())
+	findEntity(objname):setWorldPosition(vec(posx + xx, posy + yy, posz + zz))
+	print("Offset: ", findEntity(objname):getWorldPosition())
+	-- print("Offset: ", findEntity(objname):getComponent(objname2):getOffset())
 end
 
 function rotate(x,y,z)
 	xr = xr + x*8
 	yr = yr + y*8
 	zr = zr + z*8
-	findEntity(objname):getComponent(objname2):setRotationAngles(rotx + xr, roty + yr, rotz + zr)
-	--findEntity(objname):setWorldRotationAnglesWithOrder(xr, yr, zr, "xyz")
-	--findEntity(objname):getComponent("socket"):setRotationAngles(xr, yr, zr)
+	-- Model within object
+	-- findEntity(objname):getComponent(objname2):setRotationAngles(rotx + xr, roty + yr, rotz + zr)
+	-- Object
+	findEntity(objname):setWorldRotationAnglesWithOrder(xr, yr, zr, "xyz")
 	print("Rotation: ", rotx + xr, roty + yr, rotz + zr)
 end
 
@@ -430,6 +425,8 @@ function updateSky(t)
 	findEntity("beach_ocean_2"):getComponent("surface"):setOffset(vec(0, -1.4 + (math.cos((t+0.5)/30*90) * 0.2), 0))
 	findEntity("beach_ocean_3"):getComponent("surface"):setOffset(vec(0, -1.4 + (math.cos((t+0.5)/30*90) * 0.2), 0))
 	findEntity("beach_ocean_4"):getComponent("surface"):setOffset(vec(0, -1.4 + (math.cos((t+0.5)/30*90) * 0.2), 0))
+	findEntity("beach_oar_boat_1").model:setOffset(vec(0, 0.6 + ((math.cos((t+0.5)/30*90) * 0.2) + (math.cos(party.gametime2:getValue()/100)*0.1) ), 0))
+	findEntity("beach_oar_boat_1").model:setRotationAngles( math.cos((party.gametime2:getValue()+20) / 50) * 4.0 , 10 + t, math.cos((party.gametime2:getValue()+10) / 30) * 1.0)
 end
 
 function setGotDevice()

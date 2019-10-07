@@ -24,6 +24,61 @@ defineObject{
 }
 
 defineObject{
+	name = "ring_mail_bp",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/ring_mail.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Ring Mail",
+			armorSet = "ring",
+			armorSetPieces = 5,
+			gfxIndex = 88,
+			weight = 11.0,
+			traits = { "heavy_armor", "dismantle", "chest_armor", "upgradable" },
+			fitContainer = false,
+		},
+		{
+			class = "EquipmentItem",
+			protection = 6,
+		},
+		{
+			class = "ContainerItem",
+			containerType = "sack",
+			openSound = "container_sack_open",
+			closeSound = "container_sack_close",
+			onInit = function(self)
+				if self:getItemCount() > 0 then
+					self.go.item:setFitContainer(true)
+				end
+			end,			
+			onInsertItem = function(self, item)
+				-- convert to full sack
+				if self:getItemCount() > 0 then
+					self.go.item:setFitContainer(false)
+				end
+			end,
+			onRemoveItem = function(self, item)
+				-- convert to empty sack when last item is removed
+				if self:getItemCount() == 0 then
+					self.go.item:setFitContainer(true)
+				end
+			end,
+		},
+		{
+			class = "UsableItem",
+			onUseItem = function(self, champion)
+				return false
+			end,
+		},
+	},
+	tags = { "armor_heavy" },
+}
+
+defineObject{
 	name = "ring_cuisse",
 	baseObject = "base_item",
 	components = {

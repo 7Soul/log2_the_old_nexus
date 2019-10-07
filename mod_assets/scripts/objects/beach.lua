@@ -1325,3 +1325,19 @@ defineObject{
 	minimalSaveState = true,
 	tags = { "level_decoration" },
 }
+
+defineObject{
+	name = "beach_oar_boat",
+	baseObject = "base_obstacle",
+	components = {
+		{
+			class = "Model",
+			model = "mod_assets/models/env/wood_boat.fbx",
+			offset = vec(0,0.5,0),
+			staticShadow = true,
+		},
+	},
+	editorIcon = 56,
+	minimalSaveState = true,
+	tags = { "level_decoration" },
+}

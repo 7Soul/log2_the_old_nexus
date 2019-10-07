@@ -149,3 +149,16 @@ defineMaterial{
 	glossiness = 30,
 	depthBias = 0,
 }
+
+defineMaterial{
+	name = "wood_boat",
+	diffuseMap = "mod_assets/textures/env/wood_boat_dif.tga",
+	specularMap = "mod_assets/textures/env/wood_boat_spec.tga",
+	doubleSided = false,
+	lighting = true,
+	alphaTest = false,
+	blendMode = "Opaque",
+	textureAddressMode = "Wrap",
+	glossiness = 20,
+	depthBias = 0,
+}

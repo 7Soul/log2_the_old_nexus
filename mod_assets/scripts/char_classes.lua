@@ -33,7 +33,7 @@ defineCharClass{
 }
 
 defineCharClass{
-	name = "berserker",
+	name = "fighter",
 	uiName = "Berserker",
 	optionalTraits = 1,
 }

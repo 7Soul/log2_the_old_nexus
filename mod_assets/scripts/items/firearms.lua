@@ -24,6 +24,56 @@ defineObject{
 			jamChance = 0,
 			requirements = { "firearms", 1 },
 		},
+		{
+			class = "ContainerItem",
+			containerType = "sack",
+			openSound = "container_sack_open",
+			closeSound = "container_sack_close",
+			onInit = function(self)
+				if self:getItemCount() > 0 then					
+				end				
+			end,			
+			onInsertItem = function(self, item, slot)
+				-- convert to full sack
+				if self:getItemCount() > 0 then
+					self.go.item:setFitContainer(false)
+				end	
+
+				if (not item.go.ammoitem) or (item.go.ammoitem and item.go.ammoitem:getAmmoType() ~= "pellet") then					
+					local champion = self.go.data:get("champion")
+					for j=ItemSlot.BackpackFirst,ItemSlot.BackpackLast do
+						if not champion:getItem(j) then champion:insertItem(j, item) break end
+						if j == ItemSlot.BackpackLast and champion:getItem(j) then party:spawn(item) break end
+					end
+					self:removeItem(item)
+				else
+					if slot ~= 5 then
+						local item_in = self:getItem(5)
+						if item_in and item_in.go.name == item.go.name and item:getStackable() then
+							item_in:setStackSize( item:getStackSize() + item_in:getStackSize() )
+							self:removeItem(item)
+							return false
+						else
+							self:insertItem(5, item)
+							self:removeItem(item)
+						end
+					end
+				end
+			end,
+			onRemoveItem = function(self, item)
+				-- convert to empty sack when last item is removed
+				if self:getItemCount() == 0 then
+					self.go.item:setFitContainer(true)
+				end
+			end,
+		},
+		{
+			class = "UsableItem",
+			onUseItem = function(self, champion)
+				self.go.data:set("champion", champion)
+				return false
+			end,
+		},
 	},
 	tags = { "weapon_firearm" }
 }

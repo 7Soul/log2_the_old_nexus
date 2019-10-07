@@ -53,7 +53,7 @@ defineSkill{
 	- Rush       | Gain +12% Action Speed and -24% Special Attack Cost.]],
 	traits = { [2] = "light_wear", [4] = "reflective", [5] = "rush" },
 	onRecomputeStats = function(champion, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and functions ~= nil and Time.currentTime() > 3 then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
 			local equip_slots = {3,4,5,6,9}
 			for i, v in pairs(equip_slots) do
 				if champion:getItem(v) and champion:getItem(v):hasTrait("light_armor") then
@@ -79,7 +79,7 @@ defineSkill{
 	- Armor Training | Sets and Heavy Armor perks work even without Helmet and Gloves. Other armor types in those slots gain an extra 20% protection.]],
 	traits = { [2] = "armored_up", [4] = "heavy_conditioning", [5]="armor_training" },
 	onRecomputeStats = function(champion, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and functions ~= nil and Time.currentTime() > 3 then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
 			local equip_slots = {3,4,5,6,9}
 			for i, v in pairs(equip_slots) do
 				if champion:getItem(v) and champion:getItem(v):hasTrait("heavy_armor") then
@@ -161,7 +161,7 @@ defineSkill{
 	- Lucky Blow | Every 3rd attack gains +50% Crit and attack power equal to 1/5 of your Dexterity.]],
 	traits = { [2] = "sea_dog", [3] = "freebooter", [4] = "broadside", [5] = "lucky_blow" },
 	onRecomputeStats = function(champion, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
 			local stat = functions.script.get("aggroMonsters")
 			if not stat then return end
 			champion:addStatModifier("evasion", stat * 3)
@@ -248,7 +248,7 @@ defineSkill{
 	- Mage Strike | Your spells gain double the bonuses from the Critical skill plus 1% Critical per 10 points in Willpower.]],
 	traits = { [1] = "staff_fighter", [2] = "spell_slinger", [4] = "arcane_warrior", [5] = "mage_strike" },
 	onRecomputeStats = function(champion, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and Time.currentTime() > 3 then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and party.partycounter:getValue() > 2 then
 			local level2 = champion:getSkillLevel("spellblade")
 			for i=1,2 do
 				local item = champion:getItem(i)
@@ -259,7 +259,7 @@ defineSkill{
 		end
 	end,
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 then
 			local level2 = champion:getSkillLevel("spellblade")
 			for i=1,2 do
 				local item = champion:getItem(i)
@@ -368,21 +368,3 @@ defineSkill{
 		end
 	end,
 }
-
--- defineSkill{
-	-- name = "explosives",
-	-- uiName = "Explosives",
-	-- priority = 105,
-	-- icon = 20,
-	-- description = [[Increases the damage of bombs by 20% per skill level.
-	
-	-- Perks:
-	-- - Level 2 | Melee, throwing and firearm attacks deal 10% of their attack power as fire damage, with a 10% chance to burn.
-	-- - Level 4 | 50% better chances of generating bombs and pellets by activating Explosive Cores and 5% chance of gaining double the items.
-	-- - Level 5 | Bombs do 50% damage to enemies in a 2x3 area behind and besides your main target.]],
-	-- traits = { [2] = "", [4] = "", [5] = "" },
-	-- onRecomputeStats = function(champion, level)
-		-- if level > 0 then
-		-- end
-	-- end,
--- }

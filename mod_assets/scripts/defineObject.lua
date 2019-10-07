@@ -71,7 +71,7 @@ local onAnimationEvent = function(self, event)
 end
 
 local onWInit = function(self)
-	if functions.script then
+	if functions and functions.script then
 		local meleeSecondaries = { "banish", "bash", "bite", "chop", "chip", "cleave", "dagger_throw", "devastate", "flurry", "knockback", "leech", "reap", "stun", "thrust" }
 		for i=1,#meleeSecondaries do
 			if self.go.meleeattack and self.go.item:hasTrait(meleeSecondaries[i]) and self:getName() ~= "meleeattack" then
@@ -92,8 +92,7 @@ local onWInit = function(self)
 		for i=1,#throwingSecondaries do
 			if self.go.throwattack and self.go.item:hasTrait(throwingSecondaries[i]) and self:getName() ~= "throwattack" then
 				local c = self.go:getComponent(throwingSecondaries[i])
-				print(self.go.name, self.go.throwattack)
-				-- functions.script.updateSecondary(self.go.throwattack, c, throwingSecondaries[i], 0)
+				functions.script.updateSecondary(self.go.throwattack, c, throwingSecondaries[i], 0)
 			end
 		end
 	end
