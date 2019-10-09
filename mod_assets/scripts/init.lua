@@ -28,6 +28,7 @@ import "mod_assets/scripts/spells/psionic_arrow.lua"
 -- import custom assets
 import "mod_assets/scripts/objects/base.lua"
 import "mod_assets/scripts/defineObject.lua"
+import "mod_assets/scripts/test.lua"
 import "mod_assets/scripts/functions.lua"
 import "mod_assets/scripts/level_start.lua"
 import "mod_assets/scripts/beach.lua"
@@ -162,6 +163,7 @@ defineObject{
 							print("Item", item.go.name, "reached a burnout of", item.go.data:get("burnout"), "out of a max", 4500)
 						end
 					end
+
 					if item and item.go.name == "fiber_ball_good" then
 						if item.go.data:get("burnout") == nil then item.go.data:set("burnout", 0) end
 						local parent = party:getChampionByOrdinal(item.go.data:get("parent"))
@@ -176,6 +178,7 @@ defineObject{
 							print("Item", item.go.name, "reached a burnout of", item.go.data:get("burnout"), "out of a max", b_timer)
 						end
 					end
+
 					if item and item.go.name == "ice_sword" then
 						if item.go.data:get("burnout") == nil then item.go.data:set("burnout", 0) end
 						local parent = party:getChampionByOrdinal(item.go.data:get("parent"))
@@ -784,17 +787,12 @@ defineObject{
 				multi = 1
 			end
 			
-			if context.keyDown("1") then
-				party:setPosition(party.x, party.y, party.facing, 0, party.level)
-			end
-			if context.keyDown("2") then
-				party:setPosition(party.x, party.y, party.facing, 1, party.level)
-			end
-			if context.keyDown("3") then
-				party:setPosition(party.x, party.y, party.facing, 2, party.level)
+			if context.keyDown("1") and functions.script.keypressDelayGet() == 0 then
+				party:setPosition(party.x, party.y, party.facing, party.elevation + 1, party.level)
+				functions.script.keypressDelaySet(2)
 			end
 			
-			if context.keyDown("O") then		
+			if context.keyDown("O") then
 				local text = "OFFSETING"
 				context.drawText(text, 	w - (f2 * (w / 2  + context.getTextWidth(text))), h - (f2 * h / 2))
 				if context.keyDown("X") then
@@ -821,10 +819,6 @@ defineObject{
 					functions2.script.rotate(0,0,0.1*multi)
 				end
 			end
-
-			if context.keyDown("M") then
-				print("MX:", MX*f2, "MY:", MY*f2)
-			end
 			
 			if context.keyDown("U") and functions.script.keypressDelayGet() == 0 then
 				GameMode.setTimeOfDay((GameMode.getTimeOfDay() + 0.33) % 2)
@@ -832,7 +826,7 @@ defineObject{
 				functions.script.keypressDelaySet(10)
 			end
 
-			if context.keyDown("L") and functions.script.keypressDelayGet() == 0 then
+			if context.keyDown("shift") and context.keyDown("L") and functions.script.keypressDelayGet() == 0 then
 				for i = 1,4 do
 					party.party:getChampion(i):levelUp()
 					functions.script.keypressDelaySet(10)
@@ -973,10 +967,10 @@ defineObject{
 			local textIndex = 0
 			for i=1,4 do
 				local champion = party.party:getChampionByOrdinal(i)
-				if functions.script.get_c("level_up_message_timer", champion:getOrdinal()) then
-					local text = functions.script.get_c("level_up_message", champion:getOrdinal())
+				if functions.script.get_c("level_up_message_1_timer", champion:getOrdinal()) then
+					local text = functions.script.get_c("level_up_message_1_timer", champion:getOrdinal())
 					textIndex = textIndex + 1
-					local timer = 3 - (functions.script.get_c("level_up_message_timer", champion:getOrdinal()) or 0)
+					local timer = 3 - (functions.script.get_c("level_up_message_1_timer", champion:getOrdinal()) or 0)
 					timer = math.max(timer, 0)
 					context.font("medium")
 					context.color(255, 255, 255, 255 - (timer*85))
@@ -1697,8 +1691,8 @@ defineObject{
 			end
 
 			if champion:getClass() == "assassin_class" and (champion:getLevel()-1) % 3 == 0 then
-				functions.script.set_c("level_up_message", champion:getOrdinal(), champion:getName() .. " gained +1 maximum armor break with Fleshbore.")
-				functions.script.set_c("level_up_message_timer", champion:getOrdinal(), 8)
+				functions.script.set_c("level_up_message_1_timer", champion:getOrdinal(), champion:getName() .. " gained +1 maximum armor break with Fleshbore.")
+				functions.script.set_c("level_up_message_1_timer", champion:getOrdinal(), 8)
 			end
 
 			if champion:getClass() == "assassin_class" and (champion:getLevel()-1) % 6 == 0 then
@@ -1707,23 +1701,23 @@ defineObject{
 			end
 
 			if champion:getClass() == "fighter" and (champion:getLevel()-1) % 3 == 0 then
-				functions.script.set_c("level_up_message", champion:getOrdinal(), champion:getName() .. " gained +6 Protection and +1 Strenght to Berserker Frenzy.")
-				functions.script.set_c("level_up_message_timer", champion:getOrdinal(), 8)
+				functions.script.set_c("level_up_message_1_timer", champion:getOrdinal(), champion:getName() .. " gained +6 Protection and +1 Strenght to Berserker Frenzy.")
+				functions.script.set_c("level_up_message_1_timer", champion:getOrdinal(), 8)
 			end
 
 			if champion:getClass() == "monk" and (champion:getLevel()-1) % 4 == 0 then
-				functions.script.set_c("level_up_message", champion:getOrdinal(), champion:getName() .. " gained +3 seconds duration to Healing Aura and +30 seconds to Holy Light.")
-				functions.script.set_c("level_up_message_timer", champion:getOrdinal(), 8)
+				functions.script.set_c("level_up_message_1_timer", champion:getOrdinal(), champion:getName() .. " gained +3 seconds duration to Healing Aura and +30 seconds to Holy Light.")
+				functions.script.set_c("level_up_message_1_timer", champion:getOrdinal(), 8)
 			end
 
 			if champion:getClass() == "hunter" then
-				functions.script.set_c("level_up_message", champion:getOrdinal(), champion:getName() .. " gained +1 second duration to Thrill of the Hunt.")
-				functions.script.set_c("level_up_message_timer", champion:getOrdinal(), 8)
+				functions.script.set_c("level_up_message_1_timer", champion:getOrdinal(), champion:getName() .. " gained +1 second duration to Thrill of the Hunt.")
+				functions.script.set_c("level_up_message_1_timer", champion:getOrdinal(), 8)
 			end
 
 			if champion:getClass() == "stalker" and (champion:getLevel()-1) % 3 == 0 then
-				functions.script.set_c("level_up_message", champion:getOrdinal(), champion:getName() .. " gained +4 seconds duration to Night Stalker.")
-				functions.script.set_c("level_up_message_timer", champion:getOrdinal(), 8)
+				functions.script.set_c("level_up_message_1_timer", champion:getOrdinal(), champion:getName() .. " gained +4 seconds duration to Night Stalker.")
+				functions.script.set_c("level_up_message_1_timer", champion:getOrdinal(), 8)
 			end
 
 			if champion:hasTrait("brutalizer") and (champion:getLevel()-1) % 2 == 0 then
@@ -1748,10 +1742,12 @@ defineObject{
 		onGetPortrait = function(self,champion)
 		end,
 	},
+
 	{
 		class = "Counter",
 		name = "partycounter",
-	},	
+	},
+
 	{
 		class = "Timer",
 		name = "partytimer",
@@ -1760,6 +1756,7 @@ defineObject{
 		onActivate = function(self)
 			self.go.partycounter:increment()
 			local v = self.go.partycounter:getValue()
+
 			-- Monster Bleeding dot
 			for entity in Dungeon.getMap(party.level):allEntities() do
 				if entity.monster then
@@ -1768,6 +1765,7 @@ defineObject{
 				end
 			end
 
+			-- Ice Sword damage
 			for i=1,4 do
 				local champion = party.party:getChampionByOrdinal(i)
 				local item = champion:getItem(ItemSlot.Weapon)
@@ -1779,20 +1777,21 @@ defineObject{
 				end
 			end
 
+			-- Poison
 			for entity in Dungeon.getMap(party.level):allEntities() do
 				if entity.monster then
 					local monster = entity.monster
 					if monster and monster.go.poisoned and monster:isAlive() then
+						local champion = party.party:getChampionByOrdinal(monster.go.poisoned:getCausedByChampion())
 						functions.script.hitMonster(monster.go.id, math.random(monster:getHealth() * 0.005, monster:getHealth() * 0.01), "009900", nil, "poison", 1)
 						if monster.go.poisoned:getCausedByChampion() then
-							local champion = party.party:getChampionByOrdinal(monster.go.poisoned:getCausedByChampion())
-							if champion:hasTrait("venomancer") and math.random() <= 0.45 then
-								champion:regainHealth(math.random(1,5))
-							end
+							-- if champion:hasTrait("venomancer") and math.random() <= 0.45 then
+							-- 	champion:regainHealth(math.random(1,5))
+							-- end
 						end
+						
 						-- Plague spread
-						if monster.go.poisoned:getCausedByChampion() and math.random() <= 0.33 then
-							local champion = party.party:getChampionByOrdinal(monster.go.poisoned:getCausedByChampion())
+						if monster.go.poisoned:getCausedByChampion() and math.random() <= 0.33 then							
 							if champion:hasTrait("plague") then
 								local mList = {}
 								for d=0,8 do
@@ -1808,7 +1807,7 @@ defineObject{
 									local value = mList[ math.random( #mList ) ]
 									if value then
 										if not value.go.poisoned then
-											value:setCondition("poisoned", math.random(10,20))
+											value:setConditionValue("poisoned", math.random(10,20))
 										end
 										if value.go.poisoned then 
 											value.go.poisoned:setCausedByChampion(champion:getOrdinal())
@@ -1820,7 +1819,8 @@ defineObject{
 					end
 				end
 			end
-			-- print ("A day has passed.")
+
+			
 			-- for i=1,4 do
 				-- local champion = party.party:getChampionByOrdinal(i)
 				-- if champion:getClass() == "stalker" then
@@ -1832,10 +1832,12 @@ defineObject{
 			--return hudPrint("Time = "..v.."")
 		end
 	},
+
 	{
 		class = "Counter",
 		name = "gametime2",
 	},
+
 	{
 		class = "Timer",
 		name = "partytimer2",
@@ -1844,90 +1846,96 @@ defineObject{
 		onActivate = function(self)
 			self.go.gametime2:increment()
 			local t = GameMode.getTimeOfDay()
-			functions2.script.updateSky(t)
+			local v = party.gametime2:getValue()
 
-			functions.script.keypressDelaySet(math.max(functions.script.keypressDelayGet() - 1, 0))
+			if v % 2 == 0 then
+				functions2.script.updateSky(t) -- updates sky and tides
+				functions.script.keypressDelaySet(math.max(functions.script.keypressDelayGet() - 2, 0))
 			
-			if party.party:isCarrying("enchanted_timepiece") or (getMouseItem() and getMouseItem().go.name == "enchanted_timepiece") then
-				local timepiece = functions.script.getTimepiece()
-				for entity in Dungeon.getMap(party.level):entitiesAt(party.x, party.y) do
-					if timepiece then
-						if entity.name == "crystal_area_inside" and entity.elevation == party.elevation then
-							if functions2.script.timeTravelTimer == 0 then
-								timepiece.go.item:setGfxIndex(26) -- charged
+				if party.party:isCarrying("enchanted_timepiece") or (getMouseItem() and getMouseItem().go.name == "enchanted_timepiece") then
+					local timepiece = functions.script.getTimepiece()
+					for entity in Dungeon.getMap(party.level):entitiesAt(party.x, party.y) do
+						if timepiece then
+							if entity.name == "crystal_area_inside" and entity.elevation == party.elevation then
+								if functions2.script.timeTravelTimer == 0 then
+									timepiece.go.item:setGfxIndex(26) -- charged
+								else
+									timepiece.go.item:setGfxIndex(39 - functions2.script.timeTravelTimer)
+								end
+								break
 							else
-								timepiece.go.item:setGfxIndex(39 - functions2.script.timeTravelTimer)
-							end
-							break
-						else
-							if functions2.script.timeTravelTimer == 0 then
-								timepiece.go.item:setGfxIndex(13) -- empty
-							else
-								timepiece.go.item:setGfxIndex(26 - functions2.script.timeTravelTimer)
+								if functions2.script.timeTravelTimer == 0 then
+									timepiece.go.item:setGfxIndex(13) -- empty
+								else
+									timepiece.go.item:setGfxIndex(26 - functions2.script.timeTravelTimer)
+								end
 							end
 						end
 					end
 				end
-			end
-			
-			local aggroMonsters = 0
-			for entity in Dungeon.getMap(party.level):allEntities() do
-				if entity.monster then
-					local monster = entity.monster
-					if monster and monster:hasTrait("bleeding") then
-						local wave = math.abs(math.sin(self.go.gametime2:getValue() * 0.05))
-						monster.go.model:setEmissiveColor(vec(0.05,-.02,-.02) * wave)
-					end
+				
+				-- Counts monsters that can see the player
+				local aggroMonsters = 0
+				for entity in Dungeon.getMap(party.level):allEntities() do
+					if entity.monster then
+						local monster = entity.monster
+						if monster and monster:hasTrait("bleeding") then
+							local wave = math.abs(math.sin(self.go.gametime2:getValue() * 0.05))
+							monster.go.model:setEmissiveColor(vec(0.05,-.02,-.02) * wave)
+						end
 
-					if entity.brain.seesParty and entity.brain.partyOnLevel then
-						aggroMonsters = aggroMonsters + 1
+						if entity.brain.seesParty and entity.brain.partyOnLevel then
+							aggroMonsters = aggroMonsters + 1
+						end
+						-- print(entity.name, "sees party", entity.brain.seesParty)
+						-- print(entity.name, "detected timer", entity.detectedtimer)
 					end
-					-- print(entity.name, "sees party", entity.brain.seesParty)
-					-- print(entity.name, "detected timer", entity.detectedtimer)
 				end
+				-- print("aggro count", aggroMonsters)
+				functions.script.set("aggroMonsters", aggroMonsters)
 			end
-			-- print("aggro count", aggroMonsters)
-			functions.script.set("aggroMonsters", aggroMonsters)
-			
+
 			for i=1,4 do
 				local champion = party.party:getChampionByOrdinal(i)
+				local dir = party.facing
+				local dx,dy = getForward(dir)
+
 				functions.script.checkWeights(i)
 				if party:getWorldPositionY() > -0.6 and champion:isReadyToAttack(1) then
 					functions.script.set_c("attackedWith", i, nil)
 					functions.script.set_c("attacked", i, nil)
 				end
 				
-				functions.script.set_c("wide_vision", i, nil)				
-				if champion:hasTrait("wide_vision") or champion:getSkillLevel("sea_faring") > 0 or champion:getClass() == "corsair" then
+				-- Counts monsters adjacent to party				
+				if champion:hasTrait("wide_vision") then
 					local monsterCount = 0
 					for d=1,4 do
-						local dir = (party.facing + d) % 4
-						local dx,dy = getForward(dir)
+						local dir = (dir + d) % 4
 						for e in Dungeon.getMap(party.level):entitiesAt(party.x + dx, party.y + dy) do
 							if e.monster then
 								monsterCount = monsterCount + 1
 							end
 						end
 					end
-					--print(monsterCount)
+					
 					if monsterCount then
 						if champion:hasTrait("wide_vision") then
 							functions.script.set_c("wide_vision", i, monsterCount)
 						end
+					else
+						functions.script.set_c("wide_vision", i, nil)
 					end
 				end
 				
-				--if champion:getClass() == "druid" then
-					local poisonedMonster = nil
-					local dir = party.facing
-					local dx,dy = getForward(dir)
-					for e in Dungeon.getMap(party.level):entitiesAt(party.x + dx, party.y + dy) do
-						if e.monster and e.monster.go.poisoned then
-							poisonedMonster = e.id
-						end
+				-- Checks a poisoned monster in front of party
+				local poisonedMonster = nil				
+				for e in Dungeon.getMap(party.level):entitiesAt(party.x + dx, party.y + dy) do
+					if e.monster and e.monster.go.poisoned then
+						poisonedMonster = e.id
 					end
-					functions.script.set_c("poisonedMonster", i, poisonedMonster)
-				--end
+				end
+				functions.script.set_c("poisonedMonster", i, poisonedMonster)
+
 				
 				if party:getWorldPositionY() > -0.6 and champion:hasTrait("sneak_attack") and (champion:isReadyToAttack(0) or champion:isReadyToAttack(1)) and functions.script.get_c("sneak_attack", champion:getOrdinal()) then
 					functions.script.set_c("sneak_attack", champion:getOrdinal(), nil)
@@ -1954,30 +1962,25 @@ defineObject{
 					end
 				end
 
-				if functions.script.get_c("level_up_message_timer", champion:getOrdinal()) then
-					local timer = functions.script.get_c("level_up_message_timer", champion:getOrdinal())
-					if timer > 0 then
-						functions.script.set_c("level_up_message_timer", champion:getOrdinal(), timer - 0.02)
-					else
-						functions.script.set_c("level_up_message_timer", champion:getOrdinal(), nil)
-					end
-				end
-
-				if functions.script.get_c("level_up_message_2_timer", champion:getOrdinal()) then
-					local timer = functions.script.get_c("level_up_message_2_timer", champion:getOrdinal())
-					if timer > 0 then
-						functions.script.set_c("level_up_message_2_timer", champion:getOrdinal(), timer - 0.02)
-					else
-						functions.script.set_c("level_up_message_2_timer", champion:getOrdinal(), nil)
+				for i=1,2 do
+					local timer = functions.script.get_c("level_up_message_".. i .."_timer", champion:getOrdinal())
+					if timer then
+						if timer > 0 then
+							functions.script.set_c("level_up_message_".. i .."_timer", champion:getOrdinal(), timer - 0.02)
+						else
+							functions.script.set_c("level_up_message_".. i .."_timer", champion:getOrdinal(), nil)
+						end
 					end
 				end
 			end
 		end
 	},
+
 	{
 		class = "Counter",
 		name = "timetraveltimer",
-	},	
+	},
+
 	{
 		class = "Timer",
 		name = "timetravel",
@@ -1993,7 +1996,7 @@ defineObject{
 						break
 					end
 				end
-				if not  has_area then
+				if not has_area then
 					functions2.script.updateTimeTravelTimer(-1)
 				end
 			end
@@ -2022,36 +2025,40 @@ defineObject{
 			spells_functions:setPosition(2, 0, 0, 0, party.level)
 		end
 	},
-	{
-		class = "Counter",
-		name = "hours",
-	},	
-	{
-		class = "Timer",
-		name = "partyhours",
-		timerInterval = 1.0, -- will be 8.33 for hours
-		triggerOnStart = true,
-		onActivate = function(self)
-			self.go.hours:increment()
-			local v = self.go.hours:getValue()
-			for i=1,4 do
-				local champion = party.party:getChampionByOrdinal(i)
-				for j=1,32 do
-					local item = champion:getItem(j)
-					if item and item:hasTrait("magic_gem") and item.go.data:get("charges") then
-						local icon = item.go.data:get("icon")
-						if icon == nil then return end
-						item.go.data:set("charges", math.min(item.go.data:get("charges") + 1, 24))						
-						if item.go.data:get("charges") == 23 then
-							item.go.item:setGfxIndex(icon + 1)
-						elseif item.go.data:get("charges") == 24 then
-							item.go.item:setGfxIndex(icon)
-						end
-					end
-				end
-			end
-			--return hudPrint("Time = "..v.."")
-		end
-	},
+
+	-- {
+	-- 	class = "Counter",
+	-- 	name = "hours",
+	-- },	
+
+	-- {
+	-- 	class = "Timer",
+	-- 	name = "partyhours",
+	-- 	timerInterval = 60, -- will be 8.33 for hours
+	-- 	triggerOnStart = true,
+	-- 	onActivate = function(self)
+	-- 		self.go.hours:increment()
+	-- 		local v = self.go.hours:getValue()
+	-- 		for i=1,4 do
+	-- 			local champion = party.party:getChampionByOrdinal(i)
+	-- 			for j=1,32 do
+	-- 				local item = champion:getItem(j)
+	-- 				if item and item:hasTrait("magic_gem") and item.go.data:get("charges") then
+	-- 					local icon = item.go.data:get("icon")
+	-- 					if icon == nil then return end
+	-- 					item.go.data:set("charges", math.min(item.go.data:get("charges") + 1, 24))						
+	-- 					if item.go.data:get("charges") == 23 then
+	-- 						item.go.item:setGfxIndex(icon + 1)
+	-- 					elseif item.go.data:get("charges") == 24 then
+	-- 						item.go.item:setGfxIndex(icon)
+	-- 					end
+	-- 				end
+	-- 			end
+	-- 		end
+	-- 		-- print ("A day has passed.")
+	-- 		functions.script.add("minutes", 1)
+	-- 		return hudPrint("Minutes = "..v.."")
+	-- 	end
+	-- },
 	},
 }

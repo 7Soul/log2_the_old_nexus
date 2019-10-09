@@ -43,8 +43,8 @@ defineObject{
 			gfxIndex = 69,
 			gfxIndexPowerAttack = 452,
 			impactSound = "impact_blunt",
-			-- special: faster spell casting
-			traits = { "orb" },
+			gameEffect = "Neutral spells deal 20% more damage",
+			traits = { "orb", "neutralbound2" },
 			weight = 2.0,
 			secondaryAction = "light",
 		},
@@ -130,8 +130,8 @@ defineObject{
 			impactSound = "impact_blunt",
 			achievement = "find_zhanduls_orb",
 			weight = 2.5,
-			traits = { "orb" },
-			gameEffect = "Intense Fire (Fireball and Fireburst spells deal more damage)",
+			traits = { "orb", "firebound2" },
+			gameEffect = "Fire spells deal 20% more damage.",
 			secondaryAction = "fireball",
 		},
 		{

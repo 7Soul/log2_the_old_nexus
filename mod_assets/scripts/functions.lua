@@ -15,13 +15,17 @@ function get_c(name, id) return championData[id][name] end
 function set_c(name, id, value) championData[id][name] = value end
 function add_c(name, id, value) championData[id][name] = championData[id][name] and championData[id][name] + value or value end
 
+--------------------------------------------------------------------------
+-- Misc Functions                                                       --
+--------------------------------------------------------------------------
+
 function stepCountIncrease()
 	stepCount = stepCount + 1
 end
 
--- function getStepCount()
--- 	return stepCount
--- end
+function getStepCount()
+	return stepCount
+end
 
 -- Allows for key presses
 function keypressDelaySet(n)
@@ -30,6 +34,38 @@ end
 
 function keypressDelayGet()
 	return keypressDelay
+end
+
+function addTables(t1, t2)
+	for entry, value in pairs(t1) do
+		if t2[entry] then
+			t1[entry] = t1[entry] + t2[entry]
+		end
+	end
+	return t1
+end
+
+function merge(t1, t2)
+    for k, v in pairs(t2) do
+        if (type(v) == "table") and (type(t1[k] or false) == "table") then
+            merge(t1[k], t2[k])
+        else
+            t1[k] = v
+        end
+    end
+    return t1
+end
+
+function addItemToMap(item,level,x,y,facing,elevation,wpos)
+	if item.go.map then
+		Console.warn(string.format("Item %s already has a map, aborting.",item.go.id))
+		return false
+	else
+		local m = spawn("dummy",level,x,y,facing,elevation)
+		m.monster:addItem(item)
+		m.monster:dropAllItems()
+		m:destroy()
+	end
 end
 
 --------------------------------------------------------------------------
@@ -84,65 +120,6 @@ end
 --------------------------------------------------------------------------
 -- Test Stuff                                                           --
 --------------------------------------------------------------------------
-
--- Failsafe for if the player loads a party with default classes
-function setDefaultParty()
-	local champion = nil
-	for c=1,4 do
-		champion = party.party:getChampionByOrdinal(c)
-		-- Reset Level
-		champion:resetExp(0)
-		-- Reset Skills
-		for i=1,#skillNames do
-			local s = champion:getSkillLevel(skillNames[i])
-			champion:trainSkill(skillNames[i], s * -1, false)
-		end
-		-- Remove items
-		for s=1,32 do champion:removeItemFromSlot(s) end		
-	end
-
-	--local defaultChampion = {"human_berserker"}
-	champion = party.party:getChampionByOrdinal(1)
-	champion:setRace("insectoid")
-	champion:setClass("monk")
-	champion:addTrait("persistence")
-	champion:trainSkill("heavy_weapons_c", 1, false)
-	champion:trainSkill("athletics", 1, false)
-
-	champion = party.party:getChampionByOrdinal(2)
-	champion:setRace("lizardman")
-	champion:setClass("assassin_class")
-	champion:addTrait("wide_vision")
-	champion:trainSkill("light_weapons_c", 1, false)
-	champion:trainSkill("critical", 1, false)
-
-	champion = party.party:getChampionByOrdinal(3)
-	champion:setRace("ratling")
-	champion:setClass("corsair")
-	champion:addTrait("rodent")
-	champion:trainSkill("firearms", 1, false)
-	champion:trainSkill("alchemy", 1, false)
-
-	champion = party.party:getChampionByOrdinal(4)
-	champion:setRace("human")
-	champion:setClass("elementalist")
-	champion:addTrait("lore_master")
-	champion:trainSkill("elemental_magic", 1, false)
-	champion:trainSkill("concentration", 1, false)
-
-	for c=1,4 do
-		champion = party.party:getChampionByOrdinal(c)
-		champion:setHealth(champion:getMaxHealth() * 0.9)
-		champion:setEnergy(champion:getMaxEnergy() * 0.9)
-	end
-end
-
--- f = loadfile("mod_assets/scripts/test.lua")
--- local scriptTest = require("scripts.test")
--- require "test"
--- derp()
-
-
 
 function teststart()
 	-- spawn("script_entity", self.level, self.x, self.y, 0, 0, "test_1").script:loadFile("mod_assets/scripts/test.lua")
@@ -354,6 +331,58 @@ function teststart()
 	findCrystalArea()
 end
 
+-- Failsafe for if the player loads a party with default classes
+function setDefaultParty()
+	local champion = nil
+	for c=1,4 do
+		champion = party.party:getChampionByOrdinal(c)
+		-- Reset Level
+		champion:resetExp(0)
+		-- Reset Skills
+		for i=1,#skillNames do
+			local s = champion:getSkillLevel(skillNames[i])
+			champion:trainSkill(skillNames[i], s * -1, false)
+		end
+		-- Remove items
+		for s=1,32 do champion:removeItemFromSlot(s) end		
+	end
+
+	--local defaultChampion = {"human_berserker"}
+	champion = party.party:getChampionByOrdinal(1)
+	champion:setRace("insectoid")
+	champion:setClass("monk")
+	champion:addTrait("persistence")
+	champion:trainSkill("heavy_weapons_c", 1, false)
+	champion:trainSkill("athletics", 1, false)
+
+	champion = party.party:getChampionByOrdinal(2)
+	champion:setRace("lizardman")
+	champion:setClass("assassin_class")
+	champion:addTrait("wide_vision")
+	champion:trainSkill("light_weapons_c", 1, false)
+	champion:trainSkill("critical", 1, false)
+
+	champion = party.party:getChampionByOrdinal(3)
+	champion:setRace("ratling")
+	champion:setClass("corsair")
+	champion:addTrait("rodent")
+	champion:trainSkill("firearms", 1, false)
+	champion:trainSkill("alchemy", 1, false)
+
+	champion = party.party:getChampionByOrdinal(4)
+	champion:setRace("human")
+	champion:setClass("elementalist")
+	champion:addTrait("lore_master")
+	champion:trainSkill("elemental_magic", 1, false)
+	champion:trainSkill("concentration", 1, false)
+
+	for c=1,4 do
+		champion = party.party:getChampionByOrdinal(c)
+		champion:setHealth(champion:getMaxHealth() * 0.9)
+		champion:setEnergy(champion:getMaxEnergy() * 0.9)
+	end
+end
+
 crystal_area = {}
 
 function findCrystalArea()
@@ -375,90 +404,6 @@ function getTimepiece()
 	end
 	if getMouseItem() and getMouseItem().go.name == "enchanted_timepiece" then
 		return getMouseItem()
-	end
-end
-
--------------------------------------------------------------------------------------------------------
--- Item and equipment events                                                                         --    
--------------------------------------------------------------------------------------------------------
-
-function onConsumeFood(self, champion)
-	if champion:hasTrait("carnivorous") and champion:isAlive() then
-		if self.go.item:hasTrait("consumable") and self.go.item:hasTrait("meat") then
-			champion:modifyFood(self.go.usableitem:getNutritionValue() * 0.05) -- extra 5% hunger gain
-
-			local meatCounter = get_c("meat_counter", champion:getOrdinal()) or 0
-			local meatBonus = get_c("meat_bonus", champion:getOrdinal()) or 0
-			set_c("meat_counter", champion:getOrdinal(), meatCounter + 1)
-			if meatCounter == (3 + math.floor(champion:getLevel() / 5) + (math.floor(champion:getLevel() / 13) * 2) + math.floor(champion:getLevel())) then
-				set_c("meat_counter", champion:getOrdinal(), 0)
-				meatBonus = meatBonus + 1
-				set_c("meat_bonus", champion:getOrdinal(), meatBonus)
-
-				local strBonus = math.floor(meatBonus / 2)
-				local vitBonus = math.ceil(meatBonus / 2)
-
-				if meatBonus % 2 == 1 then
-					set_c("level_up_message_2", champion:getOrdinal(), champion:getName() .. " gained +1 Vitality from the Carnivorous trait.")
-				else
-					set_c("level_up_message_2", champion:getOrdinal(), champion:getName() .. " gained +1 Strenght from the Carnivorous trait.")
-				end
-				set_c("level_up_message_2_timer", champion:getOrdinal(), 8)
-			end
-		else
-			hudPrint("This isn't meat...")
-			return false
-		end
-	end
-end
-
-function checkWeights(id)
-	local champion = party.party:getChampionByOrdinal(id)
-
-	for i=1, ItemSlot.BackpackLast do
-		local item = champion:getItem(i)
-		if champion:hasTrait("lore_master") then
-			setWeight(item, "spell_scroll", 0)
-		else
-			resetItemWeight(item, "spell_scroll")
-		end
-		
-		if champion:getSkillLevel("heavy_armor") > 0 then
-			setWeight(item, "heavy_armor", 1 - (champion:getSkillLevel("heavy_armor") * 0.1)) 
-		else
-			resetItemWeight(item, "heavy_armor")
-		end	
-		
-		if champion:hasTrait("freebooter") then
-			setWeight(item, "cannon_ball", 0.6)
-			setWeight(item, "pellet_box", 0.6)
-			setWeight(item, "ammo", 0.6)
-		else
-			resetItemWeight(item, "cannon_ball")
-			resetItemWeight(item, "pellet_box")
-		end	
-	end
-end
-
-function setWeight(item, trait, multiplier)
-	if item and item:hasTrait(trait) then
-		if tinker_item[14][item.go.id] ~= nil then
-			item.go.item:setWeight(tinker_item[14][item.go.id] * multiplier)
-		elseif supertable[14][item.go.id] ~= nil then
-			item.go.item:setWeight(supertable[14][item.go.id] * multiplier)
-		end
-	end
-end
-
-function resetItemWeight(item, trait)
-	if item and supertable[14][item.go.id] == nil then
-		supertable[14][item.go.id] = item.go.item:getWeight()
-	end
-	if item and item:hasTrait(trait) and supertable[14][item.go.id] ~= nil then
-		item.go.item:setWeight(supertable[14][item.go.id])
-	end
-	if item and item:hasTrait(trait) and tinker_item[14][item.go.id] ~= nil then
-		item.go.item:setWeight(tinker_item[14][item.go.id])
 	end
 end
 
@@ -826,7 +771,6 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 		if poisonedMonster then
 			local monster = findEntity(poisonedMonster).monster
 			self:setAttackPower(self:getAttackPower() * 1.15 )
-			-- monster:setCondition("poisoned", 0)
 		end
 	end
 
@@ -882,17 +826,9 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 	delayedCall("functions", 0.01, "resetItem", self, self.go.id)
 end
 
-function addItemToMap(item,level,x,y,facing,elevation,wpos)
-	if item.go.map then
-		Console.warn(string.format("Item %s already has a map, aborting.",item.go.id))
-		return false
-	else
-		local m = spawn("dummy",level,x,y,facing,elevation)
-		m.monster:addItem(item)
-		m.monster:dropAllItems()
-		m:destroy()
-	end
-end
+-------------------------------------------------------------------------------------------------------
+-- Throw Attack Functions                                                                            -- 
+-------------------------------------------------------------------------------------------------------
 
 function onThrowAttack(self, champion, slot, chainIndex, item)
 	local c = champion:getOrdinal()
@@ -934,6 +870,10 @@ function onThrowAttack(self, champion, slot, chainIndex, item)
 		set_c("double_attack", c, nil)
 	end
 end
+
+-------------------------------------------------------------------------------------------------------
+-- Missile Attack Functions                                                                          -- 
+-------------------------------------------------------------------------------------------------------
 
 function onMissileAttack(self, champion, slot, chainIndex, item)
 	local c = champion:getOrdinal()
@@ -981,21 +921,13 @@ function onMissileAttack(self, champion, slot, chainIndex, item)
 	end
 end
 
-function psionicArrow(id)
-	local champion = party.party:getChampionByOrdinal(id)
-	local spell = spells_functions.script.defByName["psionic_arrow"]
-	spell.onCast(champion, party.x, party.y, party.facing, party.elevation, 3)
-end
-
-function duelistSword(id, itemName, slot)
-	local slots = {2, 1}
-	local otherslot = slots[slot]
-	local champion = party.party:getChampionByOrdinal(id)
-	champion:attack(otherslot, false)
-end
 
 corsairItem = nil
 corsairItemId = nil
+
+-------------------------------------------------------------------------------------------------------
+-- Firearm Attack Functions                                                                          -- 
+-------------------------------------------------------------------------------------------------------
 
 function onFirearmAttack(self, champion, slot)
 	supertable[1][self.go.id] = self:getAttackPower()
@@ -1406,7 +1338,9 @@ function reset_attack(self, champion, slot, secondary2, item)
 	resetItem(self, self.go.id)
 end
 
--- Monster hooks
+-------------------------------------------------------------------------------------------------------
+-- Monster hooks                                                                                     --    
+-------------------------------------------------------------------------------------------------------
 -- MonsterComponent - champion takes damage
 
 function onMonsterDealDamage(self, champion, damage)
@@ -1447,54 +1381,12 @@ function onMonsterDealDamage(self, champion, damage)
 	end
 end
 
-function onChampionTakesDamage(party, champion, damage, damageType) -- champion takes damage from any source -- no reference to monsters
-	-- Berserker - Berserker Rage
-	for i=1,4 do
-		if party:getChampion(i):getClass() == "fighter" and party:getChampion(i):isAlive() and not party:getChampion(i):hasCondition("berserker_revenge") then
-			party:getChampion(i):setConditionValue("berserker_rage", 20)
-		end
-	end
-	
-	-- Brutalizer - increases damage taken
-	if champion:hasTrait("brutalizer") and damageType ~= "pure" then
-		local str = champion:getCurrentStat("strength")
-		--champion:damage(damage * str * 0.005, "pure")
-	end
-	
-	-- Skills
-	-- Elemental Armor
-	if champion:hasTrait("elemental_armor") then
-		if damageType == "fire" or damageType == "cold" or damageType == "shock" then
-			regainEnergy(champion:getOrdinal(), math.ceil(champion:getMaxEnergy() * 0.15))
-		end
-	end
-	
-	-- Meditation
-	if champion:hasTrait("meditation") then
-		regainEnergy(champion:getOrdinal(), math.ceil(champion:getMaxEnergy() * math.random(1,5) * 0.01))
-	end
-
-	-- Items
-	-- Hardstone Bracelet
-	if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "hardstone_bracelet" then
-		if math.random() <= 0.2 then
-			champion:setConditionValue("hardstone", 10)
-		end
-	end
-
-	-- Scaled Cloak
-	if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "scaled_cloak" then
-		if math.random() <= (champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 0.25 or 0.1) then
-			spells_functions.script.elementalShields(30, champion, damageType == "fire", false, false, false)
-		end
-	end
-end
-
 -------------------------------------------------------------------------------------------------------
--- Attack events                                                                                     --    
+-- Player Hits Monster Functions                                                                     --    
 -------------------------------------------------------------------------------------------------------
--- Melee/Firearm attack hits monster
-function monster_attacked(self, monster, tside, damage, champion) -- self = meleeattack or firearmattack
+
+-- Melee/Firearms
+function onMonsterAttacked(self, monster, tside, damage, champion) -- self = meleeattack or firearmattack
 	local c = champion:getOrdinal()
 
 	-- Pickaxe Chip effect
@@ -1809,7 +1701,7 @@ function monster_attacked(self, monster, tside, damage, champion) -- self = mele
 	end
 end
 
--- MonsterComponent - monster hit by projectile
+-- MonsterComponent -- Projectiles
 function onProjectileHitMonster(self, item, damage, damageType) -- self = monster, item = projectile
 	if item.go.data:get("castByChampion") then -- random thrown items don't get this
 		local champion = party.party:getChampionByOrdinal(item.go.data:get("castByChampion"))
@@ -1960,7 +1852,7 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 	end
 end
 
--- MonsterComponent - monster takes damage from any source
+-- MonsterComponent - Any damage taken
 function onDamageMonster(self, damage, damageType)
 	local resistances = self:getResistance(damageType)
 	local monster = self
@@ -2057,6 +1949,10 @@ function onAnimationEvent(self, event)
 	if not monster then return end
 	
 end
+
+-------------------------------------------------------------------------------------------------------
+-- Hit Monster Function                                                                              --    
+-------------------------------------------------------------------------------------------------------
 
 function hitMonster(id, damage, flair, damageType, c, pierce_add, acc_add)
 	local monster = findEntity(id).monster
@@ -2184,10 +2080,46 @@ function hitMonster(id, damage, flair, damageType, c, pierce_add, acc_add)
 	end
 end
 
+
 -------------------------------------------------------------------------------------------------------
--- Misc Functions                                                                                    --    
+-- Class/Race Functions                                                                              --    
 -------------------------------------------------------------------------------------------------------
 
+-- Class skill
+function class_skill(skill, champion)
+	if skill == "sneak_attack" then
+		--print("skill sneak_attack")
+		set_c("sneak_attack", champion:getOrdinal(), false)
+		champion:setConditionValue("sneak_attack", 100)
+		champion:setConditionValue("recharging", 2)
+		
+	elseif skill == "ancestral_charge" then
+		--print("skill ancestral_charge")
+		local spell = spells_functions.script.defByName["ancestral_charge_cast"]
+		spell.onCast(champion, party.x, party.y, party.facing, party.elevation, 3)
+		champion:setConditionValue("recharging", 2)
+	
+	elseif skill == "intensify_spell" then
+		--print("skill intensify_spell")
+		if get_c("lastSpell", champion:getOrdinal()) then
+			set_c("intensifySpell", champion:getOrdinal(), get_c("lastSpell", champion:getOrdinal()))
+			--print("set intensify_spell to " .. get_c("lastSpell", champion:getOrdinal()))
+		else
+			--no spell to intensify
+		end
+		champion:setConditionValue("recharging", 2)
+	
+	elseif skill == "drinker" then
+		--print("skill drinker")
+		playSound("consume_potion")
+		champion:setConditionValue("recharging", 2)
+		champion:setConditionValue("drown_sorrows", 15)
+		set_c("drown_sorrows_exp", champion:getOrdinal(), GameMode.getTimeOfDay())
+		champion:setConditionValue("drown_sorrows_exp", 9999)
+	end
+end
+
+-- Lizarman
 function lizardman_bite(attack, champion, monster)
 	local c = party.party:getChampionByOrdinal(champion)
 	local str = { math.ceil(champion:getCurrentStat("strength") * 0.5), math.ceil(champion:getCurrentStat("strength") * 1.5) }
@@ -2199,6 +2131,7 @@ function lizardman_bite(attack, champion, monster)
 	delayedCall("functions", 0.25, "hitMonster", monster.go.id, damage, "Bite", "physical", c, pierce, accuracy)
 end
 
+-- Corsair
 function dirty_fighting(attack, champion, monster)
 	local c = champion:getOrdinal()
 	local damageWeapon = getDamage(champion, ItemSlot.OffHand)
@@ -2236,6 +2169,7 @@ function dirty_fighting(attack, champion, monster)
 	end
 end
 
+-- Hunter
 function hunterCrit(id, stack, dur)
 	local champion = party.party:getChampionByOrdinal(id)
 	add_c("hunter_crit", id, stack)
@@ -2256,6 +2190,7 @@ function wisdom_of_the_tribe_heal(champion)
 	regainHealth(champion:getOrdinal(), missing * 0.05)
 end
 
+-- Champion of Light
 function healingLight(champion, monster, damage)
 	local healingLight = get_c("healinglight", champion:getOrdinal())
 	local healingMax = 500 + ((champion:getLevel() ^ 2) * 75)
@@ -2285,27 +2220,14 @@ function healingLight(champion, monster, damage)
 	end
 end
 
-function wearingAll(champion, armor, armor2)
-	if armor2 == nil then armor2 = armor end
-	local wearing_all = true
-	local equip_slots = {3,9,4,5,6}
-	for i, v in pairs(equip_slots) do
-		if champion:getItem(v) ~= nil then
-			if (not champion:getItem(v):hasTrait(armor)) and (not champion:getItem(v):hasTrait(armor2)) then	
-				wearing_all = false
-				if v == 3 or v == 9 then -- head and gloves
-					if armor == "heavy_armor" and champion:hasTrait("armor_training") then
-						wearing_all = true
-					end
-				end
-			end
-		else
-			wearing_all = false
-		end
-	end
-	return wearing_all
+function duelistSword(id, itemName, slot)
+	local slots = {2, 1}
+	local otherslot = slots[slot]
+	local champion = party.party:getChampionByOrdinal(id)
+	champion:attack(otherslot, false)
 end
 
+-- Elementalist
 function elementalistPower(element, champion, return_only)
 	local power = 0
 	local level = champion:getLevel()
@@ -2357,11 +2279,191 @@ function elementalistPower(element, champion, return_only)
 	return power
 end
 
+
+-------------------------------------------------------------------------------------------------------
+-- Item/Equipment Functions                                                                          --    
+-------------------------------------------------------------------------------------------------------
+
+function onConsumeFood(self, champion)
+	if champion:hasTrait("carnivorous") and champion:isAlive() then
+		if self.go.item:hasTrait("consumable") and self.go.item:hasTrait("meat") then
+			champion:modifyFood(self.go.usableitem:getNutritionValue() * 0.05) -- extra 5% hunger gain
+
+			local meatCounter = get_c("meat_counter", champion:getOrdinal()) or 0
+			local meatBonus = get_c("meat_bonus", champion:getOrdinal()) or 0
+			set_c("meat_counter", champion:getOrdinal(), meatCounter + 1)
+			if meatCounter == (3 + math.floor(champion:getLevel() / 5) + (math.floor(champion:getLevel() / 13) * 2) + math.floor(champion:getLevel())) then
+				set_c("meat_counter", champion:getOrdinal(), 0)
+				meatBonus = meatBonus + 1
+				set_c("meat_bonus", champion:getOrdinal(), meatBonus)
+
+				local strBonus = math.floor(meatBonus / 2)
+				local vitBonus = math.ceil(meatBonus / 2)
+
+				if meatBonus % 2 == 1 then
+					set_c("level_up_message_2", champion:getOrdinal(), champion:getName() .. " gained +1 Vitality from the Carnivorous trait.")
+				else
+					set_c("level_up_message_2", champion:getOrdinal(), champion:getName() .. " gained +1 Strenght from the Carnivorous trait.")
+				end
+				set_c("level_up_message_2_timer", champion:getOrdinal(), 8)
+			end
+		else
+			hudPrint("This isn't meat...")
+			return false
+		end
+	end
+end
+
+function checkWeights(id)
+	local champion = party.party:getChampionByOrdinal(id)
+
+	for i=1, ItemSlot.BackpackLast do
+		local item = champion:getItem(i)
+		if champion:hasTrait("lore_master") then
+			setWeight(item, "spell_scroll", 0)
+		else
+			resetItemWeight(item, "spell_scroll")
+		end
+		
+		if champion:getSkillLevel("heavy_armor") > 0 then
+			setWeight(item, "heavy_armor", 1 - (champion:getSkillLevel("heavy_armor") * 0.1)) 
+		else
+			resetItemWeight(item, "heavy_armor")
+		end	
+		
+		if champion:hasTrait("freebooter") then
+			setWeight(item, "cannon_ball", 0.6)
+			setWeight(item, "pellet_box", 0.6)
+			setWeight(item, "ammo", 0.6)
+		else
+			resetItemWeight(item, "cannon_ball")
+			resetItemWeight(item, "pellet_box")
+		end	
+	end
+end
+
+function setWeight(item, trait, multiplier)
+	if item and item:hasTrait(trait) then
+		if tinker_item[14][item.go.id] ~= nil then
+			item.go.item:setWeight(tinker_item[14][item.go.id] * multiplier)
+		elseif supertable[14][item.go.id] ~= nil then
+			item.go.item:setWeight(supertable[14][item.go.id] * multiplier)
+		end
+	end
+end
+
+function resetItemWeight(item, trait)
+	if item and supertable[14][item.go.id] == nil then
+		supertable[14][item.go.id] = item.go.item:getWeight()
+	end
+	if item and item:hasTrait(trait) and supertable[14][item.go.id] ~= nil then
+		item.go.item:setWeight(supertable[14][item.go.id])
+	end
+	if item and item:hasTrait(trait) and tinker_item[14][item.go.id] ~= nil then
+		item.go.item:setWeight(tinker_item[14][item.go.id])
+	end
+end
+
+-- Returns the multiplier for elemental damage given by equipment
+function getEquippedMultiBonus(champion, type, useJoeBonus)
+	local multi = 0
+	local trait = { ["poison"] = "earthbound", ["fire"] = "firebound", ["cold"] = "coldbound" , ["shock"] = "shockbound", ["neutral"] = "neutralbound" }
+
+	-- Armor set bonuses
+	if type == "fire" and champion:isArmorSetEquipped("meteor") then
+		multi = multi + 0.5
+	end
+
+	for slot = ItemSlot.Weapon, ItemSlot.Bracers do
+		local item = champion:getItem(slot)
+		local isHandItem = isHandItem(item, slot)
+		if item and isHandItem then
+			for i=1,3 do
+				if item:hasTrait(trait[type] .. i) then
+					multi = multi + (i * 0.1)
+				end
+			end	
+
+			if item.go.equipmentitem and champion:hasTrait("average_joe") and type ~= "neutral" then
+				if useJoeBonus then -- prevents recursion
+					local resist = { 
+						["poison"] = item.go.equipmentitem:getResistPoison(), 
+						["fire"] = item.go.equipmentitem:getResistFire(), 
+						["cold"] = item.go.equipmentitem:getResistCold() , 
+						["shock"] = item.go.equipmentitem:getResistShock(), 
+					}
+					multi = multi + ((resist[type] or 0) * 0.01 * 1.1)
+				end
+			end
+		end
+	end
+
+	if champion:hasTrait("average_joe") and type ~= "neutral" then
+		multi = multi * 0.5		
+	end
+	
+	return multi
+end
+
+-- Returns the multiplier for bleeding, diseased and poisoned resistances
+function getEquippedExtraResistBonus(champion, type) 
+	local multi = 0
+	local trait = { ["poisoned"] = "anti_poisoned", ["bleeding"] = "anti_bleeding", ["disease"] = "anti_diseased" }
+
+	for slot = ItemSlot.Weapon, ItemSlot.Bracers do
+		local item = champion:getItem(slot)
+		local isHandItem = isHandItem(item, slot)
+		if item and isHandItem then
+			for i=1,5 do
+				if item:hasTrait(trait[type] .. i) then
+					multi = multi + (i * 0.2)
+				end
+			end	
+		end
+	end
+
+	return multi
+end
+
+function wearingAll(champion, armor, armor2)
+	if armor2 == nil then armor2 = armor end
+	local wearing_all = true
+	local equip_slots = {3,9,4,5,6}
+	for i, v in pairs(equip_slots) do
+		if champion:getItem(v) ~= nil then
+			if (not champion:getItem(v):hasTrait(armor)) and (not champion:getItem(v):hasTrait(armor2)) then	
+				wearing_all = false
+				if v == 3 or v == 9 then -- head and gloves
+					if armor == "heavy_armor" and champion:hasTrait("armor_training") then
+						wearing_all = true
+					end
+				end
+			end
+		else
+			wearing_all = false
+		end
+	end
+	return wearing_all
+end
+
+function psionicArrow(id)
+	local champion = party.party:getChampionByOrdinal(id)
+	local spell = spells_functions.script.defByName["psionic_arrow"]
+	spell.onCast(champion, party.x, party.y, party.facing, party.elevation, 3)
+end
+
+-------------------------------------------------------------------------------------------------------
+-- Champion Functions                                                                                --    
+-------------------------------------------------------------------------------------------------------
+
 function regainHealth(id, amount)
 	if not id then return end
 	if not amount then return end
 	local champion = party.party:getChampionByOrdinal(id)
+
+	-- Diseased cuts health recovery
 	local diseased = champion:hasCondition("diseased") and 0 or 1
+
 	amount = math.ceil(amount * diseased)
 	champion:regainHealth(amount)
 end
@@ -2370,11 +2472,127 @@ function regainEnergy(id, amount)
 	if not id then return end
 	if not amount then return end
 	local champion = party.party:getChampionByOrdinal(id)
+
+	-- Lore Master energy gain bonus
 	local lore_master = get_c("lore_master_9", champion:getOrdinal()) or 1
+
 	amount = math.ceil(amount * lore_master)
 	champion:regainEnergy(amount)
 end
 
+function onChampionTakesDamage(party, champion, damage, damageType) -- champion takes damage from any source -- no reference to monsters
+	-- Berserker - Berserker Rage
+	for i=1,4 do
+		if party:getChampion(i):getClass() == "fighter" and party:getChampion(i):isAlive() and not party:getChampion(i):hasCondition("berserker_revenge") then
+			party:getChampion(i):setConditionValue("berserker_rage", 20)
+		end
+	end
+	
+	-- Brutalizer - increases damage taken
+	if champion:hasTrait("brutalizer") and damageType ~= "pure" then
+		local str = champion:getCurrentStat("strength")
+		--champion:damage(damage * str * 0.005, "pure")
+	end
+	
+	-- Skills
+	-- Elemental Armor
+	if champion:hasTrait("elemental_armor") then
+		if damageType == "fire" or damageType == "cold" or damageType == "shock" then
+			regainEnergy(champion:getOrdinal(), math.ceil(champion:getMaxEnergy() * 0.15))
+		end
+	end
+	
+	-- Meditation
+	if champion:hasTrait("meditation") then
+		regainEnergy(champion:getOrdinal(), math.ceil(champion:getMaxEnergy() * math.random(1,5) * 0.01))
+	end
+
+	-- Items
+	-- Hardstone Bracelet
+	if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "hardstone_bracelet" then
+		if math.random() <= 0.2 then
+			champion:setConditionValue("hardstone", 10)
+		end
+	end
+
+	-- Scaled Cloak
+	if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "scaled_cloak" then
+		if math.random() <= (champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 0.25 or 0.1) then
+			spells_functions.script.elementalShields(30, champion, damageType == "fire", false, false, false)
+		end
+	end
+end
+
+function isArmorSetEquipped(champion, set)
+	if champion:isArmorSetEquipped(set) then
+		return true
+	end
+
+	local armorSetPieces = { ["chitin"] = 5, ["valor"] = 5, ["crystal"] = 6, ["meteor"] = 6, ["bear"] = 3, ["embalmers"] = 4, ["archmage"] = 4, ["rogue"] = 5, ["makeshift"] = 5, ["reed"] = 5, ["mirror"] = 5 }
+	local mainSlots = {1,2,4,5,6}
+	local setCount = 0
+	for i = 1,#mainSlots do
+		if champion:getItem(mainSlots[i]) and champion:getItem(mainSlots[i]):getArmorSet() == set then
+			setCount = setCount + 1
+		end
+	end
+
+	local secondarySlots = {3,7,8,9,10} -- Head, Gloves and Accessories
+	for i = 1,#secondarySlots do
+		if champion:getItem(secondarySlots[i]) and champion:getItem(secondarySlots[i]):getArmorSet() == set then
+			setCount = setCount + 1
+		else
+			-- Armor Training counts any glove and helmet as completing a set
+			if champion:hasTrait("armor_training") and (secondarySlots == 3 or secondarySlots == 9) then
+				setCount = setCount + 1
+			end
+		end
+	end
+	
+	return setCount == armorSetPieces[set]
+end
+
+-- returns true if a held item is in the appropriate slot, so you don't gain a bonus if an armor is in the hand, etc
+function isHandItem(item, slot)
+	if item then
+		if slot == ItemSlot.Weapon or slot == ItemSlot.OffHand then
+			if item.go.meleeattack or item.go.rangedattack or item.go.throwattack or item.go.firearmattack or item:hasTrait("orb") or item:hasTrait("shield") then
+				return true -- item in hand is a weapon, staff, shield, etc
+			else
+				return false -- item in hand is not a weapon
+			end
+		else
+			if slot ~= ItemSlot.Weapon2 and slot ~= ItemSlot.OffHand2 then
+				return true -- slot isn't a hand slot and not a swapped slot
+			end
+		end
+	end
+	return true
+end
+
+-- For item traits that can be converted, we check with this function instead of item:hasTrait()
+function getTrait(champion, item, trait)
+	if item then
+		if item:hasTrait(trait) then
+			return true
+		else
+			-- if champion:getClass() == "assassin_class" then
+			-- 	if trait == "light_weapon" and item:hasTrait("heavy_weapon") then
+			-- 		return true
+			-- 	elseif trait == "heavy_weapon" and item:hasTrait("light_weapon") then
+			-- 		return true
+			-- 	end
+			-- end
+			return false
+		end	
+	end
+end
+
+-------------------------------------------------------------------------------------------------------
+-- Status Effects Functions                                                                          --    
+-------------------------------------------------------------------------------------------------------
+
+-- Bleeding
 function championBleed(champion, action)
 	local multi = { 0.01, 0.03 }
 	if action == "moving" then multi = { 0.03, 0.1 } end
@@ -2429,6 +2647,7 @@ function takeBleedDamage(monster, action) -- Called by monsters within their Mon
 	end
 end
 
+-- Poison
 function poisonMonster(self, e, champion, monster, poisonChance)
 	local c = champion:getOrdinal()
 	local duration = 21 + champion:getSkillLevel("poison_mastery") + champion:getSkillLevel("witchcraft")
@@ -2446,6 +2665,7 @@ function setPoisoned(monster, duration, c, chance)
 	end
 end
 
+-- Burn
 function burnMonster(self, e, champion, monster) -- self = projectile, e = tiledamager
 	local skillLevel = champion:getSkillLevel("elemental_magic")
 	local c = champion:getOrdinal()
@@ -2471,6 +2691,7 @@ function setBurning(monster, duration, c, chance)
 	end
 end
 
+-- Freeze
 function freezeMonster(self, e, champion, monster) -- self = projectile, e = tiledamager
 	local c = champion:getOrdinal()
 	local skillLevel = champion:getSkillLevel("elemental_magic")
@@ -2496,6 +2717,7 @@ function setFreezing(monster, duration, c, chance)
 	end
 end
 
+-- Shock damage bounce
 function shock_arc(self, e, champion, monster) -- self = projectile, e = tiledamager
 	local c = champion:getOrdinal()
 	local skillLevel = champion:getSkillLevel("witchcraft")
@@ -2527,6 +2749,7 @@ function shock_arc(self, e, champion, monster) -- self = projectile, e = tiledam
 	end
 end
 	
+-- Stunned
 function setStunned(monster, duration, c, chance)
 	if monster:isAlive() and duration then
 		if chance > 1 then -- duration increses if chance over 100%
@@ -2536,38 +2759,9 @@ function setStunned(monster, duration, c, chance)
 	end
 end
 
-function class_skill(skill, champion)
-	if skill == "sneak_attack" then
-		--print("skill sneak_attack")
-		set_c("sneak_attack", champion:getOrdinal(), false)
-		champion:setConditionValue("sneak_attack", 100)
-		champion:setConditionValue("recharging", 2)
-		
-	elseif skill == "ancestral_charge" then
-		--print("skill ancestral_charge")
-		local spell = spells_functions.script.defByName["ancestral_charge_cast"]
-		spell.onCast(champion, party.x, party.y, party.facing, party.elevation, 3)
-		champion:setConditionValue("recharging", 2)
-	
-	elseif skill == "intensify_spell" then
-		--print("skill intensify_spell")
-		if get_c("lastSpell", champion:getOrdinal()) then
-			set_c("intensifySpell", champion:getOrdinal(), get_c("lastSpell", champion:getOrdinal()))
-			--print("set intensify_spell to " .. get_c("lastSpell", champion:getOrdinal()))
-		else
-			--no spell to intensify
-		end
-		champion:setConditionValue("recharging", 2)
-	
-	elseif skill == "drinker" then
-		--print("skill drinker")
-		playSound("consume_potion")
-		champion:setConditionValue("recharging", 2)
-		champion:setConditionValue("drown_sorrows", 15)
-		set_c("drown_sorrows_exp", champion:getOrdinal(), GameMode.getTimeOfDay())
-		champion:setConditionValue("drown_sorrows_exp", 9999)
-	end
-end
+-------------------------------------------------------------------------------------------------------
+-- Empower Functions                                                                                 -- 
+-------------------------------------------------------------------------------------------------------
 
 function empowerElement(champion, element, base, return_only, tier, spell)
 	f = base
@@ -2581,7 +2775,6 @@ function empowerElement(champion, element, base, return_only, tier, spell)
 	else -- it's an attack
 
 	end
-
 	
 	if element ~= "physical" then -- non physical
 		if champion:getClass() == "elementalist" then
@@ -2889,63 +3082,79 @@ function empowerAttackType(champion, attackType, base, return_only, tier)
 	return f
 end
 
-function getEquippedMultiBonus(champion, type, useJoeBonus)
-	local multi = 0
-	local trait = { ["poison"] = "earthbound", ["fire"] = "firebound", ["cold"] = "coldbound" , ["shock"] = "shockbound", ["neutral"] = "neutralbound" }
+-------------------------------------------------------------------------------------------------------
+-- Get Champion Stats Functions                                                                      -- 
+-------------------------------------------------------------------------------------------------------
 
-	-- Armor set bonuses
-	if type == "fire" and champion:isArmorSetEquipped("meteor") then
-		multi = multi + 0.5
-	end
-
-	for slot = ItemSlot.Weapon, ItemSlot.Bracers do
-		local item = champion:getItem(slot)
-		local isHandItem = isHandItem(item, slot)
-		if item and isHandItem then
-			for i=1,3 do
-				if item:hasTrait(trait[type] .. i) then
-					multi = multi + (i * 0.1)
-				end
-			end	
-
-			if item.go.equipmentitem and champion:hasTrait("average_joe") and type ~= "neutral" then
-				if useJoeBonus then -- prevents recursion
-					local resist = { 
-						["poison"] = item.go.equipmentitem:getResistPoison(), 
-						["fire"] = item.go.equipmentitem:getResistFire(), 
-						["cold"] = item.go.equipmentitem:getResistCold() , 
-						["shock"] = item.go.equipmentitem:getResistShock(), 
-					}
-					multi = multi + ((resist[type] or 0) * 0.01 * 1.1)
-				end
-			end
-		end
-	end
-
-	if champion:hasTrait("average_joe") and type ~= "neutral" then
-		multi = multi * 0.5		
-	end
+-- Returns the multiplier for a weapon's damage
+function getDamage(champion, slot)
+	local c = champion:getOrdinal()
+	if slot == nil then slot = ItemSlot.Weapon end
+	local item = champion:getItem(slot)
 	
-	return multi
-end
-
-function getEquippedExtraResistBonus(champion, type) -- for bleeding, diseased and poisoned resistances
-	local multi = 0
-	local trait = { ["poisoned"] = "anti_poisoned", ["bleeding"] = "anti_bleeding", ["disease"] = "anti_diseased" }
-
-	for slot = ItemSlot.Weapon, ItemSlot.Bracers do
-		local item = champion:getItem(slot)
-		local isHandItem = isHandItem(item, slot)
-		if item and isHandItem then
-			for i=1,5 do
-				if item:hasTrait(trait[type] .. i) then
-					multi = multi + (i * 0.2)
-				end
-			end	
-		end
+	local dmg = { 0, 0 }
+	if champion:hasCondition("bear_form") then
+		ap = 14
+		dmg[1] = math.floor(ap * 0.5)
+		dmg[2] = math.ceil(ap * 1.5)
+		dmg[1] = math.floor(dmg[1] + math.max((math.ceil(champion:getCurrentStat("strength") - 10) * 0.5), 1))
+		dmg[2] = math.floor(dmg[2] + math.max(((champion:getCurrentStat("strength") - 10) * 1.0), 2))
+		return dmg
 	end
 
-	return multi
+	if item then
+		local ap = 0
+		local itemComp = nil
+		local damage = 0
+		if item.go.rangedattack then
+			itemComp = item.go.rangedattack
+			ap = itemComp:getAttackPower() or 0		
+			damage = ap	
+			damage = empowerAttackType(champion, "ranged", damage, true)
+			damage = empowerAttackType(champion, "missile", damage, true)		
+		elseif item.go.throwattack then
+			itemComp = item.go.throwattack
+			ap = itemComp:getAttackPower() or 0
+			damage = ap
+			damage = empowerAttackType(champion, "ranged", damage, true)
+			damage = empowerAttackType(champion, "throwing", damage, true)	
+		elseif item.go.firearmattack then
+			itemComp = item.go.firearmattack
+			ap = itemComp:getAttackPower() or 0
+			damage = ap
+			damage = empowerAttackType(champion, "firearms", damage, true)
+			damage = empowerAttackType(champion, "missile", damage, true)
+		elseif item.go.meleeattack then
+			itemComp = item.go.meleeattack
+			ap = itemComp:getAttackPower() or 0
+			damage = ap
+			damage = empowerAttackType(champion, iff(getTrait(champion, item, "heavy_weapon"), "heavy_weapons", "light_weapons"), damage, true)
+			damage = empowerAttackType(champion, "melee", damage, true)
+		else
+			dmg[1] = 0
+			dmg[2] = 0
+			return dmg
+		end
+
+		if champion:isDualWielding() then
+			damage = empowerAttackType(champion, "dual_wielding", damage, true)
+		end
+
+		damage = empowerElement(champion, "physical", damage, true)
+
+		dmg[1] = math.floor(damage * 0.5)
+		dmg[2] = math.floor(damage * 1.5)
+
+		if itemComp:getBaseDamageStat() then
+			dmg[1] = math.floor(dmg[1] + math.max((math.ceil(champion:getCurrentStat(itemComp:getBaseDamageStat()) - 10) * 0.5), 0))
+			dmg[2] = math.floor(dmg[2] + math.max(((champion:getCurrentStat(itemComp:getBaseDamageStat()) - 10) * 1.0), 0))
+		end
+	else
+		dmg[1] = 1 + math.max((math.ceil(champion:getCurrentStat("strength") - 10) * 0.5), 1)
+		dmg[2] = 1 + math.max(((champion:getCurrentStat("strength") - 10) * 1.0), 2)
+	end
+	-- print("final dmg", dmg[1], dmg[2])
+	return dmg
 end
 
 function getAccuracy(champion, slot)
@@ -3123,77 +3332,6 @@ function getPierce(champion, slot)
 	return pierce
 end
 
--- Returns the multiplier for a weapon's damage
-function getDamage(champion, slot)
-	local c = champion:getOrdinal()
-	if slot == nil then slot = ItemSlot.Weapon end
-	local item = champion:getItem(slot)
-	
-	local dmg = { 0, 0 }
-	if champion:hasCondition("bear_form") then
-		ap = 14
-		dmg[1] = math.floor(ap * 0.5)
-		dmg[2] = math.ceil(ap * 1.5)
-		dmg[1] = math.floor(dmg[1] + math.max((math.ceil(champion:getCurrentStat("strength") - 10) * 0.5), 1))
-		dmg[2] = math.floor(dmg[2] + math.max(((champion:getCurrentStat("strength") - 10) * 1.0), 2))
-		return dmg
-	end
-
-	if item then
-		local ap = 0
-		local itemComp = nil
-		local damage = 0
-		if item.go.rangedattack then
-			itemComp = item.go.rangedattack
-			ap = itemComp:getAttackPower() or 0		
-			damage = ap	
-			damage = empowerAttackType(champion, "ranged", damage, true)
-			damage = empowerAttackType(champion, "missile", damage, true)		
-		elseif item.go.throwattack then
-			itemComp = item.go.throwattack
-			ap = itemComp:getAttackPower() or 0
-			damage = ap
-			damage = empowerAttackType(champion, "ranged", damage, true)
-			damage = empowerAttackType(champion, "throwing", damage, true)	
-		elseif item.go.firearmattack then
-			itemComp = item.go.firearmattack
-			ap = itemComp:getAttackPower() or 0
-			damage = ap
-			damage = empowerAttackType(champion, "firearms", damage, true)
-			damage = empowerAttackType(champion, "missile", damage, true)
-		elseif item.go.meleeattack then
-			itemComp = item.go.meleeattack
-			ap = itemComp:getAttackPower() or 0
-			damage = ap
-			damage = empowerAttackType(champion, iff(getTrait(champion, item, "heavy_weapon"), "heavy_weapons", "light_weapons"), damage, true)
-			damage = empowerAttackType(champion, "melee", damage, true)
-		else
-			dmg[1] = 0
-			dmg[2] = 0
-			return dmg
-		end
-
-		if champion:isDualWielding() then
-			damage = empowerAttackType(champion, "dual_wielding", damage, true)
-		end
-
-		damage = empowerElement(champion, "physical", damage, true)
-
-		dmg[1] = math.floor(damage * 0.5)
-		dmg[2] = math.floor(damage * 1.5)
-
-		if itemComp:getBaseDamageStat() then
-			dmg[1] = math.floor(dmg[1] + math.max((math.ceil(champion:getCurrentStat(itemComp:getBaseDamageStat()) - 10) * 0.5), 0))
-			dmg[2] = math.floor(dmg[2] + math.max(((champion:getCurrentStat(itemComp:getBaseDamageStat()) - 10) * 1.0), 0))
-		end
-	else
-		dmg[1] = 1 + math.max((math.ceil(champion:getCurrentStat("strength") - 10) * 0.5), 1)
-		dmg[2] = 1 + math.max(((champion:getCurrentStat("strength") - 10) * 1.0), 2)
-	end
-	-- print("final dmg", dmg[1], dmg[2])
-	return dmg
-end
-
 function getActionSpeed(champion)
 	local speed = 1
 	if champion:getClass() == "fighter" then
@@ -3344,68 +3482,9 @@ function getWoundResistance(champion)
 	return resist
 end
 
-function isArmorSetEquipped(champion, set)
-	if champion:isArmorSetEquipped(set) then
-		return true
-	end
-
-	local armorSetPieces = { ["chitin"] = 5, ["valor"] = 5, ["crystal"] = 6, ["meteor"] = 6, ["bear"] = 3, ["embalmers"] = 4, ["archmage"] = 4, ["rogue"] = 5, ["makeshift"] = 5, ["reed"] = 5, ["mirror"] = 5 }
-	local mainSlots = {1,2,4,5,6}
-	local setCount = 0
-	for i = 1,#mainSlots do
-		if champion:getItem(mainSlots[i]) and champion:getItem(mainSlots[i]):getArmorSet() == set then
-			setCount = setCount + 1
-		end
-	end
-
-	local secondarySlots = {3,7,8,9,10} -- Head, Gloves and Accessories
-	for i = 1,#secondarySlots do
-		if champion:getItem(secondarySlots[i]) and champion:getItem(secondarySlots[i]):getArmorSet() == set then
-			setCount = setCount + 1
-		else
-			-- Armor Training counts any glove and helmet as completing a set
-			if champion:hasTrait("armor_training") and (secondarySlots == 3 or secondarySlots == 9) then
-				setCount = setCount + 1
-			end
-		end
-	end
-	
-	return setCount == armorSetPieces[set]
-end
-
-function isHandItem(item, slot) -- returns true if a held item is in the appropriate slot, so you don't gain a bonus if an armor is in the hand, etc
-	if item then
-		if slot == ItemSlot.Weapon or slot == ItemSlot.OffHand then
-			if item.go.meleeattack or item.go.rangedattack or item.go.throwattack or item.go.firearmattack or item:hasTrait("orb") or item:hasTrait("shield") then
-				return true -- item in hand is a weapon, staff, shield, etc
-			else
-				return false -- item in hand is not a weapon
-			end
-		else
-			if slot ~= ItemSlot.Weapon2 and slot ~= ItemSlot.OffHand2 then
-				return true -- slot isn't a hand slot and not a swapped slot
-			end
-		end
-	end
-	return true
-end
-
-function getTrait(champion, item, trait)
-	if item then
-		if item:hasTrait(trait) then
-			return true
-		else
-			-- if champion:getClass() == "assassin_class" then
-			-- 	if trait == "light_weapon" and item:hasTrait("heavy_weapon") then
-			-- 		return true
-			-- 	elseif trait == "heavy_weapon" and item:hasTrait("light_weapon") then
-			-- 		return true
-			-- 	end
-			-- end
-			return false
-		end	
-	end
-end
+-------------------------------------------------------------------------------------------------------
+-- UI Functions                                                                                      -- 
+-------------------------------------------------------------------------------------------------------
 
 function drawCounterOnHand(context, champion, x, y, value, tooltipTitle, tooltipText)
 	local c = champion:getOrdinal()
@@ -4078,7 +4157,10 @@ function getBonus(skill, perLevel)
 	return bonus
 end
 
--- Dismantle
+-------------------------------------------------------------------------------------------------------
+-- Dismantle Functions                                                                               -- 
+-------------------------------------------------------------------------------------------------------
+
 dismantlePrompt = false
 dismantleChampion = 0
 dismantleItemSlot = 0
@@ -4186,26 +4268,6 @@ function tinkererGetMaterialList(item)
 	return return_recipe
 end
 
-function addTables(t1, t2)
-	for entry, value in pairs(t1) do
-		if t2[entry] then
-			t1[entry] = t1[entry] + t2[entry]
-		end
-	end
-	return t1
-end
-
-function merge(t1, t2)
-    for k, v in pairs(t2) do
-        if (type(v) == "table") and (type(t1[k] or false) == "table") then
-            merge(t1[k], t2[k])
-        else
-            t1[k] = v
-        end
-    end
-    return t1
-end
-
 function tinkererDismantleAction(id, slot)
 	local materials = { metal = {"metal_bar", 0}, nugget = {"metal_nugget", 0}, leather_strips = {"leather_strips", 0}, leather = {"leather", 0}, lockpick = {"lock_pick", 0} }
 	local container = party.party:getChampionByOrdinal(id):getItem(slot).go.containeritem
@@ -4254,308 +4316,310 @@ function tinkererDismantleAction(id, slot)
 	playSound("generic_spell")
 end
 
--- Tinkerer upgrades for secondary actions
+-------------------------------------------------------------------------------------------------------
+-- Secondary Attack Update/Setup Functions                                                           -- 
+-------------------------------------------------------------------------------------------------------
 function updateSecondary(meleeAttack, secondary, name, upgradeLevel)
-	-- local item = meleeAttack.go.item
-	-- if name == "banish" then
-	-- 	local level = math.min(math.floor(meleeAttack:getAttackPower() / 9), 5)
-	-- 	secondary:setEnergyCost( 40 + math.floor(upgradeLevel * 12 / 3) * 3)
-	-- 	secondary:setAttackPower(meleeAttack:getAttackPower() * 2.5)
-	-- 	secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
-	-- 	secondary:setCooldown(meleeAttack:getCooldown() * 2)
-	-- 	secondary:setGameEffect("An extremely powerful attack. Deals 2.5x damage and has +9% critical chance.")
-	-- 	secondary:setPierce(meleeAttack:getPierce() or 0)
-	-- 	secondary:setBuildup(1.5)
-	-- 	secondary:setSwipe("horizontal")
-	-- 	secondary:setAttackSound("swipe_heavy")
-	-- 	secondary:setCameraShake(true)
-	-- 	secondary:setUiName("Banish")
-	-- 	if secondary.go.item:hasTrait("light_weapon") then
-	-- 		secondary:setRequirements({"light_weapons_c", math.min(upgradeLevel+level,5), "critical", 1 })
-	-- 	elseif secondary.go.item:hasTrait("heavy_weapon") then
-	-- 		secondary:setRequirements({"heavy_weapons_c", math.min(upgradeLevel+level,5), "critical", 1 })
-	-- 	end
-	-- 	secondary.go.item:setSecondaryAction("banish")
+	local item = meleeAttack.go.item
+	if name == "banish" then
+		local level = math.min(math.floor(meleeAttack:getAttackPower() / 9), 5)
+		secondary:setEnergyCost( 40 + math.floor(upgradeLevel * 12 / 3) * 3)
+		secondary:setAttackPower(meleeAttack:getAttackPower() * 2.5)
+		secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
+		secondary:setCooldown(meleeAttack:getCooldown() * 2)
+		secondary:setGameEffect("An extremely powerful attack. Deals 2.5x damage and has +9% critical chance.")
+		secondary:setPierce(meleeAttack:getPierce() or 0)
+		secondary:setBuildup(1.5)
+		secondary:setSwipe("horizontal")
+		secondary:setAttackSound("swipe_heavy")
+		secondary:setCameraShake(true)
+		secondary:setUiName("Banish")
+		if secondary.go.item:hasTrait("light_weapon") then
+			secondary:setRequirements({"light_weapons_c", math.min(upgradeLevel+level,5), "critical", 1 })
+		elseif secondary.go.item:hasTrait("heavy_weapon") then
+			secondary:setRequirements({"heavy_weapons_c", math.min(upgradeLevel+level,5), "critical", 1 })
+		end
+		secondary.go.item:setSecondaryAction("banish")
 
-	-- elseif name == "bash" then	
-	-- 	local level = math.min(math.floor(meleeAttack:getAttackPower() / 12), 5)
-	-- 	secondary:setEnergyCost( 15 + math.floor(upgradeLevel * 5 / 3) * 3)
-	-- 	secondary:setAttackPower(meleeAttack:getAttackPower() * 2)
-	-- 	secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
-	-- 	secondary:setCooldown(meleeAttack:getCooldown() * 1.5)
-	-- 	secondary:setGameEffect("A bone shattering blow that deals double damage and pierces 10 armor.")
-	-- 	secondary:setPierce((meleeAttack:getPierce() or 0) + 10)
-	-- 	secondary:setSwipe("vertical")
-	-- 	secondary:setAttackSound("swipe")
-	-- 	secondary:setBuildup(1.0)
-	-- 	secondary:setUiName("Bash")
-	-- 	if secondary.go.item:hasTrait("light_weapon") then
-	-- 		secondary:setRequirements({ "light_weapons_c", math.min(upgradeLevel+level,5) })
-	-- 	elseif secondary.go.item:hasTrait("heavy_weapon") then
-	-- 		secondary:setRequirements({ "heavy_weapons_c", math.min(upgradeLevel+level,5) })
-	-- 	end
-	-- 	secondary.go.item:setSecondaryAction("bash")
+	elseif name == "bash" then	
+		local level = math.min(math.floor(meleeAttack:getAttackPower() / 12), 5)
+		secondary:setEnergyCost( 15 + math.floor(upgradeLevel * 5 / 3) * 3)
+		secondary:setAttackPower(meleeAttack:getAttackPower() * 2)
+		secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
+		secondary:setCooldown(meleeAttack:getCooldown() * 1.5)
+		secondary:setGameEffect("A bone shattering blow that deals double damage and pierces 10 armor.")
+		secondary:setPierce((meleeAttack:getPierce() or 0) + 10)
+		secondary:setSwipe("vertical")
+		secondary:setAttackSound("swipe")
+		secondary:setBuildup(1.0)
+		secondary:setUiName("Bash")
+		if secondary.go.item:hasTrait("light_weapon") then
+			secondary:setRequirements({ "light_weapons_c", math.min(upgradeLevel+level,5) })
+		elseif secondary.go.item:hasTrait("heavy_weapon") then
+			secondary:setRequirements({ "heavy_weapons_c", math.min(upgradeLevel+level,5) })
+		end
+		secondary.go.item:setSecondaryAction("bash")
 
-	-- elseif name == "bite" then	
-	-- 	local level = math.min(math.floor(meleeAttack:getAttackPower() / 9), 5)
-	-- 	secondary:setEnergyCost( 30 + math.floor(upgradeLevel * 10 / 3) * 3)
-	-- 	secondary:setAttackPower(meleeAttack:getAttackPower() * 0.5)
-	-- 	secondary:setAccuracy(50)
-	-- 	secondary:setBaseDamageStat("none")
-	-- 	secondary:setCooldown(meleeAttack:getCooldown())
-	-- 	secondary:setGameEffect("A sting that injects poison into victim's bloodstream.")
-	-- 	secondary:setPierce(meleeAttack:getPierce() or 0)
-	-- 	secondary:setCauseCondition("poisoned")
-	-- 	secondary:setConditionChance(100)
-	-- 	secondary:setSwipe("vertical")
-	-- 	secondary:setAttackSound("swipe")
-	-- 	secondary:setBuildup(1.0)
-	-- 	secondary:setUiName("Bite")
-	-- 	if secondary.go.item:hasTrait("light_weapon") then
-	-- 		secondary:setRequirements({ "light_weapons_c", math.min(upgradeLevel+level,5), "poison_mastery", 1 })
-	-- 	elseif secondary.go.item:hasTrait("heavy_weapon") then
-	-- 		secondary:setRequirements({ "heavy_weapons_c", math.min(upgradeLevel+level,5), "poison_mastery", 1 })
-	-- 	end
-	-- 	secondary.go.item:setSecondaryAction("bite")
+	elseif name == "bite" then	
+		local level = math.min(math.floor(meleeAttack:getAttackPower() / 9), 5)
+		secondary:setEnergyCost( 30 + math.floor(upgradeLevel * 10 / 3) * 3)
+		secondary:setAttackPower(meleeAttack:getAttackPower() * 0.5)
+		secondary:setAccuracy(50)
+		secondary:setBaseDamageStat("none")
+		secondary:setCooldown(meleeAttack:getCooldown())
+		secondary:setGameEffect("A sting that injects poison into victim's bloodstream.")
+		secondary:setPierce(meleeAttack:getPierce() or 0)
+		secondary:setCauseCondition("poisoned")
+		secondary:setConditionChance(100)
+		secondary:setSwipe("vertical")
+		secondary:setAttackSound("swipe")
+		secondary:setBuildup(1.0)
+		secondary:setUiName("Bite")
+		if secondary.go.item:hasTrait("light_weapon") then
+			secondary:setRequirements({ "light_weapons_c", math.min(upgradeLevel+level,5), "poison_mastery", 1 })
+		elseif secondary.go.item:hasTrait("heavy_weapon") then
+			secondary:setRequirements({ "heavy_weapons_c", math.min(upgradeLevel+level,5), "poison_mastery", 1 })
+		end
+		secondary.go.item:setSecondaryAction("bite")
 
-	-- elseif name == "chop" then	
-	-- 	local level = math.min(math.floor(meleeAttack:getAttackPower() / 13), 5)
-	-- 	secondary:setEnergyCost( 20 + math.floor(upgradeLevel * 8 / 3) * 3)
-	-- 	secondary:setAttackPower(meleeAttack:getAttackPower() * 2)
-	-- 	secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
-	-- 	secondary:setCooldown(meleeAttack:getCooldown() * 1.5)
-	-- 	secondary:setGameEffect("A useful technique for chopping firewood and splitting the heads of your enemies. Deals double damage.")
-	-- 	secondary:setPierce(meleeAttack:getPierce() or 0)
-	-- 	secondary:setSwipe("vertical")
-	-- 	secondary:setAttackSound("swipe")
-	-- 	secondary:setBuildup(1.0)
-	-- 	secondary:setUiName("Chop")
-	-- 	if secondary.go.item:hasTrait("light_weapon") then
-	-- 		secondary:setRequirements({ "light_weapons_c", math.min(upgradeLevel+level,5) })
-	-- 	elseif secondary.go.item:hasTrait("heavy_weapon") then
-	-- 		secondary:setRequirements({ "heavy_weapons_c", math.min(upgradeLevel+level,5) })
-	-- 	end
-	-- 	secondary.go.item:setSecondaryAction("chop")
+	elseif name == "chop" then	
+		local level = math.min(math.floor(meleeAttack:getAttackPower() / 13), 5)
+		secondary:setEnergyCost( 20 + math.floor(upgradeLevel * 8 / 3) * 3)
+		secondary:setAttackPower(meleeAttack:getAttackPower() * 2)
+		secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
+		secondary:setCooldown(meleeAttack:getCooldown() * 1.5)
+		secondary:setGameEffect("A useful technique for chopping firewood and splitting the heads of your enemies. Deals double damage.")
+		secondary:setPierce(meleeAttack:getPierce() or 0)
+		secondary:setSwipe("vertical")
+		secondary:setAttackSound("swipe")
+		secondary:setBuildup(1.0)
+		secondary:setUiName("Chop")
+		if secondary.go.item:hasTrait("light_weapon") then
+			secondary:setRequirements({ "light_weapons_c", math.min(upgradeLevel+level,5) })
+		elseif secondary.go.item:hasTrait("heavy_weapon") then
+			secondary:setRequirements({ "heavy_weapons_c", math.min(upgradeLevel+level,5) })
+		end
+		secondary.go.item:setSecondaryAction("chop")
 
-	-- elseif name == "chip" then
-	-- 	local level = math.min(math.floor(meleeAttack:getAttackPower() / 9), 5)
-	-- 	secondary:setEnergyCost( 21 + math.floor(upgradeLevel * 7 / 3) * 3)
-	-- 	secondary:setAttackPower(meleeAttack:getAttackPower() * 1.5)
-	-- 	secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
-	-- 	secondary:setCooldown(meleeAttack:getCooldown() * 2.0)
-	-- 	secondary:setPierce(meleeAttack:getPierce() or 0)
-	-- 	secondary:setBuildup(1.0)
-	-- 	secondary:setGameEffect("This attack chips away 1 armor from the enemy with each hit.")		
-	-- 	secondary:setSwipe("vertical")
-	-- 	secondary:setAttackSound("swipe")
-	-- 	secondary:setUiName("Chip")
-	-- 	if secondary.go.item:hasTrait("light_weapon") then
-	-- 		secondary:setRequirements({ "light_weapons_c", math.min(upgradeLevel+level,5) })
-	-- 	elseif secondary.go.item:hasTrait("heavy_weapon") then
-	-- 		secondary:setRequirements({ "heavy_weapons_c", math.min(upgradeLevel+level,5) })
-	-- 	end
-	-- 	secondary.go.item:setSecondaryAction("chip")
+	elseif name == "chip" then
+		local level = math.min(math.floor(meleeAttack:getAttackPower() / 9), 5)
+		secondary:setEnergyCost( 21 + math.floor(upgradeLevel * 7 / 3) * 3)
+		secondary:setAttackPower(meleeAttack:getAttackPower() * 1.5)
+		secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
+		secondary:setCooldown(meleeAttack:getCooldown() * 2.0)
+		secondary:setPierce(meleeAttack:getPierce() or 0)
+		secondary:setBuildup(1.0)
+		secondary:setGameEffect("This attack chips away 1 armor from the enemy with each hit.")		
+		secondary:setSwipe("vertical")
+		secondary:setAttackSound("swipe")
+		secondary:setUiName("Chip")
+		if secondary.go.item:hasTrait("light_weapon") then
+			secondary:setRequirements({ "light_weapons_c", math.min(upgradeLevel+level,5) })
+		elseif secondary.go.item:hasTrait("heavy_weapon") then
+			secondary:setRequirements({ "heavy_weapons_c", math.min(upgradeLevel+level,5) })
+		end
+		secondary.go.item:setSecondaryAction("chip")
 
-	-- elseif name == "cleave" then
-	-- 	local level = math.min(math.floor(meleeAttack:getAttackPower() / 9), 5)
-	-- 	secondary:setEnergyCost( 20 + math.floor(upgradeLevel * 8 / 3) * 3)
-	-- 	secondary:setAttackPower(meleeAttack:getAttackPower() * 2.5)
-	-- 	secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
-	-- 	secondary:setCooldown(meleeAttack:getCooldown() * 1.5)
-	-- 	secondary:setGameEffect("A mighty blow that does 2.5 times damage and ignores 10 points of armor.")
-	-- 	secondary:setPierce((meleeAttack:getPierce() or 0) + 10)
-	-- 	secondary:setSwipe("vertical")
-	-- 	secondary:setAttackSound("swipe_heavy")
-	-- 	secondary:setUiName("Cleave")
-	-- 	if secondary.go.item:hasTrait("light_weapon") then
-	-- 		secondary:setRequirements({"light_weapons_c", math.min(upgradeLevel+level,5)})
-	-- 	elseif secondary.go.item:hasTrait("heavy_weapon") then
-	-- 		secondary:setRequirements({"heavy_weapons_c", math.min(upgradeLevel+level,5)})
-	-- 	end
-	-- 	secondary.go.item:setSecondaryAction("cleave")
+	elseif name == "cleave" then
+		local level = math.min(math.floor(meleeAttack:getAttackPower() / 9), 5)
+		secondary:setEnergyCost( 20 + math.floor(upgradeLevel * 8 / 3) * 3)
+		secondary:setAttackPower(meleeAttack:getAttackPower() * 2.5)
+		secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
+		secondary:setCooldown(meleeAttack:getCooldown() * 1.5)
+		secondary:setGameEffect("A mighty blow that does 2.5 times damage and ignores 10 points of armor.")
+		secondary:setPierce((meleeAttack:getPierce() or 0) + 10)
+		secondary:setSwipe("vertical")
+		secondary:setAttackSound("swipe_heavy")
+		secondary:setUiName("Cleave")
+		if secondary.go.item:hasTrait("light_weapon") then
+			secondary:setRequirements({"light_weapons_c", math.min(upgradeLevel+level,5)})
+		elseif secondary.go.item:hasTrait("heavy_weapon") then
+			secondary:setRequirements({"heavy_weapons_c", math.min(upgradeLevel+level,5)})
+		end
+		secondary.go.item:setSecondaryAction("cleave")
 
-	-- elseif name == "dagger_throw" then
-	-- 	local level = math.min(math.floor(meleeAttack:getAttackPower() / 16), 5)
-	-- 	secondary:setEnergyCost( 6 + math.floor(upgradeLevel * 6 / 3) * 3)
-	-- 	secondary:setAttackPower(meleeAttack:getAttackPower() * 1.8)
-	-- 	secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
-	-- 	secondary:setCooldown(meleeAttack:getCooldown() * 1.0)
-	-- 	secondary:setBuildup(0.75)
-	-- 	secondary:setGameEffect("Throws an item quickly at an enemy.")
-	-- 	secondary:setUiName("Throw")
-	-- 	--secondary:setSwipe("thrust")
-	-- 	if secondary.go.item:hasTrait("light_weapon") then
-	-- 		secondary:setRequirements({ "light_weapons_c", math.min(upgradeLevel+level,5) })
-	-- 	elseif secondary.go.item:hasTrait("heavy_weapon") then
-	-- 		secondary:setRequirements({ "heavy_weapons_c", math.min(upgradeLevel+level,5) })
-	-- 	end
-	-- 	secondary.go.item:setSecondaryAction("dagger_throw")
+	elseif name == "dagger_throw" then
+		local level = math.min(math.floor(meleeAttack:getAttackPower() / 16), 5)
+		secondary:setEnergyCost( 6 + math.floor(upgradeLevel * 6 / 3) * 3)
+		secondary:setAttackPower(meleeAttack:getAttackPower() * 1.8)
+		secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
+		secondary:setCooldown(meleeAttack:getCooldown() * 1.0)
+		secondary:setBuildup(0.75)
+		secondary:setGameEffect("Throws an item quickly at an enemy.")
+		secondary:setUiName("Throw")
+		--secondary:setSwipe("thrust")
+		if secondary.go.item:hasTrait("light_weapon") then
+			secondary:setRequirements({ "light_weapons_c", math.min(upgradeLevel+level,5) })
+		elseif secondary.go.item:hasTrait("heavy_weapon") then
+			secondary:setRequirements({ "heavy_weapons_c", math.min(upgradeLevel+level,5) })
+		end
+		secondary.go.item:setSecondaryAction("dagger_throw")
 		
-	-- elseif name == "devastate" then
-	-- 	local level = math.min(math.floor(meleeAttack:getAttackPower() / 10), 5)
-	-- 	secondary:setEnergyCost( 30 + math.floor(upgradeLevel * 8 / 3) * 3)
-	-- 	secondary:setAttackPower(meleeAttack:getAttackPower() * 2.5)
-	-- 	secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
-	-- 	secondary:setCooldown(meleeAttack:getCooldown() * 1.8)
-	-- 	secondary:setGameEffect("An extremely powerful attack. Deals 2.5x damage.")
-	-- 	secondary:setPierce(meleeAttack:getPierce() and meleeAttack:getPierce() or 0)
-	-- 	secondary:setSwipe("vertical")
-	-- 	secondary:setAttackSound("swipe_heavy")
-	-- 	secondary:setCameraShake(true)
-	-- 	secondary:setBuildup(1.25)
-	-- 	secondary:setUiName("Devastate")
-	-- 	if secondary.go.item:hasTrait("light_weapon") then
-	-- 		secondary:setRequirements({"light_weapons_c", math.min(upgradeLevel+level,5), "critical", 1 })
-	-- 	elseif secondary.go.item:hasTrait("heavy_weapon") then
-	-- 		secondary:setRequirements({"heavy_weapons_c", math.min(upgradeLevel+level,5), "critical", 1 })
-	-- 	end
-	-- 	secondary.go.item:setSecondaryAction("devastate")
+	elseif name == "devastate" then
+		local level = math.min(math.floor(meleeAttack:getAttackPower() / 10), 5)
+		secondary:setEnergyCost( 30 + math.floor(upgradeLevel * 8 / 3) * 3)
+		secondary:setAttackPower(meleeAttack:getAttackPower() * 2.5)
+		secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
+		secondary:setCooldown(meleeAttack:getCooldown() * 1.8)
+		secondary:setGameEffect("An extremely powerful attack. Deals 2.5x damage.")
+		secondary:setPierce(meleeAttack:getPierce() and meleeAttack:getPierce() or 0)
+		secondary:setSwipe("vertical")
+		secondary:setAttackSound("swipe_heavy")
+		secondary:setCameraShake(true)
+		secondary:setBuildup(1.25)
+		secondary:setUiName("Devastate")
+		if secondary.go.item:hasTrait("light_weapon") then
+			secondary:setRequirements({"light_weapons_c", math.min(upgradeLevel+level,5), "critical", 1 })
+		elseif secondary.go.item:hasTrait("heavy_weapon") then
+			secondary:setRequirements({"heavy_weapons_c", math.min(upgradeLevel+level,5), "critical", 1 })
+		end
+		secondary.go.item:setSecondaryAction("devastate")
 
-	-- elseif name == "flurry" then
-	-- 	local level = math.min(math.floor(meleeAttack:getAttackPower() / 7), 5)
-	-- 	secondary:setEnergyCost( 20 + math.floor(upgradeLevel * 8 / 3) * 3)
-	-- 	secondary:setAccuracy(12 + (upgradeLevel * 2))
-	-- 	secondary:setAttackPower(meleeAttack:getAttackPower() / 2)
-	-- 	secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
-	-- 	secondary:setCooldown(meleeAttack:getCooldown() * 1.8)
-	-- 	secondary:setGameEffect("A series of three quick slashes with deadly accuracy. Does 1.5x times damage.")
-	-- 	secondary:setPierce(meleeAttack:getPierce() or 0)
-	-- 	secondary:setRepeatCount(3)
-	-- 	secondary:setRepeatDelay(0.2)
-	-- 	secondary:setSwipe("flurry")
-	-- 	secondary:setAttackSound("swipe")
-	-- 	secondary:setUiName("Flurry of Slashes")
-	-- 	if secondary.go.item:hasTrait("light_weapon") then
-	-- 		secondary:setRequirements({"light_weapons_c", math.min(upgradeLevel+level,5), "accuracy", 1 })
-	-- 	elseif secondary.go.item:hasTrait("heavy_weapon") then
-	-- 		secondary:setRequirements({"heavy_weapons_c", math.min(upgradeLevel+level,5), "accuracy", 1 })
-	-- 	end
-	-- 	secondary.go.item:setSecondaryAction("flurry")
+	elseif name == "flurry" then
+		local level = math.min(math.floor(meleeAttack:getAttackPower() / 7), 5)
+		secondary:setEnergyCost( 20 + math.floor(upgradeLevel * 8 / 3) * 3)
+		secondary:setAccuracy(12 + (upgradeLevel * 2))
+		secondary:setAttackPower(meleeAttack:getAttackPower() / 2)
+		secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
+		secondary:setCooldown(meleeAttack:getCooldown() * 1.8)
+		secondary:setGameEffect("A series of three quick slashes with deadly accuracy. Does 1.5x times damage.")
+		secondary:setPierce(meleeAttack:getPierce() or 0)
+		secondary:setRepeatCount(3)
+		secondary:setRepeatDelay(0.2)
+		secondary:setSwipe("flurry")
+		secondary:setAttackSound("swipe")
+		secondary:setUiName("Flurry of Slashes")
+		if secondary.go.item:hasTrait("light_weapon") then
+			secondary:setRequirements({"light_weapons_c", math.min(upgradeLevel+level,5), "accuracy", 1 })
+		elseif secondary.go.item:hasTrait("heavy_weapon") then
+			secondary:setRequirements({"heavy_weapons_c", math.min(upgradeLevel+level,5), "accuracy", 1 })
+		end
+		secondary.go.item:setSecondaryAction("flurry")
 
-	-- elseif name == "knockback" then
-	-- 	local level = math.min(math.floor(meleeAttack:getAttackPower() / 7), 5)
-	-- 	secondary:setEnergyCost( 20 + math.floor(upgradeLevel * 8 / 3) * 3)
-	-- 	secondary:setAccuracy(0)
-	-- 	secondary:setAttackPower(meleeAttack:getAttackPower() * 1.5)
-	-- 	secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
-	-- 	secondary:setCooldown(meleeAttack:getCooldown() * 1.5)
-	-- 	secondary:setGameEffect("A powerful blow that deals 1.5x damage and knocks enemies back.")
-	-- 	secondary:setPierce(meleeAttack:getPierce() or 0)
-	-- 	secondary:setSwipe("vertical")
-	-- 	secondary:setBuildup(1.25)
-	-- 	secondary:setAttackSound("swipe_heavy")
-	-- 	secondary:setUiName("Knockback")
-	-- 	if secondary.go.item:hasTrait("light_weapon") then
-	-- 		secondary:setRequirements({"light_weapons_c", math.min(upgradeLevel+level,5) })
-	-- 	elseif secondary.go.item:hasTrait("heavy_weapon") then
-	-- 		secondary:setRequirements({"heavy_weapons_c", math.min(upgradeLevel+level,5) })
-	-- 	end
-	-- 	secondary.go.item:setSecondaryAction("knockback")
+	elseif name == "knockback" then
+		local level = math.min(math.floor(meleeAttack:getAttackPower() / 7), 5)
+		secondary:setEnergyCost( 20 + math.floor(upgradeLevel * 8 / 3) * 3)
+		secondary:setAccuracy(0)
+		secondary:setAttackPower(meleeAttack:getAttackPower() * 1.5)
+		secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
+		secondary:setCooldown(meleeAttack:getCooldown() * 1.5)
+		secondary:setGameEffect("A powerful blow that deals 1.5x damage and knocks enemies back.")
+		secondary:setPierce(meleeAttack:getPierce() or 0)
+		secondary:setSwipe("vertical")
+		secondary:setBuildup(1.25)
+		secondary:setAttackSound("swipe_heavy")
+		secondary:setUiName("Knockback")
+		if secondary.go.item:hasTrait("light_weapon") then
+			secondary:setRequirements({"light_weapons_c", math.min(upgradeLevel+level,5) })
+		elseif secondary.go.item:hasTrait("heavy_weapon") then
+			secondary:setRequirements({"heavy_weapons_c", math.min(upgradeLevel+level,5) })
+		end
+		secondary.go.item:setSecondaryAction("knockback")
 
-	-- elseif name == "leech" then
-	-- 	local level = math.min(math.floor(meleeAttack:getAttackPower() / 9), 5)
-	-- 	secondary:setEnergyCost( 25 + math.floor(upgradeLevel * 8 / 3) * 3)
-	-- 	secondary:setAccuracy(20 + (upgradeLevel * 5))
-	-- 	secondary:setAttackPower(meleeAttack:getAttackPower() * 1.25)
-	-- 	secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
-	-- 	secondary:setCooldown(meleeAttack:getCooldown() * 1.5)
-	-- 	secondary:setGameEffect("Successful hit drains life from target and heals you.")
-	-- 	secondary:setPierce(meleeAttack:getPierce() or 0)
-	-- 	secondary:setSwipe("vertical")
-	-- 	secondary:setAttackSound("swipe_light")
-	-- 	secondary:setUiName("Leech")
-	-- 	if secondary.go.item:hasTrait("light_weapon") then
-	-- 		secondary:setRequirements({"light_weapons_c", math.min(upgradeLevel+level,5) })
-	-- 	elseif secondary.go.item:hasTrait("heavy_weapon") then
-	-- 		secondary:setRequirements({"heavy_weapons_c", math.min(upgradeLevel+level,5) })
-	-- 	end
-	-- 	secondary.go.item:setSecondaryAction("leech")
+	elseif name == "leech" then
+		local level = math.min(math.floor(meleeAttack:getAttackPower() / 9), 5)
+		secondary:setEnergyCost( 25 + math.floor(upgradeLevel * 8 / 3) * 3)
+		secondary:setAccuracy(20 + (upgradeLevel * 5))
+		secondary:setAttackPower(meleeAttack:getAttackPower() * 1.25)
+		secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
+		secondary:setCooldown(meleeAttack:getCooldown() * 1.5)
+		secondary:setGameEffect("Successful hit drains life from target and heals you.")
+		secondary:setPierce(meleeAttack:getPierce() or 0)
+		secondary:setSwipe("vertical")
+		secondary:setAttackSound("swipe_light")
+		secondary:setUiName("Leech")
+		if secondary.go.item:hasTrait("light_weapon") then
+			secondary:setRequirements({"light_weapons_c", math.min(upgradeLevel+level,5) })
+		elseif secondary.go.item:hasTrait("heavy_weapon") then
+			secondary:setRequirements({"heavy_weapons_c", math.min(upgradeLevel+level,5) })
+		end
+		secondary.go.item:setSecondaryAction("leech")
 
-	-- elseif name == "reap" then
-	-- 	local level = math.min(math.floor(meleeAttack:getAttackPower() / 7), 5)
-	-- 	secondary:setEnergyCost( 40 + math.floor(upgradeLevel * 15 / 3) * 3)
-	-- 	secondary:setAttackPower(meleeAttack:getAttackPower())
-	-- 	secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
-	-- 	secondary:setCooldown(meleeAttack:getCooldown())
-	-- 	secondary:setGameEffect("A deadly swing that has a chance of scoring x10 damage on a critical hit.")
-	-- 	secondary:setPierce(meleeAttack:getPierce() and meleeAttack:getPierce() or 0)
-	-- 	secondary:setSwipe("horizontal")
-	-- 	secondary:setBuildup(1.25)
-	-- 	secondary:setUiName("Harvest Time")
-	-- 	if secondary.go.item:hasTrait("light_weapon") then
-	-- 		secondary:setRequirements({"light_weapons_c", math.min(level+level,5), "critical", 1 })
-	-- 	elseif secondary.go.item:hasTrait("heavy_weapon") then
-	-- 		secondary:setRequirements({"heavy_weapons_c", math.min(level+level,5), "critical", 1 })
-	-- 	end
-	-- 	secondary.go.item:setSecondaryAction("reap")
+	elseif name == "reap" then
+		local level = math.min(math.floor(meleeAttack:getAttackPower() / 7), 5)
+		secondary:setEnergyCost( 40 + math.floor(upgradeLevel * 15 / 3) * 3)
+		secondary:setAttackPower(meleeAttack:getAttackPower())
+		secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
+		secondary:setCooldown(meleeAttack:getCooldown())
+		secondary:setGameEffect("A deadly swing that has a chance of scoring x10 damage on a critical hit.")
+		secondary:setPierce(meleeAttack:getPierce() and meleeAttack:getPierce() or 0)
+		secondary:setSwipe("horizontal")
+		secondary:setBuildup(1.25)
+		secondary:setUiName("Harvest Time")
+		if secondary.go.item:hasTrait("light_weapon") then
+			secondary:setRequirements({"light_weapons_c", math.min(level+level,5), "critical", 1 })
+		elseif secondary.go.item:hasTrait("heavy_weapon") then
+			secondary:setRequirements({"heavy_weapons_c", math.min(level+level,5), "critical", 1 })
+		end
+		secondary.go.item:setSecondaryAction("reap")
 
-	-- elseif name == "stun" then
-	-- 	local level = math.min(math.floor(meleeAttack:getAttackPower() / 7), 5)
-	-- 	secondary:setEnergyCost( 20 + math.floor(upgradeLevel * 8 / 3) * 3)
-	-- 	secondary:setAttackPower(meleeAttack:getAttackPower() * 2)
-	-- 	secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
-	-- 	secondary:setCooldown(meleeAttack:getCooldown() * 1.5)
-	-- 	secondary:setGameEffect("A powerful blow that has a ".. 18 + upgradeLevel * 6 .."% chance to stun an enemy. Deals double damage.")
-	-- 	secondary:setPierce(meleeAttack:getPierce() and meleeAttack:getPierce() or 0)
-	-- 	secondary:setCauseCondition("stunned")
-	-- 	secondary:setConditionChance(18 + level * 6)
-	-- 	secondary:setSwipe("vertical")
-	-- 	secondary:setAttackSound("swipe")
-	-- 	secondary:setUiName("Stun")
-	-- 	if secondary.go.item:hasTrait("light_weapon") then
-	-- 		secondary:setRequirements({"light_weapons_c", math.min(level+level2,5)})
-	-- 	elseif secondary.go.item:hasTrait("heavy_weapon") then
-	-- 		secondary:setRequirements({"heavy_weapons_c", math.min(level+level,5)})
-	-- 	end
-	-- 	secondary.go.item:setSecondaryAction("stun")
+	elseif name == "stun" then
+		local level = math.min(math.floor(meleeAttack:getAttackPower() / 7), 5)
+		secondary:setEnergyCost( 20 + math.floor(upgradeLevel * 8 / 3) * 3)
+		secondary:setAttackPower(meleeAttack:getAttackPower() * 2)
+		secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
+		secondary:setCooldown(meleeAttack:getCooldown() * 1.5)
+		secondary:setGameEffect("A powerful blow that has a ".. 18 + upgradeLevel * 6 .."% chance to stun an enemy. Deals double damage.")
+		secondary:setPierce(meleeAttack:getPierce() and meleeAttack:getPierce() or 0)
+		secondary:setCauseCondition("stunned")
+		secondary:setConditionChance(18 + level * 6)
+		secondary:setSwipe("vertical")
+		secondary:setAttackSound("swipe")
+		secondary:setUiName("Stun")
+		if secondary.go.item:hasTrait("light_weapon") then
+			secondary:setRequirements({"light_weapons_c", math.min(level+level2,5)})
+		elseif secondary.go.item:hasTrait("heavy_weapon") then
+			secondary:setRequirements({"heavy_weapons_c", math.min(level+level,5)})
+		end
+		secondary.go.item:setSecondaryAction("stun")
 		
-	-- elseif name == "thrust" then
-	-- 	local level = math.min(math.floor(meleeAttack:getAttackPower() / 9), 5)
-	-- 	secondary:setEnergyCost( 20 + math.floor(upgradeLevel * 8 / 3) * 3)
-	-- 	secondary:setAccuracy(12 + (upgradeLevel * 2))
-	-- 	secondary:setAttackPower(meleeAttack:getAttackPower() / 2)
-	-- 	secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
-	-- 	secondary:setCooldown(meleeAttack:getCooldown() * 1.8)
-	-- 	secondary:setGameEffect("A series of three quick slashes with deadly accuracy. Does 1.5x times damage.")
-	-- 	secondary:setPierce(meleeAttack:getPierce() or 0)
-	-- 	secondary:setAccuracy(50)
-	-- 	secondary:setSwipe("thrust")
-	-- 	secondary:setAttackSound("swipe")
-	-- 	secondary:setUiName("Thrust")
-	-- 	if secondary.go.item:hasTrait("light_weapon") then
-	-- 		secondary:setRequirements({"light_weapons_c", math.min(upgradeLevel+level,5), "accuracy", 1 })
-	-- 	elseif secondary.go.item:hasTrait("heavy_weapon") then
-	-- 		secondary:setRequirements({"heavy_weapons_c", math.min(upgradeLevel+level,5), "accuracy", 1 })
-	-- 	end
-	-- 	secondary.go.item:setSecondaryAction("thrust")
+	elseif name == "thrust" then
+		local level = math.min(math.floor(meleeAttack:getAttackPower() / 9), 5)
+		secondary:setEnergyCost( 20 + math.floor(upgradeLevel * 8 / 3) * 3)
+		secondary:setAccuracy(12 + (upgradeLevel * 2))
+		secondary:setAttackPower(meleeAttack:getAttackPower() / 2)
+		secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
+		secondary:setCooldown(meleeAttack:getCooldown() * 1.8)
+		secondary:setGameEffect("A series of three quick slashes with deadly accuracy. Does 1.5x times damage.")
+		secondary:setPierce(meleeAttack:getPierce() or 0)
+		secondary:setAccuracy(50)
+		secondary:setSwipe("thrust")
+		secondary:setAttackSound("swipe")
+		secondary:setUiName("Thrust")
+		if secondary.go.item:hasTrait("light_weapon") then
+			secondary:setRequirements({"light_weapons_c", math.min(upgradeLevel+level,5), "accuracy", 1 })
+		elseif secondary.go.item:hasTrait("heavy_weapon") then
+			secondary:setRequirements({"heavy_weapons_c", math.min(upgradeLevel+level,5), "accuracy", 1 })
+		end
+		secondary.go.item:setSecondaryAction("thrust")
 
-	-- elseif name == "volley" then
-	-- 	local level = math.min(math.floor(meleeAttack:getAttackPower() / 13), 5)
-	-- 	secondary:setEnergyCost( 12 + math.floor(upgradeLevel * 12 / 3) * 3)
-	-- 	secondary:setAttackPower(meleeAttack:getAttackPower() * 1)
-	-- 	secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
-	-- 	secondary:setCooldown(meleeAttack:getCooldown() * 1.5)
-	-- 	secondary:setGameEffect("Fires three times in quick succession.")
-	-- 	secondary:setUiName("Volley")
-	-- 	secondary:setAmmo("arrow")
-	-- 	secondary:setRepeatCount(3)
-	-- 	secondary:setRepeatDelay(0.2)
-	-- 	secondary:setBuildup(1.0)
-	-- 	secondary:setAttackSound("swipe_bow")
-	-- 	secondary:setRequirements({ "ranged_weapons", math.min(upgradeLevel+level, 5) })
-	-- 	secondary.go.item:setSecondaryAction("volley")
+	elseif name == "volley" then
+		local level = math.min(math.floor(meleeAttack:getAttackPower() / 13), 5)
+		secondary:setEnergyCost( 12 + math.floor(upgradeLevel * 12 / 3) * 3)
+		secondary:setAttackPower(meleeAttack:getAttackPower() * 1)
+		secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
+		secondary:setCooldown(meleeAttack:getCooldown() * 1.5)
+		secondary:setGameEffect("Fires three times in quick succession.")
+		secondary:setUiName("Volley")
+		secondary:setAmmo("arrow")
+		secondary:setRepeatCount(3)
+		secondary:setRepeatDelay(0.2)
+		secondary:setBuildup(1.0)
+		secondary:setAttackSound("swipe_bow")
+		secondary:setRequirements({ "ranged_weapons", math.min(upgradeLevel+level, 5) })
+		secondary.go.item:setSecondaryAction("volley")
 
-	-- elseif name == "power_bolt" then
-	-- 	local level = math.min(math.floor(meleeAttack:getAttackPower() / 13), 5)
-	-- 	secondary:setEnergyCost( 35 + math.floor(upgradeLevel * 15 / 3) * 3)
-	-- 	secondary:setAttackPower(meleeAttack:getAttackPower() * 1.5)
-	-- 	secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
-	-- 	secondary:setCooldown(meleeAttack:getCooldown() * 1.5)
-	-- 	secondary:setGameEffect("Use a secondary firing function to launch quarrels with extra power, stunning enemies and doing 1.5x damage.")
-	-- 	secondary:setAmmo("quarrel")
-	-- 	secondary:setAttackSound("swipe_bow")
-	-- 	secondary:setUiName("Power Bolt")
-	-- 	secondary:setRequirements({ "ranged_weapons", math.min(upgradeLevel+level, 5), "athletics", 1 })
-	-- 	secondary.go.item:setSecondaryAction("power_bolt")
-	-- end
+	elseif name == "power_bolt" then
+		local level = math.min(math.floor(meleeAttack:getAttackPower() / 13), 5)
+		secondary:setEnergyCost( 35 + math.floor(upgradeLevel * 15 / 3) * 3)
+		secondary:setAttackPower(meleeAttack:getAttackPower() * 1.5)
+		secondary:setBaseDamageStat(meleeAttack:getBaseDamageStat())
+		secondary:setCooldown(meleeAttack:getCooldown() * 1.5)
+		secondary:setGameEffect("Use a secondary firing function to launch quarrels with extra power, stunning enemies and doing 1.5x damage.")
+		secondary:setAmmo("quarrel")
+		secondary:setAttackSound("swipe_bow")
+		secondary:setUiName("Power Bolt")
+		secondary:setRequirements({ "ranged_weapons", math.min(upgradeLevel+level, 5), "athletics", 1 })
+		secondary.go.item:setSecondaryAction("power_bolt")
+	end
 end

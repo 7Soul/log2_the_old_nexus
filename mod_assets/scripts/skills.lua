@@ -164,7 +164,7 @@ defineSkill{
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
 			local stat = functions.script.get("aggroMonsters")
 			if not stat then return end
-			champion:addStatModifier("evasion", stat * 3)
+			champion:addStatModifier("evasion", level * 3)
 		end
 	end,
 }

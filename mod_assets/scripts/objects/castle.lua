@@ -537,6 +537,19 @@ defineObject{
 }
 
 defineObject{
+	name = "castle_ceiling_shaft_0000",
+	baseObject = "base_ceiling_shaft",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/env/castle_ceiling_shaft_01.fbx",
+			staticShadow = true,
+		}
+	},
+	minimalSaveState = true,
+}
+
+defineObject{
 	name = "castle_wall_grating_ornament",
 	baseObject = "base_wall_grating",
 	components = {

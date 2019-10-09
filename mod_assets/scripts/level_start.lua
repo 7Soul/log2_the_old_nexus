@@ -10,7 +10,7 @@ rotz = 0
 gotDevice = false
 
 function start()
-	local reveal_map = false
+	local reveal_map = false -- reveal current map
 	if reveal_map then
 		local startx, starty = party.x, party.y
 		for x=0,31 do
@@ -24,7 +24,7 @@ function start()
 		end
 		party:setPosition(startx, starty, party.facing, party.elevation, party.level)
 	end
-	local no_mobs = false
+	local no_mobs = false -- destroys all monsters
 	if no_mobs then
 		for entity in Dungeon.getMap(party.level):allEntities() do
 			if entity.monster then
@@ -247,25 +247,36 @@ function start()
 		dead_crystal_1:setWorldRotation(m)
 	end
 	
-	local pos = city_lock_ornate_1:getWorldPosition()
-	-- local pos = findEntity(objname):getComponent(objname2):getOffset()
+	-- Model within object
+	--local pos = findEntity(objname):getComponent(objname2):getOffset()
+
+	-- Object
+	local pos = findEntity(objname):getOffset()	
 	posx = pos.x
 	posy = pos.y
 	posz = pos.z
-	local rot = vec(-134, 259, 113)
+	
+	local rot = vec(0, 0, 0)
 	rotx = rot.x
 	roty = rot.y
 	rotz = rot.z
 end
 
+--------------------------------------------------------------------------
+-- Offset and Rotate Level Object                                       --
+--------------------------------------------------------------------------
+
 objname = "city_lock_ornate_1"
+objname2 = "-"
 
 function move(x,y,z)
 	xx = xx + x*1
 	yy = yy + y*1
 	zz = zz + z*1
+
 	-- Model within object
 	-- findEntity(objname):getComponent(objname2):setOffset(vec(posx + xx, posy + yy, posz + zz))
+
 	-- Object
 	findEntity(objname):setWorldPosition(vec(posx + xx, posy + yy, posz + zz))
 	print("Offset: ", findEntity(objname):getWorldPosition())
@@ -276,12 +287,15 @@ function rotate(x,y,z)
 	xr = xr + x*8
 	yr = yr + y*8
 	zr = zr + z*8
+
 	-- Model within object
 	-- findEntity(objname):getComponent(objname2):setRotationAngles(rotx + xr, roty + yr, rotz + zr)
+
 	-- Object
 	findEntity(objname):setWorldRotationAnglesWithOrder(xr, yr, zr, "xyz")
 	print("Rotation: ", rotx + xr, roty + yr, rotz + zr)
 end
+
 
 ----------------------------------------
 --------- Time Travel Effect -----------

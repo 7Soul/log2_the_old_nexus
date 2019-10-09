@@ -4285,7 +4285,7 @@ spawn("forest_ruins_wall_02",22,12,3,0,"forest_ruins_wall_02_40")
 spawn("forest_ruins_wall_02",23,11,2,0,"forest_ruins_wall_02_41")
 spawn("forest_ruins_pillar_03",23,12,3,0,"forest_ruins_pillar_03_47")
 spawn("forest_ruins_wall_02",22,11,2,0,"forest_ruins_wall_02_42")
-spawn("forest_ruins_pillar_03",24,12,3,0,"forest_ruins_pillar_03_48")
+spawn("forest_ruins_pillar_03",29,13,3,0,"forest_ruins_pillar_03_48")
 spawn("forest_ruins_wall_02",24,11,3,0,"forest_ruins_wall_02_43")
 spawn("forest_ruins_pillar_03",24,11,3,0,"forest_ruins_pillar_03_49")
 spawn("beach_rock_blocker_01",23,12,1,0,"beach_rock_blocker_01_62")
@@ -7198,14 +7198,536 @@ spawn("rc_stone_tablet",24,4,1,0,"rc_stone_tablet_2")
 spawn("lock_ornate",25,4,3,0,"city_lock_ornate_1")
 city_lock_ornate_1.lock:setOpenedBy("ornate_key")
 city_lock_ornate_1.lock:addConnector("onActivate", "mine_door_spear_7", "open")
+spawn("forest_ruins_wall_end_left",29,12,2,0,"forest_ruins_wall_end_left_20")
+spawn("forest_ruins_wall_end_left",28,13,0,0,"forest_ruins_wall_end_left_21")
+spawn("forest_spruce_sapling_pillar",23,10,3,0,"forest_spruce_sapling_pillar_33")
+spawn("forest_spruce_sapling_pillar",15,19,3,0,"forest_spruce_sapling_pillar_34")
+spawn("forest_spruce_sapling_pillar",7,9,3,0,"forest_spruce_sapling_pillar_35")
+spawn("forest_ruins_wall_low",10,10,0,0,"forest_ruins_wall_low_1")
+spawn("forest_ruins_wall_low",10,13,0,0,"forest_ruins_wall_low_3")
+spawn("starting_location",11,9,0,0,"starting_location_1")
+spawn("forest_ruins_wall_low",13,12,3,-1,"forest_ruins_wall_low_8")
+spawn("forest_ruins_wall_low",13,11,3,-1,"forest_ruins_wall_low_9")
+spawn("forest_ruins_wall_low",13,10,3,-1,"forest_ruins_wall_low_10")
+spawn("forest_ruins_wall_low",13,9,3,-1,"forest_ruins_wall_low_11")
+spawn("forest_ruins_wall_low",16,9,3,0,"forest_ruins_wall_low_12")
+spawn("forest_ruins_wall_low",17,10,3,0,"forest_ruins_wall_low_13")
+spawn("forest_ruins_wall_low",15,10,0,0,"forest_ruins_wall_low_14")
+spawn("forest_ruins_wall_low",15,11,0,0,"forest_ruins_wall_low_15")
+spawn("forest_ruins_wall_low",15,11,1,0,"forest_ruins_wall_low_16")
+spawn("forest_ruins_wall_low",16,11,2,0,"forest_ruins_wall_low_17")
 
 --- level 4 ---
+
+newMap{
+	name = "Tempus Transit",
+	width = 32,
+	height = 32,
+	moduleHeight = 4,
+	levelCoord = {-1,0,1},
+	ambientTrack = "dungeon",
+	tiles = {
+		"castle_floor",
+		"castle_floor_water",
+		"castle_wall",
+	}
+}
+
+loadLayer("floor_elevation", {
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+})
+
+loadLayer("reflection", {
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+})
+
+loadLayer("tiles", {
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,2,1,1,3,1,1,1,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,3,3,1,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,3,3,1,3,1,1,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,2,1,1,3,3,3,1,1,1,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,3,3,3,3,3,3,1,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,3,3,3,3,3,1,1,1,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,3,3,3,3,3,1,1,1,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,1,3,1,1,1,3,1,3,3,1,1,1,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,2,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+})
+
+spawn("castle_stairs_up",15,16,0,0,"castle_stairs_up_1")
+spawn("dungeon_cave_in",11,22,3,0,"dungeon_cave_in_11")
+spawn("dungeon_cave_in",11,18,3,0,"dungeon_cave_in_12")
+spawn("castle_ceiling_lantern",15,18,1,0,"castle_ceiling_lantern_1")
+spawn("castle_pillar_candle_holder",13,22,2,0,"castle_pillar_candle_holder_2")
+spawn("castle_pillar_candle_holder",13,19,0,0,"castle_pillar_candle_holder_3")
+spawn("castle_pillar_candle_holder",16,17,2,0,"castle_pillar_candle_holder_5")
+spawn("castle_pillar_candle_holder",15,17,2,0,"castle_pillar_candle_holder_6")
+spawn("castle_pillar_candle_holder",16,24,0,0,"castle_pillar_candle_holder_7")
+spawn("castle_pillar_candle_holder",15,24,0,0,"castle_pillar_candle_holder_8")
+spawn("castle_pillar_01",15,21,1,0,"castle_pillar_01_226")
+spawn("castle_pillar_01",16,21,1,0,"castle_pillar_01_227")
+spawn("castle_pillar_01",16,20,3,0,"castle_pillar_01_228")
+spawn("castle_pillar_01",15,20,1,0,"castle_pillar_01_229")
+spawn("castle_door_wood",14,20,3,0,"castle_door_wood_3")
+spawn("castle_pillar_candle_holder",22,27,0,0,"castle_pillar_candle_holder_9")
+spawn("castle_pillar_candle_holder",22,24,2,0,"castle_pillar_candle_holder_10")
+spawn("teleporter",21,25,1,0,"teleporter_32")
+teleporter_32.teleporter:setTeleportTarget(4,21,25,0)
+teleporter_32.teleporter:setSpin("none")
+teleporter_32.teleporter:setTriggeredByParty(true)
+teleporter_32.teleporter:setTriggeredByMonster(true)
+teleporter_32.teleporter:setTriggeredByItem(true)
+teleporter_32.teleporter:setTriggeredBySpell(true)
+spawn("castle_ceiling_light",19,20,3,3,"castle_ceiling_light_2")
+spawn("teleporter",18,26,1,0,"wind_gate_lake")
+wind_gate_lake.teleporter:setTeleportTarget(4,18,26,0)
+wind_gate_lake.teleporter:setSpin("none")
+wind_gate_lake.teleporter:setTriggeredByParty(true)
+wind_gate_lake.teleporter:setTriggeredByMonster(true)
+wind_gate_lake.teleporter:setTriggeredByItem(true)
+wind_gate_lake.teleporter:setTriggeredBySpell(true)
+spawn("teleporter",12,26,1,0,"wind_gate_swamp")
+wind_gate_swamp.teleporter:setTeleportTarget(4,12,26,0)
+wind_gate_swamp.teleporter:setSpin("none")
+wind_gate_swamp.teleporter:setTriggeredByParty(true)
+wind_gate_swamp.teleporter:setTriggeredByMonster(true)
+wind_gate_swamp.teleporter:setTriggeredByItem(true)
+wind_gate_swamp.teleporter:setTriggeredBySpell(true)
+spawn("teleporter",16,30,1,0,"wind_gate_castle")
+wind_gate_castle.teleporter:setTeleportTarget(4,16,30,0)
+wind_gate_castle.teleporter:setSpin("none")
+wind_gate_castle.teleporter:setTriggeredByParty(true)
+wind_gate_castle.teleporter:setTriggeredByMonster(true)
+wind_gate_castle.teleporter:setTriggeredByItem(true)
+wind_gate_castle.teleporter:setTriggeredBySpell(true)
+spawn("water_surface_underground",0,0,2,0,"water_surface_underground_2")
+spawn("castle_ceiling_lantern",15,22,3,0,"castle_ceiling_lantern_3")
+spawn("castle_door_wood",15,25,0,0,"castle_door_wood_4")
+castle_door_wood_4.door:setPullChain(true)
+spawn("castle_bridge_grating",15,22,1,0,"castle_bridge_grating_1")
+spawn("castle_bridge_grating",15,18,0,0,"castle_bridge_grating_2")
+spawn("castle_bridge_grating",15,27,1,0,"castle_bridge_grating_3")
+spawn("castle_pillar_candle_holder",13,28,0,0,"castle_pillar_candle_holder_1")
+spawn("castle_pillar_candle_holder",18,28,0,0,"castle_pillar_candle_holder_4")
+spawn("castle_ceiling_lantern",15,27,3,0,"castle_ceiling_lantern_2")
+spawn("castle_wall_text",17,27,0,0,"castle_wall_text_1")
+castle_wall_text_1.walltext:setWallText("Windgate to Lake Folcus")
+spawn("castle_wall_text",13,27,0,0,"castle_wall_text_2")
+castle_wall_text_2.walltext:setWallText("Windgate to Decay Swamp?")
+spawn("castle_wall_text",15,29,1,0,"castle_wall_text_3")
+castle_wall_text_3.walltext:setWallText("Windgate to the Castle Courtyard")
+spawn("castle_wall_bookshelf_01",17,22,2,0,"castle_wall_bookshelf_01_1")
+spawn("castle_wall_bookshelf_01",17,22,0,0,"castle_wall_bookshelf_01_2")
+spawn("castle_wall_bookshelf_01",17,20,2,0,"castle_wall_bookshelf_01_3")
+spawn("castle_wall_bookshelf_02",17,20,0,0,"castle_wall_bookshelf_02_1")
+spawn("castle_wall_bookshelf_02",17,18,2,0,"castle_wall_bookshelf_02_2")
+spawn("castle_wall_bookshelf_01",17,18,0,0,"castle_wall_bookshelf_01_4")
+spawn("castle_alcove",16,21,1,0,"castle_alcove_5")
+spawn("castle_alcove",16,19,1,0,"castle_alcove_6")
+spawn("castle_alcove",14,19,3,0,"castle_alcove_7")
+spawn("castle_alcove",14,21,3,0,"castle_alcove_8")
+spawn("castle_wall_grating_ornament",21,20,3,0,"castle_wall_grating_ornament_1")
+spawn("castle_wall_grating_ornament",19,18,2,0,"castle_wall_grating_ornament_2")
+spawn("castle_secret_door",18,20,3,0,"castle_secret_door_3")
+spawn("castle_stairs_up",18,3,1,0,"castle_stairs_up_2")
+spawn("dungeon_cave_in",17,7,2,0,"dungeon_cave_in_13")
+spawn("castle_pillar_candle_holder",18,4,3,0,"castle_pillar_candle_holder_11")
+spawn("castle_alcove",15,3,3,0,"castle_alcove_3")
+spawn("makeshift_mask",15,3,3,0,"makeshift_mask_1")
+makeshift_mask_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+makeshift_mask_1.detectedtimer:setTimerInterval(0)
+makeshift_mask_1.detectedtimer:setDisableSelf(false)
+makeshift_mask_1.detectedtimer:setTriggerOnStart(true)
+makeshift_mask_1.detectedtimer:setCurrentLevelOnly(true)
+castle_alcove_3.surface:addItem(makeshift_mask_1.item)
+spawn("baked_maggot",17,6,3,0,"baked_maggot_1")
+baked_maggot_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+baked_maggot_1.detectedtimer:setTimerInterval(0)
+baked_maggot_1.detectedtimer:setDisableSelf(false)
+baked_maggot_1.detectedtimer:setTriggerOnStart(true)
+baked_maggot_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("castle_pillar_candle_holder",18,3,3,0,"castle_pillar_candle_holder_12")
+
+--- level 5 ---
+
+newMap{
+	name = "Unnamed",
+	width = 32,
+	height = 32,
+	levelCoord = {-1,0,2},
+	ambientTrack = "dungeon",
+	tiles = {
+		"fire_cave_floor",
+		"fire_cave_lava",
+		"fire_cave_wall",
+		"void",
+	}
+}
+
+loadLayer("floor_elevation", {
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,-1,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,0,0,0,0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+})
+
+loadLayer("tiles", {
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,3,3,4,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,3,1,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,4,4,4,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,1,2,2,3,3,1,1,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,1,1,1,1,1,1,1,2,2,1,3,3,3,1,1,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,1,1,1,1,1,1,1,1,2,2,1,1,3,3,1,2,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,2,2,1,1,1,2,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,2,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,1,1,1,1,1,1,1,2,2,2,2,2,1,1,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,1,1,1,1,1,1,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,1,1,1,1,2,2,2,1,3,3,1,2,2,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,1,1,1,3,2,2,1,1,1,1,2,2,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+})
+
+spawn("forest_heightmap",0,0,1,0,"forest_heightmap_9")
+spawn("rc_lava_surface",10,26,0,0,"rc_lava_surface_1")
+rc_lava_surface_1.timer:setTimerInterval(0)
+rc_lava_surface_1.timer:setDisableSelf(false)
+rc_lava_surface_1.timer:setTriggerOnStart(false)
+rc_lava_surface_1.timer:setCurrentLevelOnly(true)
+spawn("fire_cave_fog",1,0,1,0,"fire_cave_fog_1")
+spawn("rc_ceiling_lamp_crystal_high",20,15,0,0,"rc_ceiling_lamp_crystal_high_2")
+spawn("rc_ceiling_lamp_crystal_high",13,11,3,0,"rc_ceiling_lamp_crystal_high_3")
+spawn("rc_large_crystal_formation_1x1",11,9,3,0,"rc_large_crystal_formation_1x1_3")
+spawn("rc_ceiling_lamp_crystal_high",10,18,3,0,"rc_ceiling_lamp_crystal_high_4")
+spawn("rc_edge_crystal",18,12,0,0,"rc_edge_crystal_1")
+spawn("rc_large_crystal_formation_1x1",18,8,3,0,"rc_large_crystal_formation_1x1_4")
+spawn("rc_small_crystals_bed_1x1",15,19,2,0,"rc_small_crystals_bed_1x1_1")
+spawn("rc_effect_dust_motes",13,19,1,0,"rc_effect_dust_motes_1")
+spawn("rc_effect_dust_motes",17,17,2,0,"rc_effect_dust_motes_2")
+spawn("rc_effect_dust_motes",17,12,3,0,"rc_effect_dust_motes_3")
+spawn("rc_molten_floaty_idle_no_effect",21,13,2,0,"rc_molten_floaty_idle_no_effect_1")
+spawn("rc_molten_floaty_idle_no_effect",17,15,1,0,"rc_molten_floaty_idle_no_effect_2")
+spawn("forest_lantern",21,12,3,0,"forest_lantern_29")
+spawn("forest_lantern",17,20,0,0,"forest_lantern_34")
+spawn("rc_altar",15,8,0,0,"rc_altar_1")
+spawn("rc_stone_tablet",6,15,3,0,"rc_stone_tablet_1")
+spawn("rc_stone_stairs_down",22,9,1,0,"rc_stone_stairs_down_1")
+spawn("rc_stone_stairs_up",20,8,0,0,"rc_stone_stairs_up_1")
+spawn("rc_rock_chasm_1x6",16,20,1,1,"rc_rock_chasm_1x6_1")
+spawn("invisible_wall",16,22,2,0,"invisible_wall_221")
+spawn("invisible_wall",17,22,3,0,"invisible_wall_222")
+spawn("invisible_wall",18,22,2,0,"invisible_wall_223")
+spawn("invisible_wall",19,22,3,0,"invisible_wall_224")
+spawn("invisible_wall",15,22,3,0,"invisible_wall_225")
+spawn("rc_large_crystal_formation_1x1",16,26,0,0,"rc_large_crystal_formation_1x1_1")
+spawn("rc_ceiling_crystal",17,25,2,0,"rc_ceiling_crystal_1")
+spawn("rc_large_crystal_formation_1x1",17,24,3,0,"rc_large_crystal_formation_1x1_2")
+spawn("script_entity",2,0,3,0,"tpItemScript")
+tpItemScript.script:setSource("function tpItem99()\
+\9for entity in Dungeon.getMap(party.level):allEntities() do\
+\9\9if entity.item and entity.elevation <= 1 then\
+\9\9\9entity:setPosition(party.x, party.y, party.facing, party.elevation, party.level)\
+\9\9end\
+\9end\
+end")
+spawn("pushable_block",8,13,1,0,"pushable2")
+spawn("magic_bridge",12,13,1,0,"mbridge_1")
+spawn("pushable_block_floor_trigger",8,13,2,0,"pushable_block_floor_trigger_2")
+pushable_block_floor_trigger_2.controller:setInitialState(true)
+pushable_block_floor_trigger_2.floortrigger:setTriggeredByParty(false)
+pushable_block_floor_trigger_2.floortrigger:setTriggeredByMonster(false)
+pushable_block_floor_trigger_2.floortrigger:setTriggeredByItem(false)
+pushable_block_floor_trigger_2.floortrigger:setTriggeredByDigging(false)
+pushable_block_floor_trigger_2.floortrigger:setDisableSelf(false)
+pushable_block_floor_trigger_2.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
+spawn("script_entity",8,11,2,0,"script_entity_34")
+script_entity_34.script:loadFile("mod_assets/scripts/pushable_block1.lua")
+spawn("pushable_block_floor_trigger",9,13,2,0,"pushable_block_floor_trigger_3")
+pushable_block_floor_trigger_3.controller:setInitialState(true)
+pushable_block_floor_trigger_3.floortrigger:setTriggeredByParty(false)
+pushable_block_floor_trigger_3.floortrigger:setTriggeredByMonster(false)
+pushable_block_floor_trigger_3.floortrigger:setTriggeredByItem(false)
+pushable_block_floor_trigger_3.floortrigger:setTriggeredByDigging(false)
+pushable_block_floor_trigger_3.floortrigger:setDisableSelf(false)
+pushable_block_floor_trigger_3.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
+spawn("pushable_block_floor_trigger",10,13,2,0,"pushable_block_floor_trigger_4")
+pushable_block_floor_trigger_4.controller:setInitialState(true)
+pushable_block_floor_trigger_4.floortrigger:setTriggeredByParty(false)
+pushable_block_floor_trigger_4.floortrigger:setTriggeredByMonster(false)
+pushable_block_floor_trigger_4.floortrigger:setTriggeredByItem(false)
+pushable_block_floor_trigger_4.floortrigger:setTriggeredByDigging(false)
+pushable_block_floor_trigger_4.floortrigger:setDisableSelf(false)
+pushable_block_floor_trigger_4.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
+spawn("pushable_block_floor_trigger",11,13,2,0,"pushable_block_floor_trigger_5")
+pushable_block_floor_trigger_5.controller:setInitialState(true)
+pushable_block_floor_trigger_5.floortrigger:setTriggeredByParty(false)
+pushable_block_floor_trigger_5.floortrigger:setTriggeredByMonster(false)
+pushable_block_floor_trigger_5.floortrigger:setTriggeredByItem(false)
+pushable_block_floor_trigger_5.floortrigger:setTriggeredByDigging(false)
+pushable_block_floor_trigger_5.floortrigger:setDisableSelf(false)
+pushable_block_floor_trigger_5.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
+spawn("pushable_block_floor_trigger",8,14,2,0,"pushable_block_floor_trigger_6")
+pushable_block_floor_trigger_6.controller:setInitialState(true)
+pushable_block_floor_trigger_6.floortrigger:setTriggeredByParty(false)
+pushable_block_floor_trigger_6.floortrigger:setTriggeredByMonster(false)
+pushable_block_floor_trigger_6.floortrigger:setTriggeredByItem(false)
+pushable_block_floor_trigger_6.floortrigger:setTriggeredByDigging(false)
+pushable_block_floor_trigger_6.floortrigger:setDisableSelf(false)
+pushable_block_floor_trigger_6.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
+spawn("pushable_block_floor_trigger",9,14,2,0,"pushable_block_floor_trigger_7")
+pushable_block_floor_trigger_7.controller:setInitialState(true)
+pushable_block_floor_trigger_7.floortrigger:setTriggeredByParty(false)
+pushable_block_floor_trigger_7.floortrigger:setTriggeredByMonster(false)
+pushable_block_floor_trigger_7.floortrigger:setTriggeredByItem(false)
+pushable_block_floor_trigger_7.floortrigger:setTriggeredByDigging(false)
+pushable_block_floor_trigger_7.floortrigger:setDisableSelf(false)
+pushable_block_floor_trigger_7.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
+spawn("pushable_block_floor_trigger",10,14,2,0,"pushable_block_floor_trigger_8")
+pushable_block_floor_trigger_8.controller:setInitialState(true)
+pushable_block_floor_trigger_8.floortrigger:setTriggeredByParty(false)
+pushable_block_floor_trigger_8.floortrigger:setTriggeredByMonster(false)
+pushable_block_floor_trigger_8.floortrigger:setTriggeredByItem(false)
+pushable_block_floor_trigger_8.floortrigger:setTriggeredByDigging(false)
+pushable_block_floor_trigger_8.floortrigger:setDisableSelf(false)
+pushable_block_floor_trigger_8.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
+spawn("pushable_block_floor_trigger",11,14,2,0,"pushable_block_floor_trigger_9")
+pushable_block_floor_trigger_9.controller:setInitialState(true)
+pushable_block_floor_trigger_9.floortrigger:setTriggeredByParty(false)
+pushable_block_floor_trigger_9.floortrigger:setTriggeredByMonster(false)
+pushable_block_floor_trigger_9.floortrigger:setTriggeredByItem(false)
+pushable_block_floor_trigger_9.floortrigger:setTriggeredByDigging(false)
+pushable_block_floor_trigger_9.floortrigger:setDisableSelf(false)
+pushable_block_floor_trigger_9.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
+spawn("pushable_block_floor_trigger",8,15,2,0,"pushable_block_floor_trigger_10")
+pushable_block_floor_trigger_10.controller:setInitialState(true)
+pushable_block_floor_trigger_10.floortrigger:setTriggeredByParty(false)
+pushable_block_floor_trigger_10.floortrigger:setTriggeredByMonster(false)
+pushable_block_floor_trigger_10.floortrigger:setTriggeredByItem(false)
+pushable_block_floor_trigger_10.floortrigger:setTriggeredByDigging(false)
+pushable_block_floor_trigger_10.floortrigger:setDisableSelf(false)
+pushable_block_floor_trigger_10.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
+spawn("pushable_block_floor_trigger",10,15,2,0,"pushable_block_floor_trigger_11")
+pushable_block_floor_trigger_11.controller:setInitialState(true)
+pushable_block_floor_trigger_11.floortrigger:setTriggeredByParty(false)
+pushable_block_floor_trigger_11.floortrigger:setTriggeredByMonster(false)
+pushable_block_floor_trigger_11.floortrigger:setTriggeredByItem(false)
+pushable_block_floor_trigger_11.floortrigger:setTriggeredByDigging(false)
+pushable_block_floor_trigger_11.floortrigger:setDisableSelf(false)
+pushable_block_floor_trigger_11.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
+spawn("pushable_block_floor_trigger",9,15,2,0,"pushable_block_floor_trigger_12")
+pushable_block_floor_trigger_12.controller:setInitialState(true)
+pushable_block_floor_trigger_12.floortrigger:setTriggeredByParty(false)
+pushable_block_floor_trigger_12.floortrigger:setTriggeredByMonster(false)
+pushable_block_floor_trigger_12.floortrigger:setTriggeredByItem(false)
+pushable_block_floor_trigger_12.floortrigger:setTriggeredByDigging(false)
+pushable_block_floor_trigger_12.floortrigger:setDisableSelf(false)
+pushable_block_floor_trigger_12.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
+spawn("pushable_block_floor_trigger",11,15,2,0,"pushable_block_floor_trigger_13")
+pushable_block_floor_trigger_13.controller:setInitialState(true)
+pushable_block_floor_trigger_13.floortrigger:setTriggeredByParty(false)
+pushable_block_floor_trigger_13.floortrigger:setTriggeredByMonster(false)
+pushable_block_floor_trigger_13.floortrigger:setTriggeredByItem(false)
+pushable_block_floor_trigger_13.floortrigger:setTriggeredByDigging(false)
+pushable_block_floor_trigger_13.floortrigger:setDisableSelf(false)
+pushable_block_floor_trigger_13.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
+spawn("pushable_block_floor_trigger",8,16,2,0,"pushable_block_floor_trigger_14")
+pushable_block_floor_trigger_14.controller:setInitialState(true)
+pushable_block_floor_trigger_14.floortrigger:setTriggeredByParty(false)
+pushable_block_floor_trigger_14.floortrigger:setTriggeredByMonster(false)
+pushable_block_floor_trigger_14.floortrigger:setTriggeredByItem(false)
+pushable_block_floor_trigger_14.floortrigger:setTriggeredByDigging(false)
+pushable_block_floor_trigger_14.floortrigger:setDisableSelf(false)
+pushable_block_floor_trigger_14.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
+spawn("pushable_block_floor_trigger",10,16,2,0,"pushable_block_floor_trigger_15")
+pushable_block_floor_trigger_15.controller:setInitialState(true)
+pushable_block_floor_trigger_15.floortrigger:setTriggeredByParty(false)
+pushable_block_floor_trigger_15.floortrigger:setTriggeredByMonster(false)
+pushable_block_floor_trigger_15.floortrigger:setTriggeredByItem(false)
+pushable_block_floor_trigger_15.floortrigger:setTriggeredByDigging(false)
+pushable_block_floor_trigger_15.floortrigger:setDisableSelf(false)
+pushable_block_floor_trigger_15.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
+spawn("pushable_block_floor_trigger",9,16,2,0,"pushable_block_floor_trigger_16")
+pushable_block_floor_trigger_16.controller:setInitialState(true)
+pushable_block_floor_trigger_16.floortrigger:setTriggeredByParty(false)
+pushable_block_floor_trigger_16.floortrigger:setTriggeredByMonster(false)
+pushable_block_floor_trigger_16.floortrigger:setTriggeredByItem(false)
+pushable_block_floor_trigger_16.floortrigger:setTriggeredByDigging(false)
+pushable_block_floor_trigger_16.floortrigger:setDisableSelf(false)
+pushable_block_floor_trigger_16.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
+spawn("pushable_block_floor_trigger",11,16,2,0,"pushable_block_floor_trigger_17")
+pushable_block_floor_trigger_17.controller:setInitialState(true)
+pushable_block_floor_trigger_17.floortrigger:setTriggeredByParty(false)
+pushable_block_floor_trigger_17.floortrigger:setTriggeredByMonster(false)
+pushable_block_floor_trigger_17.floortrigger:setTriggeredByItem(false)
+pushable_block_floor_trigger_17.floortrigger:setTriggeredByDigging(false)
+pushable_block_floor_trigger_17.floortrigger:setDisableSelf(false)
+pushable_block_floor_trigger_17.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
+spawn("magic_bridge",13,13,1,0,"mbridge_2")
+spawn("magic_bridge",14,13,1,0,"mbridge_3")
+spawn("magic_bridge",15,13,1,0,"mbridge_4")
+spawn("magic_bridge",12,14,1,0,"mbridge_5")
+spawn("magic_bridge",13,14,1,0,"mbridge_6")
+spawn("magic_bridge",14,14,1,0,"mbridge_7")
+spawn("magic_bridge",15,14,1,0,"mbridge_8")
+spawn("magic_bridge",12,15,1,0,"mbridge_9")
+spawn("magic_bridge",13,15,1,0,"mbridge_10")
+spawn("magic_bridge",14,15,1,0,"mbridge_11")
+spawn("magic_bridge",15,15,1,0,"mbridge_12")
+spawn("magic_bridge",12,16,1,0,"mbridge_13")
+spawn("magic_bridge",13,16,1,0,"mbridge_14")
+spawn("magic_bridge",14,16,1,0,"mbridge_15")
+spawn("magic_bridge",15,16,1,0,"mbridge_16")
+spawn("pushable_block",10,14,1,0,"pushable1")
+
+--- level 6 ---
 
 newMap{
 	name = "Collapsed Passage",
 	width = 32,
 	height = 32,
-	levelCoord = {-1,0,1},
+	levelCoord = {-1,0,3},
 	ambientTrack = "dungeon",
 	tiles = {
 		"dungeon_floor",
@@ -8201,21 +8723,21 @@ spawner_21.spawner:setCooldown(2)
 spawner_21.spawner:setDisableSelf(false)
 spawn("daemon_head",23,20,1,-1,"daemon_head_9")
 spawn("teleporter",7,30,1,0,"teleporter_29")
-teleporter_29.teleporter:setTeleportTarget(4,7,30,0)
+teleporter_29.teleporter:setTeleportTarget(6,7,30,0)
 teleporter_29.teleporter:setSpin("north")
 teleporter_29.teleporter:setTriggeredByParty(true)
 teleporter_29.teleporter:setTriggeredByMonster(true)
 teleporter_29.teleporter:setTriggeredByItem(true)
 teleporter_29.teleporter:setTriggeredBySpell(true)
 spawn("teleporter",7,27,1,0,"teleporter_30")
-teleporter_30.teleporter:setTeleportTarget(4,18,20,0)
+teleporter_30.teleporter:setTeleportTarget(6,18,20,0)
 teleporter_30.teleporter:setSpin("east")
 teleporter_30.teleporter:setTriggeredByParty(true)
 teleporter_30.teleporter:setTriggeredByMonster(true)
 teleporter_30.teleporter:setTriggeredByItem(true)
 teleporter_30.teleporter:setTriggeredBySpell(true)
 spawn("teleporter",17,20,3,0,"teleporter_31")
-teleporter_31.teleporter:setTeleportTarget(4,7,28,0)
+teleporter_31.teleporter:setTeleportTarget(6,7,28,0)
 teleporter_31.teleporter:setSpin("south")
 teleporter_31.teleporter:setTriggeredByParty(true)
 teleporter_31.teleporter:setTriggeredByMonster(true)
@@ -8342,7 +8864,7 @@ spawn("dungeon_wall_01",9,30,0,0,"dungeon_wall_01_189")
 spawn("dungeon_wall_01",9,29,2,0,"dungeon_wall_01_187")
 spawn("dungeon_wall_grating",17,20,2,0,"dungeon_wall_grating_4")
 
---- level 5 ---
+--- level 7 ---
 
 newMap{
 	name = "Second Beach (Present)",
@@ -9710,7 +10232,7 @@ spawn("beach_rock_spire",14,13,1,0,"beach_rock_spire_15")
 spawn("beach_rock_spire",14,13,0,0,"beach_rock_spire_16")
 spawn("beach_rock_spire",14,13,2,0,"beach_rock_spire_17")
 spawn("teleporter",16,14,2,0,"teleporter_17")
-teleporter_17.teleporter:setTeleportTarget(5,9,25,0)
+teleporter_17.teleporter:setTeleportTarget(7,9,25,0)
 teleporter_17.teleporter:setSpin("east")
 teleporter_17.teleporter:setTriggeredByParty(true)
 teleporter_17.teleporter:setTriggeredByMonster(true)
@@ -9718,7 +10240,7 @@ teleporter_17.teleporter:setTriggeredByItem(false)
 teleporter_17.teleporter:setTriggeredBySpell(false)
 teleporter_17.controller:setInitialState("deactivate")
 spawn("teleporter",8,25,2,0,"teleporter_18")
-teleporter_18.teleporter:setTeleportTarget(5,16,13,0)
+teleporter_18.teleporter:setTeleportTarget(7,16,13,0)
 teleporter_18.teleporter:setSpin("south")
 teleporter_18.teleporter:setTriggeredByParty(true)
 teleporter_18.teleporter:setTriggeredByMonster(true)
@@ -10681,9 +11203,8 @@ spawn("grass_planes_01",5,4,2,1,"grass_planes_01_31")
 spawn("time_hint_floorCircle",24,14,0,0,"time_hint_floorCircle_1")
 spawn("forest_lantern",16,5,3,0,"forest_lantern_35")
 spawn("beach_oar_boat",27,2,0,0,"beach_oar_boat_1")
-spawn("starting_location",27,3,2,0,"starting_location_1")
 
---- level 6 ---
+--- level 8 ---
 
 newMap{
 	name = "Minute Grotto (Present)",
@@ -11363,7 +11884,7 @@ torch_1.detectedtimer:setDisableSelf(false)
 torch_1.detectedtimer:setTriggerOnStart(true)
 torch_1.detectedtimer:setCurrentLevelOnly(true)
 
---- level 7 ---
+--- level 9 ---
 
 newMap{
 	name = "Magic Cave",
@@ -11791,7 +12312,7 @@ wall_button_1.button:addConnector("onActivate", "teleporter_14", "activate")
 wall_button_1.button:addConnector("onActivate", "teleporter_15", "activate")
 wall_button_1.button:addConnector("onActivate", "teleporter_16", "activate")
 spawn("teleporter",13,25,0,0,"teleporter_1")
-teleporter_1.teleporter:setTeleportTarget(8,15,25,0)
+teleporter_1.teleporter:setTeleportTarget(10,15,25,0)
 teleporter_1.teleporter:setSpin("none")
 teleporter_1.teleporter:setTriggeredByParty(true)
 teleporter_1.teleporter:setTriggeredByMonster(true)
@@ -11872,14 +12393,14 @@ timer_2.timer:addConnector("onActivate", "spawner_3", "activate")
 spawn("daemon_head",8,17,2,0,"daemon_head_1")
 spawn("daemon_head",8,17,0,0,"daemon_head_2")
 spawn("teleporter",11,1,2,-7,"teleporter_2")
-teleporter_2.teleporter:setTeleportTarget(8,15,15,7)
+teleporter_2.teleporter:setTeleportTarget(10,15,15,7)
 teleporter_2.teleporter:setSpin("none")
 teleporter_2.teleporter:setTriggeredByParty(true)
 teleporter_2.teleporter:setTriggeredByMonster(true)
 teleporter_2.teleporter:setTriggeredByItem(true)
 teleporter_2.teleporter:setTriggeredBySpell(true)
 spawn("teleporter",5,30,0,0,"teleporter_3")
-teleporter_3.teleporter:setTeleportTarget(8,5,2,0)
+teleporter_3.teleporter:setTeleportTarget(10,5,2,0)
 teleporter_3.teleporter:setSpin("none")
 teleporter_3.teleporter:setTriggeredByParty(true)
 teleporter_3.teleporter:setTriggeredByMonster(true)
@@ -11887,7 +12408,7 @@ teleporter_3.teleporter:setTriggeredByItem(true)
 teleporter_3.teleporter:setTriggeredBySpell(true)
 teleporter_3.controller:setInitialState("deactivate")
 spawn("teleporter",5,1,0,0,"teleporter_4")
-teleporter_4.teleporter:setTeleportTarget(8,5,29,0)
+teleporter_4.teleporter:setTeleportTarget(10,5,29,0)
 teleporter_4.teleporter:setSpin("none")
 teleporter_4.teleporter:setTriggeredByParty(true)
 teleporter_4.teleporter:setTriggeredByMonster(true)
@@ -11895,7 +12416,7 @@ teleporter_4.teleporter:setTriggeredByItem(true)
 teleporter_4.teleporter:setTriggeredBySpell(true)
 teleporter_4.controller:setInitialState("deactivate")
 spawn("teleporter",30,3,0,0,"teleporter_5")
-teleporter_5.teleporter:setTeleportTarget(8,8,1,0)
+teleporter_5.teleporter:setTeleportTarget(10,8,1,0)
 teleporter_5.teleporter:setSpin("none")
 teleporter_5.teleporter:setTriggeredByParty(true)
 teleporter_5.teleporter:setTriggeredByMonster(true)
@@ -11903,7 +12424,7 @@ teleporter_5.teleporter:setTriggeredByItem(true)
 teleporter_5.teleporter:setTriggeredBySpell(true)
 teleporter_5.controller:setInitialState("deactivate")
 spawn("teleporter",7,1,0,0,"teleporter_6")
-teleporter_6.teleporter:setTeleportTarget(8,29,3,0)
+teleporter_6.teleporter:setTeleportTarget(10,29,3,0)
 teleporter_6.teleporter:setSpin("none")
 teleporter_6.teleporter:setTriggeredByParty(true)
 teleporter_6.teleporter:setTriggeredByMonster(true)
@@ -11911,7 +12432,7 @@ teleporter_6.teleporter:setTriggeredByItem(true)
 teleporter_6.teleporter:setTriggeredBySpell(true)
 teleporter_6.controller:setInitialState("deactivate")
 spawn("teleporter",19,30,0,0,"teleporter_7")
-teleporter_7.teleporter:setTeleportTarget(8,18,1,0)
+teleporter_7.teleporter:setTeleportTarget(10,18,1,0)
 teleporter_7.teleporter:setSpin("none")
 teleporter_7.teleporter:setTriggeredByParty(true)
 teleporter_7.teleporter:setTriggeredByMonster(true)
@@ -11919,7 +12440,7 @@ teleporter_7.teleporter:setTriggeredByItem(true)
 teleporter_7.teleporter:setTriggeredBySpell(true)
 teleporter_7.controller:setInitialState("deactivate")
 spawn("teleporter",19,1,0,0,"teleporter_8")
-teleporter_8.teleporter:setTeleportTarget(8,20,30,0)
+teleporter_8.teleporter:setTeleportTarget(10,20,30,0)
 teleporter_8.teleporter:setSpin("none")
 teleporter_8.teleporter:setTriggeredByParty(true)
 teleporter_8.teleporter:setTriggeredByMonster(true)
@@ -11927,7 +12448,7 @@ teleporter_8.teleporter:setTriggeredByItem(true)
 teleporter_8.teleporter:setTriggeredBySpell(true)
 teleporter_8.controller:setInitialState("deactivate")
 spawn("teleporter",23,30,0,0,"teleporter_9")
-teleporter_9.teleporter:setTeleportTarget(8,26,1,0)
+teleporter_9.teleporter:setTeleportTarget(10,26,1,0)
 teleporter_9.teleporter:setSpin("none")
 teleporter_9.teleporter:setTriggeredByParty(true)
 teleporter_9.teleporter:setTriggeredByMonster(true)
@@ -11935,7 +12456,7 @@ teleporter_9.teleporter:setTriggeredByItem(true)
 teleporter_9.teleporter:setTriggeredBySpell(true)
 teleporter_9.controller:setInitialState("deactivate")
 spawn("teleporter",27,1,0,0,"teleporter_10")
-teleporter_10.teleporter:setTeleportTarget(8,24,30,0)
+teleporter_10.teleporter:setTeleportTarget(10,24,30,0)
 teleporter_10.teleporter:setSpin("none")
 teleporter_10.teleporter:setTriggeredByParty(true)
 teleporter_10.teleporter:setTriggeredByMonster(true)
@@ -11943,7 +12464,7 @@ teleporter_10.teleporter:setTriggeredByItem(true)
 teleporter_10.teleporter:setTriggeredBySpell(true)
 teleporter_10.controller:setInitialState("deactivate")
 spawn("teleporter",27,29,0,0,"teleporter_11")
-teleporter_11.teleporter:setTeleportTarget(8,1,29,0)
+teleporter_11.teleporter:setTeleportTarget(10,1,29,0)
 teleporter_11.teleporter:setSpin("none")
 teleporter_11.teleporter:setTriggeredByParty(true)
 teleporter_11.teleporter:setTriggeredByMonster(true)
@@ -11951,7 +12472,7 @@ teleporter_11.teleporter:setTriggeredByItem(true)
 teleporter_11.teleporter:setTriggeredBySpell(true)
 teleporter_11.controller:setInitialState("deactivate")
 spawn("teleporter",1,30,0,0,"teleporter_12")
-teleporter_12.teleporter:setTeleportTarget(8,27,30,0)
+teleporter_12.teleporter:setTeleportTarget(10,27,30,0)
 teleporter_12.teleporter:setSpin("none")
 teleporter_12.teleporter:setTriggeredByParty(true)
 teleporter_12.teleporter:setTriggeredByMonster(true)
@@ -11959,7 +12480,7 @@ teleporter_12.teleporter:setTriggeredByItem(true)
 teleporter_12.teleporter:setTriggeredBySpell(true)
 teleporter_12.controller:setInitialState("deactivate")
 spawn("teleporter",30,23,0,0,"teleporter_13")
-teleporter_13.teleporter:setTeleportTarget(8,1,24,0)
+teleporter_13.teleporter:setTeleportTarget(10,1,24,0)
 teleporter_13.teleporter:setSpin("none")
 teleporter_13.teleporter:setTriggeredByParty(true)
 teleporter_13.teleporter:setTriggeredByMonster(true)
@@ -11967,7 +12488,7 @@ teleporter_13.teleporter:setTriggeredByItem(true)
 teleporter_13.teleporter:setTriggeredBySpell(true)
 teleporter_13.controller:setInitialState("deactivate")
 spawn("teleporter",1,25,0,0,"teleporter_14")
-teleporter_14.teleporter:setTeleportTarget(8,30,24,0)
+teleporter_14.teleporter:setTeleportTarget(10,30,24,0)
 teleporter_14.teleporter:setSpin("none")
 teleporter_14.teleporter:setTriggeredByParty(true)
 teleporter_14.teleporter:setTriggeredByMonster(true)
@@ -11975,7 +12496,7 @@ teleporter_14.teleporter:setTriggeredByItem(true)
 teleporter_14.teleporter:setTriggeredBySpell(true)
 teleporter_14.controller:setInitialState("deactivate")
 spawn("teleporter",30,13,0,0,"teleporter_15")
-teleporter_15.teleporter:setTeleportTarget(8,16,17,0)
+teleporter_15.teleporter:setTeleportTarget(10,16,17,0)
 teleporter_15.teleporter:setSpin("none")
 teleporter_15.teleporter:setTriggeredByParty(true)
 teleporter_15.teleporter:setTriggeredByMonster(true)
@@ -11983,7 +12504,7 @@ teleporter_15.teleporter:setTriggeredByItem(true)
 teleporter_15.teleporter:setTriggeredBySpell(true)
 teleporter_15.controller:setInitialState("deactivate")
 spawn("teleporter",17,17,0,0,"teleporter_16")
-teleporter_16.teleporter:setTeleportTarget(8,29,13,0)
+teleporter_16.teleporter:setTeleportTarget(10,29,13,0)
 teleporter_16.teleporter:setSpin("none")
 teleporter_16.teleporter:setTriggeredByParty(true)
 teleporter_16.teleporter:setTriggeredByMonster(true)
@@ -12041,7 +12562,7 @@ script_entity_2.script:setSource("do\
 \9--item.containeritem:addItem(loot.item)\
 end")
 
---- level 8 ---
+--- level 10 ---
 
 newMap{
 	name = "Second Beach (Past)",
@@ -12889,7 +13410,7 @@ magic_aquamarine_2.detectedtimer:setTriggerOnStart(true)
 magic_aquamarine_2.detectedtimer:setCurrentLevelOnly(true)
 pedestal_8.surface:addItem(magic_aquamarine_2.item)
 
---- level 9 ---
+--- level 11 ---
 
 newMap{
 	name = "Minute Grotto (Past)",
@@ -13259,7 +13780,7 @@ scroll_1.detectedtimer:setDisableSelf(false)
 scroll_1.detectedtimer:setTriggerOnStart(true)
 scroll_1.detectedtimer:setCurrentLevelOnly(true)
 
---- level 10 ---
+--- level 12 ---
 
 newMap{
 	name = "Century Battlefield",
@@ -14236,280 +14757,3 @@ forest_bridge_no_icon_121.model:disable()
 spawn("forest_ruins_ceiling_flat",21,17,0,0,"forest_ruins_ceiling_flat_14")
 spawn("swamp_oak",18,25,0,0,"swamp_oak_42")
 spawn("forest_exit",20,0,0,0,"forest_exit_9")
-
---- level 11 ---
-
-newMap{
-	name = "Unnamed",
-	width = 32,
-	height = 32,
-	levelCoord = {-1,0,2},
-	ambientTrack = "dungeon",
-	tiles = {
-		"fire_cave_floor",
-		"fire_cave_lava",
-		"fire_cave_wall",
-		"void",
-	}
-}
-
-loadLayer("floor_elevation", {
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,-1,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,0,0,0,0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,0,0,0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-})
-
-loadLayer("tiles", {
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,3,3,4,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,3,1,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,4,4,4,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,1,2,2,3,3,1,1,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,1,1,1,1,1,1,1,2,2,1,3,3,3,1,1,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,1,1,1,1,1,1,1,1,2,2,1,1,3,3,1,2,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,2,2,1,1,1,2,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,2,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,1,1,1,1,1,1,1,2,2,2,2,2,1,1,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,1,1,1,1,1,1,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,1,1,1,1,2,2,2,1,3,3,1,2,2,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,1,1,1,3,2,2,1,1,1,1,2,2,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-})
-
-spawn("forest_heightmap",0,0,1,0,"forest_heightmap_9")
-spawn("rc_lava_surface",10,26,0,0,"rc_lava_surface_1")
-rc_lava_surface_1.timer:setTimerInterval(0)
-rc_lava_surface_1.timer:setDisableSelf(false)
-rc_lava_surface_1.timer:setTriggerOnStart(false)
-rc_lava_surface_1.timer:setCurrentLevelOnly(true)
-spawn("fire_cave_fog",1,0,1,0,"fire_cave_fog_1")
-spawn("rc_ceiling_lamp_crystal_high",20,15,0,0,"rc_ceiling_lamp_crystal_high_2")
-spawn("rc_ceiling_lamp_crystal_high",13,11,3,0,"rc_ceiling_lamp_crystal_high_3")
-spawn("rc_large_crystal_formation_1x1",11,9,3,0,"rc_large_crystal_formation_1x1_3")
-spawn("rc_ceiling_lamp_crystal_high",10,18,3,0,"rc_ceiling_lamp_crystal_high_4")
-spawn("rc_edge_crystal",18,12,0,0,"rc_edge_crystal_1")
-spawn("rc_large_crystal_formation_1x1",18,8,3,0,"rc_large_crystal_formation_1x1_4")
-spawn("rc_small_crystals_bed_1x1",15,19,2,0,"rc_small_crystals_bed_1x1_1")
-spawn("rc_effect_dust_motes",13,19,1,0,"rc_effect_dust_motes_1")
-spawn("rc_effect_dust_motes",17,17,2,0,"rc_effect_dust_motes_2")
-spawn("rc_effect_dust_motes",17,12,3,0,"rc_effect_dust_motes_3")
-spawn("rc_molten_floaty_idle_no_effect",21,13,2,0,"rc_molten_floaty_idle_no_effect_1")
-spawn("rc_molten_floaty_idle_no_effect",17,15,1,0,"rc_molten_floaty_idle_no_effect_2")
-spawn("forest_lantern",21,12,3,0,"forest_lantern_29")
-spawn("forest_lantern",17,20,0,0,"forest_lantern_34")
-spawn("rc_altar",15,8,0,0,"rc_altar_1")
-spawn("rc_stone_tablet",6,15,3,0,"rc_stone_tablet_1")
-spawn("rc_stone_stairs_down",22,9,1,0,"rc_stone_stairs_down_1")
-spawn("rc_stone_stairs_up",20,8,0,0,"rc_stone_stairs_up_1")
-spawn("rc_rock_chasm_1x6",16,20,1,1,"rc_rock_chasm_1x6_1")
-spawn("invisible_wall",16,22,2,0,"invisible_wall_221")
-spawn("invisible_wall",17,22,3,0,"invisible_wall_222")
-spawn("invisible_wall",18,22,2,0,"invisible_wall_223")
-spawn("invisible_wall",19,22,3,0,"invisible_wall_224")
-spawn("invisible_wall",15,22,3,0,"invisible_wall_225")
-spawn("rc_large_crystal_formation_1x1",16,26,0,0,"rc_large_crystal_formation_1x1_1")
-spawn("rc_ceiling_crystal",17,25,2,0,"rc_ceiling_crystal_1")
-spawn("rc_large_crystal_formation_1x1",17,24,3,0,"rc_large_crystal_formation_1x1_2")
-spawn("script_entity",2,0,3,0,"tpItemScript")
-tpItemScript.script:setSource("function tpItem99()\
-\9for entity in Dungeon.getMap(party.level):allEntities() do\
-\9\9if entity.item and entity.elevation <= 1 then\
-\9\9\9entity:setPosition(party.x, party.y, party.facing, party.elevation, party.level)\
-\9\9end\
-\9end\
-end")
-spawn("pushable_block",8,13,1,0,"pushable2")
-spawn("magic_bridge",12,13,1,0,"mbridge_1")
-spawn("pushable_block_floor_trigger",8,13,2,0,"pushable_block_floor_trigger_2")
-pushable_block_floor_trigger_2.controller:setInitialState(true)
-pushable_block_floor_trigger_2.floortrigger:setTriggeredByParty(false)
-pushable_block_floor_trigger_2.floortrigger:setTriggeredByMonster(false)
-pushable_block_floor_trigger_2.floortrigger:setTriggeredByItem(false)
-pushable_block_floor_trigger_2.floortrigger:setTriggeredByDigging(false)
-pushable_block_floor_trigger_2.floortrigger:setDisableSelf(false)
-pushable_block_floor_trigger_2.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
-spawn("script_entity",8,11,2,0,"script_entity_34")
-script_entity_34.script:loadFile("mod_assets/scripts/pushable_block1.lua")
-spawn("pushable_block_floor_trigger",9,13,2,0,"pushable_block_floor_trigger_3")
-pushable_block_floor_trigger_3.controller:setInitialState(true)
-pushable_block_floor_trigger_3.floortrigger:setTriggeredByParty(false)
-pushable_block_floor_trigger_3.floortrigger:setTriggeredByMonster(false)
-pushable_block_floor_trigger_3.floortrigger:setTriggeredByItem(false)
-pushable_block_floor_trigger_3.floortrigger:setTriggeredByDigging(false)
-pushable_block_floor_trigger_3.floortrigger:setDisableSelf(false)
-pushable_block_floor_trigger_3.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
-spawn("pushable_block_floor_trigger",10,13,2,0,"pushable_block_floor_trigger_4")
-pushable_block_floor_trigger_4.controller:setInitialState(true)
-pushable_block_floor_trigger_4.floortrigger:setTriggeredByParty(false)
-pushable_block_floor_trigger_4.floortrigger:setTriggeredByMonster(false)
-pushable_block_floor_trigger_4.floortrigger:setTriggeredByItem(false)
-pushable_block_floor_trigger_4.floortrigger:setTriggeredByDigging(false)
-pushable_block_floor_trigger_4.floortrigger:setDisableSelf(false)
-pushable_block_floor_trigger_4.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
-spawn("pushable_block_floor_trigger",11,13,2,0,"pushable_block_floor_trigger_5")
-pushable_block_floor_trigger_5.controller:setInitialState(true)
-pushable_block_floor_trigger_5.floortrigger:setTriggeredByParty(false)
-pushable_block_floor_trigger_5.floortrigger:setTriggeredByMonster(false)
-pushable_block_floor_trigger_5.floortrigger:setTriggeredByItem(false)
-pushable_block_floor_trigger_5.floortrigger:setTriggeredByDigging(false)
-pushable_block_floor_trigger_5.floortrigger:setDisableSelf(false)
-pushable_block_floor_trigger_5.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
-spawn("pushable_block_floor_trigger",8,14,2,0,"pushable_block_floor_trigger_6")
-pushable_block_floor_trigger_6.controller:setInitialState(true)
-pushable_block_floor_trigger_6.floortrigger:setTriggeredByParty(false)
-pushable_block_floor_trigger_6.floortrigger:setTriggeredByMonster(false)
-pushable_block_floor_trigger_6.floortrigger:setTriggeredByItem(false)
-pushable_block_floor_trigger_6.floortrigger:setTriggeredByDigging(false)
-pushable_block_floor_trigger_6.floortrigger:setDisableSelf(false)
-pushable_block_floor_trigger_6.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
-spawn("pushable_block_floor_trigger",9,14,2,0,"pushable_block_floor_trigger_7")
-pushable_block_floor_trigger_7.controller:setInitialState(true)
-pushable_block_floor_trigger_7.floortrigger:setTriggeredByParty(false)
-pushable_block_floor_trigger_7.floortrigger:setTriggeredByMonster(false)
-pushable_block_floor_trigger_7.floortrigger:setTriggeredByItem(false)
-pushable_block_floor_trigger_7.floortrigger:setTriggeredByDigging(false)
-pushable_block_floor_trigger_7.floortrigger:setDisableSelf(false)
-pushable_block_floor_trigger_7.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
-spawn("pushable_block_floor_trigger",10,14,2,0,"pushable_block_floor_trigger_8")
-pushable_block_floor_trigger_8.controller:setInitialState(true)
-pushable_block_floor_trigger_8.floortrigger:setTriggeredByParty(false)
-pushable_block_floor_trigger_8.floortrigger:setTriggeredByMonster(false)
-pushable_block_floor_trigger_8.floortrigger:setTriggeredByItem(false)
-pushable_block_floor_trigger_8.floortrigger:setTriggeredByDigging(false)
-pushable_block_floor_trigger_8.floortrigger:setDisableSelf(false)
-pushable_block_floor_trigger_8.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
-spawn("pushable_block_floor_trigger",11,14,2,0,"pushable_block_floor_trigger_9")
-pushable_block_floor_trigger_9.controller:setInitialState(true)
-pushable_block_floor_trigger_9.floortrigger:setTriggeredByParty(false)
-pushable_block_floor_trigger_9.floortrigger:setTriggeredByMonster(false)
-pushable_block_floor_trigger_9.floortrigger:setTriggeredByItem(false)
-pushable_block_floor_trigger_9.floortrigger:setTriggeredByDigging(false)
-pushable_block_floor_trigger_9.floortrigger:setDisableSelf(false)
-pushable_block_floor_trigger_9.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
-spawn("pushable_block_floor_trigger",8,15,2,0,"pushable_block_floor_trigger_10")
-pushable_block_floor_trigger_10.controller:setInitialState(true)
-pushable_block_floor_trigger_10.floortrigger:setTriggeredByParty(false)
-pushable_block_floor_trigger_10.floortrigger:setTriggeredByMonster(false)
-pushable_block_floor_trigger_10.floortrigger:setTriggeredByItem(false)
-pushable_block_floor_trigger_10.floortrigger:setTriggeredByDigging(false)
-pushable_block_floor_trigger_10.floortrigger:setDisableSelf(false)
-pushable_block_floor_trigger_10.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
-spawn("pushable_block_floor_trigger",10,15,2,0,"pushable_block_floor_trigger_11")
-pushable_block_floor_trigger_11.controller:setInitialState(true)
-pushable_block_floor_trigger_11.floortrigger:setTriggeredByParty(false)
-pushable_block_floor_trigger_11.floortrigger:setTriggeredByMonster(false)
-pushable_block_floor_trigger_11.floortrigger:setTriggeredByItem(false)
-pushable_block_floor_trigger_11.floortrigger:setTriggeredByDigging(false)
-pushable_block_floor_trigger_11.floortrigger:setDisableSelf(false)
-pushable_block_floor_trigger_11.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
-spawn("pushable_block_floor_trigger",9,15,2,0,"pushable_block_floor_trigger_12")
-pushable_block_floor_trigger_12.controller:setInitialState(true)
-pushable_block_floor_trigger_12.floortrigger:setTriggeredByParty(false)
-pushable_block_floor_trigger_12.floortrigger:setTriggeredByMonster(false)
-pushable_block_floor_trigger_12.floortrigger:setTriggeredByItem(false)
-pushable_block_floor_trigger_12.floortrigger:setTriggeredByDigging(false)
-pushable_block_floor_trigger_12.floortrigger:setDisableSelf(false)
-pushable_block_floor_trigger_12.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
-spawn("pushable_block_floor_trigger",11,15,2,0,"pushable_block_floor_trigger_13")
-pushable_block_floor_trigger_13.controller:setInitialState(true)
-pushable_block_floor_trigger_13.floortrigger:setTriggeredByParty(false)
-pushable_block_floor_trigger_13.floortrigger:setTriggeredByMonster(false)
-pushable_block_floor_trigger_13.floortrigger:setTriggeredByItem(false)
-pushable_block_floor_trigger_13.floortrigger:setTriggeredByDigging(false)
-pushable_block_floor_trigger_13.floortrigger:setDisableSelf(false)
-pushable_block_floor_trigger_13.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
-spawn("pushable_block_floor_trigger",8,16,2,0,"pushable_block_floor_trigger_14")
-pushable_block_floor_trigger_14.controller:setInitialState(true)
-pushable_block_floor_trigger_14.floortrigger:setTriggeredByParty(false)
-pushable_block_floor_trigger_14.floortrigger:setTriggeredByMonster(false)
-pushable_block_floor_trigger_14.floortrigger:setTriggeredByItem(false)
-pushable_block_floor_trigger_14.floortrigger:setTriggeredByDigging(false)
-pushable_block_floor_trigger_14.floortrigger:setDisableSelf(false)
-pushable_block_floor_trigger_14.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
-spawn("pushable_block_floor_trigger",10,16,2,0,"pushable_block_floor_trigger_15")
-pushable_block_floor_trigger_15.controller:setInitialState(true)
-pushable_block_floor_trigger_15.floortrigger:setTriggeredByParty(false)
-pushable_block_floor_trigger_15.floortrigger:setTriggeredByMonster(false)
-pushable_block_floor_trigger_15.floortrigger:setTriggeredByItem(false)
-pushable_block_floor_trigger_15.floortrigger:setTriggeredByDigging(false)
-pushable_block_floor_trigger_15.floortrigger:setDisableSelf(false)
-pushable_block_floor_trigger_15.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
-spawn("pushable_block_floor_trigger",9,16,2,0,"pushable_block_floor_trigger_16")
-pushable_block_floor_trigger_16.controller:setInitialState(true)
-pushable_block_floor_trigger_16.floortrigger:setTriggeredByParty(false)
-pushable_block_floor_trigger_16.floortrigger:setTriggeredByMonster(false)
-pushable_block_floor_trigger_16.floortrigger:setTriggeredByItem(false)
-pushable_block_floor_trigger_16.floortrigger:setTriggeredByDigging(false)
-pushable_block_floor_trigger_16.floortrigger:setDisableSelf(false)
-pushable_block_floor_trigger_16.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
-spawn("pushable_block_floor_trigger",11,16,2,0,"pushable_block_floor_trigger_17")
-pushable_block_floor_trigger_17.controller:setInitialState(true)
-pushable_block_floor_trigger_17.floortrigger:setTriggeredByParty(false)
-pushable_block_floor_trigger_17.floortrigger:setTriggeredByMonster(false)
-pushable_block_floor_trigger_17.floortrigger:setTriggeredByItem(false)
-pushable_block_floor_trigger_17.floortrigger:setTriggeredByDigging(false)
-pushable_block_floor_trigger_17.floortrigger:setDisableSelf(false)
-pushable_block_floor_trigger_17.floortrigger:addConnector("onActivate", "script_entity_34", "activate")
-spawn("magic_bridge",13,13,1,0,"mbridge_2")
-spawn("magic_bridge",14,13,1,0,"mbridge_3")
-spawn("magic_bridge",15,13,1,0,"mbridge_4")
-spawn("magic_bridge",12,14,1,0,"mbridge_5")
-spawn("magic_bridge",13,14,1,0,"mbridge_6")
-spawn("magic_bridge",14,14,1,0,"mbridge_7")
-spawn("magic_bridge",15,14,1,0,"mbridge_8")
-spawn("magic_bridge",12,15,1,0,"mbridge_9")
-spawn("magic_bridge",13,15,1,0,"mbridge_10")
-spawn("magic_bridge",14,15,1,0,"mbridge_11")
-spawn("magic_bridge",15,15,1,0,"mbridge_12")
-spawn("magic_bridge",12,16,1,0,"mbridge_13")
-spawn("magic_bridge",13,16,1,0,"mbridge_14")
-spawn("magic_bridge",14,16,1,0,"mbridge_15")
-spawn("magic_bridge",15,16,1,0,"mbridge_16")
-spawn("pushable_block",10,14,1,0,"pushable1")

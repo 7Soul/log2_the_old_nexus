@@ -387,12 +387,12 @@ defineObject{
 	name = "script_entity",
 	components = {
 		{
-			class = "Script",
-		},
-		{
 			class = "ScriptController",
 			name = "controller",
 		},
+		{
+			class = "Script",
+		},		
 	},
 	placement = "floor",
 	tags = { "scripting" },

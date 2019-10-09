@@ -2403,3 +2403,20 @@ defineObject{
    dontAdjustHeight = true,
    minimalSaveState = true,
 }
+
+defineObject{
+	name = "forest_ruins_wall_low",
+	baseObject = "base_wall_decoration",
+	components = {
+		{
+			class = "Model",
+			model = "mod_assets/models/env/forest_ruins_wall_low.fbx",
+			dissolveStart = 8,
+			dissolveEnd = 10,
+			rotation = vec(0.01, 90, 0.01),
+			staticShadow = true,
+		},
+	},
+	minimalSaveState = true,
+	tags = { "base" },
+}
