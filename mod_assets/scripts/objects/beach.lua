@@ -258,11 +258,11 @@ defineObject{
 			model = "assets/models/env/beach_gate.fbx",			
 			staticShadow = true,
 		},
-		{
-			class = "Particle",
-			particleSystem = "portcullis",
-			emitterMesh = "assets/models/env/beach_gate_portcullis.fbx",
-		},	
+		-- {
+		-- 	class = "Particle",
+		-- 	particleSystem = "portcullis",
+		-- 	emitterMesh = "assets/models/env/beach_gate_portcullis.fbx",
+		-- },	
 		{
 			class = "Door",
 			doubleDoor = true,
@@ -272,10 +272,10 @@ defineObject{
 			closeAcceleration = -2,
 			sparse = true,
 			onOpen = function(self)
-				self.go.particle:stop()
+				-- self.go.particle:stop()
 			end,
 			onClose = function(self)
-				self.go.particle:start()
+				-- self.go.particle:start()
 			end,
 		},
 		{

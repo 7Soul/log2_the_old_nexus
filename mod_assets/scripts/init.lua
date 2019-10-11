@@ -44,6 +44,7 @@ import "mod_assets/scripts/conditions.lua"
 import "mod_assets/scripts/monsters/dummy.lua"
 import "mod_assets/scripts/monsters/ash_elemental.lua"
 import "mod_assets/scripts/monsters/turtle.lua"
+import "mod_assets/scripts/monsters/mummy.lua"
 import "mod_assets/scripts/monsters/sand_warg.lua"
 import "mod_assets/scripts/monsters/twigroot.lua"
 import "mod_assets/scripts/monsters/burnt_twigroot.lua"
@@ -789,7 +790,7 @@ defineObject{
 			
 			if context.keyDown("1") and functions.script.keypressDelayGet() == 0 then
 				party:setPosition(party.x, party.y, party.facing, party.elevation + 1, party.level)
-				functions.script.keypressDelaySet(2)
+				functions.script.keypressDelaySet(8)
 			end
 			
 			if context.keyDown("O") then
@@ -820,16 +821,96 @@ defineObject{
 				end
 			end
 			
-			if context.keyDown("U") and functions.script.keypressDelayGet() == 0 then
+			-- Shift + U -> Advance day time by 1/6th
+			if context.keyDown("shift") and context.keyDown("U") and functions.script.keypressDelayGet() == 0 then
 				GameMode.setTimeOfDay((GameMode.getTimeOfDay() + 0.33) % 2)
 				print("Time of Day set to " .. GameMode.getTimeOfDay())
-				functions.script.keypressDelaySet(10)
+				functions.script.keypressDelaySet(20)
+			end
+			
+			-- Shift + M -> Reveal current map
+			if context.keyDown("shift") and context.keyDown("M") and functions.script.keypressDelayGet() == 0 then
+				functions2.script.revealMap(false)
+				functions.script.keypressDelaySet(20)
 			end
 
+			-- Shift + L -> Level up and apply healing
 			if context.keyDown("shift") and context.keyDown("L") and functions.script.keypressDelayGet() == 0 then
 				for i = 1,4 do
 					party.party:getChampion(i):levelUp()
-					functions.script.keypressDelaySet(10)
+					party.party:getChampion(i):setConditionValue("healing_potion", 16)
+					party.party:getChampion(i):setConditionValue("energy_potion", 16)
+					functions.script.keypressDelaySet(20)
+				end
+			end
+
+			-- Shift + X -> Moves the party 1 square forward
+			if context.keyDown("shift") and context.keyDown("X") and functions.script.keypressDelayGet() == 0 then
+				local dx,dy = getForward(party.facing)
+				party:setPosition(party.x + dx, party.y + dy, party.facing, party.elevation, party.level)
+				functions.script.keypressDelaySet(20)
+			end
+
+			-- Shift + K -> Kills monster in front of party
+			if context.keyDown("shift") and context.keyDown("K") and functions.script.keypressDelayGet() == 0 then
+				local dx,dy = getForward(party.facing)
+				for e in Dungeon.getMap(party.level):entitiesAt(party.x + dx, party.y + dy) do
+					if e.monster and e.monster:isAlive() then
+						e.monster:die()
+					end
+				end
+				functions.script.keypressDelaySet(20)
+			end
+
+			-- Shift + Z -> Toggles door in front of party
+			if context.keyDown("shift") and context.keyDown("Z") and functions.script.keypressDelayGet() == 0 then
+				functions.script.keypressDelaySet(20)
+				local dx,dy = getForward(party.facing)
+				for e in Dungeon.getMap(party.level):entitiesAt(party.x, party.y) do
+					if e.facing == party.facing and e.door then
+						e.door:toggle()
+					end
+				end
+				for e in Dungeon.getMap(party.level):entitiesAt(party.x + dx, party.y + dy) do
+					if (e.facing + 2) % 4 == party.facing and e.door then
+						e.door:toggle()
+					end
+				end		
+			end
+
+			-- Shift + H -> Full Heal party
+			if context.keyDown("shift") and context.keyDown("H") and functions.script.keypressDelayGet() == 0 then
+				local negative_conditions = { 
+					"cursed",
+					"diseased",
+					"paralyzed",
+					"petrified",
+					"poison",
+					"slow",
+					"chest_wound",
+					"feet_wound",
+					"head_wound",
+					"left_hand_wound",
+					"leg_wound",
+					"right_hand_wound",
+					"frozen_champion",
+					"blind",
+					"silence",
+					"bleeding",
+				}
+
+				for i = 1,4 do
+					local champion = party.party:getChampion(i)
+					for _,v in ipairs(negative_conditions) do
+						if champion:getConditionValue(v) ~= 0 then
+							champion:setConditionValue(v, 0)
+							champion:playHealingIndicator()
+						end
+					end
+					champion:setBaseStat("health", champion:getCurrentStat("max_health"))
+					champion:setBaseStat("energy", champion:getCurrentStat("max_energy"))
+					playSound("heal_party")
+					functions.script.keypressDelaySet(20)
 				end
 			end
 
@@ -1848,7 +1929,7 @@ defineObject{
 			local t = GameMode.getTimeOfDay()
 			local v = party.gametime2:getValue()
 
-			if v % 2 == 0 then
+			if v > 2 and v % 2 == 0 then
 				functions2.script.updateSky(t) -- updates sky and tides
 				functions.script.keypressDelaySet(math.max(functions.script.keypressDelayGet() - 2, 0))
 			

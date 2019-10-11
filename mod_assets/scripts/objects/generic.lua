@@ -1623,3 +1623,81 @@ defineParticleSystem{
 		},
 	}
 }
+
+defineObject{
+	name = "wall_button_new",
+	components = {
+		{
+			class = "Model",
+			model = "mod_assets/models/env/wall_button_centered.fbx",
+			offset = vec(0,0,0),
+			debugDraw = true,
+		},
+		{
+			class = "Animation",
+			animations = {
+				press = "assets/animations/env/wall_button_press.fbx",
+			},
+			onAnimationEvent = function(self, event)
+				self.go.model:setOffset(vec(0,-1.375,0))
+			end,
+		},
+		{
+			class = "Clickable",
+			offset = vec(0,0,0),
+			size = vec(0.25, 0.25, 0.25),
+			debugDraw = true,
+			onInit = function(self)
+				-- self.go:setWorldPositionY(1.375)
+			end,
+			onClick = function(self)
+				-- local posx = self.go.data:get("posx") or 0
+				-- local posy = self.go.data:get("posy") or 0
+				-- local posz = self.go.data:get("posz") or 0
+
+				local rot = self.go.data:get("rot") or 0
+				rot = (rot + 1) % 8
+				-- self.go:setWorldPosition(vec(posx , posy + (math.cos(rot) * -0.6875), posz + (math.sin(rot) * -0.6875) ))
+				-- self.go.clickable:setOffset(vec(0, 0, (math.cos(rot) * 1.5) ))
+				self.go.model:setOffset(vec(0,-1.375,0))
+				print(self.go.model:getOffset())
+				self.go.model:setRotationAngles(0, 0, rot * 45)
+				-- print(rot * 45)
+				self.go.data:set("rot", rot)
+			end
+		},
+		{
+			class = "Button",
+			sound = "button",
+		},
+		{
+			class = "Script",
+			name = "data",
+			source = [[data = {}
+function get(self,name) return self.data[name] end
+function set(self,name,value) self.data[name] = value end]],
+			onInit = function(self)
+				local pos = self.go:getWorldPosition()				
+				self.go.data:set("posx", pos.x)
+				self.go.data:set("posy", pos.y)
+				self.go.data:set("posz", pos.z)
+			end,
+		},
+	},
+	placement = "wall",
+	editorIcon = 12,
+	tags = { "puzzle" }
+}
+
+defineObject{
+	name = "wall_invis_no_icon",
+	baseObject = "base_wall_decoration",
+	components = {
+		{
+			class = "Door",
+		},
+	},
+	automapIcon = -1,
+	minimalSaveState = true,
+	tags = { "base" },
+}

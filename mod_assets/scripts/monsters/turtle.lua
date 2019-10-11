@@ -39,11 +39,11 @@ defineObject{
 			hitEffect = "hit_blood",
 			capsuleHeight = 0.2,
 			capsuleRadius = 0.7,
-			health = 90,
-			evasion = -100,
+			health = 95,
+			evasion = -10,
 			protection = 0,
-			exp = 60,
-			lootDrop = { 75, "turtle_steak", 75, "turtle_steak" },
+			exp = 70,
+			lootDrop = { 66, "turtle_steak", 33, "turtle_steak" },
 			resistances = { 
 				["shock"] = "weak",
 				["poison"] = "weak", },
@@ -76,8 +76,8 @@ defineObject{
 		{
 			class = "MonsterAttack",
 			name = "basicAttack",
-			attackPower = 8,
-			cooldown = 5,
+			attackPower = 10,
+			cooldown = 3.85,
 			-- sound = "turtle_attack",
 			onBeginAction = function(self)
 				-- randomize animation
@@ -93,8 +93,8 @@ defineObject{
 		{
 			class = "MonsterMoveAttack",
 			name = "moveAttack",
-			attackPower = 8,
-			cooldown = 30,
+			attackPower = 10,
+			cooldown = 10,
 			animation = "moveAttack",
 			sound = "turtle_move_attack",
 		},

@@ -3862,18 +3862,52 @@ spawn("forest_oak_cluster",20,10,1,0,"forest_oak_cluster_173")
 spawn("forest_heather",20,10,1,0,"forest_heather_287")
 spawn("forest_oak_cluster",20,11,1,0,"forest_oak_cluster_174")
 spawn("forest_heather",20,11,1,0,"forest_heather_288")
-spawn("ring_mail_bp",9,12,0,0,"ring_mail_bp_1")
-ring_mail_bp_1.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-ring_mail_bp_1.detectedtimer:setTimerInterval(0)
-ring_mail_bp_1.detectedtimer:setDisableSelf(false)
-ring_mail_bp_1.detectedtimer:setTriggerOnStart(true)
-ring_mail_bp_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("turtle",8,9,1,0,"turtle_1")
+turtle_1.monster:setHealth(9000)
+turtle_1.brain:disable()
+turtle_1.detectedtimer:setTimerInterval(0)
+turtle_1.detectedtimer:setDisableSelf(false)
+turtle_1.detectedtimer:setTriggerOnStart(true)
+turtle_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("turtle",8,10,1,0,"turtle_4")
+turtle_4.monster:setHealth(9000)
+turtle_4.brain:disable()
+turtle_4.detectedtimer:setTimerInterval(0)
+turtle_4.detectedtimer:setDisableSelf(false)
+turtle_4.detectedtimer:setTriggerOnStart(true)
+turtle_4.detectedtimer:setCurrentLevelOnly(true)
+spawn("starting_location",10,12,2,0,"starting_location_1")
+spawn("mummy1",15,16,0,0,"mummy1_1")
+mummy1_1.swarm_counter:setValue(0)
+mummy1_1.swarm_timer:setTimerInterval(0.05)
+mummy1_1.swarm_timer:setDisableSelf(false)
+mummy1_1.swarm_timer:setTriggerOnStart(true)
+mummy1_1.swarm_timer:setCurrentLevelOnly(false)
+mummy1_1.swarm_particle:disable()
+mummy1_1.detectedtimer:setTimerInterval(0)
+mummy1_1.detectedtimer:setDisableSelf(false)
+mummy1_1.detectedtimer:setTriggerOnStart(true)
+mummy1_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("mummy1",14,22,0,0,"mummy1_2")
+mummy1_2.swarm_counter:setValue(0)
+mummy1_2.swarm_timer:setTimerInterval(0.05)
+mummy1_2.swarm_timer:setDisableSelf(false)
+mummy1_2.swarm_timer:setTriggerOnStart(true)
+mummy1_2.swarm_timer:setCurrentLevelOnly(false)
+mummy1_2.detectedtimer:setTimerInterval(0)
+mummy1_2.detectedtimer:setDisableSelf(false)
+mummy1_2.detectedtimer:setTriggerOnStart(true)
+mummy1_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("mummy1",10,15,0,0,"mummy1_3")
+mummy1_3.swarm_counter:setValue(0)
+mummy1_3.swarm_timer:setTimerInterval(0.05)
+mummy1_3.swarm_timer:setDisableSelf(false)
+mummy1_3.swarm_timer:setTriggerOnStart(true)
+mummy1_3.swarm_timer:setCurrentLevelOnly(false)
+mummy1_3.detectedtimer:setTimerInterval(0)
+mummy1_3.detectedtimer:setDisableSelf(false)
+mummy1_3.detectedtimer:setTriggerOnStart(true)
+mummy1_3.detectedtimer:setCurrentLevelOnly(true)
 
 --- level 3 ---
 
@@ -5067,7 +5101,7 @@ spawn("forest_ruins_wall_02",6,9,3,0,"forest_ruins_wall_02_127")
 spawn("forest_ruins_wall_02",5,9,0,0,"forest_ruins_wall_02_128")
 spawn("forest_ruins_wall_02",6,5,3,0,"forest_ruins_wall_02_129")
 spawn("forest_ruins_wall_02",9,5,3,0,"forest_ruins_wall_02_130")
-spawn("forest_ruins_wall_02",9,6,3,0,"forest_ruins_wall_02_131")
+spawn("forest_ruins_wall_02",8,6,1,0,"forest_ruins_wall_02_131")
 spawn("forest_ruins_wall_02",9,7,3,0,"forest_ruins_wall_02_132")
 spawn("forest_ruins_wall_02",9,8,0,0,"forest_ruins_wall_02_133")
 spawn("forest_ruins_wall_02",10,8,0,0,"forest_ruins_wall_02_134")
@@ -6310,13 +6344,6 @@ potion_bear_form_2.detectedtimer:setTimerInterval(0)
 potion_bear_form_2.detectedtimer:setDisableSelf(false)
 potion_bear_form_2.detectedtimer:setTriggerOnStart(true)
 potion_bear_form_2.detectedtimer:setCurrentLevelOnly(true)
-spawn("turtle",9,13,1,0,"turtle_1")
-turtle_1.monster:setHealth(9000)
-turtle_1.brain:disable()
-turtle_1.detectedtimer:setTimerInterval(0)
-turtle_1.detectedtimer:setDisableSelf(false)
-turtle_1.detectedtimer:setTriggerOnStart(true)
-turtle_1.detectedtimer:setCurrentLevelOnly(true)
 spawn("rogue_boots",21,12,1,0,"rogue_boots_1")
 rogue_boots_1.data:setSource("data = {}\
 function get(self,name)\
@@ -7205,7 +7232,6 @@ spawn("forest_spruce_sapling_pillar",15,19,3,0,"forest_spruce_sapling_pillar_34"
 spawn("forest_spruce_sapling_pillar",7,9,3,0,"forest_spruce_sapling_pillar_35")
 spawn("forest_ruins_wall_low",10,10,0,0,"forest_ruins_wall_low_1")
 spawn("forest_ruins_wall_low",10,13,0,0,"forest_ruins_wall_low_3")
-spawn("starting_location",11,9,0,0,"starting_location_1")
 spawn("forest_ruins_wall_low",13,12,3,-1,"forest_ruins_wall_low_8")
 spawn("forest_ruins_wall_low",13,11,3,-1,"forest_ruins_wall_low_9")
 spawn("forest_ruins_wall_low",13,10,3,-1,"forest_ruins_wall_low_10")
@@ -7216,6 +7242,25 @@ spawn("forest_ruins_wall_low",15,10,0,0,"forest_ruins_wall_low_14")
 spawn("forest_ruins_wall_low",15,11,0,0,"forest_ruins_wall_low_15")
 spawn("forest_ruins_wall_low",15,11,1,0,"forest_ruins_wall_low_16")
 spawn("forest_ruins_wall_low",16,11,2,0,"forest_ruins_wall_low_17")
+spawn("forest_ruins_pillar_03",18,8,0,0,"forest_ruins_pillar_03_107")
+forest_ruins_pillar_03_107.model:disable()
+spawn("forest_ruins_pillar_03",17,8,0,0,"forest_ruins_pillar_03_108")
+forest_ruins_pillar_03_108.model:disable()
+spawn("forest_ruins_pillar_03",25,5,0,0,"forest_ruins_pillar_03_109")
+forest_ruins_pillar_03_109.model:disable()
+spawn("forest_ruins_pillar_03",25,6,0,0,"forest_ruins_pillar_03_110")
+forest_ruins_pillar_03_110.model:disable()
+spawn("forest_ruins_pillar_03",26,6,0,0,"forest_ruins_pillar_03_113")
+forest_ruins_pillar_03_113.model:disable()
+spawn("wall_button_new",11,9,3,0,"wall_button_new_1")
+wall_button_new_1.button:setDisableSelf(false)
+wall_button_new_1.data:setSource("data = {}\
+\9\9\9\9\9\9function get(self,name)\
+\9\9\9\9\9\9\9return self.data[name]\
+\9\9\9\9\9\9end\
+\9\9\9\9\9\9function set(self,name,value)\
+\9\9\9\9\9\9\9self.data[name] = value\
+\9\9\9\9\9\9end")
 
 --- level 4 ---
 
@@ -11203,6 +11248,79 @@ spawn("grass_planes_01",5,4,2,1,"grass_planes_01_31")
 spawn("time_hint_floorCircle",24,14,0,0,"time_hint_floorCircle_1")
 spawn("forest_lantern",16,5,3,0,"forest_lantern_35")
 spawn("beach_oar_boat",27,2,0,0,"beach_oar_boat_1")
+beach_oar_boat_1.obstacle:disable()
+spawn("floor_trigger",27,2,3,0,"floor_trigger_42")
+floor_trigger_42.floortrigger:setTriggeredByParty(true)
+floor_trigger_42.floortrigger:setTriggeredByMonster(false)
+floor_trigger_42.floortrigger:setTriggeredByItem(false)
+floor_trigger_42.floortrigger:setTriggeredByDigging(false)
+floor_trigger_42.floortrigger:setDisableSelf(false)
+floor_trigger_42.floortrigger:addConnector("onActivate", "blocker_40", "deactivate")
+floor_trigger_42.floortrigger:addConnector("onActivate", "blocker_34", "deactivate")
+spawn("branch",25,3,1,0,"branch_1")
+branch_1.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+branch_1.detectedtimer:setTimerInterval(0)
+branch_1.detectedtimer:setDisableSelf(false)
+branch_1.detectedtimer:setTriggerOnStart(true)
+branch_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("sack",27,2,2,0,"sack_5")
+sack_5.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+spawn("pitroot_bread",27,2,2,0,"pitroot_bread_1")
+pitroot_bread_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+pitroot_bread_1.detectedtimer:setTimerInterval(0)
+pitroot_bread_1.detectedtimer:setDisableSelf(false)
+pitroot_bread_1.detectedtimer:setTriggerOnStart(true)
+pitroot_bread_1.detectedtimer:setCurrentLevelOnly(true)
+sack_5.containeritem:addItem(pitroot_bread_1.item)
+spawn("mole_jerky",27,2,2,0,"mole_jerky_2")
+mole_jerky_2.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+mole_jerky_2.detectedtimer:setTimerInterval(0)
+mole_jerky_2.detectedtimer:setDisableSelf(false)
+mole_jerky_2.detectedtimer:setTriggerOnStart(true)
+mole_jerky_2.detectedtimer:setCurrentLevelOnly(true)
+sack_5.containeritem:addItem(mole_jerky_2.item)
+spawn("vilson_orb",27,2,2,0,"vilson_orb_1")
+vilson_orb_1.data:setSource("data = {}\
+function get(self,name)\
+\9return self.data[name]\
+end\
+function set(self,name,value)\
+\9self.data[name] = value\
+end")
+vilson_orb_1.detectedtimer:setTimerInterval(0)
+vilson_orb_1.detectedtimer:setDisableSelf(false)
+vilson_orb_1.detectedtimer:setTriggerOnStart(true)
+vilson_orb_1.detectedtimer:setCurrentLevelOnly(true)
+sack_5.containeritem:addItem(vilson_orb_1.item)
+sack_5.detectedtimer:setTimerInterval(0)
+sack_5.detectedtimer:setDisableSelf(false)
+sack_5.detectedtimer:setTriggerOnStart(true)
+sack_5.detectedtimer:setCurrentLevelOnly(true)
 
 --- level 8 ---
 

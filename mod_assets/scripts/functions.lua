@@ -125,6 +125,7 @@ function teststart()
 	-- spawn("script_entity", self.level, self.x, self.y, 0, 0, "test_1").script:loadFile("mod_assets/scripts/test.lua")
 	-- if test_1.script then test_1.script.derp() end
 
+	print("functions initiated")
 	functions2.script.start()
 	defaultPartyCheck = {"barbarian", "wizard", "alchemist", "knight", "rogue", "battle_mage", "farmer"}
 	for i=1,#defaultPartyCheck do
@@ -142,7 +143,7 @@ function teststart()
 		party.party:getChampionByOrdinal(3):setClass("tinkerer")
 		party.party:getChampionByOrdinal(4):setClass("monk")
 		party.party:getChampionByOrdinal(1):setRace("human")
-		party.party:getChampionByOrdinal(2):setRace("lizardman")
+		party.party:getChampionByOrdinal(2):setRace("human")
 		party.party:getChampionByOrdinal(3):setRace("insectoid")
 		party.party:getChampionByOrdinal(4):setRace("ratling")
 
@@ -1268,31 +1269,6 @@ function reloadAfter(id, cItem, slot, pelletsSlot)
 	end
 end
 
-function changeSecondary(champion, multi, property)
-	for i=ItemSlot.Weapon,ItemSlot.OffHand do
-		local item = champion:getItem(i)
-		local secondary = nil
-		if item then
-			secondary = item.go:getComponent(item:getSecondaryAction() and item:getSecondaryAction() or "")
-			if secondary then
-				if property == "buildup" and supertable[13][2][item.go.id] then
-					changeSecondaryBuildup(secondary, supertable[13][2][item.go.id], multi)
-				elseif property == "energycost" and supertable[13][3][item.go.id] then
-					changeSecondaryEnergyCost(secondary, supertable[13][3][item.go.id], multi)
-				end
-			end
-		end
-	end
-end
-
-function changeSecondaryBuildup(secondary, supertable, multi)
-	secondary:setBuildup(supertable * multi)
-end
-
-function changeSecondaryEnergyCost(secondary, supertable, multi)
-	secondary:setEnergyCost(supertable * multi)
-end
-
 -------------------------------------------------------------------------------------------------------
 -- Reset Weapon Values                                                                               --    
 -------------------------------------------------------------------------------------------------------
@@ -1461,7 +1437,7 @@ function onMonsterAttacked(self, monster, tside, damage, champion) -- self = mel
 		hunterCrit(c, 1, 6 + (champion:getLevel() - 1))
 		if monster:hasTrait("animal") then
 			functions.script.wisdom_of_the_tribe_heal(champion)
-			delayedCall("functions", 0.15, "hitMonster", monster.go.id, math.ceil(damage * wisdom_of_the_tribe(champion) ), nil, "physical", c)
+			delayedCall("functions", 0.15, "hitMonster", monster.go.id, math.ceil(damage * wisdom_of_the_tribe(champion) ), "", "physical", champion:getOrdinal())
 		end
 	end	
 	
@@ -1703,6 +1679,7 @@ end
 
 -- MonsterComponent -- Projectiles
 function onProjectileHitMonster(self, item, damage, damageType) -- self = monster, item = projectile
+	-- print(item.go.data:get("castByChampion"))
 	if item.go.data:get("castByChampion") then -- random thrown items don't get this
 		local champion = party.party:getChampionByOrdinal(item.go.data:get("castByChampion"))
 		local facing = item.go.data:get("castByChampionFacing")
@@ -1822,7 +1799,7 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 			hunterCrit(c, 1, 6 + (champion:getLevel() - 1))
 			if self:hasTrait("animal") then
 				functions.script.wisdom_of_the_tribe_heal(champion)
-				delayedCall("functions", 0.15, "hitMonster", self.go.id, math.ceil(damage * wisdom_of_the_tribe(champion) ), nil, damageType, champion:getOrdinal())
+				delayedCall("functions", 0.15, "hitMonster", self.go.id, math.ceil(damage * wisdom_of_the_tribe(champion) ), "", damageType, champion:getOrdinal())
 			end	
 		end	
 		
@@ -1848,7 +1825,7 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 			return false
 		else
 			return true
-		end
+	end
 	end
 end
 
@@ -1861,7 +1838,7 @@ function onDamageMonster(self, damage, damageType)
 		if functions.script.get_c("championUsedMagic", i) then
 			-- Elemental Exploitation
 			if functions.script.get_c("elemental_exploitation", i) and champion:hasTrait("elemental_exploitation") and resistances == "weak" then
-				delayedCall("functions", 0.25, "hitMonster", self.go.id, math.ceil(damage * 0.25), nil, damageType, champion:getOrdinal())
+				delayedCall("functions", 0.25, "hitMonster", self.go.id, math.ceil(damage * 0.25), "", damageType, champion:getOrdinal())
 				functions.script.set_c("elemental_exploitation", i, nil)
 			end
 			
@@ -1885,7 +1862,7 @@ function onDamageMonster(self, damage, damageType)
 				if self:hasTrait("animal") then
 					functions.script.wisdom_of_the_tribe_heal(champion)
 					local bonus = functions.script.wisdom_of_the_tribe(champion)
-					delayedCall("functions", 0.15, "hitMonster", self.go.id, math.ceil(damage * bonus), nil, damageType, champion:getOrdinal())
+					delayedCall("functions", 0.15, "hitMonster", self.go.id, math.ceil(damage * bonus), "", damageType, champion:getOrdinal())
 				end
 				functions.script.set_c("wisdom_of_the_tribe", i, nil)
 			end
@@ -1959,6 +1936,7 @@ function hitMonster(id, damage, flair, damageType, c, pierce_add, acc_add)
 	local champion = party.party:getChampionByOrdinal(c)
 	if not monster or not champion or not damage then return end
 	local color = "BBBBBB"
+	if flair == "" then flair = nil end
 	if flair then color = "FFFFFF" end
 	pierce_add = pierce_add or 0
 	acc_add = acc_add or 0
@@ -2006,7 +1984,8 @@ function hitMonster(id, damage, flair, damageType, c, pierce_add, acc_add)
 
 		local luck = (get_c("luck", c) or 0) * 3
 		local evade =  math.clamp(60 + accuracy + luck - monster:getEvasion(), 5, 95) / 100
-		if monster:getEvasion() < 1000 and (math.random() < evade) and not monster.go.sleep and not monster.go.frozen then 
+		-- print("evade", evade)
+		if monster:getEvasion() < 1000 and (math.random() > evade) and not monster.go.sleep and not monster.go.frozen then 
 			damage = 0
 			set_c("luck", c, math.min(luck + 1, 5) )
 		else
@@ -2121,7 +2100,7 @@ end
 
 -- Lizarman
 function lizardman_bite(attack, champion, monster)
-	local c = party.party:getChampionByOrdinal(champion)
+	local c = champion:getOrdinal()
 	local str = { math.ceil(champion:getCurrentStat("strength") * 0.5), math.ceil(champion:getCurrentStat("strength") * 1.5) }
 	local dex = { math.ceil(champion:getCurrentStat("dexterity") * 0.5), math.ceil(champion:getCurrentStat("dexterity") * 1.5) }
 	local pierce = 5
@@ -2314,6 +2293,7 @@ function onConsumeFood(self, champion)
 	end
 end
 
+-- Item weight effects
 function checkWeights(id)
 	local champion = party.party:getChampionByOrdinal(id)
 
@@ -2362,6 +2342,32 @@ function resetItemWeight(item, trait)
 	if item and item:hasTrait(trait) and tinker_item[14][item.go.id] ~= nil then
 		item.go.item:setWeight(tinker_item[14][item.go.id])
 	end
+end
+
+-- Power attack buildup and energy cost effects
+function changeSecondary(champion, multi, property)
+	for i=ItemSlot.Weapon,ItemSlot.OffHand do
+		local item = champion:getItem(i)
+		local secondary = nil
+		if item then
+			secondary = item.go:getComponent(item:getSecondaryAction() and item:getSecondaryAction() or "")
+			if secondary then
+				if property == "buildup" and supertable[13][2][item.go.id] then
+					changeSecondaryBuildup(secondary, supertable[13][2][item.go.id], multi)
+				elseif property == "energycost" and supertable[13][3][item.go.id] then
+					changeSecondaryEnergyCost(secondary, supertable[13][3][item.go.id], multi)
+				end
+			end
+		end
+	end
+end
+
+function changeSecondaryBuildup(secondary, supertable, multi)
+	secondary:setBuildup(supertable * multi)
+end
+
+function changeSecondaryEnergyCost(secondary, supertable, multi)
+	secondary:setEnergyCost(supertable * multi)
 end
 
 -- Returns the multiplier for elemental damage given by equipment

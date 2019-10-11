@@ -36,7 +36,7 @@ defineObject{
 				-- end
 			end,
 			onAnimationEvent = function(self, event)
-				if event == "spawn_blizzard1" or event == "spawn_blizzard2" or event == "spawn_blizzard3" then
+				if event == "spawn_blizzard" then
 					local dx,dy = getForward(self.go.facing)
 					local a = spawn("blizzard_small", self.go.level, self.go.x, self.go.y, self.go.facing, self.go.elevation)
 					a.tiledamager:setAttackPower(10)
@@ -230,19 +230,19 @@ defineAnimationEvent{
 
 defineAnimationEvent{
 	animation = "assets/animations/monsters/cave_crab/cave_crab_walk.fbx",
-	event = "spawn_blizzard1",
+	event = "spawn_blizzard",
 	normalizedTime = 0.6,
 }
 
 defineAnimationEvent{
 	animation = "assets/animations/monsters/cave_crab/cave_crab_strafe_left.fbx",
-	event = "spawn_blizzard2",
+	event = "spawn_blizzard",
 	normalizedTime = 0.6,
 }
 
 defineAnimationEvent{
 	animation = "assets/animations/monsters/cave_crab/cave_crab_strafe_right.fbx",
-	event = "spawn_blizzard3",
+	event = "spawn_blizzard",
 	normalizedTime = 0.6,
 }
 

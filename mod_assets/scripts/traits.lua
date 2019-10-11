@@ -578,7 +578,7 @@ defineTrait{
 	(15) +5% Chance to freeze, burn or poison with spells and attacks (+1% per extra scroll).
 	(18) +3 Willpower.]],
 	onRecomputeStats = function(champion, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
 			-- count scrolls
 			local scrolls = 0
 			for i=1,ItemSlot.MaxSlots do
@@ -663,7 +663,7 @@ defineTrait{
 			-- 	champion:addStatModifier("max_energy", math.floor(hp / 8))
 			-- end
 
-			if functions and party.partycounter:getValue() > 2 then
+			if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
 				local stats = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 				local replace = { 2, 1, 4, 3, 6, 5, 8, 7 }
 				local names = { "strength", "dexterity", "vitality", "willpower", "max_health", "max_energy", "protection", "evasion", "resist_fire", "resist_cold", "resist_shock", "resist_poison" }
@@ -691,7 +691,7 @@ defineTrait{
 
 				for i=1, #stats do
 					if i < 9 then -- replacing resists for damage takes place elsewhere
-						champion:addStatModifier( names[i], math.floor( stats[ replace[i] ] ) * 1.1 )
+						champion:addStatModifier( names[i], math.floor( stats[ replace[i] ]  * 1.1 ) )
 					end
 					champion:addStatModifier( names[i], math.floor( stats[i] ) * -1 )
 				end
@@ -723,7 +723,7 @@ defineTrait{
 		end
 	end,
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
 			if functions.script.get_c("drown_your_sorrows", champion:getOrdinal()) then
 				return 0.5
 			end
@@ -806,7 +806,7 @@ defineTrait{
 	- Gain +30% to that element multiplier.
 	- Gain +2 to all stats.]],
 	onRecomputeStats = function(champion, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
 			local curTime = GameMode.getTimeOfDay()
 			if curTime > 0 and curTime < 1.01 then
 				champion:addStatModifier("resist_fire", 15)
@@ -840,7 +840,7 @@ defineTrait{
 	requiredRace = "lizardman",
 	description = "You can see attacks coming from all directions, warning your companions of danger.\n\nFor each monster next to you, you gain +10 Evasion, +5 Accuracy and +3% Critical. Your party gains smaller bonuses too.",
 	onRecomputeStats = function(champion, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
 			local stat = functions.script.get_c("wide_vision", champion:getOrdinal())
 			if not stat or not party then return end
 			champion:addStatModifier("evasion", stat * 10)
@@ -853,14 +853,14 @@ defineTrait{
 		end
 	end,
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
 			local stat = functions.script.get_c("wide_vision", champion:getOrdinal())
 			if not stat then return end
 			return stat * 5
 		end
 	end,
 	onComputeCritChance = function(champion, weapon, attack, attackType, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
 			local stat = functions.script.get_c("wide_vision", champion:getOrdinal())
 			if not stat then return end
 			return stat * 3
@@ -875,7 +875,7 @@ defineTrait{
 	icon = 46,
 	description = "A companion Lizardman is warning you of danger. You gain +2 Evasion, +2 Accuracy and +1% Critical for each monster next to you.",
 	onRecomputeStats = function(champion, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
 			for i=1,4 do
 				local c = party.party:getChampionByOrdinal(i)
 				if c:hasTrait("wide_vision") then
@@ -887,7 +887,7 @@ defineTrait{
 		end
 	end,
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
 			for i=1,4 do
 				local c = party.party:getChampionByOrdinal(i)
 				if c:hasTrait("wide_vision") then
@@ -899,7 +899,7 @@ defineTrait{
 		end
 	end,
 	onComputeCritChance = function(champion, weapon, attack, attackType, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
 			for i=1,4 do
 				local c = party.party:getChampionByOrdinal(i)
 				if c:hasTrait("wide_vision") then
@@ -1017,7 +1017,7 @@ defineTrait{
 	- Gain 100 Evasion and 15% Critical Chance.
 	- Your first physical attack has a 50% chance to poison the target.]],
 	onComputeCritChance = function(champion, weapon, attack, attackType, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 then 
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
 			if functions.script.get_c("sneak_attack", champion:getOrdinal()) then
 				return 15
 			end
@@ -1034,7 +1034,7 @@ defineTrait{
 	requiredRace = "ratling",
 	description = "Poison resistance +50%, other resistances -15%. You gain 1 Maximum Health for each extra point of poison resistance (even if you get more than 100%).",
 	onRecomputeStats = function(champion, level)
-		--if level > 0 then
+		-- if level > 0 then
 			champion:addStatModifier("resist_poison", 50)
 			champion:addStatModifier("resist_fire", -15)
 			champion:addStatModifier("resist_cold", -15)
@@ -1043,7 +1043,7 @@ defineTrait{
 			champion:addStatModifier("max_health", health)
 			champion:addStatModifier("health", health)
 			champion:addStatModifier("max_load", health * 0.1)
-		--end
+		-- end
 	end,
 }
 

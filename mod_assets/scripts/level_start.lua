@@ -9,22 +9,19 @@ roty = 0
 rotz = 0
 gotDevice = false
 
-function start()
-	local reveal_map = false -- reveal current map
-	if reveal_map then
-		local startx, starty = party.x, party.y
-		for x=0,31 do
-			for y=0,31 do
-				local zfloor = Dungeon.getMap(party.level):getElevation(x, y)
-				
-				if not Dungeon.getMap(party.level):isBlocked(x, y, zfloor) then
-					party:setPosition(x, y, party.facing, zfloor, party.level)
-				end
+function revealMap(noMobs)
+	local startx, starty = party.x, party.y
+	for x=0,31 do
+		for y=0,31 do
+			local zfloor = Dungeon.getMap(party.level):getElevation(x, y)
+			
+			if not Dungeon.getMap(party.level):isBlocked(x, y, zfloor) then
+				party:setPosition(x, y, party.facing, zfloor, party.level)
 			end
 		end
-		party:setPosition(startx, starty, party.facing, party.elevation, party.level)
 	end
-	local no_mobs = false -- destroys all monsters
+	party:setPosition(startx, starty, party.facing, party.elevation, party.level)
+
 	if no_mobs then
 		for entity in Dungeon.getMap(party.level):allEntities() do
 			if entity.monster then
@@ -32,6 +29,10 @@ function start()
 			end
 		end
 	end
+end
+
+function start()
+	print("functions2 initiated")
 	
 	-------------------
 	-- Second Beach ---
@@ -251,7 +252,7 @@ function start()
 	--local pos = findEntity(objname):getComponent(objname2):getOffset()
 
 	-- Object
-	local pos = findEntity(objname):getOffset()	
+	local pos = findEntity(objname):getWorldPosition()
 	posx = pos.x
 	posy = pos.y
 	posz = pos.z
@@ -266,7 +267,7 @@ end
 -- Offset and Rotate Level Object                                       --
 --------------------------------------------------------------------------
 
-objname = "city_lock_ornate_1"
+objname = "sack_5"
 objname2 = "-"
 
 function move(x,y,z)
@@ -357,12 +358,12 @@ function updateSky(t)
 	local sky = nil
 	local fog_base = 440
 	local fog_var = 350
-	if party.level == 8 then
-		sky = findEntity("forest_day_sky_2").sky
+	if party.level == forest_day_sky_2.level then
+		sky = forest_day_sky_2.sky
 		fog_base = 470
 		fog_var = 350
-	elseif  party.level == 5 then
-		sky = findEntity("beach_day_sky_2").sky
+	elseif  party.level == beach_day_sky_2 then
+		sky = beach_day_sky_2.sky
 		fog_base = 420
 		fog_var = 350
 	else
@@ -440,7 +441,14 @@ function updateSky(t)
 	findEntity("beach_ocean_3"):getComponent("surface"):setOffset(vec(0, -1.4 + (math.cos((t+0.5)/30*90) * 0.2), 0))
 	findEntity("beach_ocean_4"):getComponent("surface"):setOffset(vec(0, -1.4 + (math.cos((t+0.5)/30*90) * 0.2), 0))
 	findEntity("beach_oar_boat_1").model:setOffset(vec(0, 0.6 + ((math.cos((t+0.5)/30*90) * 0.2) + (math.cos(party.gametime2:getValue()/100)*0.1) ), 0))
-	findEntity("beach_oar_boat_1").model:setRotationAngles( math.cos((party.gametime2:getValue()+20) / 50) * 4.0 , 10 + t, math.cos((party.gametime2:getValue()+10) / 30) * 1.0)
+	findEntity("beach_oar_boat_1").model:setRotationAngles( math.cos((party.gametime2:getValue()+20) / 50) * 4.0 , 10 + t, 0)
+	if sack_5 then 
+		if not functions.script.get("got_starting_sack") then
+			sack_5:setWorldPosition(vec(82.66,-1.45 + ((math.cos((t+0.5)/30*90) * 0.2) + (math.cos(party.gametime2:getValue()/100)*0.1) + (math.cos((party.gametime2:getValue()+20) / 50) * -0.05) ),87.8))
+		end
+	else
+		functions.script.set("got_starting_sack", true)
+	end
 end
 
 function setGotDevice()
