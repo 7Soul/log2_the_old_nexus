@@ -660,3 +660,31 @@ defineMaterial{
 	glossiness = 0,
 	depthBias = 0,
 }
+
+defineMaterial{
+	name = "red_aura",
+	diffuseMap = "mod_assets/textures/effects/red_aura.tga",
+	doubleSided = true,
+	lighting = false,
+	alphaTest = false,
+	blendMode = "Additive",
+	glossiness = 60,
+	depthBias = 0,
+	onUpdate = function(self, time)
+	end,
+}
+
+defineMaterial{
+	name = "red_beam",
+	diffuseMap = "mod_assets/textures/effects/red_beam.tga",
+	doubleSided = true,
+	lighting = false,
+	alphaTest = false,
+	blendMode = "Additive",
+	-- textureAddressMode = "WrapU_ClampV_ClampW",
+	glossiness = 60,
+	depthBias = 0,
+	onUpdate = function(self, time)
+		-- self:setTexcoordScaleOffset(0.5, 1, time*0.02, 0)
+	end,
+}

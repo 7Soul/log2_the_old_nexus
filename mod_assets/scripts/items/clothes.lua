@@ -987,8 +987,8 @@ defineObject{
 			class = "Item",
 			uiName = "Merv's Rogue Boots",
 			description = "These boots once belonged to the fastest man alive.",
-			gameEffect = [[Speed potions last twice as long while you wear these boots.
-			gameEffect = [[[Rogue Set] Adds 25% chance of attacking twice with Melee Weapons and 25% chance of firing an extra shot with Ranged Weapons.]],
+			gameEffect = [[Speed Potions last twice as long.
+			[Rogue Set] Adds 25% chance of attacking twice with Melee Weapons and 25% chance of firing an extra shot with Ranged Weapons.]],
 			armorSet = "rogue",
 			armorSetPieces = 5,
 			gfxAtlas = "mod_assets/textures/gui/items.dds",

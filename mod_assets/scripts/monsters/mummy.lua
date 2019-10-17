@@ -25,6 +25,15 @@ for i=0,3 do
 					fall = str("assets/animations/monsters/mummy/mummy?_get_hit_front_left.fbx"),
 				},
 				currentLevelOnly = true,
+				onAnimationEvent = function(self, event)
+					local brain = self.go.brain
+
+					if event == "idle" and brain.seesParty then
+						if not self.go.swarm_particle:isEnabled() and math.random() < 1.0 then	
+							self.go.monster:performAction("summon")
+						end
+					end
+				end
 			},
 			{
 				class = "Monster",
@@ -36,7 +45,7 @@ for i=0,3 do
 				capsuleHeight = 0.2,
 				capsuleRadius = 0.7,
 				collisionRadius = 0.7,
-				health = 140,
+				health = 150,
 				evasion = 0,
 				exp = 105,
 				immunities = { "sleep", "blinded" },
@@ -47,6 +56,9 @@ for i=0,3 do
 				traits = { "undead" },
 				headRotation = vec(0, 0, 90),
 				onInit = function(self)
+					self.go.swarm_particle:disable()
+					self.go.swarm_parent:disable()
+					self.go.sound_swarm:disable()
 					self.go.swarm_counter:setValue(math.random(1,7))
 				end,
 			},
@@ -60,23 +72,33 @@ for i=0,3 do
 				timerInterval = 0.05,
 				triggerOnStart = true,
 				onActivate = function(self)
-					if self.go.swarm_particle:isEnabled() then
+					if self.go.swarm_particle:isEnabled() and self.go.monster:isAlive() then
 						self.go.swarm_counter:increment()
 						local v = self.go.swarm_counter:getValue()
 						local swarm = self.go.swarm_particle
-						swarm:setOffset( vec(math.sin(v/25) * 3, 0.0 + math.cos((v+0.5)/8) * 0.1 , math.cos(v/25) * 3) )
+						swarm:setOffset( vec(math.sin(v/25) * 3, math.cos((v+0.5)/8) * 0.1 , math.cos(v/25) * 3) )
+						self.go.sound_swarm:setOffset( vec(math.sin(v/25) * 3, math.cos((v+0.5)/8) * 0.1 , math.cos(v/25) * 3) )
 						
-						if math.floor(v - 1) % 8 == 0 then
+						-- Swarm damage	
+						if math.floor(v) % 8 == 0 then
 							self.go.swarm_spawner:increment()
 						end
-						if math.floor(v + 0.0) % 8 == 0 and math.random() < 0.5 then
-							self.go.swarm_spawner:increment()
+						if math.floor(v) % 8 == 4 then
+							self.go.swarm_spawner:decrement()
 						end
-						if math.floor(v + 1) % 8 == 0 then
-							self.go.swarm_spawner:increment()
+						
+						-- End swarm effect
+						if math.floor(v / 20) >= 30 then
+							self.go.swarm_particle:fadeOut(0.5)
+							self.go.swarm_parent:fadeOut(0.5)
+							self.go.sound_swarm:fadeOut(1.0)
 						end
-					else
 
+						if (v / 20) >= 31 then
+							self.go.swarm_particle:disable()
+							self.go.swarm_parent:disable()
+							self.go.sound_swarm:disable()
+						end
 					end
 				end
 			},
@@ -84,16 +106,29 @@ for i=0,3 do
 				class = "Controller",
 				name = "swarm_spawner",
 				onIncrement = function(self)
-					if self.go.swarm_particle:isEnabled() then
+					if self.go.swarm_particle:isEnabled() and self.go.monster:isAlive() then
 						local v = self.go.swarm_counter:getValue()
-						local swarm_pos = math.floor(v/20) % 8
+						local swarm_pos = math.floor((v+10)/20) % 8
 						local posX = { 1, 1, 0,-1,-1,-1,  0, 1 }
 						local posY = { 0, 1, 1, 1, 0,-1, -1,-1 }
 						local i = (((self.go.facing*2) - 1 + swarm_pos) % 8) + 1
 						local dx = posX[i]
 						local dy = posY[i]
+						-- spawn("red_aoe", self.go.level, self.go.x + dx, self.go.y + dy, self.go.facing, self.go.elevation)
 						damageTile(self.go.level, self.go.x + dx, self.go.y + dy, 0, self.go.elevation, 0, "poison", math.random(1,2) + (GameMode.getTimeOfDay() > 1.01 and math.random(1,2) or 0) )
-						-- party.playScreenEffect(filename)
+					end
+				end,
+				onDecrement = function(self)
+					if self.go.swarm_particle:isEnabled() and self.go.monster:isAlive() then
+						local v = self.go.swarm_counter:getValue()
+						local swarm_pos = math.floor((v+0)/20) % 8
+						local posX = { 1, 1, 0,-1,-1,-1,  0, 1 }
+						local posY = { 0, 1, 1, 1, 0,-1, -1,-1 }
+						local i = (((self.go.facing*2) - 1 + swarm_pos) % 8) + 1
+						local dx = posX[i]
+						local dy = posY[i]
+						-- spawn("red_aoe", self.go.level, self.go.x + dx, self.go.y + dy, self.go.facing, self.go.elevation)
+						damageTile(self.go.level, self.go.x + dx, self.go.y + dy, 0, self.go.elevation, 0, "poison", math.random(1,2) + (GameMode.getTimeOfDay() > 1.01 and math.random(1,2) or 0) )
 					end
 				end,
 			},
@@ -101,15 +136,23 @@ for i=0,3 do
 				class = "Light",
 				name = "swarm_parent",
 				parentNode = "capsule",
-				range = 3.0,
-				color = vec(0.2, 0.8, 0.2),
-				brightness = 1,
+				range = 9.0,
+				color = vec(0.2, 0.7, 0.2),
+				brightness = 3,
+				enabled = false,
 				castShadow = false,
 				fillLight = true,
+				fadeOut = 0,
 				onUpdate = function(self)
 					local v = self.go.swarm_counter:getValue()
 					self:setOffset( vec(math.sin(v/25) * 3, 0.25 + math.cos((v+0.5)/8) * 0.25 , math.cos(v/25) * 3) )
 				end,
+			},
+			{
+				class = "Sound",
+				name = "sound_swarm",
+				sound = "locust_swarm_loop",
+				enabled = false,
 			},
 			{
 				class = "Particle",
@@ -117,7 +160,6 @@ for i=0,3 do
 				particleSystem = "locust_swarm",
 				parentNode = "capsule",
 				offset = vec(0, 0.0, 0),
-				--destroyObject = true,
 			},
 			{
 				class = "MeleeBrain",
@@ -142,8 +184,30 @@ for i=0,3 do
 				name = "basicAttack",
 				attackPower = 14,
 				cooldown = 3.75,
-				-- sound = "mummy_attack",
 				animationSpeed = 0.8,
+			},
+			{
+				class = "MonsterAction",
+				name = "summon",
+				cooldown = 60,
+				sound = "mummy_attack_01",
+				animation = "attack",
+				animationSpeed = 0.5,
+				onBeginAction = function(self)
+					spawn("red_aoe", self.go.level, self.go.x, self.go.y, self.go.facing, self.go.elevation)
+				end,
+				onAnimationEvent = function(self, event)
+					if event == "summon" then
+						self.go.swarm_counter:reset()
+						self.go.swarm_counter:setValue(4*20)
+						self.go.swarm_particle:enable()
+						self.go.swarm_particle:fadeIn(0.5)
+						self.go.swarm_parent:enable()	
+						self.go.swarm_parent:fadeIn(0.5)
+						self.go.sound_swarm:enable()
+						self.go.sound_swarm:fadeIn(0.5)
+					end
+				end
 			},
 		},
 	}
@@ -162,9 +226,27 @@ defineObject{
 }
 
 defineAnimationEvent{
+	animation = "assets/animations/monsters/mummy/mummy1_idle.fbx",
+	event = "idle",
+	frame = 1,
+}
+
+defineAnimationEvent{
 	animation = "assets/animations/monsters/mummy/mummy_attack.fbx",
 	event = "attack",
 	frame = 7,
+}
+
+defineAnimationEvent{
+	animation = "assets/animations/monsters/mummy/mummy_attack.fbx",
+	event = "summon",
+	frame = 16,
+}
+
+defineAnimationEvent{
+	animation = "assets/animations/monsters/mummy/mummy1_attack.fbx",
+	event = "summon",
+	frame = 16,
 }
 
 defineAnimationEvent{
@@ -177,6 +259,12 @@ defineAnimationEvent{
 	animation = "assets/animations/monsters/mummy/mummy2_attack.fbx",
 	event = "attack",
 	frame = 7,
+}
+
+defineAnimationEvent{
+	animation = "assets/animations/monsters/mummy/mummy2_attack.fbx",
+	event = "summon",
+	frame = 16,
 }
 
 defineAnimationEvent{
@@ -305,6 +393,18 @@ defineAnimationEvent{
 	frame = 0,
 }
 
+defineAnimationEvent{
+	animation = "assets/animations/monsters/mummy/mummy1_turn_left.fbx",
+	event = "swarm_left",
+	frame = 0,
+}
+
+defineAnimationEvent{
+	animation = "assets/animations/monsters/mummy/mummy1_turn_right.fbx",
+	event = "swarm_right",
+	frame = 0,
+}
+
 defineSound{
 	name = "mummy_walk",
 	filename = {
@@ -363,4 +463,107 @@ defineSound{
 	volume = 1,
 	minDistance = 1,
 	maxDistance = 10,
+}
+
+defineSound{
+	name = "locust_swarm_loop",
+	filename = "mod_assets/sounds/swarm.wav",
+	loop = true,
+	volume = 1.25,
+	minDistance = 1,
+	maxDistance = 5,
+}
+
+defineParticleSystem{
+	name = "locust_swarm",
+	emitters = {
+		-- dark clouds
+		{
+			emissionRate = 30,
+			emissionTime = 0,
+			maxParticles = 1000,
+			boxMin = {-0.8, -0.6,-0.8},
+			boxMax = { 0.8,  0.6, 0.8},
+			sprayAngle = {0,360},
+			velocity = {0.1,0.2},
+			objectSpace = false,
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {1,3},
+			color0 = {0.0, 0.10, 0.0},
+			opacity = 0.75,
+			fadeIn = 0.2,
+			fadeOut = 2.2,
+			size = {0.3, 0.8},
+			gravity = {0,-0.1,0},
+			airResistance = 0.1,
+			rotationSpeed = 1,
+			blendMode = "Translucent",
+		},
+		-- dark clouds (larger mass)
+		{
+			emissionRate = 200,
+			emissionTime = 0,
+			maxParticles = 1000,
+			boxMin = {-0.8, -0.6,-0.8},
+			boxMax = { 0.8,  0.6, 0.8},
+			sprayAngle = {0,360},
+			velocity = {0.1,0.2},
+			objectSpace = true,
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {0.4,0.5},
+			color0 = {0.0, 0.05, 0.0},
+			opacity = 0.8,
+			fadeIn = 0.1,
+			fadeOut = 0.1,
+			size = {0.3, 0.6},
+			gravity = {0,-0.1,0},
+			airResistance = 0.1,
+			rotationSpeed = 1,
+			blendMode = "Translucent",
+		},
+		-- bugs (fast)
+		{
+			emissionRate = 500,
+			emissionTime = 0,
+			maxParticles = 1000,
+			boxMin = {-0.5, -0.5,-0.5},
+			boxMax = { 0.5,  0.5, 0.5},
+			sprayAngle = {0,360},
+			velocity = {0.9,1.5},
+			objectSpace = true,
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {0.05,0.19},
+			color0 = {0.5, 0.9, 0.5},
+			opacity = 0.9,
+			fadeIn = 0.01,
+			fadeOut = 0.01,
+			size = {0.02, 0.05},
+			gravity = {0,0,0},
+			airResistance = 0.1,
+			rotationSpeed = 1,
+			blendMode = "Translucent",
+		},
+		-- bugs
+		{
+			emissionRate = 100,
+			emissionTime = 0,
+			maxParticles = 1000,
+			boxMin = {-0.5, -0.5,-0.5},
+			boxMax = { 0.5,  0.5, 0.5},
+			sprayAngle = {0,360},
+			velocity = {0.7,1.0},
+			objectSpace = true,
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {0.5, 1.0},
+			color0 = {0.5, 0.9, 0.5},
+			opacity = 0.9,
+			fadeIn = 0.01,
+			fadeOut = 0.01,
+			size = {0.02, 0.04},
+			gravity = {0,0.2,0},
+			airResistance = 0.1,
+			rotationSpeed = 1,
+			blendMode = "Translucent",
+		},
+	}
 }

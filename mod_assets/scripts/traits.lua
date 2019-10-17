@@ -89,9 +89,9 @@ defineTrait{
 	- Duration is 1 minute (+30 seconds per 4 levels).]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			level = champion:getLevel()
-			champion:addStatModifier("max_health", 70 + (level-1) * 1)
-			champion:addStatModifier("max_energy", 60 + (level-1) * 1)
+			level = champion:getLevel() - 1
+			champion:addStatModifier("max_health", 70 + (level * 1))
+			champion:addStatModifier("max_energy", 60 + (level * 1))
 			local strength = champion:getBaseStat("strength")
 			local dexterity = champion:getBaseStat("dexterity")
 			local vitality = champion:getBaseStat("vitality")
@@ -239,9 +239,12 @@ defineTrait{
 	- Health 35 (+5 per level)
 	- Energy 60 (+9 per level)
 	
-	Trine Imperium: Casting elemental magic will shield the user from that element for 10 seconds (+3 per 3 levels).
+	Trine Imperium:  You gain damage multipliers based on resistances (33% conversion).	
+	- Gain Fire Multi based on Shock and Cold resistances.
+	- Gain Shock Multi based on Cold and Fire resistances.
+	- Gain Cold Multi based on Fire and Shock resistances.
 	
-	Elemental Balance: Casting one element increases damage with other elements by 25% for 10 seconds.
+	Elemental Balance: Casting a spell of one element boosts others by 25% while weakening itself by 5% for 9 seconds.
 	- You regain 5% Max Energy (+1% per 10 Willpower) when using this bonus.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
@@ -334,7 +337,6 @@ defineTrait{
 			champion:addStatModifier("max_energy", 60 + (level - 1) * 4)
 			champion:addStatModifier("energy_regeneration_rate", -99)
 			champion:addStatModifier("evasion", 2 + (level - 1))
-			--champion:addTrait("shadow_magicks")
 		end	
 	end	
 }
@@ -628,10 +630,12 @@ defineTrait{
 	icon = 40,
 	charGen = true,
 	requiredRace = "human",
-	description = [[Gain +2 to your lowest stat and +25% to your lowest resistance (If two are tied, the one at the bottom takes priority).
-	Also gain Energy or Health if the other is higher. The amount is 1/4 the difference between the two.
-	
-	Gain experience 5% slower.]],
+	description = [[Equipment that increases one stat will be divided into another stat, plus a bonus 10%.
+	- Strength <-> Dexterity.
+	- Vitality <-> Willpower.
+	- Health <-> Energy.
+	- Evasion <-> Protection.
+	- Resistance <-> Damage Multiplier.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			-- local stats = { "strength", "dexterity", "vitality", "willpower" }
@@ -715,20 +719,8 @@ defineTrait{
 	requiredRace = "human",
 	description = [[When you activate this skill, you drink from a small flask, kept hidden under your vest.
 	
-	- Gain +5 Protection and recover all wounds over a period of 15 seconds.
+	- Gain +5 Protection, +50% Action Speed and recover all wounds over a period of 15 seconds.
 	- Reduces Experience Gain by 15% for 1 day.]],
-	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			--champion:addStatModifier("dexterity", 15)
-		end
-	end,
-	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
-			if functions.script.get_c("drown_your_sorrows", champion:getOrdinal()) then
-				return 0.5
-			end
-		end
-	end,
 }
 
 defineTrait{

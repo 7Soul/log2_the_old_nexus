@@ -55,12 +55,12 @@ if hook_framework then
       return spells_functions.script.onReceiveCondition(champion, condition)
     end)
     -- spellbook
-    fw.script:set("party.spell_pack.onClickItemSlot",function(hook,party,champion,container,slot,button)
-      return spells_functions.script.onClickItemSlot(champion,container,slot,button)
-    end)
-    fw.script:set("party.spell_pack.onPickUpItem",function(hook,party,item)
-      return spells_functions.script.onPickUpItem(item)
-    end)
+    -- fw.script:set("party.spell_pack.onClickItemSlot",function(hook,party,champion,container,slot,button)
+    --   return spells_functions.script.onClickItemSlot(champion,container,slot,button)
+    -- end)
+    -- fw.script:set("party.spell_pack.onPickUpItem",function(hook,party,item)
+    --   return spells_functions.script.onPickUpItem(item)
+    -- end)
   end
 else
   partyDef.components[#partyDef.components+1] =
@@ -90,12 +90,12 @@ else
       return spells_functions.script.onReceiveCondition(champion, condition)
     end,
     -- spellbook
-    onClickItemSlot = function(self,champion,container,slot,button)
-      return spells_functions.script.onClickItemSlot(champion,container,slot,button)
-    end,
-    onPickUpItem = function(self,item)
-      return spells_functions.script.onPickUpItem(item)
-    end,
+    -- onClickItemSlot = function(self,champion,container,slot,button)
+    --   return spells_functions.script.onClickItemSlot(champion,container,slot,button)
+    -- end,
+    -- onPickUpItem = function(self,item)
+    --   return spells_functions.script.onPickUpItem(item)
+    -- end,
   }
 end
 

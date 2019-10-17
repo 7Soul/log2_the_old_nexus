@@ -3876,8 +3876,7 @@ turtle_4.detectedtimer:setTimerInterval(0)
 turtle_4.detectedtimer:setDisableSelf(false)
 turtle_4.detectedtimer:setTriggerOnStart(true)
 turtle_4.detectedtimer:setCurrentLevelOnly(true)
-spawn("starting_location",10,12,2,0,"starting_location_1")
-spawn("mummy1",15,16,0,0,"mummy1_1")
+spawn("mummy1",13,22,0,0,"mummy1_1")
 mummy1_1.swarm_counter:setValue(0)
 mummy1_1.swarm_timer:setTimerInterval(0.05)
 mummy1_1.swarm_timer:setDisableSelf(false)
@@ -3888,26 +3887,9 @@ mummy1_1.detectedtimer:setTimerInterval(0)
 mummy1_1.detectedtimer:setDisableSelf(false)
 mummy1_1.detectedtimer:setTriggerOnStart(true)
 mummy1_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("mummy1",14,22,0,0,"mummy1_2")
-mummy1_2.swarm_counter:setValue(0)
-mummy1_2.swarm_timer:setTimerInterval(0.05)
-mummy1_2.swarm_timer:setDisableSelf(false)
-mummy1_2.swarm_timer:setTriggerOnStart(true)
-mummy1_2.swarm_timer:setCurrentLevelOnly(false)
-mummy1_2.detectedtimer:setTimerInterval(0)
-mummy1_2.detectedtimer:setDisableSelf(false)
-mummy1_2.detectedtimer:setTriggerOnStart(true)
-mummy1_2.detectedtimer:setCurrentLevelOnly(true)
-spawn("mummy1",10,15,0,0,"mummy1_3")
-mummy1_3.swarm_counter:setValue(0)
-mummy1_3.swarm_timer:setTimerInterval(0.05)
-mummy1_3.swarm_timer:setDisableSelf(false)
-mummy1_3.swarm_timer:setTriggerOnStart(true)
-mummy1_3.swarm_timer:setCurrentLevelOnly(false)
-mummy1_3.detectedtimer:setTimerInterval(0)
-mummy1_3.detectedtimer:setDisableSelf(false)
-mummy1_3.detectedtimer:setTriggerOnStart(true)
-mummy1_3.detectedtimer:setCurrentLevelOnly(true)
+spawn("forest_lantern",10,10,1,0,"forest_lantern_44")
+spawn("forest_lantern",10,8,1,0,"forest_lantern_45")
+spawn("starting_location",10,9,3,0,"starting_location_1")
 
 --- level 3 ---
 
@@ -5604,6 +5586,15 @@ potion_speed_1.detectedtimer:setDisableSelf(false)
 potion_speed_1.detectedtimer:setTriggerOnStart(true)
 potion_speed_1.detectedtimer:setCurrentLevelOnly(true)
 chest_5.surface:addItem(potion_speed_1.item)
+spawn("potion_speed",2,12,2,-1,"potion_speed_2")
+potion_speed_2.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+potion_speed_2.detectedtimer:setTimerInterval(0)
+potion_speed_2.detectedtimer:setDisableSelf(false)
+potion_speed_2.detectedtimer:setTriggerOnStart(true)
+potion_speed_2.detectedtimer:setCurrentLevelOnly(true)
+chest_5.surface:addItem(potion_speed_2.item)
 spawn("floor_trigger",10,3,2,0,"race_trigger_1")
 race_trigger_1.floortrigger:setTriggeredByParty(true)
 race_trigger_1.floortrigger:setTriggeredByMonster(false)
@@ -7057,8 +7048,8 @@ spawn("forest_willow",15,18,1,0,"forest_willow_42")
 spawn("forest_plant_cluster_01",15,18,0,0,"forest_plant_cluster_01_80")
 spawn("forest_heather",11,14,3,0,"forest_heather_290")
 spawn("forest_old_oak",11,14,1,0,"forest_old_oak_25")
-spawn("forest_statue_2",11,17,3,-1,"forest_statue_2_3")
-spawn("beach_rock_blocker_01",11,17,3,-1,"beach_rock_blocker_01_89")
+spawn("forest_statue_2",12,18,3,-1,"forest_statue_2_3")
+spawn("beach_rock_blocker_01",12,18,3,-1,"beach_rock_blocker_01_89")
 beach_rock_blocker_01_89.obstacle:disable()
 beach_rock_blocker_01_89.projectilecollider:disable()
 beach_rock_blocker_01_89.model:disable()
@@ -7182,16 +7173,16 @@ spawn("grass_planes_01",18,16,0,-1,"grass_planes_01_77")
 spawn("grass_planes_01",18,17,0,-1,"grass_planes_01_78")
 spawn("grass_planes_01",18,18,0,-1,"grass_planes_01_79")
 spawn("grass_planes_01",17,18,0,-1,"grass_planes_01_80")
-spawn("grass_planes_01",12,16,0,-1,"grass_planes_01_81")
+spawn("grass_planes_01",12,16,2,-1,"grass_planes_01_81")
 spawn("grass_planes_01",12,17,0,-1,"grass_planes_01_82")
 spawn("grass_planes_01",12,18,0,-1,"grass_planes_01_83")
-spawn("grass_planes_01",11,17,0,-1,"grass_planes_01_84")
+spawn("grass_planes_01",11,17,1,-1,"grass_planes_01_84")
 spawn("grass_planes_01",11,16,0,-1,"grass_planes_01_85")
 spawn("grass_planes_01",11,18,0,-1,"grass_planes_01_86")
 spawn("grass_planes_01",10,17,0,-1,"grass_planes_01_87")
-spawn("grass_planes_01",10,16,0,-1,"grass_planes_01_88")
-spawn("grass_planes_01",10,18,0,-1,"grass_planes_01_89")
-spawn("grass_planes_01",9,17,0,-1,"grass_planes_01_90")
+spawn("grass_planes_01",10,16,1,-1,"grass_planes_01_88")
+spawn("grass_planes_01",10,18,1,-1,"grass_planes_01_89")
+spawn("grass_planes_01",9,17,2,-1,"grass_planes_01_90")
 spawn("grass_planes_01",9,16,0,-1,"grass_planes_01_91")
 spawn("forest_oak_stump",21,10,3,0,"forest_oak_stump_11")
 spawn("swamp_oak_cluster",23,11,0,0,"swamp_oak_cluster_5")
@@ -12158,71 +12149,6 @@ loadLayer("tiles", {
 })
 
 spawn("dungeon_stairs_up",2,15,1,0,"dungeon_stairs_up_1")
-spawn("lightning_blade",5,14,3,0,"lightning_blade_1")
-lightning_blade_1.data:setSource("\9\9\9\9data = {}\
-\9\9\9\9function get(name)\
-\9\9\9\9\9return self.data[name]\
-\9\9\9\9end\
-\9\9\9\9function set(name,value)\
-\9\9\9\9\9self.data[name] = value\
-\9\9\9\9end\
-\9\9\9")
-lightning_blade_1.detectedtimer:setTimerInterval(0)
-lightning_blade_1.detectedtimer:setDisableSelf(false)
-lightning_blade_1.detectedtimer:setTriggerOnStart(true)
-lightning_blade_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("mudwort",21,25,2,0,"mudwort_1")
-mudwort_1.data:setSource("\9\9\9\9data = {}\
-\9\9\9\9function get(name)\
-\9\9\9\9\9return self.data[name]\
-\9\9\9\9end\
-\9\9\9\9function set(name,value)\
-\9\9\9\9\9self.data[name] = value\
-\9\9\9\9end\
-\9\9\9")
-mudwort_1.detectedtimer:setTimerInterval(0)
-mudwort_1.detectedtimer:setDisableSelf(false)
-mudwort_1.detectedtimer:setTriggerOnStart(true)
-mudwort_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("fire_gauntlets",25,19,1,0,"fire_gauntlets_1")
-fire_gauntlets_1.data:setSource("\9\9\9\9data = {}\
-\9\9\9\9function get(name)\
-\9\9\9\9\9return self.data[name]\
-\9\9\9\9end\
-\9\9\9\9function set(name,value)\
-\9\9\9\9\9self.data[name] = value\
-\9\9\9\9end\
-\9\9\9")
-fire_gauntlets_1.detectedtimer:setTimerInterval(0)
-fire_gauntlets_1.detectedtimer:setDisableSelf(false)
-fire_gauntlets_1.detectedtimer:setTriggerOnStart(true)
-fire_gauntlets_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("acolyte_staff",5,17,2,0,"acolyte_staff_1")
-acolyte_staff_1.data:setSource("\9\9\9\9data = {}\
-\9\9\9\9function get(name)\
-\9\9\9\9\9return self.data[name]\
-\9\9\9\9end\
-\9\9\9\9function set(name,value)\
-\9\9\9\9\9self.data[name] = value\
-\9\9\9\9end\
-\9\9\9")
-acolyte_staff_1.detectedtimer:setTimerInterval(0)
-acolyte_staff_1.detectedtimer:setDisableSelf(false)
-acolyte_staff_1.detectedtimer:setTriggerOnStart(true)
-acolyte_staff_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("scaled_cloak",1,30,1,0,"scaled_cloak_1")
-scaled_cloak_1.data:setSource("\9\9\9\9data = {}\
-\9\9\9\9function get(name)\
-\9\9\9\9\9return self.data[name]\
-\9\9\9\9end\
-\9\9\9\9function set(name,value)\
-\9\9\9\9\9self.data[name] = value\
-\9\9\9\9end\
-\9\9\9")
-scaled_cloak_1.detectedtimer:setTimerInterval(0)
-scaled_cloak_1.detectedtimer:setDisableSelf(false)
-scaled_cloak_1.detectedtimer:setTriggerOnStart(true)
-scaled_cloak_1.detectedtimer:setCurrentLevelOnly(true)
 spawn("torch_holder",7,13,0,0,"torch_holder_2")
 torch_holder_2.controller:setHasTorch(true)
 spawn("torch_holder",1,15,3,0,"torch_holder_3")
@@ -12353,45 +12279,6 @@ spawn("dungeon_door_portcullis",17,28,2,0,"dungeon_door_portcullis_9")
 dungeon_door_portcullis_9.door:setPullChain(true)
 spawn("dungeon_door_portcullis",5,28,2,0,"dungeon_door_portcullis_13")
 dungeon_door_portcullis_13.door:setPullChain(true)
-spawn("whitewood_wand",1,13,0,0,"whitewood_wand_1")
-whitewood_wand_1.data:setSource("\9\9\9\9data = {}\
-\9\9\9\9function get(name)\
-\9\9\9\9\9return self.data[name]\
-\9\9\9\9end\
-\9\9\9\9function set(name,value)\
-\9\9\9\9\9self.data[name] = value\
-\9\9\9\9end\
-\9\9\9")
-whitewood_wand_1.detectedtimer:setTimerInterval(0)
-whitewood_wand_1.detectedtimer:setDisableSelf(false)
-whitewood_wand_1.detectedtimer:setTriggerOnStart(true)
-whitewood_wand_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("nectarbranch_wand",5,13,1,0,"nectarbranch_wand_1")
-nectarbranch_wand_1.data:setSource("\9\9\9\9data = {}\
-\9\9\9\9function get(name)\
-\9\9\9\9\9return self.data[name]\
-\9\9\9\9end\
-\9\9\9\9function set(name,value)\
-\9\9\9\9\9self.data[name] = value\
-\9\9\9\9end\
-\9\9\9")
-nectarbranch_wand_1.detectedtimer:setTimerInterval(0)
-nectarbranch_wand_1.detectedtimer:setDisableSelf(false)
-nectarbranch_wand_1.detectedtimer:setTriggerOnStart(true)
-nectarbranch_wand_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("shaman_staff",1,17,3,0,"shaman_staff_1")
-shaman_staff_1.data:setSource("\9\9\9\9data = {}\
-\9\9\9\9function get(name)\
-\9\9\9\9\9return self.data[name]\
-\9\9\9\9end\
-\9\9\9\9function set(name,value)\
-\9\9\9\9\9self.data[name] = value\
-\9\9\9\9end\
-\9\9\9")
-shaman_staff_1.detectedtimer:setTimerInterval(0)
-shaman_staff_1.detectedtimer:setDisableSelf(false)
-shaman_staff_1.detectedtimer:setTriggerOnStart(true)
-shaman_staff_1.detectedtimer:setCurrentLevelOnly(true)
 spawn("ladder",15,27,1,-1,"ladder_1")
 spawn("torch_holder",13,25,0,0,"torch_holder_58")
 torch_holder_58.controller:setHasTorch(true)
@@ -12492,11 +12379,6 @@ dungeon_secret_button_small_2.detectedtimer:setCurrentLevelOnly(true)
 spawn("dungeon_secret_door",3,13,0,0,"dungeon_secret_door_1")
 spawn("dungeon_secret_door",5,15,1,0,"dungeon_secret_door_2")
 spawn("dungeon_secret_door",3,17,2,0,"dungeon_secret_door_3")
-spawn("spellbook",1,15,2,0,"spellbook_1")
-spellbook_1.detectedtimer:setTimerInterval(0)
-spellbook_1.detectedtimer:setDisableSelf(false)
-spellbook_1.detectedtimer:setTriggerOnStart(true)
-spellbook_1.detectedtimer:setCurrentLevelOnly(true)
 spawn("spawner",8,17,3,0,"spawner_3")
 spawner_3.spawner:setSpawnedEntity("poison_cloud_large")
 spawner_3.spawner:setMonsterLevel(1)
@@ -12645,34 +12527,6 @@ timer_3.timer:setTriggerOnStart(false)
 timer_3.timer:setCurrentLevelOnly(false)
 timer_3.timer:addConnector("onActivate", "script_entity_1", "test")
 timer_3.timer:disable()
-spawn("fire_rod",1,14,0,0,"fire_rod_1")
-fire_rod_1.detectedtimer:setTimerInterval(0)
-fire_rod_1.detectedtimer:setDisableSelf(false)
-fire_rod_1.detectedtimer:setTriggerOnStart(true)
-fire_rod_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("frozen_rod",1,14,2,0,"frozen_rod_1")
-frozen_rod_1.detectedtimer:setTimerInterval(0)
-frozen_rod_1.detectedtimer:setDisableSelf(false)
-frozen_rod_1.detectedtimer:setTriggerOnStart(true)
-frozen_rod_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("lightning_rod",1,14,1,0,"lightning_rod_1")
-lightning_rod_1.data:setSource("\9\9\9\9data = {}\
-\9\9\9\9function get(name)\
-\9\9\9\9\9return self.data[name]\
-\9\9\9\9end\
-\9\9\9\9function set(name,value)\
-\9\9\9\9\9self.data[name] = value\
-\9\9\9\9end\
-\9\9\9")
-lightning_rod_1.detectedtimer:setTimerInterval(0)
-lightning_rod_1.detectedtimer:setDisableSelf(false)
-lightning_rod_1.detectedtimer:setTriggerOnStart(true)
-lightning_rod_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("venomous_rod",1,14,3,0,"venomous_rod_1")
-venomous_rod_1.detectedtimer:setTimerInterval(0)
-venomous_rod_1.detectedtimer:setDisableSelf(false)
-venomous_rod_1.detectedtimer:setTriggerOnStart(true)
-venomous_rod_1.detectedtimer:setCurrentLevelOnly(true)
 spawn("script_entity",3,15,0,0,"script_entity_2")
 script_entity_2.script:setSource("do\
 \9--local item = party:spawn('sack')\

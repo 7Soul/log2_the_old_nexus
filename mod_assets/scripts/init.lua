@@ -25,6 +25,7 @@ import "mod_assets/scripts/spells/ash.lua"
 import "mod_assets/scripts/spells/ancestral_charge.lua"
 import "mod_assets/scripts/spells/bite.lua"
 import "mod_assets/scripts/spells/psionic_arrow.lua"
+import "mod_assets/scripts/spells/red_aoe.lua"
 -- import custom assets
 import "mod_assets/scripts/objects/base.lua"
 import "mod_assets/scripts/defineObject.lua"
@@ -654,6 +655,11 @@ defineObject{
 				context.font("tiny")
 			end
 
+			if functions and functions.script.get_c("race_skill", c) then
+				context.color(255, 255, 255, 40)
+				context.drawRect(x - 21, y - 69, 64, 64)
+			end
+
 			if champion:getClass() == "tinkerer" then
 				local item = champion:getItem(ItemSlot.Weapon)
 				local item2 = champion:getItem(ItemSlot.OffHand)
@@ -922,10 +928,10 @@ defineObject{
 			-- Display class skill buttons
 			
 			local area1, area2, areaX, areaY = {}, {}, {}, {}
-			local ancestral_charge = { cost = 25, name = "ancestral_charge", uiName = "Ancestral Charge", icon = 44 }
-			local intensify_spell = { cost = 0, name = "intensify_spell", uiName = "Intensify Spell", icon = 50 }
-			local sneak_attack = { cost = 15, name = "sneak_attack", uiName = "Sneak Attack", icon = 52 }
-			local drinker = { cost = 0, name = "drinker", uiName = "Drown Your Sorrows", icon = 41 }
+			local ancestral_charge = { cost = 25, name = "ancestral_charge", uiName = "Ancestral Charge", icon = 44, desc = "Ancient spell that gives you strength." }
+			local intensify_spell = { cost = 0, name = "intensify_spell", uiName = "Intensify Spell", icon = 50, desc = "Amplify the last spell cast." }
+			local sneak_attack = { cost = 15, name = "sneak_attack", uiName = "Sneak Attack", icon = 52, desc = "Next attack may poison." }
+			local drinker = { cost = 0, name = "drinker", uiName = "Drown Your Sorrows", icon = 41, desc = "Recover wounds and gain speed." }
 			local skills = { ancestral_charge, intensify_spell, sneak_attack, drinker }
 			local champions = { }
 			local orderedSkills = { }
@@ -986,6 +992,10 @@ defineObject{
 				end
 			end
 			
+			functions.script.set_c("race_skill", 1, nil) -- used for hover effects
+			functions.script.set_c("race_skill", 2, nil)
+			functions.script.set_c("race_skill", 3, nil)
+			functions.script.set_c("race_skill", 4, nil)
 			for index, skill in pairs(orderedSkills) do
 				local champion = party.party:getChampionByOrdinal(champions[index])
 				if area2[index] then
@@ -998,7 +1008,13 @@ defineObject{
 
 					if context.mouseDown(3) then
 						playSound("click_down")
-						if party:getWorldPositionY() > -0.6 and champion:isAlive() and champion:isReadyToAttack(0) and not champion:hasCondition("recharging") then
+						local waterLevel = -10
+						for entity in Dungeon.getMap(party.level):allEntities() do
+							if entity and entity.watersurface then
+								waterLevel = -0.6
+							end
+						end
+						if party:getWorldPositionY() > waterLevel and champion:isAlive() and champion:isReadyToAttack(0) and not champion:hasCondition("recharging") then
 							--draw click button
 							context.color(255, 255, 255, 255)
 							context.drawImage2("mod_assets/textures/gui/class_skill_button.dds", w - (524 * f2), (662 + ((index - 1) * 62)) * f2, 104, 0, 52, 52, 52 * f2, 52 * f2)
@@ -1034,22 +1050,28 @@ defineObject{
 					end
 					
 					--black rect behind text
-					local title = champion:getName() .. "'s " .. skill.uiName
-					local txt_w = string.len(title) * 10
-					context.color(0, 0, 0, 168)
-					context.drawRect(MX - (txt_w / 2) - 6, MY - 60, string.len(title) * 10, 47)
 					
-					context.color(255, 255, 255, 255)
-					context.drawText(title, MX - (txt_w / 2), MY - 42)
-					context.drawText("Cost: " .. tostring(skill.cost) .. " Energy", MX - (txt_w / 2), MY - 20)
+					-- context.font("medium")
+					-- local title = champion:getName() .. "'s " .. skill.uiName
+					local title = skill.uiName
+					local text = "Cost: " .. tostring(skill.cost) .. " Energy\n" .. skill.desc
+					local txt_w = string.len(title) * 6
+					for i=1,txt_w do
+						text = text .. " "
+					end
+					local x = math.floor(MX - (math.min((context.getTextWidth(text)+21),250) / 2))
+
+					functions.script.set_c("race_skill", index, true)
+
+					functions.script.tooltipWithTitle(context, title, text, x, MY - 10, 2)
 				end
 			end
 
 			local textIndex = 0
 			for i=1,4 do
 				local champion = party.party:getChampionByOrdinal(i)
-				if functions.script.get_c("level_up_message_1_timer", champion:getOrdinal()) then
-					local text = functions.script.get_c("level_up_message_1_timer", champion:getOrdinal())
+				if functions.script.get_c("level_up_message_1", champion:getOrdinal()) and functions.script.get_c("level_up_message_1_timer", champion:getOrdinal()) then
+					local text = functions.script.get_c("level_up_message_1", champion:getOrdinal())
 					textIndex = textIndex + 1
 					local timer = 3 - (functions.script.get_c("level_up_message_1_timer", champion:getOrdinal()) or 0)
 					timer = math.max(timer, 0)
@@ -1060,7 +1082,7 @@ defineObject{
 			end
 			for i=1,4 do
 				local champion = party.party:getChampionByOrdinal(i)
-				if functions.script.get_c("level_up_message_2_timer", champion:getOrdinal()) then
+				if functions.script.get_c("level_up_message_2", champion:getOrdinal()) and functions.script.get_c("level_up_message_2_timer", champion:getOrdinal()) then
 					local text = functions.script.get_c("level_up_message_2", champion:getOrdinal())
 					textIndex = textIndex + 1
 					local timer = 3 - (functions.script.get_c("level_up_message_2_timer", champion:getOrdinal()) or 0)

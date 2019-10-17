@@ -140,11 +140,11 @@ function teststart()
 	if Editor.isRunning() then
 		party.party:getChampionByOrdinal(1):setClass("corsair")
 		party.party:getChampionByOrdinal(2):setClass("hunter")
-		party.party:getChampionByOrdinal(3):setClass("tinkerer")
+		party.party:getChampionByOrdinal(3):setClass("elementalist")
 		party.party:getChampionByOrdinal(4):setClass("monk")
 		party.party:getChampionByOrdinal(1):setRace("human")
-		party.party:getChampionByOrdinal(2):setRace("human")
-		party.party:getChampionByOrdinal(3):setRace("insectoid")
+		party.party:getChampionByOrdinal(2):setRace("minotaur")
+		party.party:getChampionByOrdinal(3):setRace("human")
 		party.party:getChampionByOrdinal(4):setRace("ratling")
 
 		for i=1,4 do
@@ -348,7 +348,6 @@ function setDefaultParty()
 		for s=1,32 do champion:removeItemFromSlot(s) end		
 	end
 
-	--local defaultChampion = {"human_berserker"}
 	champion = party.party:getChampionByOrdinal(1)
 	champion:setRace("insectoid")
 	champion:setClass("monk")
@@ -2213,7 +2212,7 @@ function elementalistPower(element, champion, return_only)
 	local shield_dur = 10 + (math.floor((level - 1) / 3) * 3)
 	if return_only then 
 		if element == "fire" then
-			power = power + ((champion:getResistCold() + champion:getResistShock()) * 0.33)
+			power = power + ((champion:getResistance("cold") + champion:getResistance("shock")) * 0.33)
 			if champion:hasCondition("elemental_balance_cold") or champion:hasCondition("elemental_balance_shock") then
 				power = power + 0.25 
 				if not return_only then delayedCall("functions", 0.5, "regainEnergy", champion:getOrdinal(), champion:getMaxEnergy() * (0.05 + champion:getCurrentStat("willpower") * 0.001)) end
@@ -2227,7 +2226,7 @@ function elementalistPower(element, champion, return_only)
 			end
 
 		elseif element == "cold" then
-			power = power + ((champion:getResistFire() + champion:getResistShock()) * 0.33)
+			power = power + ((champion:getResistance("fire") + champion:getResistance("shock")) * 0.33)
 			if champion:hasCondition("elemental_balance_fire") or champion:hasCondition("elemental_balance_shock") then
 				power = power + 0.25
 				if not return_only then delayedCall("functions", 0.5, "regainEnergy", champion:getOrdinal(), champion:getMaxEnergy() * (0.05 + champion:getCurrentStat("willpower") * 0.001)) end
@@ -2241,7 +2240,7 @@ function elementalistPower(element, champion, return_only)
 			end
 
 		elseif element == "shock" then
-			power = power + ((champion:getResistCold() + champion:getResistFire()) * 0.33)
+			power = power + ((champion:getResistance("cold") + champion:getResistance("fire")) * 0.33)
 			if champion:hasCondition("elemental_balance_cold") or champion:hasCondition("elemental_balance_fire") then
 				power = power + 0.25
 				if not return_only then delayedCall("functions", 0.5, "regainEnergy", champion:getOrdinal(), champion:getMaxEnergy() * (0.05 + champion:getCurrentStat("willpower") * 0.001)) end
@@ -3291,9 +3290,8 @@ function getCrit(champion, slot)
 	end
 
 	-- Ratling's Sneak Attack
-	if champion:hasTrait("sneak_attack") and get_c("sneak_attack", champion:getOrdinal()) then
-		add = get_c("sneak_attack", champion:getOrdinal())
-		crit = add and crit + (add * 15) or crit
+	if champion:hasTrait("sneak_attack") and champion:hasCondition("sneak_attack") then
+		crit = add and crit + 15 or crit
 	end
 
 	-- Critical skill +3 per point

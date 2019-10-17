@@ -21,16 +21,16 @@ defineCondition
   harmful = false,
 }
 
-for spell,effect in pairs(mageArmors) do defineCondition
-{ name = spell,
-  uiName = effect.uiName or defByName[spell].uiName,
-  description = effect.description,
-  icon = 0,
-  iconAtlas = path.."textures/gui/conditions/"..spell..".tga",
-  beneficial = true,
-  harmful = false,
-}
-end
+-- for spell,effect in pairs(mageArmors) do defineCondition
+-- { name = spell,
+--   uiName = effect.uiName or defByName[spell].uiName,
+--   description = effect.description,
+--   icon = 0,
+--   iconAtlas = path.."textures/gui/conditions/"..spell..".tga",
+--   beneficial = true,
+--   harmful = false,
+-- }
+-- end
 
 -- concentration magic
 
