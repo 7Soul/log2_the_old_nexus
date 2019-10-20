@@ -524,14 +524,9 @@ bear_pelt_2.detectedtimer:setTriggerOnStart(true)
 bear_pelt_2.detectedtimer:setCurrentLevelOnly(true)
 chest_3.surface:addItem(bear_pelt_2.item)
 spawn("potion_strength",23,26,1,-1,"potion_strength_2")
-potion_strength_2.data:setSource("\9\9\9\9data = {}\
-\9\9\9\9function get(name)\
-\9\9\9\9\9return self.data[name]\
-\9\9\9\9end\
-\9\9\9\9function set(name,value)\
-\9\9\9\9\9self.data[name] = value\
-\9\9\9\9end\
-\9\9\9")
+potion_strength_2.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
 potion_strength_2.detectedtimer:setTimerInterval(0)
 potion_strength_2.detectedtimer:setDisableSelf(false)
 potion_strength_2.detectedtimer:setTriggerOnStart(true)
@@ -3890,6 +3885,36 @@ mummy1_1.detectedtimer:setCurrentLevelOnly(true)
 spawn("forest_lantern",10,10,1,0,"forest_lantern_44")
 spawn("forest_lantern",10,8,1,0,"forest_lantern_45")
 spawn("starting_location",10,9,3,0,"starting_location_1")
+spawn("potion_healing",10,9,3,0,"potion_healing_4")
+potion_healing_4.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+potion_healing_4.potion_stack:setSource("data = {}\
+function getTop(self)\9return self.data[#data] end\
+function getData(self)\9return data end\
+function set(self,id,value)\9self.data[id] = value end\
+function print_data(self)\
+\9for i=1,#data do\
+\9\9print(data[i])\
+\9end\
+end\
+function insert(self,value)\9table.insert(data, value) table.sort(data) end\
+function remove(self)\9table.remove(data) end\
+")
+potion_healing_4.item:setStackSize(10)
+potion_healing_4.detectedtimer:setTimerInterval(0)
+potion_healing_4.detectedtimer:setDisableSelf(false)
+potion_healing_4.detectedtimer:setTriggerOnStart(true)
+potion_healing_4.detectedtimer:setCurrentLevelOnly(true)
+spawn("blooddrop_cap",10,9,3,0,"blooddrop_cap_9")
+blooddrop_cap_9.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+blooddrop_cap_9.item:setStackSize(16)
+blooddrop_cap_9.detectedtimer:setTimerInterval(0)
+blooddrop_cap_9.detectedtimer:setDisableSelf(false)
+blooddrop_cap_9.detectedtimer:setTriggerOnStart(true)
+blooddrop_cap_9.detectedtimer:setCurrentLevelOnly(true)
 
 --- level 3 ---
 
@@ -10715,6 +10740,18 @@ potion_healing_2.data:setSource("\9\9\9\9data = {}\
 \9\9\9\9\9self.data[name] = value\
 \9\9\9\9end\
 \9\9\9")
+potion_healing_2.potion_stack:setSource("data = {}\
+function getTop(self)\9return self.data[#data] end\
+function getData(self)\9return data end\
+function set(self,id,value)\9self.data[id] = value end\
+function print_data(self)\
+\9for i=1,#data do\
+\9\9print(data[i])\
+\9end\
+end\
+function insert(self,value)\9table.insert(data, value) table.sort(data) end\
+function remove(self)\9table.remove(data) end\
+")
 potion_healing_2.detectedtimer:setTimerInterval(0)
 potion_healing_2.detectedtimer:setDisableSelf(false)
 potion_healing_2.detectedtimer:setTriggerOnStart(true)
@@ -11083,6 +11120,18 @@ potion_healing_3.data:setSource("\9\9\9\9data = {}\
 \9\9\9\9\9self.data[name] = value\
 \9\9\9\9end\
 \9\9\9")
+potion_healing_3.potion_stack:setSource("data = {}\
+function getTop(self)\9return self.data[#data] end\
+function getData(self)\9return data end\
+function set(self,id,value)\9self.data[id] = value end\
+function print_data(self)\
+\9for i=1,#data do\
+\9\9print(data[i])\
+\9end\
+end\
+function insert(self,value)\9table.insert(data, value) table.sort(data) end\
+function remove(self)\9table.remove(data) end\
+")
 potion_healing_3.detectedtimer:setTimerInterval(0)
 potion_healing_3.detectedtimer:setDisableSelf(false)
 potion_healing_3.detectedtimer:setTriggerOnStart(true)
@@ -11678,6 +11727,18 @@ potion_healing_1.data:setSource("\9\9\9\9data = {}\
 \9\9\9\9\9self.data[name] = value\
 \9\9\9\9end\
 \9\9\9")
+potion_healing_1.potion_stack:setSource("data = {}\
+function getTop(self)\9return self.data[#data] end\
+function getData(self)\9return data end\
+function set(self,id,value)\9self.data[id] = value end\
+function print_data(self)\
+\9for i=1,#data do\
+\9\9print(data[i])\
+\9end\
+end\
+function insert(self,value)\9table.insert(data, value) table.sort(data) end\
+function remove(self)\9table.remove(data) end\
+")
 potion_healing_1.detectedtimer:setTimerInterval(0)
 potion_healing_1.detectedtimer:setDisableSelf(false)
 potion_healing_1.detectedtimer:setTriggerOnStart(true)

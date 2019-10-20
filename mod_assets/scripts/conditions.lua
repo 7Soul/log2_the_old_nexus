@@ -299,12 +299,12 @@ defineCondition{
 -- Skills
 
 defineCondition{
-	name = "refreshed",
-	uiName = "Refreshed",
+	name = "perfect_mix",
+	uiName = "Perfect Mix",
 	icon = 0,
-	description = "Gain +60 protection while a healing potion is in effect.",
+	description = "Gain +20 protection while a healing or energy potion is in effect.",
 	onRecomputeStats = function(self, champion)
-		champion:addStatModifier("protection", 60)
+		champion:addStatModifier("protection", 20)
 	end,
 }
 
@@ -318,9 +318,9 @@ defineCondition{
 	harmful = false,
 	tickInterval = 1,
 	onStart = function(self, champion)
-		if champion:hasTrait("refreshed") then
-			functions.script.regainHealth(champion:getOrdinal(), 12)
-		end
+		-- if champion:hasTrait("perfect_mix") then
+		-- 	functions.script.regainHealth(champion:getOrdinal(), 12)
+		-- end
 		-- Party Arcane Extraction
 		for i=1,4 do
 			local c = party.party:getChampionByOrdinal(i)
@@ -339,11 +339,12 @@ defineCondition{
 	onRecomputeStats = function(self, champion)
 	end,
 	onTick = function(self, champion)
-		local heal = champion:hasTrait("refreshed") and 3.9 or 3.125
+		local heal = 3.125
+		-- local heal = champion:hasTrait("perfect_mix") and 3.9 or 3.125
 		functions.script.regainHealth(heal)
 		local cond = { "head_wound", "chest_wound", "leg_wound", "feet_wound", "right_hand_wound", "left_hand_wound", "bleeding" }
-		local recoverChance = champion:hasTrait("refreshed") and 0.2 or 0.1
-		local recoverStart = champion:hasTrait("refreshed") and 12 or 8
+		local recoverChance = champion:hasTrait("perfect_mix") and 0.2 or 0.1
+		local recoverStart = champion:hasTrait("perfect_mix") and 12 or 8
 		for i=1,#cond do
 			if self:getDuration() <= recoverStart and champion:hasCondition(cond[i]) then
 				if math.random() < recoverChance then
@@ -367,9 +368,9 @@ defineCondition{
 	harmful = false,
 	tickInterval = 1,
 	onStart = function(self, champion)
-		if champion:hasTrait("refreshed") then
-			functions.script.regainHealth(champion:getOrdinal(), 37)
-		end
+		-- if champion:hasTrait("perfect_mix") then
+		-- 	functions.script.regainHealth(champion:getOrdinal(), 37)
+		-- end
 		-- Party Arcane Extraction
 		for i=1,4 do
 			local c = party.party:getChampionByOrdinal(i)
@@ -388,11 +389,12 @@ defineCondition{
 	onRecomputeStats = function(self, champion)
 	end,
 	onTick = function(self, champion)
-		local heal = champion:hasTrait("refreshed") and 23.4375 or 18.75
+		local heal = 18.75
+		-- local heal = champion:hasTrait("perfect_mix") and 23.4375 or 18.75
 		functions.script.regainHealth(heal)
 		local cond = { "head_wound", "chest_wound", "leg_wound", "feet_wound", "right_hand_wound", "left_hand_wound", "bleeding" }
-		local recoverChance = champion:hasTrait("refreshed") and 0.2 or 0.1
-		local recoverStart = champion:hasTrait("refreshed") and 12 or 8
+		local recoverChance = champion:hasTrait("perfect_mix") and 0.2 or 0.1
+		local recoverStart = champion:hasTrait("perfect_mix") and 12 or 8
 		for i=1,#cond do
 			if self:getDuration() <= recoverStart and champion:hasCondition(cond[i]) then
 				if math.random() < recoverChance then

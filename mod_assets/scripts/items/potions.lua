@@ -1,44 +1,44 @@
-defineObject{
-	name = "flask",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/flask.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Flask (empty)",
-			gfxIndex = 143,
-			weight = 0.1,
-		},
-	},
-	tags = { "potion" }
-}
+-- defineObject{
+-- 	name = "flask",
+-- 	baseObject = "base_item",
+-- 	components = {
+-- 		{
+-- 			class = "Model",
+-- 			model = "assets/models/items/flask.fbx",
+-- 		},
+-- 		{
+-- 			class = "Item",
+-- 			uiName = "Flask (empty)",
+-- 			gfxIndex = 143,
+-- 			weight = 0.1,
+-- 		},
+-- 	},
+-- 	tags = { "potion" }
+-- }
 
-defineObject{
-	name = "water_flask",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/flask.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Water Flask",
-			gfxIndex = 144,
-			weight = 0.3,
-			traits = { "potion" },
-		},
-		{
-			class = "UsableItem",
-			--emptyItem = "flask",
-			sound = "consume_potion",
-		},
-	},
-	tags = { "potion" }
-}
+-- defineObject{
+-- 	name = "water_flask",
+-- 	baseObject = "base_item",
+-- 	components = {
+-- 		{
+-- 			class = "Model",
+-- 			model = "assets/models/items/flask.fbx",
+-- 		},
+-- 		{
+-- 			class = "Item",
+-- 			uiName = "Water Flask",
+-- 			gfxIndex = 144,
+-- 			weight = 0.3,
+-- 			traits = { "potion" },
+-- 		},
+-- 		{
+-- 			class = "UsableItem",
+-- 			--emptyItem = "flask",
+-- 			sound = "consume_potion",
+-- 		},
+-- 	},
+-- 	tags = { "potion" }
+-- }
 
 defineObject{
 	name = "potion_healing",
@@ -49,6 +49,22 @@ defineObject{
 			model = "assets/models/items/flask.fbx",
 		},
 		{
+			class = "Script",
+			name = "potion_stack",
+			source = [[data = {}
+function getTop(self)	return self.data[#data] end
+function getData(self)	return data end
+function set(self,id,value)	self.data[id] = value end
+function print_data(self)
+	for i=1,#data do
+		print(data[i])
+	end
+end
+function insert(self,value)	table.insert(data, value) table.sort(data) end
+function remove(self)	table.remove(data) end
+]],
+		},
+		{
 			class = "Item",
 			uiName = "Healing Potion",
 			description = "Heals 50 Health over 16 seconds, healing cuts and wounds over time.",
@@ -56,17 +72,23 @@ defineObject{
 			weight = 0.6,
 			stackable = true,
 			traits = { "potion" },
-		},
+		},		
 		{
 			class = "UsableItem",
 			--emptyItem = "flask",
 			sound = "consume_potion",
 			onUseItem = function(self, champion)
-				champion:setConditionValue("healing_potion", 16)
 				champion:playHealingIndicator()
-				if champion:hasTrait("refreshed") then
-					champion:setConditionValue("refreshed", 16)
+				local duration = 16
+				if self.go.potion_stack:getTop() == "perfect" then
+					duration = 20
+					champion:setConditionValue("healing_potion", duration)
+				else
+					champion:setConditionValue("healing_potion", duration)
 				end
+				
+				functions.script.drinkPotion(self, champion, duration)
+				
 				if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "diviner_cloak" then
 					champion:regainEnergy(champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 40 or 20)
 				end
@@ -85,6 +107,22 @@ defineObject{
 			model = "assets/models/items/big_potion.fbx",
 		},
 		{
+			class = "Script",
+			name = "potion_stack",
+			source = [[data = {}
+function getTop(self)	return self.data[#data] end
+function getData(self)	return data end
+function set(self,id,value)	self.data[id] = value end
+function print_data(self)
+	for i=1,#data do
+		print(data[i])
+	end
+end
+function insert(self,value)	table.insert(data, value) table.sort(data) end
+function remove(self)	table.remove(data) end
+]],
+		},
+		{
 			class = "Item",
 			uiName = "Greater Healing Potion",
 			description = "Heals 150 Health over 8 seconds, healing cuts and wounds over time.",
@@ -98,11 +136,18 @@ defineObject{
 			--emptyItem = "flask",
 			sound = "consume_potion",
 			onUseItem = function(self, champion)
-				champion:setConditionValue("healing_potion2", 8)
 				champion:playHealingIndicator()
-				if champion:hasTrait("refreshed") then
-					champion:setConditionValue("refreshed", 8)
+
+				local duration = 8
+				if self.go.potion_stack:getTop() == "perfect" then
+					duration = 10
+					champion:setConditionValue("healing_potion2", duration)
+				else
+					champion:setConditionValue("healing_potion2", duration)
 				end
+				
+				functions.script.drinkPotion(self, champion, duration)
+
 				if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "diviner_cloak" then
 					champion:regainEnergy(champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 40 or 20)
 				end
@@ -121,6 +166,22 @@ defineObject{
 			model = "assets/models/items/flask.fbx",
 		},
 		{
+			class = "Script",
+			name = "potion_stack",
+			source = [[data = {}
+function getTop(self)	return self.data[#data] end
+function getData(self)	return data end
+function set(self,id,value)	self.data[id] = value end
+function print_data(self)
+	for i=1,#data do
+		print(data[i])
+	end
+end
+function insert(self,value)	table.insert(data, value) table.sort(data) end
+function remove(self)	table.remove(data) end
+]],
+		},
+		{
 			class = "Item",
 			uiName = "Energy Potion",
 			description = "Recovers 60 Energy over 16 seconds.",
@@ -133,9 +194,19 @@ defineObject{
 			class = "UsableItem",
 			--emptyItem = "flask",
 			sound = "consume_potion",
-			onUseItem = function(self, champion)
-				champion:setConditionValue("energy_potion", 16)
+			onUseItem = function(self, champion)				
 				champion:playHealingIndicator()
+
+				local duration = 16
+				if self.go.potion_stack:getTop() == "perfect" then
+					duration = 20
+					champion:setConditionValue("energy_potion", duration)
+				else
+					champion:setConditionValue("energy_potion", duration)
+				end
+				
+				functions.script.drinkPotion(self, champion, duration)
+
 				if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "diviner_cloak" then
 					champion:regainEnergy(champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 40 or 20)
 				end
@@ -154,6 +225,22 @@ defineObject{
 			model = "assets/models/items/big_potion.fbx",
 		},
 		{
+			class = "Script",
+			name = "potion_stack",
+			source = [[data = {}
+function getTop(self)	return self.data[#data] end
+function getData(self)	return data end
+function set(self,id,value)	self.data[id] = value end
+function print_data(self)
+	for i=1,#data do
+		print(data[i])
+	end
+end
+function insert(self,value)	table.insert(data, value) table.sort(data) end
+function remove(self)	table.remove(data) end
+]],
+		},
+		{
 			class = "Item",
 			uiName = "Greater Energy Potion",
 			description = "Recovers 120 Energy over 8 seconds.",
@@ -167,8 +254,18 @@ defineObject{
 			--emptyItem = "flask",
 			sound = "consume_potion",
 			onUseItem = function(self, champion)
-				champion:setConditionValue("energy_potion2", 8)
 				champion:playHealingIndicator()
+
+				local duration = 8
+				if self.go.potion_stack:getTop() == "perfect" then
+					duration = 10
+					champion:setConditionValue("energy_potion2", duration)
+				else
+					champion:setConditionValue("energy_potion2", duration)
+				end
+				
+				functions.script.drinkPotion(self, champion, duration)
+				
 				if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "diviner_cloak" then
 					champion:regainEnergy(champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 40 or 20)
 				end

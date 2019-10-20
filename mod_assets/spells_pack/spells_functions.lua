@@ -2179,9 +2179,9 @@ end
 for i,def in pairs(defOrdered) do
 	if not def.icon then
 		def.icon = 0
-		def.iconAtlas = path.."textures/gui/icons_75x75/"..def.name..".tga"
+		-- def.iconAtlas = path.."textures/gui/icons_75x75/"..def.name..".tga"
 		def.spellIcon = 0
-		def.spellIconAtlas = path.."textures/gui/icons_50x50/"..def.name..".tga"
+		-- def.spellIconAtlas = path.."textures/gui/icons_50x50/"..def.name..".tga"
 	end
 	def.index = i
 end

@@ -2,7 +2,7 @@ secondary = 0
 spellSlinger = {}
 stepCount = 0
 keypressDelay = 0
-skillNames = { "athletics", "block", "light_armor", "heavy_armor", "accuracy", "critical", "firearms", "seafaring", "alchemy", "ranged_weapons", "light_weapons_c", "heavy_weapons_c", "spellblade", "elemental_magic", "poison_mastery", "concentration", "witchcraft", "tinkering" }
+skillNames = { "block", "light_armor", "heavy_armor", "accuracy", "critical", "firearms", "seafaring", "tinkering", "alchemy", "ranged_weapons", "throwing_weapons", "light_weapons_c", "heavy_weapons_c", "spellblade", "elemental_magic", "poison_mastery", "concentration", "witchcraft" }
 
 data = {}
 function get(name) return data[name] end
@@ -140,7 +140,7 @@ function teststart()
 	if Editor.isRunning() then
 		party.party:getChampionByOrdinal(1):setClass("corsair")
 		party.party:getChampionByOrdinal(2):setClass("hunter")
-		party.party:getChampionByOrdinal(3):setClass("elementalist")
+		party.party:getChampionByOrdinal(3):setClass("druid")
 		party.party:getChampionByOrdinal(4):setClass("monk")
 		party.party:getChampionByOrdinal(1):setRace("human")
 		party.party:getChampionByOrdinal(2):setRace("minotaur")
@@ -192,7 +192,7 @@ function teststart()
 					champion:removeItemFromSlot(s)
 				end
 				champion:insertItem(13,spawn("blooddrop_cap").item)
-				champion:getItem(13):setStackSize(5)
+				champion:getItem(13):setStackSize(10)
 				champion:insertItem(14,spawn("etherweed").item)
 				champion:getItem(14):setStackSize(5)
 				champion:insertItem(15,spawn("mudwort").item)
@@ -346,6 +346,19 @@ function setDefaultParty()
 		end
 		-- Remove items
 		for s=1,32 do champion:removeItemFromSlot(s) end		
+		--
+		if champion:hasTrait("mutation") then
+			champion:removeTrait("mutation")
+			print("mutation")
+		end
+		if champion:hasTrait("fast_metabolism") then
+			champion:removeTrait("fast_metabolism")
+			print("fast_metabolism")
+		end
+		if champion:hasTrait("head_hunter") then
+			champion:removeTrait("head_hunter")
+			print("head_hunter")
+		end
 	end
 
 	champion = party.party:getChampionByOrdinal(1)
@@ -353,7 +366,7 @@ function setDefaultParty()
 	champion:setClass("monk")
 	champion:addTrait("persistence")
 	champion:trainSkill("heavy_weapons_c", 1, false)
-	champion:trainSkill("athletics", 1, false)
+	champion:trainSkill("accuracy", 1, false)
 
 	champion = party.party:getChampionByOrdinal(2)
 	champion:setRace("lizardman")
@@ -375,6 +388,7 @@ function setDefaultParty()
 	champion:addTrait("lore_master")
 	champion:trainSkill("elemental_magic", 1, false)
 	champion:trainSkill("concentration", 1, false)
+	champion:insertItem(ItemSlot.BackpackFirst, spawn("whitewood_wand").item)
 
 	for c=1,4 do
 		champion = party.party:getChampionByOrdinal(c)
@@ -412,6 +426,7 @@ supertable = { b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b20  }
 
 function onEquipItem(self, champion, slot)	
 	local name = self.go.id
+	local item = champion:getItem(slot)
 
 	if slot >= ItemSlot.BackpackFirst and slot <= ItemSlot.BackpackLast then
 		
@@ -964,12 +979,13 @@ function onFirearmAttack(self, champion, slot)
 	if champion:hasTrait("silver_bullet") then
 		local count = get_c("silver_bullet", champion:getOrdinal()) or 0
 		local trigger = 6 - (champion:hasTrait("fast_fingers") and math.floor(champion:getCurrentStat("dexterity") / 20) or 0)
-		count = (count % trigger) + 1
-
-		if count == trigger then
-			print("before", self:getAttackPower())
+	
+		if (count % trigger) + 1 == trigger then
+			-- print("before", self:getAttackPower())
 			self:setAttackPower(self:getAttackPower() * 2.0)
-			print("after", self:getAttackPower())
+			-- print("after", self:getAttackPower())
+		elseif (count % trigger) + 1 == trigger + 1 then
+			self:setAttackPower(self:getAttackPower() * 3.0)
 		end
 		
 		add_c("silver_bullet", champion:getOrdinal(), 1)
@@ -2209,10 +2225,9 @@ end
 function elementalistPower(element, champion, return_only)
 	local power = 0
 	local level = champion:getLevel()
-	local shield_dur = 10 + (math.floor((level - 1) / 3) * 3)
 	if return_only then 
 		if element == "fire" then
-			power = power + ((champion:getResistance("cold") + champion:getResistance("shock")) * 0.33)
+			power = power + ((champion:getResistance("cold") + champion:getResistance("shock")) * 0.33 * 0.01)
 			if champion:hasCondition("elemental_balance_cold") or champion:hasCondition("elemental_balance_shock") then
 				power = power + 0.25 
 				if not return_only then delayedCall("functions", 0.5, "regainEnergy", champion:getOrdinal(), champion:getMaxEnergy() * (0.05 + champion:getCurrentStat("willpower") * 0.001)) end
@@ -2226,7 +2241,7 @@ function elementalistPower(element, champion, return_only)
 			end
 
 		elseif element == "cold" then
-			power = power + ((champion:getResistance("fire") + champion:getResistance("shock")) * 0.33)
+			power = power + ((champion:getResistance("fire") + champion:getResistance("shock")) * 0.33 * 0.01)
 			if champion:hasCondition("elemental_balance_fire") or champion:hasCondition("elemental_balance_shock") then
 				power = power + 0.25
 				if not return_only then delayedCall("functions", 0.5, "regainEnergy", champion:getOrdinal(), champion:getMaxEnergy() * (0.05 + champion:getCurrentStat("willpower") * 0.001)) end
@@ -2240,7 +2255,7 @@ function elementalistPower(element, champion, return_only)
 			end
 
 		elseif element == "shock" then
-			power = power + ((champion:getResistance("cold") + champion:getResistance("fire")) * 0.33)
+			power = power + ((champion:getResistance("cold") + champion:getResistance("fire")) * 0.33 * 0.01)
 			if champion:hasCondition("elemental_balance_cold") or champion:hasCondition("elemental_balance_fire") then
 				power = power + 0.25
 				if not return_only then delayedCall("functions", 0.5, "regainEnergy", champion:getOrdinal(), champion:getMaxEnergy() * (0.05 + champion:getCurrentStat("willpower") * 0.001)) end
@@ -2254,6 +2269,7 @@ function elementalistPower(element, champion, return_only)
 			end
 		end
 	end
+	print(element, power)
 	return power
 end
 
@@ -2457,6 +2473,75 @@ function psionicArrow(id)
 	spell.onCast(champion, party.x, party.y, party.facing, party.elevation, 3)
 end
 
+function drinkPotion(self, champion, duration)
+	if self.go.potion_stack and self.go.potion_stack:getTop() == "perfect" then
+		champion:setConditionValue("perfect_mix", duration)
+	end
+end
+
+function droppedItemOnPortrait(mouseItem, champion)
+	for slot = 1,ItemSlot.BackpackLast do
+		local item = champion:getItem(slot)
+		if item then
+			if item.go.name == mouseItem.go.name and item:getStackable() and mouseItem.go.item:getStackable() then
+				if item:hasTrait("potion") and item:getStackSize() > 1 then
+					stackedPotions(champion, slot, item, mouseItem, "increase")
+				end
+			end
+		end
+	end
+end
+
+function stackedPotions(champion, slot, itemBot, itemTop, op)
+	local c = champion:getOrdinal()
+	-- print("stacked potions")
+
+	if op == "increase" then
+		if itemTop then 
+			local data = itemTop.go.potion_stack:getData()
+			if data[1] == nil then print("it's nil") end
+			for i = 1, #data do
+				itemBot.go.potion_stack:insert(data[i]) 
+			end
+			setPerfectPotionGE(itemBot)
+		end
+
+		if itemTop then itemTop.go.potion_stack.remove() end
+		setPerfectPotionGE(itemTop)
+
+	elseif op == "decrease" then
+		if itemBot then
+			if itemTop then -- doesnt trigger when drinking
+				itemTop.go.potion_stack:insert(itemBot.go.potion_stack:getTop()) 
+				setPerfectPotionGE(itemTop)
+			end
+
+			itemBot.go.potion_stack:remove()
+			setPerfectPotionGE(itemBot)
+		end
+	end
+
+	functions.script.set_c("potion_top_item", c, nil)
+	functions.script.set_c("potion_bottom_item", c, nil)
+	functions.script.set_c("potion_stacks", c, nil)
+	functions.script.set_c("potion_slot", c, nil)
+end
+
+function setPerfectPotionGE(item)
+	if item.go.potion_stack:getTop() == "perfect" then
+		item.go.item:setGameEffect("Perfect Mix: Duration +25%, +20 Protection during the effect.")
+		local name = item.go.item:getUiName()
+		if not string.find(name, "Perfect ") then
+			name = "Perfect " .. name
+		end
+		item.go.item:setUiName(name)
+	else
+		item.go.item:setGameEffect(nil)
+		local name = item.go.item:getUiName()
+		local newName, s = string.gsub(name, "Perfect ", "")
+		item.go.item:setUiName(newName)
+	end
+end
 -------------------------------------------------------------------------------------------------------
 -- Champion Functions                                                                                --    
 -------------------------------------------------------------------------------------------------------
@@ -2592,6 +2677,18 @@ function getTrait(champion, item, trait)
 		end	
 	end
 end
+
+function anyChampionTrait(trait)
+	for i=1,4 do
+		local champion = party.party:getChampionByOrdinal(i)
+		if champion:hasTrait(trait) then
+			return true
+		end
+	end
+	return false
+end
+
+
 
 -------------------------------------------------------------------------------------------------------
 -- Status Effects Functions                                                                          --    
@@ -3039,7 +3136,6 @@ function empowerAttackType(champion, attackType, base, return_only, tier)
 		-- Class bonuses
 
 		-- Skill bonuses
-		f = f + ((champion:getSkillLevel("ranged_weapons") * 0.2) * base)
 
 		if champion:hasTrait("sea_dog") and (champion == party.party:getChampion(1) or champion == party.party:getChampion(2)) then
 			f = f + (0.25 * base)
@@ -3048,6 +3144,9 @@ function empowerAttackType(champion, attackType, base, return_only, tier)
 		-- Item bonuses
 
 	elseif attackType == "missile" then
+		-- Skill bonuses
+		f = f + ((champion:getSkillLevel("ranged_weapons") * 0.2) * base)
+
 		-- Item bonuses
 		-- Huntsman Cloak
 		if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).name == "huntsman_cloak" then
@@ -3056,7 +3155,7 @@ function empowerAttackType(champion, attackType, base, return_only, tier)
 
 	elseif attackType == "throwing" then
 		-- Skill bonuses
-		f = f + ((champion:getSkillLevel("ranged_weapons") * 0.2) * base)
+		f = f + ((champion:getSkillLevel("throwing_weapons") * 0.2) * base)
 
 	elseif attackType == "light_weapons" then
 		-- Skill bonuses
@@ -3764,7 +3863,7 @@ function tinkererUpgrade(self, champion, slot, materials)
 				bonus = getBonus(champion:getSkillLevel("ranged_weapons"), 0.05)
 			elseif item.go.throwattack then
 				equipItem = item.go.throwattack
-				bonus = getBonus(champion:getSkillLevel("ranged_weapons"), 0.05)
+				bonus = getBonus(champion:getSkillLevel("throwing_weapons"), 0.05)
 			elseif item.go.equipmentitem then
 				equipItem = item.go.equipmentitem
 				equipType = "armor"
@@ -4623,7 +4722,7 @@ function updateSecondary(meleeAttack, secondary, name, upgradeLevel)
 		secondary:setAmmo("quarrel")
 		secondary:setAttackSound("swipe_bow")
 		secondary:setUiName("Power Bolt")
-		secondary:setRequirements({ "ranged_weapons", math.min(upgradeLevel+level, 5), "athletics", 1 })
+		secondary:setRequirements({ "ranged_weapons", math.min(upgradeLevel+level, 5) })
 		secondary.go.item:setSecondaryAction("power_bolt")
 	end
 end

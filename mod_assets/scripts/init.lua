@@ -211,21 +211,38 @@ defineObject{
 		end,
 		-----------------------------------------------------------
 		-- On Attack
-		-----------------------------------------------------------
+		-----------------------------------------------------------		
 		onAttack = function(party, champion, action, slot)
 			-- print(champion:getName(), "is attacking with", action.go.name)
+			local c = champion:getOrdinal()
+			if action.go.name == "mortar" then
+				functions.script.set_c("using_mortar", c)
+			end
 
 			if action.go.name == "tinkering_toolbox" then
 				-- Sets target item to the other hand slot to the toolbox
 				local otherSlot = slot == ItemSlot.Weapon and ItemSlot.OffHand or ItemSlot.Weapon								
 				if champion:getItem(otherSlot) then
 					if champion:getItem(otherSlot):hasTrait("upgradable") then
-						functions.script.set_c("tinkering", champion:getOrdinal(), otherSlot)
+						functions.script.set_c("tinkering", c, otherSlot)
 					else
 						hudPrint("Item is not upgradable.")
 					end
 				else
 					hudPrint("Needs target item in other hand.")
+				end
+			end
+
+			if action.go.item and action.go.item:hasTrait("potion") then
+				local item = action.go.item
+				if item then
+					functions.script.set_c("potion_slot", c, slot)
+					functions.script.set_c("potion_bottom_item", c, item.go.id)
+					functions.script.set_c("potion_stacks", c, item:getStackSize())
+				else
+					functions.script.set_c("potion_slot", c, nil)
+					functions.script.set_c("potion_bottom_item", c, nil)
+					functions.script.set_c("potion_stacks", c, nil)
 				end
 			end
 			
@@ -334,8 +351,60 @@ defineObject{
 		
 		onClickItemSlot = function(self, champion, container, slot, button)
 			--if champion:getItem(slot) then print(champion:getItem(slot).go.id) end
+			local f = 0
+			local MX = 0
+			local MY = 0
+			local w = 0
+			local h = 0
+
+			if party.partycounter:getValue() > 0 then
+				f = functions.script.get("f")
+				w = functions.script.get("w")
+				h = functions.script.get("h")
+				MX = functions.script.get("MX")
+				MY = functions.script.get("MY")
+			end
+			
+			local attackPanelXYcoords = { {w - (426 * f), 743 * f}, {w - (220 * f), 743 * f}, {w - (426 * f), 943 * f}, {w - (220 * f), 943 * f} } 
+			local runePanelWidth, runePanelHeight = 156 * f, 100 * f
+			local mouseOverPortraitZone = iff(MX > attackPanelXYcoords[4][1] and MX < attackPanelXYcoords[4][1] + runePanelWidth and MY > attackPanelXYcoords[4][2] and MY < attackPanelXYcoords[4][2] + runePanelHeight, 4, 
+								iff(MX > attackPanelXYcoords[3][1] and MX < attackPanelXYcoords[3][1] + runePanelWidth and MY > attackPanelXYcoords[3][2] and MY < attackPanelXYcoords[3][2] + runePanelHeight, 3, 
+								iff(MX > attackPanelXYcoords[2][1] and MX < attackPanelXYcoords[2][1] + runePanelWidth and MY > attackPanelXYcoords[2][2] and MY < attackPanelXYcoords[2][2] + runePanelHeight, 2, 
+								iff(MX > attackPanelXYcoords[1][1] and MX < attackPanelXYcoords[1][1] + runePanelWidth and MY > attackPanelXYcoords[1][2] and MY < attackPanelXYcoords[1][2] + runePanelHeight, 1, 
+								nil))))
+
+								-- print(mouseOverPortraitZone)
+			if mouseOverPortraitZone then
+				champion = party.party:getChampion(mouseOverPortraitZone)
+			end
+
 			if champion then
 				local mouseItem = getMouseItem()
+				local item = champion:getItem(slot)
+				if item and item:hasTrait("potion") then
+					item.go.potion_stack:print_data()
+					
+					functions.script.set_c("potion_slot", champion:getOrdinal(), slot)
+					if mouseItem and mouseItem.go.name == item.go.name and mouseItem:hasTrait("potion") then
+						mouseItem.go.potion_stack.print_data()
+						functions.script.set_c("potion_top_item", champion:getOrdinal(), mouseItem.go.id)
+					else
+						functions.script.set_c("potion_top_item", champion:getOrdinal(), nil)
+					end
+					functions.script.set_c("potion_bottom_item", champion:getOrdinal(), item.go.id)
+					functions.script.set_c("potion_stacks", champion:getOrdinal(), item:getStackSize())
+				else
+					if mouseItem and mouseItem:hasTrait("potion") then
+						functions.script.set_c("potion_top_item", champion:getOrdinal(), mouseItem.go.id)
+						functions.script.set_c("potion_slot", champion:getOrdinal(), slot)
+						functions.script.set_c("potion_stacks", champion:getOrdinal(), nil)
+					else
+						functions.script.set_c("potion_top_item", champion:getOrdinal(), nil)
+						functions.script.set_c("potion_slot", champion:getOrdinal(), nil)
+						functions.script.set_c("potion_stacks", champion:getOrdinal(), nil)
+					end
+				end
+
 				-- Click a slot with a herb in the cursor
 				if mouseItem and mouseItem:hasTrait("herb") and champion:getClass() == "druid" then
 					if slot == ItemSlot.Bracers or slot == ItemSlot.Necklace or slot == ItemSlot.Gloves then
@@ -641,7 +710,6 @@ defineObject{
 		onDrawAttackPanel = function(self, champion, context, x, y)
 			local w, h, r = context.width, 		context.height, 	context.width / context.height
 			local f = (r < 1.3 and 0.8 or r < 1.4 and 0.9 or 1) * context.height/1080
-			local f2 = context.height/1080
 			local MX, MY = context.mouseX, context.mouseY
 			local mLeft, mRight = context.mouseDown(0), context.mouseDown(2)
 			local c = champion:getOrdinal()
@@ -654,6 +722,7 @@ defineObject{
 			elseif f < 0.2 then
 				context.font("tiny")
 			end
+
 
 			if functions and functions.script.get_c("race_skill", c) then
 				context.color(255, 255, 255, 40)
@@ -786,7 +855,63 @@ defineObject{
 			local f2 = context.height/1080
 			local MX, MY = context.mouseX, context.mouseY
 			local mLeft, mRight = context.mouseDown(0), context.mouseDown(2)
+
+			if party.partycounter:getValue() > 0 then
+				functions.script.set("f", f)
+				functions.script.set("w", w)
+				functions.script.set("h", h)
+				functions.script.set("MX", MX)
+				functions.script.set("MY", MY)
+			end
 			
+			-------------------------
+
+			local dropZoneXYCoords = { {w - (455 * f), 665 * f}, {w - (249 * f), 665 * f}, {w - (455 * f), 865 * f}, {w - (249 * f), 865 * f} } 
+			local dropZoneWidth, dropZoneHeight = 192 * f, 62 * f
+			local mouseOverPortraitZone = iff(MX > dropZoneXYCoords[4][1] and MX < dropZoneXYCoords[4][1] + dropZoneWidth and MY > dropZoneXYCoords[4][2] and MY < dropZoneXYCoords[4][2] + dropZoneHeight, 4, 
+								iff(MX > dropZoneXYCoords[3][1] and MX < dropZoneXYCoords[3][1] + dropZoneWidth and MY > dropZoneXYCoords[3][2] and MY < dropZoneXYCoords[3][2] + dropZoneHeight, 3, 
+								iff(MX > dropZoneXYCoords[2][1] and MX < dropZoneXYCoords[2][1] + dropZoneWidth and MY > dropZoneXYCoords[2][2] and MY < dropZoneXYCoords[2][2] + dropZoneHeight, 2, 
+								iff(MX > dropZoneXYCoords[1][1] and MX < dropZoneXYCoords[1][1] + dropZoneWidth and MY > dropZoneXYCoords[1][2] and MY < dropZoneXYCoords[1][2] + dropZoneHeight, 1, 
+								nil))))
+
+			if getMouseItem() then
+				functions.script.set("mouseItem", getMouseItem())
+			end
+
+			local mouseItem = functions.script.get("mouseItem")
+			
+			if mouseOverPortraitZone and context.mouseDown(3) and mouseItem then
+				local champion = party.party:getChampion(mouseOverPortraitZone)
+				-- print("clicked on champion", champion:getName() )
+				
+				if mouseItem then
+					-- print("with item",mouseItem.go.name )
+					functions.script.droppedItemOnPortrait(mouseItem, champion)
+					functions.script.set("mouseItem", nil)
+				end
+			end
+
+			if not mouseOverPortraitZone then
+				functions.script.set("mouseItem", nil)
+			end
+
+			----------------------------
+
+			local attackPanelXYcoords = { {w - (305 * f), 743 * f}, {w - (99 * f), 743 * f}, {w - (305 * f), 943 * f}, {w - (99 * f), 943 * f} } 
+			local runePanelWidth, runePanelHeight = 156 * f, 100 * f
+			local mouseOverHandsZone = iff(MX > attackPanelXYcoords[4][1] and MX < attackPanelXYcoords[4][1] + runePanelWidth and MY > attackPanelXYcoords[4][2] and MY < attackPanelXYcoords[4][2] + runePanelHeight, 4, 
+								iff(MX > attackPanelXYcoords[3][1] and MX < attackPanelXYcoords[3][1] + runePanelWidth and MY > attackPanelXYcoords[3][2] and MY < attackPanelXYcoords[3][2] + runePanelHeight, 3, 
+								iff(MX > attackPanelXYcoords[2][1] and MX < attackPanelXYcoords[2][1] + runePanelWidth and MY > attackPanelXYcoords[2][2] and MY < attackPanelXYcoords[2][2] + runePanelHeight, 2, 
+								iff(MX > attackPanelXYcoords[1][1] and MX < attackPanelXYcoords[1][1] + runePanelWidth and MY > attackPanelXYcoords[1][2] and MY < attackPanelXYcoords[1][2] + runePanelHeight, 1, 
+								nil))))
+
+								-- print(mouseOverPortraitZone)
+			if mouseOverHandsZone then
+				functions.script.set("portrait_zone", mouseOverHandsZone)
+			else
+				functions.script.set("portrait_zone", nil)
+			end
+
 			local multi = 1
 			if context.keyDown("shift") then
 				multi = -1
@@ -844,8 +969,8 @@ defineObject{
 			if context.keyDown("shift") and context.keyDown("L") and functions.script.keypressDelayGet() == 0 then
 				for i = 1,4 do
 					party.party:getChampion(i):levelUp()
-					party.party:getChampion(i):setConditionValue("healing_potion", 16)
-					party.party:getChampion(i):setConditionValue("energy_potion", 16)
+					-- party.party:getChampion(i):setConditionValue("healing_potion", 16)
+					-- party.party:getChampion(i):setConditionValue("energy_potion", 16)
 					functions.script.keypressDelaySet(20)
 				end
 			end
@@ -1585,24 +1710,25 @@ defineObject{
 				-- -- Variables
 				local skill_x, skill_y = 0, 0
 				local val1, val2, valX, valY = {}, {}, {}, {}
-				local skill1_p = { 2,4,5 } -- athletics
-				local skill2_p = { 2,4,5 } -- block
-				local skill3_p = { 2,4,5 } -- light armor
-				local skill4_p = { 2,4,5 } -- heavy armor
-				local skill5_p = { 1,4,5 } -- accuracy
-				local skill6_p = { 2,4,5 } -- critical
-				local skill7_p = { 3,4,5 } -- firearms
-				local skill8_p = { 2,3,4,5 } -- seafaring
-				local skill9_p = { 1,4,5 } -- alchemy
-				local skill10_p = { 2,4,5 } -- ranged weapons
-				local skill11_p = { 3,4,5 } -- light weapons
-				local skill12_p = { 3,4,5 } -- heavy weapons
-				local skill13_p = { 1,2,4,5 } -- spellblade
-				local skill14_p = { 2,4,5 } -- elemental
-				local skill15_p = { 2,4,5 } -- poison
-				local skill16_p = { 3,4,5 } -- concentration
-				local skill17_p = { 1,4,5 } -- witchcraft
-				local skill18_p = { 2,4,5 } -- tinkering
+				-- local skill1_p = { 2,4,5 } -- athletics
+				local skill1_p = { 2,4,5 } -- block
+				local skill2_p = { 2,4,5 } -- light armor
+				local skill3_p = { 2,4,5 } -- heavy armor
+				local skill4_p = { 1,4,5 } -- accuracy
+				local skill5_p = { 2,4,5 } -- critical
+				local skill6_p = { 2,4,5 } -- firearms
+				local skill7_p = { 2,3,4,5 } -- seafaring
+				local skill8_p = { 1,2,4,5 } -- alchemy
+				local skill9_p = { 3,4,5 } -- tinkering
+				local skill10_p = { 1,4,5 } -- ranged weapons
+				local skill11_p = { 2,4,5 } -- throwing weapons
+				local skill12_p = { 3,4,5 } -- light weapons
+				local skill13_p = { 3,4,5 } -- heavy weapons
+				local skill14_p = { 1,2,4,5 } -- spellblade
+				local skill15_p = { 2,4,5 } -- elemental
+				local skill16_p = { 2,4,5 } -- poison
+				local skill17_p = { 3,4,5 } -- concentration
+				local skill18_p = { 1,4,5 } -- witchcraft				
 				local skill_perks = { skill1_p, skill2_p, skill3_p, skill4_p, skill5_p, skill6_p, skill7_p, skill8_p, skill9_p, skill10_p, skill11_p, skill12_p, skill13_p, skill14_p, skill15_p, skill16_p, skill17_p, skill18_p }
 				-- Draw skills slots
 				for i=1,18 do
@@ -1950,6 +2076,64 @@ defineObject{
 			self.go.gametime2:increment()
 			local t = GameMode.getTimeOfDay()
 			local v = party.gametime2:getValue()
+
+			for i=1,4 do
+				local champion = party.party:getChampionByOrdinal(i)
+				local potion_stacks = functions.script.get_c("potion_stacks", i)
+				local potion_slot = functions.script.get_c("potion_slot", i)
+				local potion_top_item_id = functions.script.get_c("potion_top_item", i) or ""
+				local potion_top_item = iff(potion_top_item_id, findEntity(potion_top_item_id), nil)
+				local potion_bottom_item_id = functions.script.get_c("potion_bottom_item", i) or ""
+				local potion_bottom_item = iff(potion_bottom_item_id, findEntity(potion_bottom_item_id), nil)
+				
+
+				if potion_stacks and potion_slot then
+					local item = potion_bottom_item
+					if item and item:getStackable() then
+						if item:getStackSize() > potion_stacks then
+							-- print("bot stack was increased")
+							-- if potion_top_item and potion_top_item:getStackSize() < potion_bottom_item:getStackSize() then potion_top_item = nil end
+							-- print( potion_top_item.go.name )
+							-- print( potion_top_item.go.potion_stack:getTop() )
+							functions.script.stackedPotions(champion, potion_slot, potion_bottom_item, potion_top_item, "increase")
+						elseif item:getStackSize() < potion_stacks then
+							-- print("bot stack was decreased")
+							local mouseItem = getMouseItem()
+							if mouseItem and mouseItem.go.name == potion_bottom_item.go.name then potion_top_item = mouseItem end
+							if potion_bottom_item and potion_bottom_item:getStackSize() == 0 then potion_bottom_item = nil end
+							functions.script.stackedPotions(champion, potion_slot, potion_bottom_item, potion_top_item, "decrease")
+						end
+					end
+				end
+
+				local zone = functions.script.get("portrait_zone")
+				if zone then
+					local champion = party.party:getChampion(zone)
+					local mouseItem = getMouseItem()
+					if mouseItem and champion then
+						if mouseItem:hasTrait("potion") and mouseItem.go.potion_stack then
+							local data = mouseItem.go.potion_stack:getData()
+							if data[1] == nil then
+								if champion:hasTrait("perfect_mix") then
+									mouseItem.go.potion_stack:insert("perfect")
+									functions.script.setPerfectPotionGE(mouseItem)
+								else
+									mouseItem.go.potion_stack:insert("normal")
+								end
+							end
+						end
+					end
+				end
+
+				local using_mortar = functions.script.get_c("using_mortar", i)
+				if using_mortar then
+					local item = getMouseItem()
+					if item and item:hasTrait("potion") then
+
+					end
+				end				
+			end
+			
 
 			if v > 2 and v % 2 == 0 then
 				functions2.script.updateSky(t) -- updates sky and tides

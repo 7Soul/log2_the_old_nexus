@@ -25,7 +25,7 @@ defineTrait{
 		end	
 	end,
 	onComputeCritChance = function(champion, weapon, attack, attackType, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then 
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 1 and functions and functions.script then 
 			local charges = functions.script.get_c("assassination", champion:getOrdinal()) or 0
 			if charges then
 				return charges * 2
@@ -96,7 +96,7 @@ defineTrait{
 			local dexterity = champion:getBaseStat("dexterity")
 			local vitality = champion:getBaseStat("vitality")
 			local willpower = champion:getBaseStat("willpower")
-			if Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
+			if Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 1 and functions and functions.script then
 				local str = functions.script.get_c("monkstrength", champion:getOrdinal()) and functions and functions.script.script.get_c("monkstrength", champion:getOrdinal()) or 0
 				local dex = functions.script.get_c("monkdexterity", champion:getOrdinal()) and functions and functions.script.script.get_c("monkdexterity", champion:getOrdinal()) or 0
 				local vit = functions.script.get_c("monkvitality", champion:getOrdinal()) and functions and functions.script.script.get_c("monkvitality", champion:getOrdinal()) or 0
@@ -208,7 +208,7 @@ defineTrait{
 			level = champion:getLevel()
 			champion:addStatModifier("max_health", 50 + ((level-1) * 5))
 			champion:addStatModifier("max_energy", 50 + (level-1) * 6)
-			if Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script.script and functions and functions.script.script.getStepCount() > 0 then
+			if Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 1 and functions and functions.script.script and functions and functions.script.script.getStepCount() > 0 then
 				for slot = 8,10 do
 					local druidItem = functions.script.get_c("druid_item"..slot, champion:getOrdinal()) or nil
 					if druidItem then
@@ -289,7 +289,7 @@ defineTrait{
 			champion:addStatModifier("max_health", 35 + (level-1) * 5)
 			champion:addStatModifier("max_energy", 40 + (level-1) * 9)
 			
-			if functions and functions.script and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 then
+			if functions and functions.script and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 1 then
 				local stacks = functions.script.get_c("hunter_crit", champion:getOrdinal()) or 0
 				if stacks > 0 then
 					champion:addStatModifier("willpower", stacks)
@@ -580,7 +580,7 @@ defineTrait{
 	(15) +5% Chance to freeze, burn or poison with spells and attacks (+1% per extra scroll).
 	(18) +3 Willpower.]],
 	onRecomputeStats = function(champion, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 1 and functions and functions.script then
 			-- count scrolls
 			local scrolls = 0
 			for i=1,ItemSlot.MaxSlots do
@@ -667,7 +667,7 @@ defineTrait{
 			-- 	champion:addStatModifier("max_energy", math.floor(hp / 8))
 			-- end
 
-			if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
+			if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 1 and functions and functions.script then
 				local stats = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 				local replace = { 2, 1, 4, 3, 6, 5, 8, 7 }
 				local names = { "strength", "dexterity", "vitality", "willpower", "max_health", "max_energy", "protection", "evasion", "resist_fire", "resist_cold", "resist_shock", "resist_poison" }
@@ -736,7 +736,7 @@ defineTrait{
 	
 	- You can't eat non-meat foods, like bread, bugs or even fish.]],
 	onRecomputeStats = function(champion, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 1 and functions and functions.script then
 			champion:addStatModifier("health_regeneration_rate", champion:getCurrentStat("vitality"))
 
 			local meatBonus = functions.script.get_c("meat_bonus", champion:getOrdinal()) or 0
@@ -798,7 +798,7 @@ defineTrait{
 	- Gain +30% to that element multiplier.
 	- Gain +2 to all stats.]],
 	onRecomputeStats = function(champion, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 1 and functions and functions.script then
 			local curTime = GameMode.getTimeOfDay()
 			if curTime > 0 and curTime < 1.01 then
 				champion:addStatModifier("resist_fire", 15)
@@ -832,7 +832,7 @@ defineTrait{
 	requiredRace = "lizardman",
 	description = "You can see attacks coming from all directions, warning your companions of danger.\n\nFor each monster next to you, you gain +10 Evasion, +5 Accuracy and +3% Critical. Your party gains smaller bonuses too.",
 	onRecomputeStats = function(champion, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 1 and functions and functions.script then
 			local stat = functions.script.get_c("wide_vision", champion:getOrdinal())
 			if not stat or not party then return end
 			champion:addStatModifier("evasion", stat * 10)
@@ -845,14 +845,14 @@ defineTrait{
 		end
 	end,
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 1 and functions and functions.script then
 			local stat = functions.script.get_c("wide_vision", champion:getOrdinal())
 			if not stat then return end
 			return stat * 5
 		end
 	end,
 	onComputeCritChance = function(champion, weapon, attack, attackType, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 1 and functions and functions.script then
 			local stat = functions.script.get_c("wide_vision", champion:getOrdinal())
 			if not stat then return end
 			return stat * 3
@@ -867,7 +867,7 @@ defineTrait{
 	icon = 46,
 	description = "A companion Lizardman is warning you of danger. You gain +2 Evasion, +2 Accuracy and +1% Critical for each monster next to you.",
 	onRecomputeStats = function(champion, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 1 and functions and functions.script then
 			for i=1,4 do
 				local c = party.party:getChampionByOrdinal(i)
 				if c:hasTrait("wide_vision") then
@@ -879,7 +879,7 @@ defineTrait{
 		end
 	end,
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 1 and functions and functions.script then
 			for i=1,4 do
 				local c = party.party:getChampionByOrdinal(i)
 				if c:hasTrait("wide_vision") then
@@ -891,7 +891,7 @@ defineTrait{
 		end
 	end,
 	onComputeCritChance = function(champion, weapon, attack, attackType, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 1 and functions and functions.script then
 			for i=1,4 do
 				local c = party.party:getChampionByOrdinal(i)
 				if c:hasTrait("wide_vision") then
@@ -1009,7 +1009,7 @@ defineTrait{
 	- Gain 100 Evasion and 15% Critical Chance.
 	- Your first physical attack has a 50% chance to poison the target.]],
 	onComputeCritChance = function(champion, weapon, attack, attackType, level)
-		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 1 and functions and functions.script then
 			if functions.script.get_c("sneak_attack", champion:getOrdinal()) then
 				return 15
 			end
@@ -1024,7 +1024,7 @@ defineTrait{
 	icon = 53,
 	charGen = true,
 	requiredRace = "ratling",
-	description = "Poison resistance +50%, other resistances -15%. You gain 1 Maximum Health for each extra point of poison resistance (even if you get more than 100%).",
+	description = "Poison resistance +50%, other resistances -15%. You gain 1 Maximum Health and 0.15kg Carry Limit for each extra point of poison resistance (even if you get more than 100%).",
 	onRecomputeStats = function(champion, level)
 		-- if level > 0 then
 			champion:addStatModifier("resist_poison", 50)
@@ -1034,7 +1034,7 @@ defineTrait{
 			local health = math.max(champion:getCurrentStat("resist_poison") - 50, 0) + math.max((champion:getCurrentStat("vitality") - 10) * 2, 0)
 			champion:addStatModifier("max_health", health)
 			champion:addStatModifier("health", health)
-			champion:addStatModifier("max_load", health * 0.1)
+			champion:addStatModifier("max_load", health * 0.15)
 		-- end
 	end,
 }
@@ -1044,51 +1044,51 @@ defineTrait{
 ---------------------------------------------------------------------------------
 
 -- Athletics
-defineTrait{
-	name = "pack_mule",
-	uiName = "Pack Mule",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 65,
-	description = "Weight Limit +10kg.",
-	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			champion:addStatModifier("max_load", 10)
-		end
-	end,
-}
+-- defineTrait{
+-- 	name = "pack_mule",
+-- 	uiName = "Pack Mule",
+-- 	iconAtlas = "mod_assets/textures/gui/skills.dds",
+-- 	icon = 65,
+-- 	description = "Weight Limit +10kg.",
+-- 	onRecomputeStats = function(champion, level)
+-- 		if level > 0 then
+-- 			champion:addStatModifier("max_load", 10)
+-- 		end
+-- 	end,
+-- }
 
-defineTrait{
-	name = "endurance",
-	uiName = "Endurance",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 66,
-	description = "25% Resistance to wounds. Wearing Heavy Armor triples the resistance for that body part.\n(Gloves protect from hand injuries).",
-	onReceiveCondition = function(champion, cond, level)
-		if level > 0 then
-			local slots = {3,4,5,6,9,9}
-			local injuries = {"head_wound","chest_wound","leg_wound","feet_wound","left_hand_wound","right_hand_wound"}
-			for index, slot in ipairs(slots) do
-				local bonus = 0.25
-				local item = champion:getItem(slot)
-				if item and item:hasTrait("heavy_armor") then
-					bonus = bonus * 3
-				end
+-- defineTrait{
+-- 	name = "endurance",
+-- 	uiName = "Endurance",
+-- 	iconAtlas = "mod_assets/textures/gui/skills.dds",
+-- 	icon = 66,
+-- 	description = "25% Resistance to wounds. Wearing Heavy Armor triples the resistance for that body part.\n(Gloves protect from hand injuries).",
+-- 	onReceiveCondition = function(champion, cond, level)
+-- 		if level > 0 then
+-- 			local slots = {3,4,5,6,9,9}
+-- 			local injuries = {"head_wound","chest_wound","leg_wound","feet_wound","left_hand_wound","right_hand_wound"}
+-- 			for index, slot in ipairs(slots) do
+-- 				local bonus = 0.25
+-- 				local item = champion:getItem(slot)
+-- 				if item and item:hasTrait("heavy_armor") then
+-- 					bonus = bonus * 3
+-- 				end
 				
-				if cond == injuries[index] and math.random() <= bonus then
-					return false
-				end
-			end
-		end
-	end,
-}
+-- 				if cond == injuries[index] and math.random() <= bonus then
+-- 					return false
+-- 				end
+-- 			end
+-- 		end
+-- 	end,
+-- }
 
-defineTrait{
-	name = "refreshed",
-	uiName = "Refreshed",
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 67,
-	description = "Healing potions heal 25% more, with extra healing applied instantly.",
-}
+-- defineTrait{
+-- 	name = "refreshed",
+-- 	uiName = "Refreshed",
+-- 	iconAtlas = "mod_assets/textures/gui/skills.dds",
+-- 	icon = 67,
+-- 	description = "Healing potions heal 25% more, with extra healing applied instantly.",
+-- }
 
 -- Block
 defineTrait{
@@ -1377,13 +1377,13 @@ defineTrait{
 	end
 }
 
--- Ranged Weapons
+-- Missile Weapons
 defineTrait{
 	name = "bullseye",
 	uiName = "Bullseye",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 87,
-	description = "Gain +15 accuracy and +3% Critical Chance with ranged attacks.",
+	description = "Gain +15 accuracy and +3% Critical Chance with missile attacks.",
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
 		if level > 0 then 
 			if attackType == "missile" or attackType == "throw" then
@@ -1413,7 +1413,32 @@ defineTrait{
 	uiName = "Double Shot",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 89,
-	description = "You attack twice when using Missile Weapons and Throwing Weapons.",
+	description = "You attack twice when using Missile Weapons.",
+}
+
+-- Throwing Weapons
+defineTrait{
+	name = "telekinesis",
+	uiName = "Telekinesis",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 132,
+	description = "Every 3 throws, the weapon will either be dropped or return to your hand, causing it to do damage again.\nThe chance of it returning is 20% plus 20% per 10 Willpower.",
+}
+
+defineTrait{
+	name = "twist_and_turn",
+	uiName = "Twist and Turn",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 133,
+	description = "7% chance to cause bleeding when a weapon lodges into the target.",
+}
+
+defineTrait{
+	name = "ghost_weapon",
+	uiName = "Ghost Weapon",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 134,
+	description = "Every other attack, you throw a ghostly version of a weapon you own. It spins around your current position 3 times, dealing 1/4 its damage.",
 }
 
 -- Seafaring
@@ -1469,11 +1494,19 @@ defineTrait{
 }
 
 defineTrait{
+	name = "perfect_mix",
+	uiName = "Perfect Mix",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 67,
+	description = "Potions you mix last 25% longer. Healing and Energy potions give +20 Protection for their duration.",
+}
+
+defineTrait{
 	name = "bomb_multiplication",
 	uiName = "Bomb Multiplication",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 94,
-	description = "When throwing a bomb, there's a 10% chance you alchemically clone it on the spot.\n\n- Chance increases by 0.5% per Dexterity per point.",
+	description = "You may alchemically clone a bomb you throw, at 10% chance plus 6% per 10 Willpower.",
 }
 
 defineTrait{

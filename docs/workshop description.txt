@@ -9,10 +9,10 @@ A brand new adventure with entirely new classes, skills and equipment. New abili
 [h1]Classes[/h1]
 [b]9 New classes to replace the originals[/b]
 [list]
-[*] Assassin - Assassinate certain enemies to gain bonuses and heal. Can benefit from Light Weapon bonuses and Heavy Weapon bonuses at the same time.
+[*] Assassin - Dual Wielding is stronger, and backstabs are more powerful. You can break armor with attacks.
 [*] Berserker - Doesn't like wearing armor but goes berserker in the face of danger.
 [*] Champion - A well-rounded holy warrior who can heal himself and an ally, gaining stat bonuses during battle.
-[*] Corsair - Can dual-wield pistols or attack with a pistol and a sword. Also gains dueling bonuses.
+[*] Corsair - Can dual-wield with pistols, uses dirty tricks in melee combat and can plunder treasures from slain enemies.
 [*] Druid - Can apply herbal bonuses to their trinkets, ganing many poison-related effects and damage conversion.
 [*] Elementalist - Benefits from elemental magic, specially when alternating spells types
 [*] Hunter - Is an expert in fighting beasts and can stack powerful bonuses during battle.
@@ -30,7 +30,6 @@ For example, with a Ratling, you can choose:
 [h1]Skills[/h1]
 [b]18 Skills, each with 3 perks[/b]
 [list]
-[*] Athletics - Increases health, carry limit, resistance to wounds and healing
 [*] Block - Prevent damage and counter with a shield bash
 [*] Light Armor - Evade attacks or even absorb them and become a nimble fighter
 [*] Heavy Armor - Become a real tank and a master of armor sets
@@ -38,8 +37,10 @@ For example, with a Ratling, you can choose:
 [*] Critical - Backstabbing and bleeding!
 [*] Firearms - Firearms done right: get more ammo and count on powerful special shots
 [*] Seafaring - Be like a pirate and give more fire to your firearms
-[*] Alchemy - Brew potions and clone bombs
-[*] Ranged Weapons - Bows and Shurikens in a single skill. Fire a magic missile and throw twice as many things
+[*] Tinkering - Upgrade items to become more powerful than ever
+[*] Alchemy - Brew stronger potions and clone bombs
+[*] Missile Weapons - Fire a magic missile and shoot multiple times
+[*] Throwing Weapons - Manipulate thrown weapons with your mind
 [*] Light Weapons - Dual wielding and double attacks, two of everything
 [*] Heavy Weapons - Powerful bashes and health-based damage increases
 [*] Spellblade - Become a true battle mage with auto-casting spells and spell criticals
@@ -47,7 +48,7 @@ For example, with a Ratling, you can choose:
 [*] Poison Mastery - Poison foes and spread it around
 [*] Magic Training - Increases energy and neutral spell damage
 [*] Witchcraft - Practice voodoo on your enemies and drain life from them
-[*] Tinkering - Upgrade items to become more powerful than ever[/list]
+[/list]
 
 [h1]Tinkering[/h1]
 [b]The Tinkering skill allows you to upgrade weapons and armor, complete with interface elements.[/b]

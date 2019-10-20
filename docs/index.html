@@ -5,6 +5,7 @@
 
 body {
 	background-color: #666;
+	/* background-color: rgb(255, 0, 221); */
 	font-family: 'Palatino Linotype';
 	font-size: 18px;
 	font-weight: bold;
@@ -888,7 +889,7 @@ h2 em {
 	<p>For each extra point of poison resistance past 50% you gain:</p>
 		<ul>
 		<li>+1 Maximum Health.</li>
-		<li>+0.1 Max Carry Load.</li>
+		<li>+0.15 Max Carry Load.</li>
 		</ul>
 	</div>
 	<h3>Over millenia, ratfolk have lived in the worst of conditions. Over time they evolved to resist most poisons, while scavenging for survival.</h3>
@@ -897,7 +898,7 @@ h2 em {
 
 <h1 id="skills">/// Skills ///</h1>
 
-<div class="main">
+<!-- <div class="main">
 	<div class="top">
 		<div class="icon" style="background-position: 0 0;"></div>
 		<h1>Athletics</h1>
@@ -920,7 +921,7 @@ h2 em {
 			<p>Healing potions heal 25% more, with some extra healing applied instantly.<br/>While you heal, gain +60 Protection.</p>
 		</div>
 	</div>	
-</div>
+</div> -->
 
 <div class="main">
 	<div class="top">
@@ -1063,18 +1064,18 @@ h2 em {
 	<hr/>
 	<div class="perks">
 		<div class="perk">
-			<div style="margin-right: 13px"><em>Level 3</em><b>Metal Slug</b></div>
+			<div style="margin-right: 13px"><em>Level 2</em><b>Metal Slug</b></div>
 			<p>7% chance to not spend a pellet to fire.</p>
 		</div>
 		
 		<div class="perk">
 			<div style="margin-right: 0px"><em>Silver Tier</em><b>Silver Bullet</b></div>
-			<p>Every 6th shot does double damage.</p>
+			<p>Every 6th shot does double damage, with the next doing triple.</p>
 		</div>
 		
 		<div class="perk">
 			<div style="margin-right: 4px"><em>Gold Tier</em><b>Fast Fingers</b></div>
-			<p>Reload time reduced by 15%.<br/>Silver Bullet triggers one shot sooner for every 20 Dexterity.</p>
+			<p>+15% Action Speed.<br/>Silver Bullet triggers one shot sooner for every 20 Dexterity.</p>
 		</div>
 	</div>
 	<p>*Grazed Shots deal 80% less damage, with a base chance of 25%.</p>
@@ -1123,10 +1124,15 @@ h2 em {
 			<div style="margin-right: 4px"><em>Level 1</em><b>Green Thumb</b></div>
 			<p>Herbs multiply while in your inventory*.</p>
 		</div>
+
+		<div class="perk">
+			<div style="margin-right: 26px"><em>Level 3</em><b>Perfect Mix</b></div>
+			<p style="max-width: 360px;">Your potions last 25% longer.<br/>Healing and Energy potions give +20 Protection for their duration.</p>
+		</div>
 		
 		<div class="perk">
 			<div style="margin-right: 0px"><em>Silver Tier</em><b>Bomb Cloning</b></div>
-			<p style="max-width: 360px;">10% chance you alchemically clone a bomb you throw.<br/>Chance increases by 2% per 10 Willpower.</p>
+			<p style="max-width: 360px;">You may alchemically clone a bomb you throw, at 10% chance plus 6% per 10 Willpower.</p>
 		</div>
 		
 		<div class="perk">
@@ -1140,8 +1146,8 @@ h2 em {
 <div class="main">
 	<div class="top">
 		<div class="icon" style="background-position: -675px 0px;"></div>
-		<h1>Ranged Weapons</h1>
-		<h2>Increases damage of Ranged Weapons* by 20% for each skill point.</h2>
+		<h1>Missile Weapons</h1>
+		<h2>Increases damage of Missile Weapons by 20% for each skill point.</h2>
 	</div>
 	<hr/>
 	<div class="perks">
@@ -1152,7 +1158,7 @@ h2 em {
 		
 		<div class="perk">
 			<div style="margin-right: 0px"><em>Silver Tier</em><b>Magic Missile</b></div>
-			<p style="max-width: 360px;">You launch a magical projectile with your attacks. It does 1/3 your damage and increases based on the target's protection.</p>
+			<p style="max-width: 360px;">You launch a magical projectile with your attacks. It does 1/3 the damage of your weapon, plus 10% per 5 Willpower.</p>
 		</div>
 		
 		<div class="perk">
@@ -1161,7 +1167,32 @@ h2 em {
 		</div>
 	</div>
 	<p>Perks take effect when attacking with Ranged Weapons.<p>
-	<p>*Includes only Missile Weapons and Thrown Weapons.</p>
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: -375px -75px;"></div>
+		<h1>Throwing Weapons</h1>
+		<h2>Increases damage of Throwing Weapons by 20% for each skill point.</h2>
+	</div>
+	<hr/>
+	<div class="perks">
+		<div class="perk">
+			<div style="margin-right: 28px"><em>Level 2</em><b>Telekinesis</b></div>
+			<p style="max-width: 360px;">Every 3 throws, the weapon will either be dropped or return to your hand, causing it to do damage again.<br/>The chance of it returning is 20% plus 20% per 10 Willpower.</p>
+		</div>
+		
+		<div class="perk">
+			<div style="margin-right: 12px"><em>Silver Tier</em><b>Twist & Turn</b></div>
+			<p style="max-width: 360px;">7% chance to cause bleeding when a weapon lodges into the target.</p>
+		</div>
+		
+		<div class="perk">
+			<div style="margin-right: 0px"><em>Gold Tier</em><b>Ghost Weapon</b></div>
+			<p style="max-width: 360px;">Every other attack, you throw a ghostly version of a weapon you own. It spins around your current position 3 times, dealing 1/4 its damage.</p>
+		</div>
+	</div>
+	<p>Perks take effect when attacking with Throwing Weapons.<p>
 </div>
 
 <div class="main">

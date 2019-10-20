@@ -1,28 +1,28 @@
-defineSkill{
-	name = "athletics",
-	uiName = "Athletics",
-	priority = 10,
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 0,
-	description = [[Health +20 and Weight Limit +1kg per point. 
+-- defineSkill{
+-- 	name = "athletics",
+-- 	uiName = "Athletics",
+-- 	priority = 10,
+-- 	iconAtlas = "mod_assets/textures/gui/skills.dds",
+-- 	icon = 0,
+-- 	description = [[Health +20 and Weight Limit +1kg per point. 
 
-	Perks:
-	- Level 2 | Weight Limit +10kg.
-	- Level 4 | 25% Resistance to wounds. Heavy Armor triples it for the body part it covers (Gloves protect from hand injuries).
-	- Level 5 | Healing potions heal 25% more, with extra healing applied instantly. While you heal, gain +60 Protection.]],
-	traits = { [2] = "pack_mule", [4] = "endurance", [5] = "refreshed" },
-	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			champion:addStatModifier("max_health", level * 20)
-			champion:addStatModifier("max_load", level)
-		end
-	end	
-}
+-- 	Perks:
+-- 	- Level 2 | Weight Limit +10kg.
+-- 	- Level 4 | 25% Resistance to wounds. Heavy Armor triples it for the body part it covers (Gloves protect from hand injuries).
+-- 	- Level 5 | Healing potions heal 25% more, with extra healing applied instantly. While you heal, gain +60 Protection.]],
+-- 	traits = { [2] = "pack_mule", [4] = "endurance", [5] = "refreshed" },
+-- 	onRecomputeStats = function(champion, level)
+-- 		if level > 0 then
+-- 			champion:addStatModifier("max_health", level * 20)
+-- 			champion:addStatModifier("max_load", level)
+-- 		end
+-- 	end	
+-- }
 
 defineSkill{
 	name = "block",
 	uiName = "Block",
-	priority = 20,
+	priority = 10,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 1,
 	description = [[Protection and Block Chance +2 per point.
@@ -42,7 +42,7 @@ defineSkill{
 defineSkill{
 	name = "light_armor",
 	uiName = "Light Armor",
-	priority = 30,
+	priority = 20,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 2,
 	description = [[Each point reduces the evasion penalties from wearing Light Armor by 20%.
@@ -68,7 +68,7 @@ defineSkill{
 defineSkill{
 	name = "heavy_armor",
 	uiName = "Heavy Armor",
-	priority = 40,
+	priority = 30,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 3,
 	description = [[Each point reduces the evasion penalties from wearing Heavy Armor by 20% and weight by 10%.
@@ -96,7 +96,7 @@ defineSkill{
 defineSkill{
 	name = "accuracy",
 	uiName = "Accuracy",
-	priority = 50,
+	priority = 40,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 4,
 	description = [[Increases your Accuracy by 10 for each skill point.
@@ -116,7 +116,7 @@ defineSkill{
 defineSkill{
 	name = "critical",
 	uiName = "Critical",
-	priority = 60,
+	priority = 50,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 5,
 	description = [[Increases critical chance with physical attacks by 3% and spells by 1% for each skill point.
@@ -134,7 +134,7 @@ defineSkill{
 defineSkill{
 	name = "firearms",
 	uiName = "Firearms",
-	priority = 70,
+	priority = 60,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 6,
 	description = [[Each point increases range by 1 and reduces the chance of grazing a shot by 5%.
@@ -149,7 +149,7 @@ defineSkill{
 defineSkill{
 	name = "seafaring",
 	uiName = "Seafaring",
-	priority = 80,
+	priority = 70,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 7,
 	description = [[Each point increases evasion by 3 when fighting multiple foes.
@@ -170,6 +170,32 @@ defineSkill{
 }
 
 defineSkill{
+	name = "tinkering",
+	uiName = "Tinkering",
+	priority = 80,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 17,
+	description = [[Allows you to upgrade equipments, increasing their stats. Requires a Tinkerer's Toolbox and crafting materials.
+	- Items can be upgraded 3 times.
+	- Each skill point increases the stats by an additional 5%.
+	- Upgraded items weight around 30% more, reduced by the skill level.
+	
+	Perks:
+	- Pyrotechnician | +5 Fire and Shock damage dealt per upgraded item you have equipped.
+	- Multipurpose | Unlock chests without a lockpick, at the cost of Energy. You gain +1 to a random stat when you do it.
+	- Mastersmith | You can upgrade Epic items.]],
+	traits = { [3] = "pyrotechnician", [4] = "multipurpose", [5] = "mastersmith" },
+	onRecomputeStats = function(champion, level)
+		if level > 0 then
+			if not champion:hasTrait("dismantler") then
+				champion:addTrait("dismantler")
+				champion:addTrait("tinkering")
+			end
+		end
+	end,
+}
+
+defineSkill{
 	name = "alchemy",
 	uiName = "Alchemy",
 	priority = 90,
@@ -179,9 +205,10 @@ defineSkill{
 	
 	Perks:
 	- Green Thumb | Herbs multiply while in your inventory.
+	- Perfect Mix | Potions last 25% longer. Healing and Energy potions give +20 Protection for their duration.
 	- Bomb Multiplication | When throwing a bomb, there's a 10% chance you alchemically clone it on the spot. Chance increases by 2% per 10 Willpower.
 	- Bomb Expert | When you craft bombs you get three bombs instead of one.]],
-	traits = { [1] = "green_thumb", [4] = "bomb_multiplication", [5] = "bomb_expert" },
+	traits = { [1] = "green_thumb", [3] = "perfect_mix", [4] = "bomb_multiplication", [5] = "bomb_expert" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 		end
@@ -190,23 +217,38 @@ defineSkill{
 
 defineSkill{
 	name = "ranged_weapons",
-	uiName = "Ranged Weapons",
+	uiName = "Missile Weapons",
 	priority = 100,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 9,
-	description = [[Increases damage of Ranged Weapons by 20% for each skill point. 
+	description = [[Increases damage of Missile Weapons by 20% for each skill point. 
 	
 	Perks:
-	- Bullseye | +15 Accuracy.
+	- Bullseye | +15 Accuracy and +3% Critical.
 	- Magic Missile | You launch a magical projectile with your attacks. It does 1/3 your damage and increases based on the target's protection.
-	- Double Shot | You attack twice when using Ranged Weapons.]],
-	traits = { [2] = "bullseye", [4] = "magic_missile", [5] = "double_shot" },
+	- Double Shot | You attack twice when using Missile Weapons.]],
+	traits = { [1] = "bullseye", [4] = "magic_missile", [5] = "double_shot" },
+}
+
+defineSkill{
+	name = "throwing_weapons",
+	uiName = "Throwing Weapons",
+	priority = 110,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 10,
+	description = [[Increases damage of Throwing Weapons by 20% for each skill point. 
+	
+	Perks:
+	- Telekinesis | 
+	- Twist and Turn | 
+	- Ghost Weapon | ]],
+	traits = { [2] = "telekinesis", [4] = "twist_and_turn", [5] = "ghost_weapon" },
 }
 
 defineSkill{
 	name = "light_weapons_c",
 	uiName = "Light Weapons",
-	priority = 110,
+	priority = 120,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 10,
 	description = [[Increases damage of Light Weapons by 20% for each skill point. 
@@ -221,7 +263,7 @@ defineSkill{
 defineSkill{
 	name = "heavy_weapons_c",
 	uiName = "Heavy Weapons",
-	priority = 120,
+	priority = 130,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 11,
 	description = [[Increases damage of Heavy Weapons by 20% for each skill point. 
@@ -236,7 +278,7 @@ defineSkill{
 defineSkill{
 	name = "spellblade",
 	uiName = "Spellblade",
-	priority = 130,
+	priority = 140,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 12,
 	description = [[Increase Protection and Accuracy by 3 for each skill point when holding a staff.
@@ -274,7 +316,7 @@ defineSkill{
 defineSkill{
 	name = "elemental_magic",
 	uiName = "Elemental Magic",
-	priority = 140,
+	priority = 150,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 13,
 	description = [[Increases all elemental damage by 20% for each skill point.
@@ -289,7 +331,7 @@ defineSkill{
 defineSkill{
 	name = "poison_mastery",
 	uiName = "Poison Mastery",
-	priority = 150,
+	priority = 160,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 14,
 	description = [[Poison damage +20% per skill point.
@@ -304,7 +346,7 @@ defineSkill{
 defineSkill{
 	name = "concentration",
 	uiName = "Magic Training",
-	priority = 160,
+	priority = 170,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 15,
 	description = [[Increases your Energy by 20 and Energy Regeneration while resting by 5% for each skill point.
@@ -327,7 +369,7 @@ defineSkill{
 	-- Darkness spells?
 	name = "witchcraft",
 	uiName = "Witchcraft",
-	priority = 170,
+	priority = 180,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 16,
 	description = [[Increases the damage and effect of witchcraft spells by 20% for each skill point.
@@ -339,32 +381,6 @@ defineSkill{
 	traits = { [1] = "ritual", [4] = "moon_rites", [5] = "voodoo" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 then			
-		end
-	end,
-}
-
-defineSkill{
-	name = "tinkering",
-	uiName = "Tinkering",
-	priority = 180,
-	iconAtlas = "mod_assets/textures/gui/skills.dds",
-	icon = 17,
-	description = [[Allows you to upgrade equipments, increasing their stats. Requires a Tinkerer's Toolbox and crafting materials.
-	- Items can be upgraded 3 times.
-	- Each skill point increases the stats by an additional 5%.
-	- Upgraded items weight around 30% more, reduced by the skill level.
-	
-	Perks:
-	- Pyrotechnician | +5 Fire and Shock damage dealt per upgraded item you have equipped.
-	- Multipurpose | Unlock chests without a lockpick, at the cost of Energy. You gain +1 to a random stat when you do it.
-	- Mastersmith | You can upgrade Epic items.]],
-	traits = { [3] = "pyrotechnician", [4] = "multipurpose", [5] = "mastersmith" },
-	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			if not champion:hasTrait("dismantler") then
-				champion:addTrait("dismantler")
-				champion:addTrait("tinkering")
-			end
 		end
 	end,
 }

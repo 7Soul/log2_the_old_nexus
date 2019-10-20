@@ -247,6 +247,57 @@ function start()
 		m.w = m.w * scale
 		dead_crystal_1:setWorldRotation(m)
 	end
+
+	for map = 1, 12 do
+		for entity in Dungeon.getMap(map):allEntities() do
+			if entity and entity.item then
+				if entity.item:hasTrait("potion") and entity.potion_stack then
+					for s = 1, entity.item:getStackSize() do
+						entity.potion_stack:insert("normal")
+					end
+				end
+
+				local container = entity.containeritem
+				if container then
+					local capacity = container:getCapacity()
+					for j=1,capacity do
+						local item2 = container:getItem(j)
+						if item2 and item2:hasTrait("potion") and item2.go.potion_stack then
+							for s = 1, item2:getStackSize() do
+								item2.go.potion_stack:insert("normal")
+							end
+						end
+					end
+				end
+			end	
+			if entity then
+				local surface = entity.surface
+				if surface and entity.name ~= "beach_ocean" then
+					for index, item2 in surface:contents() do
+						if item2 and item2:hasTrait("potion") and item2.go.potion_stack then
+							for s = 1, item2:getStackSize() do
+								item2.go.potion_stack:insert("normal")
+							end
+							-- print(item2.go.id)
+						end
+					end
+				end
+			end
+		end
+	end
+
+	for i=1,4 do
+		local champion = party.party:getChampionByOrdinal(i)
+		for j=1,32 do
+			local item = champion:getItem(j)
+			if item and item.go.potion_stack then		
+				for s = 1, item:getStackSize() do
+					item.go.potion_stack:insert("perfect")
+					functions.script.setPerfectPotionGE(item)
+				end
+			end
+		end
+	end
 	
 	-- Model within object
 	--local pos = findEntity(objname):getComponent(objname2):getOffset()
