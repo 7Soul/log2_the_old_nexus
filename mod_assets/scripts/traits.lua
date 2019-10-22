@@ -1574,7 +1574,7 @@ defineTrait{ -- to do
 	uiName = "Staff Fighter",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 102,
-	description = "You can hold a staff in one hand.",
+	description = "You can wield a staff in one hand.",
 }
 
 defineTrait{

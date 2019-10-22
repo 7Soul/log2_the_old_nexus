@@ -248,6 +248,7 @@ function start()
 		dead_crystal_1:setWorldRotation(m)
 	end
 
+	-- Mark potions for the Perfect Mix perk
 	for map = 1, 12 do
 		for entity in Dungeon.getMap(map):allEntities() do
 			if entity and entity.item then
@@ -290,10 +291,9 @@ function start()
 		local champion = party.party:getChampionByOrdinal(i)
 		for j=1,32 do
 			local item = champion:getItem(j)
-			if item and item.go.potion_stack then		
+			if item and item.go.potion_stack then
 				for s = 1, item:getStackSize() do
-					item.go.potion_stack:insert("perfect")
-					functions.script.setPerfectPotionGE(item)
+					item.go.potion_stack:insert("normal")
 				end
 			end
 		end

@@ -142,7 +142,7 @@ defineSkill{
 	Perks:
 	- Metal Slug | 7% chance to not spend a pellet to fire.
 	- Silver Bullet | Every 6th shot does double damage.
-	- Fast Fingers | Reload time reduced by 15%. Silver Bullet triggers one shot sooner for every 20 Dexterity.]],
+	- Fast Fingers | +15% Action Speed. Silver Bullet triggers one shot sooner for every 20 Dexterity.]],
 	traits = { [3] = "metal_slug", [4] = "silver_bullet", [5] = "fast_fingers" },
 }
 
@@ -205,7 +205,7 @@ defineSkill{
 	
 	Perks:
 	- Green Thumb | Herbs multiply while in your inventory.
-	- Perfect Mix | Potions last 25% longer. Healing and Energy potions give +20 Protection for their duration.
+	- Perfect Mix | Potions you mix last 25% longer. Healing and Energy potions give +20 Protection for their duration.
 	- Bomb Multiplication | When throwing a bomb, there's a 10% chance you alchemically clone it on the spot. Chance increases by 2% per 10 Willpower.
 	- Bomb Expert | When you craft bombs you get three bombs instead of one.]],
 	traits = { [1] = "green_thumb", [3] = "perfect_mix", [4] = "bomb_multiplication", [5] = "bomb_expert" },
@@ -239,9 +239,9 @@ defineSkill{
 	description = [[Increases damage of Throwing Weapons by 20% for each skill point. 
 	
 	Perks:
-	- Telekinesis | 
-	- Twist and Turn | 
-	- Ghost Weapon | ]],
+	- Telekinesis | Every 3 throws, the weapon may return to your hand, doing damage again.
+	- Twist and Turn | May cause bleeding when a weapon lodges into the target.
+	- Ghost Weapon | Every other attack, you throw a ghostly version of a weapon you own.]],
 	traits = { [2] = "telekinesis", [4] = "twist_and_turn", [5] = "ghost_weapon" },
 }
 
@@ -284,9 +284,9 @@ defineSkill{
 	description = [[Increase Protection and Accuracy by 3 for each skill point when holding a staff.
 	
 	Perks:
-	- Staff Fighter | You can hold a staff in one hand.
+	- Staff Fighter | You can wield a staff in one hand.
 	- Spell Slinger | Cast a basic spell to memorize it. Melee attacks have a 10% chance to cast it again.
-	- Arcane Warrior | Non-ultimate level spells gain damage equal to 10% of your physical damage and accuracy.
+	- Arcane Warrior | Non-ultimate level spells gain damage equal to 20% of your physical damage and 10% of your accuracy.
 	- Mage Strike | Your spells gain double the bonuses from the Critical skill plus 1% Critical per 10 points in Willpower.]],
 	traits = { [1] = "staff_fighter", [2] = "spell_slinger", [4] = "arcane_warrior", [5] = "mage_strike" },
 	onRecomputeStats = function(champion, level)

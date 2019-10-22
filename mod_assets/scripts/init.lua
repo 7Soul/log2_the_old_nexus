@@ -382,17 +382,15 @@ defineObject{
 				local mouseItem = getMouseItem()
 				local item = champion:getItem(slot)
 				if item and item:hasTrait("potion") then
-					item.go.potion_stack:print_data()
-					
 					functions.script.set_c("potion_slot", champion:getOrdinal(), slot)
 					if mouseItem and mouseItem.go.name == item.go.name and mouseItem:hasTrait("potion") then
-						mouseItem.go.potion_stack.print_data()
 						functions.script.set_c("potion_top_item", champion:getOrdinal(), mouseItem.go.id)
 					else
 						functions.script.set_c("potion_top_item", champion:getOrdinal(), nil)
 					end
 					functions.script.set_c("potion_bottom_item", champion:getOrdinal(), item.go.id)
 					functions.script.set_c("potion_stacks", champion:getOrdinal(), item:getStackSize())
+
 				else
 					if mouseItem and mouseItem:hasTrait("potion") then
 						functions.script.set_c("potion_top_item", champion:getOrdinal(), mouseItem.go.id)
@@ -723,7 +721,6 @@ defineObject{
 				context.font("tiny")
 			end
 
-
 			if functions and functions.script.get_c("race_skill", c) then
 				context.color(255, 255, 255, 40)
 				context.drawRect(x - 21, y - 69, 64, 64)
@@ -816,27 +813,35 @@ defineObject{
 					-- context.drawImage2("mod_assets/textures/gui/healing_light.dds", x-22, y-70, 0, 0, 64, 64, 68, 68)
 				-- end
 			end
+
+			functions.script.set_c("counterOnHand", c, 0)
 			
 			if champion:getClass() == "hunter" then
 				local stacks = functions.script.get_c("hunter_crit", c) or 0
 				local hunterCur = champion:getConditionValue("hunter_crit") or 0
 				local hunterMax = functions.script.get_c("hunter_max", c) or 0
 
-				functions.script.drawCounterOnHand(context, champion, x, y, stacks, "Thrill of the Hunt", "+".. stacks .." Willpower\n+".. stacks .."% Crit")
-				functions.script.drawBarOnHand(context, champion, x, y, hunterCur, hunterMax)
+				if stacks > 0 then
+					functions.script.add_c("counterOnHand", c, 1)
+					local counters = functions.script.get_c("counterOnHand", c) or 0
+					functions.script.drawCounterOnHand(context, champion, x, y, stacks, "Thrill of the Hunt", "+".. stacks .." Willpower\n+".. stacks .."% Crit", 2, counters - 1)
+					functions.script.drawBarOnHand(context, champion, x, y, hunterCur, hunterMax)
+				end
 			end	
 			
 			if champion:getClass() == "assassin_class" then
 				local stacks = functions.script.get_c("assassination", c) or 0
 				local item = champion:getItem(ItemSlot.Weapon)
 				local desc = " "
-				if item then 
+				if item and stacks > 0 then 
 					if item.go.meleeattack or item.go.firearmattack then
 						desc = "+".. stacks * 2 .." Pierce\n+".. stacks * 2 .."% Crit"
 					elseif item.go.rangedattack or item.go.throwattack then
 						desc = "+".. stacks * 3 .." Attack Power\n+".. stacks * 2 .."% Crit"
 					end
-					functions.script.drawCounterOnHand(context, champion, x, y, stacks, "Assassination", desc)
+					functions.script.add_c("counterOnHand", c, 1)
+					local counters = functions.script.get_c("counterOnHand", c) or 0
+					functions.script.drawCounterOnHand(context, champion, x, y, stacks, "Assassination", desc, 2, counters - 1)
 				end	
 			end	
 			
@@ -845,7 +850,10 @@ defineObject{
 				local trigger = 6 - (champion:hasTrait("fast_fingers") and math.floor(champion:getCurrentStat("dexterity") / 20) or 0)
 				count = (count % trigger) + 1
 
-				functions.script.drawCounterOnHand(context, champion, x - 3, y, count .. "/" .. trigger, "Silver Bullet")
+				functions.script.add_c("counterOnHand", c, 1)
+				local counters = functions.script.get_c("counterOnHand", c) or 0
+				local suffix = iff(trigger == 1, "st", iff(trigger == 2, "nd", iff(trigger == 3, "rd", "th")))
+				functions.script.drawCounterOnHand(context, champion, x - 4, y, count .. "/" .. trigger, "Silver Bullet", trigger..suffix.." hit does double damage.\nNext does triple.", 2, counters - 1)
 			end	
 		end,
 		
@@ -897,7 +905,25 @@ defineObject{
 
 			----------------------------
 
-			local attackPanelXYcoords = { {w - (305 * f), 743 * f}, {w - (99 * f), 743 * f}, {w - (305 * f), 943 * f}, {w - (99 * f), 943 * f} } 
+			local mortarPanelXYcoords = { {w - (305 * f), 759 * f}, {w - (99 * f), 759 * f}, {w - (305 * f), 959 * f}, {w - (99 * f), 959 * f} } 
+			local mortarPanelWidth, mortarPanelHeight = 44 * f, 62 * f
+			local mouseOverMortarZone = iff(MX > mortarPanelXYcoords[4][1] and MX < mortarPanelXYcoords[4][1] + mortarPanelWidth and MY > mortarPanelXYcoords[4][2] and MY < mortarPanelXYcoords[4][2] + mortarPanelHeight, 4, 
+								iff(MX > mortarPanelXYcoords[3][1] and MX < mortarPanelXYcoords[3][1] + mortarPanelWidth and MY > mortarPanelXYcoords[3][2] and MY < mortarPanelXYcoords[3][2] + mortarPanelHeight, 3, 
+								iff(MX > mortarPanelXYcoords[2][1] and MX < mortarPanelXYcoords[2][1] + mortarPanelWidth and MY > mortarPanelXYcoords[2][2] and MY < mortarPanelXYcoords[2][2] + mortarPanelHeight, 2, 
+								iff(MX > mortarPanelXYcoords[1][1] and MX < mortarPanelXYcoords[1][1] + mortarPanelWidth and MY > mortarPanelXYcoords[1][2] and MY < mortarPanelXYcoords[1][2] + mortarPanelHeight, 1, 
+								nil))))
+
+								-- print(mouseOverMortarZone)
+
+			if mouseOverMortarZone then
+				functions.script.set("portrait_zone", mouseOverMortarZone)
+			else
+				functions.script.set("portrait_zone", nil)
+			end
+
+			----------------------------
+
+			local attackPanelXYcoords = { {w - (426 * f), 743 * f}, {w - (220 * f), 743 * f}, {w - (426 * f), 943 * f}, {w - (220 * f), 943 * f} } 
 			local runePanelWidth, runePanelHeight = 156 * f, 100 * f
 			local mouseOverHandsZone = iff(MX > attackPanelXYcoords[4][1] and MX < attackPanelXYcoords[4][1] + runePanelWidth and MY > attackPanelXYcoords[4][2] and MY < attackPanelXYcoords[4][2] + runePanelHeight, 4, 
 								iff(MX > attackPanelXYcoords[3][1] and MX < attackPanelXYcoords[3][1] + runePanelWidth and MY > attackPanelXYcoords[3][2] and MY < attackPanelXYcoords[3][2] + runePanelHeight, 3, 
@@ -905,11 +931,22 @@ defineObject{
 								iff(MX > attackPanelXYcoords[1][1] and MX < attackPanelXYcoords[1][1] + runePanelWidth and MY > attackPanelXYcoords[1][2] and MY < attackPanelXYcoords[1][2] + runePanelHeight, 1, 
 								nil))))
 
-								-- print(mouseOverPortraitZone)
+			local hand1, hand2 = nil, nil
 			if mouseOverHandsZone then
-				functions.script.set("portrait_zone", mouseOverHandsZone)
+				if context.keyDown("control") then
+					local n = mouseOverHandsZone
+					hand1, hand2 = context.button("quick_potion", attackPanelXYcoords[n][1], attackPanelXYcoords[n][2], runePanelWidth, runePanelHeight)
+				else
+					hand1, hand2 = nil, nil
+				end
 			else
-				functions.script.set("portrait_zone", nil)
+				hand1, hand2 = nil, nil
+			end
+
+			if hand1 or hand2 then
+				print("quick potion on")
+			else
+				print("quick potion off")
 			end
 
 			local multi = 1
@@ -1842,9 +1879,9 @@ defineObject{
 						end
 						-- Draw description
 						local f3 = math.min(f2 + 0.1, 1)
-						context.drawImage2("mod_assets/textures/gui/skill_description.dds", w - (1240 * f2), MY - 110, ((j-1)%4)*569, math.floor((j-1)/4)*337, 569, 337, 569*f3, 337*f3)
+						context.drawImage2("mod_assets/textures/gui/skill_description/skill_" .. j .. ".dds", w - (1170 * f), MY - 230, 0, 0, 556, 500, 556*f, 500*f)
 						-- Draw icon
-						context.drawImage2("mod_assets/textures/gui/skills.dds", w - (1228*f2), MY - 110 + 16, ((j-1)%13)*75, math.floor((j-1)/13)*75, 75, 75, 75*f3, 75*f3)
+						-- context.drawImage2("mod_assets/textures/gui/skills.dds", w - (1228*f2), MY - 110 + 16, ((j-1)%13)*75, math.floor((j-1)/13)*75, 75, 75, 75*f3, 75*f3)
 						break
 					end	
 				end
@@ -2010,17 +2047,18 @@ defineObject{
 			for entity in Dungeon.getMap(party.level):allEntities() do
 				if entity.monster then
 					local monster = entity.monster
-					if monster and monster.go.poisoned and monster:isAlive() then
-						local champion = party.party:getChampionByOrdinal(monster.go.poisoned:getCausedByChampion())
-						functions.script.hitMonster(monster.go.id, math.random(monster:getHealth() * 0.005, monster:getHealth() * 0.01), "009900", nil, "poison", 1)
-						if monster.go.poisoned:getCausedByChampion() then
-							-- if champion:hasTrait("venomancer") and math.random() <= 0.45 then
-							-- 	champion:regainHealth(math.random(1,5))
-							-- end
+					if monster and monster.go.poisoned and monster:isAlive() and monster.go.poisoned:getCausedByChampion() then
+						local c = monster.go.poisoned:getCausedByChampion()
+						local champion = party.party:getChampionByOrdinal(c)
+						if c then
+							if champion:hasTrait("antivenom") and math.random() <= 0.45 then
+								functions.script.hitMonster(monster.go.id, math.random(monster:getHealth() * 0.005, monster:getHealth() * 0.01), nil, "poison", c)
+								champion:regainHealth( math.min(math.random(1,5) * champion:getLevel() * 0.15, 5) )
+							end
 						end
 						
 						-- Plague spread
-						if monster.go.poisoned:getCausedByChampion() and math.random() <= 0.33 then							
+						if c and math.random() <= 0.33 then							
 							if champion:hasTrait("plague") then
 								local mList = {}
 								for d=0,8 do

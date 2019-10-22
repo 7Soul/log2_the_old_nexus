@@ -345,19 +345,21 @@ function setDefaultParty()
 			champion:trainSkill(skillNames[i], s * -1, false)
 		end
 		-- Remove items
-		for s=1,32 do champion:removeItemFromSlot(s) end		
-		--
-		if champion:hasTrait("mutation") then
-			champion:removeTrait("mutation")
-			print("mutation")
-		end
-		if champion:hasTrait("fast_metabolism") then
-			champion:removeTrait("fast_metabolism")
-			print("fast_metabolism")
-		end
-		if champion:hasTrait("head_hunter") then
-			champion:removeTrait("head_hunter")
-			print("head_hunter")
+		for s=1,32 do champion:removeItemFromSlot(s) end
+		-- Remove traits
+		local invalid_traits = { "fighter","barbarian","knight","rogue","wizard","battle_mage","alchemist","farmer","human",
+		"minotaur","lizardman","insectoid","ratling","skilled","fast_learner","head_hunter","rage",
+		"fast_metabolism","endure_elements","poison_immunity","chitin_armor","quick","mutation","athletic",
+		"agile","healthy","strong_mind","tough","aura","aggressive","evasive","fire_resistant","cold_resistant",
+		"poison_resistant","natural_armor","endurance","weapon_specialization","pack_mule","meditation",
+		"two_handed_mastery","light_armor_proficiency","heavy_armor_proficiency","armor_expert","shield_expert",
+		"staff_defence","improved_alchemy","bomb_expert","backstab","assassin","firearm_mastery","dual_wield",
+		"improved_dual_wield","piercing_arrows","double_throw","reach","uncanny_speed","fire_mastery","air_mastery",
+		"earth_mastery","water_mastery","leadership","nightstalker" }
+		for t = 1,#invalid_traits do
+			if champion:hasTrait(invalid_traits[t]) then
+				champion:removeTrait(invalid_traits[t])
+			end
 		end
 	end
 
@@ -984,7 +986,7 @@ function onFirearmAttack(self, champion, slot)
 			-- print("before", self:getAttackPower())
 			self:setAttackPower(self:getAttackPower() * 2.0)
 			-- print("after", self:getAttackPower())
-		elseif (count % trigger) + 1 == trigger + 1 then
+		elseif (count % trigger) + 1 == 0 then
 			self:setAttackPower(self:getAttackPower() * 3.0)
 		end
 		
@@ -2494,30 +2496,31 @@ end
 
 function stackedPotions(champion, slot, itemBot, itemTop, op)
 	local c = champion:getOrdinal()
-	-- print("stacked potions")
-
-	if op == "increase" then
-		if itemTop then 
-			local data = itemTop.go.potion_stack:getData()
-			if data[1] == nil then print("it's nil") end
-			for i = 1, #data do
-				itemBot.go.potion_stack:insert(data[i]) 
-			end
-			setPerfectPotionGE(itemBot)
-		end
-
-		if itemTop then itemTop.go.potion_stack.remove() end
-		setPerfectPotionGE(itemTop)
-
-	elseif op == "decrease" then
-		if itemBot then
-			if itemTop then -- doesnt trigger when drinking
-				itemTop.go.potion_stack:insert(itemBot.go.potion_stack:getTop()) 
-				setPerfectPotionGE(itemTop)
+	
+	if itemTop.go.potion_stack then
+		if op == "increase" then
+			if itemTop then 
+				local data = itemTop.go.potion_stack:getData()
+				if data[1] == nil then print("it's nil") end
+				for i = 1, #data do
+					itemBot.go.potion_stack:insert(data[i]) 
+				end
+				setPerfectPotionGE(itemBot)
 			end
 
-			itemBot.go.potion_stack:remove()
-			setPerfectPotionGE(itemBot)
+			if itemTop then itemTop.go.potion_stack.remove() end
+			setPerfectPotionGE(itemTop)
+
+		elseif op == "decrease" then
+			if itemBot then
+				if itemTop then -- doesnt trigger when drinking
+					itemTop.go.potion_stack:insert(itemBot.go.potion_stack:getTop()) 
+					setPerfectPotionGE(itemTop)
+				end
+
+				itemBot.go.potion_stack:remove()
+				setPerfectPotionGE(itemBot)
+			end
 		end
 	end
 
@@ -3589,25 +3592,29 @@ end
 -- UI Functions                                                                                      -- 
 -------------------------------------------------------------------------------------------------------
 
-function drawCounterOnHand(context, champion, x, y, value, tooltipTitle, tooltipText)
+function drawCounterOnHand(context, champion, x, y, value, tooltipTitle, tooltipText, lineCount, counters)
 	local c = champion:getOrdinal()
 	local posx, posy = x + 18, y + 28
 	local MX, MY = context.mouseX, context.mouseY
+	print("counters", counters)
+	posy = posy + (counters * 24)
 
 	if value and value ~= 0 then
 		context.font("small")
 		context.color(225, 225, 195, 255)
-		if champion:getItem(ItemSlot.Weapon) then
+		local item1 = champion:getItem(ItemSlot.Weapon)
+		local item2 = champion:getItem(ItemSlot.OffHand)
+		if item1 and (item1.go.meleeattack or item1.go.rangedattack or item1.go.throwattack or item1.go.firearmattack) then
 			context.drawText("" .. value, posx, posy)
 
-		elseif champion:getItem(ItemSlot.OffHand) then
+		elseif item2 and (item2.go.meleeattack or item2.go.rangedattack or item2.go.throwattack or item2.go.firearmattack) then
 			posx = posx + 78
 			context.drawText("" .. value, posx, posy)
 		end
 
 		local val1, val2 = context.button("tooltip"..tooltipTitle, posx - 5, posy - 20, 20, 24)
 		if val2 then
-			functions.script.tooltipWithTitle(context, tooltipTitle, tooltipText, math.floor(MX - (math.min((context.getTextWidth(tooltipText)+21),250) / 2)), math.floor(MY - 24), 2)
+			functions.script.tooltipWithTitle(context, tooltipTitle, tooltipText, math.floor(MX - (math.min((context.getTextWidth(tooltipText)+21),250) / 2)), math.floor(MY - 24), lineCount)
 		end
 	end
 end

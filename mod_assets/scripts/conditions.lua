@@ -262,8 +262,6 @@ defineCondition{
 	description = "Increases critical chance.",
 	hidden = true,
 	tickInterval = 1,
-	onStart = function(self, champion)
-	end,
 	onStop = function(self, champion)
 		local stacks = functions.script.get_c("hunter_crit", champion:getOrdinal())
 		if stacks and stacks > 0 then
