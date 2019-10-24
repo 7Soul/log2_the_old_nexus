@@ -16,7 +16,7 @@ defineObject{
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
 			gfxIndex = 39,
 			weight = 0.5,
-			traits = { "bracers", "upgradable", "frostbound2" },
+			traits = { "bracers", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -25,6 +25,11 @@ defineObject{
 		{
 			class = "Particle",
 			particleSystem = "coldspike_bracelet",
+		},	
+		{
+			class = "Script",
+			name = "effects_script",
+			source = [[data = { ["cold_multi"] = 0.2, } function getData(self) return data end]],
 		}
 	},
 	tags = { "accessory" },
@@ -105,7 +110,7 @@ defineObject{
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
 			gfxIndex = 40,
 			weight = 0.3,
-			traits = { "bracers", "upgradable", "firebound2" },
+			traits = { "bracers", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
@@ -114,6 +119,11 @@ defineObject{
 		{
 			class = "Particle",
 			particleSystem = "forestfire_bracer",
+		},
+		{
+			class = "Script",
+			name = "effects_script",
+			source = [[data = { ["fire_multi"] = 0.2 } function getData(self) return data end]],
 		}
 	},
 	tags = { "accessory" },
@@ -229,16 +239,20 @@ defineObject{
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
 			gfxIndex = 41,
 			weight = 0.7,
-			traits = { "bracers", "upgradable", "shockbound2" },
+			traits = { "bracers", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
 			evasion = -15,
 		},
-		
 		{
 			class = "Particle",
 			particleSystem = "torment_bracer",
+		},
+		{
+			class = "Script",
+			name = "effects_script",
+			source = [[data = { ["shock_multi"] = 0.2 } function getData(self) return data end]],
 		}
 	},
 	tags = { "accessory" },
@@ -339,134 +353,19 @@ defineObject{
 			Adds 10% chance to poison enemies with melee and ranged attacks.]],
 			gfxIndex = 29,
 			weight = 0.5,
-			traits = { "bracers", "upgradable", "venomancer", "earthbound2" },
+			traits = { "bracers", "upgradable", "venomancer" },
 		},
 		{
 			class = "EquipmentItem",
-			protection = -15,
+			protection = -4,
 		},
+		{
+			class = "Script",
+			name = "effects_script",
+			source = [[data = { ["poison_multi"] = 0.2 } function getData(self) return data end]],
+		}
 	},
 	tags = { "accessory" },
-}
-
-defineObject{
-	name = "frostbite_necklace",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/frostbite_necklace.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Frostbite Necklace",
-			description = "This necklace, made out of Ice Lizard teeth, freezes everything it lays on but feels warm to touch.",
-			gameEffect = [[+15 cold resistance to the entire party.]],
-			gfxIndex = 26,
-			weight = 0.2,
-			traits = { "necklace", "upgradable" },
-		},
-		{
-			class = "EquipmentItem",
-			resistCold = 15,
-		},
-	},
-	tags = { "necklace" },
-}
-
-defineObject{
-	name = "fire_torc",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/fire_torc.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Fire Torc",
-			description = "Two metal bands that clamp tightly around the neck. A faint sound of crackling embers can be heard emanating from it.",
-			gameEffect = [[+15 fire resistance to the entire party.]],
-			gfxIndex = 67,
-			weight = 0.2,
-			traits = { "necklace"  },
-		},
-		{
-			class = "EquipmentItem",
-			resistFire = 15,
-		},
-	},
-	tags = { "necklace" },
-}
-
-defineObject{
-	name = "storm_amulet",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/storm_amulet.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Storm Amulet",
-			description = "",
-			gameEffect = [[+15 shock resistance to the entire party.]],
-			gfxIndex = 302,
-			weight = 0.4,
-			traits = { "necklace", "upgradable" },
-		},
-		{
-			class = "EquipmentItem",
-			resistShock = 15,
-		},
-	},
-	tags = { "necklace" },
-}
-
-defineObject{
-	name = "bone_amulet",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/bone_amulet.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Bone Amulet",
-			description = "A primitive amulet made out of bones that are bound together with string.",
-			gameEffect = [[5% chance to recover a pellet when firing with firearms.]],
-			gfxIndex = 65,
-			weight = 0.2,
-			traits = { "necklace", "metal_slug2", "upgradable" },
-		},
-	},
-	tags = { "necklace" },
-}
-
-defineObject{
-	name = "spirit_mirror_pendant",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/spirit_mirror_pendant.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Spirit Mirror Pendant",
-			description = "The memories of countless heroes, long since dead, have been captured in this shiny pendant.",
-			gfxIndex = 74,
-			weight = 0.2,
-			traits = { "necklace", "upgradable" },
-		},
-		{
-			class = "EquipmentItem",
-			expRate = 20,
-		},
-	},
-	tags = { "necklace" },
 }
 
 defineObject{
@@ -481,14 +380,21 @@ defineObject{
 			class = "Item",
 			uiName = "Hardstone Bracelet",
 			description = "A bracelet that the warriors of the hill tribes pass on from generation to generation.",
-			gameEffect = [[Adds a 20% chance to gain +3 Strength +30 Protection for 10 seconds when you get hit.]],
+			gameEffect = [[Gain +2 Protection per 200 health of nearby enemies.]],
 			gfxIndex = 27,
 			weight = 0.3,
 			traits = { "bracers", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
-			protection = 3,
+			strength = 1,
+			vitality = 1,
+			protection = -1,
+			onRecomputeStats = function(self, champion)
+				local bonus = functions.script.get("aggroMonstersHP") or 0
+				bonus = math.floor(bonus / 200)
+				champion:addStatModifier("protection", bonus * 2)
+			end
 		},
 	},
 	tags = { "accessory" },
@@ -562,7 +468,7 @@ defineObject{
 			weight = 0.3,
 			traits = { "bracers", "upgradable" },
 			description = "The roots of this bracelet dig into the arm of its wearer, feeding from its host.",
-			gameEffect = "Food Consumption Rate + 25%",
+			gameEffect = "Food Consumption Rate +25%",
 		},
 		{
 			class = "EquipmentItem",
@@ -659,10 +565,10 @@ defineObject{
 		health = 15,
 		healthRegenerationRate = 10,
 		energyRegenerationRate = 10,
-		resistFire = 2,
-		resistCold = 2,
-		resistShock = 2,
-		resistPoison = 2,
+		resistFire = 5,
+		resistCold = 5,
+		resistShock = 5,
+		resistPoison = 5,
 		},
 	},
 	tags = { "necklace" },	
@@ -682,7 +588,8 @@ defineObject{
 			gfxIndex = 300,
 			weight = 2,
 			traits = { "necklace", "level_up" },
-			description = "A golden ring hanging in a simple leather wound string. Gravity seems to have an unnaturally strong pull on the ring. Faint writing of some unknown language has been masterfully engraved on the outer surface of the ring. You hear ominous whispers seducing you with its power."
+			description = "A golden ring hanging in a simple leather wound string. Gravity seems to have an unnaturally strong pull on the ring. Faint writing of some unknown language has been masterfully engraved on the outer surface of the ring. You hear ominous whispers seducing you with its power.",
+			gameEffect = [[+5% Damage.]],
 		},
 		{
 			class = "Particle",
@@ -837,35 +744,150 @@ defineObject{
 	tags = { "necklace" },
 }
 
--- Cloaks
 
 defineObject{
-	name = "huntsman_cloak",
+	name = "frostbite_necklace",
 	baseObject = "base_item",
 	components = {
 		{
 			class = "Model",
-			model = "assets/models/items/huntsman_cloak.fbx",
+			model = "assets/models/items/frostbite_necklace.fbx",
 		},
 		{
 			class = "Item",
-			uiName = "Huntsman Cloak",
-			gfxIndex = 28,
-			weight = 0.8,
-			traits = { "cloak" },
-			description = "",
-			gameEffect = [[Increases damage with Missile Weapons by 10%.]],
+			uiName = "Frostbite Necklace",
+			description = "This necklace, made out of Ice Lizard teeth, freezes everything it lays on but feels warm to touch.",
+			gameEffect = [[+15 cold resistance to the entire party.]],
+			gfxIndex = 26,
+			weight = 0.2,
+			traits = { "necklace", "upgradable", "party_effect" },
 		},
 		{
 			class = "EquipmentItem",
-			evasion = 4,
-			dexterity = 1,
-			vitality = 1,
+			resistCold = 15,
 		},
+		{
+			class = "Script",
+			name = "effects_script",
+			source = [[data = { ["resist_cold"] = 15 } function getData(self) return data end]],
+		}
 	},
-	tags = { "cloak" },
+	tags = { "necklace" },
 }
 
+defineObject{
+	name = "fire_torc",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/fire_torc.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Fire Torc",
+			description = "Two metal bands that clamp tightly around the neck. A faint sound of crackling embers can be heard emanating from it.",
+			gameEffect = [[+15 fire resistance to the entire party.]],
+			gfxIndex = 67,
+			weight = 0.2,
+			traits = { "necklace"  },
+		},
+		{
+			class = "EquipmentItem",
+			resistFire = 15,
+		},
+		{
+			class = "Script",
+			name = "effects_script",
+			source = [[data = { ["resist_fire"] = 15 } function getData(self) return data end]],
+		}
+	},
+	tags = { "necklace" },
+}
+
+defineObject{
+	name = "storm_amulet",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/storm_amulet.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Storm Amulet",
+			description = "An arcane amulet that was struck by lightning several times. It can be used as a compass that points to strong magic energies.",
+			gameEffect = [[+15 shock resistance to the entire party.]],
+			gfxIndex = 302,
+			weight = 0.4,
+			traits = { "necklace", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			resistShock = 15,
+		},
+		{
+			class = "Script",
+			name = "effects_script",
+			source = [[data = { ["resist_shock"] = 15 } function getData(self) return data end]],
+		}
+	},
+	tags = { "necklace" },
+}
+
+defineObject{
+	name = "bone_amulet",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/bone_amulet.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Bone Amulet",
+			description = "A primitive amulet made out of bones that are bound together with string.",
+			gameEffect = [[-5 to all defenses.
+			+4% Blocking.
+			+20% Ranged Damage.]],
+			gfxIndex = 65,
+			weight = 0.2,
+			traits = { "necklace", "upgradable" },
+		},
+		{
+			class = "Script",
+			name = "effects_script",
+			source = [[data = { ["protection"] = -5, ["evasion"] = -5, ["resist_fire"] = -5, ["resist_cold"] = -5, ["resist_shock"] = -5, ["resist_poison"] = -5, ["block_multi"] = 0.04, ["ranged_multi"] = 0.2 } function getData(self) return data end]],
+		}
+	},
+	tags = { "necklace" },
+}
+
+defineObject{
+	name = "spirit_mirror_pendant",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/spirit_mirror_pendant.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Spirit Mirror Pendant",
+			description = "The memories of countless heroes, long since dead, have been captured in this shiny pendant.",
+			gfxIndex = 74,
+			weight = 0.2,
+			traits = { "necklace", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			expRate = 20,
+		},
+	},
+	tags = { "necklace" },
+}
+
+-- Cloaks
 defineObject{
 	name = "tattered_cloak",
 	baseObject = "base_item",
@@ -885,6 +907,38 @@ defineObject{
 			class = "EquipmentItem",
 			evasion = 2,
 		},
+	},
+	tags = { "cloak" },
+}
+
+defineObject{
+	name = "huntsman_cloak",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/huntsman_cloak.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Huntsman Cloak",
+			gfxIndex = 28,
+			weight = 0.8,
+			traits = { "cloak" },
+			description = "",
+			gameEffect = [[+10% Ranged damage.]],
+		},
+		{
+			class = "EquipmentItem",
+			evasion = 4,
+			dexterity = 1,
+			vitality = 1,
+		},
+		{
+			class = "Script",
+			name = "effects_script",
+			source = [[data = { ["ranged_multi"] = 0.1, ["upgraded_ranged_multi"] = 0.2 } function getData(self) return data end]],
+		}
 	},
 	tags = { "cloak" },
 }
@@ -1157,13 +1211,18 @@ defineObject{
 			Cold spells freeze for 1 more second.]],
 			gfxIndex = 52,
 			weight = 0.4,
-			traits = { "gloves", "coldbound1" },
+			traits = { "gloves" },
 		},
 		{
 			class = "EquipmentItem",
 			protection = 1,
 			resistCold = 5,
 		},
+		{
+			class = "Script",
+			name = "effects_script",
+			source = [[data = { ["cold_multi"] = 0.05 } function getData(self) return data end]],
+		}
 	},
 	tags = { "gloves" },
 }

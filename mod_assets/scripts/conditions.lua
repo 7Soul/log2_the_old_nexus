@@ -668,27 +668,27 @@ defineCondition{
 
 -- Items
 
-defineCondition{
-	name = "hardstone",
-	uiName = "Hardstone Bracelet",
-	description = "",
-	icon = 1,
-	iconAtlas = "mod_assets/textures/gui/conditions.dds",
-	beneficial = true,
-	harmful = false,
-	hidden = true,
-	tickInterval = 1,
-	onStart = function(self, champion)
-	end,
-	onStop = function(self, champion)
-	end,
-	onRecomputeStats = function(self, champion)
-		champion:addStatModifier("strength", 3)
-		champion:addStatModifier("protection", 30)
-	end,
-	onTick = function(self, champion)
-	end,	
-}
+-- defineCondition{
+-- 	name = "hardstone",
+-- 	uiName = "Hardstone Bracelet",
+-- 	description = "",
+-- 	icon = 1,
+-- 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
+-- 	beneficial = true,
+-- 	harmful = false,
+-- 	hidden = true,
+-- 	tickInterval = 1,
+-- 	onStart = function(self, champion)
+-- 	end,
+-- 	onStop = function(self, champion)
+-- 	end,
+-- 	onRecomputeStats = function(self, champion)
+-- 		champion:addStatModifier("strength", 3)
+-- 		champion:addStatModifier("protection", 30)
+-- 	end,
+-- 	onTick = function(self, champion)
+-- 	end,	
+-- }
 
 defineCondition{
 	name = "spidersilk",

@@ -437,14 +437,13 @@ defineTrait{
 ---------------------------------------------------------------------------------
 
 defineTrait{
-	name = "human",
-	uiName = "Human",
-	icon = 37,
-	description = "As a human you belong to the most populous sentient race in the known world. You are very adaptable and can excel in all professions.\n - You gain experience points 10% faster.",
+	name = "common",
+	uiName = "Common",
+	hidden = true,
+	description = "",
+	icon = 1,
 	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			champion:addStatModifier("exp_rate", 10)
-			local item = nil
+		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 1 and functions and functions.script then
 			local item = nil
 			for i=1,2 do
 				item = champion:getItem(i)
@@ -455,6 +454,25 @@ defineTrait{
 					if item.go.equipmentitem:getResistPoison() then champion:addStatModifier("resist_poison", item.go.equipmentitem:getResistPoison()) end
 				end
 			end
+
+			local effects = functions.script.championItemExtraEffects(champion)
+			for i,v in pairs(effects) do
+				if not string.match(i, "multi") then
+					champion:addStatModifier(i, v)
+				end
+			end
+		end
+	end,
+}
+
+defineTrait{
+	name = "human",
+	uiName = "Human",
+	icon = 37,
+	description = "As a human you belong to the most populous sentient race in the known world. You are very adaptable and can excel in all professions.\n - You gain experience points 10% faster.",
+	onRecomputeStats = function(champion, level)
+		if level > 0 then
+			champion:addStatModifier("exp_rate", 10)
 		end
 	end,
 }
@@ -467,16 +485,6 @@ defineTrait{
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			champion:addStatModifier("food_rate", 25)
-			local item = nil
-			for i=1,2 do
-				item = champion:getItem(i)
-				if item and (item.go.firearmattack or item.go.meleeattack or item.go.throwattack or item.go.rangedattack) and item.go.equipmentitem then 
-					if item.go.equipmentitem:getResistFire() then champion:addStatModifier("resist_fire", item.go.equipmentitem:getResistFire()) end
-					if item.go.equipmentitem:getResistShock() then champion:addStatModifier("resist_shock", item.go.equipmentitem:getResistShock()) end
-					if item.go.equipmentitem:getResistCold() then champion:addStatModifier("resist_cold", item.go.equipmentitem:getResistCold()) end
-					if item.go.equipmentitem:getResistPoison() then champion:addStatModifier("resist_poison", item.go.equipmentitem:getResistPoison()) end
-				end
-			end
 		end
 	end,
 }
@@ -492,17 +500,6 @@ defineTrait{
 			champion:addStatModifier("resist_cold", 12)
 			champion:addStatModifier("resist_poison", 12)
 			champion:addStatModifier("resist_shock", 12)
-
-			local item = nil
-			for i=1,2 do
-				item = champion:getItem(i)
-				if item and (item.go.firearmattack or item.go.meleeattack or item.go.throwattack or item.go.rangedattack) and item.go.equipmentitem then 
-					if item.go.equipmentitem:getResistFire() then champion:addStatModifier("resist_fire", item.go.equipmentitem:getResistFire()) end
-					if item.go.equipmentitem:getResistShock() then champion:addStatModifier("resist_shock", item.go.equipmentitem:getResistShock()) end
-					if item.go.equipmentitem:getResistCold() then champion:addStatModifier("resist_cold", item.go.equipmentitem:getResistCold()) end
-					if item.go.equipmentitem:getResistPoison() then champion:addStatModifier("resist_poison", item.go.equipmentitem:getResistPoison()) end
-				end
-			end
 		end
 	end,
 }
@@ -514,16 +511,6 @@ defineTrait{
 	description = "As an insectoid, your thoughts are completely alien to other races. Your knowledge of the arcane is unrivaled. Insectoids come in many shapes and sizes but most often their bodies are covered with a thick shell.\n- Your chance of getting body parts injured is reduced by 50%.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			local item = nil
-			for i=1,2 do
-				item = champion:getItem(i)
-				if item and (item.go.firearmattack or item.go.meleeattack or item.go.throwattack or item.go.rangedattack) and item.go.equipmentitem then 
-					if item.go.equipmentitem:getResistFire() then champion:addStatModifier("resist_fire", item.go.equipmentitem:getResistFire()) end
-					if item.go.equipmentitem:getResistShock() then champion:addStatModifier("resist_shock", item.go.equipmentitem:getResistShock()) end
-					if item.go.equipmentitem:getResistCold() then champion:addStatModifier("resist_cold", item.go.equipmentitem:getResistCold()) end
-					if item.go.equipmentitem:getResistPoison() then champion:addStatModifier("resist_poison", item.go.equipmentitem:getResistPoison()) end
-				end
-			end
 		end
 	end,
 	onReceiveCondition = function(champion, cond, level)
@@ -540,16 +527,6 @@ defineTrait{
 	description = "As a ratling you may seem weak and disease ridden on the surface, but you are actually one of the most adaptable and hardy creatures in the world. You are a hoarder by nature and greatly enjoy fiddling with mechanical contraptions.\n- You are immune to diseases.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			local item = nil
-			for i=1,2 do
-				item = champion:getItem(i)
-				if item and (item.go.firearmattack or item.go.meleeattack or item.go.throwattack or item.go.rangedattack) and item.go.equipmentitem then 
-					if item.go.equipmentitem:getResistFire() then champion:addStatModifier("resist_fire", item.go.equipmentitem:getResistFire()) end
-					if item.go.equipmentitem:getResistShock() then champion:addStatModifier("resist_shock", item.go.equipmentitem:getResistShock()) end
-					if item.go.equipmentitem:getResistCold() then champion:addStatModifier("resist_cold", item.go.equipmentitem:getResistCold()) end
-					if item.go.equipmentitem:getResistPoison() then champion:addStatModifier("resist_poison", item.go.equipmentitem:getResistPoison()) end
-				end
-			end			
 		end
 	end,
 	onReceiveCondition = function(champion, cond, level)

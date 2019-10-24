@@ -944,9 +944,9 @@ defineObject{
 			end
 
 			if hand1 or hand2 then
-				print("quick potion on")
+				-- print("quick potion on")
 			else
-				print("quick potion off")
+				-- print("quick potion off")
 			end
 
 			local multi = 1
@@ -989,38 +989,38 @@ defineObject{
 				end
 			end
 			
+			if context.keyDown("shift") and functions.script.keypressDelayGet() == 0 then
 			-- Shift + U -> Advance day time by 1/6th
-			if context.keyDown("shift") and context.keyDown("U") and functions.script.keypressDelayGet() == 0 then
+			if context.keyDown("U") then
 				GameMode.setTimeOfDay((GameMode.getTimeOfDay() + 0.33) % 2)
 				print("Time of Day set to " .. GameMode.getTimeOfDay())
 				functions.script.keypressDelaySet(20)
 			end
 			
 			-- Shift + M -> Reveal current map
-			if context.keyDown("shift") and context.keyDown("M") and functions.script.keypressDelayGet() == 0 then
+			if context.keyDown("M") then
 				functions2.script.revealMap(false)
+				print("Map revealed")
 				functions.script.keypressDelaySet(20)
 			end
 
-			-- Shift + L -> Level up and apply healing
-			if context.keyDown("shift") and context.keyDown("L") and functions.script.keypressDelayGet() == 0 then
+			-- Shift + L -> Level up
+			if context.keyDown("L") then
 				for i = 1,4 do
 					party.party:getChampion(i):levelUp()
-					-- party.party:getChampion(i):setConditionValue("healing_potion", 16)
-					-- party.party:getChampion(i):setConditionValue("energy_potion", 16)
 					functions.script.keypressDelaySet(20)
 				end
 			end
 
 			-- Shift + X -> Moves the party 1 square forward
-			if context.keyDown("shift") and context.keyDown("X") and functions.script.keypressDelayGet() == 0 then
+			if context.keyDown("X") then
 				local dx,dy = getForward(party.facing)
 				party:setPosition(party.x + dx, party.y + dy, party.facing, party.elevation, party.level)
 				functions.script.keypressDelaySet(20)
 			end
 
 			-- Shift + K -> Kills monster in front of party
-			if context.keyDown("shift") and context.keyDown("K") and functions.script.keypressDelayGet() == 0 then
+			if context.keyDown("K") then
 				local dx,dy = getForward(party.facing)
 				for e in Dungeon.getMap(party.level):entitiesAt(party.x + dx, party.y + dy) do
 					if e.monster and e.monster:isAlive() then
@@ -1031,7 +1031,7 @@ defineObject{
 			end
 
 			-- Shift + Z -> Toggles door in front of party
-			if context.keyDown("shift") and context.keyDown("Z") and functions.script.keypressDelayGet() == 0 then
+			if context.keyDown("Z") then
 				functions.script.keypressDelaySet(20)
 				local dx,dy = getForward(party.facing)
 				for e in Dungeon.getMap(party.level):entitiesAt(party.x, party.y) do
@@ -1047,7 +1047,7 @@ defineObject{
 			end
 
 			-- Shift + H -> Full Heal party
-			if context.keyDown("shift") and context.keyDown("H") and functions.script.keypressDelayGet() == 0 then
+			if context.keyDown("H") then
 				local negative_conditions = { 
 					"cursed",
 					"diseased",
@@ -1080,6 +1080,7 @@ defineObject{
 					playSound("heal_party")
 					functions.script.keypressDelaySet(20)
 				end
+			end
 			end
 
 			-- if context.keyDown("V") and functions.script.keypressDelayGet() == 0 then
@@ -2201,6 +2202,7 @@ defineObject{
 				
 				-- Counts monsters that can see the player
 				local aggroMonsters = 0
+				local aggroMonstersHP = 0
 				for entity in Dungeon.getMap(party.level):allEntities() do
 					if entity.monster then
 						local monster = entity.monster
@@ -2211,6 +2213,7 @@ defineObject{
 
 						if entity.brain.seesParty and entity.brain.partyOnLevel then
 							aggroMonsters = aggroMonsters + 1
+							aggroMonstersHP = aggroMonstersHP + entity.monster:getHealth()
 						end
 						-- print(entity.name, "sees party", entity.brain.seesParty)
 						-- print(entity.name, "detected timer", entity.detectedtimer)
@@ -2218,6 +2221,7 @@ defineObject{
 				end
 				-- print("aggro count", aggroMonsters)
 				functions.script.set("aggroMonsters", aggroMonsters)
+				functions.script.set("aggroMonstersHP", aggroMonstersHP)
 			end
 
 			for i=1,4 do

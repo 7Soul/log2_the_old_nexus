@@ -328,6 +328,7 @@ function teststart()
 			local bonus = 1 + math.floor(party.party:getChampionByOrdinal(i):getLevel() / 3)
 			set_c("night_stalker", i, bonus)
 		end
+		if not champion:hasTrait("common") then champion:addTrait("common") end
 	end
 	findCrystalArea()
 end
@@ -2390,7 +2391,6 @@ end
 -- Returns the multiplier for elemental damage given by equipment
 function getEquippedMultiBonus(champion, type, useJoeBonus)
 	local multi = 0
-	local trait = { ["poison"] = "earthbound", ["fire"] = "firebound", ["cold"] = "coldbound" , ["shock"] = "shockbound", ["neutral"] = "neutralbound" }
 
 	-- Armor set bonuses
 	if type == "fire" and champion:isArmorSetEquipped("meteor") then
@@ -2401,12 +2401,15 @@ function getEquippedMultiBonus(champion, type, useJoeBonus)
 		local item = champion:getItem(slot)
 		local isHandItem = isHandItem(item, slot)
 		if item and isHandItem then
-			for i=1,3 do
-				if item:hasTrait(trait[type] .. i) then
-					multi = multi + (i * 0.1)
+			if item.go.effects_script then
+				local effects = item.go.effects_script:getData()
+				for i,v in pairs(effects) do
+					if i == (type .. "_multi") then
+						multi = multi + v
+					end
 				end
-			end	
-
+			end
+			
 			if item.go.equipmentitem and champion:hasTrait("average_joe") and type ~= "neutral" then
 				if useJoeBonus then -- prevents recursion
 					local resist = { 
@@ -2602,11 +2605,11 @@ function onChampionTakesDamage(party, champion, damage, damageType) -- champion 
 
 	-- Items
 	-- Hardstone Bracelet
-	if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "hardstone_bracelet" then
-		if math.random() <= 0.2 then
-			champion:setConditionValue("hardstone", 10)
-		end
-	end
+	-- if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "hardstone_bracelet" then
+	-- 	if math.random() <= 0.2 then
+	-- 		champion:setConditionValue("hardstone", 10)
+	-- 	end
+	-- end
 
 	-- Scaled Cloak
 	if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "scaled_cloak" then
@@ -2654,13 +2657,14 @@ function isHandItem(item, slot)
 			else
 				return false -- item in hand is not a weapon
 			end
-		else
-			if slot ~= ItemSlot.Weapon2 and slot ~= ItemSlot.OffHand2 then
-				return true -- slot isn't a hand slot and not a swapped slot
-			end
+		elseif slot ~= ItemSlot.Weapon2 and slot ~= ItemSlot.OffHand2 then
+			return true -- slot isn't a hand slot and not a swapped slot
+		else 
+			return true
 		end
+	else
+		return false
 	end
-	return true
 end
 
 -- For item traits that can be converted, we check with this function instead of item:hasTrait()
@@ -2691,7 +2695,48 @@ function anyChampionTrait(trait)
 	return false
 end
 
+function anyChampionItem(name)
+	for i=1,4 do
+		local champion = party.party:getChampionByOrdinal(i)
+		for j=1,ItemSlot.Bracers do
+			local item = champion:getItem(j)
+			local isHandItem = isHandItem(item, j)
+			if item and isHandItem then
+				if item.go.name == name then return true end
+			end
+		end
+	end
+	return false
+end
 
+function championItemExtraEffects(champion)
+	local effects = { }
+
+	-- Add effects for champion
+	for j=1,ItemSlot.Bracers do
+		local item = champion:getItem(j)
+		local isHandItem = isHandItem(item, j)
+		if item and isHandItem and item.go.effects_script then
+			local item_effects = item.go.effects_script:getData()
+			effects = merge(effects, item_effects)
+		end
+	end
+
+	-- Add party effects
+	for i=1,4 do
+		champion = party.party:getChampionByOrdinal(i)
+		for j=1,ItemSlot.Bracers do
+			local item = champion:getItem(j)
+			local isHandItem = isHandItem(item, j)
+			if item and isHandItem and item:hasTrait("party_effect") and item.go.effects_script then
+				local item_effects = item.go.effects_script:getData()
+				effects = merge(effects, item_effects)
+			end
+		end
+	end
+
+	return effects
+end
 
 -------------------------------------------------------------------------------------------------------
 -- Status Effects Functions                                                                          --    
@@ -3112,9 +3157,16 @@ function empowerAttackType(champion, attackType, base, return_only, tier)
 				end
 			end
 		end
+		
+		local itemThrowingBonus = getEquippedMultiBonus(champion, "melee", true)
+		f = f + (itemThrowingBonus * base)
 
 	elseif attackType == "spell" then
 		f = f * ((champion:getCurrentStat("willpower") * 0.02) + 1)
+
+		-- Items
+		local itemThrowingBonus = getEquippedMultiBonus(champion, "spell", true)
+		f = f + (itemThrowingBonus * base)
 
 		-- Body and Mind bonus based on vitality
 		if champion:hasTrait("persistence") then
@@ -3144,6 +3196,10 @@ function empowerAttackType(champion, attackType, base, return_only, tier)
 			f = f + (0.25 * base)
 		end
 
+		-- Items
+		local itemThrowingBonus = getEquippedMultiBonus(champion, "ranged", true)
+		f = f + (itemThrowingBonus * base)
+
 		-- Item bonuses
 
 	elseif attackType == "missile" then
@@ -3151,22 +3207,27 @@ function empowerAttackType(champion, attackType, base, return_only, tier)
 		f = f + ((champion:getSkillLevel("ranged_weapons") * 0.2) * base)
 
 		-- Item bonuses
-		-- Huntsman Cloak
-		if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).name == "huntsman_cloak" then
-			self:setAttackPower(self:getAttackPower() * (champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 1.2 or 1.1))
-		end
 
 	elseif attackType == "throwing" then
 		-- Skill bonuses
 		f = f + ((champion:getSkillLevel("throwing_weapons") * 0.2) * base)
 
+
 	elseif attackType == "light_weapons" then
 		-- Skill bonuses
 		f = f + ((champion:getSkillLevel("light_weapons_c") * 0.2) * base)
 
+		-- Items
+		local itemThrowingBonus = getEquippedMultiBonus(champion, "light_weapons", true)
+		f = f + (itemThrowingBonus * base)
+
 	elseif attackType == "heavy_weapons" then
 		-- Skill bonuses
 		f = f + ((champion:getSkillLevel("heavy_weapons_c") * 0.2) * base)
+
+		-- Items
+		local itemThrowingBonus = getEquippedMultiBonus(champion, "heavy_weapons", true)
+		f = f + (itemThrowingBonus * base)
 
 		-- Power Grip
 		if champion:hasTrait("power_grip") and getTrait(champion, item, "heavy_weapon") then
@@ -3175,6 +3236,9 @@ function empowerAttackType(champion, attackType, base, return_only, tier)
 		end	
 
 	elseif attackType == "firearms" then
+		-- Items
+		local itemThrowingBonus = getEquippedMultiBonus(champion, "firearms", true)
+		f = f + (itemThrowingBonus * base)
 
 	elseif attackType == "dual_wielding" then
 		if champion:getClass() == "assassin_class" then
@@ -3182,6 +3246,10 @@ function empowerAttackType(champion, attackType, base, return_only, tier)
 		else
 			f = f * 0.6
 		end
+
+		-- Items
+		local itemThrowingBonus = getEquippedMultiBonus(champion, "dual_wielding", true)
+		f = f + (itemThrowingBonus * base)
 
 
 	end
@@ -3500,9 +3568,17 @@ function getBlockChance(champion)
 	if (item1 and item1:hasTrait("shield")) or (item2 and item2:hasTrait("shield")) or isArmorSetEquipped(champion, "chitin") then
 		chance = chance + 0.02
 		chance = chance + champion:getSkillLevel("block") / 50
+
+		-- Items
+		local itemBlockBonus = getEquippedMultiBonus(champion, "block", true)
+		chance = chance + itemBlockBonus
+
+		-- Skills
 		if champion:hasTrait("block") then chance = chance + 0.08 end
 		if champion:hasCondition("ancestral_charge") then chance = chance * 1.5 end
+		
 	end
+
 	return chance
 end
 

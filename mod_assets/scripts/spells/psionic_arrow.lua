@@ -28,17 +28,19 @@ defineObject{
 			velocity = 10,
 			radius = 0.1,
 			onProjectileHit = function(self, what, entity)
+				local champion = party.party:getChampionByOrdinal(self:getCastByChampion())
 				local hit = self.go:spawn("psionic_arrow_blast")
 				hit.tiledamager:setCastByChampion(self:getCastByChampion())
 				local damage = self.go.data:get("attackPower")
+				local willpower = champion:getCurrentStat("willpower") * 0.033
+				damage = damage * willpower
 				damage = damage * (0.5 + math.random())
-				damage = damage * 0.33
 				local protection = 0
-				if entity and entity.monster ~= nil then
-					protection = entity.monster:getProtection()
+				if entity and entity.monster then
+					protection = entity.monster:getProtection() or 0
 					protection = protection * (0.5 + math.random())
 				end				
-				damage = damage - (protection / 2)
+				damage = math.min(damage - (protection / 2), 1)
 				hit.tiledamager:setAttackPower(math.ceil(damage))
 			end
 		},

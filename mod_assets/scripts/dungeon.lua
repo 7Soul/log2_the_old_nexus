@@ -3909,6 +3909,15 @@ blooddrop_cap_9.detectedtimer:setTimerInterval(0)
 blooddrop_cap_9.detectedtimer:setDisableSelf(false)
 blooddrop_cap_9.detectedtimer:setTriggerOnStart(true)
 blooddrop_cap_9.detectedtimer:setCurrentLevelOnly(true)
+spawn("bone_amulet",9,9,1,0,"bone_amulet_1")
+bone_amulet_1.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+bone_amulet_1.effects_script:setSource("data = { [\"protection\"] = -5, [\"evasion\"] = -5, [\"resist_fire\"] = -5, [\"resist_cold\"] = -5, [\"resist_shock\"] = -5, [\"resist_poison\"] = -5, [\"block_multi\"] = 0.04, [\"ranged_multi\"] = 0.2 } function getData(self) return data end")
+bone_amulet_1.detectedtimer:setTimerInterval(0)
+bone_amulet_1.detectedtimer:setDisableSelf(false)
+bone_amulet_1.detectedtimer:setTriggerOnStart(true)
+bone_amulet_1.detectedtimer:setCurrentLevelOnly(true)
 
 --- level 3 ---
 
@@ -5959,6 +5968,7 @@ end\
 function set(self,name,value)\
 \9self.data[name] = value\
 end")
+coldspike_bracelet_1.effects_script:setSource("data = { [\"cold_multi\"] = 0.2, } function getData(self) return data end")
 coldspike_bracelet_1.detectedtimer:setTimerInterval(0)
 coldspike_bracelet_1.detectedtimer:setDisableSelf(false)
 coldspike_bracelet_1.detectedtimer:setTriggerOnStart(true)
@@ -5971,6 +5981,7 @@ end\
 function set(self,name,value)\
 \9self.data[name] = value\
 end")
+forestfire_bracer_1.effects_script:setSource("data = { [\"fire_multi\"] = 0.2 } function getData(self) return data end")
 forestfire_bracer_1.detectedtimer:setTimerInterval(0)
 forestfire_bracer_1.detectedtimer:setDisableSelf(false)
 forestfire_bracer_1.detectedtimer:setTriggerOnStart(true)
@@ -6007,6 +6018,7 @@ end\
 function set(self,name,value)\
 \9self.data[name] = value\
 end")
+serpent_bracer_1.effects_script:setSource("data = { [\"poison_multi\"] = 0.2 } function getData(self) return data end")
 serpent_bracer_1.detectedtimer:setTimerInterval(0)
 serpent_bracer_1.detectedtimer:setDisableSelf(false)
 serpent_bracer_1.detectedtimer:setTriggerOnStart(true)
@@ -6031,6 +6043,7 @@ end\
 function set(self,name,value)\
 \9self.data[name] = value\
 end")
+torment_bracer_1.effects_script:setSource("data = { [\"shock_multi\"] = 0.2 } function getData(self) return data end")
 torment_bracer_1.detectedtimer:setTimerInterval(0)
 torment_bracer_1.detectedtimer:setDisableSelf(false)
 torment_bracer_1.detectedtimer:setTriggerOnStart(true)
@@ -6151,6 +6164,7 @@ end\
 function set(self,name,value)\
 \9self.data[name] = value\
 end")
+nomad_mittens_2.effects_script:setSource("data = { [\"cold_multi\"] = 0.05 } function getData(self) return data end")
 nomad_mittens_2.detectedtimer:setTimerInterval(0)
 nomad_mittens_2.detectedtimer:setDisableSelf(false)
 nomad_mittens_2.detectedtimer:setTriggerOnStart(true)
@@ -11072,6 +11086,7 @@ nomad_mittens_1.data:setSource("\9\9\9\9data = {}\
 \9\9\9\9\9self.data[name] = value\
 \9\9\9\9end\
 \9\9\9")
+nomad_mittens_1.effects_script:setSource("data = { [\"cold_multi\"] = 0.05 } function getData(self) return data end")
 nomad_mittens_1.detectedtimer:setTimerInterval(0)
 nomad_mittens_1.detectedtimer:setDisableSelf(false)
 nomad_mittens_1.detectedtimer:setTriggerOnStart(true)

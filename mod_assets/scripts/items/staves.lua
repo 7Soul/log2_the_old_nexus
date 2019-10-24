@@ -44,7 +44,7 @@ defineObject{
 			gfxIndexPowerAttack = 452,
 			impactSound = "impact_blunt",
 			gameEffect = "Neutral spells deal 20% more damage",
-			traits = { "orb", "neutralbound2" },
+			traits = { "orb" },
 			weight = 2.0,
 			secondaryAction = "light",
 		},
@@ -66,6 +66,11 @@ defineObject{
 			power = 3,
 			requirements = { "concentration", 1 },
 		},
+		{
+			class = "Script",
+			name = "effects_script",
+			source = [[data = { ["neutral_multi"] = 0.2 } function getData(self) return data end]],
+		}
 	},
 	tags = { "staves" },
 }
@@ -87,7 +92,7 @@ defineObject{
 			impactSound = "impact_blunt",
 			weight = 3.3,
 			gameEffect = "Poison spells deal 20% more damage",
-			traits = { "earthbound2", "orb" },
+			traits = { "orb" },
 			secondaryAction = "poisonBolt",
 		},
 		{
@@ -110,6 +115,11 @@ defineObject{
 			power = 3,
 			requirements = { "concentration", 2 },
 		},
+		{
+			class = "Script",
+			name = "effects_script",
+			source = [[data = { ["poison_multi"] = 0.2 } function getData(self) return data end]],
+		}
 	},
 	tags = { "staves" },
 }
@@ -130,7 +140,7 @@ defineObject{
 			impactSound = "impact_blunt",
 			achievement = "find_zhanduls_orb",
 			weight = 2.5,
-			traits = { "orb", "firebound2" },
+			traits = { "orb" },
 			gameEffect = "Fire spells deal 20% more damage.",
 			secondaryAction = "fireball",
 		},
@@ -152,6 +162,11 @@ defineObject{
 			spell = "fireball",
 			power = 5,
 		},
+		{
+			class = "Script",
+			name = "effects_script",
+			source = [[data = { ["fire_multi"] = 0.2 } function getData(self) return data end]],
+		}
 	},
 	tags = { "staves" },
 }

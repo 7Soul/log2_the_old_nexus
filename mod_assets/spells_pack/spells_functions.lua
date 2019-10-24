@@ -50,8 +50,7 @@ defOrdered =
 		if item1 then
 			if item1.go.rangedattack or item1.go.throwattack then
 				local dmg = functions.script.getDamage(champion, ItemSlot.Weapon)
-				local acc = functions.script.getAccuracy(champion, ItemSlot.Weapon)
-				base = ((dmg[1] + dmg[2]) / 2) + acc
+				base = ((dmg[1] + dmg[2]) / 2)
 			end
 		end
 		
