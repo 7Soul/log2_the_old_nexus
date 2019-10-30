@@ -27,8 +27,8 @@ defineCharClass{
 ---------------------------------------
 
 defineCharClass{
-	name = "corsair",
-	uiName = "Corsair",
+	name = "assassin_class",
+	uiName = "Assassin",
 	optionalTraits = 1,
 }
 
@@ -39,8 +39,14 @@ defineCharClass{
 }
 
 defineCharClass{
+	name = "corsair",
+	uiName = "Corsair",
+	optionalTraits = 1,
+}
+
+defineCharClass{
 	name = "monk",
-	uiName = "Champion of Light",
+	uiName = "Champion",
 	optionalTraits = 1,
 }
 
@@ -48,18 +54,6 @@ defineCharClass{
 	name = "druid",
 	uiName = "Druid",
 	traits = { "hand_caster" },
-	optionalTraits = 1,
-}
-
-defineCharClass{
-	name = "stalker",
-	uiName = "Spell Thief",
-	optionalTraits = 1,
-}
-
-defineCharClass{
-	name = "assassin_class",
-	uiName = "Assassin",
 	optionalTraits = 1,
 }
 
@@ -73,6 +67,12 @@ defineCharClass{
 defineCharClass{
 	name = "hunter",
 	uiName = "Hunter",
+	optionalTraits = 1,
+}
+
+defineCharClass{
+	name = "stalker",
+	uiName = "Spell Thief",
 	optionalTraits = 1,
 }
 

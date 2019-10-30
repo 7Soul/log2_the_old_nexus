@@ -1,316 +1,12 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>The Old Nexus - Classes and Skills list</title>
-<style>
-
-body {
-	background-color: #666;
-	/* background-color: rgb(255, 0, 221); */
-	font-family: 'Palatino Linotype';
-	font-size: 18px;
-	font-weight: bold;
-	letter-spacing: 0.2px;
-	color: white;
-	padding: 0;
-	margin: 0;
-	text-shadow:
-     -1px -1px 0 #333,  
-      1px -1px 0 #333,
-      -1px 1px 0 #333,
-       1px 1px 0 #333;
-	display: flex;
-	flex-wrap: wrap;
-	overflow-x: hidden;
-}
-
-.main {
-	border-radius: 8px;
-	border: solid 2px rgba(255,255,255,0.5);
-	background-color: rgba(0,0,0,0.7);
-	width: 549px;
-	min-width: 549px;
-	height: fit-content;
-	position:relative;
-	padding-bottom: 4px;
-	margin: 10px auto;
-}
-
-h1 {
-	clear:both;
-	display:block;
-	width: 100%;
-	text-align: center;
-}
-
-.main h1 {
-	clear:none;
-	text-align: left;
-	font-size: 24px;
-	display: block;
-	margin: 0;
-	margin-left: 105px;
-	margin-bottom: 0;
-	padding-top: 16px;
-}
-
-h2 {
-	font-size: 18px;
-	display: block;
-	margin-left: 105px;
-	margin-top: 0;
-	color: #a2b7ce;
-	padding-right: 8px;
-}
-
-.main_trait h3 {
-	color: rgb(142, 146, 151);
-	font-size: 17px;
-	display: block;
-	margin-left: 18px;
-	margin-top: 4px;
-	padding-right: 8px;
-	font-style: italic; 
-	/* font-variant: italic; */
-}
-
-.main_trait h3::before {
-	color: rgb(107, 111, 117);
-	content: "\"";
-}
-
-.main_trait h3::after {
-	color: rgb(107, 111, 117);
-	content: "\"";
-}
-
-hr {
-	border: none;
-	border-top: solid 2px gray;
-	margin: 0 16px;
-}
-
-hr::after {
-	content: "Perks";
-    display: inline;
-    position: absolute;
-    left: 45%;
-    margin-top: -14px;
-    padding: 0 4px;
-    color: rgba(255,255,255,0.85);
-}
-
-.icon {
-	background-image: url('skills.png');
-	width: 75px;
-    height: 75px;
-    background-position: 0 0;
-    background-repeat: no-repeat;
-	float: left;
-    margin-left: 13px;
-	margin-top: 16px;
-}
-
-.perks {
-	display: flex;
-	width: fit-content;
-	height: auto;
-	margin: 16px 13px;
-	position:relative;
-	flex-direction: column;
-	margin-bottom: 0;
-}
-
-.main > p {
-	font-size: 13px;
-	color: rgba(187,187,187);	
-	font-style: italic;
-	margin: 2px 13px;
-}
-
-.perk b {
-	margin-left: 0;
-	padding-bottom: 6px;
-	color: #99f47c;
-	padding-right: 8px;
-}
-
-.perk em {
-    display: inline;
-    position: absolute;
-	left: -5px;
-	margin-top: -6px;
-	font-size: 10px;
-	color: rgba(187,187,187);
-	font-style: italic;
-}
-
-.perk p {
-	display: inline-flex;
-    border-left: solid 1px #708091;
-    padding-left: 10px;
-	margin: 0;
-	max-width: 384px;
-}
-.perks > .perk {
-	margin-bottom: 6px;
-}
-
-.perks span.info {
-	color: rgba(187,187,187);
-	display: contents;
-    font-size: 0.9em;
-    font-style: italic;
-}
-
-.perks > .perk > div {
-	width: auto;
-	display: inline-flex;
-}
-
-.top {
-	min-height: 94px;
-}
-
-.class_base {
-	display: flex;
-	width: fit-content;
-	height: auto;
-	margin: 16px 13px;
-	position:relative;
-	flex-direction: column;
-	margin-bottom: 0;
-}
-
-.class_base .stats p {
-	margin-top: 0px;
-	margin-bottom: 0px;
-}
-
-.class_base .stats p:nth-of-type(1)::before {
-	content:"- Health: ";
-}
-.class_base .stats p:nth-of-type(2)::before {
-	content:"- Energy: ";
-}
-.class_base .stats p em {
-	font-size: 0.8em;
-}
-
-.class_trait {
-	display: flex;
-	width: fit-content;
-	height: auto;
-	margin: 0px 13px;
-	position:relative;
-	flex-direction: column;
-	margin-bottom: 0;
-}
-
-.class_trait p b{
-	margin-left: 0;
-	padding-bottom: 6px;
-	color: #99f47c;
-}
-
-.class_trait p b:first-of-type{
-	padding-right: 8px;
-}
-
-.class_trait p {
-	margin-bottom: 7px;
-	margin-top: 7px;
-}
-
-.class_trait ul {
-	margin: 0;
-	margin-bottom: 8px;
-	font-size: 0.9em;
-	list-style: none;
-	color: #AAA;
-}
-
-.class_trait li::before {
-	content: "- ";
-}
-
-.class_trait li b {
-	color: #99f47c;
-}
-
-.main .top h1 em {
-	font-size: 0.5em;
-	color: #CCC;
-	float: right;
-	margin-right: 115px;
-}
-
-
-h2 em {
-	font-size: 0.8em;
-}
-
-.index {
-	display: block;
-	position: fixed;
-	background-color: rgba(0,0,0,0.5);
-	top: 25px;
-	left: 10px;
-	padding: 25px 15px;
-	border-radius: 10px;
-	z-index: 0;
-	opacity: 0.3;
-}
-
-.index:hover {
-	opacity: 1.0;
-	z-index: 100;
-}
-
-.index > *  {
-	display: block;
-	color: white;
-	opacity: 0.4;
-	z-index: 0;
-	text-decoration: none;
-}
-
-.index a:hover {
-	text-decoration: underline;
-}
-
-.index:hover > * {
-	opacity: 1.0;
-	z-index: 100;
-}
-
-.index p {
-	padding: 0;
-	margin: 0;
-}
-
-#herbologist:hover:after {
-	content: url(log2_old_nexus_druid.gif);
-	display: block;
-	position: absolute;
-    left: 123px;
-    top: 26px;
-	z-index: 100;
-	border: 2px gray solid;
-	border-radius: 8px;
-}
-
-#herbologist:hover {
-	position: relative;	
-	cursor: pointer;
-}
-
-#herbologist {
-	text-decoration: underline;
-}
-
-</style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="style.css">
+	<title>The Old Nexus - Classes and Skills list</title>
 </head>
-
 <body>
 
 <div class="index">
@@ -366,14 +62,14 @@ h2 em {
 	</div>
 	<div class="class_base">
 		<div class="stats">
-			<p>80 <em>(+5 per level, +15 per 10 Strength)</em></p>
+			<p>80 <em>(+5 per level)</em></p>
 			<p>20 <em>(+5 per level)</em></p>
-			<p>- Can't wear Body Armor or Pants. Can't wear any Heavy Armor. </p>
-			<p>- Action Speed +2% per 10 Strength.</p>
+			<p>- Can't wear any Body Armor or Pants.</p>
+			<p>- Can't wear Heavy Armor.</p>
 		</div>
 	</div>
 	<div class="class_trait">
-		<p><b>Berserker Frenzy:</b> Gain a buff that fades over 20 seconds if party gets attacked.</p>
+		<p><b>Berserker Frenzy:</b> Gain a buff that fades over 20 seconds if party gets attacked. Duration and effects are increased if a party member dies.</p>
 		<ul>
 		<li>Protection up to +4 per level (+6 per 3 levels).</li>
 		<li>Strength up to +2 <em>(+1 per 3 levels)</em>.</li>
@@ -382,7 +78,12 @@ h2 em {
 	</div>	
 	
 	<div class="class_trait">
-		<p><b>Berserker Reprisal:</b> Doubles <b>Frenzy</b> effects for 60 seconds when a party member is killed.</p>
+		<p><b>Red Hills Rage High:</b> For every 5 combined points in Strength and Vitality you gain:</p>
+		<ul>
+		<li>+2% Action Speed.</li>
+		<li>+5% Resistance to injuries.</li>
+		<li>+10 Health.</li>
+		</ul>
 	</div>	
 </div>
 
@@ -409,12 +110,13 @@ h2 em {
 	</div>	
 	
 	<div class="class_trait">
-		<p><b>Holy Light:</b> You gain a temporary random bonus of 0 to 3 to all stats <em>(+1 max per 3 levels)</em>.</p>
+		<p><b>Transcendence:</b> You spend <em>Focus</em> when out of Energy.</p>
 		<ul>
-		<li>Begins when <b>Healing Aura</b> ends.</li>
-		<li>Duration is 1 minute <em>(+30 seconds per 4 levels)</em>.</li>
+		<li>The amount of Focus you have is equal to your Energy.</li>
+		<li>Loses 20% Damage and 100% Action Speed when using Focus.</li>
+		<li>Regain Focus with <b>Healing Aura</b>, eating food or resting.</li>
 		</ul>
-	</div>	
+	</div>
 </div>
 
 <div class="main">
@@ -1170,10 +872,10 @@ h2 em {
 		
 		<div class="perk">
 			<div style="margin-right: 12px"><em>Gold Tier</em><b>Double Shot</b></div>
-			<p style="max-width: 360px;">You attack twice when using Ranged Weapons.</p>
+			<p style="max-width: 360px;">You attack twice when using Missile Weapons.</p>
 		</div>
 	</div>
-	<p>Perks take effect when attacking with Ranged Weapons.<p>
+	<p>Perks take effect when attacking with Missile Weapons.<p>
 </div>
 
 <div class="main">
@@ -1326,7 +1028,7 @@ h2 em {
 		
 		<div class="perk">
 			<div style="margin-right: 48px"><em>Silver Tier</em><b>Plague</b></div>
-			<p>Poison spreads* between enemies.</p>
+			<p>Poison spreads between enemies.<br/><span class="info">Poisons adjecent monsters at 30% chance per second.</span></p>
 		</div>
 		
 		<div class="perk">
@@ -1334,7 +1036,6 @@ h2 em {
 			<p>Enemies take increased damage from the poison status, an effect which also heals you.<br/>+5% Chance to poison.</p>
 		</div>
 	</div>
-	<p>*Poisons adjecent monsters at 30% chance per second.</p>
 </div>
 
 <div class="main">

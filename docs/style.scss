@@ -1,0 +1,319 @@
+$fontColor: (
+	white: #FFF,
+	gray: rgb(142, 146, 151),
+	lightgray: rgba(255,255,255,0.85),
+	blue: #a2b7ce,
+	green: #99f47c,
+);
+
+body {
+	background-color: #666;
+	/* background-color: rgb(255, 0, 221); */
+	font-family: 'Palatino Linotype';
+	font-size: 18px;
+	font-weight: bold;
+	letter-spacing: 0.2px;
+	color: map-get($fontColor, white);
+	padding: 0;
+	margin: 0;
+	text-shadow:
+     -1px -1px 0 #333,  
+      1px -1px 0 #333,
+      -1px 1px 0 #333,
+       1px 1px 0 #333;
+	display: flex;
+	flex-wrap: wrap;
+	overflow-x: hidden;
+
+	h1 {
+		clear:both;
+		display:block;
+		width: 100%;
+		text-align: center;
+	}
+
+	
+}
+
+.main {
+	border-radius: 8px;
+	border: solid 2px rgba(255,255,255,0.5);
+	background-color: rgba(0,0,0,0.7);
+	width: 549px;
+	min-width: 549px;
+	height: fit-content;
+	position:relative;
+	padding-bottom: 4px;
+	margin: 10px auto;
+
+	.top {
+		min-height: 94px;
+	}
+
+	h1 {
+		clear:none;
+		text-align: left;
+		font-size: 24px;
+		display: block;
+		margin: 0;
+		margin-left: 105px;
+		margin-bottom: 0;
+		padding-top: 16px;
+	}
+
+	h2 {
+		font-size: 18px;
+		display: block;
+		margin-left: 105px;
+		margin-top: 0;
+		margin-bottom: 0px;
+		color: map-get($fontColor, blue);
+		padding-right: 8px;
+	}
+
+	// Quotes message
+	h3 {
+		color: map-get($fontColor,gray);
+		font-size: 17px;
+		display: block;
+		margin-left: 18px;
+		margin-top: 4px;
+		padding-right: 8px;
+		font-style: italic; 
+		
+		&::before {
+			color: map-get($fontColor,gray);
+			content: "\"";
+		}
+		&::after {
+			color: map-get($fontColor,gray);
+			content: "\"";
+		}
+	}
+
+	.icon {
+		background-image: url('skills.png');
+		width: 75px;
+		height: 75px;
+		background-position: 0 0;
+		background-repeat: no-repeat;
+		float: left;
+		margin-left: 13px;
+		margin-top: 16px;
+	}
+
+	.perks {
+		display: flex;
+		width: fit-content;
+		height: auto;
+		margin: 16px 13px;
+		position:relative;
+		flex-direction: column;
+		margin-bottom: 0;
+	}
+
+	// Footnotes
+	> p {
+		font-size: 13px;
+		color: map-get($fontColor,blue);	
+		font-style: italic;
+		margin: 2px 13px;
+	}
+}
+
+hr {
+	border: none;
+	border-top: solid 2px gray;
+	margin: 12px 16px;
+
+	&::after {
+		content: "Perks";
+		position: absolute;
+		left: 45%;
+		margin-top: -14px;
+		padding: 0 4px;
+		color: map-get($fontColor, white );
+	}
+}
+
+.perks {
+	span.info {
+		color: map-get($fontColor,gray);
+		display: contents;
+		font-size: 0.9em;
+		font-style: italic;
+	}
+
+	.perk {
+		margin-bottom: 6px;
+
+		> div {
+			width: auto;
+			display: inline-flex;
+		}
+
+		b {
+			margin-left: 0;
+			padding-bottom: 6px;
+			color: #99f47c;
+			padding-right: 8px;
+		}
+
+		em {
+			position: absolute;
+			left: -5px;
+			margin-top: -6px;
+			font-size: 10px;
+			color: map-get($fontColor,gray);
+			font-style: italic;
+		}
+
+		p {
+			display: inline-flex;
+			border-left: solid 1px #708091;
+			padding-left: 10px;
+			margin: 0;
+			max-width: 384px;
+		}
+	}
+}
+
+.class_base {
+	display: flex;
+	width: fit-content;
+	height: auto;
+	margin: 6px 13px;
+	position:relative;
+	flex-direction: column;
+	color: map-get($fontColor, gray );
+
+	.stats p {
+		margin-top: 0px;
+		margin-bottom: 0px;
+	}
+
+	.stats p:nth-of-type(1)::before {
+		content:"- Health: ";
+	}
+
+	.stats p:nth-of-type(2)::before {
+		content:"- Energy: ";
+	}
+
+	.stats p em {
+		font-size: 0.8em;
+	}
+
+}
+
+.class_trait {
+	display: flex;
+	width: fit-content;
+	height: auto;
+	margin: 0px 13px;
+	position:relative;
+	flex-direction: column;
+	margin-bottom: 0;
+}
+
+.class_trait p b{
+	margin-left: 0;
+	padding-bottom: 6px;
+	color: map-get($fontColor,green);
+}
+
+.class_trait p b:first-of-type{
+	padding-right: 8px;
+}
+
+.class_trait p {
+	margin-bottom: 7px;
+	margin-top: 7px;
+}
+
+.class_trait ul {
+	margin: 0;
+	margin-bottom: 8px;
+	font-size: 0.9em;
+	list-style: none;
+	color: #AAA;
+}
+
+.class_trait li::before {
+	content: "- ";
+}
+
+.class_trait li b {
+	color: #99f47c;
+}
+
+.main .top h1 em {
+	font-size: 0.5em;
+	color: #CCC;
+	float: right;
+	margin-right: 115px;
+}
+
+
+h2 em {
+	font-size: 0.8em;
+}
+
+.index {
+	display: block;
+	position: fixed;
+	background-color: rgba(0,0,0,0.5);
+	top: 25px;
+	left: 10px;
+	padding: 25px 15px;
+	border-radius: 10px;
+	z-index: 0;
+	opacity: 0.3;
+
+	&:hover {
+		opacity: 1.0;
+		z-index: 100;
+	}
+}
+
+.index > *  {
+	display: block;
+	color: white;
+	opacity: 0.4;
+	z-index: 0;
+	text-decoration: none;
+}
+
+.index a:hover {
+	text-decoration: underline;
+}
+
+.index:hover > * {
+	opacity: 1.0;
+	z-index: 100;
+}
+
+.index p {
+	padding: 0;
+	margin: 0;
+}
+
+#herbologist:hover:after {
+	content: url(log2_old_nexus_druid.gif);
+	display: block;
+	position: absolute;
+    left: 123px;
+    top: 26px;
+	z-index: 100;
+	border: 2px gray solid;
+	border-radius: 8px;
+}
+
+#herbologist:hover {
+	position: relative;	
+	cursor: pointer;
+}
+
+#herbologist {
+	text-decoration: underline;
+}

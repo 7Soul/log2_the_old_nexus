@@ -804,7 +804,7 @@ defineObject{
 			end
 			
 			if champion:getClass() == "monk" then
-				local healingLight = functions.script.get_c("healinglight", c)
+				local healingLight = functions.script.get_c("healinglight", c) or 0
 				local healingMax = 400 + ((champion:getLevel() ^ 2) * 75)
 				if healingLight then
 					functions.script.drawBarOnPortrait(context, champion, x, y, healingLight, healingMax)				
@@ -812,6 +812,12 @@ defineObject{
 				-- if champion:hasCondition("healing_light") then
 					-- context.drawImage2("mod_assets/textures/gui/healing_light.dds", x-22, y-70, 0, 0, 64, 64, 68, 68)
 				-- end
+
+				local focus = functions.script.get_c("focus", c) or 0
+				local focusMax = champion:getMaxEnergy()
+				if focus then
+					functions.script.drawBarOnPortrait(context, champion, x, y-4, focus, focusMax)				
+				end
 			end
 
 			functions.script.set_c("counterOnHand", c, 0)
@@ -1077,6 +1083,7 @@ defineObject{
 					end
 					champion:setBaseStat("health", champion:getCurrentStat("max_health"))
 					champion:setBaseStat("energy", champion:getCurrentStat("max_energy"))
+					if champion:getClass() == "monk" then functions.script.set_c("focus", i, champion:getCurrentStat("max_energy")) end
 					playSound("heal_party")
 					functions.script.keypressDelaySet(20)
 				end
@@ -1337,7 +1344,7 @@ defineObject{
 
 				y = y + 20
 				context.drawText("Action Speed", w - (x * f2), y * f2)
-				txt = tostring(100 - math.floor(functions.script.getActionSpeed(champion) * 100))
+				txt = tostring(math.floor(functions.script.getActionSpeed(champion) * 1) - 100)
 				functions.script.drawStatNumber(context, txt, w - ((x-138) * f2), y* f2)
 				hover1[7], hover2[7] = context.button("hover"..7, w - (x + 6), y-16, buttonW, buttonH)
 
@@ -1492,21 +1499,43 @@ defineObject{
 				hover1[21], hover2[21] = context.button("hover"..21, w - (x + 6), y-16, buttonW, buttonH)
 
 				y = y + 20
-				context.drawText("L.Weapons", w - (x * f2), y * f2)
-				txt = tostring(math.floor( functions.script.empowerAttackType(champion, "light_weapons", 100, true) - 100 ))
-				functions.script.drawStatNumber(context, txt, w - ((x-138) * f2), y* f2)
-				hover1[22], hover2[22] = context.button("hover"..22, w - (x + 6), y-16, buttonW, buttonH)
+				local light = tostring(math.floor( functions.script.empowerAttackType(champion, "light_weapons", 100, true, 0, true) - 100 ))
+				local heavy = tostring(math.floor( functions.script.empowerAttackType(champion, "heavy_weapons", 100, true, 0, true) - 100 ))
 
-				y = y + 20
-				context.drawText("H.Weapons", w - (x * f2), y * f2)
-				txt = tostring(math.floor( functions.script.empowerAttackType(champion, "heavy_weapons", 100, true) - 100 ))
-				functions.script.drawStatNumber(context, txt, w - ((x-138) * f2), y* f2)
-				hover1[23], hover2[23] = context.button("hover"..23, w - (x + 6), y-16, buttonW, buttonH)
+				context.color(255, 255, 255, 255)
+				context.drawText("/" .. heavy, w - ((x-138) * f2) - context.getTextWidth("/" .. heavy), y * f2)
+
+				context.color(255, 255, 255, 255)
+				context.drawText("" .. light, w - ((x-138) * f2) - context.getTextWidth(light .. "/" .. heavy), y * f2)
+
+				if context.getTextWidth(light .. "/" .. heavy) > 40 then
+					context.drawText("Melee W.", w - (x * f2), y * f2)
+				else
+					context.drawText("Melee W.", w - (x * f2), y * f2)
+				end
+				hover1[22], hover2[22] = context.button("hover"..22, w - (x + 6), y-16, buttonW, buttonH)
 
 				y = y + 20
 				context.drawText("Ranged", w - (x * f2), y * f2)
 				txt = tostring(math.floor( functions.script.empowerAttackType(champion, "ranged", 100, true) - 100 ))
 				functions.script.drawStatNumber(context, txt, w - ((x-138) * f2), y* f2)
+				hover1[23], hover2[23] = context.button("hover"..23, w - (x + 6), y-16, buttonW, buttonH)
+
+				y = y + 20
+				local missile = tostring(math.floor( functions.script.empowerAttackType(champion, "missile", 100, true, 0, true) - 100 ))
+				local throw = tostring(math.floor( functions.script.empowerAttackType(champion, "throwing", 100, true, 0, true) - 100 ))
+
+				context.color(255, 255, 255, 255)
+				context.drawText("/" .. throw, w - ((x-138) * f2) - context.getTextWidth("/" .. throw), y * f2)
+
+				context.color(255, 255, 255, 255)
+				context.drawText("" .. missile, w - ((x-138) * f2) - context.getTextWidth(missile .. "/" .. throw), y * f2)
+
+				if context.getTextWidth(missile .. "/" .. throw) > 40 then
+					context.drawText("Range W.", w - (x * f2), y * f2)
+				else
+					context.drawText("Ranged W.", w - (x * f2), y * f2)
+				end
 				hover1[24], hover2[24] = context.button("hover"..24, w - (x + 6), y-16, buttonW, buttonH)
 
 				y = y + 20
@@ -1668,16 +1697,16 @@ defineObject{
 							hoverTxt2 = "Increases the damage you deal with melee attacks. Does not affect unnarmed or bear form attacks."
 							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, hoverX, hoverY, 3)
 						elseif h == 22 then
-							hoverTxt1 = "Light Weapons Multi"
-							hoverTxt2 = "Increases the damage you deal with light weapons."
+							hoverTxt1 = "Melee Weapons Multi"
+							hoverTxt2 = "Multipliers for Light Weapons and Heavy Weapons, respectively."
 							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, hoverX, hoverY, 2)
 						elseif h == 23 then
-							hoverTxt1 = "Heavy Weapons Multi"
-							hoverTxt2 = "Increases the damage you deal with heavy weapons."
+							hoverTxt1 = "Ranged Multi"
+							hoverTxt2 = "Increases the damage you deal with all long range weapons, except bombs."
 							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, hoverX, hoverY, 2)
 						elseif h == 24 then
 							hoverTxt1 = "Ranged Weapons Multi"
-							hoverTxt2 = "Increases the damage you deal with missile and throwing weapons."
+							hoverTxt2 = "Multipliers for Missile Weapons and Throwing Weapons, respectively."
 							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, hoverX, hoverY, 2)
 						elseif h == 25 then
 							hoverTxt1 = "Firearms Weapons Multi"
@@ -1915,6 +1944,8 @@ defineObject{
 				champion:removeCondition("sneak_attack")
 				functions.script.set_c("sneak_attack", champion:getOrdinal(), nil)
 			end
+
+			return spells_functions.script.onCastSpell(champion, spellName)
 		end,
 		
 		-- UNTESTED
@@ -2347,7 +2378,16 @@ defineObject{
 						set_c("crystal_health", champion:getOrdinal(), nil)
 					end
 				end
-			end
+
+				if party.party:isResting() then
+					if champion:getClass() == "monk" then
+						local focus = functions.script.get_c("focus", c) or 0
+						local focusMax = champion:getMaxEnergy()
+						local bonus = 1 + (champion:getLevel() * 0.02) + (math.floor(champion:getLevel() / 4) * 0.02) + (champion:getCurrentStat("energy_regeneration_rate") * 0.01)
+						functions.script.set_c("focus", c, math.min( focus + (1 * bonus), focusMax) )
+					end
+				end
+			end 
 			
 			functions:setPosition(0, 0, 0, 0, party.level)
 			functions2:setPosition(1, 0, 0, 0, party.level)

@@ -9,7 +9,7 @@ defineTrait{
 	- Energy 30 (+7 per level)
 	- Dual Wielding damage penalty reduced to 25% (normally 40%)
 	
-	Assassination: Powerful attacks* add a charge to your weapon, up to 4.
+	Assassination: Powerful attacks (such as criticals) add a charge to your weapon, up to 4.
 	- Melee attacks Gain +2 Pierce and +2 Crit per charge.
 	- Ranged attacks Gain +3 Attack Power and +2 Crit per charge.
 	- Back attacks spend all charges to deal 2% of a target's health per charge, while you heal for that much.
@@ -19,9 +19,9 @@ defineTrait{
 	- Maximum stacks increased by 1 every 3 levels.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			level = champion:getLevel()
-			champion:addStatModifier("max_health", 44 + (level-1) * 4)
-			champion:addStatModifier("max_energy", 30 + (level-1) * 7)
+			level = champion:getLevel() - 1
+			champion:addStatModifier("max_health", 44 + (level * 4))
+			champion:addStatModifier("max_energy", 30 + (level * 7))
 		end	
 	end,
 	onComputeCritChance = function(champion, weapon, attack, attackType, level)
@@ -39,33 +39,38 @@ defineTrait{
 	uiName = "Berserker",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 27,
-	description = "A prideful warrior of the Red Hills.",
+	description = "A prideful warrior of the Red Hills. Berserkers are fueled by rage and prefer to keep their bodies unencumbered by armor.",
 	gameEffect = [[
-	- Health 80 (+5 per level, +15 per 10 Strength)
+	- Health 80 (+5 per level)
 	- Energy 20 (+5 per level)
-	- Can't wear Body Armor or Pants. Can't wear any Heavy Armor.
-	- Action Speed +2% per 10 Strength.
+	- Can't wear any Body Armor or Pants. 
+	- Can't wear Heavy Armor.
 	
-	Berserker Frenzy: Gain a buff that fades over 20 seconds if party gets attacked.
+	Berserker Frenzy: Gain a buff that fades over 20 seconds if party gets attacked. Duration and effects are increased if a party member dies.
 	- Protection up to +4 per level (+6 per 3 levels).
 	- Strength up to +2 (+1 per 3 levels).
 	- Heals up to 3% health per second based on current health.
 	
-	Berserker Reprisal: Doubles Frenzy effects for 60 seconds when a party member is killed.]],
+	Red Hills Rage High: For every 5 combined points in Strength and Vitality you gain:
+	- +2% Action Speed.
+	- +5% Resistance to injuries.
+	- +10 Health.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			level = champion:getLevel()
-			local str_add_more = math.floor(champion:getCurrentStat("strength") / 10) * 15
-			champion:addStatModifier("max_health", 80 + ((level-1) * 5) + str_add_more)
-			champion:addStatModifier("max_energy", 20 + (level-1) * 5)
+			level = champion:getLevel() - 1
+			local bonus = math.floor((champion:getCurrentStat("strength") + champion:getCurrentStat("vitality")) / 5)
+			champion:addStatModifier("max_health", 80 + (level * 5) + (bonus * 10))
+			champion:addStatModifier("max_energy", 20 + (level * 5) )
+			champion:addStatModifier("cooldown_rate", bonus * 2)
 		end
 	end,
 	onComputeCooldown = function(champion, weapon, attack, attackType, level)
 		if level > 0 then
-			local bonus = math.floor(champion:getCurrentStat("strength") / 10)
+			local bonus = math.floor((champion:getCurrentStat("strength") + champion:getCurrentStat("vitality")) / 5)
 			return 1 - (0.02 * bonus)
 		end
 	end,
+	-- wound resistance done in common trait
 }
 
 defineTrait{
@@ -84,9 +89,10 @@ defineTrait{
 	- Duration is 12 seconds (+3 seconds per 4 levels).
 	- Deal the killing blow for a bonus charge.
 	
-	Holy Light: You gain a random bonus of 0 to 3 to all stats (+1 max per 3 levels).
-	- It begins when Healing Aura ends.
-	- Duration is 1 minute (+30 seconds per 4 levels).]],
+	Transcendence: You spend Focus when out of Energy.
+	- The amount of Focus you have is equal to your Energy.
+	- Loses 20% Damage and 100% Action Speed when using Focus.
+	- Regain Focus with Healing Aura, eating food or resting.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel() - 1
@@ -431,6 +437,19 @@ defineTrait{
 	- Melee attacks have 50% of their damage converted to Shock.]],
 }
 
+defineTrait{
+	name = "focus_cast",
+	uiName = "",
+	hidden = true,
+	icon = 1,	
+	description = "",
+	gameEffect = [[]],
+	onRecomputeStats = function(champion, level)
+		level = champion:getLevel() - 1
+		champion:addStatModifier("cooldown_rate", -100)
+	end,
+}
+
 
 ---------------------------------------------------------------------------------
 -- Race traits
@@ -463,6 +482,40 @@ defineTrait{
 			end
 		end
 	end,
+
+	onReceiveCondition = function(champion, cond, level)
+		if level > 0 and string.match(cond, "_wound$") then
+			local chance = 0
+
+			if champion:getClass() == "fighter" then
+				local bonus = math.floor((champion:getCurrentStat("strength") + champion:getCurrentStat("vitality")) / 5) * 0.05
+				chance = chance + bonus
+			end
+		
+			if champion:getRace() == "insectoid" then
+				chance = chance + 0.5
+			end
+
+			if math.random() <= chance then
+				return false
+			end
+		end
+	end,
+
+	-- onComputeCooldown = function(champion, weapon, attack, attackType, level)
+	-- 	if level > 0 then
+			
+	-- 		local c = champion:getOrdinal()
+	-- 		local cooldown = 5
+	-- 		if champion:getClass() == "monk" and champion:hasTrait("focus_cast") then
+	-- 			local focus = functions.script.get_c("focus", c) or 0
+	-- 			print("ok")
+	-- 			cooldown = cooldown * 2
+	-- 		end
+	-- 		return cooldown
+	-- 	end
+	-- end,
+	
 }
 
 defineTrait{
@@ -513,11 +566,7 @@ defineTrait{
 		if level > 0 then
 		end
 	end,
-	onReceiveCondition = function(champion, cond, level)
-		if level > 0 and string.match(cond, "_wound$") and math.random() <= 0.5 then
-			return false
-		end
-	end,
+	-- wound resistance done in common trait
 }
 
 defineTrait{
@@ -921,16 +970,19 @@ defineTrait{
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			if champion:getHealth() < champion:getMaxHealth() * 0.5 then
-				champion:addStatModifier("food_rate", 25)		
+				champion:addStatModifier("food_rate", 25)
 			end
-		end
-	end,
-	onComputeCooldown = function(champion, weapon, attack, attackType, level)
-		if level > 0 then 
+
 			local food = (champion:getFood()-500) / 500
-			return 1 - (0.15 * food)
+			champion:addStatModifier("cooldown_rate", 0.15 * food)
 		end
 	end,
+	-- onComputeCooldown = function(champion, weapon, attack, attackType, level)
+	-- 	if level > 0 then 
+	-- 		local food = (champion:getFood()-500) / 500
+	-- 		return 1 - (0.15 * food)
+	-- 	end
+	-- end,
 }
 
 defineTrait{
@@ -1144,17 +1196,22 @@ defineTrait{
 	description = "Gain +12% Action Speed and -24% Special Attack Cost if wearing all light armor.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			functions.script.changeSecondary(champion, 0.76, "energycost")
-		end
-	end,
-	onComputeCooldown = function(champion, weapon, attack, attackType, level)
-		if level > 0 then
 			local all_light = functions.script.wearingAll(champion, "light_armor", "clothes")
 			if all_light then
-				return 0.88
+			functions.script.changeSecondary(champion, 0.76, "energycost")
+				champion:addStatModifier("cooldown_rate", 12)
 			end	
+			
 		end
 	end,
+	-- onComputeCooldown = function(champion, weapon, attack, attackType, level)
+	-- 	if level > 0 then
+	-- 		local all_light = functions.script.wearingAll(champion, "light_armor", "clothes")
+	-- 		if all_light then
+	-- 			return 0.88
+	-- 		end	
+	-- 	end
+	-- end,
 }
 
 -- Heavy Armor

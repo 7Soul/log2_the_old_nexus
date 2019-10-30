@@ -140,7 +140,7 @@ function teststart()
 	if Editor.isRunning() then
 		party.party:getChampionByOrdinal(1):setClass("corsair")
 		party.party:getChampionByOrdinal(2):setClass("hunter")
-		party.party:getChampionByOrdinal(3):setClass("druid")
+		party.party:getChampionByOrdinal(3):setClass("fighter")
 		party.party:getChampionByOrdinal(4):setClass("monk")
 		party.party:getChampionByOrdinal(1):setRace("human")
 		party.party:getChampionByOrdinal(2):setRace("minotaur")
@@ -322,12 +322,19 @@ function teststart()
 			champion:setEnergy(champion:getMaxEnergy())
 		end
 	end
+
 	for i=1,4 do
 		local champion = party.party:getChampionByOrdinal(i)
 		if champion:getClass() == "stalker" then
 			local bonus = 1 + math.floor(party.party:getChampionByOrdinal(i):getLevel() / 3)
 			set_c("night_stalker", i, bonus)
 		end
+
+		if champion:getClass() == "monk" then
+			local bonus = champion:getMaxEnergy()
+			set_c("focus", i, bonus)
+		end
+
 		if not champion:hasTrait("common") then champion:addTrait("common") end
 	end
 	findCrystalArea()
@@ -1814,7 +1821,7 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 		end
 		
 		if champion:getClass() == "hunter" then
-			hunterCrit(c, 1, 6 + (champion:getLevel() - 1))
+			functions.script.hunterCrit(c, 1, 6 + (champion:getLevel() - 1))
 			if self:hasTrait("animal") then
 				functions.script.wisdom_of_the_tribe_heal(champion)
 				delayedCall("functions", 0.15, "hitMonster", self.go.id, math.ceil(damage * wisdom_of_the_tribe(champion) ), "", damageType, champion:getOrdinal())
@@ -1823,7 +1830,7 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 		
 		-- Monk's Healing Light
 		if champion:getClass() == "monk" then
-			healingLight(champion, monster, damage)
+			functions.script.healingLight(champion, monster, damage)
 		end
 
 		if item.go.name == "stun_quarrel" then
@@ -1888,7 +1895,7 @@ function onDamageMonster(self, damage, damageType)
 			-- Monk's Healing Light
 			if champion:getClass() == "monk" then
 				if damage then
-					healingLight(champion, monster, damage)
+					functions.script.healingLight(champion, monster, damage)
 				end
 			end
 			
@@ -2238,7 +2245,7 @@ function elementalistPower(element, champion, return_only)
 				power = power - 0.05 
 			end
 			if not return_only then
-				champion:addConditionValue("elemental_balance_fire", 9)
+				champion:setConditionValue("elemental_balance_fire", 9)
 				champion:removeCondition("elemental_balance_cold")
 				champion:removeCondition("elemental_balance_shock")
 			end
@@ -2252,7 +2259,7 @@ function elementalistPower(element, champion, return_only)
 				power = power - 0.05 
 			end
 			if not return_only then
-				champion:addConditionValue("elemental_balance_cold", 9)
+				champion:setConditionValue("elemental_balance_cold", 9)
 				champion:removeCondition("elemental_balance_fire")
 				champion:removeCondition("elemental_balance_shock")
 			end
@@ -2266,7 +2273,7 @@ function elementalistPower(element, champion, return_only)
 				power = power - 0.05 
 			end
 			if not return_only then
-				champion:addConditionValue("elemental_balance_shock", 9)
+				champion:setConditionValue("elemental_balance_shock", 9)
 				champion:removeCondition("elemental_balance_cold")
 				champion:removeCondition("elemental_balance_fire")
 			end
@@ -2282,32 +2289,41 @@ end
 -------------------------------------------------------------------------------------------------------
 
 function onConsumeFood(self, champion)
+	local c = champion:getOrdinal()
 	if champion:hasTrait("carnivorous") and champion:isAlive() then
 		if self.go.item:hasTrait("consumable") and self.go.item:hasTrait("meat") then
-			champion:modifyFood(self.go.usableitem:getNutritionValue() * 0.05) -- extra 5% hunger gain
+			champion:modifyFood(self.go.usableitem:getNutritionValue() * 0.05) -- extra 5% gain
 
-			local meatCounter = get_c("meat_counter", champion:getOrdinal()) or 0
-			local meatBonus = get_c("meat_bonus", champion:getOrdinal()) or 0
-			set_c("meat_counter", champion:getOrdinal(), meatCounter + 1)
-			if meatCounter == (3 + math.floor(champion:getLevel() / 5) + (math.floor(champion:getLevel() / 13) * 2) + math.floor(champion:getLevel())) then
-				set_c("meat_counter", champion:getOrdinal(), 0)
+			local meatCounter = get_c("meat_counter", c) or 0
+			local meatBonus = get_c("meat_bonus", c) or 0
+			set_c("meat_counter", c, meatCounter + 1)
+			if meatCounter == ( 3 + math.floor(champion:getLevel() / 5) + (math.floor(champion:getLevel() / 13) * 2) + champion:getLevel() ) then
+				set_c("meat_counter", c, 0)
 				meatBonus = meatBonus + 1
-				set_c("meat_bonus", champion:getOrdinal(), meatBonus)
+				set_c("meat_bonus", c, meatBonus)
 
 				local strBonus = math.floor(meatBonus / 2)
 				local vitBonus = math.ceil(meatBonus / 2)
 
 				if meatBonus % 2 == 1 then
-					set_c("level_up_message_2", champion:getOrdinal(), champion:getName() .. " gained +1 Vitality from the Carnivorous trait.")
+					set_c("level_up_message_2", c, champion:getName() .. " gained +1 Vitality from the Carnivorous trait.")
 				else
-					set_c("level_up_message_2", champion:getOrdinal(), champion:getName() .. " gained +1 Strenght from the Carnivorous trait.")
+					set_c("level_up_message_2", c, champion:getName() .. " gained +1 Strenght from the Carnivorous trait.")
 				end
-				set_c("level_up_message_2_timer", champion:getOrdinal(), 8)
+				set_c("level_up_message_2_timer", c, 8)
 			end
 		else
 			hudPrint("This isn't meat...")
 			return false
 		end
+	end
+
+	if champion:getClass() == "monk" then
+		local focus = functions.script.get_c("focus", c) or 0
+		local focusMax = champion:getMaxEnergy()
+		local bonus = self.go.item:hasTrait("meat") and 0.9 or 1.0
+		bonus = bonus + (champion:getLevel() * 0.02) + (math.floor(champion:getLevel() / 4) * 0.08)
+		functions.script.set_c("focus", c, math.min( focus + (self.go.usableitem:getNutritionValue() / 20 * bonus), focusMax) )
 	end
 end
 
@@ -3087,7 +3103,7 @@ function empowerElement(champion, element, base, return_only, tier, spell)
 					conversion = conversion + 0.1
 				end
 			end
-			f = f * ((1 - conversion) * base)
+			f = f - (conversion * base)
 		end
 
 		-- Tinkerer Melee conversion -- already reduced attack power? probably enough!
@@ -3191,7 +3207,6 @@ function empowerAttackType(champion, attackType, base, return_only, tier)
 		-- Class bonuses
 
 		-- Skill bonuses
-
 		if champion:hasTrait("sea_dog") and (champion == party.party:getChampion(1) or champion == party.party:getChampion(2)) then
 			f = f + (0.25 * base)
 		end
@@ -3199,8 +3214,6 @@ function empowerAttackType(champion, attackType, base, return_only, tier)
 		-- Items
 		local itemThrowingBonus = getEquippedMultiBonus(champion, "ranged", true)
 		f = f + (itemThrowingBonus * base)
-
-		-- Item bonuses
 
 	elseif attackType == "missile" then
 		-- Skill bonuses
@@ -3506,42 +3519,39 @@ function getPierce(champion, slot)
 	return pierce
 end
 
-function getActionSpeed(champion)
-	local speed = 1
-	if champion:getClass() == "fighter" then
-		local bonus = math.floor(champion:getCurrentStat("strength") / 10)
-		speed = speed * (1 - (0.02 * bonus))
-	end
+function getActionSpeed(champion)	
+	local speed = champion:getCurrentStat("cooldown_rate")
+	local multi = speed
 
 	if champion:hasCondition("drown_sorrows") then
-		speed = speed * 0.5
+		multi = multi + (speed * 0.5)
 	end
 
 	if champion:hasTrait("chewing") then
-		speed = speed * 0.9
+		multi = multi + (speed * 0.1)
 	end
 
 	if champion:hasCondition("shield_bearer") then
-		speed = speed * 0.85
+		multi = multi + (speed * 0.15)
 	end
 
 	if champion:hasTrait("chemical_processing") then
 		local food = (champion:getFood()-500) / 500
-		speed = speed * (1 - (0.15 * food))
+		multi = multi + (speed * (0.15 * food))
 	end
 
-	if champion:hasTrait("rush") then
-		local all_light = wearingAll(champion, "light_armor", "clothes")
-		if all_light then
-			speed = speed * 0.88
-		end	
-	end
+	-- if champion:hasTrait("rush") then
+	-- 	local all_light = wearingAll(champion, "light_armor", "clothes")
+	-- 	if all_light then
+	-- 		multi = multi + (speed * 0.12)
+	-- 	end	
+	-- end
 
 	if champion:hasTrait("fast_fingers") then
 		local item1 = champion:getItem(ItemSlot.Weapon)
 		local item2 = champion:getOtherHandItem(ItemSlot.Weapon)
 		if (item1 and item1:hasTrait("firearm")) or (item2 and item2:hasTrait("firearm")) then
-			speed = speed * 0.85
+			multi = multi + (speed * 0.15)
 		end
 	end
 
@@ -3549,16 +3559,14 @@ function getActionSpeed(champion)
 		local item1 = champion:getItem(ItemSlot.Weapon)
 		local item2 = champion:getItem(ItemSlot.OffHand)
 		if (item1 and item1:hasTrait("firearm")) or (item2 and item2:hasTrait("firearm")) then
-			local level = champion:getLevel()
-			speed = speed * (1.4 - (level * 0.015))
+			local level = champion:getLevel() - 1
+			multi = multi + (speed * (-0.4 + (level * 0.015)))
 		end
 	end
 
-	if champion:getItem(ItemSlot.Bracers) and champion:getItem(ItemSlot.Bracers).go.name == "bracelet_tirin" then
-		speed = speed * 0.85
-	end
+	-- print("multi", multi, "speed", speed, "cd", champion:getCurrentStat("cooldown_rate") / 100)
 
-	return speed
+	return multi
 end
 
 function getBlockChance(champion)
@@ -3650,6 +3658,13 @@ function getWoundResistance(champion)
 		end
 	end
 
+	if champion:getClass() == "fighter" then
+		local bonus = math.floor((champion:getCurrentStat("strength") + champion:getCurrentStat("vitality")) / 5) * 5
+		for i=1,6 do
+			resist[i] = resist[i] + bonus
+		end
+	end
+
 	if champion:getRace() == "insectoid" then
 		for i=1,6 do
 			resist[i] = resist[i] + 50
@@ -3672,7 +3687,7 @@ function drawCounterOnHand(context, champion, x, y, value, tooltipTitle, tooltip
 	local c = champion:getOrdinal()
 	local posx, posy = x + 18, y + 28
 	local MX, MY = context.mouseX, context.mouseY
-	print("counters", counters)
+	-- print("counters", counters)
 	posy = posy + (counters * 24)
 
 	if value and value ~= 0 then

@@ -105,7 +105,7 @@ defOrdered =
 			element = "shock"
 		end
 
-		local power = spells_functions.script.getPower(18, champion, "elemental_magic", element, 1, "mage_spark")
+		local power = spells_functions.script.getPower(18, champion, "elemental_magic", element, 1, "mage_spark", cost)
 		if element == "fire" then
 			spells_functions.script.frontAttack("fireburst", power, champion:getOrdinal())
 		elseif element == "cold" then	
@@ -118,7 +118,7 @@ defOrdered =
 	preCast = function(champion, x, y, direction, elevation, skillLevel)
 		local cost = 20
 		cost = spells_functions.script.getCost(champion, cost, "neutral", "mage_spark")
-		if champion:getEnergy() < cost then return false,"no_energy" end
+		if champion:getEnergy() < cost then return false, "no_energy", cost end
 	end,
 },
 
@@ -148,7 +148,7 @@ defOrdered =
 	preCast = function(champion, x, y, direction, elevation, skillLevel)
 		local cost = 35
 		cost = spells_functions.script.getCost(champion, cost, "neutral", "shield")
-		if champion:getEnergy() < cost then return false,"no_energy" end
+		if champion:getEnergy() < cost then return false, "no_energy", cost end
 	end,
 },
 
@@ -163,19 +163,19 @@ defOrdered =
 	spellIcon = 13,
 	description = "Shoots a ray that damages elementals. \n- Cost : 42 energy\n- Power : 25",
 	onCast = function(champion, x, y, direction, elevation, skillLevel)
-	local power = spells_functions.script.getPower(25, champion, "concentration", "neutral", 2, "dispel")
-	
-	local cost = 42
-	cost = spells_functions.script.getCost(champion, cost, "neutral", "dispel")
-	spells_functions.script.paySpellCost(champion, cost, "neutral", "dispel")
-	
-	spells_functions.script.missile("dispel_cast", champion:getOrdinal(), power)
-	spells_functions.script.stopInvisibility()
+		local cost = 42
+		cost = spells_functions.script.getCost(champion, cost, "neutral", "dispel")
+		spells_functions.script.paySpellCost(champion, cost, "neutral", "dispel")
+		
+		local power = spells_functions.script.getPower(25, champion, "concentration", "neutral", 2, "dispel", cost)
+
+		spells_functions.script.missile("dispel_cast", champion:getOrdinal(), power)
+		spells_functions.script.stopInvisibility()
 	end,
 	preCast = function(champion, x, y, direction, elevation, skillLevel)
 		local cost = 42
 		cost = spells_functions.script.getCost(champion, cost, "neutral", "dispel")
-		if champion:getEnergy() < cost then return false,"no_energy" end
+		if champion:getEnergy() < cost then return false, "no_energy", cost end
 	end,
 },
 
@@ -202,7 +202,7 @@ defOrdered =
 	preCast = function(champion, x, y, direction, elevation, skillLevel)
 		local cost = 35
 		cost = spells_functions.script.getCost(champion, cost, "neutral", "force_field")
-		if champion:getEnergy() < cost then return false,"no_energy" end
+		if champion:getEnergy() < cost then return false, "no_energy", cost end
 	end,
 },
 
@@ -246,7 +246,7 @@ defOrdered =
 	preCast = function(champion, x, y, direction, elevation, skillLevel)
 		local cost = 35
 		cost = spells_functions.script.getCost(champion, cost, "neutral", "light")
-		if champion:getEnergy() < cost then return false,"no_energy" end
+		if champion:getEnergy() < cost then return false, "no_energy", cost end
 	end,
 },
 
@@ -279,7 +279,7 @@ defOrdered =
 	preCast = function(champion, x, y, direction, elevation, skillLevel)
 		local cost = 25
 		cost = spells_functions.script.getCost(champion, cost, "neutral", "darkness")
-		if champion:getEnergy() < cost then return false,"no_energy" end
+		if champion:getEnergy() < cost then return false, "no_energy", cost end
 	end,
 },
 
@@ -294,12 +294,11 @@ defOrdered =
 	spellIcon = 20,
 	description = "Shoots a ray that engulfs the target in magical darkness.\n- Cost : 25 energy\n- Power : 13",
 	onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
-		local power = spells_functions.script.getPower(13, champion, "concentration", "neutral", 2, "darkbolt")
-		
 		local cost = 25
 		cost = spells_functions.script.getCost(champion, cost, "neutral", "darkbolt")
 		spells_functions.script.paySpellCost(champion, cost, "neutral", "darkbolt")
-		
+
+		local power = spells_functions.script.getPower(13, champion, "concentration", "neutral", 2, "darkbolt", cost)
 		local ord = champion:getOrdinal()
 		if champion:getSkillLevel("missile_weapons") > 2 and not trigger then spells_functions.script.maxEffectIcons("darkbolt", 15, ord) end
 		if spells_functions.script.darknessUntil then
@@ -315,7 +314,7 @@ defOrdered =
 	preCast = function(champion, x, y, direction, elevation, skillLevel)
 		local cost = 25
 		cost = spells_functions.script.getCost(champion, cost, "neutral", "darkbolt")
-		if champion:getEnergy() < cost then return false,"no_energy" end
+		if champion:getEnergy() < cost then return false, "no_energy", cost end
 	end,
 },
 
@@ -435,18 +434,18 @@ defOrdered =
 	
 	Cost : 25 energy
 	Power : 22]],
-	onCast = function(champion, x, y, direction, elevation, skillLevel)
-		local power = spells_functions.script.getPower(22, champion, "elemental_magic", "fire", 1, "fireburst")
-		local cost = 25
+	onCast = function(champion, x, y, direction, elevation, skillLevel)	
+		local cost = 75
 		cost = spells_functions.script.getCost(champion, cost, "fire", "fireburst")
+		local power = spells_functions.script.getPower(22, champion, "elemental_magic", "fire", 1, "fireburst", cost)
 		spells_functions.script.paySpellCost(champion, cost, "fire", "fireburst")
 		spells_functions.script.frontAttack("fireburst", power, champion:getOrdinal())
 		spells_functions.script.stopInvisibility()
 	end,
 	preCast = function(champion, x, y, direction, elevation, skillLevel)
-		local cost = 25
+		local cost = 75
 		cost = spells_functions.script.getCost(champion, cost, "fire", "fireburst")
-		if champion:getEnergy() < cost then return false,"no_energy" end
+		if champion:getEnergy() < cost then return false, "no_energy", cost end
 	end,
 },
 
@@ -484,12 +483,11 @@ defOrdered =
 	Cost : 43 energy
 	Power : 30]],
 	onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
-		local power = spells_functions.script.getPower(30, champion, "elemental_magic", "fire", 1, "fireball")
-		local ord = champion:getOrdinal()
-		
 		local cost = 43
 		cost = spells_functions.script.getCost(champion, cost, "fire", "fireball")
 		spells_functions.script.paySpellCost(champion, cost, "fire", "fireball")
+		local power = spells_functions.script.getPower(30, champion, "elemental_magic", "fire", 1, "fireball", cost)
+		local ord = champion:getOrdinal()
 		
 		--if champion:getSkillLevel("missile_weapons") > 2 and not trigger then spells_functions.script.maxEffectIcons("fireball", 15, ord) end
 		local castSize = skillLevel <= 3 and "fireball_small_cast" or skillLevel == 4 and "fireball_medium_cast" or skillLevel == 5 and "fireball_large_cast"
@@ -499,7 +497,7 @@ defOrdered =
 	preCast = function(champion, x, y, direction, elevation, skillLevel)
 		local cost = 43
 		cost = spells_functions.script.getCost(champion, cost, "fire", "fireball")
-		if champion:getEnergy() < cost then return false,"no_energy" end
+		if champion:getEnergy() < cost then return false, "no_energy", cost end
 	end,
 },
 
@@ -557,20 +555,19 @@ defOrdered =
 	spellIcon = 8,
 	description = "Unleashes a devastating storm of meteors on your foes.\n- Cost : 80 energy\n- Power : 30 per meteor",
 	onCast = function(champion, x, y, direction, elevation, skillLevel)
-		local power = spells_functions.script.getPower(2.5, champion, "elemental_magic", "fire", 3, "meteor_storm")
-		
 		local cost = 80
 		cost = spells_functions.script.getCost(champion, cost, "fire", "meteor_storm")
 		spells_functions.script.paySpellCost(champion, cost, "fire", "meteor_storm")
-	
+		local power = spells_functions.script.getPower(2.5, champion, "elemental_magic", "fire", 3, "meteor_storm", cost)
+
 		spells_functions.script.missiles(power, {"fireball_large_cast"}, champion:getOrdinal(), 1, true)
 		spells_functions.script.stopInvisibility()
 	end,
 	preCast = function(champion, x, y, direction, elevation, skillLevel)
-	local cost = 80
-	cost = spells_functions.script.getCost(champion, cost, "fire", "meteor_storm")
-	if champion:getEnergy() < cost then return false,"no_energy" end
-end,
+		local cost = 80
+		cost = spells_functions.script.getCost(champion, cost, "fire", "meteor_storm")
+		if champion:getEnergy() < cost then return false, "no_energy", cost end
+	end,
 },
 
 -- air magic
@@ -591,19 +588,18 @@ end,
 	Cost : 25 energy
 	Power : 23]],
 	onCast = function(champion, x, y, direction, elevation, skillLevel)
-		local power = spells_functions.script.getPower(23, champion, "elemental_magic", "shock", 1, "shock")
-		
 		local cost = 25
 		cost = spells_functions.script.getCost(champion, cost, "shock", "shock")
 		spells_functions.script.paySpellCost(champion, cost, "shock", "shock")
-		
+		local power = spells_functions.script.getPower(23, champion, "elemental_magic", "shock", 1, "shock", cost)
+
 		spells_functions.script.frontAttack("shockburst", power, champion:getOrdinal())
 		spells_functions.script.stopInvisibility()
 	end,
 	preCast = function(champion, x, y, direction, elevation, skillLevel)
 		local cost = 25
 		cost = spells_functions.script.getCost(champion, cost, "shock", "shock")
-		if champion:getEnergy() < cost then return false,"no_energy" end
+		if champion:getEnergy() < cost then return false, "no_energy", cost end
 	end,
 },
 
@@ -637,12 +633,11 @@ end,
 	spellIcon = 9,
 	description = "You channel the power of storms through your hands.\n- Cost : 35 energy\n- Power : 27",
 	onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
-		local power = spells_functions.script.getPower(27, champion, "elemental_magic", "shock", 2, "lightning_bolt")
-		local ord = champion:getOrdinal()
-		
 		local cost = 35
 		cost = spells_functions.script.getCost(champion, cost, "shock", "lightning_bolt")
 		spells_functions.script.paySpellCost(champion, cost, "shock", "lightning_bolt")
+		local power = spells_functions.script.getPower(27, champion, "elemental_magic", "shock", 2, "lightning_bolt", cost)
+		local ord = champion:getOrdinal()
 		
 		local castSize = skillLevel <= 4 and "lightning_bolt_cast" or "lightning_bolt_greater_cast"
 		spells_functions.script.missile(castSize, ord, power)
@@ -651,7 +646,7 @@ end,
 	preCast = function(champion, x, y, direction, elevation, skillLevel)
 		local cost = 35
 		cost = spells_functions.script.getCost(champion, cost, "shock", "lightning_bolt")
-		if champion:getEnergy() < cost then return false,"no_energy" end
+		if champion:getEnergy() < cost then return false, "no_energy", cost end
 	end,
 },
 
@@ -687,7 +682,7 @@ end,
 	preCast = function(champion, x, y, direction, elevation, skillLevel)
 		local cost = champion:isArmorSetEquipped("lurker") and 25 or 45
 		cost = spells_functions.script.getCost(champion, cost, "neutral", "invisibility")
-		if champion:getEnergy() < cost then return false,"no_energy" end
+		if champion:getEnergy() < cost then return false, "no_energy", cost end
 	end,
 },
 
@@ -740,19 +735,18 @@ end,
 	Cost : 25 energy
 	Power : 15]],
 	onCast = function(champion, x, y, direction, elevation, skillLevel)
-		local power = spells_functions.script.getPower(15, champion, "elemental_magic", "cold", 1, "frost_burst")
-		
 		local cost = 25
 		cost = spells_functions.script.getCost(champion, cost, "cold", "frost_burst")
 		spells_functions.script.paySpellCost(champion, cost, "cold", "frost_burst")
-	
+		local power = spells_functions.script.getPower(15, champion, "elemental_magic", "cold", 1, "frost_burst", cost)
+
 		spells_functions.script.frontAttack("frostburst_cast", power, champion:getOrdinal())
 		spells_functions.script.stopInvisibility()
 	end,
 	preCast = function(champion, x, y, direction, elevation, skillLevel)
 		local cost = 25
 		cost = spells_functions.script.getCost(champion, cost, "cold", "frost_burst")
-		if champion:getEnergy() < cost then return false,"no_energy" end
+		if champion:getEnergy() < cost then return false, "no_energy", cost end
 	end,
 },
 
@@ -801,13 +795,13 @@ end,
 	spellIcon = 3,
 	description = "Deathly sharp spikes of ice thrust from the ground hitting your opponents in a line.\n- Cost : 30 energy\n- Power : 18\n- Range : Water Magic + 2 tiles",
 	onCast = function(champion, x, y, direction, elevation, skillLevel)
-		local range = spells_functions.script.quantum(2 + 5*spells_functions.script.getSkillPower(champion, "elemental_magic", "cold", 2, "ice_shards"))
-		local power = spells_functions.script.getPower(18, champion, "elemental_magic", "cold", 2, "ice_shards")
-		
 		local cost = 30
 		cost = spells_functions.script.getCost(champion, cost, "cold", "ice_shards")
 		spells_functions.script.paySpellCost(champion, cost, "cold", "ice_shards")
-		
+
+		local range = spells_functions.script.quantum(2 + 5*spells_functions.script.getSkillPower(champion, "elemental_magic", "cold", 2, "ice_shards"))
+		local power = spells_functions.script.getPower(18, champion, "elemental_magic", "cold", 2, "ice_shards", cost)
+
 		local spl = spells_functions.script.frontAttack("ice_shards", power, champion:getOrdinal())
 		spl.iceshards:setRange(range)
 		if not spl.tiledamager:isEnabled() then playSound("spell_fizzle") end
@@ -816,7 +810,7 @@ end,
 	preCast = function(champion, x, y, direction, elevation, skillLevel)
 		local cost = 30
 		cost = spells_functions.script.getCost(champion, cost, "cold", "ice_shards")
-		if champion:getEnergy() < cost then return false,"no_energy" end
+		if champion:getEnergy() < cost then return false, "no_energy", cost end
 	end,
 },
 
@@ -831,21 +825,20 @@ end,
 	spellIcon = 4,
 	description = "You hurl a bolt of icy death dealing ranged damage and freezing your opponents.\n- Cost : 37 energy\n- Power : 15",
 	onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
-		local power = spells_functions.script.getPower(15, champion, "elemental_magic", "cold", 3, "frostbolt")
-		local ord = champion:getOrdinal()
-			
 		local cost = 37
 		cost = spells_functions.script.getCost(champion, cost, "cold", "frostbolt")
 		spells_functions.script.paySpellCost(champion, cost, "cold", "frostbolt")
-	
-		--if champion:getSkillLevel("missile_weapons") > 2 and not trigger then spells_functions.script.maxEffectIcons("frostbolt", 15, ord) end
+
+		local power = spells_functions.script.getPower(15, champion, "elemental_magic", "cold", 3, "frostbolt", cost)
+		local ord = champion:getOrdinal()
+
 		spells_functions.script.missile("frostbolt_cast", ord, power)
 		spells_functions.script.stopInvisibility()
 	end,
 	preCast = function(champion, x, y, direction, elevation, skillLevel)
 		local cost = 37
 		cost = spells_functions.script.getCost(champion, cost, "cold", "frostbolt")
-		if champion:getEnergy() < cost then return false,"no_energy" end
+		if champion:getEnergy() < cost then return false, "no_energy", cost end
 	end,
 },
 
@@ -911,7 +904,7 @@ end,
 	preCast = function(champion, x, y, direction, elevation, skillLevel)
 		local cost = 55
 		cost = spells_functions.script.getCost(champion, cost, "cold", "ice_sword")
-		if champion:getEnergy() < cost then return false,"no_energy" end
+		if champion:getEnergy() < cost then return false, "no_energy", cost end
 	end,
 },
 
@@ -975,7 +968,7 @@ end,
 	spellIcon = 2,
 	description = [[]],
 	onCast = function(champion, x, y, direction, elevation, skillLevel)
-		local power = spells_functions.script.getPower(5, champion, "poison_mastery", "poison", 1, "poison_cloud")
+		local power = spells_functions.script.getPower(5, champion, "poison_mastery", "poison", 1, "poison_cloud", cost)
 		local castSize = skillLevel <= 2 and "poison_cloud_small" or skillLevel <= 4 and "poison_cloud_medium" or skillLevel == 5 and "poison_cloud_large"
 		
 		local cost = 27
@@ -988,7 +981,7 @@ end,
 	preCast = function(champion, x, y, direction, elevation, skillLevel)
 		local cost = 27
 		cost = spells_functions.script.getCost(champion, cost, "poison", "poison_cloud")
-		if champion:getEnergy() < cost then return false,"no_energy" end
+		if champion:getEnergy() < cost then return false, "no_energy", cost end
 	end,
 },
 
@@ -1009,20 +1002,20 @@ end,
 	Power : 5 damage each 0.8 second (0.4 at level 3, 0.2 at level 5)
 	Duration : 10 seconds (15 at level 3, 20 at level 5)]],
 	onCast = function(champion, x, y, direction, elevation, skillLevel)
-		local power = spells_functions.script.getPower(5, champion, "poison_mastery", "poison", 1, "poison_cloud")
-		local castSize = skillLevel <= 2 and "poison_cloud_small" or skillLevel <= 4 and "poison_cloud_medium" or skillLevel == 5 and "poison_cloud_large"
-		
 		local cost = 27
 		cost = spells_functions.script.getCost(champion, cost, "poison", "poison_cloud")
 		spells_functions.script.paySpellCost(champion, cost, "poison", "poison_cloud")
-		
+
+		local power = spells_functions.script.getPower(5, champion, "poison_mastery", "poison", 1, "poison_cloud", cost)
+		local castSize = skillLevel <= 2 and "poison_cloud_small" or skillLevel <= 4 and "poison_cloud_medium" or skillLevel == 5 and "poison_cloud_large"
+
 		spells_functions.script.frontAttack(castSize, power, champion:getOrdinal())
 		spells_functions.script.stopInvisibility()
 	end,
 	preCast = function(champion, x, y, direction, elevation, skillLevel)
 		local cost = 27
 		cost = spells_functions.script.getCost(champion, cost, "poison", "poison_cloud")
-		if champion:getEnergy() < cost then return false,"no_energy" end
+		if champion:getEnergy() < cost then return false, "no_energy", cost end
 	end,
 },
 
@@ -1053,21 +1046,20 @@ end,
 	spellIcon = 10,
 	description = "A sizzling venomous bolt of poison shoots from your hands.\n- Cost : 32 energy\n- Power : 15",
 	onCast = function(champion, x, y, direction, elevation, skillLevel, trigger)
-		local power = spells_functions.script.getPower(15, champion, "poison_mastery", "poison", 2, "poison_bolt")
-		local ord = champion:getOrdinal()
-		
 		local cost = 32
 		cost = spells_functions.script.getCost(champion, cost, "poison", "poison_bolt")
 		spells_functions.script.paySpellCost(champion, cost, "poison", "poison_bolt")
-	
-		-- if champion:getSkillLevel("missile_weapons") > 2 and not trigger then spells_functions.script.maxEffectIcons("poison_bolt", 15, ord) end
+
+		local power = spells_functions.script.getPower(15, champion, "poison_mastery", "poison", 2, "poison_bolt", cost)
+		local ord = champion:getOrdinal()
+		
 		spells_functions.script.missile("poison_bolt_greater_cast", ord, power)
 		spells_functions.script.stopInvisibility()
 	end,
 	preCast = function(champion, x, y, direction, elevation, skillLevel)
 		local cost = 32
 		cost = spells_functions.script.getCost(champion, cost, "poison", "poison_bolt")
-		if champion:getEnergy() < cost then return false,"no_energy" end
+		if champion:getEnergy() < cost then return false, "no_energy", cost end
 	end,
 },
 
@@ -2253,23 +2245,25 @@ function getSpellCriticalChance(champion)
 	return chance
 end
 
-function getPower(base, champion, skill, element, tier, spellName)
+function getPower(base, champion, skill, element, tier, spellName, cost)
 	if not element then element = "neutral" end
+	if not cost then cost = 0 end
 	if not tier then tier = 1 end
-	local f = 1
+	local c = champion:getOrdinal()
+	local f = base
 	if skill then
 		-- f = getSkillPower(champion, skill)
 	end
 	
 	f = functions.script.empowerElement(champion, element, f, false, tier, true)
 
-	f = f * functions.script.empowerAttackType(champion, "spell", f, false, tier)
+	f = functions.script.empowerAttackType(champion, "spell", f, false, tier)
 	
 	if champion:hasTrait("intensify_spell") and spellName and not defByName[spellName].hidden then
 		local intensify = functions.script.get_c("intensifySpell", champion:getOrdinal())
 		if intensify and intensify == spellName then
-			local multi = 1.5
-			f = f * multi
+			local multi = 0.5
+			f = f + (base * multi)
 		end
 	end
 	
@@ -2277,11 +2271,18 @@ function getPower(base, champion, skill, element, tier, spellName)
 		local power1 = champion:getSkillLevel("heavy_armor") / 20
 		local power2 = champion:getSkillLevel("block") / 20
 		local power3 = champion:getSkillLevel("athletics") / 20
-		local multi = 1 + power1 + power2 + power3
-		f = f * multi
+		local multi = power1 + power2 + power3
+		f = f + (base * multi)
+	end
+
+	if champion:getClass() == "monk" and cost > 0 then
+		local focus = functions.script.get_c("focus", c) or 0
+		if champion:getEnergy() < cost and focus >= cost then
+			f = f + (base * 0.8)
+		end
 	end
 	
-	return (base * f)
+	return f
 end
 
 function getCost(champion, base, element, spellName)
@@ -2312,6 +2313,7 @@ function getCost(champion, base, element, spellName)
 			base = base * 0.9
 		end
 	end
+	
 	return base
 end
 
@@ -2333,73 +2335,80 @@ function normalZone()
 end
 
 function onCastSpell(champion, spellName)
+	local c = champion:getOrdinal()
 	local cost = free and defByName[spellName].manaCost or 0
+
+	-- if champion:hasCondition("frozen_champion") then
+	-- 	champion:regainEnergy(cost)
+	-- 	hudPrint(champion:getName().." is frozen.")
+	-- 	playSound("spell_fizzle")
+	-- 	return false
+	-- end
 	
-	if champion:hasCondition("frozen_champion") then
-		champion:regainEnergy(cost)
-		hudPrint(champion:getName().." is frozen.")
-		playSound("spell_fizzle")
-		return false
-	end
+	-- if champion:hasCondition("silence") then
+	-- 	champion:regainEnergy(cost)
+	-- 	hudPrint(champion:getName().." can't cast spells.")
+	-- 	playSound("spell_fizzle")
+	-- 	return false
+	-- end
 	
-	if champion:hasCondition("silence") then
-		champion:regainEnergy(cost)
-		hudPrint(champion:getName().." can't cast spells.")
-		playSound("spell_fizzle")
-		return false
-	end
-	
-	--if defByName[spellName].hidden then return true end
-	local cast = spellKnown(champion, spellName)
-	if cast then
-		if defByName[spellName].preCast then
-			local success,failReason = defByName[spellName].preCast(champion, party.x, party.y, party.facing, party.elevation, champion:getSkillLevel(defByName[spellName].skill or "concentration"))
-			if success == false then
-				if failReason == "no_energy" then
-					champion:castSpell(121)
-				else
-					local sound = false
-					for _,c in ipairs(getChampions("alive")) do
-						if not c:hasTrait(spellName) then
-							local learn = true
-							local req = defByName[spellName].requirements
-							for r = 1,#req,2 do if c:getSkillLevel(req[r]) < req[r+1] then learn = false break end end
-							if learn then c:addTrait(spellName) hudPrint(c:getName().." learned a new spell!") sound = true end
-						end
+	if defByName[spellName].hidden then return true end
+
+	if defByName[spellName].preCast then
+		local success,failReason,calc_cost = defByName[spellName].preCast(champion, party.x, party.y, party.facing, party.elevation, champion:getSkillLevel(defByName[spellName].skill or "concentration"))
+		if success == false then
+			if failReason == "no_energy" then
+				if champion:getClass() == "monk" then
+					local focus = functions.script.get_c("focus", c) or 0
+					calc_cost = calc_cost or 0
+					if focus >= calc_cost then
+						champion:setConditionValue("focus_cast", 6)
+						champion:addTrait("focus_cast")
+						return true
+					else
+						champion:castSpell(121)
 					end
-					if sound then playSound("discover_spell") end
+				else
+					champion:castSpell(121)
 				end
-				champion:regainEnergy(cost)
-				return false
+			else
+				local sound = false
+				for _,c in ipairs(getChampions("alive")) do
+					if not c:hasTrait(spellName) then
+						local learn = true
+						local req = defByName[spellName].requirements
+						for r = 1,#req,2 do if c:getSkillLevel(req[r]) < req[r+1] then learn = false break end end
+						if learn then c:addTrait(spellName) hudPrint(c:getName().." learned a new spell!") sound = true end
+					end
+				end
+				if sound then playSound("discover_spell") end
 			end
+			champion:regainEnergy(cost)
+			return false
 		end
-		local crit = math.random()*100 < getSpellCriticalChance(champion)
-		if crit then
-			champion:showAttackResult("Critical", "HitSplashLarge")
-			if champion:hasTrait("spirit") then
-				local ord = champion:getOrdinal()
-				setArcane(arcanePower[ord]+1, ord)
-			end
-		end
-		set("crit", crit)
-		hasPaidSpellCost(champion, cost)
-		if spellName ~= "copycat" then lastSpellCast = spellName end
-		local sound = false
-		for _,c in ipairs(getChampions("alive")) do
-			if c ~= champion and not c:hasTrait(spellName) then
-				local learn = true
-				local req = defByName[spellName].requirements
-				for r = 1,#req,2 do if c:getSkillLevel(req[r]) < req[r+1] then learn = false break end end
-				if learn then c:addTrait(spellName) hudPrint(c:getName().." learned a new spell!") sound = true end
-			end
-		end
-		if sound then playSound("discover_spell") end
-	else
-		champion:regainEnergy(cost)
-		hudPrint(champion:getName().." must learn this spell from a scroll or another caster before casting it.")
-		playSound("spell_fizzle")
 	end
-	return cast
+	local crit = math.random()*100 < getSpellCriticalChance(champion)
+	if crit then
+		champion:showAttackResult("Critical", "HitSplashLarge")
+		if champion:hasTrait("spirit") then
+			local ord = champion:getOrdinal()
+			setArcane(arcanePower[ord]+1, ord)
+		end
+	end
+	set("crit", crit)
+	hasPaidSpellCost(champion, cost)
+	if spellName ~= "copycat" then lastSpellCast = spellName end
+	local sound = false
+	for _,c in ipairs(getChampions("alive")) do
+		if c ~= champion and not c:hasTrait(spellName) then
+			local learn = true
+			local req = defByName[spellName].requirements
+			for r = 1,#req,2 do if c:getSkillLevel(req[r]) < req[r+1] then learn = false break end end
+			if learn then c:addTrait(spellName) hudPrint(c:getName().." learned a new spell!") sound = true end
+		end
+	end
+	if sound then playSound("discover_spell") end
+	return true
 end
 
 missile_cast = {"darkbolt", "fireball", "lightning_bolt", "frostbolt", "poison_bolt"}
@@ -2948,9 +2957,23 @@ function mostHealthy()
 end
 
 function paySpellCost(champion, cost, element, spellName)
+	local c = champion:getOrdinal()
 	if champion:isAlive() then
-		champion:regainEnergy(-cost)
-		--hasPaidSpellCost(champion, cost)
+		if champion:getClass() == "monk" then
+			local focus = functions.script.get_c("focus", c) or 0
+			if champion:getEnergy() < cost and focus >= cost then
+				functions.script.set_c("focus", c, math.max(focus - cost, 0))
+			else
+				if cost > 0 then
+					champion:regainEnergy(-cost)
+				end
+			end
+		else
+
+			if cost > 0 and champion:getEnergy() >= cost then
+				champion:regainEnergy(-cost)
+			end
+		end
 	end
 end
 

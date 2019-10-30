@@ -1,0 +1,331 @@
+body {
+  background-color: #666;
+  /* background-color: rgb(255, 0, 221); */
+  font-family: 'Palatino Linotype';
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 0.2px;
+  color: #FFF;
+  padding: 0;
+  margin: 0;
+  text-shadow: -1px -1px 0 #333,   1px -1px 0 #333, -1px 1px 0 #333, 1px 1px 0 #333;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  overflow-x: hidden;
+}
+
+body h1 {
+  clear: both;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.main {
+  border-radius: 8px;
+  border: solid 2px rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 549px;
+  min-width: 549px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  position: relative;
+  padding-bottom: 4px;
+  margin: 10px auto;
+}
+
+.main .top {
+  min-height: 94px;
+}
+
+.main h1 {
+  clear: none;
+  text-align: left;
+  font-size: 24px;
+  display: block;
+  margin: 0;
+  margin-left: 105px;
+  margin-bottom: 0;
+  padding-top: 16px;
+}
+
+.main h2 {
+  font-size: 18px;
+  display: block;
+  margin-left: 105px;
+  margin-top: 0;
+  margin-bottom: 0px;
+  color: #a2b7ce;
+  padding-right: 8px;
+}
+
+.main h3 {
+  color: #8e9297;
+  font-size: 17px;
+  display: block;
+  margin-left: 18px;
+  margin-top: 4px;
+  padding-right: 8px;
+  font-style: italic;
+}
+
+.main h3::before {
+  color: #8e9297;
+  content: "\"";
+}
+
+.main h3::after {
+  color: #8e9297;
+  content: "\"";
+}
+
+.main .icon {
+  background-image: url("skills.png");
+  width: 75px;
+  height: 75px;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  float: left;
+  margin-left: 13px;
+  margin-top: 16px;
+}
+
+.main .perks {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: auto;
+  margin: 16px 13px;
+  position: relative;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-bottom: 0;
+}
+
+.main > p {
+  font-size: 13px;
+  color: #a2b7ce;
+  font-style: italic;
+  margin: 2px 13px;
+}
+
+hr {
+  border: none;
+  border-top: solid 2px gray;
+  margin: 12px 16px;
+}
+
+hr::after {
+  content: "Perks";
+  position: absolute;
+  left: 45%;
+  margin-top: -14px;
+  padding: 0 4px;
+  color: #FFF;
+}
+
+.perks span.info {
+  color: #8e9297;
+  display: contents;
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+.perks .perk {
+  margin-bottom: 6px;
+}
+
+.perks .perk > div {
+  width: auto;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.perks .perk b {
+  margin-left: 0;
+  padding-bottom: 6px;
+  color: #99f47c;
+  padding-right: 8px;
+}
+
+.perks .perk em {
+  position: absolute;
+  left: -5px;
+  margin-top: -6px;
+  font-size: 10px;
+  color: #8e9297;
+  font-style: italic;
+}
+
+.perks .perk p {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  border-left: solid 1px #708091;
+  padding-left: 10px;
+  margin: 0;
+  max-width: 384px;
+}
+
+.class_base {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: auto;
+  margin: 6px 13px;
+  position: relative;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  color: #8e9297;
+}
+
+.class_base .stats p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.class_base .stats p:nth-of-type(1)::before {
+  content: "- Health: ";
+}
+
+.class_base .stats p:nth-of-type(2)::before {
+  content: "- Energy: ";
+}
+
+.class_base .stats p em {
+  font-size: 0.8em;
+}
+
+.class_trait {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: auto;
+  margin: 0px 13px;
+  position: relative;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-bottom: 0;
+}
+
+.class_trait p b {
+  margin-left: 0;
+  padding-bottom: 6px;
+  color: #99f47c;
+}
+
+.class_trait p b:first-of-type {
+  padding-right: 8px;
+}
+
+.class_trait p {
+  margin-bottom: 7px;
+  margin-top: 7px;
+}
+
+.class_trait ul {
+  margin: 0;
+  margin-bottom: 8px;
+  font-size: 0.9em;
+  list-style: none;
+  color: #AAA;
+}
+
+.class_trait li::before {
+  content: "- ";
+}
+
+.class_trait li b {
+  color: #99f47c;
+}
+
+.main .top h1 em {
+  font-size: 0.5em;
+  color: #CCC;
+  float: right;
+  margin-right: 115px;
+}
+
+h2 em {
+  font-size: 0.8em;
+}
+
+.index {
+  display: block;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 25px;
+  left: 10px;
+  padding: 25px 15px;
+  border-radius: 10px;
+  z-index: 0;
+  opacity: 0.3;
+}
+
+.index:hover {
+  opacity: 1.0;
+  z-index: 100;
+}
+
+.index > * {
+  display: block;
+  color: white;
+  opacity: 0.4;
+  z-index: 0;
+  text-decoration: none;
+}
+
+.index a:hover {
+  text-decoration: underline;
+}
+
+.index:hover > * {
+  opacity: 1.0;
+  z-index: 100;
+}
+
+.index p {
+  padding: 0;
+  margin: 0;
+}
+
+#herbologist:hover:after {
+  content: url(log2_old_nexus_druid.gif);
+  display: block;
+  position: absolute;
+  left: 123px;
+  top: 26px;
+  z-index: 100;
+  border: 2px gray solid;
+  border-radius: 8px;
+}
+
+#herbologist:hover {
+  position: relative;
+  cursor: pointer;
+}
+
+#herbologist {
+  text-decoration: underline;
+}
+/*# sourceMappingURL=style.css.map */

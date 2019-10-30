@@ -79,7 +79,7 @@ defineCondition{
 defineCondition{
 	name = "healing_light",
 	uiName = "Healing Aura",
-	description = "1% Health and Energy recovered per second.",
+	description = "1% Health, Energy and Focus recovered per second.",
 	icon = 25,
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
@@ -89,63 +89,65 @@ defineCondition{
 		playSound("light")
 	end,
 	onStop = function(self, champion)
-		if champion:getClass() == "monk" then
-			champion:setConditionValue("holy_light", 60 + (math.floor(champion:getLevel() / 4) * 30))
-		end
+		-- if champion:getClass() == "monk" then
+		-- 	champion:setConditionValue("holy_light", 60 + (math.floor(champion:getLevel() / 4) * 30))
+		-- end
 	end,
 	onRecomputeStats = function(self, champion)		
 	end,
 	onTick = function(self, champion)
+		local c = champion:getOrdinal()
 		functions.script.regainHealth(champion:getOrdinal(), champion:getMaxHealth() / 100)
 		functions.script.regainEnergy(champion:getOrdinal(), champion:getMaxEnergy() / 100)
+		local focus = functions.script.get_c("focus", c) or 0
+		local focusMax = champion:getMaxEnergy()
+		functions.script.set_c("focus", c, math.min( focus + (focusMax / 100), focusMax) )
 	end,	
 }
 
-defineCondition{
-	name = "holy_light",
-	uiName = "Holy Light",
-	description = "Random bonus to all stats.",
-	icon = 26,
-	iconAtlas = "mod_assets/textures/gui/conditions.dds",
-	beneficial = true,
-	harmful = false,
-	tickInterval = 1,
-	onStart = function(self, champion)
-		playSound("light")
-		local bonusS, bonusD, bonusW, bonusV = 0, 0, 0, 0
-		local maxBonus = 3 + (math.floor(champion:getLevel() / 3))
-		while (bonusS + bonusD + bonusW + bonusV < maxBonus*1.75) or (bonusS + bonusD + bonusW + bonusV > maxBonus*3) do
-			bonusS = math.random(0, maxBonus)
-			bonusD = math.random(0, maxBonus)
-			bonusW = math.random(0, maxBonus)
-			bonusV = math.random(0, maxBonus)
-		end
-		functions.script.set_c("holyLightRandW", champion:getOrdinal(), bonusW)
-		functions.script.set_c("holyLightRandS", champion:getOrdinal(), bonusS)
-		functions.script.set_c("holyLightRandD", champion:getOrdinal(), bonusD)
-		functions.script.set_c("holyLightRandV", champion:getOrdinal(), bonusV)
-	end,
-	onStop = function(self, champion)
-		functions.script.set_c("holyLightRandW", champion:getOrdinal(), nil)
-		functions.script.set_c("holyLightRandS", champion:getOrdinal(), nil)
-		functions.script.set_c("holyLightRandD", champion:getOrdinal(), nil)
-		functions.script.set_c("holyLightRandV", champion:getOrdinal(), nil)
-	end,
-	onRecomputeStats = function(self, champion)
-		if functions.script.get_c("holyLightRandS", champion:getOrdinal()) then
-			local bonusS = functions.script.get_c("holyLightRandS", champion:getOrdinal())
-			local bonusD = functions.script.get_c("holyLightRandD", champion:getOrdinal())
-			local bonusW = functions.script.get_c("holyLightRandW", champion:getOrdinal())
-			local bonusV = functions.script.get_c("holyLightRandV", champion:getOrdinal())
-			champion:addStatModifier("strength", bonusS)
-			champion:addStatModifier("dexterity", bonusD)
-			champion:addStatModifier("willpower", bonusW)
-			champion:addStatModifier("vitality", bonusV)
-		end
-	end,
-	onTick = function(self, champion)
-	end,	
-}
+-- defineCondition{
+-- 	name = "holy_light",
+-- 	uiName = "Holy Light",
+-- 	description = "Random bonus to all stats.",
+-- 	icon = 26,
+-- 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
+-- 	beneficial = true,
+-- 	harmful = false,
+-- 	tickInterval = 1,
+-- 	onStart = function(self, champion)
+-- 		playSound("light")
+-- 		local bonusS, bonusD, bonusW, bonusV = 0, 0, 0, 0
+-- 		local maxBonus = 3 + (math.floor(champion:getLevel() / 3))
+-- 		while (bonusS + bonusD + bonusW + bonusV < maxBonus*1.75) or (bonusS + bonusD + bonusW + bonusV > maxBonus*3) do
+-- 			bonusS = math.random(0, maxBonus)
+-- 			bonusD = math.random(0, maxBonus)
+-- 			bonusW = math.random(0, maxBonus)
+-- 			bonusV = math.random(0, maxBonus)
+-- 		end
+-- 		functions.script.set_c("holyLightRandW", champion:getOrdinal(), bonusW)
+-- 		functions.script.set_c("holyLightRandS", champion:getOrdinal(), bonusS)
+-- 		functions.script.set_c("holyLightRandD", champion:getOrdinal(), bonusD)
+-- 		functions.script.set_c("holyLightRandV", champion:getOrdinal(), bonusV)
+-- 	end,
+-- 	onStop = function(self, champion)
+-- 		functions.script.set_c("holyLightRandW", champion:getOrdinal(), nil)
+-- 		functions.script.set_c("holyLightRandS", champion:getOrdinal(), nil)
+-- 		functions.script.set_c("holyLightRandD", champion:getOrdinal(), nil)
+-- 		functions.script.set_c("holyLightRandV", champion:getOrdinal(), nil)
+-- 	end,
+	-- onRecomputeStats = function(self, champion)
+	-- 	local bonusS = functions.script.get_c("holyLightRandS", champion:getOrdinal()) or 0
+	-- 	local bonusD = functions.script.get_c("holyLightRandD", champion:getOrdinal()) or 0
+	-- 	local bonusW = functions.script.get_c("holyLightRandW", champion:getOrdinal()) or 0
+	-- 	local bonusV = functions.script.get_c("holyLightRandV", champion:getOrdinal()) or 0
+	-- 	if bonusS then
+	-- 		champion:addStatModifier("strength", bonusS)
+	-- 		champion:addStatModifier("dexterity", bonusD)
+	-- 		champion:addStatModifier("willpower", bonusW)
+	-- 		champion:addStatModifier("vitality", bonusV)
+	-- 	end
+	-- end,
+-- }
 
 defineCondition{
 	name = "healing_light2",
@@ -167,6 +169,20 @@ defineCondition{
 		functions.script.regainEnergy(champion:getOrdinal(), champion:getMaxEnergy() / 100)
 		
 	end,	
+}
+
+defineCondition{
+	name = "focus_cast",
+	uiName = "Focused Casting",
+	description = "You spent Focus to cast.",
+	icon = 25,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
+	beneficial = true,
+	harmful = false,
+	tickInterval = 1,
+	onStop = function(self, champion)
+		champion:removeTrait("focus_cast")	
+	end,
 }
 
 defineCondition{
@@ -266,7 +282,6 @@ defineCondition{
 		local stacks = functions.script.get_c("hunter_crit", champion:getOrdinal())
 		if stacks and stacks > 0 then
 			local c = champion:getOrdinal()
-			-- functions.script.hunterCrit(c, -1, 3)
 			delayedCall("functions", 0.1, "hunterCrit", c, -1, 3)
 		end
 	end,
@@ -316,9 +331,6 @@ defineCondition{
 	harmful = false,
 	tickInterval = 1,
 	onStart = function(self, champion)
-		-- if champion:hasTrait("perfect_mix") then
-		-- 	functions.script.regainHealth(champion:getOrdinal(), 12)
-		-- end
 		-- Party Arcane Extraction
 		for i=1,4 do
 			local c = party.party:getChampionByOrdinal(i)
@@ -338,7 +350,6 @@ defineCondition{
 	end,
 	onTick = function(self, champion)
 		local heal = 3.125
-		-- local heal = champion:hasTrait("perfect_mix") and 3.9 or 3.125
 		functions.script.regainHealth(heal)
 		local cond = { "head_wound", "chest_wound", "leg_wound", "feet_wound", "right_hand_wound", "left_hand_wound", "bleeding" }
 		local recoverChance = champion:hasTrait("perfect_mix") and 0.2 or 0.1
@@ -366,9 +377,6 @@ defineCondition{
 	harmful = false,
 	tickInterval = 1,
 	onStart = function(self, champion)
-		-- if champion:hasTrait("perfect_mix") then
-		-- 	functions.script.regainHealth(champion:getOrdinal(), 37)
-		-- end
 		-- Party Arcane Extraction
 		for i=1,4 do
 			local c = party.party:getChampionByOrdinal(i)
@@ -388,7 +396,6 @@ defineCondition{
 	end,
 	onTick = function(self, champion)
 		local heal = 18.75
-		-- local heal = champion:hasTrait("perfect_mix") and 23.4375 or 18.75
 		functions.script.regainHealth(heal)
 		local cond = { "head_wound", "chest_wound", "leg_wound", "feet_wound", "right_hand_wound", "left_hand_wound", "bleeding" }
 		local recoverChance = champion:hasTrait("perfect_mix") and 0.2 or 0.1
