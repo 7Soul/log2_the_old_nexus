@@ -750,6 +750,14 @@ defineTrait{
 }
 
 defineTrait{
+	name = "drown_sorrows_exp",
+	uiName = "Exp Penalty",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 41,
+	description = "-15% Experience gain. Lasts a day.",
+}
+
+defineTrait{
 	name = "carnivorous",
 	uiName = "Carnivorous",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
@@ -950,11 +958,13 @@ defineTrait{
 	icon = 48,
 	charGen = true,
 	requiredRace = "insectoid",
-	description = "Increases physical and magical damage by 4% for each point in Vitality (has diminishing returns).\n\nGain +1 Vitality per 25 Energy.",
+	description = "Increases physical and magical damage by 4% for each point in Vitality (has diminishing returns).\n\nGain +1 Vitality per 50 Energy.\nStarts with -10 Health and -10 Energy.",
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			local addVit = math.floor(champion:getCurrentStat("max_energy") / 25)
+			local addVit = math.floor(champion:getCurrentStat("max_energy") / 50)
 			champion:addStatModifier("vitality", addVit)
+			champion:addStatModifier("max_health", -10)
+			champion:addStatModifier("max_energy", -10)
 		end
 	end,
 }
@@ -1008,7 +1018,7 @@ defineTrait{
 	description = [[You can chew herbs (but not Crystal Flowers and Blackmoss), reducing spell costs and cooldowns by 10% for 3 minutes.
 	
 	When you are done chewing, you produce a Fermented Fiber Ball, which increases herb multiplication rate and can be used to heal diseases and poisoning.
-	The Fiber Ball dries out and loses its properties after a certain time, which is longer based on your level.]],
+	The Fiber Ball dries out and loses its properties after a certain number of steps, which is higher based on your level.]],
 }
 
 
@@ -1018,9 +1028,9 @@ defineTrait{
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 51,
 	description = [[Spell costs and cooldowns reduced by 10%.]],
-	onComputeCooldown = function(champion, weapon, attack, attackType, level)
+	onRecomputeStats = function(champion, level)
 		if level > 0 then
-			return 0.90
+			champion:addStatModifier("cooldown_rate", 10)
 		end
 	end,
 }

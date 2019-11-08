@@ -565,7 +565,6 @@ defineCondition{
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
 	beneficial = true,
 	harmful = false,
-	hidden = true,
 	tickInterval = 1,
 	onStart = function(self, champion)
 	end,

@@ -2095,13 +2095,13 @@ function class_skill(skill, champion)
 		--print("skill sneak_attack")
 		set_c("sneak_attack", champion:getOrdinal(), false)
 		champion:setConditionValue("sneak_attack", 100)
-		champion:setConditionValue("recharging", 2)
+		champion:setConditionValue("recharging", 3)
 		
 	elseif skill == "ancestral_charge" then
 		--print("skill ancestral_charge")
 		local spell = spells_functions.script.defByName["ancestral_charge_cast"]
 		spell.onCast(champion, party.x, party.y, party.facing, party.elevation, 3)
-		champion:setConditionValue("recharging", 2)
+		champion:setConditionValue("recharging", 3)
 	
 	elseif skill == "intensify_spell" then
 		--print("skill intensify_spell")
@@ -2111,15 +2111,15 @@ function class_skill(skill, champion)
 		else
 			--no spell to intensify
 		end
-		champion:setConditionValue("recharging", 2)
+		champion:setConditionValue("recharging", 3)
 	
 	elseif skill == "drinker" then
 		--print("skill drinker")
 		playSound("consume_potion")
-		champion:setConditionValue("recharging", 2)
+		champion:setConditionValue("recharging", 3)
 		champion:setConditionValue("drown_sorrows", 15)
 		set_c("drown_sorrows_exp", champion:getOrdinal(), GameMode.getTimeOfDay())
-		champion:setConditionValue("drown_sorrows_exp", 9999)
+		champion:addTrait("drown_sorrows_exp")
 	end
 end
 

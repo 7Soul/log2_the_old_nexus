@@ -435,7 +435,7 @@ defOrdered =
 	Cost : 25 energy
 	Power : 22]],
 	onCast = function(champion, x, y, direction, elevation, skillLevel)	
-		local cost = 75
+		local cost = 25
 		cost = spells_functions.script.getCost(champion, cost, "fire", "fireburst")
 		local power = spells_functions.script.getPower(22, champion, "elemental_magic", "fire", 1, "fireburst", cost)
 		spells_functions.script.paySpellCost(champion, cost, "fire", "fireburst")
@@ -443,7 +443,7 @@ defOrdered =
 		spells_functions.script.stopInvisibility()
 	end,
 	preCast = function(champion, x, y, direction, elevation, skillLevel)
-		local cost = 75
+		local cost = 25
 		cost = spells_functions.script.getCost(champion, cost, "fire", "fireburst")
 		if champion:getEnergy() < cost then return false, "no_energy", cost end
 	end,

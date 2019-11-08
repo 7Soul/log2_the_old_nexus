@@ -1238,29 +1238,19 @@ defineObject{
 			end
 
 			local textIndex = 0
-			for i=1,4 do
-				local champion = party.party:getChampionByOrdinal(i)
-				if functions.script.get_c("level_up_message_1", champion:getOrdinal()) and functions.script.get_c("level_up_message_1_timer", champion:getOrdinal()) then
-					local text = functions.script.get_c("level_up_message_1", champion:getOrdinal())
-					textIndex = textIndex + 1
-					local timer = 3 - (functions.script.get_c("level_up_message_1_timer", champion:getOrdinal()) or 0)
-					timer = math.max(timer, 0)
-					context.font("medium")
-					context.color(255, 255, 255, 255 - (timer*85))
-					context.drawText(text, (w - (w / 2)) - (context.getTextWidth(text) / 2), (f2 * h * 0.01) + (textIndex * 24))
-				end	
-			end
-			for i=1,4 do
-				local champion = party.party:getChampionByOrdinal(i)
-				if functions.script.get_c("level_up_message_2", champion:getOrdinal()) and functions.script.get_c("level_up_message_2_timer", champion:getOrdinal()) then
-					local text = functions.script.get_c("level_up_message_2", champion:getOrdinal())
-					textIndex = textIndex + 1
-					local timer = 3 - (functions.script.get_c("level_up_message_2_timer", champion:getOrdinal()) or 0)
-					timer = math.max(timer, 0)
-					context.font("medium")
-					context.color(255, 255, 255, 255 - (timer*85))
-					context.drawText(text, (w - (w / 2)) - (context.getTextWidth(text) / 2), (f2 * h * 0.01) + (textIndex * 24))
-				end	
+			for msg=1,3 do
+				for i=1,4 do
+					local champion = party.party:getChampionByOrdinal(i)
+					if functions.script.get_c("level_up_message_" .. msg, champion:getOrdinal()) and functions.script.get_c("level_up_message_" .. msg .. "_timer", champion:getOrdinal()) then
+						local text = functions.script.get_c("level_up_message_" .. msg, champion:getOrdinal())
+						textIndex = textIndex + 1
+						local timer = 3 - (functions.script.get_c("level_up_message_" .. msg .. "_timer", champion:getOrdinal()) or 0)
+						timer = math.max(timer, 0)
+						context.font("medium")
+						context.color(255, 255, 255, 255 - (timer*85))
+						context.drawText(text, (w - (w / 2)) - (context.getTextWidth(text) / 2), (f2 * h * 0.01) + (textIndex * 24))
+					end	
+				end
 			end
 		end,
 		
@@ -2301,12 +2291,14 @@ defineObject{
 					functions.script.set_c("sneak_attack", champion:getOrdinal(), nil)
 				end
 				
-				if champion:hasTrait("drinker") and champion:hasCondition("drown_sorrows_exp") then
-					local resetTimer = functions.script.get_c("drown_sorrows_exp", champion:getOrdinal())
+				local drown_sorrows_exp = functions.script.get_c("drown_sorrows_exp", champion:getOrdinal())
+				if champion:hasTrait("drinker") and champion:hasTrait("drown_sorrows_exp") and drown_sorrows_exp then
+					local resetTimer = drown_sorrows_exp
 					if resetTimer ~= nil and GameMode.getTimeOfDay() < resetTimer and GameMode.getTimeOfDay() >= resetTimer - 0.002 then
-						champion:removeCondition("drown_sorrows_exp")
+						champion:removeTrait("drown_sorrows_exp")
 						functions.script.set_c("drown_sorrows_exp", champion:getOrdinal(), nil)
-						hudPrint(champion:getName().. " drinking EXP Penalty was removed.")
+						functions.script.set_c("level_up_message_3", champion:getOrdinal(), champion:getName() .. " drinking EXP Penalty was removed.")
+						functions.script.set_c("level_up_message_3_timer", champion:getOrdinal(), 8)
 					end
 				end
 				
@@ -2322,7 +2314,7 @@ defineObject{
 					end
 				end
 
-				for i=1,2 do
+				for i=1,3 do
 					local timer = functions.script.get_c("level_up_message_".. i .."_timer", champion:getOrdinal())
 					if timer then
 						if timer > 0 then

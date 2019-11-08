@@ -219,7 +219,7 @@ hr::after {
   width: -moz-fit-content;
   width: fit-content;
   height: auto;
-  margin: 0px 13px;
+  margin: 6px 13px;
   position: relative;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
