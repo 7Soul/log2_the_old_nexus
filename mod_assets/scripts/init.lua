@@ -148,6 +148,37 @@ defineObject{
 					end
 					break
 				end
+
+				local insertPellet = nil
+
+				if champion:hasTrait("metal_slug") then
+					local count = functions.script.metalSlugList[(functions.script.metalSlug % 12) + 1]
+					
+					if functions.script.stepCount % count == 0 then
+						insertPellet = true
+						functions.script.metalSlugListIncrease()
+					end
+
+					if insertPellet then
+						local pelletSlot = 0
+						local slotsFilled = 0
+						for slot=13,32 do
+							if champion:getItem(slot) == nil then
+								champion:insertItem(slot, spawn("pellet_box").item)
+								break
+							else
+								if champion:getItem(slot).go.name == "pellet_box" then
+									herbSlot = slot
+								end
+								slotsFilled = slotsFilled + 1
+							end
+							if slotsFilled == 20 then
+								champion:getItem(pelletSlot):setStackSize(champion:getItem(pelletSlot):getStackSize() + 1)
+							end
+						end
+					end
+
+				end
 			end
 			
 			for i=1,4 do
@@ -1506,9 +1537,9 @@ defineObject{
 				hover1[22], hover2[22] = context.button("hover"..22, w - (x + 6), y-16, buttonW, buttonH)
 
 				y = y + 20
+				local ranged = tostring(math.floor( functions.script.empowerAttackType(champion, "ranged", 100, true, 0, true) - 100 ))
 				context.drawText("Ranged", w - (x * f2), y * f2)
-				txt = tostring(math.floor( functions.script.empowerAttackType(champion, "ranged", 100, true) - 100 ))
-				functions.script.drawStatNumber(context, txt, w - ((x-138) * f2), y* f2)
+				functions.script.drawStatNumber(context, ranged, w - ((x-138) * f2), y* f2)
 				hover1[23], hover2[23] = context.button("hover"..23, w - (x + 6), y-16, buttonW, buttonH)
 
 				y = y + 20

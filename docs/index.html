@@ -136,12 +136,11 @@
 		</div>
 	</div>
 	<div class="class_trait">
-		<p><b>Pistolero:</b> You can dual wield with a pistol, be it another pistol or a melee weapon. You attack with both in quick succession.</p>
+		<p><b>Pistolero:</b> You can wield two pistols, or a pistol with a melee weapon. You attack with both in quick succession.</p>
 		<ul>
 		<li>Your Action Speed becomes 40% slower (+1.5 per level).</li>
-		<li>You automatically use pellets from your inventory.</li>
 		</ul>
-	</div>	
+	</div>
 	
 	<div class="class_trait">
 		<p><b>Dirty Fighting:</b> When using a melee attack, you have a 2% chance <em>(+1% per level)</em> of performing a secondary action with +20 Accuracy:</p>
@@ -780,7 +779,7 @@
 	<div class="perks">
 		<div class="perk">
 			<div style="margin-right: 13px"><em>Level 2</em><b>Metal Slug</b></div>
-			<p>7% chance to not spend a pellet to fire.</p>
+			<p>You may find pellets as you walk around and you can use pellets from your inventory.</br><span class="info">Gain 10% Action Speed when using pellets in hand.</span></p>
 		</div>
 		
 		<div class="perk">
@@ -847,12 +846,12 @@
 		
 		<div class="perk">
 			<div style="margin-right: 0px"><em>Silver Tier</em><b>Bomb Cloning</b></div>
-			<p style="max-width: 360px;">You may alchemically clone a bomb you throw.<br/><span class="info">Chance is 10% plus 6% per 10 Willpower.</span></p>
+			<p style="max-width: 360px;">You may alchemically clone a bomb you throw and it only explodes on contact with enemies.<br/><span class="info">Chance is 10% plus 6% per 10 Willpower.</span></p>
 		</div>
 		
 		<div class="perk">
 			<div style="margin-right: 14px"><em>Gold Tier</em><b>Bomb Expert</b></div>
-			<p style="max-width: 360px;">When you craft bombs you get three bombs instead of one.</p>
+			<p style="max-width: 360px;">If your target is weak to the bomb type, the explosion expands into a 3x3 area.</p>
 		</div>
 	</div>
 	<p>*Rate is fixed and can't be increased by any means.</p>
@@ -893,18 +892,18 @@
 	<hr/>
 	<div class="perks">
 		<div class="perk">
-			<div style="margin-right: 28px"><em>Level 2</em><b>Telekinesis</b></div>
-			<p style="max-width: 360px;">Every 3 throws, the weapon may return to your hand, doing damage again.<br/><span class="info">Return chance is 20% plus 20% per 10 Willpower. If this fails, it'll only return some of the way.</span></p>
+			<div style="margin-right: 12px"><em>Level 2</em><b>Twist & Turn</b></div>
+			<p style="max-width: 360px;">Willpower and Strength raises Throwing Damage and Bleed Chance respectively.</p>
 		</div>
 		
 		<div class="perk">
-			<div style="margin-right: 12px"><em>Silver Tier</em><b>Twist & Turn</b></div>
-			<p style="max-width: 360px;">May cause bleeding when a weapon lodges into the target. <span class="info">Chance is 7%.</span></p>
+			<div style="margin-right: 12px"><em>Silver Tier</em><b>Telekinesis</b></div>
+			<p style="max-width: 360px;">Reflects incoming projectiles.<br/><span class="info">Cooldown is 5 seconds.</span></p>
 		</div>
 		
 		<div class="perk">
 			<div style="margin-right: 0px"><em>Gold Tier</em><b>Ghost Weapon</b></div>
-			<p style="max-width: 360px;">Every other attack, you throw a ghostly version of a weapon you own.<br/><span class="info">It spins around your current position 3 times, dealing 1/4 its damage.</span></p>
+			<p style="max-width: 360px;">Strike a nearby target with a ghostly projectile.<br/><span class="info">Does damage based on a random weapon in your inventory. Chance is 10% for each weapon.</span></p>
 		</div>
 	</div>
 	<p>Perks take effect when attacking with Throwing Weapons.<p>
@@ -1004,9 +1003,9 @@
 	<div class="perks">
 		<div class="perk">
 			<div style="margin-right: 57px"><em>Level 2</em><b>Aggregate</b></div>
-			<p style="max-width: 350px;">Hitting a foe with an element it resists will buff your next hit with that element by 20%.</p>
+			<p style="max-width: 350px;">The first element you use after resting is empowered by 20%.<br/><span class="info">Resets after one day.</span></p>
 		</div>
-		
+
 		<div class="perk">
 			<div style="margin-right: 0px"><em>Silver Tier</em><b>Elemental Armor</b></div>
 			<p style="max-width: 350px;">+25% Resist Fire, Shock and Cold.<br/>You regain 15% of you maximum energy when hit by one of those elements.</p>
@@ -1014,7 +1013,7 @@
 		
 		<div class="perk">
 			<div style="margin-right: 40px"><em>Gold Tier</em><b>Exploitation</b></div>
-			<p style="max-width: 350px;">Deal 25% more damage if the target is vulnerable to that element.</p>
+			<p style="max-width: 350px;">Your elemental attacks and spells create an arcane storm on impact.<br/><span class="info">Power and duration is based on spell tier.</span></p>
 		</div>
 	</div>
 </div>
@@ -1328,7 +1327,7 @@
 	<div class="top">
 		<div class="icon" style="background-position: 75px 0;"></div>
 		<h1>Archmage Set</h1>
-		<h2>Monsters below 7% health (Max 777 hp) are instantly killed by your spells.</h2>
+		<h2>Monsters below 14% health (Max 777 hp) are instantly killed by your spells.</h2>
 	</div>
 	<div class="class_trait">
 		<p>Base Set Stats:</p>		
@@ -1342,8 +1341,7 @@
 	<div class="top">
 		<div class="icon" style="background-position: 75px 0;"></div>
 		<h1>Makeshift Set</h1>
-		<h2>You gain 7% energy when you cause an enemy to bleed.</h2>
-		<h2>You gain 2% energy when you hit an enemy with a melee attack.</h2>
+		<h2></h2>
 	</div>
 	<div class="class_trait">
 		<p>Base Set Stats:</p>
@@ -1417,7 +1415,8 @@
 	<div class="top">
 		<div class="icon" style="background-position: 75px 0;"></div>
 		<h1>Valor Set</h1>
-		<h2>?</h2>
+		<h2>+10% Block Chance</h2>
+		<h2>Creates an aura that gives 5% of your Protection to the party when you block.</h2>
 	</div>
 	<div class="class_trait">
 		<p>Base Set Stats:</p>		

@@ -240,7 +240,7 @@ function start()
 			end
 		end
 		local m = dead_crystal_1:getWorldRotation()
-		local scale = 1 + 0.6
+		local scale = 1.6
 		m.x = m.x * scale
 		m.y = m.y * scale
 		m.z = m.z * scale

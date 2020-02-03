@@ -2780,13 +2780,13 @@ loadLayer("floor_elevation", {
 	0,-1,-1,1,1,0,0,1,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,1,0,0,-1,-1,0,0,0,0,
 	0,-1,-1,1,1,1,1,1,0,0,0,0,0,-1,-1,-1,-1,-1,-1,0,0,0,0,1,0,-1,-1,-1,0,0,0,0,
 	0,0,-1,-1,0,0,0,1,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0,1,0,-1,-1,-1,0,0,0,0,
-	0,0,-1,-1,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,-1,-1,-1,0,0,0,0,
-	0,0,-1,-1,-1,0,0,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,-1,-1,-1,0,0,0,0,0,
+	0,0,-1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,-1,-1,-1,0,0,0,0,
+	0,0,-1,0,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,-1,-1,-1,0,0,0,0,0,
 	0,0,-1,-1,-1,0,0,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,-1,-1,-1,0,0,0,0,0,
 	0,0,0,-1,-1,-1,-1,-1,-1,0,0,0,-1,-1,-1,-1,-1,-1,-1,0,0,-1,-1,-1,-1,-1,-1,0,0,0,0,0,
 	0,0,0,-1,-1,-1,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,
-	0,0,0,0,-1,-1,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,
-	0,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,-1,-1,0,0,0,0,0,0,0,
+	0,0,0,0,-1,-1,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,
+	0,0,0,0,0,-1,-1,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,-1,-1,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,
@@ -2850,13 +2850,13 @@ loadLayer("tiles", {
 	2,7,7,1,1,2,2,1,2,5,2,2,7,7,7,7,7,7,7,7,3,5,2,1,2,2,7,7,2,6,4,6,
 	2,7,7,1,1,1,1,1,2,5,5,2,2,7,7,7,7,7,7,2,2,5,2,1,2,7,7,7,2,2,4,6,
 	2,2,7,7,2,2,2,1,2,2,5,5,2,1,1,2,1,1,2,5,5,5,2,1,2,7,7,7,2,2,4,4,
-	4,4,7,7,2,2,2,1,2,2,2,2,2,1,2,2,2,1,2,2,2,2,2,1,2,7,7,7,2,2,6,4,
-	6,4,7,7,7,2,2,1,1,2,2,2,1,1,2,2,2,1,1,2,2,2,1,1,7,7,7,2,2,2,2,2,
+	4,4,7,2,2,2,2,1,2,2,2,2,2,1,2,2,2,1,2,2,2,2,2,1,2,7,7,7,2,2,6,4,
+	6,4,7,2,2,2,2,1,1,2,2,2,1,1,2,2,2,1,1,2,2,2,1,1,7,7,7,2,2,2,2,2,
 	6,4,7,7,7,2,2,1,1,1,1,1,1,2,2,2,2,2,1,1,1,1,1,1,7,7,7,6,2,2,6,4,
 	6,4,2,7,7,7,7,7,7,2,2,2,7,7,7,7,7,7,7,2,2,7,7,7,7,7,7,6,2,2,4,4,
 	6,4,2,7,7,7,2,2,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,2,2,2,4,6,
-	6,4,2,2,7,7,2,2,2,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,2,2,5,2,4,6,
-	6,4,2,2,2,7,7,7,7,7,7,7,7,7,7,7,7,7,1,1,1,1,1,7,7,2,2,2,5,2,4,6,
+	6,4,2,2,7,7,2,2,2,2,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,2,2,5,2,4,6,
+	6,4,2,2,2,7,7,2,2,7,7,7,7,7,7,7,7,7,1,1,1,1,1,7,7,2,2,2,5,2,4,6,
 	6,4,2,2,2,2,7,7,7,7,7,2,2,2,2,2,2,2,1,3,3,3,1,2,2,2,2,2,5,2,4,6,
 	6,4,6,2,2,2,7,7,7,7,7,7,2,2,2,2,2,2,2,3,3,3,5,2,5,5,5,5,5,2,4,6,
 	6,4,6,6,2,2,7,7,7,7,7,7,2,2,2,6,6,6,1,3,3,3,1,2,2,2,2,5,6,2,4,6,
@@ -3414,8 +3414,6 @@ spawn("forest_plant_cluster_01",19,18,0,0,"forest_plant_cluster_01_51")
 spawn("forest_spruce_small_01",19,18,1,0,"forest_spruce_small_01_6")
 spawn("forest_plant_cluster_01",10,18,1,0,"forest_plant_cluster_01_52")
 spawn("forest_spruce_small_01",10,18,2,0,"forest_spruce_small_01_7")
-spawn("forest_plant_cluster_01",9,18,2,0,"forest_plant_cluster_01_53")
-spawn("forest_spruce_small_01",9,18,3,0,"forest_spruce_small_01_8")
 spawn("forest_heather",11,18,1,0,"forest_heather_241")
 spawn("forest_spruce_small_01",11,18,3,0,"forest_spruce_small_01_9")
 spawn("healing_crystal",23,27,1,0,"healing_crystal_5")
@@ -3804,14 +3802,9 @@ spawn("forest_heather",15,24,3,0,"forest_heather_271")
 spawn("forest_heather",16,24,0,0,"forest_heather_272")
 spawn("forest_oak_trunk",16,23,2,0,"forest_oak_trunk_54")
 spawn("beach_rock_border",15,23,2,0,"beach_rock_border_212")
-spawn("forest_plant_cluster_01",7,20,1,0,"forest_plant_cluster_01_69")
-spawn("forest_spruce_small_01",7,20,2,0,"forest_spruce_small_01_10")
 spawn("forest_plant_cluster_01",6,20,2,0,"forest_plant_cluster_01_70")
 spawn("forest_spruce_small_01",6,20,3,0,"forest_spruce_small_01_11")
-spawn("forest_heather",8,20,1,0,"forest_heather_273")
-spawn("forest_spruce_small_01",8,20,3,0,"forest_spruce_small_01_12")
 spawn("forest_spruce_sapling_01",7,19,0,0,"forest_spruce_sapling_01_13")
-spawn("forest_heather",6,19,3,0,"forest_heather_275")
 spawn("forest_heather",7,19,0,0,"forest_heather_276")
 spawn("beach_thicket_01",26,29,3,0,"beach_thicket_01_38")
 spawn("ladder_broken_2",6,23,3,-1,"ladder_broken_2_2")
@@ -3884,7 +3877,6 @@ mummy1_1.detectedtimer:setTriggerOnStart(true)
 mummy1_1.detectedtimer:setCurrentLevelOnly(true)
 spawn("forest_lantern",10,10,1,0,"forest_lantern_44")
 spawn("forest_lantern",10,8,1,0,"forest_lantern_45")
-spawn("starting_location",10,9,3,0,"starting_location_1")
 spawn("potion_healing",10,9,3,0,"potion_healing_4")
 potion_healing_4.data:setSource("data = {}\
 function get(self,name)\9return self.data[name] end\
@@ -3918,6 +3910,108 @@ bone_amulet_1.detectedtimer:setTimerInterval(0)
 bone_amulet_1.detectedtimer:setDisableSelf(false)
 bone_amulet_1.detectedtimer:setTriggerOnStart(true)
 bone_amulet_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("forest_ruins_dome",7,20,2,0,"forest_ruins_dome_5")
+spawn("forest_ruins_ground_tile_01",8,20,3,0,"forest_ruins_ground_tile_01_8")
+spawn("forest_ruins_fallen_bricks",9,20,2,0,"forest_ruins_fallen_bricks_45")
+spawn("forest_ruins_fallen_bricks",9,18,3,0,"forest_ruins_fallen_bricks_46")
+spawn("chest",6,19,0,0,"chest_6")
+chest_6.lock:enable()
+spawn("magic_bridge",9,19,0,0,"magic_bridge_8")
+magic_bridge_8.controller:setInitialState("deactivate")
+spawn("magic_bridge",8,18,1,0,"magic_bridge_9")
+magic_bridge_9.controller:setInitialState("deactivate")
+spawn("magic_bridge",7,18,1,0,"magic_bridge_10")
+magic_bridge_10.controller:setInitialState("deactivate")
+spawn("magic_bridge",6,18,1,0,"magic_bridge_11")
+magic_bridge_11.controller:setInitialState("deactivate")
+spawn("beach_rock_border",9,18,1,0,"beach_rock_border_214")
+spawn("forest_oak_cluster",6,15,0,0,"forest_oak_cluster_177")
+spawn("forest_heather",6,15,0,0,"forest_heather_58")
+spawn("forest_oak_cluster",6,16,1,0,"forest_oak_cluster_178")
+spawn("forest_heather",6,16,1,0,"forest_heather_60")
+spawn("forest_oak_cluster",4,15,3,0,"forest_oak_cluster_179")
+spawn("forest_heather",4,15,3,0,"forest_heather_63")
+spawn("forest_altar",6,14,3,0,"forest_altar_5")
+spawn("beach_rock_border",6,19,2,0,"beach_rock_border_215")
+spawn("grass_planes_01",6,17,0,0,"grass_planes_01_93")
+spawn("grass_planes_01",5,17,0,0,"grass_planes_01_94")
+spawn("grass_planes_01",5,16,2,0,"grass_planes_01_95")
+spawn("grass_planes_01",5,15,0,0,"grass_planes_01_96")
+spawn("grass_planes_01",9,18,0,0,"grass_planes_01_97")
+spawn("grass_planes_01",9,20,0,0,"grass_planes_01_98")
+spawn("grass_planes_01",8,20,0,0,"grass_planes_01_99")
+spawn("grass_planes_01",8,21,0,0,"grass_planes_01_100")
+spawn("grass_planes_01",7,21,0,0,"grass_planes_01_101")
+spawn("spawner",13,20,3,0,"spawner_25")
+spawner_25.spawner:setSpawnedEntity("")
+spawner_25.spawner:setMonsterLevel(1)
+spawner_25.spawner:setCooldown(0)
+spawner_25.spawner:setDisableSelf(false)
+spawn("forest_pressure_plate",5,14,2,0,"forest_pressure_plate_6")
+forest_pressure_plate_6.floortrigger:setTriggeredByParty(true)
+forest_pressure_plate_6.floortrigger:setTriggeredByMonster(true)
+forest_pressure_plate_6.floortrigger:setTriggeredByItem(true)
+forest_pressure_plate_6.floortrigger:setTriggeredByDigging(false)
+forest_pressure_plate_6.floortrigger:setDisableSelf(false)
+spawn("forest_wall_text_short",6,17,0,0,"forest_wall_text_short_8")
+forest_wall_text_short_8.walltext:setWallText("No Trespassing")
+spawn("grass_planes_01",4,14,1,0,"grass_planes_01_103")
+spawn("forest_willow",4,15,0,0,"forest_willow_46")
+spawn("beach_rock_border",5,15,1,0,"beach_rock_border_216")
+spawn("grass_planes_01",6,14,1,0,"grass_planes_01_104")
+spawn("beach_rock_2x1",1,18,0,0,"beach_rock_2x1_145")
+spawn("beach_rock_2x1",1,16,2,0,"beach_rock_2x1_146")
+spawn("grass_planes_01",4,16,1,0,"grass_planes_01_102")
+spawn("grass_planes_01",3,16,2,0,"grass_planes_01_105")
+spawn("grass_planes_01",3,15,0,0,"grass_planes_01_106")
+spawn("mine_support_pillar_01",2,11,3,-1,"mine_support_pillar_01_408")
+spawn("mine_support_wall_01",2,10,2,-1,"mine_support_wall_01_14")
+spawn("mine_support_wall_01",1,10,2,-1,"mine_support_wall_01_15")
+spawn("mine_support_pillar_01",1,11,3,-1,"mine_support_pillar_01_409")
+spawn("mine_support_pillar_01",3,11,3,-1,"mine_support_pillar_01_410")
+spawn("forest_seaweed_wall_decoration_01",2,11,0,-1,"forest_seaweed_wall_decoration_01_11")
+spawn("forest_underwater_plankton",2,11,2,-1,"forest_underwater_plankton_5")
+spawn("forest_seaweed_floor_02",1,10,3,-1,"forest_seaweed_floor_02_13")
+spawn("forest_seaweed_pillar",2,12,1,-1,"forest_seaweed_pillar_3")
+spawn("forest_seaweed_floor_02",1,12,3,-1,"forest_seaweed_floor_02_14")
+spawn("forest_underwater_plankton",2,14,2,-1,"forest_underwater_plankton_6")
+spawn("forest_seaweed_floor_02",3,14,1,-1,"forest_seaweed_floor_02_15")
+spawn("forest_seaweed_wall_decoration_01",3,14,1,-1,"forest_seaweed_wall_decoration_01_12")
+spawn("forest_seaweed_wall_decoration_01",2,15,3,-1,"forest_seaweed_wall_decoration_01_13")
+spawn("forest_seaweed_wall_decoration_01",1,13,3,-1,"forest_seaweed_wall_decoration_01_14")
+spawn("forest_seaweed_wall_decoration_01",1,11,3,-1,"forest_seaweed_wall_decoration_01_15")
+spawn("forest_seaweed_wall_decoration_01",2,9,1,-1,"forest_seaweed_wall_decoration_01_16")
+spawn("forest_seaweed_wall_decoration_01",2,8,1,-1,"forest_seaweed_wall_decoration_01_17")
+spawn("forest_seaweed_wall_decoration_01",1,6,0,-1,"forest_seaweed_wall_decoration_01_18")
+spawn("forest_seaweed_floor_02",1,8,3,-1,"forest_seaweed_floor_02_16")
+spawn("forest_seaweed_floor_02",2,9,3,-1,"forest_seaweed_floor_02_17")
+spawn("forest_seaweed_floor_02",2,10,3,-1,"forest_seaweed_floor_02_18")
+spawn("fire_bomb",9,10,1,0,"fire_bomb_3")
+fire_bomb_3.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+fire_bomb_3.item:setStackSize(5)
+fire_bomb_3.detectedtimer:setTimerInterval(0)
+fire_bomb_3.detectedtimer:setDisableSelf(false)
+fire_bomb_3.detectedtimer:setTriggerOnStart(true)
+fire_bomb_3.detectedtimer:setCurrentLevelOnly(true)
+spawn("forestfire_bracer",9,10,1,0,"forestfire_bracer_2")
+forestfire_bracer_2.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+forestfire_bracer_2.effects_script:setSource("data = { [\"fire_multi\"] = 0.2 } function getData(self) return data end")
+forestfire_bracer_2.detectedtimer:setTimerInterval(0)
+forestfire_bracer_2.detectedtimer:setDisableSelf(false)
+forestfire_bracer_2.detectedtimer:setTriggerOnStart(true)
+forestfire_bracer_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("hardstone_bracelet",10,10,3,0,"hardstone_bracelet_2")
+hardstone_bracelet_2.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+hardstone_bracelet_2.detectedtimer:setTimerInterval(0)
+hardstone_bracelet_2.detectedtimer:setDisableSelf(false)
+hardstone_bracelet_2.detectedtimer:setTriggerOnStart(true)
+hardstone_bracelet_2.detectedtimer:setCurrentLevelOnly(true)
 
 --- level 3 ---
 
@@ -4022,21 +4116,21 @@ loadLayer("tiles", {
 	6,4,6,2,2,6,6,6,2,2,3,3,2,3,3,2,2,3,3,2,2,2,3,3,4,6,5,2,2,2,4,6,
 	6,4,6,2,2,2,2,6,6,2,3,3,2,3,3,3,2,3,3,2,3,3,3,2,4,4,5,2,2,2,4,6,
 	6,4,3,3,2,2,5,2,6,2,3,3,2,3,3,3,3,3,3,2,3,2,2,2,6,4,5,2,2,2,4,6,
-	4,4,3,3,3,2,5,5,6,2,2,2,2,1,1,3,1,1,3,2,3,2,2,6,6,6,5,2,6,6,4,6,
-	4,6,6,6,3,2,2,5,2,2,2,2,2,1,3,3,3,1,3,2,3,2,6,6,2,2,5,2,2,6,4,6,
-	4,6,2,2,3,2,2,5,2,2,2,6,2,1,3,3,3,1,3,2,3,2,6,2,2,2,5,2,2,6,4,6,
+	4,4,3,3,3,2,5,5,6,2,2,2,2,1,1,3,1,1,3,3,3,2,2,6,6,6,5,2,6,6,4,6,
+	4,6,6,6,3,2,2,5,2,2,2,2,2,1,3,3,3,1,3,3,3,2,6,6,2,2,5,2,2,6,4,6,
+	4,6,2,2,3,2,2,5,2,2,2,6,2,1,3,3,3,1,3,3,3,2,6,2,2,2,5,2,2,6,4,6,
 	2,2,2,2,3,2,2,5,2,3,3,3,3,1,3,3,3,1,3,3,3,3,6,2,5,5,5,2,2,6,4,6,
 	4,6,2,2,3,2,2,5,2,3,3,3,3,1,1,3,1,1,3,3,3,3,6,2,5,2,2,2,2,6,4,6,
 	4,6,2,3,3,2,2,5,2,3,3,3,3,3,2,3,2,3,3,6,3,3,6,6,5,2,3,3,2,6,4,6,
 	4,6,2,3,3,3,5,5,6,2,2,2,2,2,6,6,6,6,3,3,3,3,6,6,5,3,3,3,6,6,4,6,
 	4,6,3,3,2,3,3,3,3,3,3,3,2,2,6,6,6,6,2,2,6,2,6,5,5,3,2,2,6,6,4,6,
-	4,4,3,3,3,3,5,2,6,2,2,3,3,2,6,6,6,6,6,2,2,6,2,5,6,6,2,2,2,6,4,6,
-	6,4,3,3,3,2,5,5,5,2,6,6,6,6,6,6,6,2,6,5,5,6,6,5,6,6,2,2,2,6,4,6,
-	6,4,2,2,3,2,2,2,5,2,2,2,2,2,2,2,2,2,6,5,5,5,5,5,6,6,6,2,2,6,4,6,
-	6,4,6,3,3,3,3,2,2,2,2,2,2,2,6,5,5,2,2,2,2,5,6,6,6,2,2,2,6,6,4,6,
-	4,4,6,3,3,3,3,6,6,2,2,2,2,2,6,5,5,2,6,2,2,5,6,6,6,3,3,6,6,6,4,6,
-	6,6,6,3,6,3,3,6,6,6,2,2,5,2,6,2,3,3,3,2,2,5,6,6,3,3,3,6,6,2,4,6,
-	6,6,3,3,2,6,6,6,6,2,2,2,5,2,6,2,3,3,3,2,5,5,2,2,2,6,2,5,5,6,4,6,
+	4,4,3,3,3,3,5,2,6,2,2,3,3,2,6,6,2,2,2,2,6,6,2,5,6,6,2,2,2,6,4,6,
+	6,4,3,3,3,2,5,5,5,2,6,6,6,6,6,6,2,2,2,5,5,6,6,5,6,6,2,2,2,6,4,6,
+	6,4,2,2,3,2,2,2,5,2,2,2,2,2,2,2,2,2,2,5,5,5,5,5,6,6,6,2,2,6,4,6,
+	6,4,6,3,3,3,3,2,2,2,2,2,2,2,6,5,5,2,2,2,2,7,7,2,2,2,2,2,6,6,4,6,
+	4,4,6,3,3,3,3,6,6,2,2,2,2,2,6,5,5,2,6,2,2,7,2,2,2,3,3,6,6,6,4,6,
+	6,6,6,3,6,3,3,6,6,6,2,2,5,2,6,2,3,3,3,2,2,5,2,2,3,3,3,6,6,2,4,6,
+	6,6,3,3,2,6,6,6,6,2,2,2,5,2,6,2,3,3,3,2,5,5,2,2,2,2,2,5,5,6,4,6,
 	6,6,3,3,3,6,6,6,6,2,2,2,5,5,5,5,5,5,5,5,5,2,2,2,6,6,2,5,5,2,4,6,
 	4,4,6,2,6,4,4,4,2,6,6,6,6,2,6,6,6,6,6,6,6,6,6,6,6,6,6,6,2,6,4,6,
 	6,4,6,2,6,4,6,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,6,
@@ -4277,7 +4371,7 @@ spawn("forest_oak",25,19,2,0,"forest_oak_19")
 spawn("forest_old_oak",28,21,2,0,"forest_old_oak_10")
 spawn("swamp_oak",28,16,2,0,"swamp_oak_19")
 spawn("swamp_oak",26,26,3,0,"swamp_oak_20")
-spawn("forest_oak_trunk",25,24,3,0,"forest_oak_trunk_42")
+spawn("forest_oak_trunk",24,25,3,0,"forest_oak_trunk_42")
 spawn("forest_heather",28,21,2,0,"forest_heather_37")
 spawn("forest_heather",29,22,2,0,"forest_heather_38")
 spawn("forest_heather",29,23,2,0,"forest_heather_39")
@@ -4288,11 +4382,8 @@ spawn("forest_heather",25,23,1,0,"forest_heather_43")
 spawn("forest_heather",24,22,2,0,"forest_heather_44")
 spawn("forest_heather",22,22,3,0,"forest_heather_45")
 spawn("forest_heather",21,22,0,0,"forest_heather_46")
-spawn("forest_heather",23,24,1,0,"forest_heather_47")
-spawn("forest_heather",24,24,2,0,"forest_heather_48")
 spawn("forest_willow",26,28,0,0,"forest_willow_3")
 spawn("forest_plant_cluster_01",26,28,3,0,"forest_plant_cluster_01_13")
-spawn("forest_plant_cluster_01",24,24,3,0,"forest_plant_cluster_01_14")
 spawn("forest_plant_cluster_01",29,19,0,0,"forest_plant_cluster_01_15")
 spawn("forest_spruce_smallest_01",25,18,3,0,"forest_spruce_smallest_01_16")
 spawn("forest_heather",25,18,1,0,"forest_heather_49")
@@ -4308,7 +4399,7 @@ spawn("forest_ruins_wall_02",22,19,3,0,"forest_ruins_wall_02_33")
 spawn("forest_ruins_wall_02",22,20,3,0,"forest_ruins_wall_02_34")
 spawn("forest_ruins_wall_02",21,21,0,0,"forest_ruins_wall_02_35")
 spawn("forest_ruins_wall_02",21,21,3,0,"forest_ruins_wall_02_36")
-spawn("forest_ruins_wall_02",20,22,0,0,"forest_ruins_wall_02_37")
+spawn("forest_ruins_wall_02",20,21,0,0,"forest_ruins_wall_02_37")
 spawn("forest_ruins_wall_02",18,20,3,0,"forest_ruins_wall_02_38")
 spawn("forest_ruins_pillar_03",22,14,3,0,"forest_ruins_pillar_03_33")
 spawn("forest_ruins_pillar_03",22,15,3,0,"forest_ruins_pillar_03_34")
@@ -4363,66 +4454,53 @@ spawn("forest_ruins_pillar_03",19,25,3,0,"forest_ruins_pillar_03_54")
 spawn("forest_ruins_pillar_03",19,26,3,0,"forest_ruins_pillar_03_55")
 spawn("forest_ruins_pillar_03",21,26,3,0,"forest_ruins_pillar_03_56")
 spawn("forest_border_rocks_01",19,25,2,0,"forest_border_rocks_01_46")
-spawn("forest_heather",22,24,1,0,"forest_heather_58")
 spawn("forest_heather",19,26,1,0,"forest_heather_59")
-spawn("forest_heather",18,23,1,0,"forest_heather_60")
-spawn("forest_heather",17,23,1,0,"forest_heather_61")
-spawn("forest_heather",18,22,1,0,"forest_heather_62")
-spawn("forest_plant_cluster_01",22,26,3,0,"forest_plant_cluster_01_18")
 spawn("forest_ruins_wall_02",18,21,0,0,"forest_ruins_wall_02_50")
 spawn("forest_ruins_wall_02",17,21,0,0,"forest_ruins_wall_02_51")
 spawn("forest_ruins_pillar_03",18,21,3,0,"forest_ruins_pillar_03_57")
 spawn("forest_ruins_pillar_03",17,21,3,0,"forest_ruins_pillar_03_58")
-spawn("beach_rock_blocker_01",17,22,2,0,"beach_rock_blocker_01_63")
 spawn("beach_thicket_01",29,20,3,0,"beach_thicket_01_12")
-spawn("beach_thicket_01",23,25,0,0,"beach_thicket_01_13")
-spawn("forest_heather",23,26,1,0,"forest_heather_63")
-spawn("forest_heather",24,25,1,0,"forest_heather_64")
-spawn("forest_heather",22,25,1,0,"forest_heather_65")
 spawn("forest_ruins_wall_02",22,19,0,0,"forest_ruins_wall_02_52")
 spawn("forest_ruins_wall_02",23,19,0,0,"forest_ruins_wall_02_53")
 spawn("forest_ruins_pillar_03",23,19,3,0,"forest_ruins_pillar_03_59")
 spawn("forest_ruins_pillar_03",24,19,3,0,"forest_ruins_pillar_03_60")
-spawn("forest_border_rocks_01",25,26,2,0,"forest_border_rocks_01_47")
-spawn("forest_border_rocks_01",23,27,0,0,"forest_border_rocks_01_48")
+spawn("forest_border_rocks_01",25,27,2,0,"forest_border_rocks_01_47")
+spawn("forest_border_rocks_01",17,21,3,0,"forest_border_rocks_01_48")
 spawn("forest_border_rocks_01",23,28,1,0,"forest_border_rocks_01_49")
 spawn("forest_border_rocks_01",21,28,2,0,"forest_border_rocks_01_50")
 spawn("forest_border_rocks_01",19,28,0,0,"forest_border_rocks_01_51")
-spawn("forest_border_rocks_01",19,23,3,0,"forest_border_rocks_01_53")
 spawn("beach_thicket_01",22,29,3,0,"beach_thicket_01_14")
-spawn("forest_spruce_smallest_01",22,28,0,0,"forest_spruce_smallest_01_19")
-spawn("forest_heather",22,28,1,0,"forest_heather_66")
-spawn("forest_stairs_down",17,24,3,0,"forest_stairs_down_6")
-spawn("beach_rock_2x1",17,23,3,0,"beach_rock_2x1_113")
-spawn("beach_rock_2x1",16,25,1,0,"beach_rock_2x1_114")
+spawn("forest_spruce_smallest_01",24,24,0,0,"forest_spruce_smallest_01_19")
+spawn("forest_heather",24,24,1,0,"forest_heather_66")
+spawn("forest_stairs_down",22,26,0,0,"forest_stairs_down_6")
+spawn("beach_rock_2x1",23,26,0,0,"beach_rock_2x1_113")
+spawn("beach_rock_2x1",23,24,3,0,"beach_rock_2x1_114")
 spawn("forest_heather",18,25,2,0,"forest_heather_67")
 spawn("forest_border_rocks_01",20,22,1,0,"forest_border_rocks_01_54")
 spawn("forest_ruins_wall_02",19,20,1,0,"forest_ruins_wall_02_48")
 spawn("forest_ruins_pillar_03",20,20,3,0,"forest_ruins_pillar_03_61")
 spawn("forest_ruins_pillar_03",19,20,3,0,"forest_ruins_pillar_03_62")
-spawn("daemon_head",19,20,0,0,"daemon_head_7")
 spawn("forest_ruins_wall_02",19,20,0,0,"forest_ruins_wall_02_54")
 spawn("forest_pit_trapdoor",19,20,0,0,"forest_pit_trapdoor_1")
 forest_pit_trapdoor_1.pit:setState("open")
 forest_pit_trapdoor_1.platform:disable()
 spawn("forest_pit",19,20,1,0,"forest_pit_1")
-spawn("forest_wall_text_short",19,21,3,0,"forest_wall_text_short_5")
+spawn("forest_wall_text_short",19,21,1,0,"forest_wall_text_short_5")
 forest_wall_text_short_5.walltext:setWallText("Give me dried dread\
 \
 Give me liquid life")
 spawn("forest_ruins_pillar_03",18,20,3,0,"forest_ruins_pillar_03_63")
 spawn("forest_ruins_ceiling",19,20,3,0,"forest_ruins_ceiling_5")
 spawn("forest_ruins_ceiling",18,20,1,0,"forest_ruins_ceiling_6")
-spawn("beach_rock_blocker_01",20,21,1,0,"beach_rock_blocker_01_64")
 spawn("forest_ruins_ground_tile_03",18,20,2,0,"forest_ruins_ground_tile_03_4")
 spawn("forest_ruins_fallen_bricks",19,21,1,0,"forest_ruins_fallen_bricks_17")
-spawn("forest_ruins_wall_ivy_02",20,22,0,0,"forest_ruins_wall_ivy_02_5")
+spawn("forest_ruins_wall_ivy_02",21,21,0,0,"forest_ruins_wall_ivy_02_5")
 spawn("forest_spruce_smallest_01",22,21,0,0,"forest_spruce_smallest_01_20")
 spawn("beach_thicket_01",24,18,3,0,"beach_thicket_01_15")
 spawn("beach_thicket_01",23,22,2,0,"beach_thicket_01_16")
 spawn("beach_thicket_01",29,28,2,0,"beach_thicket_01_17")
-spawn("beach_thicket_01",20,25,3,0,"beach_thicket_01_18")
-spawn("twigroot_dormant",20,25,0,0,"twigroot_dormant_4")
+spawn("beach_thicket_01",19,24,3,0,"beach_thicket_01_18")
+spawn("twigroot_dormant",19,24,0,0,"twigroot_dormant_4")
 twigroot_dormant_4.detectedtimer:setTimerInterval(0)
 twigroot_dormant_4.detectedtimer:setDisableSelf(false)
 twigroot_dormant_4.detectedtimer:setTriggerOnStart(true)
@@ -4450,7 +4528,7 @@ floor_trigger_38.floortrigger:setTriggeredByDigging(false)
 floor_trigger_38.floortrigger:setDisableSelf(false)
 floor_trigger_38.floortrigger:addConnector("onActivate", "timer_17", "start")
 spawn("timer",30,29,0,0,"timer_17")
-timer_17.timer:setTimerInterval(2)
+timer_17.timer:setTimerInterval(3)
 timer_17.timer:setDisableSelf(false)
 timer_17.timer:setTriggerOnStart(false)
 timer_17.timer:setCurrentLevelOnly(false)
@@ -4465,20 +4543,20 @@ script_entity_28.script:setSource("function wakeUp()\
 \9if twigroot_dormant_6 then twigroot_dormant_6.monster:performAction(\"wakeUp\") end\
 end")
 spawn("timer",22,18,0,0,"timer_18")
-timer_18.timer:setTimerInterval(2)
+timer_18.timer:setTimerInterval(4)
 timer_18.timer:setDisableSelf(false)
 timer_18.timer:setTriggerOnStart(false)
 timer_18.timer:setCurrentLevelOnly(false)
 timer_18.timer:addConnector("onActivate", "script_entity_28", "wakeUp")
 timer_18.timer:disable()
-spawn("floor_trigger",23,21,0,0,"floor_trigger_39")
+spawn("floor_trigger",26,14,0,0,"floor_trigger_39")
 floor_trigger_39.floortrigger:setTriggeredByParty(true)
 floor_trigger_39.floortrigger:setTriggeredByMonster(false)
 floor_trigger_39.floortrigger:setTriggeredByItem(false)
 floor_trigger_39.floortrigger:setTriggeredByDigging(false)
 floor_trigger_39.floortrigger:setDisableSelf(false)
 floor_trigger_39.floortrigger:addConnector("onActivate", "timer_18", "start")
-spawn("floor_trigger",20,26,0,0,"floor_trigger_40")
+spawn("floor_trigger",20,25,0,0,"floor_trigger_40")
 floor_trigger_40.floortrigger:setTriggeredByParty(true)
 floor_trigger_40.floortrigger:setTriggeredByMonster(false)
 floor_trigger_40.floortrigger:setTriggeredByItem(false)
@@ -4499,10 +4577,10 @@ spawn("beach_thicket_broken",26,21,3,0,"beach_thicket_broken_8")
 spawn("beach_thicket_broken",28,23,3,0,"beach_thicket_broken_9")
 spawn("beach_thicket_broken",27,14,1,0,"beach_thicket_broken_10")
 spawn("beach_thicket_broken",23,16,2,0,"beach_thicket_broken_11")
-spawn("beach_thicket_broken",22,27,2,0,"beach_thicket_broken_12")
+spawn("beach_thicket_broken",21,27,2,0,"beach_thicket_broken_12")
 spawn("beach_thicket_damaged",25,19,1,0,"beach_thicket_damaged_4")
 spawn("beach_thicket_broken",25,24,2,0,"beach_thicket_broken_13")
-spawn("beach_thicket_broken",21,24,1,0,"beach_thicket_broken_14")
+spawn("beach_thicket_broken",21,23,1,0,"beach_thicket_broken_14")
 spawn("forest_lantern",26,13,1,0,"forest_lantern_27")
 spawn("forest_lantern",21,28,2,0,"forest_lantern_28")
 spawn("forest_ruins_secret_door",18,20,0,0,"forest_ruins_secret_door_1")
@@ -4659,19 +4737,17 @@ mervTimerRight.timer:setTriggerOnStart(false)
 mervTimerRight.timer:setCurrentLevelOnly(true)
 mervTimerRight.timer:addConnector("onActivate", "script_entity_29", "mervinPrepOnRight")
 mervTimerRight.timer:disable()
-spawn("forest_ruins_wall_02",20,21,3,0,"forest_ruins_wall_02_72")
-spawn("forest_ruins_pillar_03",20,22,3,0,"forest_ruins_pillar_03_79")
 spawn("forest_ruins_wall_end_right",18,23,2,0,"forest_ruins_wall_end_right_4")
 spawn("forest_ruins_fallen_bricks",19,23,1,0,"forest_ruins_fallen_bricks_19")
-spawn("forest_willow",18,21,2,0,"forest_willow_5")
-spawn("grass_planes_01",18,21,2,0,"grass_planes_01_32")
+spawn("forest_willow",20,21,2,0,"forest_willow_5")
+spawn("grass_planes_01",20,21,2,0,"grass_planes_01_32")
 spawn("grass_planes_01",21,21,2,0,"grass_planes_01_33")
 spawn("forest_grass_01",19,25,0,0,"forest_grass_01_24")
 spawn("forest_grass_01",19,24,2,0,"forest_grass_01_29")
 spawn("forest_grass_01",20,24,2,0,"forest_grass_01_32")
 spawn("forest_grass_01",20,25,0,0,"forest_grass_01_33")
 spawn("forest_grass_01",18,24,1,0,"forest_grass_01_36")
-spawn("spawner",26,26,3,0,"spawner_18")
+spawn("spawner",27,24,3,0,"spawner_18")
 spawner_18.spawner:setSpawnedEntity("twigroot")
 spawner_18.spawner:setMonsterLevel(1)
 spawner_18.spawner:setCooldown(600)
@@ -5049,6 +5125,15 @@ spawn("forest_lantern",14,28,2,0,"forest_lantern_30")
 spawn("forest_lantern",2,15,0,0,"forest_lantern_31")
 spawn("forest_lantern",7,24,2,0,"forest_lantern_32")
 spawn("pedestal",9,22,0,0,"pedestal_9")
+spawn("skull",9,22,0,0,"skull_1")
+skull_1.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+skull_1.detectedtimer:setTimerInterval(0)
+skull_1.detectedtimer:setDisableSelf(false)
+skull_1.detectedtimer:setTriggerOnStart(true)
+skull_1.detectedtimer:setCurrentLevelOnly(true)
+pedestal_9.surface:addItem(skull_1.item)
 spawn("borra",3,20,1,0,"borra_3")
 borra_3.data:setSource("data = {}\
 function get(self,name)\
@@ -5288,7 +5373,7 @@ spawn("beach_rock_pillar_decoration",17,5,1,0,"beach_rock_pillar_decoration_34")
 spawn("forest_border_rocks_01",20,5,2,0,"forest_border_rocks_01_97")
 spawn("beach_rock_spire",20,3,3,0,"beach_rock_spire_20")
 spawn("forest_willow",18,2,3,1,"forest_willow_16")
-spawn("beach_rock_blocker_01",16,23,2,0,"beach_rock_blocker_01_71")
+spawn("beach_rock_blocker_01",23,25,3,0,"beach_rock_blocker_01_71")
 spawn("beach_rock_blocker_01",15,24,2,0,"beach_rock_blocker_01_72")
 spawn("beach_rock_blocker_01",15,25,2,0,"beach_rock_blocker_01_73")
 spawn("forest_spruce_smallest_01",6,2,0,0,"forest_spruce_smallest_01_31")
@@ -5372,7 +5457,6 @@ spawn("swamp_oak",5,12,3,0,"swamp_oak_25")
 spawn("forest_ruins_fallen_bricks",3,16,0,0,"forest_ruins_fallen_bricks_26")
 spawn("forest_ruins_fallen_bricks",2,18,1,0,"forest_ruins_fallen_bricks_27")
 spawn("forest_ruins_fallen_bricks",9,25,1,0,"forest_ruins_fallen_bricks_28")
-spawn("forest_spruce_small_01",19,26,1,0,"forest_spruce_small_01_1")
 spawn("beach_thicket_broken",7,20,2,-1,"beach_thicket_broken_20")
 spawn("forest_willow",5,14,0,0,"forest_willow_20")
 spawn("forest_spruce_smallest_01",8,14,3,0,"forest_spruce_smallest_01_32")
@@ -5396,7 +5480,6 @@ spawn("forest_fireflies",4,27,0,0,"forest_fireflies_5")
 spawn("forest_fireflies",13,4,1,0,"forest_fireflies_6")
 spawn("forest_fireflies",29,26,3,0,"forest_fireflies_7")
 spawn("forest_fireflies",26,28,3,0,"forest_fireflies_8")
-spawn("forest_fireflies",24,24,2,0,"forest_fireflies_9")
 spawn("forest_fireflies",28,21,0,0,"forest_fireflies_10")
 spawn("forest_fireflies",11,5,1,0,"forest_fireflies_11")
 spawn("forest_fireflies",5,17,0,0,"forest_fireflies_12")
@@ -5446,7 +5529,7 @@ spawn("forest_fireflies",5,5,1,0,"forest_fireflies_16")
 spawn("forest_fireflies",9,4,0,0,"forest_fireflies_17")
 spawn("forest_fireflies",5,2,0,0,"forest_fireflies_18")
 spawn("forest_fireflies",2,6,1,0,"forest_fireflies_19")
-spawn("beach_rock_blocker_01",17,25,2,0,"beach_rock_blocker_01_90")
+spawn("beach_rock_blocker_01",21,26,3,0,"beach_rock_blocker_01_90")
 spawn("forest_wall_text_long",8,16,3,0,"forest_wall_text_long_1")
 forest_wall_text_long_1.walltext:setWallText("Hear ye! Hear ye!\
 The legend of Merv the Quick!\
@@ -6048,90 +6131,6 @@ torment_bracer_1.detectedtimer:setTimerInterval(0)
 torment_bracer_1.detectedtimer:setDisableSelf(false)
 torment_bracer_1.detectedtimer:setTriggerOnStart(true)
 torment_bracer_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("bear_pelt",10,9,0,0,"bear_pelt_1")
-bear_pelt_1.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-bear_pelt_1.detectedtimer:setTimerInterval(0)
-bear_pelt_1.detectedtimer:setDisableSelf(false)
-bear_pelt_1.detectedtimer:setTriggerOnStart(true)
-bear_pelt_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("diviner_cloak",10,9,0,0,"diviner_cloak_1")
-diviner_cloak_1.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-diviner_cloak_1.detectedtimer:setTimerInterval(0)
-diviner_cloak_1.detectedtimer:setDisableSelf(false)
-diviner_cloak_1.detectedtimer:setTriggerOnStart(true)
-diviner_cloak_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("huntsman_cloak",10,9,0,0,"huntsman_cloak_1")
-huntsman_cloak_1.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-huntsman_cloak_1.detectedtimer:setTimerInterval(0)
-huntsman_cloak_1.detectedtimer:setDisableSelf(false)
-huntsman_cloak_1.detectedtimer:setTriggerOnStart(true)
-huntsman_cloak_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("scaled_cloak",10,9,0,0,"scaled_cloak_2")
-scaled_cloak_2.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-scaled_cloak_2.detectedtimer:setTimerInterval(0)
-scaled_cloak_2.detectedtimer:setDisableSelf(false)
-scaled_cloak_2.detectedtimer:setTriggerOnStart(true)
-scaled_cloak_2.detectedtimer:setCurrentLevelOnly(true)
-spawn("shaman_cloak",10,9,0,0,"shaman_cloak_1")
-shaman_cloak_1.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-shaman_cloak_1.detectedtimer:setTimerInterval(0)
-shaman_cloak_1.detectedtimer:setDisableSelf(false)
-shaman_cloak_1.detectedtimer:setTriggerOnStart(true)
-shaman_cloak_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("spidersilk_cloak",10,9,0,0,"spidersilk_cloak_1")
-spidersilk_cloak_1.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-spidersilk_cloak_1.detectedtimer:setTimerInterval(0)
-spidersilk_cloak_1.detectedtimer:setDisableSelf(false)
-spidersilk_cloak_1.detectedtimer:setTriggerOnStart(true)
-spidersilk_cloak_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("tattered_cloak",10,9,0,0,"tattered_cloak_2")
-tattered_cloak_2.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-tattered_cloak_2.detectedtimer:setTimerInterval(0)
-tattered_cloak_2.detectedtimer:setDisableSelf(false)
-tattered_cloak_2.detectedtimer:setTriggerOnStart(true)
-tattered_cloak_2.detectedtimer:setCurrentLevelOnly(true)
 spawn("bearclaw_gauntlets",13,9,2,0,"bearclaw_gauntlets_1")
 bearclaw_gauntlets_1.data:setSource("data = {}\
 function get(self,name)\
@@ -6193,30 +6192,6 @@ pit_gauntlets_2.detectedtimer:setTimerInterval(0)
 pit_gauntlets_2.detectedtimer:setDisableSelf(false)
 pit_gauntlets_2.detectedtimer:setTriggerOnStart(true)
 pit_gauntlets_2.detectedtimer:setCurrentLevelOnly(true)
-spawn("hand_axe",12,9,2,0,"hand_axe_1")
-hand_axe_1.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-hand_axe_1.detectedtimer:setTimerInterval(0)
-hand_axe_1.detectedtimer:setDisableSelf(false)
-hand_axe_1.detectedtimer:setTriggerOnStart(true)
-hand_axe_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("battle_axe",12,9,2,0,"battle_axe_1")
-battle_axe_1.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-battle_axe_1.detectedtimer:setTimerInterval(0)
-battle_axe_1.detectedtimer:setDisableSelf(false)
-battle_axe_1.detectedtimer:setTriggerOnStart(true)
-battle_axe_1.detectedtimer:setCurrentLevelOnly(true)
 spawn("force_field",7,5,3,0,"force_field_2")
 spawn("lava_crab",8,5,2,0,"lava_crab_1")
 lava_crab_1.monster:setAIState("guard")
@@ -6272,7 +6247,7 @@ lock_pick_3.detectedtimer:setTimerInterval(0)
 lock_pick_3.detectedtimer:setDisableSelf(false)
 lock_pick_3.detectedtimer:setTriggerOnStart(true)
 lock_pick_3.detectedtimer:setCurrentLevelOnly(true)
-spawn("crystal_cuirass",21,11,1,0,"crystal_cuirass_1")
+spawn("crystal_cuirass",20,11,2,0,"crystal_cuirass_1")
 crystal_cuirass_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6284,7 +6259,7 @@ crystal_cuirass_1.detectedtimer:setTimerInterval(0)
 crystal_cuirass_1.detectedtimer:setDisableSelf(false)
 crystal_cuirass_1.detectedtimer:setTriggerOnStart(true)
 crystal_cuirass_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("crystal_boots",21,11,1,0,"crystal_boots_1")
+spawn("crystal_boots",20,11,2,0,"crystal_boots_1")
 crystal_boots_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6296,7 +6271,7 @@ crystal_boots_1.detectedtimer:setTimerInterval(0)
 crystal_boots_1.detectedtimer:setDisableSelf(false)
 crystal_boots_1.detectedtimer:setTriggerOnStart(true)
 crystal_boots_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("crystal_gauntlets",21,11,1,0,"crystal_gauntlets_1")
+spawn("crystal_gauntlets",20,11,2,0,"crystal_gauntlets_1")
 crystal_gauntlets_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6308,7 +6283,7 @@ crystal_gauntlets_1.detectedtimer:setTimerInterval(0)
 crystal_gauntlets_1.detectedtimer:setDisableSelf(false)
 crystal_gauntlets_1.detectedtimer:setTriggerOnStart(true)
 crystal_gauntlets_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("crystal_greaves",21,11,1,0,"crystal_greaves_1")
+spawn("crystal_greaves",20,11,2,0,"crystal_greaves_1")
 crystal_greaves_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6320,7 +6295,7 @@ crystal_greaves_1.detectedtimer:setTimerInterval(0)
 crystal_greaves_1.detectedtimer:setDisableSelf(false)
 crystal_greaves_1.detectedtimer:setTriggerOnStart(true)
 crystal_greaves_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("crystal_helmet",21,11,1,0,"crystal_helmet_1")
+spawn("crystal_helmet",20,11,2,0,"crystal_helmet_1")
 crystal_helmet_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6332,7 +6307,7 @@ crystal_helmet_1.detectedtimer:setTimerInterval(0)
 crystal_helmet_1.detectedtimer:setDisableSelf(false)
 crystal_helmet_1.detectedtimer:setTriggerOnStart(true)
 crystal_helmet_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("crystal_shield",21,11,1,0,"crystal_shield_1")
+spawn("crystal_shield",20,11,2,0,"crystal_shield_1")
 crystal_shield_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6368,7 +6343,7 @@ potion_bear_form_2.detectedtimer:setTimerInterval(0)
 potion_bear_form_2.detectedtimer:setDisableSelf(false)
 potion_bear_form_2.detectedtimer:setTriggerOnStart(true)
 potion_bear_form_2.detectedtimer:setCurrentLevelOnly(true)
-spawn("rogue_boots",21,12,1,0,"rogue_boots_1")
+spawn("rogue_boots",20,12,2,0,"rogue_boots_1")
 rogue_boots_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6380,7 +6355,7 @@ rogue_boots_1.detectedtimer:setTimerInterval(0)
 rogue_boots_1.detectedtimer:setDisableSelf(false)
 rogue_boots_1.detectedtimer:setTriggerOnStart(true)
 rogue_boots_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("rogue_gloves",21,12,1,0,"rogue_gloves_2")
+spawn("rogue_gloves",20,12,2,0,"rogue_gloves_2")
 rogue_gloves_2.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6392,7 +6367,7 @@ rogue_gloves_2.detectedtimer:setTimerInterval(0)
 rogue_gloves_2.detectedtimer:setDisableSelf(false)
 rogue_gloves_2.detectedtimer:setTriggerOnStart(true)
 rogue_gloves_2.detectedtimer:setCurrentLevelOnly(true)
-spawn("rogue_hood",21,12,1,0,"rogue_hood_1")
+spawn("rogue_hood",20,12,2,0,"rogue_hood_1")
 rogue_hood_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6404,7 +6379,7 @@ rogue_hood_1.detectedtimer:setTimerInterval(0)
 rogue_hood_1.detectedtimer:setDisableSelf(false)
 rogue_hood_1.detectedtimer:setTriggerOnStart(true)
 rogue_hood_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("rogue_pants",21,12,1,0,"rogue_pants_1")
+spawn("rogue_pants",20,12,2,0,"rogue_pants_1")
 rogue_pants_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6416,7 +6391,7 @@ rogue_pants_1.detectedtimer:setTimerInterval(0)
 rogue_pants_1.detectedtimer:setDisableSelf(false)
 rogue_pants_1.detectedtimer:setTriggerOnStart(true)
 rogue_pants_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("rogue_vest",21,12,1,0,"rogue_vest_1")
+spawn("rogue_vest",20,12,2,0,"rogue_vest_1")
 rogue_vest_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6428,7 +6403,7 @@ rogue_vest_1.detectedtimer:setTimerInterval(0)
 rogue_vest_1.detectedtimer:setDisableSelf(false)
 rogue_vest_1.detectedtimer:setTriggerOnStart(true)
 rogue_vest_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("archmage_hat",21,13,1,0,"archmage_hat_1")
+spawn("archmage_hat",20,11,1,0,"archmage_hat_1")
 archmage_hat_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6440,7 +6415,7 @@ archmage_hat_1.detectedtimer:setTimerInterval(0)
 archmage_hat_1.detectedtimer:setDisableSelf(false)
 archmage_hat_1.detectedtimer:setTriggerOnStart(true)
 archmage_hat_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("archmage_loafers",21,13,1,0,"archmage_loafers_1")
+spawn("archmage_loafers",20,11,1,0,"archmage_loafers_1")
 archmage_loafers_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6452,7 +6427,7 @@ archmage_loafers_1.detectedtimer:setTimerInterval(0)
 archmage_loafers_1.detectedtimer:setDisableSelf(false)
 archmage_loafers_1.detectedtimer:setTriggerOnStart(true)
 archmage_loafers_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("archmage_mantle",21,13,1,0,"archmage_mantle_1")
+spawn("archmage_mantle",20,11,1,0,"archmage_mantle_1")
 archmage_mantle_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6464,7 +6439,7 @@ archmage_mantle_1.detectedtimer:setTimerInterval(0)
 archmage_mantle_1.detectedtimer:setDisableSelf(false)
 archmage_mantle_1.detectedtimer:setTriggerOnStart(true)
 archmage_mantle_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("archmage_scapular",21,13,1,0,"archmage_scapular_1")
+spawn("archmage_scapular",20,11,1,0,"archmage_scapular_1")
 archmage_scapular_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6476,7 +6451,7 @@ archmage_scapular_1.detectedtimer:setTimerInterval(0)
 archmage_scapular_1.detectedtimer:setDisableSelf(false)
 archmage_scapular_1.detectedtimer:setTriggerOnStart(true)
 archmage_scapular_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("embalmers_boots",21,14,3,0,"embalmers_boots_2")
+spawn("embalmers_boots",20,11,3,0,"embalmers_boots_2")
 embalmers_boots_2.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6488,7 +6463,7 @@ embalmers_boots_2.detectedtimer:setTimerInterval(0)
 embalmers_boots_2.detectedtimer:setDisableSelf(false)
 embalmers_boots_2.detectedtimer:setTriggerOnStart(true)
 embalmers_boots_2.detectedtimer:setCurrentLevelOnly(true)
-spawn("embalmers_headpiece",21,14,3,0,"embalmers_headpiece_1")
+spawn("embalmers_headpiece",20,11,3,0,"embalmers_headpiece_1")
 embalmers_headpiece_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6500,7 +6475,7 @@ embalmers_headpiece_1.detectedtimer:setTimerInterval(0)
 embalmers_headpiece_1.detectedtimer:setDisableSelf(false)
 embalmers_headpiece_1.detectedtimer:setTriggerOnStart(true)
 embalmers_headpiece_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("embalmers_pants",21,14,3,0,"embalmers_pants_1")
+spawn("embalmers_pants",20,11,3,0,"embalmers_pants_1")
 embalmers_pants_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6512,7 +6487,7 @@ embalmers_pants_1.detectedtimer:setTimerInterval(0)
 embalmers_pants_1.detectedtimer:setDisableSelf(false)
 embalmers_pants_1.detectedtimer:setTriggerOnStart(true)
 embalmers_pants_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("embalmers_robe",21,14,3,0,"embalmers_robe_1")
+spawn("embalmers_robe",20,11,3,0,"embalmers_robe_1")
 embalmers_robe_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6524,7 +6499,7 @@ embalmers_robe_1.detectedtimer:setTimerInterval(0)
 embalmers_robe_1.detectedtimer:setDisableSelf(false)
 embalmers_robe_1.detectedtimer:setTriggerOnStart(true)
 embalmers_robe_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("lurker_boots",21,15,3,0,"lurker_boots_1")
+spawn("lurker_boots",20,12,3,0,"lurker_boots_1")
 lurker_boots_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6536,7 +6511,7 @@ lurker_boots_1.detectedtimer:setTimerInterval(0)
 lurker_boots_1.detectedtimer:setDisableSelf(false)
 lurker_boots_1.detectedtimer:setTriggerOnStart(true)
 lurker_boots_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("lurker_hood",21,15,3,0,"lurker_hood_1")
+spawn("lurker_hood",20,12,3,0,"lurker_hood_1")
 lurker_hood_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6548,7 +6523,7 @@ lurker_hood_1.detectedtimer:setTimerInterval(0)
 lurker_hood_1.detectedtimer:setDisableSelf(false)
 lurker_hood_1.detectedtimer:setTriggerOnStart(true)
 lurker_hood_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("lurker_pants",21,15,3,0,"lurker_pants_1")
+spawn("lurker_pants",20,12,3,0,"lurker_pants_1")
 lurker_pants_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6560,7 +6535,7 @@ lurker_pants_1.detectedtimer:setTimerInterval(0)
 lurker_pants_1.detectedtimer:setDisableSelf(false)
 lurker_pants_1.detectedtimer:setTriggerOnStart(true)
 lurker_pants_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("lurker_vest",21,15,3,0,"lurker_vest_1")
+spawn("lurker_vest",20,12,3,0,"lurker_vest_1")
 lurker_vest_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6572,7 +6547,7 @@ lurker_vest_1.detectedtimer:setTimerInterval(0)
 lurker_vest_1.detectedtimer:setDisableSelf(false)
 lurker_vest_1.detectedtimer:setTriggerOnStart(true)
 lurker_vest_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("cuirass_valor",21,11,3,0,"cuirass_valor_1")
+spawn("cuirass_valor",20,11,0,0,"cuirass_valor_1")
 cuirass_valor_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6584,7 +6559,7 @@ cuirass_valor_1.detectedtimer:setTimerInterval(0)
 cuirass_valor_1.detectedtimer:setDisableSelf(false)
 cuirass_valor_1.detectedtimer:setTriggerOnStart(true)
 cuirass_valor_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("cuisse_valor",21,11,3,0,"cuisse_valor_1")
+spawn("cuisse_valor",20,11,0,0,"cuisse_valor_1")
 cuisse_valor_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6596,7 +6571,7 @@ cuisse_valor_1.detectedtimer:setTimerInterval(0)
 cuisse_valor_1.detectedtimer:setDisableSelf(false)
 cuisse_valor_1.detectedtimer:setTriggerOnStart(true)
 cuisse_valor_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("gauntlets_valor",21,11,3,0,"gauntlets_valor_1")
+spawn("gauntlets_valor",20,11,0,0,"gauntlets_valor_1")
 gauntlets_valor_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6608,7 +6583,7 @@ gauntlets_valor_1.detectedtimer:setTimerInterval(0)
 gauntlets_valor_1.detectedtimer:setDisableSelf(false)
 gauntlets_valor_1.detectedtimer:setTriggerOnStart(true)
 gauntlets_valor_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("greaves_valor",21,11,3,0,"greaves_valor_1")
+spawn("greaves_valor",20,11,0,0,"greaves_valor_1")
 greaves_valor_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6620,7 +6595,7 @@ greaves_valor_1.detectedtimer:setTimerInterval(0)
 greaves_valor_1.detectedtimer:setDisableSelf(false)
 greaves_valor_1.detectedtimer:setTriggerOnStart(true)
 greaves_valor_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("helmet_valor",21,11,3,0,"helmet_valor_1")
+spawn("helmet_valor",20,11,0,0,"helmet_valor_1")
 helmet_valor_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6632,7 +6607,7 @@ helmet_valor_1.detectedtimer:setTimerInterval(0)
 helmet_valor_1.detectedtimer:setDisableSelf(false)
 helmet_valor_1.detectedtimer:setTriggerOnStart(true)
 helmet_valor_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("shield_valor",21,11,3,0,"shield_valor_1")
+spawn("shield_valor",20,11,0,0,"shield_valor_1")
 shield_valor_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6644,7 +6619,7 @@ shield_valor_1.detectedtimer:setTimerInterval(0)
 shield_valor_1.detectedtimer:setDisableSelf(false)
 shield_valor_1.detectedtimer:setTriggerOnStart(true)
 shield_valor_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("chitin_mail",21,12,3,0,"chitin_mail_1")
+spawn("chitin_mail",20,12,0,0,"chitin_mail_1")
 chitin_mail_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6656,7 +6631,7 @@ chitin_mail_1.detectedtimer:setTimerInterval(0)
 chitin_mail_1.detectedtimer:setDisableSelf(false)
 chitin_mail_1.detectedtimer:setTriggerOnStart(true)
 chitin_mail_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("chitin_greaves",21,12,3,0,"chitin_greaves_1")
+spawn("chitin_greaves",20,12,0,0,"chitin_greaves_1")
 chitin_greaves_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6668,7 +6643,7 @@ chitin_greaves_1.detectedtimer:setTimerInterval(0)
 chitin_greaves_1.detectedtimer:setDisableSelf(false)
 chitin_greaves_1.detectedtimer:setTriggerOnStart(true)
 chitin_greaves_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("chitin_mask",21,12,3,0,"chitin_mask_1")
+spawn("chitin_mask",20,12,0,0,"chitin_mask_1")
 chitin_mask_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6680,7 +6655,7 @@ chitin_mask_1.detectedtimer:setTimerInterval(0)
 chitin_mask_1.detectedtimer:setDisableSelf(false)
 chitin_mask_1.detectedtimer:setTriggerOnStart(true)
 chitin_mask_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("chitin_gloves",21,12,3,0,"chitin_gloves_1")
+spawn("chitin_gloves",20,12,0,0,"chitin_gloves_1")
 chitin_gloves_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6692,7 +6667,7 @@ chitin_gloves_1.detectedtimer:setTimerInterval(0)
 chitin_gloves_1.detectedtimer:setDisableSelf(false)
 chitin_gloves_1.detectedtimer:setTriggerOnStart(true)
 chitin_gloves_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("chitin_cuisse",21,12,3,0,"chitin_cuisse_1")
+spawn("chitin_cuisse",20,12,0,0,"chitin_cuisse_1")
 chitin_cuisse_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6704,7 +6679,7 @@ chitin_cuisse_1.detectedtimer:setTimerInterval(0)
 chitin_cuisse_1.detectedtimer:setDisableSelf(false)
 chitin_cuisse_1.detectedtimer:setTriggerOnStart(true)
 chitin_cuisse_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("meteor_cuirass",21,13,3,0,"meteor_cuirass_2")
+spawn("meteor_cuirass",20,12,1,0,"meteor_cuirass_2")
 meteor_cuirass_2.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6716,7 +6691,7 @@ meteor_cuirass_2.detectedtimer:setTimerInterval(0)
 meteor_cuirass_2.detectedtimer:setDisableSelf(false)
 meteor_cuirass_2.detectedtimer:setTriggerOnStart(true)
 meteor_cuirass_2.detectedtimer:setCurrentLevelOnly(true)
-spawn("meteor_boots",21,13,3,0,"meteor_boots_1")
+spawn("meteor_boots",20,12,1,0,"meteor_boots_1")
 meteor_boots_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6728,7 +6703,7 @@ meteor_boots_1.detectedtimer:setTimerInterval(0)
 meteor_boots_1.detectedtimer:setDisableSelf(false)
 meteor_boots_1.detectedtimer:setTriggerOnStart(true)
 meteor_boots_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("meteor_gauntlets",21,13,3,0,"meteor_gauntlets_1")
+spawn("meteor_gauntlets",20,12,1,0,"meteor_gauntlets_1")
 meteor_gauntlets_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6740,7 +6715,7 @@ meteor_gauntlets_1.detectedtimer:setTimerInterval(0)
 meteor_gauntlets_1.detectedtimer:setDisableSelf(false)
 meteor_gauntlets_1.detectedtimer:setTriggerOnStart(true)
 meteor_gauntlets_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("meteor_helmet",21,13,3,0,"meteor_helmet_1")
+spawn("meteor_helmet",20,12,1,0,"meteor_helmet_1")
 meteor_helmet_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6752,7 +6727,7 @@ meteor_helmet_1.detectedtimer:setTimerInterval(0)
 meteor_helmet_1.detectedtimer:setDisableSelf(false)
 meteor_helmet_1.detectedtimer:setTriggerOnStart(true)
 meteor_helmet_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("meteor_shield",21,13,3,0,"meteor_shield_1")
+spawn("meteor_shield",20,12,1,0,"meteor_shield_1")
 meteor_shield_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6764,7 +6739,7 @@ meteor_shield_1.detectedtimer:setTimerInterval(0)
 meteor_shield_1.detectedtimer:setDisableSelf(false)
 meteor_shield_1.detectedtimer:setTriggerOnStart(true)
 meteor_shield_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("meteor_cuisse",21,13,3,0,"meteor_cuisse_1")
+spawn("meteor_cuisse",20,12,1,0,"meteor_cuisse_1")
 meteor_cuisse_1.data:setSource("data = {}\
 function get(self,name)\
 \9return self.data[name]\
@@ -6776,174 +6751,6 @@ meteor_cuisse_1.detectedtimer:setTimerInterval(0)
 meteor_cuisse_1.detectedtimer:setDisableSelf(false)
 meteor_cuisse_1.detectedtimer:setTriggerOnStart(true)
 meteor_cuisse_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("skullcleave",12,9,2,0,"skullcleave_2")
-skullcleave_2.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-skullcleave_2.detectedtimer:setTimerInterval(0)
-skullcleave_2.detectedtimer:setDisableSelf(false)
-skullcleave_2.detectedtimer:setTriggerOnStart(true)
-skullcleave_2.detectedtimer:setCurrentLevelOnly(true)
-spawn("bane",12,9,2,0,"bane_1")
-bane_1.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-bane_1.detectedtimer:setTimerInterval(0)
-bane_1.detectedtimer:setDisableSelf(false)
-bane_1.detectedtimer:setTriggerOnStart(true)
-bane_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("rapier",12,9,2,0,"rapier_2")
-rapier_2.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-rapier_2.detectedtimer:setTimerInterval(0)
-rapier_2.detectedtimer:setDisableSelf(false)
-rapier_2.detectedtimer:setTriggerOnStart(true)
-rapier_2.detectedtimer:setCurrentLevelOnly(true)
-spawn("bone_blade",11,9,0,0,"bone_blade_1")
-bone_blade_1.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-bone_blade_1.detectedtimer:setTimerInterval(0)
-bone_blade_1.detectedtimer:setDisableSelf(false)
-bone_blade_1.detectedtimer:setTriggerOnStart(true)
-bone_blade_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("ancient_claymore",11,9,0,0,"ancient_claymore_1")
-ancient_claymore_1.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-ancient_claymore_1.detectedtimer:setTimerInterval(0)
-ancient_claymore_1.detectedtimer:setDisableSelf(false)
-ancient_claymore_1.detectedtimer:setTriggerOnStart(true)
-ancient_claymore_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("cutlass",11,9,0,0,"cutlass_1")
-cutlass_1.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-cutlass_1.detectedtimer:setTimerInterval(0)
-cutlass_1.detectedtimer:setDisableSelf(false)
-cutlass_1.detectedtimer:setTriggerOnStart(true)
-cutlass_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("fire_blade",11,9,0,0,"fire_blade_1")
-fire_blade_1.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-fire_blade_1.detectedtimer:setTimerInterval(0)
-fire_blade_1.detectedtimer:setDisableSelf(false)
-fire_blade_1.detectedtimer:setTriggerOnStart(true)
-fire_blade_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("lightning_blade",11,9,0,0,"lightning_blade_2")
-lightning_blade_2.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-lightning_blade_2.detectedtimer:setTimerInterval(0)
-lightning_blade_2.detectedtimer:setDisableSelf(false)
-lightning_blade_2.detectedtimer:setTriggerOnStart(true)
-lightning_blade_2.detectedtimer:setCurrentLevelOnly(true)
-spawn("long_sword",11,9,0,0,"long_sword_1")
-long_sword_1.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-long_sword_1.detectedtimer:setTimerInterval(0)
-long_sword_1.detectedtimer:setDisableSelf(false)
-long_sword_1.detectedtimer:setTriggerOnStart(true)
-long_sword_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("machete",11,9,0,0,"machete_1")
-machete_1.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-machete_1.detectedtimer:setTimerInterval(0)
-machete_1.detectedtimer:setDisableSelf(false)
-machete_1.detectedtimer:setTriggerOnStart(true)
-machete_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("rapier",11,9,0,0,"rapier_3")
-rapier_3.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-rapier_3.detectedtimer:setTimerInterval(0)
-rapier_3.detectedtimer:setDisableSelf(false)
-rapier_3.detectedtimer:setTriggerOnStart(true)
-rapier_3.detectedtimer:setCurrentLevelOnly(true)
-spawn("sabre",11,9,0,0,"sabre_1")
-sabre_1.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-sabre_1.detectedtimer:setTimerInterval(0)
-sabre_1.detectedtimer:setDisableSelf(false)
-sabre_1.detectedtimer:setTriggerOnStart(true)
-sabre_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("sickle_sword",11,9,0,0,"sickle_sword_1")
-sickle_sword_1.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-sickle_sword_1.detectedtimer:setTimerInterval(0)
-sickle_sword_1.detectedtimer:setDisableSelf(false)
-sickle_sword_1.detectedtimer:setTriggerOnStart(true)
-sickle_sword_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("two_handed_sword",11,9,0,0,"two_handed_sword_1")
-two_handed_sword_1.data:setSource("data = {}\
-function get(self,name)\
-\9return self.data[name]\
-end\
-function set(self,name,value)\
-\9self.data[name] = value\
-end")
-two_handed_sword_1.detectedtimer:setTimerInterval(0)
-two_handed_sword_1.detectedtimer:setDisableSelf(false)
-two_handed_sword_1.detectedtimer:setTriggerOnStart(true)
-two_handed_sword_1.detectedtimer:setCurrentLevelOnly(true)
 spawn("castle_wall_01",15,13,3,-1,"castle_wall_01_1")
 spawn("castle_wall_01",15,13,1,-1,"castle_wall_01_2")
 spawn("castle_wall_01",16,14,0,-1,"castle_wall_01_3")
@@ -7098,7 +6905,7 @@ spawn("forest_heather",19,18,3,0,"forest_heather_295")
 spawn("forest_heather",20,20,3,0,"forest_heather_298")
 spawn("beach_rock_blocker_01",19,17,2,0,"beach_rock_blocker_01_56")
 spawn("beach_rock_1x1_low",20,17,2,0,"beach_rock_1x1_low_69")
-spawn("beach_boulder",19,16,1,0,"beach_boulder_29")
+spawn("beach_boulder",19,15,1,0,"beach_boulder_29")
 spawn("beach_boulder",19,17,3,0,"beach_boulder_30")
 spawn("beach_rock_floor_decoration",19,18,0,0,"beach_rock_floor_decoration_44")
 spawn("beach_rock_floor_decoration",19,17,1,0,"beach_rock_floor_decoration_45")
@@ -7168,8 +6975,8 @@ spawn("forest_lantern",23,8,1,0,"forest_lantern_38")
 spawn("forest_spruce_smallest_01",20,9,2,0,"forest_spruce_smallest_01_51")
 spawn("forest_heather",20,9,0,0,"forest_heather_294")
 spawn("forest_border_rocks_01",20,10,0,0,"forest_border_rocks_01_146")
-spawn("forest_ruins_pillar_fallen",19,14,1,0,"forest_ruins_pillar_fallen_8")
-spawn("beach_rock_blocker_01",19,14,1,0,"beach_rock_blocker_01_95")
+spawn("forest_ruins_pillar_fallen",19,13,1,0,"forest_ruins_pillar_fallen_8")
+spawn("beach_rock_blocker_01",19,13,1,0,"beach_rock_blocker_01_95")
 beach_rock_blocker_01_95.obstacle:disable()
 beach_rock_blocker_01_95.projectilecollider:disable()
 beach_rock_blocker_01_95.model:disable()
@@ -7230,7 +7037,7 @@ spawn("forest_heather",9,10,3,0,"forest_heather_303")
 spawn("forest_spruce_smallest_01",9,10,3,0,"forest_spruce_smallest_01_52")
 spawn("forest_lantern",10,14,1,0,"forest_lantern_39")
 spawn("forest_oak_cluster",9,10,1,0,"forest_oak_cluster_175")
-spawn("forest_spruce_smallest_01",17,12,3,-1,"forest_spruce_smallest_01_53")
+spawn("forest_spruce_smallest_01",18,15,3,-1,"forest_spruce_smallest_01_53")
 spawn("mine_support_beam_floor_double",10,17,3,-1,"mine_support_beam_floor_double_361")
 spawn("mine_support_beam_floor_double",10,16,3,-1,"mine_support_beam_floor_double_364")
 spawn("mine_support_pillar_01",10,17,0,-1,"mine_support_pillar_01_405")
@@ -7244,7 +7051,6 @@ spawn("forest_elevation_edge",16,12,0,-1,"forest_elevation_edge_289")
 spawn("forest_elevation_edge",15,11,1,-1,"forest_elevation_edge_290")
 spawn("forest_elevation_edge",15,9,1,-1,"forest_elevation_edge_291")
 spawn("grass_planes_01",15,10,0,0,"grass_planes_01_92")
-spawn("rc_pillar_stone",19,12,1,0,"rc_pillar_stone_1")
 spawn("rc_stone_tablet",24,4,1,0,"rc_stone_tablet_2")
 spawn("lock_ornate",25,4,3,0,"city_lock_ornate_1")
 city_lock_ornate_1.lock:setOpenedBy("ornate_key")
@@ -7285,6 +7091,174 @@ wall_button_new_1.data:setSource("data = {}\
 \9\9\9\9\9\9function set(self,name,value)\
 \9\9\9\9\9\9\9self.data[name] = value\
 \9\9\9\9\9\9end")
+spawn("forest_ruins_wall_02",17,26,0,0,"forest_ruins_wall_02_107")
+spawn("beach_rock_blocker_01",22,24,3,0,"beach_rock_blocker_01_63")
+spawn("beach_rock_blocker_01",21,24,3,0,"beach_rock_blocker_01_96")
+spawn("beach_rock_2x1",21,25,2,0,"beach_rock_2x1_144")
+spawn("beach_rock_blocker_01",23,24,3,0,"beach_rock_blocker_01_64")
+spawn("borra",17,25,1,0,"borra_6")
+borra_6.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+borra_6.detectedtimer:setTimerInterval(0)
+borra_6.detectedtimer:setDisableSelf(false)
+borra_6.detectedtimer:setTriggerOnStart(true)
+borra_6.detectedtimer:setCurrentLevelOnly(true)
+spawn("forest_grass_01",17,24,1,0,"forest_grass_01_38")
+spawn("forest_grass_01",17,25,1,0,"forest_grass_01_40")
+spawn("forest_grass_01",16,25,1,0,"forest_grass_01_42")
+spawn("forest_grass_01",16,24,1,0,"forest_grass_01_43")
+spawn("forest_ruins_wall_02",21,24,0,0,"forest_ruins_wall_02_72")
+spawn("forest_ruins_pillar_03",22,24,3,0,"forest_ruins_pillar_03_79")
+spawn("forest_ruins_wall_end_right",22,24,0,0,"forest_ruins_wall_end_right_8")
+spawn("forest_ruins_wall_end_right",24,24,0,0,"forest_ruins_wall_end_right_9")
+spawn("forest_grass_01",17,22,1,0,"forest_grass_01_45")
+spawn("forest_grass_01",17,23,1,0,"forest_grass_01_46")
+spawn("forest_grass_01",16,23,1,0,"forest_grass_01_47")
+spawn("forest_grass_01",16,22,1,0,"forest_grass_01_49")
+spawn("forest_grass_01",18,21,1,0,"forest_grass_01_50")
+spawn("forest_grass_01",17,21,1,0,"forest_grass_01_51")
+spawn("forest_grass_01",18,22,1,0,"forest_grass_01_52")
+spawn("forest_grass_01",18,23,1,0,"forest_grass_01_53")
+spawn("beach_rock_blocker_01",16,23,3,0,"beach_rock_blocker_01_97")
+spawn("forest_spruce_smallest_01",16,21,0,0,"forest_spruce_smallest_01_54")
+spawn("forest_heather",16,21,1,0,"forest_heather_47")
+spawn("beach_thicket_01",16,22,0,0,"beach_thicket_01_13")
+spawn("beach_thicket_01",18,24,0,0,"beach_thicket_01_39")
+spawn("leather_gloves",16,22,3,0,"leather_gloves_1")
+leather_gloves_1.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+leather_gloves_1.detectedtimer:setTimerInterval(0)
+leather_gloves_1.detectedtimer:setDisableSelf(false)
+leather_gloves_1.detectedtimer:setTriggerOnStart(true)
+leather_gloves_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("leather_cuisse",16,22,0,0,"leather_cuisse_1")
+leather_cuisse_1.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+leather_cuisse_1.detectedtimer:setTimerInterval(0)
+leather_cuisse_1.detectedtimer:setDisableSelf(false)
+leather_cuisse_1.detectedtimer:setTriggerOnStart(true)
+leather_cuisse_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("forest_spruce_smallest_01",19,26,2,0,"forest_spruce_smallest_01_55")
+spawn("floor_trigger",6,19,0,0,"floor_trigger_43")
+floor_trigger_43.floortrigger:setTriggeredByParty(true)
+floor_trigger_43.floortrigger:setTriggeredByMonster(false)
+floor_trigger_43.floortrigger:setTriggeredByItem(false)
+floor_trigger_43.floortrigger:setTriggeredByDigging(false)
+floor_trigger_43.floortrigger:setDisableSelf(true)
+floor_trigger_43.floortrigger:addConnector("onActivate", "spawner_24", "activate")
+spawn("spawner",13,24,0,0,"spawner_24")
+spawner_24.spawner:setSpawnedEntity("twigroot")
+spawner_24.spawner:setMonsterLevel(1)
+spawner_24.spawner:setCooldown(720)
+spawner_24.spawner:setDisableSelf(false)
+spawn("forest_willow",21,26,1,1,"forest_willow_45")
+spawn("daemon_head_ruins",19,20,0,0,"daemon_head_ruins_1")
+spawn("daemon_head_ruins",19,10,0,0,"daemon_head_ruins_2")
+spawn("daemon_head_ruins",5,6,3,0,"daemon_head_ruins_3")
+spawn("beach_lever",6,9,0,0,"city_lever_1")
+city_lever_1.lever:setDisableSelf(false)
+city_lever_1.lever:addConnector("onActivate", "script_cityBuildings", "checkCityLevers")
+spawn("beach_lever",12,11,3,0,"city_lever_4")
+city_lever_4.lever:setDisableSelf(false)
+city_lever_4.lever:addConnector("onActivate", "script_cityBuildings", "checkCityLevers")
+spawn("beach_lever",19,12,2,0,"city_lever_3")
+city_lever_3.lever:setDisableSelf(false)
+city_lever_3.lever:addConnector("onActivate", "script_cityBuildings", "checkCityLevers")
+spawn("beach_rock_1x1_low",19,14,0,0,"beach_rock_1x1_low_73")
+spawn("forest_border_rocks_01",19,12,2,0,"forest_border_rocks_01_53")
+spawn("forest_ruins_wall_low",19,13,1,0,"forest_ruins_wall_low_2")
+spawn("forest_ruins_wall_low",19,14,1,0,"forest_ruins_wall_low_4")
+spawn("forest_ruins_wall_low",19,15,1,0,"forest_ruins_wall_low_5")
+spawn("forest_ruins_wall_low",7,8,2,0,"forest_ruins_wall_low_6")
+spawn("forest_ruins_wall_low",6,8,3,0,"forest_ruins_wall_low_7")
+spawn("forest_ruins_wall_low",7,7,0,0,"forest_ruins_wall_low_18")
+spawn("forest_ruins_wall_low",6,7,0,0,"forest_ruins_wall_low_19")
+spawn("mine_door_spear",9,13,0,0,"citybuildings_spearDoor")
+spawn("chest",9,11,2,0,"chest_7")
+spawn("potion_resurrection",9,11,2,0,"potion_resurrection_1")
+potion_resurrection_1.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+potion_resurrection_1.detectedtimer:setTimerInterval(0)
+potion_resurrection_1.detectedtimer:setDisableSelf(false)
+potion_resurrection_1.detectedtimer:setTriggerOnStart(true)
+potion_resurrection_1.detectedtimer:setCurrentLevelOnly(true)
+chest_7.surface:addItem(potion_resurrection_1.item)
+spawn("crystal_cuirass",9,11,2,0,"crystal_cuirass_2")
+crystal_cuirass_2.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+crystal_cuirass_2.detectedtimer:setTimerInterval(0)
+crystal_cuirass_2.detectedtimer:setDisableSelf(false)
+crystal_cuirass_2.detectedtimer:setTriggerOnStart(true)
+crystal_cuirass_2.detectedtimer:setCurrentLevelOnly(true)
+chest_7.surface:addItem(crystal_cuirass_2.item)
+spawn("crystal_shard_healing",9,11,2,0,"crystal_shard_healing_1")
+crystal_shard_healing_1.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+crystal_shard_healing_1.detectedtimer:setTimerInterval(0)
+crystal_shard_healing_1.detectedtimer:setDisableSelf(false)
+crystal_shard_healing_1.detectedtimer:setTriggerOnStart(true)
+crystal_shard_healing_1.detectedtimer:setCurrentLevelOnly(true)
+chest_7.surface:addItem(crystal_shard_healing_1.item)
+spawn("beach_rock_floor_decoration",10,12,2,0,"beach_rock_floor_decoration_51")
+spawn("forest_ruins_wall_low",19,16,0,0,"forest_ruins_wall_low_20")
+spawn("forest_ruins_wall_low",20,17,1,0,"forest_ruins_wall_low_21")
+spawn("forest_ruins_wall_low",19,17,0,0,"forest_ruins_wall_low_22")
+spawn("beach_lever",21,17,3,0,"city_lever_2")
+city_lever_2.lever:setDisableSelf(false)
+city_lever_2.lever:addConnector("onActivate", "script_cityBuildings", "checkCityLevers")
+spawn("script_entity",9,12,0,0,"script_cityBuildings")
+script_cityBuildings.script:setSource("city_levers = { false, false, false, false }\
+\
+function checkCityLevers(sender)\
+    local name = sender.go.id\
+    local id = tonumber(string.sub(name, -1))\
+    if id == 1 then\
+        if city_levers[1] == false and city_levers[2] == false and city_levers[3] == false and city_levers[4] == false then\
+            city_levers[1] = true\
+        else\
+            delayedCall(self.go.id, 0.3, \"reset\")\
+        end\
+\
+    elseif id == 2 then\
+        if city_levers[1] == true and city_levers[3] == false and city_levers[4] == false then\
+            city_levers[2] = true\
+        else\
+            delayedCall(self.go.id, 0.3, \"reset\")\
+        end\
+\
+    elseif id == 3 then\
+        if city_levers[2] == true and city_levers[4] == false then\
+            city_levers[3] = true\
+        else\
+            delayedCall(self.go.id, 0.3, \"reset\")\
+        end\
+\
+    elseif id == 4 then\
+        if city_levers[3] == true then\
+            city_levers[4] = true\
+            citybuildings_spearDoor.controller:open()\
+            playSound(\"secret\")\
+        else\
+            delayedCall(self.go.id, 0.3, \"reset\")\
+        end\
+    end\
+end\
+\
+function reset()\
+    city_levers = { false, false, false, false }\
+    local lever = nil\
+    for i=1,4 do\
+        lever = findEntity(\"city_lever_\" .. i)\
+        lever.lever:setState(\"deactivated\")\
+    end\
+end")
+spawn("starting_location",16,10,0,0,"starting_location_1")
 
 --- level 4 ---
 
@@ -7299,6 +7273,7 @@ newMap{
 		"castle_floor",
 		"castle_floor_water",
 		"castle_wall",
+		"forest_wall",
 	}
 }
 
@@ -7387,22 +7362,22 @@ loadLayer("tiles", {
 	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
 	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
 	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,3,3,3,3,3,3,3,4,3,3,3,3,3,3,3,3,
 	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
 	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
 	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,2,1,1,3,1,1,1,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,3,3,1,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,3,3,1,3,1,1,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,2,1,1,3,3,3,1,1,1,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,3,3,3,3,3,3,1,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,3,3,3,3,3,1,1,1,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,2,1,1,3,1,1,1,1,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,3,3,1,3,3,1,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,3,3,1,3,1,1,1,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,1,1,1,1,1,2,1,1,3,1,1,1,1,1,1,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,3,3,1,1,1,1,1,1,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,3,3,3,3,1,1,1,1,1,3,3,3,3,3,3,3,
 	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,3,3,3,3,3,1,1,1,3,3,3,3,3,3,3,3,
 	3,3,3,3,3,3,3,3,3,3,3,3,1,3,1,1,1,3,1,3,3,1,1,1,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,2,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,2,1,1,1,3,3,3,1,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,3,3,3,3,3,1,3,3,3,3,3,3,3,3,3,
+	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,3,3,3,3,3,3,1,3,3,3,3,3,3,3,3,3,
 	3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
 	3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
 })
@@ -7423,14 +7398,7 @@ spawn("castle_pillar_01",16,20,3,0,"castle_pillar_01_228")
 spawn("castle_pillar_01",15,20,1,0,"castle_pillar_01_229")
 spawn("castle_door_wood",14,20,3,0,"castle_door_wood_3")
 spawn("castle_pillar_candle_holder",22,27,0,0,"castle_pillar_candle_holder_9")
-spawn("castle_pillar_candle_holder",22,24,2,0,"castle_pillar_candle_holder_10")
-spawn("teleporter",21,25,1,0,"teleporter_32")
-teleporter_32.teleporter:setTeleportTarget(4,21,25,0)
-teleporter_32.teleporter:setSpin("none")
-teleporter_32.teleporter:setTriggeredByParty(true)
-teleporter_32.teleporter:setTriggeredByMonster(true)
-teleporter_32.teleporter:setTriggeredByItem(true)
-teleporter_32.teleporter:setTriggeredBySpell(true)
+spawn("castle_pillar_candle_holder",22,27,0,0,"castle_pillar_candle_holder_10")
 spawn("castle_ceiling_light",19,20,3,3,"castle_ceiling_light_2")
 spawn("teleporter",18,26,1,0,"wind_gate_lake")
 wind_gate_lake.teleporter:setTeleportTarget(4,18,26,0)
@@ -7479,7 +7447,6 @@ spawn("castle_alcove",16,21,1,0,"castle_alcove_5")
 spawn("castle_alcove",16,19,1,0,"castle_alcove_6")
 spawn("castle_alcove",14,19,3,0,"castle_alcove_7")
 spawn("castle_alcove",14,21,3,0,"castle_alcove_8")
-spawn("castle_wall_grating_ornament",21,20,3,0,"castle_wall_grating_ornament_1")
 spawn("castle_wall_grating_ornament",19,18,2,0,"castle_wall_grating_ornament_2")
 spawn("castle_secret_door",18,20,3,0,"castle_secret_door_3")
 spawn("castle_stairs_up",18,3,1,0,"castle_stairs_up_2")
@@ -7512,6 +7479,122 @@ baked_maggot_1.detectedtimer:setDisableSelf(false)
 baked_maggot_1.detectedtimer:setTriggerOnStart(true)
 baked_maggot_1.detectedtimer:setCurrentLevelOnly(true)
 spawn("castle_pillar_candle_holder",18,3,3,0,"castle_pillar_candle_holder_12")
+spawn("castle_stairs_up",22,27,2,0,"castle_stairs_up_3")
+spawn("castle_alcove",19,23,2,0,"castle_alcove_9")
+spawn("potion_healing",19,23,2,0,"potion_healing_5")
+potion_healing_5.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+potion_healing_5.potion_stack:setSource("data = {}\
+function getTop(self)\9return self.data[#data] end\
+function getData(self)\9return data end\
+function set(self,id,value)\9self.data[id] = value end\
+function print_data(self)\
+\9for i=1,#data do\
+\9\9print(data[i])\
+\9end\
+end\
+function insert(self,value)\9table.insert(data, value) table.sort(data) end\
+function remove(self)\9table.remove(data) end\
+")
+potion_healing_5.detectedtimer:setTimerInterval(0)
+potion_healing_5.detectedtimer:setDisableSelf(false)
+potion_healing_5.detectedtimer:setTriggerOnStart(true)
+potion_healing_5.detectedtimer:setCurrentLevelOnly(true)
+castle_alcove_9.surface:addItem(potion_healing_5.item)
+spawn("castle_ceiling_shaft",19,20,2,0,"castle_ceiling_shaft_1")
+spawn("castle_wall_grating_ornament",21,20,1,0,"castle_wall_grating_ornament_3")
+spawn("castle_pillar_01",22,21,1,0,"castle_pillar_01_230")
+spawn("castle_door_portcullis",22,21,0,0,"castle_door_portcullis_1")
+spawn("castle_pillar_01",23,21,1,0,"castle_pillar_01_231")
+spawn("castle_wall_grating_ornament",22,20,1,0,"castle_wall_grating_ornament_4")
+spawn("castle_pillar_candle_holder",23,27,0,0,"castle_pillar_candle_holder_14")
+spawn("castle_pillar_01",22,25,1,0,"castle_pillar_01_232")
+spawn("castle_pillar_01",23,22,0,0,"castle_pillar_01_233")
+spawn("castle_secret_door",22,20,0,0,"castle_secret_door_4")
+spawn("castle_door_portcullis",23,22,1,0,"castle_door_portcullis_2")
+spawn("castle_door_portcullis",23,23,1,0,"castle_door_portcullis_3")
+spawn("castle_door_portcullis",23,24,1,0,"castle_door_portcullis_4")
+spawn("castle_door_portcullis",20,24,1,0,"castle_door_portcullis_5")
+spawn("castle_door_portcullis",20,23,1,0,"castle_door_portcullis_6")
+spawn("castle_door_portcullis",20,22,1,0,"castle_door_portcullis_7")
+spawn("castle_pillar_01",24,23,1,0,"castle_pillar_01_234")
+spawn("castle_pillar_01",21,24,1,0,"castle_pillar_01_235")
+spawn("castle_pillar_01",21,23,1,0,"castle_pillar_01_236")
+spawn("castle_pillar_01",24,24,1,0,"castle_pillar_01_237")
+spawn("castle_door_portcullis",20,20,1,0,"castle_door_portcullis_8")
+spawn("castle_door_portcullis",19,23,1,0,"castle_door_portcullis_9")
+spawn("castle_pillar_01",20,23,1,0,"castle_pillar_01_238")
+spawn("castle_wall_lever",19,23,3,0,"castle_wall_lever_1")
+castle_wall_lever_1.lever:setDisableSelf(false)
+castle_wall_lever_1.lever:addConnector("onActivate", "castle_door_portcullis_6", "toggle")
+castle_wall_lever_1.lever:addConnector("onActivate", "timer_14", "start")
+spawn("timer",19,25,1,0,"timer_14")
+timer_14.timer:setTimerInterval(3)
+timer_14.timer:setDisableSelf(true)
+timer_14.timer:setTriggerOnStart(false)
+timer_14.timer:setCurrentLevelOnly(false)
+timer_14.timer:addConnector("onActivate", "castle_secret_door_8", "open")
+timer_14.timer:addConnector("onActivate", "castle_door_portcullis_8", "open")
+timer_14.timer:addConnector("onActivate", "castle_secret_door_6", "open")
+timer_14.timer:addConnector("onActivate", "castle_secret_door_7", "open")
+timer_14.timer:addConnector("onActivate", "castle_secret_door_5", "open")
+timer_14.timer:addConnector("onActivate", "castle_door_portcullis_3", "open")
+timer_14.timer:addConnector("onActivate", "castle_door_portcullis_9", "open")
+timer_14.timer:disable()
+spawn("castle_secret_door",22,23,0,0,"castle_secret_door_5")
+spawn("castle_secret_door",22,23,1,0,"castle_secret_door_6")
+spawn("castle_secret_door",22,23,2,0,"castle_secret_door_7")
+spawn("castle_secret_door",22,23,3,0,"castle_secret_door_8")
+spawn("castle_pillar_01",23,23,1,0,"castle_pillar_01_239")
+spawn("castle_pillar_01",22,23,1,0,"castle_pillar_01_240")
+spawn("castle_pillar_01",22,24,1,0,"castle_pillar_01_241")
+spawn("castle_pillar_01",23,24,1,0,"castle_pillar_01_242")
+spawn("eyctopus",24,23,3,0,"eyctopus_1")
+eyctopus_1.monster:setAIState("guard")
+eyctopus_1.detectedtimer:setTimerInterval(0)
+eyctopus_1.detectedtimer:setDisableSelf(false)
+eyctopus_1.detectedtimer:setTriggerOnStart(true)
+eyctopus_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("castle_door_portcullis",19,22,1,0,"castle_door_portcullis_10")
+spawn("eyctopus",20,23,1,0,"eyctopus_2")
+eyctopus_2.monster:setAIState("guard")
+eyctopus_2.detectedtimer:setTimerInterval(0)
+eyctopus_2.detectedtimer:setDisableSelf(false)
+eyctopus_2.detectedtimer:setTriggerOnStart(true)
+eyctopus_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("frost_bomb",20,24,3,0,"frost_bomb_1")
+frost_bomb_1.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+frost_bomb_1.detectedtimer:setTimerInterval(0)
+frost_bomb_1.detectedtimer:setDisableSelf(false)
+frost_bomb_1.detectedtimer:setTriggerOnStart(true)
+frost_bomb_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("round_shield",20,24,2,0,"round_shield_1")
+round_shield_1.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+round_shield_1.detectedtimer:setTimerInterval(0)
+round_shield_1.detectedtimer:setDisableSelf(false)
+round_shield_1.detectedtimer:setTriggerOnStart(true)
+round_shield_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("conjurers_hat",22,20,0,0,"conjurers_hat_1")
+conjurers_hat_1.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+conjurers_hat_1.detectedtimer:setTimerInterval(0)
+conjurers_hat_1.detectedtimer:setDisableSelf(false)
+conjurers_hat_1.detectedtimer:setTriggerOnStart(true)
+conjurers_hat_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("potion_willpower",22,20,0,0,"potion_willpower_2")
+potion_willpower_2.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+potion_willpower_2.detectedtimer:setTimerInterval(0)
+potion_willpower_2.detectedtimer:setDisableSelf(false)
+potion_willpower_2.detectedtimer:setTriggerOnStart(true)
+potion_willpower_2.detectedtimer:setCurrentLevelOnly(true)
 
 --- level 5 ---
 
@@ -10821,10 +10904,12 @@ spawn("forest_spruce_sapling_02",2,11,3,1,"boss_obstacle_2")
 spawn("forest_spruce_sapling_pillar",3,12,0,1,"forest_spruce_sapling_pillar_1")
 spawn("forest_spruce_sapling_pillar",3,11,3,1,"forest_spruce_sapling_pillar_3")
 spawn("script_entity",3,12,1,0,"script_entity_16")
-script_entity_16.script:setSource("function sandWarg()\
+script_entity_16.script:setSource("sandWargBossVars = { hp = 290, exp = 25, phase1Finished = false, phase2Finished = false, midPoint = false, aideCount = 0, aideKilled = 0 }\
+\
+function sandWarg()\
 \9spawn(\"sand_warg_boss\", self.go.level, 2, 11, 1, 1, \"boss\")\
 \9boss.brain:disable()\
-\9boss.monster:setExp(250)\
+\9boss.monster:setExp(sandWargBossVars[\"exp\"])\
 \9delayedCall(self.go.id, 0.1, \"moveForward\")\
 \9delayedCall(self.go.id, 1.0, \"howl\")\
 \9delayedCall(self.go.id, 3.5, \"enableFight\")\
@@ -10846,38 +10931,33 @@ end\
 function enableFight()\
 \9boss.sbrain:disable()\
 \9boss.brain:enable()\
-\9boss.monster:addConnector(\"onDie\", \"script_entity_16\", \"bossDie\")\
-\9boss.monster:addConnector(\"onDamage\", \"script_entity_16\", \"bossDamage\")\
-\9boss.monster:setHealth(290)\
-\9boss.monster:setMaxHealth(290)\
+\9boss.monster:addConnector(\"onDie\", self.go.id, \"bossDie\")\
+\9boss.monster:addConnector(\"onDamage\", self.go.id, \"bossDamage\")\
+\9boss.monster:setHealth(sandWargBossVars[\"hp\"])\
+\9boss.monster:setMaxHealth(sandWargBossVars[\"hp\"])\
 \9boss_fight_1.bossfight:addMonster(boss.monster)\
 \9boss_fight_1.bossfight:activate()\
 end\
 \
 function bossDie(sender)\
 \9beach_door_portcullis_6.door:open()\
-\9beach_master_gate_1.controller:open()\9\
+\9beach_master_gate_1.controller:open()\
 \9beach_master_gate_1.door:open()\
 \9spawn(\"power_gem\", sender.go.level, sender.go.x, sender.go.y, self.go.facing, 1)\
 end\
 \
-midpoint = 0\
-\
 function bossDamage(sender)\
-\9if boss.monster:getHealth() <= 100 and midpoint == 0 then\
-\9\9midpoint = 1\
+\9if boss.monster:getHealth() <= sandWargBossVars[\"hp\"]/3 and sandWargBossVars[\"midPoint\"] == false then\
+\9\9sandWargBossVars[\"midPoint\"] = true\
 \9\9boss.brain:disable()\
-\9\9boss.sbrain:enable()\9\9\
+\9\9boss.sbrain:enable()\
 \9\9delayedCall(self.go.id, 1.5, \"goTo\", 1, 11)\9\9\
 \9end\
 end\
 \
-phase1Finished = false\
-phase2Finished = false\
-\
 function goTo(x, y)\
-\9if phase1Finished == false then\
-\9\9if boss.monster:isIdle() then\9\9\9\
+\9if sandWargBossVars[\"phase1Finished\"] == false then\
+\9\9if boss.monster:isIdle() then\
 \9\9\9boss.sbrain:seek(x, y)\
 \9\9\9boss.sbrain:wait()\
 \9\9end\
@@ -10886,56 +10966,54 @@ function goTo(x, y)\
 \9\9\9boss.sbrain:disable()\
 \9\9\9boss.brain:disable()\
 \9\9\9delayedCall(self.go.id, 0.5, \"spawnAide\", x, y)\
-\9\9\9phase1Finished = true\
+\9\9\9sandWargBossVars[\"phase1Finished\"] = true\
 \9\9end\
 \9end\
-\9if phase2Finished == false and phase1Finished == true and aideKilled == 2 then\
-\9\9if boss.monster:isIdle() then\9\9\9\
+\9if sandWargBossVars[\"phase2Finished\"] == false and sandWargBossVars[\"phase1Finished\"] == true and sandWargBossVars[\"aideKilled\"] == 2 then\
+\9\9if boss.monster:isIdle() then\
 \9\9\9boss.sbrain:seek(x, y)\
 \9\9\9boss.sbrain:wait()\
 \9\9end\
 \9\9delayedCall(self.go.id, 0.2, \"goTo\", 3, 11)\
 \9\9if boss.x == x and boss.y == y then\
-\9\9\9phase2Finished = true\
+\9\9\9sandWargBossVars[\"phase2Finished\"] = true\
 \9\9\9boss.sbrain:disable()\
 \9\9\9boss.brain:enable()\
 \9\9end\
 \9end\
 end\
 \
-aideCount = 0\
-aideKilled = 0\
+-- Aide Events\
 \
 function spawnAide(x,y)\
-\9if aideCount == 2 then return end\
-\9for entity in Dungeon.getMap(5):entitiesAt(2, 11) do\
-\9\9if aideCount < 2 and (entity.name == \"bossAide_1\" or entity.name == \"bossAide_2\" or entity.name == \"party\") then\
-\9\9\9\
-\9\9else\
-\9\9\9delayedCall(self.go.id, 0, \"caveDisable\")\
-\9\9\9aideCount = aideCount + 1\
-\9\9\9local aide = spawn(\"fjeld_warg\", self.go.level, x, y, 1, 1, \"bossAide_\"..aideCount)\
-\9\9\9aide.monster:addConnector(\"onDie\", \"script_entity_16\", \"aideDie\")\
-\9\9\9aide.monster:addConnector(\"onDamage\", \"script_entity_16\", \"aideDamage\")\
+\9if sandWargBossVars[\"aideCount\"] == 2 then return end\
+\9for entity in Dungeon.getMap(self.go.level):entitiesAt(2, 11) do\
+\9\9if sandWargBossVars[\"aideCount\"] < 2 and not (entity.name == \"bossAide_1\" or entity.name == \"bossAide_2\" or entity.name == \"party\") then\
+\9\9\9sandWargBossVars[\"aideCount\"] = math.min(sandWargBossVars[\"aideCount\"] + 1, 2)\
+\9\9\9local aide = spawn(\"fjeld_warg\", self.go.level, x, y, 1, 1, \"bossAide_\"..sandWargBossVars[\"aideCount\"])\
+\9\9\9aide.monster:addConnector(\"onDie\", self.go.id, \"aideDie\")\
 \9\9\9aide.monster:setExp(0)\
 \9\9\9aide.brain:moveForward()\
-\9\9\9boss_fight_1.bossfight:addMonster(findEntity(\"bossAide_\"..aideCount).monster)\
+            boss_fight_1.bossfight:addMonster(findEntity(\"bossAide_\"..sandWargBossVars[\"aideCount\"]).monster)\
+            break\
 \9\9end\
 \9end\9\
-\9if aideCount == 1 then\9\
+\9if sandWargBossVars[\"aideCount\"] == 1 then\
 \9\9delayedCall(self.go.id, 0.5, \"spawnAide\", x, y)\9\
 \9end\
 end\
 \
 function aideDie(sender, x, y)\
-\9aideKilled = aideKilled + 1\
-\9if aideKilled == 2 then\
+    sandWargBossVars[\"aideKilled\"] = sandWargBossVars[\"aideKilled\"] + 1\
+    print(sandWargBossVars[\"aideKilled\"])\
+    print(sandWargBossVars[\"phase1Finished\"])\
+    print(sandWargBossVars[\"phase2Finished\"])\
+    if sandWargBossVars[\"aideKilled\"] == 2 then\
+        print(\"done\")\
 \9\9boss.sbrain:enable()\
 \9\9delayedCall(self.go.id, 0.0, \"goTo\", 3, 11)\
 \9end\
-end\
-\
-")
+end")
 spawn("beach_rock_blocker_01",2,12,3,1,"beach_rock_blocker_01_22")
 spawn("forest_plant_cluster_01",6,16,3,1,"forest_plant_cluster_01_4")
 spawn("beach_rock_blocker_01",5,16,2,1,"beach_rock_blocker_01_23")
@@ -11041,7 +11119,7 @@ spawn("forest_ruins_pillar_01",7,2,3,1,"forest_ruins_pillar_01_8")
 spawn("forest_ruins_pillar_01",4,2,2,1,"forest_ruins_pillar_01_9")
 spawn("forest_ruins_wall_ivy_01",5,2,0,1,"forest_ruins_wall_ivy_01_1")
 spawn("forest_ruins_ceiling",5,2,3,1,"forest_ruins_ceiling_1")
-spawn("forest_ruins_wall_ivy_01",4,3,0,1,"forest_ruins_wall_ivy_01_2")
+spawn("forest_ruins_wall_ivy_01",4,2,0,1,"forest_ruins_wall_ivy_01_2")
 spawn("forest_ruins_fallen_bricks",4,2,1,1,"forest_ruins_fallen_bricks_5")
 spawn("forest_ruins_pillar_03",5,3,1,1,"forest_ruins_pillar_03_2")
 spawn("forest_ruins_pillar_03",6,3,1,1,"forest_ruins_pillar_03_3")
@@ -11160,7 +11238,7 @@ spawn("forest_grass_01",6,5,1,1,"forest_grass_01_30")
 spawn("forest_spruce_smallest_01",6,6,3,1,"forest_spruce_smallest_01_4")
 spawn("swamp_heather_low",6,6,2,1,"swamp_heather_low_4")
 spawn("forest_grass_01",6,7,1,1,"forest_grass_01_31")
-spawn("forest_ruins_wall_ivy_02",6,3,2,0,"forest_ruins_wall_ivy_02_3")
+spawn("forest_ruins_wall_ivy_02",6,3,2,1,"forest_ruins_wall_ivy_02_3")
 spawn("beach_rock_1x1_lowest",3,7,2,1,"beach_rock_1x1_lowest_63")
 spawn("beach_rock_blocker_01",2,8,2,1,"beach_rock_blocker_01_45")
 spawn("beach_boulder",10,19,2,0,"beach_boulder_21")
@@ -11364,6 +11442,8 @@ sack_5.detectedtimer:setTimerInterval(0)
 sack_5.detectedtimer:setDisableSelf(false)
 sack_5.detectedtimer:setTriggerOnStart(true)
 sack_5.detectedtimer:setCurrentLevelOnly(true)
+spawn("forest_willow",11,19,3,1,"forest_willow_47")
+spawn("forest_willow",11,12,0,2,"forest_willow_48")
 
 --- level 8 ---
 

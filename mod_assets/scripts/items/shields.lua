@@ -25,6 +25,7 @@ defineObject{
 			evasion = 2,
 		},
 	},
+	tags = { "shields" },
 }
 
 defineObject{
@@ -48,6 +49,7 @@ defineObject{
 			evasion = 2,
 		},
 	},
+	tags = { "shields" },
 }
 
 defineObject{
@@ -71,6 +73,7 @@ defineObject{
 			evasion = 4,
 		},
 	},
+	tags = { "shields" },
 }
 
 defineObject{
@@ -96,6 +99,7 @@ defineObject{
 			health = -15,
 		},
 	},
+	tags = { "shields" },
 }
 
 defineObject{
@@ -119,6 +123,7 @@ defineObject{
 			evasion = 6,
 		},
 	},
+	tags = { "shields" },
 }
 
 defineObject{
@@ -146,6 +151,7 @@ defineObject{
 			resistShock = 15,
 		},
 	},
+	tags = { "shields" },
 }
 
 defineObject{
@@ -183,6 +189,7 @@ defineObject{
 			requirements = { "concentration", 2 },
 		},
 	},
+	tags = { "shields" },
 }
 
 -- Set shields
@@ -212,6 +219,7 @@ defineObject{
 			energy = 5,
 		},
 	},
+	tags = { "shields" },
 }
 
 defineObject{
@@ -254,6 +262,7 @@ defineObject{
 			requirements = { "block", 3 },
 		},
 	},
+	tags = { "shields" },
 }
 
 defineObject{
@@ -298,6 +307,7 @@ defineObject{
 			requirements = { "concentration", 2 },
 		},
 	},
+	tags = { "shields" },
 }
 
 defineObject{
@@ -338,4 +348,5 @@ defineObject{
 			requirements = { "elemental_magic", 2 },
 		},
 	},
+	tags = { "shields" },
 }

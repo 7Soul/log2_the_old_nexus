@@ -631,7 +631,11 @@ defineObject{
 				self.go.iceshards:grantTemporaryImmunity(party, 1.2)
 			end,
 			onHitMonster = function(self, monster)
-				self.go.iceshards:grantTemporaryImmunity(monster.go, 1.8)
+				if self:getAttackPower() <= 20 then
+					self.go.iceshards:grantTemporaryImmunity(monster.go, 1.8)
+				else
+					self.go.iceshards:grantTemporaryImmunity(monster.go, 0.75)
+				end
 			end,
 		},
 		{

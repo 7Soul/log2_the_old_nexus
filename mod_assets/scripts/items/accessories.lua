@@ -380,7 +380,7 @@ defineObject{
 			class = "Item",
 			uiName = "Hardstone Bracelet",
 			description = "A bracelet that the warriors of the hill tribes pass on from generation to generation.",
-			gameEffect = [[Gain +2 Protection per 200 health of nearby enemies.]],
+			gameEffect = [[Gain +2 Protection for each monster with over 200 HP.]],
 			gfxIndex = 27,
 			weight = 0.3,
 			traits = { "bracers", "upgradable" },

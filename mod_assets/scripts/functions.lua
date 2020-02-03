@@ -3,6 +3,8 @@ spellSlinger = {}
 stepCount = 0
 keypressDelay = 0
 skillNames = { "block", "light_armor", "heavy_armor", "accuracy", "critical", "firearms", "seafaring", "tinkering", "alchemy", "ranged_weapons", "throwing_weapons", "light_weapons_c", "heavy_weapons_c", "spellblade", "elemental_magic", "poison_mastery", "concentration", "witchcraft" }
+metalSlugList = { 250, 900, 20, 1550, 900, 900, 1550, 20, 900, 900, 250, 1550 }
+metalSlug = 0
 
 data = {}
 function get(name) return data[name] end
@@ -18,6 +20,10 @@ function add_c(name, id, value) championData[id][name] = championData[id][name] 
 --------------------------------------------------------------------------
 -- Misc Functions                                                       --
 --------------------------------------------------------------------------
+
+function metalSlugListIncrease()
+	metalSlug = metalSlug + 1
+end
 
 function stepCountIncrease()
 	stepCount = stepCount + 1
@@ -1128,9 +1134,9 @@ function onPostFirearmAttack(self, champion, slot, secondary2)
 	
 	-- Pellet saving
 	local saveChance = 0
-	if champion:hasTrait("metal_slug") and item.go.name ~= "revolver" then
-		saveChance = saveChance + 0.07
-	end
+	-- if champion:hasTrait("metal_slug") and item.go.name ~= "revolver" then
+	-- 	saveChance = saveChance + 0.07
+	-- end
 
 	for slot = ItemSlot.Weapon, ItemSlot.Bracers do
 		local item = champion:getItem(slot)
@@ -1706,7 +1712,8 @@ end
 function onProjectileHitMonster(self, item, damage, damageType) -- self = monster, item = projectile
 	-- print(item.go.data:get("castByChampion"))
 	if item.go.data:get("castByChampion") then -- random thrown items don't get this
-		local champion = party.party:getChampionByOrdinal(item.go.data:get("castByChampion"))
+		-- print(item.go.data:get("castByChampion"))
+		local champion = party.party:getChampionByOrdinal(tonumber(item.go.data:get("castByChampion")))
 		local facing = item.go.data:get("castByChampionFacing")
 		local specialDamage = item.go.data:get("projectileDamage")
 		local c = champion:getOrdinal()
@@ -2440,7 +2447,7 @@ function getEquippedMultiBonus(champion, type, useJoeBonus)
 		end
 	end
 
-	if champion:hasTrait("average_joe") and type ~= "neutral" then
+	if champion:hasTrait("average_joe") and type ~= "neutral" and useJoeBonus then
 		multi = multi * 0.5		
 	end
 	
@@ -3174,14 +3181,14 @@ function empowerAttackType(champion, attackType, base, return_only, tier)
 			end
 		end
 		
-		local itemThrowingBonus = getEquippedMultiBonus(champion, "melee", true)
+		local itemThrowingBonus = getEquippedMultiBonus(champion, "melee", false)
 		f = f + (itemThrowingBonus * base)
 
 	elseif attackType == "spell" then
 		f = f * ((champion:getCurrentStat("willpower") * 0.02) + 1)
 
 		-- Items
-		local itemThrowingBonus = getEquippedMultiBonus(champion, "spell", true)
+		local itemThrowingBonus = getEquippedMultiBonus(champion, "spell", false)
 		f = f + (itemThrowingBonus * base)
 
 		-- Body and Mind bonus based on vitality
@@ -3212,8 +3219,8 @@ function empowerAttackType(champion, attackType, base, return_only, tier)
 		end
 
 		-- Items
-		local itemThrowingBonus = getEquippedMultiBonus(champion, "ranged", true)
-		f = f + (itemThrowingBonus * base)
+		local itemRangedBonus = getEquippedMultiBonus(champion, "ranged", false)
+		f = f + (itemRangedBonus * base)
 
 	elseif attackType == "missile" then
 		-- Skill bonuses
@@ -3231,7 +3238,7 @@ function empowerAttackType(champion, attackType, base, return_only, tier)
 		f = f + ((champion:getSkillLevel("light_weapons_c") * 0.2) * base)
 
 		-- Items
-		local itemThrowingBonus = getEquippedMultiBonus(champion, "light_weapons", true)
+		local itemThrowingBonus = getEquippedMultiBonus(champion, "light_weapons", false)
 		f = f + (itemThrowingBonus * base)
 
 	elseif attackType == "heavy_weapons" then
@@ -3239,7 +3246,7 @@ function empowerAttackType(champion, attackType, base, return_only, tier)
 		f = f + ((champion:getSkillLevel("heavy_weapons_c") * 0.2) * base)
 
 		-- Items
-		local itemThrowingBonus = getEquippedMultiBonus(champion, "heavy_weapons", true)
+		local itemThrowingBonus = getEquippedMultiBonus(champion, "heavy_weapons", false)
 		f = f + (itemThrowingBonus * base)
 
 		-- Power Grip
@@ -3250,7 +3257,7 @@ function empowerAttackType(champion, attackType, base, return_only, tier)
 
 	elseif attackType == "firearms" then
 		-- Items
-		local itemThrowingBonus = getEquippedMultiBonus(champion, "firearms", true)
+		local itemThrowingBonus = getEquippedMultiBonus(champion, "firearms", false)
 		f = f + (itemThrowingBonus * base)
 
 	elseif attackType == "dual_wielding" then
@@ -3261,7 +3268,7 @@ function empowerAttackType(champion, attackType, base, return_only, tier)
 		end
 
 		-- Items
-		local itemThrowingBonus = getEquippedMultiBonus(champion, "dual_wielding", true)
+		local itemThrowingBonus = getEquippedMultiBonus(champion, "dual_wielding", false)
 		f = f + (itemThrowingBonus * base)
 
 
@@ -3398,9 +3405,9 @@ function getAccuracy(champion, slot)
 	end
 	
 	-- Corsair +10 acc vs single foe
-	if champion:getClass() == "corsair" and get("aggroMonsters") <= 1 then
-		acc = acc + 10
-	end
+	-- if champion:getClass() == "corsair" and get("aggroMonsters") <= 1 then
+	-- 	acc = acc + 10
+	-- end
 
 	-- Stalker acc bonus
 	if champion:getClass() == "stalker" then
@@ -3457,7 +3464,7 @@ function getCrit(champion, slot)
 	end
 
 	-- Corsair's +5 crit vs single foe
-	if champion:getClass() == "corsair" and get("aggroMonsters") <= 1 then
+	if champion:getClass() == "corsair" and functions.script.get("aggroMonsters") == 1 then
 		crit = crit + 5
 	end
 
@@ -3578,7 +3585,7 @@ function getBlockChance(champion)
 		chance = chance + champion:getSkillLevel("block") / 50
 
 		-- Items
-		local itemBlockBonus = getEquippedMultiBonus(champion, "block", true)
+		local itemBlockBonus = getEquippedMultiBonus(champion, "block", false)
 		chance = chance + itemBlockBonus
 
 		-- Skills
