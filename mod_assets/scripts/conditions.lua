@@ -808,6 +808,37 @@ defineCondition{
 }
 
 defineCondition{
+	name = "valor_set",
+	uiName = "Valor",
+	description = "The Valor Set user is sharing 10% of its Protection.",
+	icon = 40,
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
+	beneficial = true,
+	harmful = false,
+	tickInterval = 1,
+	onStart = function(self, champion)
+		local bonus = 0
+		for i=1,4 do
+			local champ = party.party:getChampionByOrdinal(i)
+			if functions.script.isArmorSetEquipped(champ, "valor") then
+				bonus = math.floor(champ:getCurrentStat("protection") * 0.1)
+			end
+		end
+		functions.script.set("valor_bonus", bonus)
+	end,
+	onStop = function(self, champion)
+		functions.script.set("valor_bonus", nil)
+	end,
+	onRecomputeStats = function(self, champion)
+		local bonus = functions.script.get("valor_bonus") or 0
+		if functions.script.isArmorSetEquipped(champion, "valor") then
+			bonus = bonus * -1
+		end
+		champion:addStatModifier("protection", bonus)
+	end,	
+}
+
+defineCondition{
 	name = "poison",
 	uiName = "Poisoned",
 	description = "You take poison damage every few seconds. Over time it becomes more severe.",

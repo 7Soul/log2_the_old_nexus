@@ -206,6 +206,11 @@ function start()
 		forest_fountain_1:setWorldPosition(vec(45,0,66))
 		forest_plant_cluster_01_67.model:setEmissiveColor(vec(0.05,-0.02,-0.01))
 		forest_spruce_sapling_01_16.model:setEmissiveColor(vec(0.05,-0.02,-0.01))
+		-- for i=8,19 do
+		-- 	local e = findEntity("forest_oak_cluster_noicon_"..i)
+		-- 	local v = math.random(-2.2,-2.9)
+		-- 	e:setWorldPosition(e:getWorldPosition() + vec(0, v, 0))
+		-- end
 	end
 	
 	-------------------------
@@ -318,7 +323,7 @@ end
 -- Offset and Rotate Level Object                                       --
 --------------------------------------------------------------------------
 
-objname = "sack_5"
+objname = "forest_oak_cluster_noicon_8"
 objname2 = "-"
 
 function move(x,y,z)

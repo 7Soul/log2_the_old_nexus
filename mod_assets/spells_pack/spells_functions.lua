@@ -2303,6 +2303,10 @@ function getCost(champion, base, element, spellName)
 			base = base * (champion:hasTrait("night_stalker2") and 0.33 or 0.66)
 		end
 
+		if element == "fire" and functions.script.isArmorSetEquipped(champion, "meteor") then
+			base = base * 0.7
+		end
+
 		if element == "poison" then
 			if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "shaman_cloak" then
 				base = base * (champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 0.7 or 0.8)
@@ -2709,6 +2713,12 @@ function frontAttack(attack, power, ordinal)
 		elseif (a.tiledamager and a.tiledamager:getDamageType() == "cold") or (a.cloudspell and a.cloudspell:getDamageType() == "cold") then
 			if a.tiledamager then a.tiledamager:setDamageType("fire") end
 			if a.cloudspell then a.cloudspell:setDamageType("fire") end
+		elseif (a.tiledamager and a.tiledamager:getDamageType() == "shock") or (a.cloudspell and a.cloudspell:getDamageType() == "shock") then
+			if a.tiledamager then a.tiledamager:setDamageType("neutral") end
+			if a.cloudspell then a.cloudspell:setDamageType("neutral") end
+		elseif (a.tiledamager and a.tiledamager:getDamageType() == "neutral") or (a.cloudspell and a.cloudspell:getDamageType() == "neutral") then
+			if a.tiledamager then a.tiledamager:setDamageType("shock") end
+			if a.cloudspell then a.cloudspell:setDamageType("shock") end
 		end
 	end
 	

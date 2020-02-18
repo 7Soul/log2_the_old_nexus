@@ -183,7 +183,7 @@ for i=0,3 do
 				class = "MonsterAttack",
 				name = "basicAttack",
 				attackPower = 14,
-				cooldown = 3.75,
+				cooldown = 3.1, -- was 3.75
 				animationSpeed = 0.8,
 			},
 			{

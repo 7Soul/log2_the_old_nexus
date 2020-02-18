@@ -197,127 +197,6 @@ defineObject{
 }
 
 defineObject{
-	name = "plate_cuirass",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/plate_cuirass.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Plate Cuirass",
-			armorSet = "plate",
-			armorSetPieces = 5,
-			gfxIndex = 91,
-			weight = 17.0,
-			traits = { "heavy_armor", "dismantle", "chest_armor", "upgradable" },
-		},
-		{
-			class = "EquipmentItem",
-			protection = 12,
-		},
-	},
-	tags = { "armor_heavy" },
-}
-
-defineObject{
-	name = "plate_cuisse",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/plate_cuisse.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Leg Plate",
-			armorSet = "plate",
-			gfxIndex = 92,
-			weight = 11.0,
-			traits = { "heavy_armor", "dismantle", "leg_armor", "upgradable" },
-		},
-		{
-			class = "EquipmentItem",
-			protection = 12,
-		},
-	},
-	tags = { "armor_heavy" },
-}
-
-defineObject{
-	name = "full_helmet",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/full_helmet.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Full Helmet",
-			armorSet = "plate",
-			gfxIndex = 93,
-			weight = 5.0,
-			traits = { "heavy_armor", "dismantle", "helmet", "upgradable" },
-		},
-		{
-			class = "EquipmentItem",
-			protection = 12,
-		},
-	},
-	tags = { "armor_heavy" },
-}
-
-defineObject{
-	name = "plate_gauntlets",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/plate_gauntlets.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Plate Gauntlets",
-			armorSet = "plate",
-			gfxIndex = 95,
-			weight = 4.0,
-			traits = { "heavy_armor", "dismantle", "gloves", "upgradable" },
-		},
-		{
-			class = "EquipmentItem",
-			protection = 12,
-		},
-	},
-	tags = { "armor_heavy" },
-}
-
-defineObject{
-	name = "plate_greaves",
-	baseObject = "base_item",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/items/plate_boots.fbx",
-		},
-		{
-			class = "Item",
-			uiName = "Plate Greaves",
-			armorSet = "plate",
-			gfxIndex = 94,
-			weight = 6.0,
-			traits = { "heavy_armor", "dismantle", "boots", "upgradable" },
-		},
-		{
-			class = "EquipmentItem",
-			protection = 12,
-		},
-	},
-	tags = { "armor_heavy" },
-}
-
-defineObject{
 	name = "skeleton_knight_helmet",
 	baseObject = "base_item",
 	components = {
@@ -369,6 +248,140 @@ defineObject{
 	tags = { "armor_light" },
 }
 
+-- Plate Set
+
+defineObject{
+	name = "plate_cuirass",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/plate_cuirass.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Plate Cuirass",
+			armorSet = "plate",
+			armorSetPieces = 5,
+			gameEffect = [[
+			[Plate Set (5)]
+			Protection +10
+			Resist Cold +30
+			Resist Shock +30]],
+			gfxIndex = 91,
+			weight = 17.0,
+			traits = { "heavy_armor", "dismantle", "chest_armor", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 12,
+			onRecomputeStats = function(self, champion)
+				if functions.script.isArmorSetEquipped(champion, "plate") then
+					champion:addStatModifier("protection", 10)
+					champion:addStatModifier("resist_shock", 30)
+				end
+			end,
+		},
+	},
+	tags = { "armor_heavy" },
+}
+
+defineObject{
+	name = "plate_cuisse",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/plate_cuisse.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Leg Plate",
+			armorSet = "plate",
+			gfxIndex = 92,
+			weight = 11.0,
+			traits = { "heavy_armor", "dismantle", "leg_armor", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 12,
+		},
+	},
+	tags = { "armor_heavy" },
+}
+
+defineObject{
+	name = "full_helmet",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/full_helmet.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Full Helmet",
+			armorSet = "plate",
+			gfxIndex = 93,
+			weight = 5.0,
+			traits = { "heavy_armor", "dismantle", "helmet", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 10,
+		},
+	},
+	tags = { "armor_heavy" },
+}
+
+defineObject{
+	name = "plate_gauntlets",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/plate_gauntlets.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Plate Gauntlets",
+			armorSet = "plate",
+			gfxIndex = 95,
+			weight = 4.0,
+			traits = { "heavy_armor", "dismantle", "gloves", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 9,
+		},
+	},
+	tags = { "armor_heavy" },
+}
+
+defineObject{
+	name = "plate_greaves",
+	baseObject = "base_item",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/plate_boots.fbx",
+		},
+		{
+			class = "Item",
+			uiName = "Plate Greaves",
+			armorSet = "plate",
+			gfxIndex = 94,
+			weight = 6.0,
+			traits = { "heavy_armor", "dismantle", "boots", "upgradable" },
+		},
+		{
+			class = "EquipmentItem",
+			protection = 9,
+		},
+	},
+	tags = { "armor_heavy" },
+}
+
 -- Valor set
 
 defineObject{
@@ -384,21 +397,21 @@ defineObject{
 			uiName = "Cuirass of Valor",
 			description = "A plate cuirass forged of strips of shiny golden metal. It was thought to be forever lost on the battlefields of Malan Tael",
 			armorSet = "valor",
-			armorSetPieces = 5,
+			armorSetPieces = 6,
+			gameEffect = [[
+			[Valor Set (6)]
+			Block Chance +20
+			Blocking reduces damage by 25% instead of 50%.
+			Gives 10% of your Protection to the party when you block. Lasts 6 seconds.]],
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
 			gfxIndex = 91,
-			gfxIndexArmorSet = 97,	
+			gfxIndexArmorSet = 97,
 			weight = 13.0,
-			traits = { "heavy_armor", "dismantle", "chest_armor", "upgradable" },
+			traits = { "heavy_armor", "dismantle", "chest_armor", "upgradable", "epic" },
 		},
 		{
 			class = "EquipmentItem",
 			protection = 15,
-			onRecomputeStats = function(self, champion)
-				if functions.script.isArmorSetEquipped(champion, "valor") then
-					champion:addStatModifier("max_health", 50)
-				end
-			end,
 		},
 	},
 	tags = { "armor_heavy" },
@@ -421,7 +434,7 @@ defineObject{
 			gfxIndex = 92,
 			gfxIndexArmorSet = 98,
 			weight = 9.5,
-			traits = { "heavy_armor", "dismantle", "leg_armor", "upgradable" },
+			traits = { "heavy_armor", "dismantle", "leg_armor", "upgradable", "epic" },
 		},
 		{
 			class = "EquipmentItem",
@@ -448,7 +461,7 @@ defineObject{
 			gfxIndex = 93,
 			gfxIndexArmorSet = 99,
 			weight = 4.5,
-			traits = { "heavy_armor", "dismantle", "helmet", "upgradable" },
+			traits = { "heavy_armor", "dismantle", "helmet", "upgradable", "epic" },
 		},
 		{
 			class = "EquipmentItem",
@@ -475,11 +488,11 @@ defineObject{
 			gfxIndex = 95,
 			gfxIndexArmorSet = 101,
 			weight = 3.5,
-			traits = { "heavy_armor", "dismantle", "gloves", "upgradable" },
+			traits = { "heavy_armor", "dismantle", "gloves", "upgradable", "epic" },
 		},
 		{
 			class = "EquipmentItem",
-			protection = 15,
+			protection = 10,
 		},
 	},
 	tags = { "armor_heavy" },
@@ -502,11 +515,11 @@ defineObject{
 			gfxIndex = 94,
 			gfxIndexArmorSet = 100,
 			weight = 5.5,
-			traits = { "heavy_armor", "dismantle", "boots", "upgradable" },
+			traits = { "heavy_armor", "dismantle", "boots", "upgradable", "epic" },
 		},
 		{
 			class = "EquipmentItem",
-			protection = 15,
+			protection = 10,
 		},
 	},
 	tags = { "armor_heavy" },
@@ -1167,7 +1180,7 @@ defineObject{
 		},
 		{
 			class = "EquipmentItem",
-			protection = 8,
+			protection = 6,
 			resistAll = 5,
 		},
 	},
@@ -1193,7 +1206,7 @@ defineObject{
 		},
 		{
 			class = "EquipmentItem",
-			protection = 8,
+			protection = 6,
 			resistAll = 5,
 		},
 	},

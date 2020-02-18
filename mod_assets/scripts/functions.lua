@@ -145,7 +145,7 @@ function teststart()
 
 	if Editor.isRunning() then
 		party.party:getChampionByOrdinal(1):setClass("corsair")
-		party.party:getChampionByOrdinal(2):setClass("hunter")
+		party.party:getChampionByOrdinal(2):setClass("druid")
 		party.party:getChampionByOrdinal(3):setClass("fighter")
 		party.party:getChampionByOrdinal(4):setClass("monk")
 		party.party:getChampionByOrdinal(1):setRace("human")
@@ -194,9 +194,9 @@ function teststart()
 				for s=13, 19 do
 					champion:removeItemFromSlot(s)
 				end
-				for s=ItemSlot.Weapon, ItemSlot.Bracers do
-					champion:removeItemFromSlot(s)
-				end
+				-- for s=ItemSlot.Weapon, ItemSlot.Bracers do
+				-- 	champion:removeItemFromSlot(s)
+				-- end
 				champion:insertItem(13,spawn("blooddrop_cap").item)
 				champion:getItem(13):setStackSize(10)
 				champion:insertItem(14,spawn("etherweed").item)
@@ -208,15 +208,15 @@ function teststart()
 				champion:insertItem(17,spawn("blackmoss").item)
 				champion:insertItem(18,spawn("crystal_flower").item)
 				champion:insertItem(19,spawn("mortar").item)
-				champion:insertItem(ItemSlot.Gloves, spawn("leather_gloves").item)
-				champion:insertItem(ItemSlot.Feet, spawn("leather_boots").item)
-				champion:insertItem(ItemSlot.Legs, spawn("leather_pants").item)
-				champion:insertItem(ItemSlot.Chest, spawn("doublet").item)
-				champion:insertItem(ItemSlot.Head, spawn("peasant_cap").item)
-				champion:insertItem(ItemSlot.Bracers, spawn("leafbond_bracelet").item)
-				champion:insertItem(ItemSlot.Necklace, spawn("runestone_necklace").item)
-				champion:insertItem(ItemSlot.Cloak, spawn("shaman_cloak").item)
-				champion:insertItem(ItemSlot.Weapon, spawn("hand_axe").item)				
+				-- champion:insertItem(ItemSlot.Gloves, spawn("leather_gloves").item)
+				-- champion:insertItem(ItemSlot.Feet, spawn("leather_boots").item)
+				-- champion:insertItem(ItemSlot.Legs, spawn("leather_pants").item)
+				-- champion:insertItem(ItemSlot.Chest, spawn("doublet").item)
+				-- champion:insertItem(ItemSlot.Head, spawn("peasant_cap").item)
+				-- champion:insertItem(ItemSlot.Bracers, spawn("leafbond_bracelet").item)
+				-- champion:insertItem(ItemSlot.Necklace, spawn("runestone_necklace").item)
+				-- champion:insertItem(ItemSlot.Cloak, spawn("shaman_cloak").item)
+				-- champion:insertItem(ItemSlot.Weapon, spawn("hand_axe").item)				
 			end
 			
 			if champion:getClass() == "corsair" then
@@ -813,10 +813,14 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 	end
 	
 	-- Bearclaw Gauntlets - Increases power attack damage by 15%
-	if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "bearclaw_gauntlets" then
-		if secondary and secondary ~= self then
+	if secondary and secondary ~= self then
+		if champion:getItem(ItemSlot.Gloves) and champion:getItem(ItemSlot.Gloves).go.name == "bearclaw_gauntlets" then
 			local amount = (champion:getItem(ItemSlot.Gloves):hasTrait("upgraded") and 1.30 or 1.15)
 			secondary:setAttackPower(secondary:getAttackPower() * amount)
+		end
+
+		if isArmorSetEquipped(champion, "reed") then
+			secondary:setAttackPower(secondary:getAttackPower() * 1.2)
 		end
 	end
 	
@@ -840,7 +844,7 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 	if not item.go.equipmentitem then item.go:createComponent("EquipmentItem", "equipmentitem") end	
 	local real_crit = tinker_item[6][name] and tinker_item[6][name] or (supertable[6][name] and supertable[6][name] or 0)
 	if item.go.equipmentitem then 
-		item.go.equipmentitem:setCriticalChance(real_crit) 
+		item.go.equipmentitem:setCriticalChance(real_crit)
 		
 		-- Banish critical bonus
 		if secondary and secondary ~= self and secondary:getName() == "banish" then
@@ -851,6 +855,14 @@ function onMeleeAttack(self, item, champion, slot, chainIndex, secondary2)
 		if secondary and secondary ~= self and secondary:getName() == "reap" then
 			local bonus = champion:hasTrait("weapons_specialist") and 20 or 10
 			self.go.equipmentitem:setCriticalChance(self.go.equipmentitem:getCriticalChance() + bonus)
+		end
+		-- Rogue set bonus
+		local target = functions.script.get("monsterInFront")
+		if target and isArmorSetEquipped(champion, "rogue") then
+			local e = findEntity(target)
+			if e and party.facing == e.facing then
+				self.go.equipmentitem:setCriticalChance(self.go.equipmentitem:getCriticalChance() + 25)
+			end
 		end
 	end
 
@@ -892,7 +904,18 @@ function onThrowAttack(self, champion, slot, chainIndex, item)
 	
 	if not item.go.equipmentitem then item.go:createComponent("EquipmentItem", "equipmentitem") end	
 	local real_crit = tinker_item[6][name] and tinker_item[6][name] or (supertable[6][name] and supertable[6][name] or 0)
-	if self.go.equipmentitem then self.go.equipmentitem:setCriticalChance(real_crit) end
+	if self.go.equipmentitem then
+		self.go.equipmentitem:setCriticalChance(real_crit)
+
+		-- Rogue set bonus
+		local target = functions.script.get("monsterInFront")
+		if target and isArmorSetEquipped(champion, "rogue") then
+			local e = findEntity(target)
+			if e and party.facing == e.facing then
+				self.go.equipmentitem:setCriticalChance(self.go.equipmentitem:getCriticalChance() + 25)
+			end
+		end	
+	end
 	
 	-- Throwing Double shot	
 	if get_c("double_attack", c) == nil then
@@ -940,7 +963,18 @@ function onMissileAttack(self, champion, slot, chainIndex, item)
 
 	if not item.go.equipmentitem then item.go:createComponent("EquipmentItem", "equipmentitem") end	
 	local real_crit = tinker_item[6][name] and tinker_item[6][name] or (supertable[6][name] and supertable[6][name] or 0)
-	if self.go.equipmentitem then self.go.equipmentitem:setCriticalChance(real_crit) end
+	if self.go.equipmentitem then
+		self.go.equipmentitem:setCriticalChance(real_crit)
+
+		-- Rogue set bonus
+		local target = functions.script.get("monsterInFront")
+		if target and isArmorSetEquipped(champion, "rogue") then
+			local e = findEntity(target)
+			if e and party.facing == e.facing then
+				self.go.equipmentitem:setCriticalChance(self.go.equipmentitem:getCriticalChance() + 25)
+			end
+		end	
+	end
 	
 	-- Missile Double shot
 	if self ~= secondary then
@@ -1177,11 +1211,6 @@ function processSecondAttack(self, champion, type, slot)
 	local otherSlotList = {2,1}	
 	local item = self.go.item
 
-	-- Rogue Set
-	if isArmorSetEquipped(champion, "rogue") then
-		chance = chance + 0.25
-	end
-
 	if type == "melee" then
 		delay = 0.3
 
@@ -1357,10 +1386,15 @@ function onMonsterDealDamage(self, champion, damage)
 	local c = champion:getOrdinal()
 
 	-- Shield bash and blocking
-	if (item1 and item1:hasTrait("shield")) or (item2 and item2:hasTrait("shield")) or isArmorSetEquipped(champion, "chitin") then
+	if damage > 1 and ((item1 and item1:hasTrait("shield")) or (item2 and item2:hasTrait("shield")) or isArmorSetEquipped(champion, "chitin")) then
 		local chance = getBlockChance(champion)
-		if math.random() <= chance then
-			champion:setHealth(champion:getHealth() + math.ceil(damage * 0.51))
+		local blockAmount = isArmorSetEquipped(champion, "valor") and 0.26 or 0.51
+		print("chance", chance)
+		print("amount", blockAmount)
+
+		if math.random() <= chance then			
+			champion:setHealth(champion:getHealth() + math.ceil(damage * blockAmount))
+
 			if champion:hasTrait("shield_bash") then
 				local dx,dy = getForward(party.facing)
 				local flags = DamageFlags.CameraShake
@@ -1371,8 +1405,16 @@ function onMonsterDealDamage(self, champion, damage)
 				delayedCall("functions", 0.15, "hitMonster", monster.go.id, math.ceil(damageBase * damageBonus), "Shield Bash!", "physical", champion:getOrdinal())
 				--context.drawImage2("mod_assets/textures/gui/block.dds", x+48, y-68, 0, 0, 128, 75, 128, 75)
 			end
+
 			if champion:hasTrait("shield_bearer") then
 				champion:setConditionValue("shield_bearer", 20)
+			end
+
+			if isArmorSetEquipped(champion, "valor") then
+				for i=1,4 do
+					local champ = party.party:getChampionByOrdinal(i)
+					champ:setConditionValue("valor_set", 6)
+				end
 			end
 		end
 	end
@@ -1386,6 +1428,18 @@ function onMonsterDealDamage(self, champion, damage)
 			champion:setConditionValue("reflective", 5)
 		end
 	end
+end
+
+function changeResistances(monster, newResistances)
+	local damageTypes = {"fire","cold","shock","poison","physical","dispel","neutral"}
+	local resists = {}
+	for _,type in ipairs(damageTypes) do
+		resists[type] = newResistances[type] or monster:getResistance(type)
+		if newResistances[type] == "normal" then
+			resists[type] = nil
+		end
+	end
+	monster:setResistances(resists)
 end
 
 -------------------------------------------------------------------------------------------------------
@@ -1936,19 +1990,21 @@ end
 -- MonsterComponent - monster dies
 function onMonsterDie(self)
 	-- Carnivorous, spawns meat
-	if self:hasTrait("animal") and math.random() < 0.08 then -- 8% chance
-		for i=1,4 do
-			if party.party:getChampion(i):hasTrait("carnivorous") then
-				local common = {"warg_meat", "sausage", "rat_shank", "mole_jerky", "lizard_stick"}
-				local rare = {"snake_tail", "toad_tongue", "turtle_steak" }
-				if math.random() < 0.75 then
-					spawn(common[math.ceil(math.random() * 5)], self.level, self.x, self.y, self.facing, self.elevation)
-					break
-				else
-					spawn(common[math.ceil(math.random() * 3)], self.level, self.x, self.y, self.facing, self.elevation)
-					break
-				end
+	for i=1,4 do
+		local champion = party.party:getChampion(i)
+		if champion:hasTrait("carnivorous") and self:hasTrait("animal") and math.random() < 0.08 then -- 8% chance
+			local common = {"warg_meat", "sausage", "rat_shank", "mole_jerky", "lizard_stick"}
+			local rare = {"snake_tail", "toad_tongue", "turtle_steak" }
+			if math.random() < 0.75 then
+				spawn(common[math.ceil(math.random() * 5)], self.level, self.x, self.y, self.facing, self.elevation)
+			else
+				spawn(rare[math.ceil(math.random() * 3)], self.level, self.x, self.y, self.facing, self.elevation)
 			end
+		end
+		--
+		if isArmorSetEquipped(champion, "rogue") and champion:hasCondition("haste") then
+			local duration = champion:getConditionValue("haste")
+			champion:setConditionValue("haste", duration + 20)
 		end
 	end
 end
@@ -1956,7 +2012,6 @@ end
 function onAnimationEvent(self, event)
 	local monster = self.go.monster
 	if not monster then return end
-	
 end
 
 -------------------------------------------------------------------------------------------------------
@@ -2415,11 +2470,6 @@ end
 function getEquippedMultiBonus(champion, type, useJoeBonus)
 	local multi = 0
 
-	-- Armor set bonuses
-	if type == "fire" and champion:isArmorSetEquipped("meteor") then
-		multi = multi + 0.5
-	end
-
 	for slot = ItemSlot.Weapon, ItemSlot.Bracers do
 		local item = champion:getItem(slot)
 		local isHandItem = isHandItem(item, slot)
@@ -2610,7 +2660,7 @@ function onChampionTakesDamage(party, champion, damage, damageType) -- champion 
 	-- Brutalizer - increases damage taken
 	if champion:hasTrait("brutalizer") and damageType ~= "pure" then
 		local str = champion:getCurrentStat("strength")
-		--champion:damage(damage * str * 0.005, "pure")
+		champion:damage(damage * str * 0.005, "pure")
 	end
 	
 	-- Skills
@@ -2647,7 +2697,7 @@ function isArmorSetEquipped(champion, set)
 		return true
 	end
 
-	local armorSetPieces = { ["chitin"] = 5, ["valor"] = 5, ["crystal"] = 6, ["meteor"] = 6, ["bear"] = 3, ["embalmers"] = 4, ["archmage"] = 4, ["rogue"] = 5, ["makeshift"] = 5, ["reed"] = 5, ["mirror"] = 5 }
+	local armorSetPieces = { ["chitin"] = 5, ["valor"] = 6, ["crystal"] = 6, ["meteor"] = 6, ["bear"] = 3, ["embalmers"] = 4, ["archmage"] = 4, ["rogue"] = 5, ["makeshift"] = 5, ["reed"] = 5, ["mirror"] = 5, ["plate"] = 5 }
 	local mainSlots = {1,2,4,5,6}
 	local setCount = 0
 	for i = 1,#mainSlots do
@@ -2669,6 +2719,18 @@ function isArmorSetEquipped(champion, set)
 	end
 	
 	return setCount == armorSetPieces[set]
+end
+
+function isArmorSetEquippedByAnyone(set)
+	local result = false
+	for i=1,4 do
+		local champion = party.party:getChampionByOrdinal(i)
+		if isArmorSetEquipped(champion, set) then
+			result = true
+			break
+		end
+	end
+	return result
 end
 
 -- returns true if a held item is in the appropriate slot, so you don't gain a bonus if an armor is in the hand, etc
@@ -3181,15 +3243,21 @@ function empowerAttackType(champion, attackType, base, return_only, tier)
 			end
 		end
 		
-		local itemThrowingBonus = getEquippedMultiBonus(champion, "melee", false)
-		f = f + (itemThrowingBonus * base)
+		local itemMeleeBonus = getEquippedMultiBonus(champion, "melee", false)
+		f = f + (itemMeleeBonus * base)
 
 	elseif attackType == "spell" then
 		f = f * ((champion:getCurrentStat("willpower") * 0.02) + 1)
 
 		-- Items
-		local itemThrowingBonus = getEquippedMultiBonus(champion, "spell", false)
-		f = f + (itemThrowingBonus * base)
+		local itemSpellBonus = getEquippedMultiBonus(champion, "spell", false)
+		f = f + (itemSpellBonus * base)
+
+		-- if isArmorSetEquipped(champion, "mirror") then
+		-- 	if champion:getProtection() > 36 then
+		-- 		f = f - (0.1 * base)
+		-- 	end
+		-- end
 
 		-- Body and Mind bonus based on vitality
 		if champion:hasTrait("persistence") then
@@ -3588,6 +3656,14 @@ function getBlockChance(champion)
 		local itemBlockBonus = getEquippedMultiBonus(champion, "block", false)
 		chance = chance + itemBlockBonus
 
+		if isArmorSetEquipped(champion, "chitin") then
+			chance = chance + 0.04
+		end
+
+		if isArmorSetEquipped(champion, "valor") then
+			chance = chance + 0.2
+		end
+
 		-- Skills
 		if champion:hasTrait("block") then chance = chance + 0.08 end
 		if champion:hasCondition("ancestral_charge") then chance = chance * 1.5 end
@@ -3617,7 +3693,11 @@ function getMiscResistance(champion, name)
 				end
 			end
 		end
-		
+
+		if isArmorSetEquipped(champion, "embalmers") then
+			resist = resist + 0.5
+		end
+
 	elseif name == "bleeding" then
 		resist = get_c("bleeding_resist", c) and get_c("bleeding_resist", c) or 0
 		
@@ -3640,6 +3720,10 @@ function getMiscResistance(champion, name)
 					return 1
 				end
 			end
+		end
+
+		if isArmorSetEquipped(champion, "embalmers") then
+			resist = resist + 0.5
 		end
 
 	end

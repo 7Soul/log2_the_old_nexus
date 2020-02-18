@@ -2274,6 +2274,36 @@ defineObject{
 				-- print("aggro count", aggroMonsters)
 				functions.script.set("aggroMonsters", aggroMonsters)
 				functions.script.set("aggroMonstersHP", aggroMonstersHP)
+
+				-- Get the first monster that the party can see in front of it
+				local dx,dy = getForward(party.facing)
+				local monsterInFront = nil
+				for i=1,8 do
+					for e in Dungeon.getMap(party.level):entitiesAt(party.x + (dx * i), party.y + (dy * i)) do
+						if e.monster then
+							local canSee = Dungeon.getMap(party.level):checkLineOfSight(party.x, party.y, e.x, e.y, party.elevation)
+							if canSee then
+								monsterInFront = e.id
+								break
+							end
+						end
+					end
+					if monsterInFront then
+						break
+					end
+				end
+				functions.script.set("monsterInFront", monsterInFront)
+
+				-- Checks a poisoned monster in front of party
+				if monsterInFront then
+					local monster = findEntity(monsterInFront)
+					if monster.monster then
+						if monster.poisoned then
+							functions.script.set_c("poisonedMonster", i, monster)
+						end
+					end
+				end
+				
 			end
 
 			for i=1,4 do
@@ -2286,16 +2316,25 @@ defineObject{
 					functions.script.set_c("attackedWith", i, nil)
 					functions.script.set_c("attacked", i, nil)
 				end
-				
+
+				for dist=1,3 do
+					for e in Dungeon.getMap(party.level):entitiesAt(party.x + (dx * dist), party.y + (dy * dist)) do
+						if e and e.monster and e.monster:hasTrait("undead") then
+							if functions.script.isArmorSetEquippedByAnyone("embalmers") and dist < 3 then
+								functions.script.changeResistances(e.monster, {poison = "normal"})
+							else
+								functions.script.changeResistances(e.monster, {poison = "immune"})
+							end
+						end
+					end
+				end
+
 				-- Counts monsters adjacent to party				
 				if champion:hasTrait("wide_vision") then
 					local monsterCount = 0
-					for d=1,4 do
-						local dir = (dir + d) % 4
-						for e in Dungeon.getMap(party.level):entitiesAt(party.x + dx, party.y + dy) do
-							if e.monster then
-								monsterCount = monsterCount + 1
-							end
+					for e in Dungeon.getMap(party.level):entitiesAt(party.x + dx, party.y + dy) do
+						if e.monster then
+							monsterCount = monsterCount + 1
 						end
 					end
 					
@@ -2307,16 +2346,6 @@ defineObject{
 						functions.script.set_c("wide_vision", i, nil)
 					end
 				end
-				
-				-- Checks a poisoned monster in front of party
-				local poisonedMonster = nil				
-				for e in Dungeon.getMap(party.level):entitiesAt(party.x + dx, party.y + dy) do
-					if e.monster and e.monster.go.poisoned then
-						poisonedMonster = e.id
-					end
-				end
-				functions.script.set_c("poisonedMonster", i, poisonedMonster)
-
 				
 				if party:getWorldPositionY() > -0.6 and champion:hasTrait("sneak_attack") and (champion:isReadyToAttack(0) or champion:isReadyToAttack(1)) and functions.script.get_c("sneak_attack", champion:getOrdinal()) then
 					functions.script.set_c("sneak_attack", champion:getOrdinal(), nil)

@@ -239,10 +239,8 @@ defineObject{
 			gfxIndexArmorSet = 102,
 			armorSet = "valor",
 			weight = 6.5,
-			traits = { "shield", "upgradable", "metal", "epic" },
-			gameEffect = [[Special: Increases Strength of the party by 1 (+1 per 2 levels) for 45 seconds.
-			
-			Valor Set: Duration +45 seconds.]],
+			traits = { "shield", "dismantle", "upgradable", "metal", "epic" },
+			gameEffect = [[Special: Increases Strength of the party by 1 (+1 per 2 levels) for 45 seconds.]],
 			secondaryAction = "valor",
 		},
 		{

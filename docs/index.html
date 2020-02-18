@@ -763,9 +763,10 @@
 		
 		<div class="perk">
 			<div style="margin-right: 2px"><em>Gold Tier</em><b>Assassin</b></div>
-			<p>You can backstab with any Light Weapon.<br/>You gain 20% chance to cause an enemy to bleed with melee attacks after a backstab. <span class="info">Lose this bleed chance after applying it.</span></p>
+			<p>You can backstab with any Light Weapon.<br/>Gain 20% chance to cause an enemy to bleed* with melee attacks after a backstab. <span class="info">Lose this bleed chance after applying it.</span></p>
 		</div>
 	</div>
+	<p>*Bleeding does damage over time and extra when the target moves, based on max health. The duration is random.<p></p>
 </div>
 
 
@@ -928,8 +929,8 @@
 		</div>
 
 		<div class="perk">
-			<div style="margin-right: 4px"><em>Gold Tier</em><b>Thunder Fury</b></div>  <!--Gain +12% Action Speed and +24% Shock Damage. -->
-			<p style="max-width: 360px;">Chance to deal 50% of your weapon damage as Shock damage equal to your critical chance.</p>
+			<div style="margin-right: 4px"><em>Gold Tier</em><b>Thunder Fury</b></div>
+			<p style="max-width: 360px;">Gain a chance equal to your critical to deal bonus Shock damage.<br/><span class="info">50% of your weapon damage.</span></p>
 		</div>
 	</div>
 	<p>Perks take effect when attacking with Light Weapons.<p>
@@ -946,20 +947,21 @@
 	<div class="perks">
 		<div class="perk">
 			<div style="margin-right: 78px"><em>Level 3</em><b>Rend</b></div>
-			<p style="max-width: 360px;">Power attacks have a 30% chance to cause enemies to bleed.</p>
+			<p style="max-width: 360px;">Special Attacks have a 30% chance to cause enemies to bleed*.</p>
 		</div>
 		
 		<div class="perk">
 			<div style="margin-right: 25px"><em>Silver Tier</em><b>Power Grip</b></div>
-			<p style="max-width: 360px;">Melee attacks gain 1% more damage per 5 points of health you have, plus 10% per 100 health.</p>
+			<p style="max-width: 360px;">Gain 1% Melee Multiplier per 5 Health.<br/>You can wield two-handed weapons in one hand.</p>
 		</div>
 		
 		<div class="perk">
 			<div style="margin-right: 0px"><em>Gold Tier</em><b>Heavy Hander</b></div>
-			<p style="max-width: 360px;">You can wield two-handed weapons in one hand.</p>
+			<p style="max-width: 360px;">Special Attacks create a shockwave, hitting 2 tiles behind the target.<br/><span class="info">Each tile does 33% less damage than the previous.</span></p>
 		</div>
 	</div>
 	<p>Perks take effect when attacking with Heavy Weapons.<p>
+	<p>*Bleeding does damage over time and extra when the target moves, based on max health. The duration is random.<p>
 </div>
 
 <div class="main">
@@ -1091,7 +1093,7 @@
 			<p>Hitting one enemy with a spell also damages and bleeds* a random nearby enemy in a range of 2 tiles.</p>
 		</div>
 	</div>
-	<p>*Bleeding does around 0.5% of a monster's health per second and around 1% when they walk. It lasts a random amount of time.</p>
+	<p>*Bleeding does damage over time and extra when the target moves, based on max health. The duration is random.</p>
 </div>
 
 <div class="main">
@@ -1288,11 +1290,26 @@
 <div class="main">
 	<div class="top">
 		<div class="icon" style="background-position: 75px 0;"></div>
-		<h1>Rogue Set</h1>
-		<h2>Adds 25% chance of attacking twice with Melee Weapons and 25% chance of firing an extra shot with Ranged Weapons.</h2>
+		<h1>Plate Set</h1>
+		<h2>Protection +10</h2>
+		<h2>Resist Shock +30</h2>
+		<h2>Special Attacks cost 40% less</h2>
 	</div>
 	<div class="class_trait">
-		<p>Base Set Stats:</p>		
+		<p>Base Set Stats:</p>
+		<p><b>Protection:</b>52</p>
+	</div>	
+</div>
+
+<div class="main">
+	<div class="top">
+		<div class="icon" style="background-position: 75px 0;"></div>
+		<h1>Rogue Set</h1>
+		<h2>Back Attacks gain 25% Critical Chance.</h2>
+		<h2>Speed Potions last twice as long and their duration is extended when an enemy dies.</h2>
+	</div>
+	<div class="class_trait">
+		<p>Base Set Stats:</p>
 		<p><b>Protection:</b>20<br/>
 		<b>Dexterity:</b>5</p>
 	</div>	
@@ -1302,12 +1319,14 @@
 	<div class="top">
 		<div class="icon" style="background-position: 75px 0;"></div>
 		<h1>Embalmer Set</h1>
-		<h2>Poison Resist and Poison Damage +15%.</h2>
+		<h2>Poison Resist +20</h2>
+		<h2>Disease and Poisoned Resist +50</h2>
+		<h2>Undead near you don't resist Poison damage.</h2>
 	</div>
 	<div class="class_trait">
-		<p>Base Set Stats:</p>		
-		<p><b>Protection:</b>8<br/>
-		<b>Vitality:</b>4</p>
+		<p>Base Set Stats:</p>
+		<p><b>Protection:</b>11<br/>
+		<b>Vitality:</b>5</p>
 	</div>	
 </div>
 
@@ -1315,10 +1334,11 @@
 	<div class="top">
 		<div class="icon" style="background-position: 75px 0;"></div>
 		<h1>Lurker Set</h1>
-		<h2>Invisibility spell costs half to cast.</h2>
+		<h2>Invisibility effect and cost is halved.</h2>
+		<h2>Poison Bombs create a smoke cloud instead of poisoning. You gain Invisibility when you walk into the smoke.</h2>
 	</div>
 	<div class="class_trait">
-		<p>Base Set Stats:</p>		
+		<p>Base Set Stats:</p>
 		<p><b>Evasion:</b>20</p>
 	</div>	
 </div>
@@ -1341,7 +1361,8 @@
 	<div class="top">
 		<div class="icon" style="background-position: 75px 0;"></div>
 		<h1>Makeshift Set</h1>
-		<h2></h2>
+		<h2>Auto casts the last protection spell used by your party when entering combat.</h2>
+		<h2>Gain +5 to all stats while no protection spell is in effect.</h2>
 	</div>
 	<div class="class_trait">
 		<p>Base Set Stats:</p>
@@ -1355,6 +1376,7 @@
 	<div class="top">
 		<div class="icon" style="background-position: 75px 0;"></div>
 		<h1>Chitin Set</h1>
+		<h2>+4% Block Chance.</h2>
 		<h2>Bonuses and Perks from the Block skill work without you holding a shield.</h2>
 	</div>
 	<div class="class_trait">
@@ -1376,14 +1398,12 @@
 		<ul>
 			<li>Bear Skull Helm, Bearclaw Gauntlets, Bear Pelt.</li>
 		</ul>
-		<p>Base Set Stats:</p>		
+		<p>Base Set Stats:</p>
 		<p><b>Protection:</b>5<br/>
 		<b>Cold Resist:</b>20<br/>
 		<b>Strength:</b>6<br/>
 		<b>Vitality:</b>2</p>
-		
-	</div>	
-	
+	</div>
 </div>
 
 <div class="main">
@@ -1404,9 +1424,11 @@
 		<div class="icon" style="background-position: 75px 0;"></div>
 		<h1>Meteor Set</h1>
 		<h2>+50 Fire Resist.</h2>
+		<h2>+50% Health Regeneration while in combat with fire enemies.</h2>
+		<h2>Fire Spells cost 30% less.</h2>
 	</div>
 	<div class="class_trait">
-		<p>Base Set Stats:</p>		
+		<p>Base Set Stats:</p>
 		<p><b>Protection:</b>90</p>
 	</div>	
 </div>
@@ -1415,12 +1437,15 @@
 	<div class="top">
 		<div class="icon" style="background-position: 75px 0;"></div>
 		<h1>Valor Set</h1>
-		<h2>+10% Block Chance</h2>
-		<h2>Creates an aura that gives 5% of your Protection to the party when you block.</h2>
+		<h2>+20% Block Chance</h2>
+		<h2>Blocking reduces damage by 25% instead of 50%.</h2>
+		<h2>Gives 10% of your Protection to the party when you block. Lasts 6 seconds.</h2>
 	</div>
 	<div class="class_trait">
-		<p>Base Set Stats:</p>		
-		<p><b>Protection:</b>?</p>
+		<p>Base Set Stats:</p>
+		<p><b>Protection:</b>65<br/>
+		<b>Evasion:</b> 20<br/>
+		<b>Strength:</b> 2</p>
 	</div>	
 </div>
 
@@ -1428,12 +1453,13 @@
 	<div class="top">
 		<div class="icon" style="background-position: 75px 0;"></div>
 		<h1>Mirror Set</h1>
-		<h2>Converts Fire spells to Cold and converts Cold spells to Fire.</h2>
-		<h2>If your Protection rate is over 65, deal -10% spell damage.</h2>
+		<h2>Converts Fire spells to Cold and Cold spells to Fire.</h2>
+		<h2>Converts Shock spells to Neutral and Neutral spells to Shock.</h2>
 	</div>
 	<div class="class_trait">
-		<p>Base Set Stats:</p>		
-		<p><b>Protection:</b>?</p>
+		<p>Base Set Stats:</p>
+		<p><b>Protection:</b>36<br/>
+		<b>Resist All:</b>25</p>
 	</div>	
 </div>
 
@@ -1441,8 +1467,9 @@
 	<div class="top">
 		<div class="icon" style="background-position: 75px 0;"></div>
 		<h1>Reed Set</h1>
-		<h2>You gain 1% Critical Chance for every 5 points of Evasion.</h2>
-		<h2>You gain 1% Reduced Action Cooldown for every 10 points of Evasion.</h2>
+		<h2>+20% Special Attack Damage</h2>
+		<h2>+30% Faster Buildup Time for special attacks</h2>
+		<h2>Reduces cost of Special Attacks by 5% per Light Armor Skill level.</h2>
 	</div>
 	<div class="class_trait">
 		<p>Base Set Stats:</p>

@@ -393,8 +393,8 @@ defineObject{
 		},
 		{
 			class = "EquipmentItem",
-			protection = 1,
-			dexterity = 2,
+			protection = 2,
+			dexterity = 3,
 		},
 	},
 	tags = { "armor_clothes" },
@@ -418,7 +418,7 @@ defineObject{
 		},
 		{
 			class = "EquipmentItem",
-			protection = 1,
+			protection = 2,
 			strength = 3,
 		},
 	},
@@ -444,6 +444,7 @@ defineObject{
 			class = "EquipmentItem",
 			protection = 1,
 			dexterity = 1,
+			willpower = 1,
 		},
 	},
 	tags = { "armor_clothes" },
@@ -468,7 +469,7 @@ defineObject{
 		{
 			class = "EquipmentItem",
 			protection = 2,
-			resistCold = 5,
+			resistCold = 10,
 		},
 	},
 	tags = { "armor_clothes" },
@@ -493,7 +494,8 @@ defineObject{
 		{
 			class = "EquipmentItem",
 			protection = 1,
-			willpower = 2,
+			willpower = 3,
+			resistAll = 5,
 		},
 	},
 	tags = { "armor_clothes" },
@@ -517,7 +519,10 @@ defineObject{
 			gfxIndex = 39,
 			weight = 0.5,
 			armorSetPieces = 4,
-			gameEffect = [[[Lurker Set]	Invisibility spell costs half to cast.]],
+			gameEffect = [[
+			[Lurker Set]
+			Invisibility effect and cost halved.
+			Poison Bombs create a smoke cloud instead of poison. You gain Invisibility when you walk into the smoke.]],
 			traits = { "clothes", "leg_armor", "upgradable" },
 		},
 		{
@@ -542,7 +547,10 @@ defineObject{
 			description = "A vest made from a material that seems to blend into surrounding shadows.",
 			armorSet = "lurker",
 			armorSetPieces = 4,
-			gameEffect = [[[Lurker Set]	Invisibility spell costs half to cast.]],
+			gameEffect = [[
+			[Lurker Set]
+			Invisibility effect and cost halved.
+			Poison Bombs create a smoke cloud instead of poison. You gain Invisibility when you walk into the smoke.]],
 			gfxIndex = 40,
 			weight = 0.75,
 			traits = { "clothes", "chest_armor", "upgradable" },
@@ -569,7 +577,10 @@ defineObject{
 			description = "A dark hood that covers the head.",
 			armorSet = "lurker",
 			gfxIndex = 41,
-			gameEffect = [[[Lurker Set] Invisibility spell costs half to cast.]],
+			gameEffect = [[
+			[Lurker Set]
+			Invisibility effect and cost halved.
+			Poison Bombs create a smoke cloud instead of poison. You gain Invisibility when you walk into the smoke.]],
 			weight = 0.25,
 			traits = { "clothes", "helmet", "upgradable" },
 		},
@@ -596,7 +607,10 @@ defineObject{
 			armorSet = "lurker",
 			gfxIndex = 141,
 			weight = 0.25,
-			gameEffect = [[[Lurker Set] Invisibility spell costs half to cast.]],
+			gameEffect = [[
+			[Lurker Set]
+			Invisibility effect and cost halved.
+			Poison Bombs create a smoke cloud instead of poison. You gain Invisibility when you walk into the smoke.]],
 			traits = { "clothes", "boots", "upgradable" },
 		},
 		{
@@ -625,18 +639,17 @@ defineObject{
 			weight = 1.2,
 			armorSet = "embalmers",
 			armorSetPieces = 4,
-			gameEffect = [[[Embalmer's Set] Poison Resist and Poison Damage +15%.]],
+			gameEffect = [[
+			[Embalmer's Set (4)]
+			Poison Resist +20
+			Disease and Poisoned Resist +50.
+			Undead near you are vulnerable to poison.]],
 			traits = { "clothes", "boots", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
 			protection = 2,
-			vitality = 1,
-			onRecomputeStats = function(self, champion)
-				if functions.script.isArmorSetEquipped(champion, "embalmers") then
-					champion:addStatModifier("resist_poison", 15)
-				end
-			end,
+			vitality = 1,			
 		},
 	},
 	tags = { "armor_clothes" },
@@ -658,14 +671,18 @@ defineObject{
 			weight = 0.5,
 			armorSet = "embalmers",
 			armorSetPieces = 4,
-			gameEffect = [[[Embalmer's Set] Poison Resist and Poison Damage +15%.]],
+			gameEffect = [[
+			[Embalmer's Set (4)]
+			Poison Resist +20
+			Disease and Poisoned Resist +50.
+			Undead near you are vulnerable to poison.]],
 			traits = { "clothes", "helmet", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
-			protection = 2,
+			protection = 3,
 			vitality = 1,
-		},
+		}
 	},
 	tags = { "armor_clothes" },
 }
@@ -686,13 +703,22 @@ defineObject{
 			weight = 0.5,
 			armorSet = "embalmers",
 			armorSetPieces = 4,
-			gameEffect = [[[Embalmer's Set] Poison Resist and Poison Damage +15%.]],
+			gameEffect = [[
+			[Embalmer's Set (4)]
+			Poison Resist +20
+			Disease and Poisoned Resist +50.
+			Undead near you are vulnerable to poison.]],
 			traits = { "clothes", "chest_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
-			protection = 2,
-			vitality = 1,
+			protection = 3,
+			vitality = 2,
+			onRecomputeStats = function(self, champion)
+				if functions.script.isArmorSetEquipped(champion, "embalmers") then
+					champion:addStatModifier("resist_poison", 20)
+				end
+			end,
 		},
 	},
 	tags = { "armor_clothes" },
@@ -714,12 +740,16 @@ defineObject{
 			weight = 0.5,
 			armorSet = "embalmers",
 			armorSetPieces = 4,
-			gameEffect = [[[Embalmer's Set] Poison Resist and Poison Damage +15%.]],
+			gameEffect = [[
+			[Embalmer's Set (4)]
+			Poison Resist +20
+			Disease and Poisoned Resist +50.
+			Undead near you are vulnerable to poison.]],
 			traits = { "clothes", "leg_armor", "upgradable" },
 		},
 		{
 			class = "EquipmentItem",
-			protection = 2,
+			protection = 3,
 			vitality = 1,
 		},
 	},
@@ -740,7 +770,9 @@ defineObject{
 			class = "Item",
 			uiName = "Archmage's Scapular",
 			description = "The archmages of the Academy of Des are known to weave various mystical enchantments into their robes.",
-			gameEffect = [[[Archmage's Set] Monsters below 7% health (Max 777 hp) are instantly killed by your spells.]],
+			gameEffect = [[
+			[Archmage's Set] 
+			Monsters below 14% health (Max 777 hp) are instantly killed by your spells.]],
 			armorSet = "archmage",
 			armorSetPieces = 4,
 			gfxIndex = 479,
@@ -754,9 +786,7 @@ defineObject{
 			willpower = 1,
 			resistAll = 10,
 			onRecomputeStats = function(self, champion)
-				if functions.script.isArmorSetEquipped(champion, "archmage") then
-					--champion:addStatModifier("max_energy", 50)
-				end
+
 			end,
 		},
 	},
@@ -867,7 +897,10 @@ defineObject{
 			class = "Item",
 			uiName = "Rogue Vest",
 			description = "A vest made from a material that seems to blend into the surrounding shadows.",
-			gameEffect = [[[Rogue Set] Adds 25% chance of attacking twice with Melee Weapons and 25% chance of firing an extra shot with Ranged Weapons.]],
+			gameEffect = [[
+			[Rogue Set] 
+			Back Attacks gain 25% Critical Chance.
+			Speed Potions last twice as long and their duration is extended when an enemy dies.]],
 			armorSet = "rogue",
 			armorSetPieces = 5,
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
@@ -880,6 +913,9 @@ defineObject{
 			class = "EquipmentItem",
 			protection = 5,
 			dexterity = 1,
+			onRecomputeStats = function(self, champion)
+			
+			end,
 		},
 	},
 	tags = { "armor_clothes" },
@@ -897,7 +933,10 @@ defineObject{
 			class = "Item",
 			uiName = "Rogue Pants",
 			description = "A pair of pants woven from fine, lightweight thread.",
-			gameEffect = [[[Rogue Set] Adds 25% chance of attacking twice with Melee Weapons and 25% chance of firing an extra shot with Ranged Weapons.]],
+			gameEffect = [[
+			[Rogue Set] 
+			Back Attacks gain 25% Critical Chance.
+			Speed Potions last twice as long and their duration is extended when an enemy dies.]],
 			armorSet = "rogue",
 			armorSetPieces = 5,
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
@@ -927,7 +966,10 @@ defineObject{
 			class = "Item",
 			uiName = "Rogue Hood",
 			description = "A dark hood that covers the head.",
-			gameEffect = [[[Rogue Set] Adds 25% chance of attacking twice with Melee Weapons and 25% chance of firing an extra shot with Ranged Weapons.]],
+			gameEffect = [[
+			[Rogue Set] 
+			Back Attacks gain 25% Critical Chance.
+			Speed Potions last twice as long and their duration is extended when an enemy dies.]],
 			armorSet = "rogue",
 			armorSetPieces = 5,
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
@@ -957,7 +999,10 @@ defineObject{
 			class = "Item",
 			uiName = "Rogue Boots",
 			description = "A skilled thief can move completely silently when wearing these boots.",
-			gameEffect = [[[Rogue Set] Adds 25% chance of attacking twice with Melee Weapons and 25% chance of firing an extra shot with Ranged Weapons.]],
+			gameEffect = [[
+			[Rogue Set] 
+			Back Attacks gain 25% Critical Chance.
+			Speed Potions last twice as long and their duration is extended when an enemy dies.]],
 			armorSet = "rogue",
 			armorSetPieces = 5,
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
@@ -987,8 +1032,10 @@ defineObject{
 			class = "Item",
 			uiName = "Merv's Rogue Boots",
 			description = "These boots once belonged to the fastest man alive.",
-			gameEffect = [[Speed Potions last twice as long.
-			[Rogue Set] Adds 25% chance of attacking twice with Melee Weapons and 25% chance of firing an extra shot with Ranged Weapons.]],
+			gameEffect = [[
+			[Rogue Set] 
+			Back Attacks gain 25% Critical Chance.
+			Speed Potions last twice as long and their duration is extended when an enemy dies.]],
 			armorSet = "rogue",
 			armorSetPieces = 5,
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
@@ -1018,7 +1065,10 @@ defineObject{
 			class = "Item",
 			uiName = "Rogue Gloves",
 			description = "The fingers of these gloves are covered with a thin layer of gumtree nectar for enhanced grip.",
-			gameEffect = [[[Rogue Set] Adds 25% chance of attacking twice with Melee Weapons and 25% chance of firing an extra shot with Ranged Weapons.]],
+			gameEffect = [[
+			[Rogue Set] 
+			Back Attacks gain 25% Critical Chance.
+			Speed Potions last twice as long and their duration is extended when an enemy dies.]],
 			armorSet = "rogue",
 			armorSetPieces = 5,
 			gfxAtlas = "mod_assets/textures/gui/items.dds",

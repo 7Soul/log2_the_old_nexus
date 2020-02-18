@@ -327,7 +327,7 @@ defineObject{
 			--emptyItem = "flask",
 			sound = "consume_potion",
 			onUseItem = function(self, champion)
-				champion:setCondition("protective_shield")
+				champion:setConditionValue("protective_shield", 50)
 				if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "diviner_cloak" then
 					champion:regainEnergy(champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 40 or 20)
 				end
@@ -461,14 +461,17 @@ defineObject{
 			--emptyItem = "flask",
 			sound = "consume_potion",
 			onUseItem = function(self, champion)
+				local duration = 50
 				if champion:getItem(ItemSlot.Cloak) and champion:getItem(ItemSlot.Cloak).go.name == "diviner_cloak" then
 					champion:regainEnergy(champion:getItem(ItemSlot.Cloak):hasTrait("upgraded") and 40 or 20)
 				end
 				if champion:getItem(ItemSlot.Feet) and champion:getItem(ItemSlot.Feet).go.name == "rogue_boots_2" then
-					champion:setConditionValue("haste", 100)
-				else
-					champion:setCondition("haste")
+					duration = duration * 2
 				end
+				if functions.script.isArmorSetEquipped(champion, "rogue") then
+					duration = duration * 2
+				end
+				champion:setConditionValue("haste", duration)
 			end,
 		},
 	},
