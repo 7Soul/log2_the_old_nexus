@@ -312,6 +312,25 @@ defineCondition{
 -- Skills
 
 defineCondition{
+	name = "conditioning",
+	uiName = "Heavy Conditioning",
+	icon = 0,
+	beneficial = true,
+	harmful = false,
+	tickInterval = 1,
+	description = "Increases Strength, Protection and Health Regeneration when taking damage.",
+	onRecomputeStats = function(self, champion)
+		local multi = champion:hasCondition("ancestral_charge") and 1.5 or 1
+		local bonus = math.floor((champion:getCurrentStat("vitality")-10) / 5) * 5
+		local bonus2 = math.floor((champion:getCurrentStat("vitality")-10) / 5)
+		local bonus3 = math.floor((champion:getCurrentStat("vitality")-10) / 10)
+		champion:addStatModifier("health_regeneration_rate", math.ceil(bonus * multi))
+		champion:addStatModifier("protection", math.ceil(bonus2 * multi))
+		champion:addStatModifier("strength", math.ceil(bonus3 * multi))
+	end,
+}
+
+defineCondition{
 	name = "perfect_mix",
 	uiName = "Perfect Mix",
 	icon = 0,
@@ -892,7 +911,7 @@ defineCondition{
 	harmful = true,
 	tickInterval = 1,
 	onStart = function(self, champion)
-		local resist = functions.script.getMiscResistance(champion, "disease") -- 0 to 1
+		local resist = functions.script.getMiscResistance(champion, "diseased") -- 0 to 1
 		if math.random() >= resist then
 			self:setDuration(math.random(200,400) * math.max(1 - resist, 0.33) )
 		end

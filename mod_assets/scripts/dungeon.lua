@@ -3987,7 +3987,7 @@ spawn("forest_seaweed_wall_decoration_01",1,6,0,-1,"forest_seaweed_wall_decorati
 spawn("forest_seaweed_floor_02",1,8,3,-1,"forest_seaweed_floor_02_16")
 spawn("forest_seaweed_floor_02",2,9,3,-1,"forest_seaweed_floor_02_17")
 spawn("forest_seaweed_floor_02",2,10,3,-1,"forest_seaweed_floor_02_18")
-spawn("fire_bomb",9,10,1,0,"fire_bomb_3")
+spawn("fire_bomb",9,11,1,0,"fire_bomb_3")
 fire_bomb_3.data:setSource("data = {}\
 function get(self,name)\9return self.data[name] end\
 function set(self,name,value)\9self.data[name] = value end")
@@ -4013,7 +4013,72 @@ hardstone_bracelet_2.detectedtimer:setTimerInterval(0)
 hardstone_bracelet_2.detectedtimer:setDisableSelf(false)
 hardstone_bracelet_2.detectedtimer:setTriggerOnStart(true)
 hardstone_bracelet_2.detectedtimer:setCurrentLevelOnly(true)
-spawn("starting_location",10,15,0,0,"starting_location_1")
+spawn("starting_location",25,12,1,0,"starting_location_1")
+spawn("frost_bomb",9,11,1,0,"frost_bomb_2")
+frost_bomb_2.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+frost_bomb_2.item:setStackSize(10)
+frost_bomb_2.detectedtimer:setTimerInterval(0)
+frost_bomb_2.detectedtimer:setDisableSelf(false)
+frost_bomb_2.detectedtimer:setTriggerOnStart(true)
+frost_bomb_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("shock_bomb",9,11,1,0,"shock_bomb_1")
+shock_bomb_1.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+shock_bomb_1.item:setStackSize(10)
+shock_bomb_1.detectedtimer:setTimerInterval(0)
+shock_bomb_1.detectedtimer:setDisableSelf(false)
+shock_bomb_1.detectedtimer:setTriggerOnStart(true)
+shock_bomb_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("poison_bomb",9,11,1,0,"poison_bomb_1")
+poison_bomb_1.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+poison_bomb_1.item:setStackSize(5)
+poison_bomb_1.detectedtimer:setTimerInterval(0)
+poison_bomb_1.detectedtimer:setDisableSelf(false)
+poison_bomb_1.detectedtimer:setTriggerOnStart(true)
+poison_bomb_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("lurker_boots",9,12,0,0,"lurker_boots_2")
+lurker_boots_2.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+lurker_boots_2.detectedtimer:setTimerInterval(0)
+lurker_boots_2.detectedtimer:setDisableSelf(false)
+lurker_boots_2.detectedtimer:setTriggerOnStart(true)
+lurker_boots_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("lurker_hood",9,12,0,0,"lurker_hood_2")
+lurker_hood_2.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+lurker_hood_2.detectedtimer:setTimerInterval(0)
+lurker_hood_2.detectedtimer:setDisableSelf(false)
+lurker_hood_2.detectedtimer:setTriggerOnStart(true)
+lurker_hood_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("lurker_pants",9,12,0,0,"lurker_pants_2")
+lurker_pants_2.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+lurker_pants_2.detectedtimer:setTimerInterval(0)
+lurker_pants_2.detectedtimer:setDisableSelf(false)
+lurker_pants_2.detectedtimer:setTriggerOnStart(true)
+lurker_pants_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("lurker_vest",9,12,0,0,"lurker_vest_2")
+lurker_vest_2.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+lurker_vest_2.detectedtimer:setTimerInterval(0)
+lurker_vest_2.detectedtimer:setDisableSelf(false)
+lurker_vest_2.detectedtimer:setTriggerOnStart(true)
+lurker_vest_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("mine_support_pillar_01",27,12,3,-1,"mine_support_pillar_01_411")
+spawn("mine_support_pillar_01",27,13,3,-1,"mine_support_pillar_01_412")
+spawn("mine_support_beam_floor_double",26,12,2,-2,"mine_support_beam_floor_double_368")
+spawn("mine_support_beam_floor_double",27,12,2,-2,"mine_support_beam_floor_double_369")
+spawn("mine_support_beam_floor_double",27,11,2,-2,"mine_support_beam_floor_double_370")
+spawn("mine_support_beam_floor_double",26,11,2,-2,"mine_support_beam_floor_double_371")
 
 --- level 3 ---
 
@@ -6116,6 +6181,7 @@ end\
 function set(self,name,value)\
 \9self.data[name] = value\
 end")
+steel_armband_1.effects_script:setSource("data = { [\"power_attack_multi\"] = 0 } function getData(self) return data end function setData(name,value) data[name] = value end ")
 steel_armband_1.detectedtimer:setTimerInterval(0)
 steel_armband_1.detectedtimer:setDisableSelf(false)
 steel_armband_1.detectedtimer:setTriggerOnStart(true)
@@ -6190,6 +6256,7 @@ end\
 function set(self,name,value)\
 \9self.data[name] = value\
 end")
+pit_gauntlets_2.effects_script:setSource("data = { [\"bleeding_multi\"] = -0.25 } function getData(self) return data end")
 pit_gauntlets_2.detectedtimer:setTimerInterval(0)
 pit_gauntlets_2.detectedtimer:setDisableSelf(false)
 pit_gauntlets_2.detectedtimer:setTriggerOnStart(true)

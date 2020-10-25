@@ -265,9 +265,7 @@ defineObject{
 			armorSetPieces = 5,
 			gameEffect = [[
 			[Plate Set (5)]
-			Protection +10
-			Resist Cold +30
-			Resist Shock +30]],
+			Protection +10]],
 			gfxIndex = 91,
 			weight = 17.0,
 			traits = { "heavy_armor", "dismantle", "chest_armor", "upgradable" },
@@ -929,6 +927,8 @@ defineObject{
 			class = "Item",
 			uiName = "Thraelm Tribal Chestplate",
 			description = "Powerful runes, painted with the excretions of wormbug larvae, adorn the chestplate.",
+			gameEffect = [[[Makeshift Set] Auto casts the last protection spell used by your party when entering combat.
+			Gain +5 to all stats while no protection spell is in effect.]],
 			armorSet = "makeshift",
 			armorSetPieces = 4,
 			gfxIndex = 283,

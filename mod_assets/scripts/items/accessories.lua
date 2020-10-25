@@ -29,7 +29,7 @@ defineObject{
 		{
 			class = "Script",
 			name = "effects_script",
-			source = [[data = { ["cold_multi"] = 0.2, } function getData(self) return data end]],
+			source = [[data = { ["cold_multi"] = 0.2, ["freeze_chance_basic_multi"] = 0.05 } function getData(self) return data end]],
 		}
 	},
 	tags = { "accessory" },
@@ -123,8 +123,9 @@ defineObject{
 		{
 			class = "Script",
 			name = "effects_script",
-			source = [[data = { ["fire_multi"] = 0.2 } function getData(self) return data end]],
+			source = [[data = { ["fire_multi"] = 0.2, ["burn_chance_basic_multi"] = 0.2 } function getData(self) return data end]],
 		}
+		
 	},
 	tags = { "accessory" },
 }
@@ -252,7 +253,7 @@ defineObject{
 		{
 			class = "Script",
 			name = "effects_script",
-			source = [[data = { ["shock_multi"] = 0.2 } function getData(self) return data end]],
+			source = [[data = { ["shock_multi"] = 0.2, ["arc_chance_basic_multi"] = 0.1 } function getData(self) return data end]],
 		}
 	},
 	tags = { "accessory" },
@@ -350,7 +351,7 @@ defineObject{
 			uiName = "Serpent Bracer",
 			description = "A bracer fashioned after a venomous tropical snake. The teeth of the snake bite into the forearm of its wearer.",
 			gameEffect = [[Poison damage +20%.
-			Adds 10% chance to poison enemies with melee and ranged attacks.]],
+			Adds 10% chance to poison enemies with attacks.]],
 			gfxIndex = 29,
 			weight = 0.5,
 			traits = { "bracers", "upgradable", "venomancer" },
@@ -362,7 +363,7 @@ defineObject{
 		{
 			class = "Script",
 			name = "effects_script",
-			source = [[data = { ["poison_multi"] = 0.2 } function getData(self) return data end]],
+			source = [[data = { ["poison_multi"] = 0.2, ["poison_chance_multi"] = 0.1 } function getData(self) return data end]],
 		}
 	},
 	tags = { "accessory" },
@@ -508,9 +509,15 @@ defineObject{
 				if champion:getItem(ItemSlot.Feet) then bonus = bonus - 1 end
 				if bonus > 0 then
 					champion:addStatModifier("protection", bonus * 10)
+					self.go.effects_script.setData("power_attack_multi", bonus * 0.1)
 				end
 			end
 		},
+		{
+			class = "Script",
+			name = "effects_script",
+			source = [[data = { ["power_attack_multi"] = 0 } function getData(self) return data end function setData(name,value) data[name] = value end ]],
+		}
 	},
 	tags = { "accessory" },
 }
@@ -620,6 +627,11 @@ defineObject{
 			class = "EquipmentItem",
 			immunities = { "poison", "diseased", "paralyzed", "slow", "blind", "petrified" },
 		},
+		{
+			class = "Script",
+			name = "effects_script",
+			source = [[data = { ["diseased_multi"] = -1, ["poisoned_multi"] = -1 } function getData(self) return data end]],
+		}
 	},
 	tags = { "necklace" },
 }
@@ -687,10 +699,12 @@ defineObject{
 			weight = 0.4,
 			traits = { "necklace", "upgradable" },
 			description = "This powerful amulet is imbued with dark forces. The spirits within grant the wearer uncanny powers over death itself.",
+			gameEffect = "Drains the health of enemies placed in a forcefield."
 		},
 		{
 			class = "EquipmentItem",
-			health = 50,
+			health = -20,
+			protection = -2,
 		},
 	},
 	tags = { "necklace" },
@@ -1191,6 +1205,11 @@ defineObject{
 			strength = 2,
 			protection = 3,
 		},
+		{
+			class = "Script",
+			name = "effects_script",
+			source = [[data = { ["bleeding_multi"] = -0.25 } function getData(self) return data end]],
+		}
 	},
 	tags = { "gloves" },
 }
@@ -1221,7 +1240,7 @@ defineObject{
 		{
 			class = "Script",
 			name = "effects_script",
-			source = [[data = { ["cold_multi"] = 0.05 } function getData(self) return data end]],
+			source = [[data = { ["cold_multi"] = 0.1, ["freeze_duration_multi"] = 1 } function getData(self) return data end]],
 		}
 	},
 	tags = { "gloves" },

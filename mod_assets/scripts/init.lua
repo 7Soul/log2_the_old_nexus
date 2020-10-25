@@ -1403,7 +1403,7 @@ defineObject{
 
 				y = y + 20
 				context.drawText("Disease", w - (x * f2), y * f2)
-				txt = tostring(math.floor(functions.script.getMiscResistance(champion, "disease") * 100))
+				txt = tostring(math.floor(functions.script.getMiscResistance(champion, "diseased") * 100))
 				functions.script.drawStatNumber(context, txt, w - ((x-138) * f2), y* f2)
 				hover1[13], hover2[13] = context.button("hover"..13, w - (x + 6), y-16, buttonW, buttonH)
 
@@ -1651,12 +1651,12 @@ defineObject{
 							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, hoverX, hoverY, 3)
 						elseif h == 5 then
 							hoverTxt1 = "Health Regeneration Rate"
-							hoverTxt2 = "Affects how quickly you regain health over time. By default you gain 1 HP every 5 seconds, and this number increases that by a percentage."
-							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, hoverX, hoverY, 4)
+							hoverTxt2 = "You naturally regenerate 1 HP every 5 seconds. This number speeds up that timer by a percentage."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, hoverX, hoverY, 3)
 						elseif h == 6 then
 							hoverTxt1 = "Energy Regeneration Rate"
-							hoverTxt2 = "Affects how quickly you regain energy over time. By default you gain 1 HP every 5 seconds, and this number increases that by a percentage."
-							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, hoverX, hoverY, 4)
+							hoverTxt2 = "You naturally regenerate 1 EN every second. This number speeds up that timer by a percentage."
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, hoverX, hoverY, 3)
 						elseif h == 7 then
 							hoverTxt1 = "Action Speed"
 							hoverTxt2 = "Your Action Speed is how fast you recover after attaking or using a spell."
@@ -1695,7 +1695,7 @@ defineObject{
 							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, hoverX, hoverY, 3)
 						elseif h == 16 then
 							hoverTxt1 = "Spell Multi"
-							hoverTxt2 = "Increases the damage you deal with all spells."
+							hoverTxt2 = "Increases the damage you deal with all spells. This is affected by Willpower."
 							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, hoverX, hoverY, 1)
 						elseif h == 17 then
 							hoverTxt1 = "Elemental Multi"
@@ -2202,6 +2202,7 @@ defineObject{
 					local champion = party.party:getChampion(zone)
 					local mouseItem = getMouseItem()
 					if mouseItem and champion then
+						-- Add "perfect mix" tag to potion
 						if mouseItem:hasTrait("potion") and mouseItem.go.potion_stack then
 							local data = mouseItem.go.potion_stack:getData()
 							if data[1] == nil then
@@ -2213,6 +2214,19 @@ defineObject{
 								end
 							end
 						end
+
+						-- -- Add "bomb expert" tag to bomb
+						-- if mouseItem:hasTrait("bomb") and mouseItem.go.potion_stack then
+						-- 	local data = mouseItem.go.potion_stack:getData()
+						-- 	if data[1] == nil then
+						-- 		if champion:hasTrait("bomb_expert") then
+						-- 			mouseItem.go.potion_stack:insert("expert")
+						-- 			functions.script.setPerfectPotionGE(mouseItem)
+						-- 		else
+						-- 			mouseItem.go.potion_stack:insert("normal")
+						-- 		end
+						-- 	end
+						-- end
 					end
 				end
 

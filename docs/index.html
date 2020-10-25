@@ -676,16 +676,16 @@
 	<div class="perks">
 		<div class="perk">
 			<div style="margin-right: 0px"><em>Level 2</em><b>Light Wear</b></div>
-			<p>+5 Evasion and +2 Dexterity.</p>
+			<p>+5 Evasion and +2 Dexterity.<br/><span class="info">Doubled when this skill is maxed.</span></p>
 		</div>
 		
 		<div class="perk">
-			<div style="margin-right: 7px"><em>Silver Tier</em><b>Reflective</b></div>
+			<div style="margin-right: 8px"><em>Silver Tier</em><b>Reflective</b></div>
 			<p>The first attack from an enemy is absorbed as Health and Energy over 5 seconds.</p>
 		</div>
 		
 		<div class="perk">
-			<div style="margin-right: 48px"><em>Gold Tier</em><b>Rush</b></div> 
+			<div style="margin-right: 49px"><em>Gold Tier</em><b>Rush</b></div> 
 			<p>Gain +12% Action Speed and -24% Special Attack Cost.</p>
 		</div>
 	</div>
@@ -707,7 +707,7 @@
 		
 		<div class="perk">
 			<div style="margin-right: 20px"><em>Silver Tier</em><b>Conditioning</b></div>
-			<p style="max-width: 360px;">+40 Health and +6% Protection from equipment.<br/><span class="info">Doubled when this skill is maxed.</span></p>
+			<p style="max-width: 360px;">Raises Strength, Protection and Health Regeneration when you take damage.<br/><span class="info">Every 5 Vitality equals 0.5 Strength, 1 Protection and 5% HP Regen.</span></p>
 		</div>
 		
 		<div class="perk">
@@ -727,7 +727,7 @@
 	<hr/>
 	<div class="perks">
 		<div class="perk">
-			<div style="margin-right: 51px"><em>Level 1</em><b>Reach</b></div>
+			<div style="margin-right: 52px"><em>Level 1</em><b>Reach</b></div>
 			<p>You can perform melee attacks from the back row.</p>
 		</div>
 		
@@ -737,8 +737,8 @@
 		</div>
 		
 		<div class="perk">
-			<div style="margin-right: 0px"><em>Gold Tier</em><b>Deadly Aim</b></div>
-			<p>Melee and Firearm attacks gain +1 Pierce per 6 Accuracy, while Ranged attacks gain +1 Damage per 5 Accuracy.</p>
+			<div style="margin-right: 1px"><em>Gold Tier</em><b>Deadly Aim</b></div>
+			<p>Converts 10% of your accuracy into Critical and Physical Damage.</p>
 		</div>
 	</div>
 </div>
@@ -852,7 +852,7 @@
 		
 		<div class="perk">
 			<div style="margin-right: 14px"><em>Gold Tier</em><b>Bomb Expert</b></div>
-			<p style="max-width: 360px;">If your target is weak to the bomb type, the explosion expands into a 3x3 area.</p>
+			<p style="max-width: 360px;">When you craft bombs you get three bombs instead of one.</p>
 		</div>
 	</div>
 	<p>*Rate is fixed and can't be increased by any means.</p>
@@ -893,13 +893,13 @@
 	<hr/>
 	<div class="perks">
 		<div class="perk">
-			<div style="margin-right: 12px"><em>Level 2</em><b>Twist & Turn</b></div>
-			<p style="max-width: 360px;">Willpower and Strength raises Throwing Damage and Bleed Chance respectively.</p>
+			<div style="margin-right: 11px"><em>Level 2</em><b>Twist & Turn</b></div>
+			<p style="max-width: 360px;">Your attacks have a 3% chance of doing double damage or causing bleeding.<br/><span class="info">Chance +1% per point in Willpower.</span></p>
 		</div>
-		
+		<!-- Checks if there's an enemy in it's path. If not, it checks for enemies in the tiles to the sides and turns to them -->
 		<div class="perk">
-			<div style="margin-right: 12px"><em>Silver Tier</em><b>Telekinesis</b></div>
-			<p style="max-width: 360px;">Reflects incoming projectiles.<br/><span class="info">Cooldown is 5 seconds.</span></p>
+			<div style="margin-right: 28px"><em>Silver Tier</em><b>Telekinesis</b></div>
+			<p style="max-width: 360px;">Your thrown weapons are homing.<br/><span class="info">Homing range is 1 tile.</span></p>
 		</div>
 		
 		<div class="perk">
@@ -1074,12 +1074,12 @@
 	<div class="top">
 		<div class="icon" style="background-position: -225px -75px;"></div>
 		<h1>Witchcraft</h1>
-		<h2>Increases the damage and effect of witchcraft spells by 20% for each skill point.</h2>
+		<h2>Reduces negative effects of items by 20% for each skill point.</h2>
 	</div>
 	<hr/>
 	<div class="perks">
 		<div class="perk">
-			<div style="margin-right: 45px"><em>Level 1</em><b>Ritual</b></div>
+			<div style="margin-right: 45px"><em>Level 2</em><b>Ritual</b></div>
 			<p>Heals the party for 5% of the damage done with spells. You heal for twice as much.</p>
 		</div>
 		
@@ -1291,9 +1291,9 @@
 	<div class="top">
 		<div class="icon" style="background-position: 75px 0;"></div>
 		<h1>Plate Set</h1>
-		<h2>Protection +10</h2>
-		<h2>Resist Shock +30</h2>
+		<h2>Vitality +10</h2>
 		<h2>Special Attacks cost 40% less</h2>
+		<h2>Enables use of the Conditioning perk. If you already know it, its duration is doubled.</h2>
 	</div>
 	<div class="class_trait">
 		<p>Base Set Stats:</p>
@@ -1361,7 +1361,7 @@
 	<div class="top">
 		<div class="icon" style="background-position: 75px 0;"></div>
 		<h1>Makeshift Set</h1>
-		<h2>Auto casts the last protection spell used by your party when entering combat.</h2>
+		<h2>Auto casts the last protection spell used by your party when entering combat*.</h2>
 		<h2>Gain +5 to all stats while no protection spell is in effect.</h2>
 	</div>
 	<div class="class_trait">
@@ -1369,7 +1369,8 @@
 		<p><b>Protection:</b>9<br/>
 		<b>Evasion:</b>2<br/>
 		<b>Energy:</b>20</p>
-	</div>	
+	</div>
+	<p>You're in combat if any monster is in active pursuit</p>
 </div>
 
 <div class="main">
@@ -1382,8 +1383,8 @@
 	<div class="class_trait">
 		<p>Base Set Stats:</p>		
 		<p><b>Protection:</b>29<br/>
-		<b>Fire Resist:</b>14<br/>
-		<b>Cold Resist:</b>14</p>
+		<b>Fire Resist:</b> 14<br/>
+		<b>Cold Resist:</b> 14</p>
 	</div>	
 </div>
 
@@ -1400,9 +1401,9 @@
 		</ul>
 		<p>Base Set Stats:</p>
 		<p><b>Protection:</b>5<br/>
-		<b>Cold Resist:</b>20<br/>
-		<b>Strength:</b>6<br/>
-		<b>Vitality:</b>2</p>
+		<b>Cold Resist:</b> 20<br/>
+		<b>Strength:</b> 6<br/>
+		<b>Vitality:</b> 2</p>
 	</div>
 </div>
 
@@ -1415,7 +1416,7 @@
 	<div class="class_trait">
 		<p>Base Set Stats:</p>		
 		<p><b>Protection:</b>65<br/>
-		<b>Health:</b>30</p>
+		<b>Health:</b> 30</p>
 	</div>	
 </div>
 
@@ -1459,7 +1460,7 @@
 	<div class="class_trait">
 		<p>Base Set Stats:</p>
 		<p><b>Protection:</b>36<br/>
-		<b>Resist All:</b>25</p>
+		<b>Resist All:</b> 25</p>
 	</div>	
 </div>
 

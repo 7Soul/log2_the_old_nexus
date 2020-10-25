@@ -323,7 +323,7 @@ end
 -- Offset and Rotate Level Object                                       --
 --------------------------------------------------------------------------
 
-objname = "forest_oak_cluster_noicon_8"
+objname = "forest_oak_cluster_169"
 objname2 = "-"
 
 function move(x,y,z)

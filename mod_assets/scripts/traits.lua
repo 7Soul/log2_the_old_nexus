@@ -538,6 +538,7 @@ defineTrait{
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			champion:addStatModifier("food_rate", 25)
+			champion:addStatModifier("energy_regeneration_rate", 100)
 		end
 	end,
 }
@@ -952,7 +953,7 @@ defineTrait{
 }
 
 defineTrait{
-	name = "persistence",
+	name = "body_and_mind",
 	uiName = "Body and Mind",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 48,
@@ -1246,32 +1247,11 @@ defineTrait{
 }
 
 defineTrait{
-	name = "heavy_conditioning",
+	name = "conditioning",
 	uiName = "Conditioning",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 76,
-	description = "+40 Health and +6% Protection from equipment if wearing all heavy armor. Doubled when this skill is maxed",
-	onRecomputeStats = function(champion, level)
-		if level > 0 then
-			level = champion:getLevel()
-			local all_heavy = functions.script.wearingAll(champion, "heavy_armor")
-			if all_heavy then
-				local multi = champion:hasTrait("armor_training") and 2 or 1
-				if champion:hasCondition("ancestral_charge") then multi = multi * 1.5 end
-				champion:addStatModifier("max_health", math.ceil(40 * multi))
-				
-				local bonusProt = 0
-				local equip_slots = {3,4,5,6,9}
-				for i, v in pairs(equip_slots) do
-					if champion:getItem(v) and champion:getItem(v).go.equipmentitem and champion:getItem(v).go.equipmentitem:getProtection() then
-						bonusProt = bonusProt + champion:getItem(v).go.equipmentitem:getProtection()
-					end
-				end
-				bonusProt = bonusProt * 0.06
-				champion:addStatModifier("protection", math.ceil(bonusProt * multi))
-			end
-		end
-	end,
+	description = "Chance to increase your Health Regeneration and Protection when you take damage.",
 }
 
 defineTrait{
@@ -1346,11 +1326,18 @@ defineTrait{
 }
 
 defineTrait{
-	name = "precision",
+	name = "deadly_aim",
 	uiName = "Deadly Aim",
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 80,
-	description = "Melee and Firearm attacks gain +1 Pierce per 6 Accuracy, while Ranged attacks gain +1 Damage per 5 Accuracy.",
+	description = "Converts 10% of your accuracy into Critical and Physical Damage.",
+	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
+		if level > 0 then
+			local acc = math.ceil(functions.script.getAccuracy(champion) * 0.1)
+			functions.script.set_c("deadly_aim", champion:getOrdinal(), acc)
+			raturn (acc * -1)
+		end
+	end,
 }
 
 -- Critical

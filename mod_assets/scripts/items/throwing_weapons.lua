@@ -224,7 +224,7 @@ defineObject{
 			projectileRotationSpeed = 10,
 			projectileRotationZ = -30,
 			weight = 0.8,
-			description = "",
+			description = "Creates a blast of flame and sets the ground on fire.",
 			traits = { "throwing_weapon" },
 		},
 		{
@@ -236,41 +236,7 @@ defineObject{
 			bombType = "fire",
 			bombPower = 55,
 			onExplode = function(self,level,x,y,facing,elevation)
-				local explode = false
-				local monster = nil
-				for entity in self.go.map:entitiesAt(x,y) do
-					if entity.monster then
-						explode = true
-						monster = entity.id
-					end	
-				end
-
-				if explode then					
-					-- print(self.go.data:get("castByChampion"))
-					if self.go.data:get("castByChampion") then
-						local champion = party.party:getChampionByOrdinal(self.go.data:get("castByChampion"))
-						local power = 35 + math.floor(champion:getLevel() / 2)
-
-						if monster then
-							functions.script.hitMonster(monster, math.random(power * 0.5, power * 1.0), nil, "fire", champion:getOrdinal())
-						end
-
-						local spl = spawn("fire_wall", level, x, y, facing, elevation)
-						power = functions.script.empowerElement(champion, "fire", power, true)
-						
-						-- if champion:hasTrait() then
-						-- end
-						print(power)
-						spl.tiledamager:setAttackPower(power)
-					else
-						local item = spawn(self.go.name, level, x, y, ((facing + 2) % 4), elevation)
-						item.item:setStackSize(self.go.item:getStackSize())
-					end
-				else
-					local item = spawn(self.go.name, level, x, y, facing, elevation)
-						item.item:setStackSize(self.go.item:getStackSize())
-				end
-				
+				functions.script.onHitWithBomb(self,level,x,y,facing,elevation)
 				return false
 			end,
 		},
@@ -295,6 +261,7 @@ defineObject{
 			projectileRotationSpeed = 10,
 			projectileRotationZ = -30,
 			weight = 0.8,
+			description = "Shocks an enemy with a chance of arcing to other targets.",
 			traits = { "throwing_weapon" },
 		},
 		{
@@ -305,6 +272,10 @@ defineObject{
 			class = "BombItem",
 			bombType = "shock",
 			bombPower = 85,
+			onExplode = function(self,level,x,y,facing,elevation)
+				functions.script.onHitWithBomb(self,level,x,y,facing,elevation)
+				return false
+			end,
 		},
 	},
 	tags = { "weapon", "weapon_throwing" },
@@ -335,8 +306,12 @@ defineObject{
 		},
 		{
 			class = "BombItem",
-			bombType = "frost",
+			bombType = "cold",
 			bombPower = 15,
+			onExplode = function(self,level,x,y,facing,elevation)
+				functions.script.onHitWithBomb(self,level,x,y,facing,elevation)
+				return false
+			end,
 		},
 	},
 	tags = { "weapon", "weapon_throwing" },
@@ -368,7 +343,11 @@ defineObject{
 		{
 			class = "BombItem",
 			bombType = "poison",
-			bombPower = 5,
+			bombPower = 20,
+			onExplode = function(self,level,x,y,facing,elevation)
+				functions.script.onHitWithBomb(self,level,x,y,facing,elevation)
+				return false
+			end,
 		},
 	},
 	tags = { "weapon", "weapon_throwing" },

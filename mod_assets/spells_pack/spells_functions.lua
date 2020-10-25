@@ -428,9 +428,9 @@ defOrdered =
 	spellIcon = 1,
 	description = [[Conjures a blast of fire that deals fire damage to all foes directly in front of you.
 	
-	Burn Chance: 50% with 3 points or more in Elemental Magic. This chance is multiplied by double your Fire resistance.
+	Burn: 20% chance to burn the foe. Adds 50% chance per 100 Fire Multiplier.
 	
-	Burn Duration: 3 seconds per point in Elemental Magic.
+	Burn Duration: 10 seconds plus 2 seconds per point in Elemental Damage and Witchcraft.
 	
 	Cost : 25 energy
 	Power : 22]],
@@ -583,7 +583,7 @@ defOrdered =
 	spellIcon = 6,
 	description = [[Conjures a blast of electricity that deals shock damage to all foes directly in front of you.
 	
-	It has a 10% chance to also strike a nearby enemy. This chance is multiplied by double your Shock resistance.
+	Arc: 10% chance to strike a nearby enemy. Adds 40% chance per 100 Shock Multiplier.
 
 	Cost : 25 energy
 	Power : 23]],
@@ -728,9 +728,9 @@ defOrdered =
 	manaCost = 0,
 	description = [[Conjures ice that deals damage to all foes directly in front of you.
 	
-	Freeze Chance: 20%, multiplied by double your Cold resistance.
+	Freeze: 20% chance to freeze the foe. Adds 10% chance per 100 Cold Multiplier.
 	
-	Freeze Duration: Random between 2 seconds and 1 second per point in Elemental Magic and Witchcraft.
+	Freeze Duration: Between 2 seconds and 1 second per point in Elemental Magic and Witchcraft.
 	
 	Cost : 25 energy
 	Power : 15]],
@@ -4178,7 +4178,7 @@ function updateTimeScale()
 	set("alterTime", tab)
 	local needSpeed = baseSpeed + tab.speed
 	if realSpeed ~= needSpeed then party.party:setMovementSpeed(needSpeed) end
-	if GameMode.getTimeMultiplier() ~= factor and not party.party:isResting() then GameMode.setTimeMultiplier(factor) end
+	-- if GameMode.getTimeMultiplier() ~= factor and not party.party:isResting() then GameMode.setTimeMultiplier(factor) end
 end
 
 if self and self.go then party.frametimer:addConnector("onActivate", self.go.id, "updateTimeScale") end

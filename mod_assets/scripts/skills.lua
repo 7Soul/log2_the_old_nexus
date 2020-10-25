@@ -28,9 +28,9 @@ defineSkill{
 	description = [[Protection and Block Chance +2 per point.
 		
 	Perks (when holding a shield):
-	- Level 2 | 8% chance to block an attack.
-	- Level 4 | When blocking, you bash your attacker, doing damage based on your Protection.
-	- Level 5 | After a block, gain +15% Action Speed and 50% Faster Buildup Time for special attacks for 20 seconds.]],
+	- Block | 8% chance to block an attack.
+	- Power Bash | When blocking, you bash your attacker, doing damage based on your Protection.
+	- Shield Bearer | After a block, gain +15% Action Speed and 50% Faster Buildup Time for special attacks for 20 seconds.]],
 	traits = { [2] = "block", [4] = "shield_bash", [5] = "shield_bearer" },
 	onRecomputeStats = function(champion, level)
 		local skillLevel = champion:getSkillLevel("block")
@@ -48,9 +48,9 @@ defineSkill{
 	description = [[Each point reduces the evasion penalties from wearing Light Armor by 20%.
 	
 	Perks (when wearing light armor in all 5 slots):
-	- Light Wear | +5 Evasion and +2 Dexterity.
+	- Light Wear | +5 Evasion and +2 Dexterity. Doubled when this skill is maxed.
 	- Reflective | The first attack from an enemy is absorbed as Health and Energy over 5 seconds.
-	- Rush       | Gain +12% Action Speed and -24% Special Attack Cost.]],
+	- Rush | Gain +12% Action Speed and -24% Special Attack Cost.]],
 	traits = { [2] = "light_wear", [4] = "reflective", [5] = "rush" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
@@ -74,10 +74,10 @@ defineSkill{
 	description = [[Each point reduces the evasion penalties from wearing Heavy Armor by 20% and weight by 10%.
 	
 	Perks when wearing heavy armor in all 5 slots:
-	- Armored Up     | +5 Protection and +2 Strength. Doubled when this skill is maxed.
-	- Conditioning   | +40 Health and +6% Protection. Doubled when this skill is maxed.
+	- Armored Up | +5 Protection and +2 Strength. Doubled when this skill is maxed.
+	- Conditioning | Chance to increase your Strength, Protection and Health Regeneration when you take damage. The bonus is based on your Vitality.
 	- Armor Training | Sets and Heavy Armor perks work even without Helmet and Gloves. Other armor types in those slots gain an extra 20% protection.]],
-	traits = { [2] = "armored_up", [4] = "heavy_conditioning", [5]="armor_training" },
+	traits = { [2] = "armored_up", [4] = "conditioning", [5]="armor_training" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 and Dungeon.getMaxLevels() ~= 0 and party.partycounter:getValue() > 2 and functions and functions.script then
 			local equip_slots = {3,4,5,6,9}
@@ -104,8 +104,8 @@ defineSkill{
 	Perks:
 	- Reach | You can perform melee attacks from the back row.
 	- Clutch | Gain up to +10 Dexterity and +50 Accuracy based on how much health the party is missing.
-	- Deadly Aim | Melee and Firearm attacks pierce 5 to 15 armor, while Ranged attacks deal 5 to 20 extra damage.]],
-	traits = { [1] = "reach",  [4] = "clutch", [5] = "precision" },
+	- Deadly Aim | Converts 10% of your accuracy into Critical and Physical Damage.]],
+	traits = { [1] = "reach",  [4] = "clutch", [5] = "deadly_aim" },
 	onComputeAccuracy = function(champion, weapon, attack, attackType, level)
 		if level > 0 then
 			return level * 10
@@ -124,7 +124,7 @@ defineSkill{
 	Perks:
 	- Level 2 | You can backstab an enemy with a dagger and deal triple damage.
 	- Level 4 | You gain double critical chance from items.
-	- Level 5 | You can backstab with any Light Weapon.]],
+	- Level 5 | You can backstab with any Light Weapon. Gain 20% chance to cause an enemy to bleed* with melee attacks after a backstab.]],
 	traits = { [2] = "backstab", [4] = "weapons_specialist", [5] = "assassin" },
 	onComputeCritChance = function(champion, weapon, attack, attackType, level)
 		return level * 3
@@ -140,8 +140,8 @@ defineSkill{
 	description = [[Each point increases range by 1 and reduces the chance of grazing a shot by 5%.
 	
 	Perks:
-	- Metal Slug | 7% chance to not spend a pellet to fire.
-	- Silver Bullet | Every 6th shot does double damage.
+	- Metal Slug | You can use pellets from your inventory.
+	- Silver Bullet | Every 6th shot does double damage, with the next doing triple.
 	- Fast Fingers | +15% Action Speed. Silver Bullet triggers one shot sooner for every 20 Dexterity.]],
 	traits = { [3] = "metal_slug", [4] = "silver_bullet", [5] = "fast_fingers" },
 }
@@ -181,7 +181,7 @@ defineSkill{
 	- Upgraded items weight around 30% more, reduced by the skill level.
 	
 	Perks:
-	- Pyrotechnician | +5 Fire and Shock damage dealt per upgraded item you have equipped.
+	- Pyrotechnician | +5 Fire and Shock resistance per upgraded item you have equipped.
 	- Multipurpose | Unlock chests without a lockpick, at the cost of Energy. You gain +1 to a random stat when you do it.
 	- Mastersmith | You can upgrade Epic items.]],
 	traits = { [3] = "pyrotechnician", [4] = "multipurpose", [5] = "mastersmith" },
@@ -206,7 +206,7 @@ defineSkill{
 	Perks:
 	- Green Thumb | Herbs multiply while in your inventory.
 	- Perfect Mix | Potions you mix last 25% longer. Healing and Energy potions give +20 Protection for their duration.
-	- Bomb Multiplication | When throwing a bomb, there's a 10% chance you alchemically clone it on the spot. Chance increases by 2% per 10 Willpower.
+	- Bomb Multiplication | When throwing a bomb, there's a chance based on Willpower that you alchemically clone it on the spot.
 	- Bomb Expert | When you craft bombs you get three bombs instead of one.]],
 	traits = { [1] = "green_thumb", [3] = "perfect_mix", [4] = "bomb_multiplication", [5] = "bomb_expert" },
 	onRecomputeStats = function(champion, level)
@@ -225,7 +225,7 @@ defineSkill{
 	
 	Perks:
 	- Bullseye | +15 Accuracy and +3% Critical.
-	- Magic Missile | You launch a magical projectile with your attacks. It does 1/3 your damage and increases based on the target's protection.
+	- Magic Missile | You launch a magical projectile with your attacks, doing damage based on you Willpower.
 	- Double Shot | You attack twice when using Missile Weapons.]],
 	traits = { [1] = "bullseye", [4] = "magic_missile", [5] = "double_shot" },
 }
@@ -239,9 +239,9 @@ defineSkill{
 	description = [[Increases damage of Throwing Weapons by 20% for each skill point. 
 	
 	Perks:
-	- Telekinesis | Every 3 throws, the weapon may return to your hand, doing damage again.
-	- Twist and Turn | May cause bleeding when a weapon lodges into the target.
-	- Ghost Weapon | Every other attack, you throw a ghostly version of a weapon you own.]],
+	- Twist and Turn | Willpower and Strength raises Throwing Damage and Bleed Chance respectively.
+	- Telekinesis | Reflects incoming projectiles.
+	- Ghost Weapon | Strike a nearby target with a ghostly projectile.]],
 	traits = { [2] = "telekinesis", [4] = "twist_and_turn", [5] = "ghost_weapon" },
 }
 
@@ -270,8 +270,8 @@ defineSkill{
 	
 	Perks:
 	- Rend | Power attacks have a 30% chance to cause enemies to bleed.
-	- Power Grip | Melee attacks gain 1% more damage per 5 points of health you have, plus 10% per 100 health.
-	- Heavy Hander | You can wield two-handed weapons in one hand.]],
+	- Power Grip | Gain 1% melee multiplier per 5 health. You can wield two-handed weapons in one hand.
+	- Heavy Hander | Special Attacks create a shockwave, hitting 2 tiles behind the target.]],
 	traits = { [3] = "rend", [4] = "power_grip", [5] = "two_handed_mastery" },
 }
 
@@ -322,9 +322,9 @@ defineSkill{
 	description = [[Increases all elemental damage by 20% for each skill point.
 	
 	Perks:
-	- Aggregate | Hitting a foe with an element it resists will buff your next hit with that element by 20%.
+	- Aggregate | The first element you use after resting is empowered by 20% for one day.
 	- Elemental Armor | +25% Resist Fire, Shock and Cold. You gain 15% of you maximum energy when hit by one of those elements.
-	- Exploitation| Deal 25% more damage if the target is vulnerable to that element.]],
+	- Exploitation| You elemental spells create an Arcane Storm.]],
 	traits = { [2] = "aggregate", [4] = "elemental_armor", [5] = "elemental_exploitation" },
 }
 
@@ -338,7 +338,7 @@ defineSkill{
 	
 	Perks:
 	- Venomancer| 10% chance to poison enemies with melee, missile and throwing attacks.
-	- Plague | Poison spreads between enemies. +5% Chance to poison.
+	- Plague | Poison spreads between enemies.
 	- Bane | Enemies take increased damage from the poison status, an effect which also heals you.]],
 	traits = { [2] = "venomancer", [4] = "plague", [5] = "antivenom" },
 }
@@ -353,7 +353,7 @@ defineSkill{
 	
 	Perks:
 	- Meditation | +5 Protection. You regain 1% to 5% of you energy when taking damage.
-	- Imperium Arcana | Non-elemental and non-poison spells deal 35% more damage.
+	- Imperium Arcana | Neutral and Physical spells deal 35% more damage per 100 Energy.
 	- Extraction | Energy potions recover 25% more, while also regenerating 25 health. Healing potions also recover 25 energy. Allies benefit from this at 1/3 the power.]],
 	onRecomputeStats = function(champion, level)
 		champion:addStatModifier("max_energy", level * 20)
@@ -372,13 +372,13 @@ defineSkill{
 	priority = 180,
 	iconAtlas = "mod_assets/textures/gui/skills.dds",
 	icon = 16,
-	description = [[Increases the damage and effect of witchcraft spells by 20% for each skill point.
+	description = [[Reduces the negative effects of items by 20% for each skill point.
 	
 	Perks:
-	- Ritual | Heals the party for 10% of the damage done with spells. You heal for twice as much.
-	- Moon Rites | During the night, your Energy regeneration rate is increased by 50% and your spell damage by 10%.
-	- Voodoo | Hitting one enemy with a spell also affects nearby enemies* in a range of 2 tiles.]],
-	traits = { [1] = "ritual", [4] = "moon_rites", [5] = "voodoo" },
+	- Ritual | Heals the party for 5% of the damage done with spells. You heal for twice as much.
+	- Moon Rites | During the night, your Energy Regeneration is increased by 50% and your Spell Damage by 10%.
+	- Voodoo | Hitting one enemy with a spell also damages and bleeds a nearby enemy.]],
+	traits = { [2] = "ritual", [4] = "moon_rites", [5] = "voodoo" },
 	onRecomputeStats = function(champion, level)
 		if level > 0 then			
 		end

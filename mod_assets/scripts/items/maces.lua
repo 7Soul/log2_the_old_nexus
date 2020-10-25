@@ -227,6 +227,11 @@ defineObject{
 			class = "MeleeAttack",
 			name = "bite",
 		},
+		{
+			class = "Script",
+			name = "effects_script",
+			source = [[data = { ["poison_chance_multi"] = 0.05 } function getData(self) return data end]],
+		}
 	},
 	tags = { "weapon", "weapon_mace", "weapon_light" },
 }

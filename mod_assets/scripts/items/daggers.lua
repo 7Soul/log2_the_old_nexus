@@ -53,7 +53,7 @@ defineObject{
 			impactSound = "impact_blade",
 			weight = 0.8,
 			secondaryAction = "poisonBolt",
-			traits = { "light_weapon", "dagger", "poison_dagger", "dismantle", "upgradable" },
+			traits = { "light_weapon", "dagger", "dismantle", "upgradable" },
 		},
 		{
 			class = "MeleeAttack",
@@ -77,6 +77,11 @@ defineObject{
 			emptyGfxIndex = 214,
 			requirements = { "poison_mastery", 1 },
 		},
+		{
+			class = "Script",
+			name = "effects_script",
+			source = [[data = { ["poison_chance_50hp_multi"] = 0.15 } function getData(self) return data end]],
+		}
 	},
 	tags = { "weapon", "weapon_light", "weapon_dagger" },
 }
@@ -230,7 +235,7 @@ defineObject{
 			gfxIndex = 329,
 			impactSound = "impact_blade",
 			weight = 3.2,
-			traits = { "light_weapon", "dagger", "poison_dagger", "dismantle", "upgradable" },
+			traits = { "light_weapon", "dagger", "dismantle", "upgradable" },
 		},
 		{
 			class = "MeleeAttack",
@@ -240,6 +245,11 @@ defineObject{
 			swipe = "horizontal",
 			requirements = { "light_weapons_c", 5, "poison_mastery", 1 },
 		},
+		{
+			class = "Script",
+			name = "effects_script",
+			source = [[data = { ["poison_chance_50hp_multi"] = 0.15 } function getData(self) return data end]],
+		}
 	},
 	tags = { "weapon", "weapon_light", "weapon_dagger" },
 }
