@@ -68,17 +68,29 @@
 			<p>- Can't wear Heavy Armor.</p>
 		</div>
 	</div>
-	<div class="class_trait">
+	<!-- <div class="class_trait">
 		<p><b>Berserker Frenzy:</b> Gain a buff that fades over 20 seconds if party gets attacked. Duration and effects are increased if a party member dies.</p>
 		<ul>
 		<li>Protection up to +4 per level (+6 per 3 levels).</li>
 		<li>Strength up to +2 <em>(+1 per 3 levels)</em>.</li>
 		<li>Heals up to 3% health per second based on current health.</li>
 		</ul>
+	</div>	 -->
+
+	<div class="class_trait">
+		<p><b>Berserker Frenzy:</b> Gain Frenzy with each attack. At maximum Frenzy, double all Health Regen and Action Speed bonuses.</p>
+		<ul>
+		<li>You lose 5% Frenzy per second if you don't attack anything for 8 seconds.</li>
+		<li>Every 25% Frenzy grants you:</li>
+			<ul>
+			<li>Protection +1 <em>(+1 per level)</em>.</li>
+			<li>Strength +1 <em>(+1 per 4 levels)</em>.</li>
+			</ul>
+		</ul>
 	</div>	
 	
 	<div class="class_trait">
-		<p><b>Red Hills Rage High:</b> For every 5 combined points in Strength and Vitality you gain:</p>
+		<p><b>Red Hills Rage:</b> For every 5 combined points in Strength and Vitality you gain:</p>
 		<ul>
 		<li>+2% Action Speed.</li>
 		<li>+5% Resistance to injuries.</li>
@@ -168,6 +180,16 @@
 		</div>
 	</div>
 	<div class="class_trait">
+		<p><b>Nature Attunement:</b> Weapons and armor made of wood, bone and leather grant you greater effects.</p>
+		<ul style="padding-left:10px;">
+			<li>Weapons: +10% Action Speed <em>(+1% per level)</em>.</li>
+			<li>Armor: +3% Energy and Health Regen <em>(+0.5% per level)</em>.</li>
+			<li>(Basically excludes items made of metal and heavy armor)</li>
+		</ul>
+		<!-- Weapons: Mostly Bows and Staves -->
+		<!-- Armor: Reed, Makeshift and Bear Sets -->
+	</div>
+	<div class="class_trait">
 		<p><b>Herbologist:</b> You can <span id="herbologist">attach a herb</span> to your Gloves, Bracers and Necklace, gaining its effects.</p>
 		<ul style="padding-left:10px;">
 		<li>Blooddrop: +2 Strength. Gain health by dealing poison damage.</li>
@@ -178,6 +200,8 @@
 		<li>Crystal Flower: Converts all spells to poison. Gain +4% Poison damage.</li>
 		</ul>
 	</div>
+	
+
 </div>
 
 <div class="main">
@@ -1479,6 +1503,18 @@
 	</div>	
 </div>
 
+
+<h1 id="spells">/// Other Info///</h1>
+<div style="width:75%; margin:auto; margin-bottom:100px">
+<p>- Effects that use "per level" start counting past level 1.</p>
+<p>- Effects that scale off stats ignore the first 10 points in it.</p>
+<p>- "Lore Master" Willpower bonus adds up to a total of +6.</p>
+<p>- "Green Thumb"'s herb multiplication can't be cheated, don't even try.</p>
+<p>- Bombs are affected by elemental and throwing multipliers and by level.</p>
+<p>- Ranged attacks can be detected as "back attacks", but they are not "backstabs".</p>
+<p>- Hunter's "Wisdom of the Tribe" applies to 20 out of 37 enemmy types.</p>
+<p>- There are no weapons that require level 5 in a skill.</p>
+</div>
 
 </body>
 </html>

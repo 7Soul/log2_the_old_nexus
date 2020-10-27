@@ -23,7 +23,7 @@ defineObject{
             onInit = function(self)
                 self.go:playSound("monster_cast")
             end,
-            onUpdate = function(self)
+			onUpdate = function(self)
 				local t = self.go.life:getValue() / 20
                 self.go.model:setRotationAngles(0,t,0)
                 self.go.model2:setRotationAngles(0,-t/2,0)

@@ -288,6 +288,25 @@ defineCondition{
 }
 
 defineCondition{
+	name = "berserker_frenzy",
+	uiName = "Berserker Frenzy",
+	iconAtlas = "mod_assets/textures/gui/conditions.dds",
+	icon = 32,
+	description = ".",
+	hidden = true,
+	tickInterval = 1,
+	onStop = function(self, champion)
+		local stacks = functions.script.get_c("berserker_frenzy", champion:getOrdinal())
+		if stacks and stacks > 0 then
+			local c = champion:getOrdinal()
+			functions.script.add_c("berserker_frenzy_countdown", champion:getOrdinal(), 1)
+			local countdown = functions.script.get_c("berserker_frenzy_countdown", champion:getOrdinal()) or 0
+			delayedCall("functions", 0.1, "berserkerFrenzy", c, -1 * (math.floor(countdown/5)+1), 1)
+		end
+	end,
+}
+
+defineCondition{
 	name = "carnivorous",
 	uiName = "Carnivorous",
 	description = "Eating meat increases your Strength by 4 and Health and Energy regeneration rate by 25% for 1 minute.",

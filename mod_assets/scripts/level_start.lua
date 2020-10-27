@@ -23,10 +23,14 @@ function revealMap(noMobs)
 	party:setPosition(startx, starty, party.facing, party.elevation, party.level)
 
 	if no_mobs then
-		for entity in Dungeon.getMap(party.level):allEntities() do
-			if entity.monster then
-				entity:destroy()
-			end
+		killAllMobs()
+	end
+end
+
+function killAllMobs()
+	for entity in Dungeon.getMap(party.level):allEntities() do
+		if entity.monster then
+			entity:destroy()
 		end
 	end
 end
@@ -169,10 +173,59 @@ function start()
 		arrow_2:setWorldPosition(vec(73.58,0.47,32.81))
 		arrow_2:setWorldRotationAngles(75.2,6.4,81.6)
 		arrow_2.gravity:disable()
-		arrow_3:setWorldPosition(vec(48.43,0.49,33.9))
-		arrow_3:setWorldRotationAngles(55.2,127.2,268)
+		arrow_3:setWorldPosition(vec(48.34,0.53,34.98))
+		arrow_3:setWorldRotationAngles(11.2,-36,84.8)
 		arrow_3.gravity:disable()
+		lock_round_1:setWorldPosition(vec(69.11,0.06,21))
+
+		local entity = findEntity("forest_old_oak_28")
+		local pos = entity:getWorldPosition()
+		entity:setWorldPosition(vec(pos.x + 0.4, pos.y + 3.0, pos.z - 0.1))
+		entity:setWorldRotationAngles(0,270+55,0)
+		local m = entity:getWorldRotation()
+		local scale = 2.8
+		m.x = m.x * scale
+		m.y = m.y * scale
+		m.z = m.z * scale
+		m.w = m.w * scale
+		entity:setWorldRotation(m)
 		
+		for i=1,10 do
+			entity = findEntity("giant_tree_"..i)
+			if entity then
+				local scale = entity.name == "forest_spruce_01" and 3 or 4
+				m = entity:getWorldRotation()
+				m.x = m.x * scale
+				m.y = m.y * scale
+				m.z = m.z * scale
+				m.w = m.w * scale
+				entity:setWorldRotation(m)
+			end
+
+			entity = findEntity("giant_tree_corner_"..i)
+			if entity then
+				m = entity:getWorldRotation()
+				m.x = m.x * 4
+				m.y = m.y * 4
+				m.z = m.z * 4
+				m.w = m.w * 4
+				entity:setWorldRotation(m)
+				local pos = entity:getWorldPosition()
+				entity:setWorldPosition(vec(pos.x + 1.5, pos.y, pos.z - 1.5))
+			end
+
+			entity = findEntity("bridge_pillar_sound_"..i)
+			if entity then 
+				if i < 7 then
+					local pos = entity:getWorldPosition()
+					entity:setWorldPosition(vec(pos.x - 0.6, pos.y - 1, pos.z - 0.6))
+				else
+					local pos = entity:getWorldPosition()
+					entity:setWorldPosition(vec(pos.x + 0.7, pos.y - 1, pos.z + 0.7))
+				end
+			end
+		end
+
 		for i=1,4 do
 			findEntity("demo_pillar_"..i):setWorldPosition(vec(81, 0, 59.4 + (i*3) - 3))
 			findEntity("demo_button_"..i):setWorldPosition(vec(80.87, 0, 59.4 + (i*3) - 3))
@@ -204,8 +257,8 @@ function start()
 	------------------------
 	if forest_fountain_1 then
 		forest_fountain_1:setWorldPosition(vec(45,0,66))
-		forest_plant_cluster_01_67.model:setEmissiveColor(vec(0.05,-0.02,-0.01))
-		forest_spruce_sapling_01_16.model:setEmissiveColor(vec(0.05,-0.02,-0.01))
+		-- forest_plant_cluster_01_67.model:setEmissiveColor(vec(0.05,-0.02,-0.01))
+		-- forest_spruce_sapling_01_16.model:setEmissiveColor(vec(0.05,-0.02,-0.01))
 		-- for i=8,19 do
 		-- 	local e = findEntity("forest_oak_cluster_noicon_"..i)
 		-- 	local v = math.random(-2.2,-2.9)
@@ -303,54 +356,75 @@ function start()
 			end
 		end
 	end
-	
-	-- Model within object
-	--local pos = findEntity(objname):getComponent(objname2):getOffset()
-
-	-- Object
-	local pos = findEntity(objname):getWorldPosition()
-	posx = pos.x
-	posy = pos.y
-	posz = pos.z
-	
-	local rot = vec(0, 0, 0)
-	rotx = rot.x
-	roty = rot.y
-	rotz = rot.z
+	if objname then
+		if objname2 then
+			-- Model within object
+			local pos = findEntity(objname):getComponent(objname2):getOffset()
+			posx = pos.x
+			posy = pos.y
+			posz = pos.z
+		else
+			-- Object
+			local pos = findEntity(objname):getWorldPosition()
+			posx = pos.x
+			posy = pos.y
+			posz = pos.z
+		end
+		local rot = vec(0, 0, 0)
+		rotx = rot.x
+		roty = rot.y
+		rotz = rot.z
+	end
 end
 
 --------------------------------------------------------------------------
 -- Offset and Rotate Level Object                                       --
 --------------------------------------------------------------------------
 
-objname = "forest_oak_cluster_169"
-objname2 = "-"
+objname = nil
+objname2 = nil
 
 function move(x,y,z)
-	xx = xx + x*1
-	yy = yy + y*1
-	zz = zz + z*1
-
-	-- Model within object
-	-- findEntity(objname):getComponent(objname2):setOffset(vec(posx + xx, posy + yy, posz + zz))
-
-	-- Object
-	findEntity(objname):setWorldPosition(vec(posx + xx, posy + yy, posz + zz))
-	print("Offset: ", findEntity(objname):getWorldPosition())
-	-- print("Offset: ", findEntity(objname):getComponent(objname2):getOffset())
+	if objname then
+		xx = xx + x*1
+		yy = yy + y*1
+		zz = zz + z*1
+		if objname2 then
+		-- Model within object
+		findEntity(objname):getComponent(objname2):setOffset(vec(posx + xx, posy + yy, posz + zz))
+		print("Offset: ", findEntity(objname):getComponent(objname2):getOffset())
+		else
+		-- Object
+		findEntity(objname):setWorldPosition(vec(posx + xx, posy + yy, posz + zz))
+		print("Offset: ", findEntity(objname):getWorldPosition())
+		end
+	end
 end
 
 function rotate(x,y,z)
-	xr = xr + x*8
-	yr = yr + y*8
-	zr = zr + z*8
+	if objname then
+		xr = xr + x*8
+		yr = yr + y*8
+		zr = zr + z*8
+		if objname2 then
+		-- Model within object
+		findEntity(objname):getComponent(objname2):setRotationAngles(rotx + xr, roty + yr, rotz + zr)
+		else
+		-- Object
+		findEntity(objname):setWorldRotationAnglesWithOrder(xr, yr, zr, "xyz")
+		end
+		print("Rotation: ", rotx + xr, roty + yr, rotz + zr)
+	end
+end
 
-	-- Model within object
-	-- findEntity(objname):getComponent(objname2):setRotationAngles(rotx + xr, roty + yr, rotz + zr)
-
-	-- Object
-	findEntity(objname):setWorldRotationAnglesWithOrder(xr, yr, zr, "xyz")
-	print("Rotation: ", rotx + xr, roty + yr, rotz + zr)
+function debug()
+	if objname then
+		print(objname .. "'s components:")
+		for _,c in findEntity(objname):componentIterator() do
+			print(c:getName())
+		end
+		findEntity(objname).model:setDebugDraw(true)
+	end
 end
 
 
@@ -412,22 +486,39 @@ end
 
 function updateSky(t)
 	local sky = nil
+	local fog_min = 5
 	local fog_base = 440
 	local fog_var = 350
 	if party.level == forest_day_sky_2.level then
 		sky = forest_day_sky_2.sky
+		fog_min = 1
 		fog_base = 470
 		fog_var = 350
-	elseif  party.level == beach_day_sky_2 then
+	elseif  party.level == beach_day_sky_2.level then
 		sky = beach_day_sky_2.sky
+		fog_min = 1
 		fog_base = 420
 		fog_var = 350
+	elseif  party.level == bridge_sky_1.level then
+		sky = bridge_sky_1.sky
+		fog_min = 5
+		fog_base = 11
+		fog_var = 1
+	elseif  party.level == bridge_sky_2.level then
+		sky = bridge_sky_2.sky
+		fog_min = 5
+		fog_base = 11
+		fog_var = 1
 	else
 		return
 	end
 	
 	if skyMode == "normal" then
-		sky:setFogRange({1, fog_base + (math.cos((t+0.5)/30*90) * fog_var)})
+		if party.level == bridge_sky_1.level or party.level == bridge_sky_2.level then
+			sky:setFogRange({fog_min, fog_base})
+		else
+			sky:setFogRange({fog_min + (math.cos((t+0.5)/30*90) * fog_var), fog_base + (math.cos((t+0.5)/30*90) * fog_var)})
+		end
 	elseif skyMode == "travel_back" then
 		party.party:setMovementSpeed(0)
 		if sky:getFogRange()[2] > 1 then
@@ -523,4 +614,24 @@ function checkIronKeyBurn(party, item)
 		party:getChampion(c):playDamageSound()
 		checkIronKeyBurnBool = true
 	end
+end
+
+function multiply( m1, m2 )
+    if #m1[1] ~= #m2 then       -- inner matrix-dimensions must agree
+        return nil
+    end 
+ 
+    local res = {}
+ 
+    for i = 1, #m1 do
+        res[i] = {}
+        for j = 1, #m2[1] do
+            res[i][j] = 0
+            for k = 1, #m2 do
+                res[i][j] = res[i][j] + m1[i][k] * m2[k][j]
+            end
+        end
+    end
+ 
+    return res
 end

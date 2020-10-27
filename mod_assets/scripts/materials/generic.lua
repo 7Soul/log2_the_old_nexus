@@ -417,7 +417,7 @@ defineMaterial{
 }
 
 defineMaterial{
-	name = "red_beam",
+	name = "fire_beam",
 	diffuseMap = "assets/textures/effects/fire_beam.tga",
 	doubleSided = true,
 	lighting = false,
@@ -686,5 +686,19 @@ defineMaterial{
 	depthBias = 0,
 	onUpdate = function(self, time)
 		-- self:setTexcoordScaleOffset(0.5, 1, time*0.02, 0)
+	end,
+}
+
+defineMaterial{
+	name = "beam",
+	diffuseMap = "mod_assets/textures/effects/beam.tga",
+	doubleSided = true,
+	lighting = false,
+	alphaTest = false,
+	blendMode = "Additive",
+	glossiness = 60,
+	depthBias = 0,
+	onUpdate = function(self, time)
+		self:setTexcoordScaleOffset(1, 1, time*8, 0)
 	end,
 }

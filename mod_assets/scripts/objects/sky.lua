@@ -149,13 +149,13 @@ defineObject{
 		{
 			class = "Sky",
 			farClip = 11,
-			sunColor1 = vec(1 * 1.0, 1 * 0.6, 1 * 0.8) * 5.0,--day
-			sunColor2 = vec(1, 0.85, 1) * 2.5,--dawn/dusk
-			sunColor3 = vec(0.8, 0.85, 1) * 0.2,--night
+			sunColor1 = vec(1 * 1.0, 1 * 0.6, 1 * 0.8) * 5.0  * 0.5,--day
+			sunColor2 = vec(1, 0.85, 1) * 2.5  * 0.5,--dawn/dusk
+			sunColor3 = vec(0.8, 0.85, 1) * 0.2  * 0.5,--night
 			fogMode = "linear_lit",
-			fogColor1 = vec(0.7, 0.85, 0.9) * 0.25,
-			fogColor2 = vec(0.7, 0.85, 0.9) * 0.2,
-			fogColor3 = vec(0.7, 0.85, 0.9) * 0.1,
+			fogColor1 = vec(0.7, 0.85, 0.9) * 0.25 * 0.5,
+			fogColor2 = vec(0.7, 0.85, 0.9) * 0.2 * 0.5,
+			fogColor3 = vec(0.7, 0.85, 0.9) * 0.1 * 0.5,
 			fogRange = {5,11},
 			ambientIntensity = 1.0,
 			tonemapSaturation = 1.25,

@@ -353,6 +353,7 @@ defineObject{
 		{
 			class = "Model",
 			model = "assets/models/items/arrow.fbx",
+			-- debugDraw = true,
 		},
 		{
 			class = "Item",

@@ -450,6 +450,43 @@ defineObject{
 }
 
 defineObject{
+	name = "fence_button",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/env/wall_button.fbx",
+			offset = vec(0,-0.3,-0.18),
+		},
+		{
+			class = "Model",
+			name = "backface",
+			model = "assets/models/env/wall_button.fbx",
+			offset = vec(0,-0.3,-0.18),
+			rotation = vec(0,180,0),
+		},
+		{
+			class = "Animation",
+			animations = {
+				press = "assets/animations/env/wall_button_press.fbx",
+			}
+		},
+		{
+			class = "Clickable",
+			offset = vec(0,1.375-0.3,-0.1),
+			size = vec(0.25, 0.25, 0.25),
+			-- debugDraw = true,
+		},
+		{
+			class = "Button",
+			sound = "button",
+		},
+	},
+	placement = "wall",
+	editorIcon = 12,
+	tags = { "puzzle" }
+}
+
+defineObject{
 	name = "lever",
 	components = {
 		{
@@ -1700,4 +1737,376 @@ defineObject{
 	automapIcon = -1,
 	minimalSaveState = true,
 	tags = { "base" },
+}
+
+defineObject{
+	name = "bridge_pillar_sound",
+	baseObject = "base_pillar",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/env/mine_support_pillar_01.fbx",
+			dissolveStart = 2,
+			dissolveEnd = 4,
+			staticShadow = true,
+		},
+		{
+			class = "Model",
+			name = "pillar2",
+			model = "assets/models/env/mine_support_pillar_01.fbx",
+			dissolveStart = 2,
+			dissolveEnd = 4,
+			staticShadow = true,
+			offset = vec(0,-3,0),
+		},
+		{
+			class = "Model",
+			name = "pillar3",
+			model = "assets/models/env/mine_support_pillar_01.fbx",
+			dissolveStart = 2,
+			dissolveEnd = 4,
+			staticShadow = true,
+			offset = vec(0,-6,0),
+		},
+		{
+			class = "Model",
+			name = "metal_plate1",
+			model = "assets/models/items/buckler_bracelet.fbx",
+			offset = vec(0.08,2.22+0.25,-0.06),
+			rotation = vec(8, -120, -94),
+		},
+		{
+			class = "Light",
+			name = "light1",
+			offset = vec(-0.19,2.36,-0.32),
+			range = 1,
+			color = vec(0.5, 0.7, 1),
+			brightness = 50,
+			castShadow = true,
+			staticShadows = true,
+			onUpdate = function(self)
+				-- if self:getBrightness() == 0 then self:disable() else self:enable()	end
+				-- self:setBrightness((math.noise(Time.currentTime() + 12) * 0.5) * 5)
+			end,
+			-- debugDraw = true,
+		},
+		{
+			class = "Model",
+			name = "metal_plate2",
+			model = "assets/models/items/buckler_bracelet.fbx",
+			offset = vec(0.06,1.75+0.25,-0.07),
+			rotation = vec(-81.6,25.6,-25.6),
+		},
+		{
+			class = "Light",
+			name = "light2",
+			offset = vec(0.31,1.99,0.28),
+			range = 1,
+			color = vec(0.5, 0.7, 1),
+			brightness = 50,
+			castShadow = true,
+			staticShadows = true,
+			onUpdate = function(self)
+				-- if self:getBrightness() == 0 then self:disable() else self:enable()	end
+				-- self:setBrightness((math.noise(Time.currentTime() + 12) * 0.5 + 0.5 + 0.1) * 15)
+			end,
+			-- debugDraw = true,
+		},
+		{
+			class = "Model",
+			name = "metal_plate3",
+			model = "assets/models/items/buckler_bracelet.fbx",
+			offset = vec(0.12,2.43+0.25,0.01),
+			rotation = vec(-33.6,61.6,-67.2),
+		},
+		{
+			class = "Light",
+			name = "light3",
+			offset = vec(0.02,2.8,0.43),
+			range = 1,
+			color = vec(0.5, 0.7, 1),
+			brightness = 50,
+			castShadow = true,
+			staticShadows = true,
+			onUpdate = function(self)
+				-- if self:getBrightness() == 0 then self:disable() else self:enable()	end
+				-- self:setBrightness((math.noise(Time.currentTime() + 12) * 0.5 + 0.5 + 0.1) * 15)
+			end,
+			-- debugDraw = true,
+		},
+		{
+			class = "Controller",
+			onInitialActivate = function(self)
+				self.go.light1:fadeIn(0.1)
+				self.go.light2:fadeIn(0.1)
+				self.go.light3:fadeIn(0.1)
+			end,
+			onInitialDeactivate = function(self)
+				self.go.light1:setBrightness(0)
+				self.go.light2:setBrightness(0)
+				self.go.light3:setBrightness(0)
+			end,
+			onActivate = function(self)
+				self.go.light1:setBrightness(50)
+				self.go.light2:setBrightness(50)
+				self.go.light3:setBrightness(50)
+				self.go.light1:fadeIn(0.1)
+				self.go.light2:fadeIn(0.1)
+				self.go.light3:fadeIn(0.1)
+				
+			end,
+			onDeactivate = function(self)
+				self.go.light1:setBrightness(0)
+				self.go.light2:setBrightness(0)
+				self.go.light3:setBrightness(0)
+				self.go.light1:fadeOut(0)
+				self.go.light2:fadeOut(0)
+				self.go.light3:fadeOut(0)
+			end,
+			onToggle = function(self)
+				if self.go.light1:getBrightness() ~= 0 then
+					self:deactivate()
+				else
+					self:activate()
+				end
+			end,
+		},
+	},
+}
+
+
+defineObject{
+	name = "bridge_receptacle",
+	baseObject = "base_wall_decoration",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/items/acolyte_staff.fbx",
+			staticShadow = true,
+			offset = vec(0,0.4,0),
+			rotation = vec(152,12,274),
+			onInit = function(self)
+				local scale = 1.5
+				local m = self.go:getWorldRotation()
+				m.x = m.x * scale
+				m.y = m.y * scale
+				m.z = m.z * scale
+				m.w = m.w * scale
+				self.go:setWorldRotation(m)
+			end,
+		},
+		-- {
+		-- 	class = "Model",
+		-- 	name = "model2",
+		-- 	model = "assets/models/items/acolyte_staff.fbx",
+		-- 	staticShadow = true,
+		-- 	offset = vec(0,0.4,0),
+		-- 	-- rotation = vec(152,12,174)
+		-- },
+		{
+			class = "Clickable",
+			offset = vec(0.075, 1.2, 0.10),
+			size = vec(0.3, 0.4, 0.1),
+			-- debugDraw = true,
+		},
+		{
+			class = "Socket",
+			offset = vec(0.06, 1.19, -0.03),
+			rotation = vec(0, 0, 0),
+			onAcceptItem = function(self, item)
+				if item.go.name ~= "crystal_shard_healing" then
+					hudPrint("The item does not fit well into the statue's hands.")
+					return false
+				else
+					playSound("key_lock")
+					return true
+				end
+			end,
+			-- debugDraw = true,
+		},
+		{
+			class = "ItemConstrainBox",
+			offset = vec(0, 1.5, 0),
+			size = vec(0.9, 2, 0.9),
+			-- debugDraw = true,
+		},
+		{
+			class = "ProjectileCollider",
+			size = vec(1.1, 2, 0.8),
+			-- debugDraw = true,
+		},
+	},
+}
+-- defineObject{
+-- 	name = "beam",
+-- 	components = {
+-- 		{
+-- 			class = "Script",
+-- 			name = "data",
+-- 			source = [[data = { ["angle"] = 45, ["angle2"] = 0, ["index"] = 0 }
+-- function get(self,name) return self.data[name] end
+-- function set(self,name,value) self.data[name] = value end]],
+-- 			onInit = function(self)
+-- 				self.go.data:set("m", self.go:getWorldRotation())
+-- 				self.go.data:set("posStart", self.go:getWorldPosition() + vec(0,0.5,0))
+-- 				self.go.data:set("angle2", 0)
+-- 			end,
+-- 		},
+-- 		{
+-- 			class = "Model",
+-- 			model = "mod_assets/models/effects/beam.fbx",
+-- 			offset = vec(0, 0, 0),
+-- 		},
+-- 		{
+-- 			class = "Light",
+-- 			offset = vec(0, 0.05, 0),
+-- 			range = 6,
+-- 			color = vec(1.0, 0.25, 0.1),
+-- 			brightness = 10,
+-- 			castShadow = false,
+--             fillLight = true,
+--             onInit = function(self)
+-- 				-- if self.go.data then
+-- 				-- 	local index = self.go.data:get("index")
+-- 				-- 	local r = math.rad(self.go.data:get("angle"))
+-- 				-- 	local r2 = math.rad(self.go.data:get("angle2"))
+					
+-- 				-- 	local m = self.go.data:get("m")
+	
+-- 				-- 	local mx = { m.x[1], m.x[2], m.x[3], m.x[4] }
+-- 				-- 	local my = { m.y[1], m.y[2], m.y[3], m.y[4] }
+-- 				-- 	local mz = { m.z[1], m.z[2], m.z[3], m.z[4] }
+-- 				-- 	local mw = { m.w[1], m.w[2], m.w[3], m.w[4] }
+-- 				-- 	local ident_matrix = { mx, my, mz, mw } 
+-- 				-- 	local rotate_matrix = {
+-- 				-- 	{math.sin(r)*math.cos(r2), math.sin(r)*math.sin(r2), math.cos(r), 0},
+-- 				-- 	{math.cos(r)*math.cos(r2), math.cos(r)*math.sin(r2),-math.sin(r), 0},
+-- 				-- 	{-math.sin(r2),            math.cos(r2),            0,            0},
+-- 				-- 	{0,0,0,1},
+-- 				-- 	}
+-- 				-- 	local newM = functions2.script.multiply( rotate_matrix, ident_matrix )
+-- 				-- 	m.x = newM[1]
+-- 				-- 	m.y = newM[2]
+-- 				-- 	m.z = newM[3]
+-- 				-- 	m.w = newM[4]
+-- 				-- 	self.go:setWorldRotation(m)
+	
+-- 				-- 	-- local dir = vec.truncate(newM,3)
+-- 				-- 	-- local dir = vec(math.sin(math.rad(r)), 0, math.cos(math.rad(r)))
+-- 				-- 	-- self.go:setWorldPosition( posStart + (dir * index * 3) + (dir * 1.5) )
+-- 				-- 	-- self.go:setWorldRotationAngles(0, r*-1, 0)
+-- 				-- end
+				
+--             end,
+--             onUpdate = function(self)
+-- 				if self.go.data then
+-- 				local index = self.go.data:get("index")
+-- 				local r = math.rad(self.go.data:get("angle"))
+-- 				local r2 = math.rad(self.go.data:get("angle2"))
+-- 				local posStart = self.go.data:get("posStart")
+-- 				local m = self.go.data:get("m")
+
+-- 				-- local mx = { m.x[1], m.x[2], m.x[3], m.x[4] }
+-- 				-- local my = { m.y[1], m.y[2], m.y[3], m.y[4] }
+-- 				-- local mz = { m.z[1], m.z[2], m.z[3], m.z[4] }
+-- 				-- local mw = { m.w[1], m.w[2], m.w[3], m.w[4] }
+-- 				-- local ident_matrix = { mx, my, mz, mw } 
+-- 				-- local rotate_matrix = {
+-- 				-- {math.sin(r)*math.cos(r2), math.sin(r)*math.sin(r2), math.cos(r), 0},
+-- 				-- {math.cos(r)*math.cos(r2), math.cos(r)*math.sin(r2),-math.sin(r), 0},
+-- 				-- {-math.sin(r2),            math.cos(r2),            0,            0},
+-- 				-- {0,0,0,1},
+-- 				-- }
+-- 				-- local newM = functions2.script.multiply( rotate_matrix, ident_matrix )
+-- 				-- m.x = newM[1]
+-- 				-- m.y = newM[2]
+-- 				-- m.z = newM[3]
+-- 				-- m.w = newM[4]
+-- 				-- self.go:setWorldRotation(m)
+
+-- 				-- local dir = vec.truncate(newM,3)
+-- 				-- local dir = vec(math.sin(math.rad(r)), 0, math.cos(math.rad(r)))
+-- 				-- self.go:setWorldPosition( posStart + (dir * index * 3) + (dir * 1.5) )
+-- 				-- self.go:setWorldRotationAngles(0, r*-1, 0)
+
+-- 				-- local distance = vec(posStart.x, posStart.z, posStart.y) - vec(party.x, party.z, party.y)
+-- 				-- local directionA = vec.normalize(vec(0, 1, 0))
+-- 				-- local directionB = vec.normalize(vec.clone(distance))
+-- 				-- local rotationAngle = math.acos(vec.dot(directionA, directionB));
+-- 				-- local rotationAxis = vec.normalize(vec.cross(vec.clone(directionA), directionB))
+-- 				-- print(rotationAngle)
+-- 				-- print(rotationAxis)
+-- 				end
+--             end,
+--         },
+       
+-- 		{
+-- 			class = "Sound",
+-- 			sound = "monster_cast",
+-- 		},
+-- 		{
+-- 			class = "Counter",
+-- 			name = "angle",
+-- 		},
+-- 	},
+-- 	placement = "floor",
+-- 	editorIcon = 272,
+-- 	tags = { "obstacle" },
+-- }
+
+defineObject{
+	name = "beam",
+	components = {
+		{
+			class = "Model",
+			model = "mod_assets/models/effects/beam.fbx",
+			-- debugDraw = true,
+		},
+		{
+			class = "Light",
+			offset = vec(0, 0.05, 0),
+			range = 7,
+			color = vec(0.25, 0.4, 1.0),
+			brightness = 20,
+			castShadow = true,
+            fillLight = true,
+            onInit = function(self)
+				
+            end,
+            onUpdate = function(self)
+				if self.go.data then
+				local index = self.go.data:get("index")
+				local posStart = self.go.data:get("posStart")
+				local angle = self.go.data:get("angle")
+				local angle2 = self.go.data:get("angle2")
+
+				local dir = vec(math.sin(math.rad(angle)), 0, math.cos(math.rad(angle)))
+				self.go:setWorldPosition( posStart + (dir * index * 3) + (dir * 1.5) )
+				self.go:setWorldRotationAngles(0, angle*-1, 0)
+				end
+            end,
+        },
+        {
+			class = "Script",
+			name = "data",
+			source = [[data = { ["angle"] = 45, ["angle2"] = 0 ["index"] = 0 }
+function get(self,name) return self.data[name] end
+function set(self,name,value) self.data[name] = value end]],
+            onInit = function(self)
+				self.go.data:set("posStart", self.go:getWorldPosition() + vec(0,0.5,0))
+				self.go.data:set("angle2", 0)
+			end,
+		},
+		{
+			class = "Sound",
+			sound = "monster_cast",
+		},
+		{
+			class = "Counter",
+			name = "angle",
+		},
+	},
+	placement = "floor",
+	editorIcon = 272,
+	tags = { "obstacle" },
 }

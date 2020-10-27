@@ -121,6 +121,28 @@ defineObject{
 }
 
 defineObject{
+	name = "fire_forest_fog",
+	baseObject = "base_floor_decoration",
+	components = {
+		-- {
+		-- 	class = "FogParams",
+		-- 	fogMode = "dense",
+		-- 	fogColor = vec(0.5,0.15,0.15) * 0.5,
+		-- 	fogRange = {0,90},
+		-- },
+		{
+			class = "FogParticles",
+			texture = "assets/textures/particles/fog_particle.tga",
+			particleSize = 6.5,
+			color1 = vec(0.15,0.15,0.15)*0,
+			color2 = vec(0.17,0.15,0.15)*0,
+			color3 = vec(0.19,0.15,0.15)*0,
+			opacity = 0.7,
+		},
+	},
+}
+
+defineObject{
 	name = "rc_ground_01_real",
 	placement = "floor",
 	components = {

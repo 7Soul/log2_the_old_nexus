@@ -1870,3 +1870,95 @@ defineTrait{
 		end
 	end,
 }
+
+-- Dummy traits
+
+defineTrait{ 
+	name = "athletics",
+	uiName = "",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 1,
+	hidden = true,
+	description = "",
+}
+
+defineTrait{ 
+	name = "dodge",
+	uiName = "",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 1,
+	hidden = true,
+	description = "",
+}
+
+defineTrait{ 
+	name = "aggressive",
+	uiName = "",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 1,
+	hidden = true,
+	description = "",
+}
+
+defineTrait{ 
+	name = "head_hunter",
+	uiName = "",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 1,
+	hidden = true,
+	description = "",
+}
+
+defineTrait{ 
+	name = "mutation",
+	uiName = "",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 1,
+	hidden = true,
+	description = "",
+}
+
+defineTrait{ 
+	name = "tough",
+	uiName = "",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 1,
+	hidden = true,
+	description = "",
+}
+
+defineTrait{ 
+	name = "fire_magic",
+	uiName = "",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 1,
+	hidden = true,
+	description = "",
+}
+
+defineTrait{ 
+	name = "aura",
+	uiName = "",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 1,
+	hidden = true,
+	description = "",
+}
+
+defineTrait{ 
+	name = "strong_mind",
+	uiName = "",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 1,
+	hidden = true,
+	description = "",
+}
+
+defineTrait{ 
+	name = "agile",
+	uiName = "",
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 1,
+	hidden = true,
+	description = "",
+}

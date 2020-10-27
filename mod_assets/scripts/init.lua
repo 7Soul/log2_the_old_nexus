@@ -853,6 +853,21 @@ defineObject{
 
 			functions.script.set_c("counterOnHand", c, 0)
 			
+			-- Draw Berserker's Franzy charge
+			if champion:getClass() == "fighter" then
+				local stacks = functions.script.get_c("berserker_frenzy", c) or 0
+				local frenzyCur = champion:getConditionValue("berserker_frenzy") or 0
+				local frenzyMax = functions.script.get_c("berserker_max", c) or 0
+
+				if stacks > 0 then
+					functions.script.add_c("counterOnHand", c, 1)
+					local counters = functions.script.get_c("counterOnHand", c) or 0
+					functions.script.drawCounterOnHand(context, champion, x, y, stacks, "Berserker Frenzy  ", "", 1, counters - 1)
+					functions.script.drawBarOnHand(context, champion, x, y, frenzyCur, frenzyMax)
+				end
+			end	
+			
+			-- Draw Hunter's Thrill of the Hunt charge
 			if champion:getClass() == "hunter" then
 				local stacks = functions.script.get_c("hunter_crit", c) or 0
 				local hunterCur = champion:getConditionValue("hunter_crit") or 0
@@ -997,6 +1012,11 @@ defineObject{
 				party:setPosition(party.x, party.y, party.facing, party.elevation + 1, party.level)
 				functions.script.keypressDelaySet(8)
 			end
+
+			if context.keyDown("2") and functions.script.keypressDelayGet() == 0 then
+				party:setPosition(party.x, party.y, party.facing, party.elevation - 1, party.level)
+				functions.script.keypressDelaySet(8)
+			end
 			
 			if context.keyDown("O") then
 				local text = "OFFSETING"
@@ -1025,6 +1045,21 @@ defineObject{
 					functions2.script.rotate(0,0,0.1*multi)
 				end
 			end
+
+			if context.keyDown("B") then
+				for i=1,10 do
+					local ent = findEntity("beam_"..i)
+					if ent then
+						local angle = ent.data:get("angle")
+						ent.data:set("angle", angle + (2 * multi))
+					end
+				end
+			end
+
+			if context.keyDown("V") and functions.script.keypressDelayGet() == 0 then
+				functions2.script.debug()
+				functions.script.keypressDelaySet(20)
+			end
 			
 			if context.keyDown("shift") and functions.script.keypressDelayGet() == 0 then
 			-- Shift + U -> Advance day time by 1/6th
@@ -1041,6 +1076,13 @@ defineObject{
 				functions.script.keypressDelaySet(20)
 			end
 
+			-- Shift + K --> Kill all mobs in map
+			if context.keyDown("K") then
+				functions2.script.killAllMobs()
+				print("Mobs killed")
+				functions.script.keypressDelaySet(20)
+			end
+
 			-- Shift + L -> Level up
 			if context.keyDown("L") then
 				for i = 1,4 do
@@ -1049,8 +1091,8 @@ defineObject{
 				end
 			end
 
-			-- Shift + X -> Moves the party 1 square forward
-			if context.keyDown("X") then
+			-- Shift + J -> Moves the party 1 square forward
+			if context.keyDown("J") then
 				local dx,dy = getForward(party.facing)
 				party:setPosition(party.x + dx, party.y + dy, party.facing, party.elevation, party.level)
 				functions.script.keypressDelaySet(20)
@@ -2248,20 +2290,20 @@ defineObject{
 					local timepiece = functions.script.getTimepiece()
 					for entity in Dungeon.getMap(party.level):entitiesAt(party.x, party.y) do
 						if timepiece then
-							if entity.name == "crystal_area_inside" and entity.elevation == party.elevation then
+							-- if entity.name == "crystal_area_inside" and entity.elevation == party.elevation then
 								if functions2.script.timeTravelTimer == 0 then
 									timepiece.go.item:setGfxIndex(26) -- charged
 								else
 									timepiece.go.item:setGfxIndex(39 - functions2.script.timeTravelTimer)
 								end
 								break
-							else
-								if functions2.script.timeTravelTimer == 0 then
-									timepiece.go.item:setGfxIndex(13) -- empty
-								else
-									timepiece.go.item:setGfxIndex(26 - functions2.script.timeTravelTimer)
-								end
-							end
+							-- else
+							-- 	if functions2.script.timeTravelTimer == 0 then
+							-- 		timepiece.go.item:setGfxIndex(13) -- empty
+							-- 	else
+							-- 		timepiece.go.item:setGfxIndex(26 - functions2.script.timeTravelTimer)
+							-- 	end
+							-- end
 						end
 					end
 				end

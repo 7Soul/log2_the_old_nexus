@@ -51,6 +51,16 @@ function addTables(t1, t2)
 	return t1
 end
 
+function printTable(t1)
+	local output = ""
+	for i = 1, #t1 do
+		for j = 1, #t1[1] do
+			output = output .. t1[i][j] .. " / "
+		end
+	end
+	print( output )
+end
+
 function merge(t1, t2)
     for k, v in pairs(t2) do
         if (type(v) == "table") and (type(t1[k] or false) == "table") then
@@ -144,23 +154,24 @@ function teststart()
 	end
 
 	if Editor.isRunning() then
-		party.party:getChampionByOrdinal(1):setClass("corsair")
+		party.party:getChampionByOrdinal(1):setClass("fighter")
 		party.party:getChampionByOrdinal(2):setClass("druid")
-		party.party:getChampionByOrdinal(3):setClass("fighter")
+		party.party:getChampionByOrdinal(3):setClass("hunter")
 		party.party:getChampionByOrdinal(4):setClass("monk")
 		party.party:getChampionByOrdinal(1):setRace("human")
 		party.party:getChampionByOrdinal(2):setRace("minotaur")
-		party.party:getChampionByOrdinal(3):setRace("human")
-		party.party:getChampionByOrdinal(4):setRace("ratling")
+		party.party:getChampionByOrdinal(3):setRace("ratling")
+		party.party:getChampionByOrdinal(4):setRace("human")
 
 		for i=1,4 do
 			local champion = party.party:getChampionByOrdinal(i)
 			if not champion:getItem(32) then champion:insertItem(32,spawn("torch").item) end
 			--champion:addSkillPoints(1)
-			-- if i == 1 then
-			-- 	champion:removeItemFromSlot(31)
-			-- 	champion:insertItem(31,spawn("enchanted_timepiece").item)
-			-- end
+			if i == 1 then
+				champion:removeItemFromSlot(31)
+				champion:insertItem(31,spawn("enchanted_timepiece").item)
+				functions2.script.setGotDevice()
+			end
 			-- Classes
 			if champion:getClass() == "assassin_class" then
 				for s=13,16 do champion:removeItemFromSlot(s) end
@@ -174,7 +185,7 @@ function teststart()
 
 			if champion:getClass() == "fighter" then
 				for s=13,15 do champion:removeItemFromSlot(s) end
-				champion:insertItem(13,spawn("great_axe").item)
+				champion:insertItem(13,spawn("hand_axe").item)
 				champion:insertItem(14,spawn("potion_strength").item)
 				champion:getItem(14):setStackSize(20)
 				champion:insertItem(15,spawn("round_shield").item)
@@ -1503,11 +1514,16 @@ function onMonsterAttacked(self, monster, tside, damage, champion) -- self = mel
 			functions.script.wisdom_of_the_tribe_heal(champion)
 			delayedCall("functions", 0.15, "hitMonster", monster.go.id, math.ceil(damage * wisdom_of_the_tribe(champion) ), "", "physical", champion:getOrdinal())
 		end
-	end	
+	end
 	
 	-- Monk's Healing Light
 	if champion:getClass() == "monk" then
 		healingLight(champion, monster, damage)
+	end
+	
+	-- Berserker's Frenzy
+	if champion:getClass() == "fighter" then
+		berserkerFrenzy(c, 1 + math.floor(champion:getLevel() * 0.25), 8)
 	end
 	
 	local poisonChance = 0
@@ -1859,7 +1875,12 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 		
 		-- Monk's Healing Light
 		if champion:getClass() == "monk" then
-			functions.script.healingLight(champion, monster, damage)
+			healingLight(champion, monster, damage)
+		end
+		
+		-- Berserker's Frenzy
+		if champion:getClass() == "fighter" then
+			berserkerFrenzy(c, 1 + math.floor(champion:getLevel() * 0.25), 8)
 		end
 
 		if item.go.name == "stun_quarrel" then
@@ -1980,7 +2001,13 @@ function onDamageMonster(self, damage, damageType)
 			-- Monk's Healing Light
 			if champion:getClass() == "monk" then
 				if damage then
-					functions.script.healingLight(champion, monster, damage)
+					healingLight(champion, monster, damage)
+				end
+			end
+			-- Berserker's Frenzy
+			if champion:getClass() == "fighter" then
+				if damage then
+					berserkerFrenzy(i, 1 + math.floor(champion:getLevel() * 0.25), 8)
 				end
 			end
 			
@@ -2260,10 +2287,10 @@ function dirty_fighting(attack, champion, monster)
 end
 
 -- Hunter
-function hunterCrit(id, stack, dur)
-	local champion = party.party:getChampionByOrdinal(id)
-	add_c("hunter_crit", id, stack)
-	set_c("hunter_max", id, dur)
+function hunterCrit(c, stack, dur)
+	local champion = party.party:getChampionByOrdinal(c)
+	add_c("hunter_crit", c, stack)
+	set_c("hunter_max", c, dur)
 	champion:setConditionValue("hunter_crit", dur)
 end
 
@@ -2278,6 +2305,23 @@ end
 function wisdom_of_the_tribe_heal(champion)
 	local missing = champion:getMaxHealth() - champion:getHealth()
 	regainHealth(champion:getOrdinal(), missing * 0.05)
+end
+
+-- Berserker
+function berserkerFrenzy(c, stack, dur)
+	local champion = party.party:getChampionByOrdinal(c)
+	local curStacks = get_c("berserker_frenzy", c) or 0
+	stack = stack > 0 and math.min(stack + 4, 10) or stack
+	if curStacks < 100 or (curStacks == 100 and stack < 0) then
+		add_c("berserker_frenzy", c, stack)
+	end
+	set_c("berserker_max", c, dur)
+	champion:setConditionValue("berserker_frenzy", dur)
+	
+	if get_c("berserker_frenzy", c) <= 0 then
+		set_c("berserker_frenzy_countdown", c, 0)
+		set_c("berserker_frenzy", c, 0)
+	end
 end
 
 -- Champion of Light
@@ -3887,7 +3931,8 @@ function tooltipWithTitle(context, text1, text2, x, y, lineCount)
 	y = y - 24
 	local backX = x - 7
 	local backY = y - 80
-	local width = math.min(context.getTextWidth(text2) + 21, 250)
+	
+	local width = math.min(context.getTextWidth(string.len(text1) > string.len(text2) and text1 or text2) + 21, 250)
 	local height = (lineCount * 26) + 24
 
 	tooltip(context, backX, backY, width, height)

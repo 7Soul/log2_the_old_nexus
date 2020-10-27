@@ -1579,6 +1579,118 @@ defineParticleSystem{
 }
 
 defineObject{
+	name = "fire_forest_darkness",
+	components = {
+		{
+			class = "Particle",
+			particleSystem = "fire_forest_darkness",
+		},
+	},
+	placement = "floor",
+	editorIcon = 88,
+	tags = { "level_decoration" },
+}
+
+defineParticleSystem{
+	name = "fire_forest_darkness",
+	emitters = {
+		-- fog top
+		{
+			emissionRate = 200,
+			emissionTime = 0,
+			maxParticles = 500,
+			boxMin = {-12.0, -0.5,-12.0},
+			boxMax = { 6.0,  0.0,-6.0},
+			sprayAngle = {0,360},
+			velocity = {0.1,0.3},
+			--objectSpace = true,
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {4,4},
+			color0 = {0,0,0},
+			opacity = 0.25,
+			fadeIn = 0.5,
+			fadeOut = 2,
+			size = {2.0, 2.5},
+			gravity = {0.3,0.9,0.3},
+			airResistance = 0.1,
+			rotationSpeed = 0.2,
+			blendMode = "Translucent",
+			depthBias = 1.0,
+		},
+		-- fog bot
+		{
+			emissionRate = 200,
+			emissionTime = 0,
+			maxParticles = 500,
+			boxMin = {-6.0, -0.5,6.0},
+			boxMax = { 12.0,  0.0,12.0},
+			sprayAngle = {0,360},
+			velocity = {0.1,0.3},
+			--objectSpace = true,
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {4,4},
+			color0 = {0,0,0},
+			opacity = 0.25,
+			fadeIn = 0.5,
+			fadeOut = 2,
+			size = {2.0, 2.5},
+			gravity = {0.3,0.9,0.3},
+			airResistance = 0.1,
+			rotationSpeed = 0.2,
+			blendMode = "Translucent",
+			depthBias = 1.0,
+		},
+		-- fog right
+		{
+			emissionRate = 200,
+			emissionTime = 0,
+			maxParticles = 500,
+			boxMin = { 9.0, -0.5,-12.0},
+			boxMax = { 12.0,  0.0, 9.0},
+			sprayAngle = {0,360},
+			velocity = {0.1,0.3},
+			--objectSpace = true,
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {4,4},
+			color0 = {0,0,0},
+			opacity = 0.25,
+			fadeIn = 0.5,
+			fadeOut = 2,
+			size = {2.0, 2.5},
+			gravity = {0.3,0.9,0.3},
+			airResistance = 0.1,
+			rotationSpeed = 0.2,
+			blendMode = "Translucent",
+			depthBias = 1.0,
+		},
+		-- fog left
+		{
+			emissionRate = 200,
+			emissionTime = 0,
+			maxParticles = 500,
+			boxMin = {-12.0, -0.5,-9.0},
+			boxMax = {-9.0,  0.0, 12.0},
+			sprayAngle = {0,360},
+			velocity = {0.1,0.3},
+			--objectSpace = true,
+			texture = "assets/textures/particles/smoke_01.tga",
+			lifetime = {4,4},
+			color0 = {0,0,0},
+			opacity = 0.25,
+			fadeIn = 0.5,
+			fadeOut = 2,
+			size = {2.0, 2.5},
+			gravity = {0.3,0.9,0.3},
+			airResistance = 0.1,
+			rotationSpeed = 0.2,
+			blendMode = "Translucent",
+			depthBias = 1.0,
+		},
+
+	}
+}
+
+defineObject{
 	name = "forest_wall_text_short",
 	baseObject = "base_wall_text",
 	components = {
@@ -2286,6 +2398,62 @@ defineObject{
 	minimalSaveState = true,
 	tags = { "level_decoration", "level_design" },
 }
+
+
+defineObject{
+	name = "burnt_oak_cluster",
+	baseObject = "base_obstacle",
+	components = {
+		{
+			class = "Model",
+			model = "mod_assets/models/env/burnt_oak.fbx",
+			dissolveStart = 2,
+			dissolveEnd = 5,
+			shadowLod = 1,
+			staticShadow = true,
+
+			rotation = vec(0, 0, 0),
+			offset = vec(0.1, 0, 0.05),
+			boundBox = { pos = vec(0, 5, 0), size = vec(8, 10, 8) },
+		},
+		{
+			class = "Model",
+			name = "model2",
+			model = "mod_assets/models/env/burnt_oak.fbx",
+			dissolveStart = 2,
+			dissolveEnd = 5,
+			shadowLod = 1,
+			staticShadow = true,
+			rotation = vec(0, 0, 0),
+			offset = vec(0, 0, -1),
+		},
+		{
+			class = "Model",
+			name = "model3",
+			model = "mod_assets/models/env/burnt_oak.fbx",
+			dissolveStart = 2,
+			dissolveEnd = 5,
+			shadowLod = 1,
+			staticShadow = true,
+			rotation = vec(0, 0, 0),
+			offset = vec(1, 0, 1),
+		},
+		{
+			class = "Animation",
+			animations = {
+				sway = "assets/animations/env/forest_oak_cluster_idle.fbx",
+			},
+			playOnInit = "sway",
+			loop = true,
+			maxUpdateDistance = 5,
+		},
+	},
+	editorIcon = 168,
+	automapTile = "trees",
+	minimalSaveState = true,
+	tags = { "level_design" }
+}
+
 
 -- Waterfall
 defineObject{

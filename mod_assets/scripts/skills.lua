@@ -384,3 +384,56 @@ defineSkill{
 		end
 	end,
 }
+
+
+-- Dummy skills
+
+defineSkill{
+	name = "light_weapons",
+	uiName = "",
+	priority = 0,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 1,
+	description = "",
+	traits = { },
+}
+
+defineSkill{
+	name = "armors",
+	uiName = "",
+	priority = 0,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 1,
+	description = "",
+	traits = { },
+}
+
+defineSkill{
+	name = "athletics",
+	uiName = "",
+	priority = 0,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 1,
+	description = "",
+	traits = { },
+}
+
+defineSkill{
+	name = "dodge",
+	uiName = "",
+	priority = 0,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 1,
+	description = "",
+	traits = { },
+}
+
+defineSkill{
+	name = "fire_magic",
+	uiName = "",
+	priority = 0,
+	iconAtlas = "mod_assets/textures/gui/skills.dds",
+	icon = 1,
+	description = "",
+	traits = { },
+}
