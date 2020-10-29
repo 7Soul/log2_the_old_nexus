@@ -1769,109 +1769,136 @@ defineObject{
 			offset = vec(0,-6,0),
 		},
 		{
-			class = "Model",
-			name = "metal_plate1",
-			model = "assets/models/items/buckler_bracelet.fbx",
-			offset = vec(0.08,2.22+0.25,-0.06),
-			rotation = vec(8, -120, -94),
-		},
-		{
-			class = "Light",
-			name = "light1",
-			offset = vec(-0.19,2.36,-0.32),
-			range = 1,
-			color = vec(0.5, 0.7, 1),
-			brightness = 50,
-			castShadow = true,
-			staticShadows = true,
-			onUpdate = function(self)
-				-- if self:getBrightness() == 0 then self:disable() else self:enable()	end
-				-- self:setBrightness((math.noise(Time.currentTime() + 12) * 0.5) * 5)
-			end,
-			-- debugDraw = true,
-		},
-		{
-			class = "Model",
-			name = "metal_plate2",
-			model = "assets/models/items/buckler_bracelet.fbx",
-			offset = vec(0.06,1.75+0.25,-0.07),
-			rotation = vec(-81.6,25.6,-25.6),
-		},
-		{
-			class = "Light",
-			name = "light2",
-			offset = vec(0.31,1.99,0.28),
-			range = 1,
-			color = vec(0.5, 0.7, 1),
-			brightness = 50,
-			castShadow = true,
-			staticShadows = true,
-			onUpdate = function(self)
-				-- if self:getBrightness() == 0 then self:disable() else self:enable()	end
-				-- self:setBrightness((math.noise(Time.currentTime() + 12) * 0.5 + 0.5 + 0.1) * 15)
-			end,
-			-- debugDraw = true,
-		},
-		{
-			class = "Model",
-			name = "metal_plate3",
-			model = "assets/models/items/buckler_bracelet.fbx",
-			offset = vec(0.12,2.43+0.25,0.01),
-			rotation = vec(-33.6,61.6,-67.2),
-		},
-		{
-			class = "Light",
-			name = "light3",
-			offset = vec(0.02,2.8,0.43),
-			range = 1,
-			color = vec(0.5, 0.7, 1),
-			brightness = 50,
-			castShadow = true,
-			staticShadows = true,
-			onUpdate = function(self)
-				-- if self:getBrightness() == 0 then self:disable() else self:enable()	end
-				-- self:setBrightness((math.noise(Time.currentTime() + 12) * 0.5 + 0.5 + 0.1) * 15)
-			end,
-			-- debugDraw = true,
-		},
-		{
 			class = "Controller",
 			onInitialActivate = function(self)
-				self.go.light1:fadeIn(0.1)
-				self.go.light2:fadeIn(0.1)
-				self.go.light3:fadeIn(0.1)
+				for i = 1,3 do
+					local light = self.go:getComponent("light_"..i)
+					if light then light:setBrightness(50) end
+				end
+				self.go.particle:enable()
 			end,
 			onInitialDeactivate = function(self)
-				self.go.light1:setBrightness(0)
-				self.go.light2:setBrightness(0)
-				self.go.light3:setBrightness(0)
+				for i = 1,3 do
+					local light = self.go:getComponent("light_"..i)
+					if light then light:setBrightness(0) end
+				end
+				self.go.particle:disable()
 			end,
 			onActivate = function(self)
-				self.go.light1:setBrightness(50)
-				self.go.light2:setBrightness(50)
-				self.go.light3:setBrightness(50)
-				self.go.light1:fadeIn(0.1)
-				self.go.light2:fadeIn(0.1)
-				self.go.light3:fadeIn(0.1)
-				
+				for i = 1,3 do
+					local light = self.go:getComponent("light_"..i)
+					if light then light:setBrightness(50) end
+				end
 			end,
 			onDeactivate = function(self)
-				self.go.light1:setBrightness(0)
-				self.go.light2:setBrightness(0)
-				self.go.light3:setBrightness(0)
-				self.go.light1:fadeOut(0)
-				self.go.light2:fadeOut(0)
-				self.go.light3:fadeOut(0)
+				for i = 1,3 do
+					local light = self.go:getComponent("light_"..i)
+					if light then light:setBrightness(0) end
+				end
 			end,
 			onToggle = function(self)
-				if self.go.light1:getBrightness() ~= 0 then
+				if self.go.light_1:getBrightness() ~= 0 then
 					self:deactivate()
 				else
-					self:activate()
+					if self.go.light_1:getBrightness() == 50 then
+						self:activate()
+					end
+				end
+			end,
+		},
+		{
+			class = "Counter",
+			name = "counter",
+		},
+		{
+			class = "Particle",
+			particleSystem = "bridge_pillar_sound",
+			offset = vec(0,3.2,0)
+		},
+
+		{
+			class = "Script",
+			name = "data",
+			source = [[data = { ["index"] = 0, ["angle1"] = 0, ["angle2"] = nil, ["angle3"] = nil, ["targets"] = { 0, 5 }, ["has_energy"] = false }
+function get(self,name) return data[name] end
+function set(self,name,value) data[name] = value end]],
+            onInit = function(self)
+				self.go.data:set("posStart", self.go:getWorldPosition() + vec(0,0.5,0))
+				self.go:setPosition(self.go.x, self.go.y, 0, self.go.elevation, self.go.level)
+
+				for i=1,3 do
+					if self:get("angle"..i) ~= nil then
+						local plate = self.go:createComponent("Model", "metal_plate_"..i)
+						plate:setModel("mod_assets/models/env/light_plate.fbx")
+
+						local angle = math.rad(self:get("angle"..i))
+						plate:setOffset(vec(math.cos(angle) * 0.05, (i/3*1.25) + 1.5, math.sin(angle) * 0.05))
+						plate:setRotationAngles(0,math.deg(angle),0)
+
+						local light = self.go:createComponent("Light", "light_"..i)
+						light:setRange(0.5)
+						light:setColor(vec(0.5, 0.7, 1))
+						light:setCastShadow(true)
+						light:setStaticShadows(true)
+						light:setOffset(vec(math.cos(angle) * 0.35, (i/3*1.25) + 1.4, math.sin(angle) * 0.35))
+						light:setBrightness(0)
+						self.go.data:set("plate_angle_"..i, angle)
+						self.go.data:set("plate_pos_"..i, plate:getOffset())
+					end
 				end
 			end,
 		},
 	},
+}
+
+defineParticleSystem{
+	name = "bridge_pillar_sound",
+	emitters = {
+		-- glow
+		{
+			emissionRate = 7,
+			emissionTime = 0,
+			maxParticles = 100,
+			boxMin = {-0.1, 0.1, -0.1},
+			boxMax = {0.1, 0.1, 0.1},
+			sprayAngle = {0,360},
+			velocity = {0.1,0.2},
+			texture = "assets/textures/particles/glow.tga",
+			lifetime = {0.4,0.8},
+			color0 = {0.7, 0.8, 1.0},
+			opacity = 0.7,
+			fadeIn = 0.05,
+			fadeOut = 0.2,
+			size = {1.0, 1.0},
+			gravity = {0,0.5,0},
+			airResistance = 0.2,
+			rotationSpeed = 0.3,
+			blendMode = "Additive",
+			depthBias = 0.5,
+		},
+		-- stars
+		{
+			emissionRate = 10,
+			emissionTime = 0,
+			maxParticles = 100,
+			boxMin = {-0.1, 0.1, -0.1},
+			boxMax = {0.1, 0.1, 0.1},
+			sprayAngle = {0,360},
+			velocity = {0.1,0.3},
+			texture = "assets/textures/particles/teleporter.tga",
+			lifetime = {1.8,2},
+			color0 = {1.5,1.6,1.7},
+			opacity = 1,
+			fadeIn = 0.1,
+			fadeOut = 1.0,
+			size = {0.1, 0.3},
+			gravity = {0,0.3,0},
+			airResistance = 0.8,
+			rotationSpeed = 2,
+			blendMode = "Additive",
+			depthBias = 0.5,
+		},
+	}
 }
 
 
@@ -1937,6 +1964,179 @@ defineObject{
 		},
 	},
 }
+
+
+defineObject{
+	name = "beam",
+	components = {
+		{
+			class = "Model",
+			model = "mod_assets/models/effects/beam.fbx",
+			-- debugDraw = true,
+		},
+		{
+			class = "Light",
+			offset = vec(0, 0.05, 0),
+			range = 7,
+			color = vec(0.25, 0.4, 1.0),
+			brightness = 20,
+			castShadow = true,
+            fillLight = true,
+            onInit = function(self)
+				
+            end,
+            onUpdate = function(self)
+				if self.go.data then
+				local index = self.go.data:get("index")
+				local posStart = self.go.data:get("posStart")
+				local angle = self.go.data:get("angle")
+				local angle2 = self.go.data:get("angle2")
+
+				local dir = vec(math.sin(math.rad(angle)), 0, math.cos(math.rad(angle)))
+				self.go:setWorldPosition( posStart + (dir * index * 3) + (dir * 1.5) )
+				self.go:setWorldRotationAngles(0, angle*-1, 0)
+				end
+            end,
+        },
+        {
+			class = "Script",
+			name = "data",
+			source = [[data = { ["angle"] = 0, ["angle2"] = 0, ["index"] = 0 }
+function get(self,name) return self.data[name] end
+function set(self,name,value) self.data[name] = value end]],
+            onInit = function(self)
+				self.go.data:set("posStart", self.go:getWorldPosition() + vec(0,0.5,0))
+				self.go.data:set("angle2", 0)
+			end,
+		},
+		{
+			class = "Sound",
+			sound = "monster_cast",
+		},
+		{
+			class = "Counter",
+			name = "angle",
+		},
+	},
+	placement = "floor",
+	editorIcon = 272,
+	tags = { "obstacle" },
+}
+
+
+defineObject{
+	name = "short_beam",
+	components = {
+		{
+			class = "Model",
+			model = "mod_assets/models/effects/short_beam.fbx",
+			-- debugDraw = true,
+		},
+		{
+			class = "Light",
+			range = 7,
+			color = vec(0.25, 0.4, 1.0),
+			brightness = 20,
+			castShadow = true,
+            fillLight = true,
+            onInit = function(self)
+				
+            end,
+            onUpdate = function(self)
+				if self.go.data then
+				local posStart = self.go.data:get("posStart")
+				local angle = self.go.data:get("angle")
+
+				local dir = vec(math.sin(math.rad(angle)), 0, math.cos(math.rad(angle)))
+				self.go:setWorldPosition( posStart )
+				self.go:setWorldRotationAngles(0, -angle, 0)
+				end
+            end,
+        },
+        {
+			class = "Script",
+			name = "data",
+			source = [[data = {  }
+function get(self,name) return self.data[name] end
+function set(self,name,value) self.data[name] = value end]],
+            onInit = function(self)
+				
+			end,
+		},
+		{
+			class = "Sound",
+			sound = "monster_cast",
+		},
+		{
+			class = "Counter",
+			name = "angle",
+		},
+	},
+	placement = "floor",
+	editorIcon = 272,
+	tags = { "obstacle" },
+}
+
+
+defineObject{
+	name = "time_crystal",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/env/healing_crystal.fbx",
+			castShadow = false,
+		},
+		{
+			class = "Particle",
+			particleSystem = "crystal",
+		},
+		{
+			class = "Light",
+			offset = vec(0,1,0),
+			color = vec(39/255, 205/255, 90/255),
+			range = 7,
+			shadowMapSize = 128,
+			castShadow = true,
+			staticShadows = true,
+		},
+		{
+			class = "Sound",
+			offset = vec(0, 1.5, 0),
+			sound = "crystal_ambient",
+		},
+		{
+			class = "Animation",
+			animations = {
+				spin = "assets/animations/env/healing_crystal_spin.fbx",
+			},
+		},
+		{
+			class = "Clickable",
+			offset = vec(0, 1.5, 0),
+			size = vec(1.6, 2, 1.6),
+			maxDistance = 1,
+			onClick = function(self)
+				functions2.script.setSkyMode("travel_back")
+				playSound("time_1")
+			end,
+		},
+		{
+			class = "Obstacle",
+		},
+		{
+			class = "ProjectileCollider",
+		},
+		-- {
+		-- 	class = "Crystal",
+		-- 	cooldown = 120,
+		-- },
+	},
+	placement = "floor",
+	editorIcon = 60,
+	automapIcon = 104,
+	automapIconLayer = 1,
+}
+
 -- defineObject{
 -- 	name = "beam",
 -- 	components = {
@@ -2053,60 +2253,3 @@ defineObject{
 -- 	editorIcon = 272,
 -- 	tags = { "obstacle" },
 -- }
-
-defineObject{
-	name = "beam",
-	components = {
-		{
-			class = "Model",
-			model = "mod_assets/models/effects/beam.fbx",
-			-- debugDraw = true,
-		},
-		{
-			class = "Light",
-			offset = vec(0, 0.05, 0),
-			range = 7,
-			color = vec(0.25, 0.4, 1.0),
-			brightness = 20,
-			castShadow = true,
-            fillLight = true,
-            onInit = function(self)
-				
-            end,
-            onUpdate = function(self)
-				if self.go.data then
-				local index = self.go.data:get("index")
-				local posStart = self.go.data:get("posStart")
-				local angle = self.go.data:get("angle")
-				local angle2 = self.go.data:get("angle2")
-
-				local dir = vec(math.sin(math.rad(angle)), 0, math.cos(math.rad(angle)))
-				self.go:setWorldPosition( posStart + (dir * index * 3) + (dir * 1.5) )
-				self.go:setWorldRotationAngles(0, angle*-1, 0)
-				end
-            end,
-        },
-        {
-			class = "Script",
-			name = "data",
-			source = [[data = { ["angle"] = 45, ["angle2"] = 0 ["index"] = 0 }
-function get(self,name) return self.data[name] end
-function set(self,name,value) self.data[name] = value end]],
-            onInit = function(self)
-				self.go.data:set("posStart", self.go:getWorldPosition() + vec(0,0.5,0))
-				self.go.data:set("angle2", 0)
-			end,
-		},
-		{
-			class = "Sound",
-			sound = "monster_cast",
-		},
-		{
-			class = "Counter",
-			name = "angle",
-		},
-	},
-	placement = "floor",
-	editorIcon = 272,
-	tags = { "obstacle" },
-}

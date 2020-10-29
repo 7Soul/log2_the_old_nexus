@@ -702,3 +702,14 @@ defineMaterial{
 		self:setTexcoordScaleOffset(1, 1, time*8, 0)
 	end,
 }
+
+defineMaterial{
+	name = "short_beam",
+	diffuseMap = "mod_assets/textures/effects/short_beam.tga",
+	doubleSided = true,
+	lighting = false,
+	alphaTest = false,
+	blendMode = "Additive",
+	glossiness = 60,
+	depthBias = 0,
+}

@@ -120,6 +120,12 @@ function start()
 
 	-- Time Device altar (present only)
 	forest_altar_1:setWorldPosition(forest_altar_1:getWorldPosition() + vec(0,0,1.0))
+	for _,entity in forest_altar_1.surface:contents() do
+		if entity.go.name == "enchanted_timepiece" then
+			local m = entity.go:getWorldPosition()
+			entity.go:setWorldPosition(m + vec(0.2,0,1.25))
+		end
+	end
 	--enchanted_timepiece_1:setWorldPosition(enchanted_timepiece_1:getWorldPosition() + vec(0.5,0,1.0))
 	timenote_1_1:setWorldPosition(timenote_1_1:getWorldPosition() + vec(0,0,1.2))
 	beach_lock_ornate_1:setWorldPosition(beach_lock_ornate_1:getWorldPosition() + vec(0.12,-0.64,0.32))
@@ -190,10 +196,10 @@ function start()
 		m.w = m.w * scale
 		entity:setWorldRotation(m)
 		
-		for i=1,10 do
+		for i=1,11 do
 			entity = findEntity("giant_tree_"..i)
 			if entity then
-				local scale = entity.name == "forest_spruce_01" and 3 or 4
+				local scale = 3
 				m = entity:getWorldRotation()
 				m.x = m.x * scale
 				m.y = m.y * scale
@@ -218,10 +224,10 @@ function start()
 			if entity then 
 				if i < 7 then
 					local pos = entity:getWorldPosition()
-					entity:setWorldPosition(vec(pos.x - 0.6, pos.y - 1, pos.z - 0.6))
+					entity:setWorldPosition(vec(pos.x + 0, pos.y - 1, pos.z + 0))
 				else
 					local pos = entity:getWorldPosition()
-					entity:setWorldPosition(vec(pos.x + 0.7, pos.y - 1, pos.z + 0.7))
+					entity:setWorldPosition(vec(pos.x + 0.6, pos.y - 1, pos.z + 0.6))
 				end
 			end
 		end
@@ -381,7 +387,7 @@ end
 -- Offset and Rotate Level Object                                       --
 --------------------------------------------------------------------------
 
-objname = nil
+objname = "bridge_pillar_sound_2"
 objname2 = nil
 
 function move(x,y,z)
@@ -512,17 +518,18 @@ function updateSky(t)
 	else
 		return
 	end
-	
+	-- print("timer: " .. skyTimer .. " / mode: " .. skyMode)
+	-- print(sky:getFogRange()[1] .. " / " .. sky:getFogRange()[2])
 	if skyMode == "normal" then
-		if party.level == bridge_sky_1.level or party.level == bridge_sky_2.level then
+		if (party.level == bridge_sky_1.level or party.level == bridge_sky_2.level) then
 			sky:setFogRange({fog_min, fog_base})
 		else
-			sky:setFogRange({fog_min + (math.cos((t+0.5)/30*90) * fog_var), fog_base + (math.cos((t+0.5)/30*90) * fog_var)})
+			sky:setFogRange({1, fog_base + (math.cos((t+0.5)/30*90) * fog_var)})
 		end
 	elseif skyMode == "travel_back" then
 		party.party:setMovementSpeed(0)
 		if sky:getFogRange()[2] > 1 then
-			skyTimer = math.min((skyTimer + 0.1) + (skyTimer * 0.02), fog_base+fog_var)
+			skyTimer = math.min((skyTimer + 0.5) + (skyTimer * 0.05), fog_base+fog_var)
 			sky:setFogRange({0, math.max(fog_base + ((math.cos((t+0.5)/30*90) * fog_var)) - (skyTimer * 2),1)})
 			GameMode.fadeOut(0xFFFFFF, 2)
 			GameMode.setTimeMultiplier(math.max(0.5 - (skyTimer/500), 0.02))
@@ -531,18 +538,18 @@ function updateSky(t)
 			sky:setFogRange({0,1})
 			GameMode.fadeOut(0xDDDDFF, 0.2)
 			setSkyMode("travel_back_end")
-			delayedCall("functions2", 0.2, "teleportParty", party.level + 1)
-			delayedCall("functions2", 0.5, "setSkyMode", "arrive_back")
+			delayedCall("functions2", 0.1, "teleportParty", party.level + 1)
+			delayedCall("functions2", 0.15, "setSkyMode", "arrive_back")
 		end
 	elseif skyMode == "arrive_back" then
 		if sky:getFogRange()[2] < 1 then
-			skyTimer = math.max((skyTimer - 0.01) - (skyTimer * 0.01),0)
+			skyTimer = math.max((skyTimer - 0.01 - (skyTimer * 0.01)),0)
 			sky:setFogRange({0, fog_base + ((math.cos((t+0.5)/30*90) * fog_var)) - (skyTimer * 2)})
 			GameMode.fadeIn(0xFFFFFF, 2)
 		else
 			sky:setFogRange({1, fog_base + (math.cos((t+0.5)/30*90) * fog_var)})
 			GameMode.fadeIn(0xDDDDFF, 0.5)
-			delayedCall("functions2", 0.5, "setSkyMode", "arrive_back_end")
+			delayedCall("functions2", 0.1, "setSkyMode", "arrive_back_end")
 		end
 	elseif skyMode == "arrive_back_end" then
 		party.party:setMovementSpeed(1)
