@@ -183,9 +183,8 @@ defineObject{
 			class = "UsableItem",
 			onUseItem = function(self)
 				local icon = self.go.item:getGfxIndex()
-				if icon == 26 then					
-					functions2.script.setSkyMode("travel_back")
-					playSound("time_1")
+				if icon == 26 then
+					delayedCall("functions2", 0, "tryTimeTravel", "device")
 				else
 					if icon == 13 then
 						hudPrint("The Time Device has no charge.")

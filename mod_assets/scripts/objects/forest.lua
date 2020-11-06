@@ -2588,3 +2588,125 @@ defineObject{
 	minimalSaveState = true,
 	tags = { "base" },
 }
+
+defineObject{
+	name = "pillar_half_button",
+	baseObject = "base_pillar",
+	components = {
+		{
+			class = "Model",
+			name = "model",
+			model = "assets/models/env/wall_button.fbx",
+			offset = vec(0,0,-0.16),
+		},
+		{
+			class = "Model",
+			name = "model2",
+			model = "assets/models/env/mine_support_pillar_01.fbx",
+			offset = vec(0,-1.5,0),
+			dissolveStart = 2,
+			dissolveEnd = 4,
+			staticShadow = true,
+		},
+		{
+			class = "Model",
+			name = "backface",
+			model = "assets/models/env/wall_button.fbx",
+			offset = vec(0,0,-0.16),
+			rotation = vec(0,180,0),
+		},
+		{
+			class = "Animation",
+			animations = {
+				press = "assets/animations/env/wall_button_press.fbx",
+			}
+		},
+		{
+			class = "Clickable",
+			offset = vec(0,1.375,0),
+			size = vec(0.25, 0.25, 0.25),
+			--debugDraw = true,
+		},
+		{
+			class = "Button",
+			sound = "button",
+			onInit = function(self)
+				local m = self.go:getWorldPosition()
+				self.go:setWorldPosition(m + vec(-0.3,-0.05,-0.7))
+			end
+		},
+	},
+	minimalSaveState = true,
+}
+
+defineObject{
+	name = "support_pillar_offset",
+	baseObject = "base_pillar",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/env/mine_support_pillar_01.fbx",
+			dissolveStart = 2,
+			dissolveEnd = 4,
+			staticShadow = true,
+			onInit = function(self)
+				local m = self.go:getWorldPosition()
+				self.go:setWorldPosition(m + vec(0.15, 0, -0.64))
+			end
+		}
+	},
+	minimalSaveState = true,
+}
+
+defineObject{
+	name = "support_pillar_offset_half",
+	baseObject = "base_pillar",
+	components = {
+		{
+			class = "Model",
+			model = "assets/models/env/mine_support_pillar_01.fbx",
+			dissolveStart = 2,
+			dissolveEnd = 4,
+			staticShadow = true,
+			onInit = function(self)
+				local m = self.go:getWorldPosition()
+				self.go:setWorldPosition(m + vec(0.15, -1.5, -0.64))
+			end
+		}
+	},
+	minimalSaveState = true,
+}
+
+defineObject{
+	name = "pillar_lock_ornate",
+	baseObject = "base_pillar",
+	components = {
+		{
+			class = "Model",
+			name = "backface",
+			model = "assets/models/env/wall_lock_ornament.fbx",
+			offset = vec(0,0,-0.00),
+			rotation = vec(0,180,0),
+		},
+		{
+			class = "Model",
+			model = "assets/models/env/wall_lock_ornament.fbx",
+			staticShadow = true,
+			onInit = function(self)
+				local m = self.go:getWorldPosition()
+				self.go:setWorldPosition(m + vec(0.15, 1.375, -0.75))
+			end
+		},
+		{
+			class = "Clickable",
+			offset = vec(0, 0, 0),
+			size = vec(0.4, 0.4, 0.4),
+			debugDraw = true,
+		},
+		{
+			class = "Lock",
+			sound = "key_lock",
+		},
+	},
+	minimalSaveState = true,
+}

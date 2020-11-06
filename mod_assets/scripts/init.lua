@@ -102,8 +102,23 @@ defineObject{
 		-----------------------------------------------------------
 		-- On Move
 		-----------------------------------------------------------
-		onMove = function(party, dir, arg1) 
+		onMove = function(party, dir, arg1)
 			functions.script.stepCountIncrease()
+
+			local period = party.go.data:get("period") or "present"
+			local dx,dy = getForward(dir)
+			if period == "past" and functions2.script.travel_mode == "device" then
+				local obj1 = party.go
+				local obj2 = functions2.script.travel_crystal
+				local mx, my, mz = obj1.map:getLevelCoord()
+				if #obj2 ~= 0 and obj1 then
+					local distance = math.abs(math.sqrt((((obj1.x+dx) - obj2[1]) ^ 2) + (((obj1.y+dy) - obj2[2]) ^ 2)))
+					distance = distance + math.abs(obj1.elevation - obj2[3])
+					distance = distance + math.abs(mz - obj2[6])
+					functions2.script.updateTimeTravelTimer(distance)
+				end
+			end
+
 			-- Herb multiply
 			local fiberBalls = 0
 			for i=1,4 do
@@ -177,7 +192,6 @@ defineObject{
 							end
 						end
 					end
-
 				end
 			end
 			
@@ -193,13 +207,13 @@ defineObject{
 							champion:insertItem(slot, spawn("coal").item)
 						end
 						if item.go.data:get("burnout") % 450 == 0 then
-							print("Item", item.go.name, "reached a burnout of", item.go.data:get("burnout"), "out of a max", 4500)
+							-- print("Item", item.go.name, "reached a burnout of", item.go.data:get("burnout"), "out of a max", 4500)
 						end
 					end
 
 					if item and item.go.name == "fiber_ball_good" then
 						if item.go.data:get("burnout") == nil then item.go.data:set("burnout", 0) end
-						local parent = party:getChampionByOrdinal(item.go.data:get("parent"))
+						local parent = party:getChampionByOrdinal(item.go.data:get("parent") or 1)
 						local b_timer = 1000 + (parent:getLevel() - 1) * 135
 						
 						item.go.data:set("burnout", math.min(item.go.data:get("burnout") + 1, b_timer))
@@ -208,13 +222,13 @@ defineObject{
 							champion:insertItem(slot, spawn("fiber_ball_bad").item)
 						end
 						if item.go.data:get("burnout") % 200 == 0 then
-							print("Item", item.go.name, "reached a burnout of", item.go.data:get("burnout"), "out of a max", b_timer)
+							-- print("Item", item.go.name, "reached a burnout of", item.go.data:get("burnout"), "out of a max", b_timer)
 						end
 					end
 
 					if item and item.go.name == "ice_sword" then
 						if item.go.data:get("burnout") == nil then item.go.data:set("burnout", 0) end
-						local parent = party:getChampionByOrdinal(item.go.data:get("parent"))
+						local parent = party:getChampionByOrdinal(item.go.data:get("parent") or 1)
 						local b_timer = item.go.data:get("b_timer")
 						
 						item.go.data:set("burnout", math.min(item.go.data:get("burnout") + 1, b_timer))
@@ -341,14 +355,14 @@ defineObject{
 		-- WORKS
 		onDie = function(party,champion) 
 			--print(party.go.id,champion:getName(),'died') 
-			for i=1,4 do
-				if party:getChampion(i):getClass() == "fighter" and party:getChampion(i):isAlive() then
-					party:getChampion(i):setConditionValue("berserker_revenge", 60)
-					if party:getChampion(i):hasCondition("berserker_rage") then
-						party:getChampion(i):removeCondition("berserker_rage")
-					end
-				end
-			end
+			-- for i=1,4 do
+			-- 	if party:getChampion(i):getClass() == "fighter" and party:getChampion(i):isAlive() then
+			-- 		party:getChampion(i):setConditionValue("berserker_revenge", 60)
+			-- 		if party:getChampion(i):hasCondition("berserker_rage") then
+			-- 			party:getChampion(i):removeCondition("berserker_rage")
+			-- 		end
+			-- 	end
+			-- end
 		end,
 		
 		-- WORKS
@@ -2282,7 +2296,7 @@ defineObject{
 			end
 			
 
-			if v > 2 and v % 2 == 0 then
+			if v > 10 and v % 2 == 0 then
 				functions2.script.updateSky(t) -- updates sky and tides
 				functions.script.keypressDelaySet(math.max(functions.script.keypressDelayGet() - 2, 0))
 			
@@ -2456,18 +2470,26 @@ defineObject{
 		triggerOnStart = true,
 		onActivate = function(self)
 			self.go.timetraveltimer:increment()
-			if functions2.script.timeTravelTimer > 0 then
-				local has_area = false
-				for entity in Dungeon.getMap(party.level):entitiesAt(party.x, party.y) do
-					if (entity.name == "crystal_area_inside" or entity.name == "crystal_area") then
-						has_area = true
-						break
-					end
-				end
-				if not has_area then
-					functions2.script.updateTimeTravelTimer(-1)
-				end
-			end
+			-- local period = party.data:get("period") or "present"
+			-- if period == "past" and functions2.script.travel_mode == "device" then
+			-- 	-- local has_area = false
+			-- 	-- for entity in Dungeon.getMap(party.level):entitiesAt(party.x, party.y) do
+			-- 	-- 	if (entity.name == "crystal_area_inside" or entity.name == "crystal_area") then
+			-- 	-- 		has_area = true
+			-- 	-- 		break
+			-- 	-- 	end
+			-- 	-- end
+			-- 	-- if not has_area then
+			-- 	-- 	functions2.script.updateTimeTravelTimer(-1)
+			-- 	-- end
+			-- 	local obj1 = party
+			-- 	local obj2 = findEntity(functions2.script.travel_crystal)
+			-- 	if obj2 and obj1 then
+			-- 		local distance = math.abs(math.sqrt(((obj1.x - obj2.x) ^ 2) + ((obj1.y - obj2.y) ^ 2)))
+			-- 		distance = (distance)
+			-- 		functions2.script.updateTimeTravelTimer(distance)
+			-- 	end
+			-- end
 				
 			for i=1,4 do
 				local champion = party.party:getChampionByOrdinal(i)

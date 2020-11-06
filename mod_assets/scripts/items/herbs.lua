@@ -144,7 +144,8 @@ defineObject{
 			class = "Item",
 			uiName = "Fermented Fiber Ball",
 			description = "A herb fermented with a certain kind of Ratling digestive enzyme. Its vapors help other herbs grow faster, and can be used to cure disease and poisons. It will dry out with time, becoming useless.",
-			gameEffect = [[Keep in your inventory to increase herb growth. Has to be in the same inventory as the herbs and stacks up from 5% at 1 to a 15% increase at 10 stacks.]],
+			gameEffect = [[- Keep in your inventory to increase herb growth. 
+			- Consume to cure poison and disease.]],
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
 			gfxIndex = 63,
 			stackable = true,

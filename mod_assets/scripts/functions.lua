@@ -533,7 +533,7 @@ function onEquipItem(self, champion, slot)
 							if not champion:getItem(j) then champion:insertItem(j, self) break end
 							if j == ItemSlot.BackpackLast and champion:getItem(j) then party:spawn(self.go.name) break end
 						end
-						hudPrint(champion:getName() .. ", the Berserker, refuses to wear heavy armor.")
+						hudPrint(champion:getName() .. ", the Berserker, refuses to wear armor.")
 						champion:removeItemFromSlot(slot)
 					end
 				end
@@ -1443,7 +1443,7 @@ end
 -------------------------------------------------------------------------------------------------------
 
 -- Melee/Firearms
-function onMonsterAttacked(self, monster, tside, damage, champion) -- self = meleeattack or firearmattack
+function onHitMonster(self, monster, tside, damage, champion) -- self = meleeattack or firearmattack
 	local c = champion:getOrdinal()
 
 	-- Pickaxe Chip effect
@@ -2056,6 +2056,11 @@ function onMonsterDie(self)
 		if isArmorSetEquipped(champion, "rogue") and champion:hasCondition("haste") then
 			local duration = champion:getConditionValue("haste")
 			champion:setConditionValue("haste", duration + 20)
+		end
+
+		if champion:getClass() == "tinkerer" then
+			add_c("exp", self.go.monster:getExp())
+			champion:gainExp( self.go.monster:getExp() * -1 )
 		end
 	end
 end
@@ -2707,13 +2712,6 @@ function regainEnergy(id, amount)
 end
 
 function onChampionTakesDamage(party, champion, damage, damageType) -- champion takes damage from any source -- no reference to monsters
-	-- Berserker - Berserker Rage
-	for i=1,4 do
-		if party:getChampion(i):getClass() == "fighter" and party:getChampion(i):isAlive() and not party:getChampion(i):hasCondition("berserker_revenge") then
-			party:getChampion(i):setConditionValue("berserker_rage", 20)
-		end
-	end
-	
 	-- Brutalizer - increases damage taken
 	if champion:hasTrait("brutalizer") and damageType ~= "pure" then
 		local str = champion:getCurrentStat("strength")

@@ -80,6 +80,74 @@ defineObject{
 }
 
 defineObject{
+	name = "time_teleporter",
+	components = {
+		{
+			class = "Particle",
+			particleSystem = "teleporter",		
+		},
+		{
+			class = "Light",
+			color = vec(69/255, 95/255, 115/255),
+			brightness = 15,
+			range = 8,
+			castShadow = true,
+			shadowMapSize = 128,
+			staticShadows = true,
+			staticShadowDistance = 0,	-- use static shadows always
+			offset = vec(0, 1.5, 0),
+			onUpdate = function(self)
+				self:setBrightness((math.noise(Time.currentTime() + 12) * 0.5 + 0.5 + 0.1) * 15)
+			end,
+		},
+		{
+			class = "Sound",
+			sound = "teleporter_ambient",
+		},
+		{
+			class = "FloorTrigger",
+			onActivate = function(self)
+				delayedCall("functions2", 0.4, "tryTimeTravel", "teleporter")
+			end
+		},
+		{
+			class = "Controller",
+			onInitialActivate = function(self)
+				self.go.floortrigger:enable()
+			end,
+			onInitialDeactivate = function(self)
+				self.go.floortrigger:disable()
+				self.go.light:fadeOut(0)
+				self.go.sound:fadeOut(0)
+				self.go.particle:fadeOut(0)
+			end,
+			onActivate = function(self)
+				self.go.floortrigger:enable()
+				self.go.light:fadeIn(0.01)
+				self.go.sound:fadeIn(0.1)
+				self.go.particle:fadeIn(0.01)
+			end,
+			onDeactivate = function(self)
+				self.go.floortrigger:disable()
+				self.go.light:fadeOut(0.01)
+				self.go.sound:fadeOut(0.1)
+				self.go.particle:fadeOut(0.01)
+			end,
+			onToggle = function(self)
+				if self.go.floortrigger:isEnabled() then
+					self:deactivate()
+				else
+					self:activate()
+				end
+			end,
+		},
+	},
+	placement = "floor",
+	editorIcon = 36,
+	tags = { "puzzle" }
+}
+
+defineObject{
 	name = "invisible_teleporter",
 	components = {
 		{
@@ -453,15 +521,27 @@ defineObject{
 	name = "fence_button",
 	components = {
 		{
+			class = "Script",
+			name = "data",
+			source = [[data = {}
+function get(self,name)	return self.data[name] end
+function set(self,name,value)	self.data[name] = value end]],
+			onInit = function(self)
+				local offset = self.go.data:get("offset")
+				if offset then
+					local m = self.go:getWorldPosition()
+					self.go:setWorldPosition(m + offset + vec(0,-0.3,-0.18))
+				end
+			end,
+		},
+		{
 			class = "Model",
 			model = "assets/models/env/wall_button.fbx",
-			offset = vec(0,-0.3,-0.18),
 		},
 		{
 			class = "Model",
 			name = "backface",
 			model = "assets/models/env/wall_button.fbx",
-			offset = vec(0,-0.3,-0.18),
 			rotation = vec(0,180,0),
 		},
 		{
@@ -472,7 +552,7 @@ defineObject{
 		},
 		{
 			class = "Clickable",
-			offset = vec(0,1.375-0.3,-0.1),
+			offset = vec(0,1.375,0),
 			size = vec(0.25, 0.25, 0.25),
 			-- debugDraw = true,
 		},
@@ -480,6 +560,14 @@ defineObject{
 			class = "Button",
 			sound = "button",
 		},
+		-- {
+		-- 	class = "Light",
+		-- 	range = 0.5,
+		-- 	color = vec(1, 1, 1),
+		-- 	brightness = 10,
+		-- 	castShadow = false,
+		-- 	offset = vec(0, 1.375, -0.2),
+		-- },
 	},
 	placement = "wall",
 	editorIcon = 12,
@@ -1813,7 +1901,7 @@ defineObject{
 		{
 			class = "Particle",
 			particleSystem = "bridge_pillar_sound",
-			offset = vec(0,3.2,0)
+			offset = vec(0,3.22,0)
 		},
 
 		{
@@ -2253,3 +2341,45 @@ defineObject{
 -- 	editorIcon = 272,
 -- 	tags = { "obstacle" },
 -- }
+
+
+defineObject{
+	name = "invisible_wall_text",
+	baseObject = "base_wall_text",
+	components = {
+		{
+			class = "Script",
+			name = "data",
+			source = [[data = {}
+function get(self,name)	return self.data[name] end
+function set(self,name,value)	self.data[name] = value end]],
+			onInit = function(self)
+				-- local offset = self.go.data:get("offset")
+				-- if offset then
+				-- 	local m = self.go:getWorldPosition()
+				-- 	self.go:setWorldPosition(m + offset)
+				-- end
+				local size = self.go.data:get("size")
+				if size then
+					self.go.clickable:setSize(size + vec(0,0,0.3))
+					-- local m = self.go:getWorldPosition()
+					-- size.x = 0
+					-- self.go:setWorldPosition(m + size / 2)
+				end
+			end,
+		},
+		{
+			class = "WallText",
+			height = 0.48,
+		},
+		{
+			class = "Clickable",
+			offset = vec(0, 0.5, 0),
+			size = vec(1.5, 1.5, 0.3),
+			frontFacing = true,
+			debugDraw = true,
+		},
+	},
+	replacesWall = false,
+	tags = { "puzzle" }
+}

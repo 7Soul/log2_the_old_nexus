@@ -38,17 +38,15 @@
 	<div class="class_trait">
 		<p><b>Assassination:</b> Powerful attacks* add a charge to your weapon, up to 4.</p>
 		<ul>
-		<li>Melee/Firearm attacks gain +2 Pierce and +2 Crit per charge.</li>
-		<li>Ranged attacks Gain +3 Attack Power and +2 Crit per charge.</li>
-		<li>Back attacks spend all charges to deal 2% of a target's health per charge, while you heal for that much.</li>
+		<li>Gain +4% Physical Damage and +2 Crit per charge.</li>
+		<li>Back attacks spend charges to deal 5, 15, 25, 50% <em>(based on charges)</em> extra damage.</li>
 		</ul>
 		
 	</div>
 	<div class="class_trait">
-		<p><b>Fleshbore:</b> Ranged/Firearm attacks reduce the target's armor by 1, stacking up to 10.</p>
+		<p><b>Fleshbore:</b> Ranged attacks and back attacks have a 1% chance <em>(+1% per level)</em> to cause bleeding.</p>
 		<ul>
-		<li>Reduction per hit increased by 1 every 6 levels.</li>
-		<li>Maximum stacks increased by 1 every 3 levels.</li>
+		<li>You deal 20% extra damage to bleeding enemies.</li>
 		</ul>
 	</div>
 	<p>*High damage rolls such as criticals.</p>
@@ -78,7 +76,7 @@
 	</div>	 -->
 
 	<div class="class_trait">
-		<p><b>Berserker Frenzy:</b> Gain Frenzy with each attack. At maximum Frenzy, double all Health Regen and Action Speed bonuses.</p>
+		<p><b>Berserker Frenzy:</b> Gain Frenzy with each attack. At maximum Frenzy, gain a large Health Regen and Action Speed bonus.</p>
 		<ul>
 		<li>You lose 5% Frenzy per second if you don't attack anything for 8 seconds.</li>
 		<li>Every 25% Frenzy grants you:</li>
@@ -87,7 +85,7 @@
 			<li>Strength +1 <em>(+1 per 4 levels)</em>.</li>
 			</ul>
 		</ul>
-	</div>	
+	</div>
 	
 	<div class="class_trait">
 		<p><b>Red Hills Rage:</b> For every 5 combined points in Strength and Vitality you gain:</p>
@@ -104,12 +102,14 @@
 		<div class="icon" style="background-position: -150px -150px;"></div>
 		<h1>Champion <em>Tags: Healer, Jack of all Trades</em></h1>
 		<h2>A monk who has trained in the path of light to achieve perfect balance.</h2>
+		
 	</div>
 	<div class="class_base">
 		<div class="stats">
 			<p>70 <em>(+1 per level)</em></p>
 			<p>60 <em>(+1 per level)</em></p>
 			<p>- Starts with every stat at 9 and gain +1 to all stats per level.</p>
+			<p>- Your damage dealt and received is reduced by 10%.</p>
 		</div>
 	</div>
 	<div class="class_trait">
@@ -151,6 +151,7 @@
 		<p><b>Pistolero:</b> You can wield two pistols, or a pistol with a melee weapon. You attack with both in quick succession.</p>
 		<ul>
 		<li>Your Action Speed becomes 40% slower (+1.5 per level).</li>
+		<li>Gain +5 Evasion when holding a firearm.</li>
 		</ul>
 	</div>
 	
@@ -184,7 +185,7 @@
 		<ul style="padding-left:10px;">
 			<li>Weapons: +10% Action Speed <em>(+1% per level)</em>.</li>
 			<li>Armor: +3% Energy and Health Regen <em>(+0.5% per level)</em>.</li>
-			<li>(Basically excludes items made of metal and heavy armor)</li>
+			<li>(Basically excludes heavy armor and items made of metal)</li>
 		</ul>
 		<!-- Weapons: Mostly Bows and Staves -->
 		<!-- Armor: Reed, Makeshift and Bear Sets -->
@@ -214,21 +215,28 @@
 		<div class="stats">
 			<p>35 <em>(+5 per level)</em></p>
 			<p>60 <em>(+9 per level)</em></p>
+			<p>Converts 20% of your resistances to elemental damage.</p>
 		</div>
 	</div>
 	<div class="class_trait">
+		<p><b>Spell Echo:</b> Spells you cast have a 2% chance <em>(+1% per level)</em> to echo, being cast a second time at half the power.</p>
+		<ul>
+		<li>Gain an extra 1% chance for every 50 points of Health and Energy.</li>
+		<li>All spells cost 10% extra energy.</li>
+		</ul>
+	</div>	
+	<!-- <div class="class_trait">
 		<p><b>Trine Imperium:</b> You gain damage multipliers based on resistances <em>(33% conversion)</em>.</p>
 		<ul>
 		<li>Gain Fire Multi based on Shock and Cold resistances.</li>
 		<li>Gain Shock Multi based on Cold and Fire resistances.</li>
 		<li>Gain Cold Multi based on Fire and Shock resistances.</li>
 		</ul>
-	</div>	
-	
+	</div>	 -->
 	<div class="class_trait">
-		<p><b>Elemental Balance:</b> Casting a spell of one element boosts others by 25% while weakening itself by 5% for 9 seconds.</p>
+		<p><b>Trine Imperium:</b> Casting a spell of one element boosts others by 25% while weakening itself by 5% for 9 seconds.</p>
 		<ul>
-		<li>You regain 5% Max Energy <em>(+1% per 10 Willpower)</em> when using this bonus.</li>
+		<li>You regain 5% Max Energy <em>(+1% per 10 Willpower)</em> when using an element that is empowered.</li>
 		</ul>
 	</div>	
 </div>
@@ -305,14 +313,22 @@
 		<div class="stats">
 			<p>70 <em>(+5 per level)</em></p>
 			<p>40 <em>(+5 per level)</em></p>
+			<p>- Apply random extra bonus effects when you upgrade an item.</p>
+			<p>- Apply random extra bonus effects when you upgrade an item.</p>
 		</div>
 	</div>
-	<div class="class_trait">
+	<!-- <div class="class_trait">
 		<p><b>Craftsman Expertise:</b> Apply random extra bonus effects when you upgrade an item.</p>
 		<ul>
 		<li>You gain one craft bonus usage per level. You can accumulate up to 3 uses at a time.</li>
 		</ul>
-	</div>	
+	</div>	 -->
+	<!-- <div class="class_trait">
+		<p><b>Craftsman Expertise:</b> Apply random extra bonus effects when you upgrade an item.</p>
+		<ul>
+		<li>You gain one craft bonus usage per level. You can accumulate up to 3 uses at a time.</li>
+		</ul>
+	</div>	 -->
 	
 	<div class="class_trait">
 		<p><b>Elemental Surge:</b> Fire and Shock damage is increased based on your Fire and Shock resistances.</p>

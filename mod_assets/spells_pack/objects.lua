@@ -1207,117 +1207,117 @@ defineObject{
 	},
 }
 
-defineObject{
-	name = "ice_cube",
-	--baseObject = "base_obstacle",
-	components = {
-		{
-			class = "Model",
-			model = "assets/models/env/pushable_block_01.fbx",
-			material = "ice_cube",
-			offset = vec(0, 0, 0),
-		},
-		{
-			class = "Health",
-			health = 10,
-			immunities = {"cold"},
-			onDie = function(self)
-				self.go:spawn("frostburst").tiledamager:disable()
-				self.go:playSound("frostburst")
-				local top_id = self.go.data:get("top") if not top_id then return end
-				local top = findEntity(top_id) if not top then return end
-				top:destroy()
-			end,
-		},
-		{
-			class = "ProjectileCollider",
-		},
-		{
-			class = "ForceField",
-			hitSound = "ice_hit",
-			hitEffect = "hit_ice_block",
-		},
-		{
-			class = "Obstacle",
-			hitSound = "ice_hit",
-			hitEffect = "hit_ice_block",
-		},
-		{
-			class = "DynamicObstacle",
-		},
-		userData,
-		{
-			class = "Timer",
-			timerInterval = 0,
-			triggerOnStart = true,
-			onActivate = function(self)
-				spells_functions.script.checkIceBlock(self.go, Time.deltaTime())
-			end,
-		},
-		{
-			class = "PushableBlock",
-		},
-		{
-			class = "Clickable",
-			name = "clickNorth",
-			offset = vec(0, 1.15, 1.2),
-			size = vec(1.2, 1.2, 0.1),
-			maxDistance = 1,
-			onClick = function(self)
-				if party.facing == (self.go.facing+2) % 4 then spells_functions.script.pushIceBlock(self.go) end
-			end,
-		},
-		{
-			class = "Clickable",
-			name = "clickEast",
-			offset = vec(1.2, 1.15, 0),
-			size = vec(0.1, 1.2, 1.2),
-			maxDistance = 1,
-			onClick = function(self)
-				if party.facing == (self.go.facing+3) % 4 then spells_functions.script.pushIceBlock(self.go) end
-			end,
-		},
-		{
-			class = "Clickable",
-			name = "clickSouth",
-			offset = vec(0, 1.15, -1.2),
-			size = vec(1.2, 1.2, 0.1),
-			maxDistance = 1,
-			onClick = function(self)
-				if party.facing == self.go.facing then spells_functions.script.pushIceBlock(self.go) end
-			end,
-		},
-		{
-			class = "Clickable",
-			name = "clickWest",
-			offset = vec(-1.2, 1.15, 0),
-			size = vec(0.1, 1.2, 1.2),
-			maxDistance = 1,
-			onClick = function(self)
-				if party.facing == (self.go.facing+1) % 4 then spells_functions.script.pushIceBlock(self.go) end
-			end,
-		},
-	},
-	placement = "floor",
-	editorIcon = 272,
-	tags = { "obstacle" },
-}
+-- defineObject{
+-- 	name = "ice_cube",
+-- 	--baseObject = "base_obstacle",
+-- 	components = {
+-- 		{
+-- 			class = "Model",
+-- 			model = "assets/models/env/pushable_block_01.fbx",
+-- 			material = "ice_cube",
+-- 			offset = vec(0, 0, 0),
+-- 		},
+-- 		{
+-- 			class = "Health",
+-- 			health = 10,
+-- 			immunities = {"cold"},
+-- 			onDie = function(self)
+-- 				self.go:spawn("frostburst").tiledamager:disable()
+-- 				self.go:playSound("frostburst")
+-- 				local top_id = self.go.data:get("top") if not top_id then return end
+-- 				local top = findEntity(top_id) if not top then return end
+-- 				top:destroy()
+-- 			end,
+-- 		},
+-- 		{
+-- 			class = "ProjectileCollider",
+-- 		},
+-- 		{
+-- 			class = "ForceField",
+-- 			hitSound = "ice_hit",
+-- 			hitEffect = "hit_ice_block",
+-- 		},
+-- 		{
+-- 			class = "Obstacle",
+-- 			hitSound = "ice_hit",
+-- 			hitEffect = "hit_ice_block",
+-- 		},
+-- 		{
+-- 			class = "DynamicObstacle",
+-- 		},
+-- 		userData,
+-- 		{
+-- 			class = "Timer",
+-- 			timerInterval = 0,
+-- 			triggerOnStart = true,
+-- 			onActivate = function(self)
+-- 				spells_functions.script.checkIceBlock(self.go, Time.deltaTime())
+-- 			end,
+-- 		},
+-- 		{
+-- 			class = "PushableBlock",
+-- 		},
+-- 		{
+-- 			class = "Clickable",
+-- 			name = "clickNorth",
+-- 			offset = vec(0, 1.15, 1.2),
+-- 			size = vec(1.2, 1.2, 0.1),
+-- 			maxDistance = 1,
+-- 			onClick = function(self)
+-- 				if party.facing == (self.go.facing+2) % 4 then spells_functions.script.pushIceBlock(self.go) end
+-- 			end,
+-- 		},
+-- 		{
+-- 			class = "Clickable",
+-- 			name = "clickEast",
+-- 			offset = vec(1.2, 1.15, 0),
+-- 			size = vec(0.1, 1.2, 1.2),
+-- 			maxDistance = 1,
+-- 			onClick = function(self)
+-- 				if party.facing == (self.go.facing+3) % 4 then spells_functions.script.pushIceBlock(self.go) end
+-- 			end,
+-- 		},
+-- 		{
+-- 			class = "Clickable",
+-- 			name = "clickSouth",
+-- 			offset = vec(0, 1.15, -1.2),
+-- 			size = vec(1.2, 1.2, 0.1),
+-- 			maxDistance = 1,
+-- 			onClick = function(self)
+-- 				if party.facing == self.go.facing then spells_functions.script.pushIceBlock(self.go) end
+-- 			end,
+-- 		},
+-- 		{
+-- 			class = "Clickable",
+-- 			name = "clickWest",
+-- 			offset = vec(-1.2, 1.15, 0),
+-- 			size = vec(0.1, 1.2, 1.2),
+-- 			maxDistance = 1,
+-- 			onClick = function(self)
+-- 				if party.facing == (self.go.facing+1) % 4 then spells_functions.script.pushIceBlock(self.go) end
+-- 			end,
+-- 		},
+-- 	},
+-- 	placement = "floor",
+-- 	editorIcon = 272,
+-- 	tags = { "obstacle" },
+-- }
 
-defineObject{
-	name = "ice_cube_top",
-	baseObject = "base_floor_decoration",
-	components = {
-		{
-			class = "Platform",
-		},
-		{
-			class = "FloorTrigger",
-			activateSound = "terracotta_jar_hit",
-			deactivateSound = "terracotta_jar_hit",
-			pressurePlate = true, -- indicates a real pressure plate (camera is tilted down and items are constrained on the plate)
-		},
-	},
-}
+-- defineObject{
+-- 	name = "ice_cube_top",
+-- 	baseObject = "base_floor_decoration",
+-- 	components = {
+-- 		{
+-- 			class = "Platform",
+-- 		},
+-- 		{
+-- 			class = "FloorTrigger",
+-- 			activateSound = "terracotta_jar_hit",
+-- 			deactivateSound = "terracotta_jar_hit",
+-- 			pressurePlate = true, -- indicates a real pressure plate (camera is tilted down and items are constrained on the plate)
+-- 		},
+-- 	},
+-- }
 
 defineObject{
 	name = "invisible_pushable_block_floor",

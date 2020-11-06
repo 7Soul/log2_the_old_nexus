@@ -1,79 +1,98 @@
-defineCondition{
-	name = "berserker_rage",
-	uiName = "Berserker Frenzy",
-	description = [[
-	Gains combat stats that fade slowly over 20 seconds.
-	- Protection up to +4 per level (+6 per 3 levels).
-	- Strength up to +2 (+1 per 3 levels).
-	- Heals up to 3% health per second based on current health.]],
-	icon = 21,
-	iconAtlas = "mod_assets/textures/gui/conditions.dds",
-	beneficial = true,
-	harmful = false,
-	tickInterval = 1,
-	onStart = function(self, champion)
-	end,
-	onStop = function(self, champion)
-	end,
-	onRecomputeStats = function(self, champion)
-		local level = champion:getLevel()
-		local level2 = math.floor((champion:getLevel()-1)/ 3)
-		local dur = math.max(champion:getConditionValue("berserker_rage"), 5 + math.floor(level / 5)) -- every 5 levels it clamps to a higher time
-		dur = math.min(dur * dur / 324, 1) -- 324 to give 2 seconds where the stats stay at max
-		if level > 0 then
-			champion:addStatModifier("protection", math.ceil(((level * 4) + (level2 * 6)) * dur))
-			champion:addStatModifier("strength", math.ceil((2 + level2) * 1 * dur))
-		end
-	end,
-	onTick = function(self, champion)
-		local missing = 1 - (champion:getHealth() / champion:getMaxHealth())
-		if missing > 0.25 then -- heal under 25% health
-			functions.script.regainHealth(champion:getOrdinal(), missing * missing * 5.0 * 0.5)
-		elseif missing <= 0.25 and missing > 0.10 then -- extra under 10%
-			if math.random() < 0.5 then
-				functions.script.regainHealth(champion:getOrdinal(), missing * missing * 5.0 * 0.5)
-			end
-		end
-	end,	
-}
+-- defineCondition{
+-- 	name = "berserker_rage",
+-- 	uiName = "Berserker Frenzy",
+-- 	description = [[
+-- 	Gains combat stats that fade slowly over 20 seconds.
+-- 	- Protection up to +4 per level (+6 per 3 levels).
+-- 	- Strength up to +2 (+1 per 3 levels).
+-- 	- Heals up to 3% health per second based on current health.]],
+-- 	icon = 21,
+-- 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
+-- 	beneficial = true,
+-- 	harmful = false,
+-- 	tickInterval = 1,
+-- 	onStart = function(self, champion)
+-- 	end,
+-- 	onStop = function(self, champion)
+-- 	end,
+-- 	onRecomputeStats = function(self, champion)
+-- 		local level = champion:getLevel()
+-- 		local level2 = math.floor((champion:getLevel()-1)/ 3)
+-- 		local dur = math.max(champion:getConditionValue("berserker_rage"), 5 + math.floor(level / 5)) -- every 5 levels it clamps to a higher time
+-- 		dur = math.min(dur * dur / 324, 1) -- 324 to give 2 seconds where the stats stay at max
+-- 		if level > 0 then
+-- 			champion:addStatModifier("protection", math.ceil(((level * 4) + (level2 * 6)) * dur))
+-- 			champion:addStatModifier("strength", math.ceil((2 + level2) * 1 * dur))
+-- 		end
+-- 	end,
+-- 	onTick = function(self, champion)
+-- 		local missing = 1 - (champion:getHealth() / champion:getMaxHealth())
+-- 		if missing > 0.25 then -- heal under 25% health
+-- 			functions.script.regainHealth(champion:getOrdinal(), missing * missing * 5.0 * 0.5)
+-- 		elseif missing <= 0.25 and missing > 0.10 then -- extra under 10%
+-- 			if math.random() < 0.5 then
+-- 				functions.script.regainHealth(champion:getOrdinal(), missing * missing * 5.0 * 0.5)
+-- 			end
+-- 		end
+-- 	end,	
+-- }
+
+-- defineCondition{
+-- 	name = "berserker_revenge",
+-- 	uiName = "Berserker Reprisal",
+-- 	description = [[
+-- 	Gains combat stats that fade slowly over 60 seconds.
+-- 	- Protection up to +6 per level (+8 per 3 levels).
+-- 	- Strength up to +4 (+1 per 3 levels).
+-- 	- Heals up to 6% health per second based on current health.]],
+-- 	icon = 22,
+-- 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
+-- 	beneficial = true,
+-- 	harmful = false,
+-- 	tickInterval = 1,
+-- 	onStart = function(self, champion)
+-- 	end,
+-- 	onStop = function(self, champion)
+-- 	end,
+-- 	onRecomputeStats = function(self, champion)
+-- 		local level = champion:getLevel()
+-- 		local level2 = math.floor(champion:getLevel() / 3)
+-- 		local dur = math.max(champion:getConditionValue("berserker_revenge"), 12 + math.floor(level / 5)) -- every 5 levels it clamps to a higher time
+-- 		dur = math.min(dur * dur / 3136, 1) -- 3136 to give 4 seconds where the stats stay at max
+-- 		if level > 0 then
+-- 			champion:addStatModifier("protection",  math.ceil(((level * 6) + (level2 * 8)) * dur))
+-- 			champion:addStatModifier("strength", math.ceil((4 + level2) * 1 * dur))
+-- 		end
+-- 	end,
+-- 	onTick = function(self, champion)
+-- 		local missing = 1 - (champion:getHealth() / champion:getMaxHealth())
+-- 		if missing > 0.5 then -- heal under 50% health
+-- 			functions.script.regainHealth(champion:getOrdinal(), missing * missing * 5.0)
+-- 		elseif missing <= 0.5 and missing > 0.25 then
+-- 			if math.random() < 0.5 then
+-- 				functions.script.regainHealth(champion:getOrdinal(), missing * missing * 5.0)
+-- 			end
+-- 		end
+-- 	end,	
+-- }
 
 defineCondition{
-	name = "berserker_revenge",
-	uiName = "Berserker Reprisal",
-	description = [[
-	Gains combat stats that fade slowly over 60 seconds.
-	- Protection up to +6 per level (+8 per 3 levels).
-	- Strength up to +4 (+1 per 3 levels).
-	- Heals up to 6% health per second based on current health.]],
-	icon = 22,
+	name = "berserker_frenzy",
+	uiName = "Berserker Frenzy",
 	iconAtlas = "mod_assets/textures/gui/conditions.dds",
-	beneficial = true,
-	harmful = false,
+	icon = 32,
+	description = ".",
+	hidden = true,
 	tickInterval = 1,
-	onStart = function(self, champion)
-	end,
 	onStop = function(self, champion)
-	end,
-	onRecomputeStats = function(self, champion)
-		local level = champion:getLevel()
-		local level2 = math.floor(champion:getLevel() / 3)
-		local dur = math.max(champion:getConditionValue("berserker_revenge"), 12 + math.floor(level / 5)) -- every 5 levels it clamps to a higher time
-		dur = math.min(dur * dur / 3136, 1) -- 3136 to give 4 seconds where the stats stay at max
-		if level > 0 then
-			champion:addStatModifier("protection",  math.ceil(((level * 6) + (level2 * 8)) * dur))
-			champion:addStatModifier("strength", math.ceil((4 + level2) * 1 * dur))
+		local stacks = functions.script.get_c("berserker_frenzy", champion:getOrdinal())
+		if stacks and stacks > 0 then
+			local c = champion:getOrdinal()
+			functions.script.add_c("berserker_frenzy_countdown", champion:getOrdinal(), 1)
+			local countdown = functions.script.get_c("berserker_frenzy_countdown", champion:getOrdinal()) or 0
+			delayedCall("functions", 0.1, "berserkerFrenzy", c, -1 * (math.floor(countdown/5)+1), 1)
 		end
 	end,
-	onTick = function(self, champion)
-		local missing = 1 - (champion:getHealth() / champion:getMaxHealth())
-		if missing > 0.5 then -- heal under 50% health
-			functions.script.regainHealth(champion:getOrdinal(), missing * missing * 5.0)
-		elseif missing <= 0.5 and missing > 0.25 then
-			if math.random() < 0.5 then
-				functions.script.regainHealth(champion:getOrdinal(), missing * missing * 5.0)
-			end
-		end
-	end,	
 }
 
 defineCondition{
@@ -287,24 +306,6 @@ defineCondition{
 	end,
 }
 
-defineCondition{
-	name = "berserker_frenzy",
-	uiName = "Berserker Frenzy",
-	iconAtlas = "mod_assets/textures/gui/conditions.dds",
-	icon = 32,
-	description = ".",
-	hidden = true,
-	tickInterval = 1,
-	onStop = function(self, champion)
-		local stacks = functions.script.get_c("berserker_frenzy", champion:getOrdinal())
-		if stacks and stacks > 0 then
-			local c = champion:getOrdinal()
-			functions.script.add_c("berserker_frenzy_countdown", champion:getOrdinal(), 1)
-			local countdown = functions.script.get_c("berserker_frenzy_countdown", champion:getOrdinal()) or 0
-			delayedCall("functions", 0.1, "berserkerFrenzy", c, -1 * (math.floor(countdown/5)+1), 1)
-		end
-	end,
-}
 
 defineCondition{
 	name = "carnivorous",
@@ -735,7 +736,7 @@ defineCondition{
 -- }
 
 defineCondition{
-	name = "spidersilk",
+	name = "spidersilk1",
 	uiName = "Spidersilk Cloak",
 	description = "",
 	icon = 1,

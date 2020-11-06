@@ -22,15 +22,15 @@ loadLayer("floor_elevation", {
 	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,
 	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,
 	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,
-	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,
 	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,1,-4,-4,-4,
+	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,
 	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-1,-1,-4,0,-4,-4,-4,
 	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,0,-4,0,-1,-4,-4,
 	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,0,0,0,0,0,0,0,-4,-4,-4,-1,0,-4,0,-1,-4,-4,
 	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,0,0,0,0,0,0,-4,-4,-4,0,0,0,-4,0,-1,-4,-4,
 	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,0,0,0,0,0,0,0,0,-4,-4,0,0,0,-4,0,-4,-4,-4,
-	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,0,0,0,0,0,0,0,0,0,0,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,
-	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,0,0,0,0,0,0,0,0,0,0,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,
+	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,0,0,0,0,0,0,0,0,0,0,-4,-4,0,0,-4,-4,-4,-4,-4,-4,
+	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,0,0,0,0,0,0,0,0,0,0,-4,-4,0,0,-4,-4,-4,-4,-4,-4,
 	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,0,0,0,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,
 	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,
 	-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,-4,
@@ -99,9 +99,9 @@ loadLayer("tiles", {
 	3,3,3,1,3,1,1,1,3,3,3,3,3,3,3,1,1,1,1,1,1,1,3,3,3,1,1,3,1,1,3,3,
 	3,3,3,1,1,1,3,1,1,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,3,
 	3,3,3,1,1,1,1,1,1,3,3,1,1,1,1,1,1,1,1,1,1,1,3,3,1,1,1,3,1,3,3,3,
-	3,3,3,1,1,3,1,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,1,1,1,1,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,
-	3,3,3,1,3,1,3,3,3,3,3,1,1,1,1,1,1,3,3,1,3,3,3,3,3,3,3,3,3,1,1,1,
+	3,3,3,1,1,3,1,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,3,3,1,1,3,3,3,3,3,3,
+	3,3,3,1,1,1,1,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,3,3,1,1,3,1,1,1,3,3,
+	3,3,3,1,3,1,3,3,3,3,3,1,1,1,1,1,1,3,3,1,3,3,3,3,3,1,1,1,3,1,1,1,
 	3,3,3,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,1,1,3,3,3,3,3,1,1,3,3,1,1,1,
 	3,3,3,1,1,3,3,3,3,3,1,1,1,1,1,3,3,3,1,1,1,1,3,3,1,1,1,1,3,1,1,1,
 	3,3,3,1,1,3,3,3,3,3,1,1,1,1,1,3,3,3,1,1,1,1,3,3,3,1,1,3,3,1,1,1,
@@ -120,7 +120,7 @@ loadLayer("tiles", {
 	3,3,3,3,3,3,3,3,3,1,3,3,3,3,3,3,3,3,3,3,3,2,2,2,1,2,2,2,1,1,1,1,
 })
 
-spawn("forest_heightmap",0,0,1,0,"forest_heightmap_6")
+spawn("forest_heightmap",0,0,1,0,"bridge_of_eras_present_heightmap")
 spawn("forest_bridge_middle_pillar",19,25,1,0,"forest_bridge_middle_pillar_2")
 spawn("beach_rock_3x1",18,23,1,-2,"beach_rock_3x1_86")
 spawn("beach_rock_3x1",18,23,1,-1,"beach_rock_3x1_88")
@@ -692,15 +692,12 @@ spawn("forest_oak_cluster",29,20,3,-1,"forest_oak_cluster_27")
 spawn("forest_oak_cluster",29,16,3,-3,"forest_oak_cluster_28")
 spawn("forest_oak_cluster",29,14,3,-3,"forest_oak_cluster_29")
 spawn("forest_oak_cluster",29,15,3,-3,"forest_oak_cluster_30")
-spawn("forest_oak_cluster",28,15,3,-3,"forest_oak_cluster_31")
+spawn("forest_oak_cluster",28,15,3,-2,"forest_oak_cluster_31")
 spawn("forest_oak_cluster",22,16,3,-3,"forest_oak_cluster_33")
-spawn("forest_oak_cluster",24,14,3,-3,"forest_oak_cluster_35")
-spawn("forest_oak_cluster",25,14,3,-3,"forest_oak_cluster_36")
 spawn("forest_oak_cluster",23,14,3,-3,"forest_oak_cluster_37")
-spawn("forest_oak_cluster",23,15,3,-3,"forest_oak_cluster_38")
+spawn("forest_oak_cluster",23,15,3,-4,"forest_oak_cluster_38")
 spawn("forest_oak_cluster",27,14,3,-3,"forest_oak_cluster_39")
 spawn("forest_oak_cluster",28,14,3,-3,"forest_oak_cluster_40")
-spawn("forest_oak_cluster",26,15,3,-3,"forest_oak_cluster_41")
 spawn("forest_oak_cluster",28,19,3,-2,"forest_oak_cluster_42")
 spawn("forest_oak_cluster",23,18,3,-2,"forest_oak_cluster_43")
 spawn("teleporter",25,17,2,-2,"teleporter_20")
@@ -1433,12 +1430,10 @@ spawn("mine_support_beam_floor_double",11,16,1,-3,"mine_support_beam_floor_doubl
 spawn("mine_support_beam_floor_double",11,16,1,-2,"mine_support_beam_floor_double_200")
 spawn("mine_support_pillar_01",11,18,3,-2,"mine_support_pillar_01_236")
 spawn("mine_support_pillar_01",11,18,3,-3,"mine_support_pillar_01_237")
-spawn("forest_bridge_no_icon",11,17,2,-1,"forest_bridge_no_icon_62")
 spawn("mine_support_pillar_01",11,19,3,-2,"mine_support_pillar_01_240")
 spawn("mine_support_pillar_01",11,19,3,-3,"mine_support_pillar_01_241")
 spawn("mine_support_beam_floor_double",10,18,1,-3,"mine_support_beam_floor_double_205")
 spawn("mine_support_beam_floor_double",10,18,1,-2,"mine_support_beam_floor_double_206")
-spawn("forest_bridge_no_icon",11,18,2,-1,"forest_bridge_no_icon_63")
 spawn("mine_support_pillar_01",11,20,3,-2,"mine_support_pillar_01_244")
 spawn("mine_support_pillar_01",11,20,3,-3,"mine_support_pillar_01_245")
 spawn("mine_support_beam_floor_double",10,19,1,-3,"mine_support_beam_floor_double_209")
@@ -1469,21 +1464,16 @@ spawn("mine_support_pillar_01",10,22,3,-2,"mine_support_pillar_01_258")
 spawn("mine_support_pillar_01",10,22,3,-3,"mine_support_pillar_01_259")
 spawn("mine_support_beam_floor_double",9,21,1,-3,"mine_support_beam_floor_double_223")
 spawn("mine_support_beam_floor_double",9,21,1,-2,"mine_support_beam_floor_double_224")
-spawn("forest_bridge_no_icon",11,19,2,-1,"forest_bridge_no_icon_64")
-spawn("forest_bridge_no_icon",11,20,2,-1,"forest_bridge_no_icon_67")
-spawn("forest_bridge_no_icon",12,17,3,-1,"forest_bridge_no_icon_68")
 spawn("mine_support_beam_floor_double",12,16,2,-2,"mine_support_beam_floor_double_225")
 spawn("mine_support_beam_floor_double",12,16,2,-3,"mine_support_beam_floor_double_226")
 spawn("forest_elevation_edge",12,16,0,-2,"forest_elevation_edge_103")
 spawn("forest_elevation_edge",13,16,0,-2,"forest_elevation_edge_104")
 spawn("mine_support_pillar_01",13,17,3,-2,"mine_support_pillar_01_260")
 spawn("mine_support_pillar_01",13,17,3,-3,"mine_support_pillar_01_261")
-spawn("forest_bridge_no_icon",13,17,3,-1,"forest_bridge_no_icon_69")
 spawn("mine_support_beam_floor_double",13,16,2,-2,"mine_support_beam_floor_double_229")
 spawn("mine_support_beam_floor_double",13,16,2,-3,"mine_support_beam_floor_double_230")
 spawn("mine_support_pillar_01",14,17,3,-2,"mine_support_pillar_01_264")
 spawn("mine_support_pillar_01",14,17,3,-3,"mine_support_pillar_01_265")
-spawn("forest_bridge_no_icon",14,17,0,-1,"forest_bridge_no_icon_70")
 spawn("mine_support_pillar_01",15,17,3,-2,"mine_support_pillar_01_268")
 spawn("mine_support_pillar_01",15,18,3,-2,"mine_support_pillar_01_269")
 spawn("mine_support_beam_floor_double",14,16,2,-3,"mine_support_beam_floor_double_235")
@@ -1522,7 +1512,6 @@ spawn("mine_support_pillar_01",16,20,3,-2,"mine_support_pillar_01_179")
 spawn("mine_support_pillar_01",16,20,3,-1,"mine_support_pillar_01_272")
 spawn("mine_support_pillar_01",16,21,3,-2,"mine_support_pillar_01_273")
 spawn("healing_crystal",13,14,2,0,"healing_crystal_3")
-spawn("forest_bridge_no_icon",14,20,1,-1,"forest_bridge_no_icon_74")
 spawn("mine_support_beam_floor_double",14,20,2,-2,"mine_support_beam_floor_double_247")
 spawn("mine_support_beam_floor_double",14,19,2,-2,"mine_support_beam_floor_double_248")
 spawn("mine_support_beam_floor_double",14,19,2,-3,"mine_support_beam_floor_double_249")
@@ -1534,13 +1523,11 @@ spawn("mine_support_pillar_01",15,21,3,-3,"mine_support_pillar_01_277")
 spawn("mine_support_beam_floor_double",13,20,2,-2,"mine_support_beam_floor_double_252")
 spawn("mine_support_pillar_01",14,21,3,-3,"mine_support_pillar_01_279")
 spawn("mine_support_pillar_01",14,21,3,-2,"mine_support_pillar_01_280")
-spawn("forest_bridge_no_icon",13,20,3,-1,"forest_bridge_no_icon_75")
 spawn("mine_support_beam_floor_double",13,20,2,-3,"mine_support_beam_floor_double_254")
 spawn("mine_support_pillar_01",13,21,3,-2,"mine_support_pillar_01_283")
 spawn("mine_support_beam_floor_double",12,20,2,-3,"mine_support_beam_floor_double_257")
 spawn("mine_support_beam_floor_double",12,20,2,-2,"mine_support_beam_floor_double_258")
 spawn("mine_support_pillar_01",13,21,3,-3,"mine_support_pillar_01_288")
-spawn("forest_bridge_no_icon",12,20,3,-1,"forest_bridge_no_icon_76")
 spawn("forest_spruce_01",9,15,3,-3,"forest_spruce_01_38")
 spawn("forest_spruce_01",10,14,3,-3,"forest_spruce_01_39")
 spawn("mine_support_beam_floor_double",11,17,2,-2,"mine_support_beam_floor_double_259")
@@ -1588,7 +1575,6 @@ floor_trigger_29.floortrigger:setDisableSelf(false)
 floor_trigger_29.floortrigger:addConnector("onActivate", "teleporter_28", "deactivate")
 spawn("mine_support_beam_floor_double",14,17,1,-3,"mine_support_beam_floor_double_267")
 spawn("mine_support_beam_floor_double",14,17,1,-2,"mine_support_beam_floor_double_268")
-spawn("forest_bridge_no_icon",14,18,2,-1,"forest_bridge_no_icon_79")
 spawn("mine_support_pillar_01",15,19,3,-2,"mine_support_pillar_01_298")
 spawn("mine_support_pillar_01",15,19,3,-3,"mine_support_pillar_01_299")
 spawn("mine_support_beam_floor_double",14,18,1,-3,"mine_support_beam_floor_double_269")
@@ -1632,13 +1618,8 @@ spawn("mine_support_beam_floor_double",12,19,2,-2,"mine_support_beam_floor_doubl
 spawn("mine_support_beam_floor_double",12,19,2,-3,"mine_support_beam_floor_double_246")
 spawn("mine_support_beam_floor_double",13,19,2,-3,"mine_support_beam_floor_double_251")
 spawn("mine_support_beam_floor_double",13,19,2,-2,"mine_support_beam_floor_double_253")
-spawn("forest_bridge_no_icon",13,19,3,-1,"forest_bridge_no_icon_73")
-spawn("forest_bridge_no_icon",12,19,3,-1,"forest_bridge_no_icon_81")
-spawn("forest_bridge_no_icon",13,18,3,-1,"forest_bridge_no_icon_82")
-spawn("forest_bridge_no_icon",12,18,3,-1,"forest_bridge_no_icon_83")
 spawn("forest_bridge_no_icon",12,19,3,0,"forest_bridge_no_icon_84")
 spawn("forest_bridge_no_icon",13,19,3,0,"forest_bridge_no_icon_85")
-spawn("forest_bridge_no_icon",13,19,3,0,"forest_bridge_no_icon_86")
 spawn("forest_bridge_no_icon",13,18,3,0,"forest_bridge_no_icon_87")
 spawn("forest_bridge_no_icon",12,18,3,0,"forest_bridge_no_icon_88")
 spawn("mine_support_pillar_01",12,18,3,-1,"mine_support_pillar_01_300")
@@ -1690,6 +1671,7 @@ timer_11.timer:setTriggerOnStart(false)
 timer_11.timer:setCurrentLevelOnly(true)
 timer_11.timer:addConnector("onActivate", "script_entity_20", "wakeUp3")
 timer_11.timer:addConnector("onActivate", "spawner_4", "activate")
+timer_11.timer:addConnector("onActivate", "spawner_27", "activate")
 timer_11.timer:disable()
 spawn("spawner",21,21,0,0,"spawner_4")
 spawner_4.spawner:setSpawnedEntity("twigroot")
@@ -1753,11 +1735,11 @@ short_bow_1.detectedtimer:setTimerInterval(0)
 short_bow_1.detectedtimer:setDisableSelf(false)
 short_bow_1.detectedtimer:setTriggerOnStart(true)
 short_bow_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("forest_old_oak",21,14,0,0,"forest_old_oak_8")
+spawn("forest_old_oak",20,13,1,0,"forest_old_oak_8")
 spawn("forest_spruce_01",21,15,3,-3,"forest_spruce_01_42")
-spawn("swamp_mushrooms_01",21,14,0,0,"swamp_mushrooms_01_1")
-spawn("swamp_heather_low",21,14,3,0,"swamp_heather_low_5")
-spawn("forest_spruce_sapling_pillar",17,14,0,0,"forest_spruce_sapling_pillar_12")
+spawn("swamp_mushrooms_01",20,13,1,0,"swamp_mushrooms_01_1")
+spawn("swamp_heather_low",20,13,0,0,"swamp_heather_low_5")
+spawn("forest_spruce_sapling_pillar",17,14,2,0,"forest_spruce_sapling_pillar_12")
 spawn("forest_spruce_smallest_01",22,13,1,-1,"forest_spruce_smallest_01_5")
 spawn("forest_spruce_smallest_01",13,10,1,-1,"forest_spruce_smallest_01_6")
 spawn("forest_spruce_smallest_01",10,13,1,-2,"forest_spruce_smallest_01_7")
@@ -2068,7 +2050,7 @@ timer_12.timer:setTriggerOnStart(false)
 timer_12.timer:setCurrentLevelOnly(true)
 timer_12.timer:addConnector("onActivate", "spawner_5", "activate")
 timer_12.timer:disable()
-spawn("script_entity",8,25,2,0,"script_entity_23")
+spawn("script_entity",7,24,2,0,"script_entity_23")
 script_entity_23.script:setSource("passedGate = { false, false, false, false }\
 \
 function blob(sender)\
@@ -2096,7 +2078,7 @@ function clearGates()\
 \9\9passedGate[i] = false\
 \9end\
 end")
-spawn("timer",8,26,1,0,"timer_13")
+spawn("timer",7,25,1,0,"timer_13")
 timer_13.timer:setTimerInterval(0)
 timer_13.timer:setDisableSelf(false)
 timer_13.timer:setTriggerOnStart(false)
@@ -2149,10 +2131,10 @@ spawn("forest_elevation_edge",29,11,3,-1,"forest_elevation_edge_108")
 spawn("forest_elevation_edge",24,10,2,-1,"forest_elevation_edge_67")
 spawn("forest_elevation_edge",24,10,2,-2,"forest_elevation_edge_68")
 spawn("forest_elevation_edge",25,10,2,-1,"forest_elevation_edge_110")
-spawn("forest_elevation_edge",25,13,0,-1,"forest_elevation_edge_69")
-spawn("forest_elevation_edge",24,13,0,-1,"forest_elevation_edge_70")
-spawn("forest_elevation_edge",24,13,0,-2,"forest_elevation_edge_111")
-spawn("forest_elevation_edge",25,13,0,-2,"forest_elevation_edge_112")
+spawn("forest_elevation_edge",25,15,0,-1,"forest_elevation_edge_69")
+spawn("forest_elevation_edge",24,15,0,-1,"forest_elevation_edge_70")
+spawn("forest_elevation_edge",24,15,0,-2,"forest_elevation_edge_111")
+spawn("forest_elevation_edge",25,15,0,-2,"forest_elevation_edge_112")
 spawn("mine_support_pillar_01",28,11,2,0,"mine_support_pillar_01_370")
 spawn("mine_support_pillar_01",28,12,1,0,"mine_support_pillar_01_371")
 spawn("mine_support_pillar_01",29,12,2,0,"mine_support_pillar_01_375")
@@ -2162,15 +2144,15 @@ spawn("mine_support_pillar_01",29,9,3,0,"mine_support_pillar_01_378")
 spawn("mine_support_pillar_01",28,9,0,0,"mine_support_pillar_01_379")
 spawn("mine_support_pillar_01",28,10,1,0,"mine_support_pillar_01_381")
 spawn("daemon_head",28,13,2,0,"daemon_head_6")
-spawn("spawner",28,13,0,0,"spawner_8")
-spawner_8.spawner:setSpawnedEntity("blob")
-spawner_8.spawner:setMonsterLevel(1)
-spawner_8.spawner:setCooldown(2)
-spawner_8.spawner:setDisableSelf(false)
-spawn("receptor",28,8,0,0,"receptor_3")
-receptor_3.walltrigger:setEntityType("blob")
-receptor_3.walltrigger:addConnector("onActivate", "script_entity_25", "clearGates")
-receptor_3.walltrigger:addConnector("onActivate", "script_entity_26", "checkResult")
+spawn("spawner",28,13,0,0,"demo_gate_spawner_1")
+demo_gate_spawner_1.spawner:setSpawnedEntity("blob")
+demo_gate_spawner_1.spawner:setMonsterLevel(1)
+demo_gate_spawner_1.spawner:setCooldown(2)
+demo_gate_spawner_1.spawner:setDisableSelf(false)
+spawn("receptor",28,7,0,0,"demo_receptor_1")
+demo_receptor_1.walltrigger:setEntityType("blob")
+demo_receptor_1.walltrigger:addConnector("onActivate", "demo_scriptGates_1", "clearGates")
+demo_receptor_1.walltrigger:addConnector("onActivate", "demo_scriptMain_1", "checkResult")
 spawn("forest_elevation_edge",26,13,0,-1,"forest_elevation_edge_114")
 spawn("forest_elevation_edge",26,13,0,-2,"forest_elevation_edge_115")
 spawn("forest_elevation_edge",28,13,0,-2,"forest_elevation_edge_117")
@@ -2181,19 +2163,16 @@ spawn("forest_elevation_edge",29,9,3,-1,"forest_elevation_edge_121")
 spawn("forest_elevation_edge",29,9,3,-2,"forest_elevation_edge_122")
 spawn("forest_elevation_edge",26,8,2,-1,"forest_elevation_edge_123")
 spawn("forest_elevation_edge",26,7,2,-2,"forest_elevation_edge_124")
-spawn("forest_elevation_edge",28,7,2,-2,"forest_elevation_edge_125")
-spawn("forest_elevation_edge",28,7,2,-1,"forest_elevation_edge_126")
 spawn("forest_elevation_edge",25,10,1,-1,"forest_elevation_edge_128")
 spawn("forest_elevation_edge",25,9,1,-2,"forest_elevation_edge_131")
 spawn("forest_elevation_edge",25,9,1,-1,"forest_elevation_edge_132")
 spawn("forest_oak_cluster",31,13,3,-2,"forest_oak_cluster_105")
-spawn("timer",27,13,2,0,"timer_15")
-timer_15.timer:setTimerInterval(3)
-timer_15.timer:setDisableSelf(false)
-timer_15.timer:setTriggerOnStart(false)
-timer_15.timer:setCurrentLevelOnly(true)
-timer_15.timer:addConnector("onActivate", "spawner_8", "activate")
-timer_15.timer:disable()
+spawn("timer",27,13,2,0,"demo_timer_1")
+demo_timer_1.timer:setTimerInterval(3)
+demo_timer_1.timer:setDisableSelf(false)
+demo_timer_1.timer:setTriggerOnStart(true)
+demo_timer_1.timer:setCurrentLevelOnly(true)
+demo_timer_1.timer:addConnector("onActivate", "demo_scriptMain_1", "demoGateShoot")
 spawn("forest_elevation_edge",27,10,1,-1,"forest_elevation_edge_113")
 spawn("forest_elevation_edge",27,10,1,-2,"forest_elevation_edge_116")
 spawn("forest_elevation_edge",27,9,1,-2,"forest_elevation_edge_133")
@@ -2210,42 +2189,31 @@ spawn("forest_elevation_edge",27,10,3,-2,"forest_elevation_edge_143")
 spawn("forest_elevation_edge",27,10,3,-1,"forest_elevation_edge_144")
 spawn("forest_elevation_edge",27,9,3,-1,"forest_elevation_edge_145")
 spawn("forest_elevation_edge",27,9,3,-2,"forest_elevation_edge_146")
-spawn("beach_rock_3x1",27,14,1,-1,"beach_rock_3x1_97")
+spawn("beach_rock_3x1",28,14,1,-1,"beach_rock_3x1_97")
 spawn("beach_rock_3x1",29,14,3,-1,"beach_rock_3x1_98")
 spawn("forest_elevation_edge",27,8,1,-2,"forest_elevation_edge_147")
 spawn("forest_elevation_edge",27,8,1,-1,"forest_elevation_edge_148")
 spawn("forest_elevation_edge",29,8,3,-1,"forest_elevation_edge_149")
 spawn("forest_elevation_edge",29,8,3,-2,"forest_elevation_edge_150")
-spawn("mine_support_pillar_01_half",27,12,0,0,"demo_pillar_1")
-spawn("mine_support_pillar_01_half",27,11,0,0,"demo_pillar_2")
-spawn("mine_support_pillar_01_half",27,10,0,0,"demo_pillar_3")
-spawn("mine_support_pillar_01_half",27,9,0,0,"demo_pillar_4")
-spawn("wall_button",26,12,1,0,"demo_button_1")
-demo_button_1.button:setDisableSelf(false)
-demo_button_1.button:addConnector("onActivate", "script_entity_26", "demoButton1")
-spawn("wall_button",26,11,1,0,"demo_button_2")
-demo_button_2.button:setDisableSelf(false)
-demo_button_2.button:addConnector("onActivate", "script_entity_26", "demoButton2")
-spawn("wall_button",26,10,1,0,"demo_button_3")
-demo_button_3.button:setDisableSelf(false)
-demo_button_3.button:addConnector("onActivate", "script_entity_26", "demoButton3")
-spawn("wall_button",26,9,1,0,"demo_button_4")
-demo_button_4.button:setDisableSelf(false)
-demo_button_4.button:addConnector("onActivate", "script_entity_26", "demoButton4")
-spawn("script_entity",29,12,0,0,"script_entity_25")
-script_entity_25.script:setSource("passedDemoGate = { false, false, false, false }\
+spawn("script_entity",28,8,2,0,"demo_scriptGates_1")
+demo_scriptGates_1.script:setSource("passedDemoGate = { false, false, false, false }\
 \
-function blob(sender)\
-\9for y=0, 4 do\
-\9\9for entity in self.go.map:entitiesAt(28, 8 + y) do\
+function blob(caller)\
+    local demo_id = string.sub(caller.go.id, -1, -1)\
+    if not findEntity(\"demo_timer_\"..demo_id).timer:isEnabled() then return false end\
+    local dirx = self.go.facing == 1 and -1 or (self.go.facing == 3 and 1 or 0)\
+    local diry = self.go.facing == 0 and -1 or (self.go.facing == 2 and 1 or 0)\
+    \
+\9for j=0, 4 do\
+\9\9for entity in self.go.map:entitiesAt(self.go.x + (j*dirx), self.go.y + (j*diry)) do\
 \9\9\9if entity.name == \"blob\" then\
 \9\9\9\9local entPos = entity:getWorldPosition()\
-\9\9\9\9local gatePos = { gate_demo_1_top:getWorldPosition(), gate_demo_2_top:getWorldPosition(), gate_demo_3_top:getWorldPosition(), gate_demo_4_top:getWorldPosition() }\
+\9\9\9\9local gatePos = { findEntity(\"gate_demo_\"..demo_id..\"_1_top\"):getWorldPosition(), findEntity(\"gate_demo_\"..demo_id..\"_2_top\"):getWorldPosition(), findEntity(\"gate_demo_\"..demo_id..\"_3_top\"):getWorldPosition(), findEntity(\"gate_demo_\"..demo_id..\"_4_top\"):getWorldPosition() }\
 \9\9\9\9for i=1,4 do\
 \9\9\9\9\9if (entPos.z + 0.2 >= gatePos[i].z) and (entPos.z - 0.2 <= gatePos[i].z) and not passedDemoGate[i] then\
 \9\9\9\9\9\9passedDemoGate[i] = true\
 \9\9\9\9\9\9local order = {1,2,3,2}\
-\9\9\9\9\9\9local gateStage = order[(script_entity_26.script.posDemoGate[i] % 4) + 1]\
+\9\9\9\9\9\9local gateStage = order[(findEntity(\"demo_scriptMain_\"..demo_id).script.posDemoGate[i] % 4) + 1]\
 \9\9\9\9\9\9local gate = spawn(\"soundGate\"..gateStage, party.level, entity.x, entity.y, 0, 0)\
 \9\9\9\9\9\9gate:setWorldPosition(gatePos[i])\
 \9\9\9\9\9end\
@@ -2262,8 +2230,8 @@ function clearGates()\
 \9\9passedDemoGate[i] = false\
 \9end\
 end")
-spawn("script_entity",27,12,3,0,"script_entity_26")
-script_entity_26.script:setSource("posDemoGateTop = { 0, -1.25, 0, -1.25 }\
+spawn("script_entity",26,12,3,0,"demo_scriptMain_1")
+demo_scriptMain_1.script:setSource("posDemoGateTop = { 0, -1.25, 0, -1.25 }\
 posDemoGateBottom = { -0.5, -2.15, -2.9, -2.15 }\
 goalDemoGateTop = { 0, 0, 0, 0 }\
 goalDemoGateBottom = { 0, 0, 0, 0 }\
@@ -2273,26 +2241,37 @@ demoGateBotPosy = { 0, 0, 0, 0 }\
 gateMoving = { false, false, false, false }\
 gateSequence = { 1,2,0,1 }\
 \
-function demoButton1() startDemoGate(1) end\
-function demoButton2() startDemoGate(2) end\
-function demoButton3() startDemoGate(3) end\
-function demoButton4() startDemoGate(4) end\
+function demoButton(caller)\
+    local caller_id = string.sub(caller.go.id, -1, -1)\
+    local demo_id = string.sub(caller.go.id, -3, -3)\
+    startDemoGate(tonumber(caller_id), tonumber(demo_id))\
+end\
 \
-function startDemoGate(i)\
+function demoGateShoot(caller)\
+    local caller_id = string.sub(caller.go.id, -1, -1)\
+    for i=1,4 do\
+        if gateMoving[i] == true then return false end\
+    end\
+    local spawner = findEntity(\"demo_gate_spawner_\" .. caller_id)\
+    spawner.controller:activate()\
+    findEntity(\"demo_counter_\"..caller_id).counter:reset()\
+end\
+\
+function startDemoGate(i, j)\
 \9if gateMoving[i] == false then\
-\9\9demoGateBotPosy[i] = findEntity(\"gate_demo_\"..i..\"_bot\"):getWorldPosition().y\
-\9\9demoGateTopPosY[i] = findEntity(\"gate_demo_\"..i..\"_top\"):getWorldPosition().y\
+\9\9demoGateBotPosy[i] = findEntity(\"gate_demo_\"..j..\"_\"..i..\"_bot\"):getWorldPosition().y\
+\9\9demoGateTopPosY[i] = findEntity(\"gate_demo_\"..j..\"_\"..i..\"_top\"):getWorldPosition().y\
 \9\9posDemoGate[i] = posDemoGate[i] + 1\
 \9\9goalDemoGateBottom[i] = posDemoGateBottom[(posDemoGate[i] % 4) + 1]\
 \9\9goalDemoGateTop[i] = posDemoGateTop[(posDemoGate[i] % 4) + 1]\
-\9\9delayedCall(self.go.id, 0.01, \"moveBar\", i)\
+\9\9delayedCall(self.go.id, 0.01, \"moveBar\", i, j)\
 \9end\
 end\
 \
-function moveBar(i)\
+function moveBar(i, j)\
 \9if demoGateBotPosy[i] ~= goalDemoGateBottom[i] then\
-\9\9local gateTop = findEntity(\"gate_demo_\"..i..\"_top\")\
-\9\9local gateBot = findEntity(\"gate_demo_\"..i..\"_bot\")\
+\9\9local gateTop = findEntity(\"gate_demo_\"..j..\"_\"..i..\"_top\")\
+\9\9local gateBot = findEntity(\"gate_demo_\"..j..\"_\"..i..\"_bot\")\
 \9\9local diff2 = demoGateTopPosY[i] - goalDemoGateTop[i]\
 \9\9gateTop:setWorldPositionY(demoGateTopPosY[i])\
 \9\9demoGateTopPosY[i] = demoGateTopPosY[i] - math.max(-0.02, math.min(0.02, diff2 * 0.05))\
@@ -2302,7 +2281,7 @@ function moveBar(i)\
 \9\9demoGateBotPosy[i] = demoGateBotPosy[i] - math.max(-0.02, math.min(0.02, diff * 0.05))\9\9\
 \9\9\
 \9\9if math.abs(diff) > 0.05 then \
-\9\9\9delayedCall(self.go.id, 0.03, \"moveBar\", i)\
+\9\9\9delayedCall(self.go.id, 0.03, \"moveBar\", i, j)\
 \9\9\9if gateMoving[i] == false then\
 \9\9\9\9--playSoundAt(\"wall_sliding\", self.go.level, 28, 12)\
 \9\9\9\9gateMoving[i] = true\
@@ -2314,35 +2293,58 @@ function moveBar(i)\
 \9\9\9setObstacles(i)\
 \9\9\9gateMoving[i] = false\
 \9\9end\
-\9\9counter_1.counter:reset()\
+\9\9findEntity(\"demo_counter_\"..j).counter:reset()\
 \9end\
 end\
 \
-function checkResult()\
-\9--print(\"-------\")\
+function checkResult(caller)\
+    --print(\"-------\")\
+    local demo_id = string.sub(caller.go.id, -1, -1)\
+    \
 \9for j=1,4 do\
 \9\9local order = {1,2,3,2}\
 \9\9--print(\"seq\", j, \"is\", gateSequence[j]%4 + 1)\
 \9\9--print(\"pos\", j, \"is\", posDemoGate[j]%4 + 1)\
 \9\9if gateMoving[j] == false and gateSequence[j]%4+1 == order[posDemoGate[j]%4+1] then\
-\9\9\9counter_1.counter:decrement()\
-\9\9end\
+\9\9\9findEntity(\"demo_counter_\"..demo_id).counter:decrement()\
+        end\
+        if findEntity(\"demo_counter_\"..demo_id).counter:getValue() == 0 then\
+            local crystal_area = { {28,12,0}, {28,11,0}, {28,10,0}, {28,9,0}, {28,8,0} }\
+            local tele_area = { {28,7,0} }\
+            for i=1,#crystal_area do\
+                spawn(\"crystal_area_inside\", self.go.level, crystal_area[i][1], crystal_area[i][2], 0, crystal_area[i][3])\
+                spawn(\"crystal_area\", self.go.level, crystal_area[i][1], crystal_area[i][2], 1, crystal_area[i][3])\
+                spawn(\"crystal_area\", self.go.level, crystal_area[i][1], crystal_area[i][2], 3, crystal_area[i][3])\
+                if i == 1 then\
+                    spawn(\"crystal_area\", self.go.level, crystal_area[i][1], crystal_area[i][2], 2, crystal_area[i][3])\
+                elseif i == #crystal_area then\
+                    spawn(\"crystal_area\", self.go.level, crystal_area[i][1], crystal_area[i][2], 0, crystal_area[i][3])\
+                end\
+            end\
+            for i=1,#tele_area do\
+                local tele = spawn(\"teleporter\", self.go.level, tele_area[i][1], tele_area[i][2], 0, tele_area[i][3])\
+                tele.teleporter:setTeleportTarget(tele.level + 1, tele.x, tele.y, tele.elevation)\
+            end\
+            \
+            findEntity(\"demo_receptor_\"..demo_id).walltrigger:disable()\
+            findEntity(\"demo_gate_spawner_\"..demo_id).spawner:disable()\
+        end\
 \9end\
 end\
 \
+-- Creates obstacles along gates as long as they are blocking the player\
 function setObstacles(i)\
-\9--print(\"demogate\" .. (posDemoGate[i]%4)+1)\
 \9findEntity(\"gate_demo_blocker_\"..i).obstacle:disable()\
 \9if (posDemoGate[i]%4)+1 == 2 or (posDemoGate[i]%4)+1 == 4 then\9\9\
 \9\9findEntity(\"gate_demo_blocker_\"..i).obstacle:enable()\
 \9end\
 end")
-spawn("timer",29,13,2,0,"timer_16")
-timer_16.timer:setTimerInterval(0)
-timer_16.timer:setDisableSelf(false)
-timer_16.timer:setTriggerOnStart(false)
-timer_16.timer:setCurrentLevelOnly(true)
-timer_16.timer:addConnector("onActivate", "script_entity_25", "blob")
+spawn("timer",29,13,2,0,"demo_check_timer_1")
+demo_check_timer_1.timer:setTimerInterval(0)
+demo_check_timer_1.timer:setDisableSelf(false)
+demo_check_timer_1.timer:setTriggerOnStart(false)
+demo_check_timer_1.timer:setCurrentLevelOnly(true)
+demo_check_timer_1.timer:addConnector("onActivate", "demo_scriptGates_1", "blob")
 spawn("forest_oak_cluster",24,5,3,-2,"forest_oak_cluster_133")
 spawn("forest_oak_cluster",23,6,3,-2,"forest_oak_cluster_134")
 spawn("forest_oak_cluster",26,4,3,-2,"forest_oak_cluster_135")
@@ -2353,14 +2355,14 @@ spawn("forest_oak_cluster",23,7,3,-2,"forest_oak_cluster_139")
 spawn("forest_oak_cluster",24,6,3,-2,"forest_oak_cluster_141")
 spawn("forest_oak_cluster",25,5,3,-2,"forest_oak_cluster_142")
 spawn("beach_rock_3x1",27,14,1,-2,"beach_rock_3x1_99")
-spawn("mine_support_beam_01_floor",28,11,2,0,"gate_demo_1_bot")
-spawn("mine_support_beam_01_floor",28,11,2,0,"gate_demo_1_top")
-spawn("mine_support_beam_01_floor",28,10,2,0,"gate_demo_2_top")
-spawn("mine_support_beam_01_floor",28,10,2,0,"gate_demo_2_bot")
-spawn("mine_support_beam_01_floor",28,9,2,0,"gate_demo_3_top")
-spawn("mine_support_beam_01_floor",28,9,2,0,"gate_demo_3_bot")
-spawn("mine_support_beam_01_floor",28,8,2,0,"gate_demo_4_top")
-spawn("mine_support_beam_01_floor",28,8,2,0,"gate_demo_4_bot")
+spawn("mine_support_beam_01_floor",28,11,2,0,"gate_demo_1_1_bot")
+spawn("mine_support_beam_01_floor",28,11,2,0,"gate_demo_1_1_top")
+spawn("mine_support_beam_01_floor",28,10,2,0,"gate_demo_1_2_top")
+spawn("mine_support_beam_01_floor",28,10,2,0,"gate_demo_1_2_bot")
+spawn("mine_support_beam_01_floor",28,9,2,0,"gate_demo_1_3_top")
+spawn("mine_support_beam_01_floor",28,9,2,0,"gate_demo_1_3_bot")
+spawn("mine_support_beam_01_floor",28,8,2,0,"gate_demo_1_4_top")
+spawn("mine_support_beam_01_floor",28,8,2,0,"gate_demo_1_4_bot")
 spawn("forest_elevation_edge",24,10,1,-2,"forest_elevation_edge_151")
 spawn("forest_elevation_edge",24,10,1,-3,"forest_elevation_edge_152")
 spawn("forest_elevation_edge",25,9,2,-3,"forest_elevation_edge_153")
@@ -2375,25 +2377,16 @@ spawn("forest_elevation_edge",25,9,0,-2,"forest_elevation_edge_156")
 spawn("ladder",26,8,2,-1,"ladder_9")
 spawn("forest_elevation_edge",26,9,0,-2,"forest_elevation_edge_157")
 spawn("forest_bridge_no_icon",27,8,0,-1,"forest_bridge_no_icon_107")
-spawn("forest_bridge_no_icon",27,6,3,-1,"forest_bridge_no_icon_108")
 spawn("invisible_wall",27,9,2,0,"invisible_wall_112")
 spawn("invisible_wall",27,10,2,0,"invisible_wall_115")
 spawn("invisible_wall",27,11,2,0,"invisible_wall_117")
 spawn("invisible_wall",27,12,2,0,"invisible_wall_121")
 spawn("invisible_wall",27,9,2,-1,"invisible_wall_122")
-spawn("forest_bridge_no_icon",28,6,3,-1,"forest_bridge_no_icon_109")
-spawn("forest_bridge_no_icon",29,6,3,-1,"forest_bridge_no_icon_110")
 spawn("forest_bridge_no_icon",29,8,0,-1,"forest_bridge_no_icon_111")
 spawn("mine_support_pillar_01",30,7,3,-2,"mine_support_pillar_01_372")
-spawn("mine_support_beam_floor_double",29,5,2,-3,"mine_support_beam_floor_double_328")
-spawn("mine_support_beam_floor_double",29,5,2,-2,"mine_support_beam_floor_double_329")
 spawn("mine_support_pillar_01",30,7,3,-3,"mine_support_pillar_01_373")
 spawn("mine_support_beam_floor_double",29,7,1,-3,"mine_support_beam_floor_double_330")
 spawn("mine_support_beam_floor_double",29,7,1,-2,"mine_support_beam_floor_double_331")
-spawn("mine_support_beam_floor_double",28,5,2,-3,"mine_support_beam_floor_double_336")
-spawn("mine_support_beam_floor_double",28,5,2,-2,"mine_support_beam_floor_double_337")
-spawn("mine_support_beam_floor_double",27,5,2,-2,"mine_support_beam_floor_double_338")
-spawn("mine_support_beam_floor_double",27,5,2,-3,"mine_support_beam_floor_double_339")
 spawn("mine_support_beam_floor_double",27,8,2,-3,"mine_support_beam_floor_double_340")
 spawn("mine_support_beam_floor_double",27,8,2,-2,"mine_support_beam_floor_double_341")
 spawn("mine_support_beam_floor_double",29,8,1,-3,"mine_support_beam_floor_double_344")
@@ -2402,15 +2395,10 @@ spawn("mine_support_pillar_01",30,8,3,-2,"mine_support_pillar_01_374")
 spawn("mine_support_pillar_01",30,8,3,-3,"mine_support_pillar_01_380")
 spawn("mine_support_pillar_01",30,9,3,-2,"mine_support_pillar_01_382")
 spawn("mine_support_pillar_01",30,9,3,-3,"mine_support_pillar_01_383")
-spawn("mine_support_pillar_01",29,6,3,-2,"mine_support_pillar_01_384")
-spawn("mine_support_pillar_01",29,6,3,-3,"mine_support_pillar_01_385")
-spawn("mine_support_pillar_01",28,6,3,-3,"mine_support_pillar_01_386")
-spawn("mine_support_pillar_01",28,6,3,-2,"mine_support_pillar_01_387")
 spawn("mine_support_pillar_01",27,7,3,-2,"mine_support_pillar_01_388")
 spawn("mine_support_pillar_01",27,7,3,-3,"mine_support_pillar_01_389")
 spawn("mine_support_wall_02",27,9,0,-1,"mine_support_wall_02_37")
 spawn("mine_support_pillar_01_half",28,9,0,-1,"mine_support_pillar_01_half_32")
-spawn("mine_support_pillar_01_half",27,9,0,-1,"mine_support_pillar_01_half_36")
 spawn("forest_bridge_no_icon",26,7,3,-1,"forest_bridge_no_icon_112")
 spawn("mine_support_beam_floor_double",25,7,1,-3,"mine_support_beam_floor_double_346")
 spawn("mine_support_beam_floor_double",25,7,1,-2,"mine_support_beam_floor_double_347")
@@ -2420,7 +2408,6 @@ spawn("mine_support_pillar_01",26,7,3,-2,"mine_support_pillar_01_390")
 spawn("mine_support_pillar_01",26,7,3,-3,"mine_support_pillar_01_391")
 spawn("mine_support_wall_02",27,7,2,-1,"mine_support_wall_02_41")
 spawn("mine_support_pillar_01_half",28,8,0,-1,"mine_support_pillar_01_half_50")
-spawn("mine_support_pillar_01_half",27,8,0,-1,"mine_support_pillar_01_half_51")
 spawn("invisible_wall",25,9,2,-1,"invisible_wall_123")
 spawn("invisible_wall",24,8,2,-1,"invisible_wall_124")
 spawn("invisible_wall",25,7,2,-1,"invisible_wall_125")
@@ -2428,8 +2415,7 @@ spawn("invisible_wall",26,6,2,-1,"invisible_wall_126")
 spawn("invisible_wall",25,9,2,0,"invisible_wall_127")
 spawn("invisible_wall",25,10,2,0,"invisible_wall_183")
 spawn("invisible_wall",24,10,2,0,"invisible_wall_189")
-spawn("invisible_wall",24,13,2,0,"invisible_wall_190")
-spawn("invisible_wall",25,13,2,0,"invisible_wall_191")
+spawn("invisible_wall",25,15,2,0,"invisible_wall_191")
 spawn("invisible_wall",26,13,2,0,"invisible_wall_192")
 spawn("invisible_wall",23,12,2,0,"invisible_wall_193")
 spawn("invisible_wall",23,10,2,0,"invisible_wall_194")
@@ -2456,33 +2442,21 @@ spawn("forest_oak_cluster",31,14,3,-2,"forest_oak_cluster_148")
 spawn("forest_bridge_no_icon",29,11,1,0,"forest_bridge_no_icon_113")
 spawn("forest_bridge_no_icon",30,11,1,0,"forest_bridge_no_icon_114")
 spawn("mine_support_beam_floor_double",27,7,2,-2,"mine_support_beam_floor_double_334")
-spawn("mine_support_beam_floor_double",29,6,2,-2,"mine_support_beam_floor_double_335")
-spawn("mine_support_pillar_01",30,6,3,-2,"mine_support_pillar_01_394")
-spawn("mine_support_pillar_01",30,6,3,-3,"mine_support_pillar_01_395")
-spawn("mine_support_beam_floor_double",29,6,1,-3,"mine_support_beam_floor_double_350")
-spawn("mine_support_beam_floor_double",29,6,1,-2,"mine_support_beam_floor_double_351")
-spawn("mine_support_pillar_01",27,6,3,-3,"mine_support_pillar_01_396")
-spawn("mine_support_beam_floor_double",26,6,1,-3,"mine_support_beam_floor_double_352")
-spawn("mine_support_pillar_01",27,6,3,-2,"mine_support_pillar_01_397")
-spawn("mine_support_beam_floor_double",26,6,1,-2,"mine_support_beam_floor_double_353")
-spawn("forest_oak_cluster",30,4,3,-2,"forest_oak_cluster_149")
+spawn("forest_oak_cluster",30,5,3,-2,"forest_oak_cluster_149")
 spawn("forest_oak_cluster",31,4,3,-2,"forest_oak_cluster_150")
 spawn("forest_bridge_no_icon",27,7,3,-1,"forest_bridge_no_icon_115")
 spawn("forest_bridge_no_icon",29,7,0,-1,"forest_bridge_no_icon_116")
-spawn("forest_elevation_edge",28,6,2,-2,"forest_elevation_edge_127")
-spawn("forest_elevation_edge",28,6,2,-1,"forest_elevation_edge_130")
-spawn("forest_elevation_edge",28,6,2,0,"forest_elevation_edge_163")
-spawn("forest_elevation_edge",29,7,3,-2,"forest_elevation_edge_164")
-spawn("forest_elevation_edge",29,7,3,-1,"forest_elevation_edge_165")
-spawn("forest_elevation_edge",29,7,3,0,"forest_elevation_edge_166")
-spawn("forest_elevation_edge",27,7,1,-2,"forest_elevation_edge_167")
-spawn("forest_elevation_edge",27,7,1,-1,"forest_elevation_edge_168")
-spawn("forest_elevation_edge",27,7,1,0,"forest_elevation_edge_169")
-spawn("forest_elevation_edge",28,8,0,0,"forest_elevation_edge_170")
-spawn("invisible_wall",27,5,2,-1,"invisible_wall_195")
-spawn("invisible_wall",28,5,2,-1,"invisible_wall_196")
-spawn("invisible_wall",29,5,2,-1,"invisible_wall_197")
-spawn("invisible_wall",30,6,2,-1,"invisible_wall_198")
+spawn("forest_elevation_edge",28,5,2,-2,"forest_elevation_edge_127")
+spawn("forest_elevation_edge",28,5,2,-1,"forest_elevation_edge_130")
+spawn("forest_elevation_edge",28,5,2,0,"forest_elevation_edge_163")
+spawn("forest_elevation_edge",29,6,3,-2,"forest_elevation_edge_164")
+spawn("forest_elevation_edge",29,6,3,-1,"forest_elevation_edge_165")
+spawn("forest_elevation_edge",29,6,3,0,"forest_elevation_edge_166")
+spawn("forest_elevation_edge",27,6,1,-2,"forest_elevation_edge_167")
+spawn("forest_elevation_edge",27,6,1,-1,"forest_elevation_edge_168")
+spawn("forest_elevation_edge",27,6,1,0,"forest_elevation_edge_169")
+spawn("invisible_wall",27,6,2,-1,"invisible_wall_195")
+spawn("invisible_wall",29,6,2,-1,"invisible_wall_197")
 spawn("mine_support_pillar_01",30,11,3,-1,"mine_support_pillar_01_392")
 spawn("mine_support_pillar_01",30,12,3,-1,"mine_support_pillar_01_393")
 spawn("mine_support_pillar_01",31,12,3,-1,"mine_support_pillar_01_398")
@@ -2497,21 +2471,14 @@ spawn("mine_support_beam_floor_double",30,10,2,-2,"mine_support_beam_floor_doubl
 spawn("mine_support_beam_floor_double",30,11,2,-2,"mine_support_beam_floor_double_357")
 spawn("forest_oak_cluster",30,13,3,-2,"forest_oak_cluster_151")
 spawn("forest_oak_cluster",29,13,3,-2,"forest_oak_cluster_152")
-spawn("counter",28,14,3,0,"counter_1")
-counter_1.counter:setValue(4)
-counter_1.counter:addConnector("onActivate", "force_field_gate_1", "deactivate")
-counter_1.counter:addConnector("onActivate", "force_field_gate_2", "deactivate")
-counter_1.counter:addConnector("onActivate", "force_field_gate_3", "deactivate")
-spawn("force_field",26,1,1,-1,"force_field_gate_1")
-spawn("beach_thicket_01",27,6,1,-1,"beach_thicket_01_22")
-spawn("twigroot_dormant",27,6,2,-1,"twigroot_dormant_7")
+spawn("counter",28,14,3,0,"demo_counter_1")
+demo_counter_1.counter:setValue(4)
+spawn("beach_thicket_01",27,7,1,-1,"beach_thicket_01_22")
+spawn("twigroot_dormant",27,7,2,-1,"twigroot_dormant_7")
 twigroot_dormant_7.detectedtimer:setTimerInterval(0)
 twigroot_dormant_7.detectedtimer:setDisableSelf(false)
 twigroot_dormant_7.detectedtimer:setTriggerOnStart(true)
 twigroot_dormant_7.detectedtimer:setCurrentLevelOnly(true)
-spawn("beach_wall_button",26,10,3,0,"beach_wall_button_5")
-beach_wall_button_5.button:setDisableSelf(false)
-beach_wall_button_5.button:addConnector("onActivate", "spawner_8", "activate")
 spawn("forest_spruce_sapling_pillar",28,12,3,-1,"forest_spruce_sapling_pillar_17")
 spawn("secret",27,16,0,0,"secret_3")
 spawn("floor_trigger",26,17,0,-2,"floor_trigger_36")
@@ -2549,7 +2516,7 @@ spawn("blocker",28,12,0,0,"gate_demo_blocker_1")
 spawn("blocker",28,11,0,0,"gate_demo_blocker_2")
 spawn("blocker",28,10,0,0,"gate_demo_blocker_3")
 spawn("blocker",28,9,0,0,"gate_demo_blocker_4")
-spawn("note_2",26,11,0,0,"note_2_1")
+spawn("note_2",22,25,1,0,"note_2_1")
 note_2_1.data:setSource("\9\9\9\9data = {}\
 \9\9\9\9function get(name)\
 \9\9\9\9\9return self.data[name]\
@@ -2562,7 +2529,7 @@ note_2_1.detectedtimer:setTimerInterval(0)
 note_2_1.detectedtimer:setDisableSelf(false)
 note_2_1.detectedtimer:setTriggerOnStart(true)
 note_2_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("bridge_sky",1,0,1,0,"bridge_sky_1")
+spawn("bridge_sky",1,0,1,0,"bridge_of_eras_present_sky")
 spawn("sack",22,27,1,-1,"sack_4")
 sack_4.data:setSource("data = {}\
 function get(self,name)\
@@ -2647,8 +2614,6 @@ spawn("invisible_wall",18,21,3,0,"invisible_wall_114")
 spawn("invisible_wall",17,21,3,0,"invisible_wall_128")
 spawn("invisible_wall",22,18,3,0,"invisible_wall_219")
 spawn("invisible_wall",22,17,3,0,"invisible_wall_220")
-spawn("force_field",25,2,1,-1,"force_field_gate_2")
-spawn("force_field",27,2,1,-1,"force_field_gate_3")
 spawn("invisible_wall",23,22,3,0,"invisible_wall_185")
 spawn("invisible_wall",24,22,3,0,"invisible_wall_186")
 spawn("invisible_wall",25,22,3,0,"invisible_wall_187")
@@ -2785,7 +2750,6 @@ spawn("mine_support_beam_floor_double",15,27,0,0,"mine_support_beam_floor_double
 spawn("mine_support_beam_floor_double",15,27,1,0,"mine_support_beam_floor_double_388")
 spawn("mine_support_beam_floor_double",15,27,2,0,"mine_support_beam_floor_double_389")
 spawn("mine_support_beam_01",15,27,2,1,"bridge_support_buttons")
-spawn("healing_crystal",30,11,2,0,"healing_crystal_6")
 spawn("mine_support_beam_floor_double",25,9,3,-2,"mine_support_beam_floor_double_390")
 spawn("mine_support_beam_floor_double",26,9,3,-2,"mine_support_beam_floor_double_391")
 spawn("mine_support_pillar_01",25,9,3,-2,"mine_support_pillar_01_426")
@@ -2825,11 +2789,6 @@ spawn("mine_support_ceiling_01",22,13,3,-2,"mine_support_ceiling_01_7")
 spawn("lock_round",23,25,3,0,"lock_round_1")
 lock_round_1.lock:setOpenedBy("round_key")
 lock_round_1.lock:addConnector("onActivate", "mine_door_spear_8", "open")
-spawn("round_key",9,20,0,-1,"round_key_2")
-round_key_2.detectedtimer:setTimerInterval(0)
-round_key_2.detectedtimer:setDisableSelf(false)
-round_key_2.detectedtimer:setTriggerOnStart(true)
-round_key_2.detectedtimer:setCurrentLevelOnly(true)
 spawn("mine_support_beam_floor_double",15,19,2,-2,"mine_support_beam_floor_double_24")
 spawn("mine_support_beam_floor_double",15,20,2,-2,"mine_support_beam_floor_double_25")
 spawn("mine_lever",13,19,1,-1,"mine_lever_3")
@@ -3010,7 +2969,6 @@ spawn("forest_bridge_no_icon",14,24,2,0,"forest_bridge_no_icon_163")
 spawn("forest_bridge_no_icon",13,24,2,0,"forest_bridge_no_icon_164")
 spawn("forest_bridge_no_icon",13,25,2,0,"forest_bridge_no_icon_165")
 spawn("forest_bridge_no_icon",13,26,2,1,"forest_bridge_no_icon_166")
-spawn("forest_bridge_no_icon",14,19,2,-1,"forest_bridge_no_icon_169")
 spawn("forest_oak",22,28,2,-2,"giant_tree_corner_4")
 spawn("invisible_wall",14,21,3,-1,"invisible_wall_83")
 spawn("forest_bridge_no_icon",17,25,3,0,"forest_bridge_no_icon_61")
@@ -3301,16 +3259,28 @@ spawn("forest_oak_cluster",8,14,3,-2,"forest_oak_cluster_48")
 spawn("forest_oak_cluster",9,13,3,-2,"forest_oak_cluster_58")
 spawn("forest_oak_cluster",15,19,1,-5,"forest_oak_cluster_59")
 spawn("fence_button",11,19,3,-1,"pillar_sound_button_2")
+pillar_sound_button_2.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
 pillar_sound_button_2.button:setDisableSelf(false)
 pillar_sound_button_2.button:addConnector("onActivate", "script_entity_24", "callCreateBeam")
 spawn("fence_button",12,14,1,0,"pillar_sound_button_1")
+pillar_sound_button_1.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
 pillar_sound_button_1.button:setDisableSelf(false)
 pillar_sound_button_1.button:addConnector("onActivate", "script_entity_24", "callCreateBeam")
 spawn("fence_button",19,15,1,0,"pillar_sound_button_3")
+pillar_sound_button_3.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
 pillar_sound_button_3.button:setDisableSelf(false)
 pillar_sound_button_3.button:addConnector("onActivate", "bridge_pillar_sound_3", "toggle")
 pillar_sound_button_3.button:addConnector("onActivate", "script_entity_24", "callCreateBeam")
 spawn("fence_button",25,21,0,0,"fence_button_4")
+fence_button_4.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
 fence_button_4.button:setDisableSelf(false)
 fence_button_4.button:addConnector("onActivate", "bridge_pillar_sound_3", "toggle")
 spawn("mine_support_wall_02",25,21,0,0,"mine_support_wall_02_78")
@@ -3320,6 +3290,9 @@ spawn("mine_support_wall_02",11,19,3,-1,"mine_support_wall_02_84")
 spawn("mine_support_pillar_01_half",11,19,0,-1,"mine_support_pillar_01_half_60")
 spawn("mine_support_pillar_01_half",11,20,0,-1,"mine_support_pillar_01_half_61")
 spawn("fence_button",13,23,1,-1,"pillar_sound_button_5")
+pillar_sound_button_5.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
 pillar_sound_button_5.button:setDisableSelf(false)
 pillar_sound_button_5.button:addConnector("onActivate", "script_entity_24", "callCreateBeam")
 spawn("mine_support_wall_02",13,23,1,-1,"mine_support_wall_02_85")
@@ -3336,6 +3309,9 @@ spawn("mine_support_pillar_01_half",15,27,0,2,"mine_support_pillar_01_half_85")
 spawn("mine_support_pillar_01_half",14,27,0,2,"mine_support_pillar_01_half_87")
 spawn("mine_support_pillar_01_half",13,27,0,2,"mine_support_pillar_01_half_88")
 spawn("fence_button",15,25,1,2,"pillar_sound_button_6")
+pillar_sound_button_6.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
 pillar_sound_button_6.button:setDisableSelf(false)
 pillar_sound_button_6.button:addConnector("onActivate", "script_entity_24", "callCreateBeam")
 spawn("mine_support_beam_floor_double",15,26,1,1,"mine_support_beam_floor_double_428")
@@ -3444,7 +3420,7 @@ spawn("forest_bridge_no_icon",4,9,1,-1,"forest_bridge_no_icon_282")
 spawn("forest_bridge_no_icon",3,9,1,-1,"forest_bridge_no_icon_283")
 spawn("forest_bridge_no_icon",3,10,1,-1,"forest_bridge_no_icon_284")
 spawn("forest_bridge_no_icon",3,11,1,-1,"forest_bridge_no_icon_285")
-spawn("bridge_receptacle",16,13,0,0,"bridge_receptacle_1")
+spawn("bridge_receptacle",15,29,2,0,"bridge_receptacle_1")
 spawn("lever",3,12,3,-1,"bridge_lever_1")
 bridge_lever_1.lever:setDisableSelf(false)
 bridge_lever_1.lever:addConnector("onToggle", "script_entity_22", "bridgeLever1")
@@ -3857,7 +3833,6 @@ spawn("beach_rock_3x1",1,15,2,-2,"beach_rock_3x1_117")
 spawn("forest_bridge_no_icon",5,16,1,-1,"forest_bridge_no_icon_219")
 spawn("forest_bridge_no_icon",6,16,1,-1,"forest_bridge_no_icon_220")
 spawn("forest_bridge_no_icon",7,16,1,-1,"forest_bridge_no_icon_221")
-spawn("forest_bridge_no_icon",8,16,1,-1,"forest_bridge_no_icon_222")
 spawn("forest_bridge_no_icon",4,18,0,0,"forest_bridge_no_icon_241")
 spawn("forest_bridge_no_icon",4,17,0,0,"forest_bridge_no_icon_291")
 spawn("forest_bridge_no_icon",3,14,0,0,"forest_bridge_no_icon_239")
@@ -3872,6 +3847,9 @@ spawn("forest_bridge_no_icon",3,18,0,-1,"forest_bridge_no_icon_296")
 spawn("forest_bridge_no_icon",3,17,0,-1,"forest_bridge_no_icon_297")
 spawn("forest_old_oak",1,14,0,-2,"giant_tree_4")
 spawn("fence_button",5,14,2,-1,"fence_button_8")
+fence_button_8.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
 fence_button_8.button:setDisableSelf(false)
 fence_button_8.button:addConnector("onActivate", "mine_door_spear_20", "open")
 fence_button_8.button:addConnector("onActivate", "mine_door_spear_23", "open")
@@ -4291,9 +4269,8 @@ script_entity_24.script:setSource("function callCreateBeam(caller)\
     createBeam(caller.go.id)\
 end\
 \
-function createBeam(caller)\
-    print(caller)\
-    caller = findEntity(caller).button\
+function createBeam(caller_id)\
+    local caller = findEntity(caller_id).button\
     local button = string.match(caller.go.id, \"%d+\")\
     local ent = findEntity(\"bridge_pillar_sound_\"..button)\
     local count = #ent.data:get(\"targets\")\
@@ -4319,6 +4296,11 @@ function createBeam(caller)\
 \
                 target.data:set(\"has_energy\", true)\
                 target.particle:enable()\
+                local demogate_id = target.data:get(\"demogate\")\
+                if demogate_id then\
+                    findEntity(\"demo_timer_\"..demogate_id).timer:enable()\
+                    findEntity(\"demo_check_timer_\"..demogate_id).timer:enable()\
+                end\
 \
                 for i = 1,3 do\
 \9\9\9\9\9local light = ent:getComponent(\"light_\"..i)\
@@ -4339,9 +4321,18 @@ function createBeam(caller)\
             if target_id ~= 1 then\
                 target.data:set(\"has_energy\", false)\
                 target.particle:disable()\
+                local demogate_id = target.data:get(\"demogate\")\
+                if demogate_id then\
+                    findEntity(\"demo_timer_\"..demogate_id).timer:disable()\
+                    findEntity(\"demo_check_timer_\"..demogate_id).timer:disable()\
+                end\
+\
                 local target_button = findEntity(\"pillar_sound_button_\"..target_id)\
                 if target_button then\
-                delayedCall(\"script_entity_24\", 0.25, \"createBeam\", target_button.id )\
+                    delayedCall(\"script_entity_24\", 0.25, \"createBeam\", target_button.id )\
+                else\
+                    print(\"invalid target button:\")\
+                    print(\"pillar_sound_button_\"..target_id)\
                 end\
             end\
             for i = 1,3 do\
@@ -4381,7 +4372,7 @@ function set(self,name,value) data[name] = value end")
 spawn("bridge_pillar_sound",27,14,0,0,"bridge_pillar_sound_4")
 bridge_pillar_sound_4.controller:setInitialState("deactivate")
 bridge_pillar_sound_4.counter:setValue(0)
-bridge_pillar_sound_4.data:setSource("data = { [\"index\"] = 0, [\"angle1\"] = 10, [\"angle2\"] = nil, [\"angle3\"] = nil, [\"targets\"] = { nil } }\
+bridge_pillar_sound_4.data:setSource("data = { [\"index\"] = 0, [\"angle1\"] = 10, [\"angle2\"] = nil, [\"angle3\"] = nil, [\"targets\"] = { nil }, [\"demogate\"] = 1 }\
 function get(self,name) return data[name] end\
 function set(self,name,value) data[name] = value end")
 spawn("giant_snake",1,21,0,0,"giant_snake_1")
@@ -4420,6 +4411,9 @@ bridge_pillar_sound_7.data:setSource("data = { [\"index\"] = 0, [\"angle1\"] = 2
 function get(self,name) return data[name] end\
 function set(self,name,value) data[name] = value end")
 spawn("fence_button",15,27,1,1,"fence_button_1")
+fence_button_1.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
 fence_button_1.button:setDisableSelf(false)
 fence_button_1.button:addConnector("onActivate", "bridge_pillar_sound_7", "toggle")
 fence_button_1.button:addConnector("onActivate", "script_entity_24", "createBeam")
@@ -4427,7 +4421,466 @@ spawn("mine_support_wall_02",15,25,1,2,"mine_support_wall_02_118")
 spawn("mine_support_pillar_01_half",16,25,0,2,"mine_support_pillar_01_half_92")
 spawn("mine_support_wall_02",12,14,1,0,"mine_support_wall_02_120")
 spawn("mine_support_pillar_01_half",13,14,0,0,"mine_support_pillar_01_half_109")
-spawn("starting_location",12,14,1,0,"starting_location_1")
+spawn("chitin_greaves",1,23,1,0,"chitin_greaves_2")
+chitin_greaves_2.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+chitin_greaves_2.detectedtimer:setTimerInterval(0)
+chitin_greaves_2.detectedtimer:setDisableSelf(false)
+chitin_greaves_2.detectedtimer:setTriggerOnStart(true)
+chitin_greaves_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("pedestal",29,10,2,-1,"pedestal_11")
+spawn("round_key",29,10,2,-1,"round_key_2")
+round_key_2.detectedtimer:setTimerInterval(0)
+round_key_2.detectedtimer:setDisableSelf(false)
+round_key_2.detectedtimer:setTriggerOnStart(true)
+round_key_2.detectedtimer:setCurrentLevelOnly(true)
+pedestal_11.surface:addItem(round_key_2.item)
+pedestal_11.surface:addConnector("onRemoveItem", "spawner_8", "activate")
+pedestal_11.surface:addConnector("onRemoveItem", "spawner_26", "activate")
+spawn("mine_support_beam_floor_double",31,11,3,-1,"mine_support_beam_floor_double_555")
+spawn("mine_support_beam_floor_double",31,11,3,-2,"mine_support_beam_floor_double_556")
+spawn("sack",30,11,0,0,"sack_6")
+sack_6.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+spawn("lock_pick",30,11,0,0,"lock_pick_4")
+lock_pick_4.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+lock_pick_4.detectedtimer:setTimerInterval(0)
+lock_pick_4.detectedtimer:setDisableSelf(false)
+lock_pick_4.detectedtimer:setTriggerOnStart(true)
+lock_pick_4.detectedtimer:setCurrentLevelOnly(true)
+sack_6.containeritem:addItem(lock_pick_4.item)
+spawn("blackmoss",30,11,0,0,"blackmoss_1")
+blackmoss_1.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+blackmoss_1.detectedtimer:setTimerInterval(0)
+blackmoss_1.detectedtimer:setDisableSelf(false)
+blackmoss_1.detectedtimer:setTriggerOnStart(true)
+blackmoss_1.detectedtimer:setCurrentLevelOnly(true)
+sack_6.containeritem:addItem(blackmoss_1.item)
+spawn("blooddrop_cap",30,11,0,0,"blooddrop_cap_10")
+blooddrop_cap_10.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+blooddrop_cap_10.item:setStackSize(2)
+blooddrop_cap_10.detectedtimer:setTimerInterval(0)
+blooddrop_cap_10.detectedtimer:setDisableSelf(false)
+blooddrop_cap_10.detectedtimer:setTriggerOnStart(true)
+blooddrop_cap_10.detectedtimer:setCurrentLevelOnly(true)
+sack_6.containeritem:addItem(blooddrop_cap_10.item)
+spawn("etherweed",30,11,0,0,"etherweed_3")
+etherweed_3.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+etherweed_3.item:setStackSize(2)
+etherweed_3.detectedtimer:setTimerInterval(0)
+etherweed_3.detectedtimer:setDisableSelf(false)
+etherweed_3.detectedtimer:setTriggerOnStart(true)
+etherweed_3.detectedtimer:setCurrentLevelOnly(true)
+sack_6.containeritem:addItem(etherweed_3.item)
+sack_6.detectedtimer:setTimerInterval(0)
+sack_6.detectedtimer:setDisableSelf(false)
+sack_6.detectedtimer:setTriggerOnStart(true)
+sack_6.detectedtimer:setCurrentLevelOnly(true)
+spawn("pillar_half_button",27,9,3,0,"demo_button_1_4")
+demo_button_1_4.button:setDisableSelf(false)
+demo_button_1_4.button:addConnector("onActivate", "demo_scriptMain_1", "demoButton")
+spawn("pillar_half_button",27,10,3,0,"demo_button_1_3")
+demo_button_1_3.button:setDisableSelf(false)
+demo_button_1_3.button:addConnector("onActivate", "demo_scriptMain_1", "demoButton")
+spawn("pillar_half_button",27,11,3,0,"demo_button_1_2")
+demo_button_1_2.button:setDisableSelf(false)
+demo_button_1_2.button:addConnector("onActivate", "demo_scriptMain_1", "demoButton")
+spawn("pillar_half_button",27,12,3,0,"demo_button_1_1")
+demo_button_1_1.button:setDisableSelf(false)
+demo_button_1_1.button:addConnector("onActivate", "demo_scriptMain_1", "demoButton")
+spawn("shaman_cloak",28,12,1,0,"shaman_cloak_1")
+shaman_cloak_1.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+shaman_cloak_1.detectedtimer:setTimerInterval(0)
+shaman_cloak_1.detectedtimer:setDisableSelf(false)
+shaman_cloak_1.detectedtimer:setTriggerOnStart(true)
+shaman_cloak_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("spawner",25,8,1,-1,"spawner_8")
+spawner_8.spawner:setSpawnedEntity("giant_snake")
+spawner_8.spawner:setMonsterLevel(1)
+spawner_8.spawner:setCooldown(0)
+spawner_8.spawner:setDisableSelf(true)
+spawn("spawner",27,8,3,-1,"spawner_26")
+spawner_26.spawner:setSpawnedEntity("giant_snake")
+spawner_26.spawner:setMonsterLevel(1)
+spawner_26.spawner:setCooldown(0)
+spawner_26.spawner:setDisableSelf(true)
+spawn("spawner",21,21,0,-1,"spawner_27")
+spawner_27.spawner:setSpawnedEntity("twigroot")
+spawner_27.spawner:setMonsterLevel(1)
+spawner_27.spawner:setCooldown(0)
+spawner_27.spawner:setDisableSelf(true)
+spawn("mine_support_pillar_01",27,9,3,-1,"mine_support_pillar_01_658")
+spawn("forest_bridge_no_icon",28,7,3,-1,"forest_bridge_no_icon_214")
+spawn("forest_bridge_no_icon",28,7,0,0,"forest_bridge_no_icon_229")
+spawn("mine_support_pillar_01_half",27,8,0,-1,"mine_support_pillar_01_half_36")
+spawn("forest_elevation_edge",28,7,2,-2,"forest_elevation_edge_341")
+spawn("forest_elevation_edge",28,7,2,-1,"forest_elevation_edge_342")
+spawn("mine_support_pillar_01",28,7,3,-2,"mine_support_pillar_01_657")
+spawn("mine_support_pillar_01",28,7,3,-3,"mine_support_pillar_01_659")
+spawn("mine_support_pillar_01",29,7,3,-3,"mine_support_pillar_01_660")
+spawn("mine_support_pillar_01",29,7,3,-2,"mine_support_pillar_01_661")
+spawn("forest_elevation_edge",28,7,0,-2,"forest_elevation_edge_125")
+spawn("forest_elevation_edge",28,7,0,-1,"forest_elevation_edge_126")
+spawn("forest_elevation_edge",28,7,0,0,"forest_elevation_edge_170")
+spawn("mine_support_beam_floor_double",27,6,2,-2,"mine_support_beam_floor_double_666")
+spawn("mine_support_beam_floor_double",27,6,2,-3,"mine_support_beam_floor_double_671")
+spawn("mine_support_beam_floor_double",29,6,2,-2,"mine_support_beam_floor_double_335")
+spawn("mine_support_beam_floor_double",29,6,2,-3,"mine_support_beam_floor_double_672")
+spawn("forest_elevation_edge",26,13,3,-2,"forest_elevation_edge_343")
+spawn("forest_elevation_edge",26,13,3,-1,"forest_elevation_edge_344")
+spawn("forest_elevation_edge",26,14,3,-2,"forest_elevation_edge_345")
+spawn("forest_elevation_edge",26,14,3,-1,"forest_elevation_edge_346")
+spawn("forest_elevation_edge",23,13,1,-1,"forest_elevation_edge_347")
+spawn("forest_elevation_edge",23,13,1,-2,"forest_elevation_edge_348")
+spawn("forest_elevation_edge",23,14,1,-2,"forest_elevation_edge_349")
+spawn("forest_elevation_edge",23,14,1,-1,"forest_elevation_edge_350")
+spawn("invisible_wall",23,13,2,0,"invisible_wall_196")
+spawn("invisible_wall",23,14,2,0,"invisible_wall_198")
+spawn("beach_rock_3x1",25,15,1,-2,"beach_rock_3x1_118")
+spawn("invisible_wall",26,14,2,0,"invisible_wall_233")
+spawn("forest_ruins_fallen_bricks",25,12,3,0,"forest_ruins_fallen_bricks_47")
+spawn("forest_bridge_no_icon",24,15,0,-1,"forest_bridge_no_icon_108")
+spawn("mine_support_beam_floor_double",24,15,3,-2,"mine_support_beam_floor_double_328")
+spawn("mine_support_beam_floor_double",24,15,1,-2,"mine_support_beam_floor_double_329")
+spawn("mine_support_beam_floor_double",24,15,2,-2,"mine_support_beam_floor_double_336")
+spawn("ladder",24,15,0,-1,"ladder_26")
+spawn("mine_support_wall_02",24,15,1,-1,"mine_support_wall_02_123")
+spawn("mine_support_wall_02",24,15,2,-1,"mine_support_wall_02_126")
+spawn("mine_support_wall_02",24,15,3,-1,"mine_support_wall_02_127")
+spawn("mine_support_pillar_01_half",24,16,0,-1,"mine_support_pillar_01_half_51")
+spawn("mine_support_pillar_01_half",25,16,0,-1,"mine_support_pillar_01_half_97")
+spawn("mine_support_pillar_01_half",25,15,0,-1,"mine_support_pillar_01_half_110")
+spawn("mine_support_pillar_01_half",24,15,0,-1,"mine_support_pillar_01_half_111")
+spawn("mine_support_pillar_01",24,16,3,-3,"mine_support_pillar_01_384")
+spawn("mine_support_pillar_01",24,16,3,-2,"mine_support_pillar_01_385")
+spawn("mine_support_pillar_01",25,16,3,-3,"mine_support_pillar_01_386")
+spawn("mine_support_pillar_01",25,16,3,-2,"mine_support_pillar_01_387")
+spawn("mine_support_pillar_01",25,15,3,-2,"mine_support_pillar_01_394")
+spawn("mine_support_pillar_01",25,15,3,-3,"mine_support_pillar_01_395")
+spawn("mine_support_pillar_01",24,15,3,-3,"mine_support_pillar_01_396")
+spawn("mine_support_pillar_01",24,15,3,-2,"mine_support_pillar_01_397")
+spawn("forest_spruce_smallest_01",23,15,1,-1,"forest_spruce_smallest_01_56")
+spawn("beach_rock_3x1",25,15,0,-3,"beach_rock_3x1_119")
+spawn("support_pillar_offset",25,13,2,0,"support_pillar_offset_1")
+spawn("pillar_lock_ornate",25,13,2,0,"pillar_lock_ornate_1")
+pillar_lock_ornate_1.lock:setOpenedBy("round_key")
+spawn("round_key",25,13,0,0,"round_key_4")
+round_key_4.detectedtimer:setTimerInterval(0)
+round_key_4.detectedtimer:setDisableSelf(false)
+round_key_4.detectedtimer:setTriggerOnStart(true)
+round_key_4.detectedtimer:setCurrentLevelOnly(true)
+spawn("mine_support_pillar_01",6,27,0,-3,"mine_support_pillar_01_662")
+spawn("mine_support_pillar_01",6,27,0,-2,"mine_support_pillar_01_663")
+spawn("mine_support_pillar_01",6,29,0,-2,"mine_support_pillar_01_664")
+spawn("mine_support_pillar_01",6,29,0,-3,"mine_support_pillar_01_665")
+spawn("mine_support_pillar_01",4,29,0,-3,"mine_support_pillar_01_666")
+spawn("mine_support_pillar_01",4,29,0,-2,"mine_support_pillar_01_667")
+spawn("mine_support_pillar_01",4,27,0,-2,"mine_support_pillar_01_668")
+spawn("mine_support_pillar_01",4,27,0,-3,"mine_support_pillar_01_669")
+spawn("mine_support_pillar_01",5,27,0,-3,"mine_support_pillar_01_670")
+spawn("mine_support_pillar_01",5,27,0,-2,"mine_support_pillar_01_671")
+spawn("mine_support_pillar_01",4,28,0,-2,"mine_support_pillar_01_672")
+spawn("mine_support_pillar_01",4,28,0,-3,"mine_support_pillar_01_673")
+spawn("mine_support_pillar_01",5,29,0,-2,"mine_support_pillar_01_674")
+spawn("mine_support_pillar_01",5,29,0,-3,"mine_support_pillar_01_675")
+spawn("mine_support_pillar_01",5,28,0,-2,"mine_support_pillar_01_676")
+spawn("mine_support_pillar_01",5,28,0,-3,"mine_support_pillar_01_677")
+spawn("mine_support_pillar_01",6,28,0,-2,"mine_support_pillar_01_678")
+spawn("mine_support_pillar_01",6,28,0,-3,"mine_support_pillar_01_679")
+spawn("mine_support_pillar_01",6,27,0,-1,"mine_support_pillar_01_680")
+spawn("mine_support_pillar_01",6,28,0,-1,"mine_support_pillar_01_681")
+spawn("mine_support_pillar_01",6,29,0,-1,"mine_support_pillar_01_682")
+spawn("mine_support_pillar_01",5,29,0,-1,"mine_support_pillar_01_683")
+spawn("mine_support_pillar_01",4,29,0,-1,"mine_support_pillar_01_684")
+spawn("mine_support_pillar_01",5,27,0,-1,"mine_support_pillar_01_686")
+spawn("mine_support_pillar_01",4,27,0,-1,"mine_support_pillar_01_687")
+spawn("mine_support_pillar_01",4,28,0,-1,"mine_support_pillar_01_688")
+spawn("mine_support_pillar_01",4,28,0,0,"mine_support_pillar_01_689")
+spawn("mine_support_pillar_01",4,27,0,0,"mine_support_pillar_01_690")
+spawn("mine_support_pillar_01",5,27,0,0,"mine_support_pillar_01_691")
+spawn("mine_support_pillar_01",5,28,0,0,"mine_support_pillar_01_692")
+spawn("mine_support_wall_01",5,27,3,-1,"mine_support_wall_01_64")
+spawn("mine_support_wall_01",5,27,0,-1,"mine_support_wall_01_66")
+spawn("mine_support_beam_floor_double",4,26,2,0,"mine_support_beam_floor_double_337")
+spawn("mine_support_beam_floor_double",4,27,1,0,"mine_support_beam_floor_double_338")
+spawn("mine_support_beam_floor_double",4,27,2,0,"mine_support_beam_floor_double_339")
+spawn("mine_support_beam_floor_double",4,27,3,0,"mine_support_beam_floor_double_350")
+spawn("mine_support_beam_floor_double",4,27,3,-1,"mine_support_beam_floor_double_351")
+spawn("mine_support_beam_floor_double",5,27,1,-1,"mine_support_beam_floor_double_673")
+spawn("mine_support_beam_floor_double",4,27,0,-1,"mine_support_beam_floor_double_675")
+spawn("mine_support_beam_floor_double",4,27,1,-1,"mine_support_beam_floor_double_676")
+spawn("mine_support_beam_floor_double",4,27,2,-1,"mine_support_beam_floor_double_677")
+spawn("mine_support_beam_floor_double",5,27,0,-2,"mine_support_beam_floor_double_678")
+spawn("mine_support_beam_floor_double",5,27,1,-2,"mine_support_beam_floor_double_679")
+spawn("mine_support_beam_floor_double",5,28,1,-2,"mine_support_beam_floor_double_680")
+spawn("mine_support_beam_floor_double",5,28,2,-2,"mine_support_beam_floor_double_681")
+spawn("mine_support_beam_floor_double",4,28,2,-2,"mine_support_beam_floor_double_682")
+spawn("mine_support_beam_floor_double",4,28,3,-2,"mine_support_beam_floor_double_683")
+spawn("mine_support_beam_floor_double",4,27,3,-2,"mine_support_beam_floor_double_684")
+spawn("mine_support_beam_floor_double",4,27,0,-2,"mine_support_beam_floor_double_685")
+spawn("mine_support_ceiling_01",5,28,3,-1,"mine_support_ceiling_01_8")
+spawn("mine_support_wall_01",5,28,1,-1,"mine_support_wall_01_53")
+spawn("mine_support_wall_01",5,28,2,-1,"mine_support_wall_01_67")
+spawn("mine_support_wall_01",4,28,2,-1,"mine_support_wall_01_68")
+spawn("mine_support_wall_01",4,28,3,-1,"mine_support_wall_01_71")
+spawn("mine_support_beam_floor_double",6,26,2,-2,"mine_support_beam_floor_double_686")
+spawn("mine_support_beam_floor_double",6,27,2,-2,"mine_support_beam_floor_double_687")
+spawn("mine_support_beam_floor_double",5,27,3,-2,"mine_support_beam_floor_double_688")
+spawn("mine_support_beam_floor_double",5,28,0,-2,"mine_support_beam_floor_double_689")
+spawn("mine_support_pillar_lantern_01",5,28,1,-1,"mine_support_pillar_lantern_01_6")
+spawn("mine_support_beam_01",5,28,3,-1,"mine_support_beam_01_1")
+spawn("mine_support_beam_01",5,28,0,-1,"mine_support_beam_01_2")
+spawn("mine_support_beam_01",5,27,0,-1,"mine_support_beam_01_3")
+spawn("mine_support_beam_01",5,28,1,-1,"mine_support_beam_01_4")
+spawn("mine_support_beam_01",5,28,2,-1,"mine_support_beam_01_5")
+spawn("mine_support_beam_01",4,28,2,-1,"mine_support_beam_01_6")
+spawn("mine_support_beam_01",4,28,3,-1,"mine_support_beam_01_7")
+spawn("mine_support_pillar_01",3,26,0,-2,"mine_support_pillar_01_685")
+spawn("mine_support_pillar_01",3,26,0,-3,"mine_support_pillar_01_693")
+spawn("mine_support_pillar_01",3,26,0,-1,"mine_support_pillar_01_694")
+spawn("mine_support_pillar_01",3,26,0,0,"mine_support_pillar_01_695")
+spawn("mine_support_pillar_01",4,26,0,-1,"mine_support_pillar_01_696")
+spawn("mine_support_pillar_01",4,26,0,-2,"mine_support_pillar_01_697")
+spawn("mine_support_pillar_01",4,26,0,0,"mine_support_pillar_01_698")
+spawn("mine_support_pillar_01",4,26,0,-3,"mine_support_pillar_01_699")
+spawn("mine_support_pillar_01",5,26,0,0,"mine_support_pillar_01_700")
+spawn("mine_support_pillar_01",5,26,0,-2,"mine_support_pillar_01_701")
+spawn("mine_support_pillar_01",5,26,0,-1,"mine_support_pillar_01_702")
+spawn("mine_support_pillar_01",5,26,0,-3,"mine_support_pillar_01_703")
+spawn("mine_support_pillar_01",3,27,0,-2,"mine_support_pillar_01_704")
+spawn("mine_support_pillar_01",3,27,0,-1,"mine_support_pillar_01_705")
+spawn("mine_support_pillar_01",3,27,0,0,"mine_support_pillar_01_706")
+spawn("mine_support_pillar_01",3,27,0,-3,"mine_support_pillar_01_707")
+spawn("mine_support_pillar_01",3,28,0,-3,"mine_support_pillar_01_708")
+spawn("mine_support_pillar_01",3,28,0,-1,"mine_support_pillar_01_709")
+spawn("mine_support_pillar_01",3,28,0,0,"mine_support_pillar_01_710")
+spawn("mine_support_pillar_01",3,28,0,-2,"mine_support_pillar_01_711")
+spawn("mine_support_beam_floor_double",3,27,0,-1,"mine_support_beam_floor_double_353")
+spawn("mine_support_beam_floor_double",3,27,0,-2,"mine_support_beam_floor_double_557")
+spawn("mine_support_beam_floor_double",3,28,0,-1,"mine_support_beam_floor_double_665")
+spawn("mine_support_beam_floor_double",3,28,0,-2,"mine_support_beam_floor_double_674")
+spawn("mine_support_beam_floor_double",5,26,3,-2,"mine_support_beam_floor_double_692")
+spawn("mine_support_beam_floor_double",5,26,3,-1,"mine_support_beam_floor_double_693")
+spawn("mine_support_beam_floor_double",4,26,3,-2,"mine_support_beam_floor_double_695")
+spawn("mine_support_beam_floor_double",4,26,3,-1,"mine_support_beam_floor_double_696")
+spawn("mine_support_wall_01",3,27,0,0,"mine_support_wall_01_73")
+spawn("mine_support_wall_01",3,27,2,0,"mine_support_wall_01_74")
+spawn("mine_support_wall_01",4,26,3,0,"mine_support_wall_01_75")
+spawn("mine_support_wall_01",4,26,1,0,"mine_support_wall_01_76")
+spawn("mine_support_beam_floor_double",4,27,2,-2,"mine_support_beam_floor_double_352")
+spawn("mine_support_ceiling_01",3,27,3,0,"mine_support_ceiling_01_9")
+spawn("mine_support_ceiling_01",3,26,3,0,"mine_support_ceiling_01_10")
+spawn("mine_support_beam_01",2,27,1,0,"mine_support_beam_01_8")
+spawn("mine_support_beam_01",2,26,1,0,"mine_support_beam_01_9")
+spawn("mine_support_beam_01",3,25,2,0,"mine_support_beam_01_10")
+spawn("mine_support_ceiling_01",6,28,3,-1,"mine_support_ceiling_01_11")
+spawn("mine_support_pillar_01",7,29,0,-2,"mine_support_pillar_01_712")
+spawn("mine_support_pillar_01",7,29,0,-3,"mine_support_pillar_01_713")
+spawn("mine_support_pillar_01",7,29,0,-1,"mine_support_pillar_01_714")
+spawn("mine_support_beam_01",6,28,0,-1,"mine_support_beam_01_11")
+spawn("mine_support_beam_01",6,28,1,-1,"mine_support_beam_01_12")
+spawn("mine_support_beam_01",6,28,2,-1,"mine_support_beam_01_13")
+spawn("mine_support_ceiling_01",6,28,3,-2,"mine_support_ceiling_01_12")
+spawn("mine_support_pillar_01",7,28,0,-1,"mine_support_pillar_01_715")
+spawn("mine_support_beam_01",6,28,1,-2,"mine_support_beam_01_14")
+spawn("mine_support_beam_01",6,28,2,-2,"mine_support_beam_01_15")
+spawn("forest_spruce_smallest_01",4,27,2,-2,"forest_spruce_smallest_01_57")
+spawn("mine_support_ceiling_01",5,27,3,-1,"mine_support_ceiling_01_13")
+spawn("invisible_wall",5,27,3,0,"invisible_wall_190")
+spawn("invisible_wall",4,29,3,0,"invisible_wall_241")
+spawn("invisible_wall",3,28,3,0,"invisible_wall_243")
+spawn("invisible_wall",6,28,3,-1,"invisible_wall_244")
+spawn("invisible_wall",6,26,3,-1,"invisible_wall_245")
+spawn("invisible_wall",7,26,3,-1,"invisible_wall_246")
+spawn("invisible_wall",7,28,3,-1,"invisible_wall_247")
+spawn("invisible_wall",8,28,3,-1,"invisible_wall_248")
+spawn("invisible_wall",8,29,3,-1,"invisible_wall_249")
+spawn("invisible_wall",10,29,3,-1,"invisible_wall_250")
+spawn("invisible_wall",8,26,3,-1,"invisible_wall_251")
+spawn("invisible_wall",8,25,3,-1,"invisible_wall_252")
+spawn("invisible_wall",8,24,3,-1,"invisible_wall_253")
+spawn("invisible_wall",10,28,3,-1,"invisible_wall_254")
+spawn("invisible_wall",10,27,3,-1,"invisible_wall_255")
+spawn("invisible_wall",10,26,3,-1,"invisible_wall_256")
+spawn("invisible_wall",10,25,3,-1,"invisible_wall_257")
+spawn("invisible_wall",10,24,3,-1,"invisible_wall_258")
+spawn("invisible_wall",5,26,3,0,"invisible_wall_259")
+spawn("invisible_wall",3,26,3,0,"invisible_wall_260")
+spawn("invisible_wall",3,25,3,0,"invisible_wall_261")
+spawn("invisible_wall",2,25,3,0,"invisible_wall_262")
+spawn("invisible_wall",2,26,3,0,"invisible_wall_263")
+spawn("invisible_wall",5,25,3,0,"invisible_wall_264")
+spawn("invisible_wall",2,28,3,0,"invisible_wall_265")
+spawn("invisible_wall",1,28,3,0,"invisible_wall_266")
+spawn("invisible_wall",4,23,3,0,"invisible_wall_267")
+spawn("invisible_wall",0,27,3,0,"invisible_wall_268")
+spawn("invisible_wall",0,26,3,0,"invisible_wall_269")
+spawn("invisible_wall",0,25,3,0,"invisible_wall_270")
+spawn("invisible_wall",0,24,3,0,"invisible_wall_271")
+spawn("invisible_wall",0,23,3,0,"invisible_wall_272")
+spawn("invisible_wall",0,22,3,0,"invisible_wall_273")
+spawn("invisible_wall",1,22,3,0,"invisible_wall_274")
+spawn("invisible_wall",5,22,3,0,"invisible_wall_275")
+spawn("invisible_wall",5,24,3,0,"invisible_wall_276")
+spawn("script_entity",7,16,1,-1,"script_entity_25")
+script_entity_25.script:setSource("count = 4\
+curId = 0\
+dirx, diry = 1, 0\
+curmove = 0\
+bridgeSpeed = 3\
+UID = \"lemures\"\
+\
+newStartPosX = nil\
+newStartPosY = nil\
+newStartPosZ = nil\
+\
+function newBridge()\
+    if curId >= count then return false end\
+    local curbridge = spawn(\"forest_bridge_no_icon\", self.go.level, self.go.x + dirx*curId, self.go.y + diry*curId, self.go.facing, self.go.elevation, \"bridge_\"..UID..curId)\
+    -- Nudge bridge down a little\
+    newStartPosX = curbridge:getWorldPosition().x\
+    newStartPosY = curbridge:getWorldPosition().y\
+    newStartPosZ = curbridge:getWorldPosition().z\
+    curbridge:setWorldPosition(newStartPosX, newStartPosY - 0.07, newStartPosZ)\
+    -- Start movement\
+    moveBridge(curId)\
+    curId = curId + 1\
+end\
+\
+function moveBridge(id)\
+    local dt = Time.deltaTime()\
+    local ent = findEntity(\"bridge_\"..UID..id)\
+    if not ent then print(self.go.id .. \" bad entity\") return false end\
+    -- Move bridge\
+\9local pos = ent:getWorldPosition()\
+    ent:setWorldPosition(pos.x + (bridgeSpeed*dt*dirx), newStartPosY - 0.07, pos.z - (bridgeSpeed*dt*diry))\
+    -- Check bridge position\
+    if dirx ~= 0 then\
+        if (dirx > 0 and pos.x >= newStartPosX + 3*dirx) or (dirx < 0 and pos.x <= newStartPosX + 3*dirx) then\
+            -- Stop bridge at final spot\
+            ent:setWorldPosition(vec(newStartPosX + 3*dirx, newStartPosY, newStartPosZ))\
+            delayedCall(self.go.id, 1 * bridgeSpeed / 5, \"destroyBlocker\", id)\
+            if curId ~= count then delayedCall(self.go.id, 0.05 , \"newBridge\") end\
+        else\
+            delayedCall(self.go.id, 0.05 , \"moveBridge\", id)\
+        end\
+    elseif diry ~= 0 then\
+        if (diry > 0 and pos.z <= newStartPosZ - 3*diry) or (diry < 0 and pos.z >= newStartPosY - 3*diry) then\
+            -- Stop bridge at final spot\
+            ent:setWorldPosition(vec(newStartPosX, newStartPosY, newStartPosZ - 3*diry))\
+            delayedCall(self.go.id, 1 * bridgeSpeed / 5, \"destroyBlocker\", id)\
+            if curId ~= count then delayedCall(self.go.id, 0.05 , \"newBridge\") end\
+        else\
+            delayedCall(self.go.id, 0.05 , \"moveBridge\", id)\
+        end\
+    end\
+end\
+\
+function destroyBlocker(id)\
+    local obstacle = findEntity(\"invisible_wall_\"..UID..id-1)\
+    if obstacle then obstacle:destroy() end\
+end\
+\
+function spawnBlockers()\
+\9for i= 0, count-1 do\
+        local curBlocker = spawn(\"invisible_wall\", self.go.level, self.go.x + dirx*(i+1), self.go.y + diry*(i+1), 0, self.go.elevation, \"invisible_wall_\"..UID..i-1)\
+\9end\
+end")
+spawn("timer",7,16,0,0,"timer_15")
+timer_15.timer:setTimerInterval(1)
+timer_15.timer:setDisableSelf(true)
+timer_15.timer:setTriggerOnStart(true)
+timer_15.timer:setCurrentLevelOnly(true)
+timer_15.timer:addConnector("onActivate", "script_entity_25", "spawnBlockers")
+spawn("mine_lever",7,16,2,-1,"mine_lever_5")
+mine_lever_5.lever:setDisableSelf(true)
+mine_lever_5.lever:addConnector("onActivate", "script_entity_25", "newBridge")
+spawn("mine_support_beam_floor_double",11,15,2,-2,"mine_support_beam_floor_double_690")
+spawn("mine_support_beam_floor_double",11,16,2,-2,"mine_support_beam_floor_double_691")
+spawn("mine_support_beam_floor_double",10,15,2,-2,"mine_support_beam_floor_double_694")
+spawn("mine_support_beam_floor_double",10,16,2,-2,"mine_support_beam_floor_double_697")
+spawn("mine_support_beam_floor_double",9,15,2,-2,"mine_support_beam_floor_double_698")
+spawn("mine_support_beam_floor_double",9,16,2,-2,"mine_support_beam_floor_double_699")
+spawn("mine_support_beam_floor_double",8,15,2,-2,"mine_support_beam_floor_double_700")
+spawn("mine_support_beam_floor_double",8,16,2,-2,"mine_support_beam_floor_double_701")
+spawn("mine_support_beam_floor_double",7,16,2,-2,"mine_support_beam_floor_double_702")
+spawn("mine_support_beam_floor_double",7,15,2,-2,"mine_support_beam_floor_double_703")
+spawn("mine_support_beam_floor_double",6,16,2,-2,"mine_support_beam_floor_double_704")
+spawn("mine_support_beam_floor_double",6,15,2,-2,"mine_support_beam_floor_double_705")
+spawn("mine_support_pillar_01",10,16,3,-3,"mine_support_pillar_01_716")
+spawn("mine_support_pillar_01",10,16,3,-2,"mine_support_pillar_01_717")
+spawn("mine_support_pillar_01",10,17,3,-3,"mine_support_pillar_01_718")
+spawn("mine_support_pillar_01",10,17,3,-2,"mine_support_pillar_01_719")
+spawn("mine_support_pillar_01",9,17,3,-2,"mine_support_pillar_01_720")
+spawn("mine_support_pillar_01",9,17,3,-3,"mine_support_pillar_01_721")
+spawn("mine_support_pillar_01",9,16,3,-2,"mine_support_pillar_01_722")
+spawn("mine_support_pillar_01",9,16,3,-3,"mine_support_pillar_01_723")
+spawn("mine_support_pillar_01",8,17,3,-2,"mine_support_pillar_01_724")
+spawn("mine_support_pillar_01",8,17,3,-3,"mine_support_pillar_01_725")
+spawn("mine_support_pillar_01",8,16,3,-2,"mine_support_pillar_01_726")
+spawn("mine_support_pillar_01",8,16,3,-3,"mine_support_pillar_01_727")
+spawn("mine_support_pillar_01",7,16,3,-3,"mine_support_pillar_01_728")
+spawn("mine_support_pillar_01",7,17,3,-3,"mine_support_pillar_01_729")
+spawn("mine_support_pillar_01",7,16,3,-2,"mine_support_pillar_01_730")
+spawn("mine_support_pillar_01",7,17,3,-2,"mine_support_pillar_01_731")
+spawn("invisible_wall",10,15,3,-1,"invisible_wall_277")
+spawn("invisible_wall",9,15,3,-1,"invisible_wall_278")
+spawn("invisible_wall",8,15,3,-1,"invisible_wall_279")
+spawn("invisible_wall",7,15,3,-1,"invisible_wall_280")
+spawn("invisible_wall",6,15,3,-1,"invisible_wall_281")
+spawn("invisible_wall",6,17,3,-1,"invisible_wall_282")
+spawn("invisible_wall",7,17,3,-1,"invisible_wall_283")
+spawn("invisible_wall",8,17,3,-1,"invisible_wall_284")
+spawn("invisible_wall",9,17,3,-1,"invisible_wall_285")
+spawn("invisible_wall",14,11,3,0,"invisible_wall_286")
+spawn("invisible_wall",14,10,3,0,"invisible_wall_287")
+spawn("invisible_wall",5,21,3,0,"invisible_wall_288")
+spawn("invisible_wall",5,20,3,0,"invisible_wall_289")
+spawn("invisible_wall",5,19,3,0,"invisible_wall_290")
+spawn("invisible_wall",5,18,3,0,"invisible_wall_291")
+spawn("invisible_wall",5,17,3,0,"invisible_wall_292")
+spawn("invisible_wall",2,20,3,0,"invisible_wall_293")
+spawn("forest_ruins_wall_ivy_01",3,23,3,0,"forest_ruins_wall_ivy_01_18")
+spawn("forest_ruins_wall_ivy_01",2,20,2,0,"forest_ruins_wall_ivy_01_19")
+spawn("forest_ruins_wall_ivy_01",5,27,0,-1,"forest_ruins_wall_ivy_01_21")
+spawn("forest_ruins_wall_ivy_02",13,24,2,0,"forest_ruins_wall_ivy_02_25")
+spawn("mine_support_pillar_01_half",14,27,0,1,"mine_support_pillar_01_half_112")
+spawn("mine_support_pillar_01_half",14,27,0,0,"mine_support_pillar_01_half_119")
+spawn("mine_support_pillar_01_half",14,27,0,-1,"mine_support_pillar_01_half_120")
+spawn("mine_support_pillar_01_half",14,27,0,-2,"mine_support_pillar_01_half_121")
+spawn("mine_support_pillar_01_half",13,27,0,1,"mine_support_pillar_01_half_122")
+spawn("mine_support_pillar_01_half",13,27,0,0,"mine_support_pillar_01_half_123")
+spawn("mine_support_pillar_01_half",13,27,0,-1,"mine_support_pillar_01_half_124")
+spawn("mine_support_pillar_01_half",13,27,0,-2,"mine_support_pillar_01_half_125")
+spawn("forest_ruins_wall_ivy_02",14,26,0,1,"forest_ruins_wall_ivy_02_27")
+spawn("mine_bridge_01",11,20,0,-1,"mine_bridge_01_1")
+spawn("mine_bridge_01",12,20,1,-1,"mine_bridge_01_2")
+spawn("mine_bridge_01",13,20,0,-1,"mine_bridge_01_3")
+spawn("mine_bridge_01",14,20,1,-1,"mine_bridge_01_4")
+spawn("mine_bridge_01",14,19,0,-1,"mine_bridge_01_5")
+spawn("mine_bridge_01",14,18,1,-1,"mine_bridge_01_6")
+spawn("mine_bridge_01",13,19,1,-1,"mine_bridge_01_7")
+spawn("mine_bridge_01",13,18,0,-1,"mine_bridge_01_8")
+spawn("mine_bridge_01",12,19,0,-1,"mine_bridge_01_9")
+spawn("mine_bridge_01",12,18,1,-1,"mine_bridge_01_10")
+spawn("mine_bridge_01",11,19,1,-1,"mine_bridge_01_11")
+spawn("mine_bridge_01",11,18,0,-1,"mine_bridge_01_12")
+spawn("mine_bridge_01",14,17,0,-1,"mine_bridge_01_13")
+spawn("mine_bridge_01",13,17,1,-1,"mine_bridge_01_14")
+spawn("mine_bridge_01",12,17,0,-1,"mine_bridge_01_15")
+spawn("mine_bridge_01",11,17,1,-1,"mine_bridge_01_16")
 
 --- level 2 ---
 
@@ -4547,8 +5000,8 @@ loadLayer("tiles", {
 	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 })
 
-spawn("forest_heightmap",0,0,1,0,"forest_heightmap_11")
-spawn("bridge_sky",1,0,1,0,"bridge_sky_2")
+spawn("forest_heightmap",0,0,1,0,"bridge_of_eras_past_heightmap")
+spawn("bridge_sky",1,0,1,0,"bridge_of_eras_past_sky")
 spawn("forest_darkness",5,0,1,-1,"forest_darkness_2")
 spawn("script_entity",4,0,0,0,"script_entity_40")
 script_entity_40.script:setSource("function moveFog()\
@@ -6053,10 +6506,10 @@ loadLayer("tiles", {
 	6,4,6,6,6,6,2,6,6,6,6,6,6,6,6,4,7,7,7,7,7,7,6,3,3,3,6,6,6,6,4,6,
 	4,4,6,2,5,5,5,5,5,5,5,2,2,2,6,4,2,2,2,2,7,7,2,2,2,2,5,5,5,6,4,4,
 	4,2,6,5,5,2,2,6,6,6,5,5,5,6,6,2,7,7,7,2,2,2,2,2,2,2,3,3,5,5,2,2,
-	4,2,6,5,6,6,2,2,2,6,5,2,5,5,6,6,7,2,2,2,2,6,6,2,2,2,3,3,5,6,4,4,
+	4,2,6,5,6,6,6,2,2,6,5,2,5,5,6,6,7,2,2,2,2,6,6,2,2,2,3,3,5,6,4,4,
 	4,2,6,5,6,2,2,2,2,6,5,5,6,5,2,2,2,2,2,6,6,6,6,2,2,2,2,2,5,6,4,6,
 	4,2,6,2,6,2,3,3,2,6,6,5,5,5,5,5,6,6,2,2,2,2,2,2,2,2,2,2,5,6,4,6,
-	4,4,6,2,6,2,3,3,2,2,2,6,6,6,6,6,6,2,2,2,2,2,2,3,2,2,2,2,5,2,4,6,
+	4,4,6,2,6,2,3,3,2,2,2,2,6,6,6,6,6,2,2,2,2,2,2,3,2,2,2,2,5,2,4,6,
 	6,4,6,2,6,6,2,2,2,2,2,2,2,3,3,3,2,2,2,2,2,2,2,3,2,2,5,5,5,6,4,6,
 	6,4,6,2,2,6,6,6,2,2,3,3,2,3,3,2,2,3,3,2,2,2,3,3,4,6,5,2,2,2,4,6,
 	6,4,6,2,2,2,2,6,6,2,3,3,2,3,3,3,2,3,3,2,3,3,3,2,4,4,5,2,2,2,4,6,
@@ -6083,8 +6536,8 @@ loadLayer("tiles", {
 })
 
 spawn("forest_exit",31,4,1,0,"forest_exit_2")
-spawn("forest_heightmap",3,0,1,0,"forest_heightmap_5")
-spawn("forest_day_sky",4,0,2,0,"forest_day_sky_1")
+spawn("forest_heightmap",3,0,1,0,"ruined_city_present_heightmap")
+spawn("forest_day_sky",4,0,2,0,"ruined_city_present_sky")
 spawn("forest_ruins_wall_02",26,6,3,0,"forest_ruins_wall_02_3")
 spawn("forest_ruins_wall_02",25,5,3,0,"forest_ruins_wall_02_5")
 spawn("forest_ruins_wall_02",25,4,3,0,"forest_ruins_wall_02_6")
@@ -7146,10 +7599,10 @@ spawn("forest_ruins_wall_02",9,7,3,0,"forest_ruins_wall_02_132")
 spawn("forest_ruins_wall_02",9,8,0,0,"forest_ruins_wall_02_133")
 spawn("forest_ruins_wall_02",10,8,0,0,"forest_ruins_wall_02_134")
 spawn("forest_ruins_wall_02",12,9,0,0,"forest_ruins_wall_02_135")
-spawn("forest_ruins_wall_02",11,9,0,0,"forest_ruins_wall_02_136")
+spawn("forest_ruins_wall_02",11,8,0,0,"forest_ruins_wall_02_136")
 spawn("forest_ruins_wall_02",14,9,0,0,"forest_ruins_wall_02_137")
 spawn("forest_ruins_wall_02",13,9,0,0,"forest_ruins_wall_02_138")
-spawn("forest_ruins_wall_02",11,8,3,0,"forest_ruins_wall_02_139")
+spawn("forest_ruins_wall_02",12,8,3,0,"forest_ruins_wall_02_139")
 spawn("forest_ruins_wall_02",9,10,3,0,"forest_ruins_wall_02_140")
 spawn("forest_ruins_wall_02",9,11,3,0,"forest_ruins_wall_02_141")
 spawn("forest_ruins_wall_02",9,12,3,0,"forest_ruins_wall_02_142")
@@ -7224,7 +7677,6 @@ spawn("forest_heather",8,4,3,0,"forest_heather_158")
 spawn("forest_heather",9,7,3,0,"forest_heather_159")
 spawn("forest_heather",10,7,3,0,"forest_heather_160")
 spawn("forest_heather",12,6,3,0,"forest_heather_161")
-spawn("forest_heather",11,8,3,0,"forest_heather_162")
 spawn("forest_heather",12,8,3,0,"forest_heather_163")
 spawn("forest_heather",13,8,3,0,"forest_heather_164")
 spawn("forest_heather",14,8,3,0,"forest_heather_165")
@@ -7272,7 +7724,6 @@ spawn("forest_border_rocks_01",13,7,2,0,"forest_border_rocks_01_94")
 spawn("forest_border_rocks_01",11,7,3,0,"forest_border_rocks_01_95")
 spawn("forest_border_rocks_01",10,5,3,0,"forest_border_rocks_01_96")
 spawn("forest_oak_trunk",2,6,1,0,"forest_oak_trunk_47")
-spawn("forest_oak_trunk",11,7,2,0,"forest_oak_trunk_49")
 spawn("forest_oak_trunk",4,2,2,0,"forest_oak_trunk_50")
 spawn("forest_spruce_sapling_pillar",12,6,0,0,"forest_spruce_sapling_pillar_25")
 spawn("forest_heather",15,5,0,0,"forest_heather_189")
@@ -7469,7 +7920,6 @@ spawn("forest_falling_leaves",25,7,1,0,"forest_falling_leaves_11")
 spawn("forest_falling_leaves",27,6,1,0,"forest_falling_leaves_12")
 spawn("forest_falling_leaves",27,8,1,0,"forest_falling_leaves_13")
 spawn("forest_fireflies",7,3,1,0,"forest_fireflies_14")
-spawn("forest_fireflies",11,8,1,0,"forest_fireflies_15")
 spawn("forest_fireflies",5,5,1,0,"forest_fireflies_16")
 spawn("forest_fireflies",9,4,0,0,"forest_fireflies_17")
 spawn("forest_fireflies",5,2,0,0,"forest_fireflies_18")
@@ -8139,27 +8589,6 @@ pit_gauntlets_2.detectedtimer:setTimerInterval(0)
 pit_gauntlets_2.detectedtimer:setDisableSelf(false)
 pit_gauntlets_2.detectedtimer:setTriggerOnStart(true)
 pit_gauntlets_2.detectedtimer:setCurrentLevelOnly(true)
-spawn("force_field",7,5,3,0,"force_field_2")
-spawn("lava_crab",8,5,2,0,"lava_crab_1")
-lava_crab_1.monster:setAIState("guard")
-lava_crab_1.detectedtimer:setTimerInterval(0)
-lava_crab_1.detectedtimer:setDisableSelf(false)
-lava_crab_1.detectedtimer:setTriggerOnStart(true)
-lava_crab_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("force_field",6,5,3,0,"force_field_3")
-spawn("crab",6,5,2,0,"crab_1")
-crab_1.monster:setAIState("guard")
-crab_1.detectedtimer:setTimerInterval(0)
-crab_1.detectedtimer:setDisableSelf(false)
-crab_1.detectedtimer:setTriggerOnStart(true)
-crab_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("ice_crab",7,5,2,0,"ice_crab_1")
-ice_crab_1.monster:setAIState("guard")
-ice_crab_1.detectedtimer:setTimerInterval(0)
-ice_crab_1.detectedtimer:setDisableSelf(false)
-ice_crab_1.detectedtimer:setTriggerOnStart(true)
-ice_crab_1.detectedtimer:setCurrentLevelOnly(true)
-spawn("force_field",8,5,3,0,"force_field_4")
 spawn("floor_trigger",9,18,0,0,"floor_trigger_41")
 floor_trigger_41.floortrigger:setTriggeredByParty(true)
 floor_trigger_41.floortrigger:setTriggeredByMonster(false)
@@ -8860,7 +9289,7 @@ spawn("beach_rock_pillar_decoration",20,17,3,0,"beach_rock_pillar_decoration_30"
 spawn("beach_rock_blocker_01",6,8,3,0,"beach_rock_blocker_01_91")
 spawn("forest_blocker_stone",7,8,2,0,"forest_blocker_stone_6")
 spawn("beach_rock_1x1_low",7,7,3,0,"beach_rock_1x1_low_70")
-spawn("beach_boulder",6,7,2,0,"beach_boulder_31")
+spawn("beach_boulder",6,7,3,0,"beach_boulder_31")
 spawn("beach_boulder",6,8,0,0,"beach_boulder_32")
 spawn("beach_rock_floor_decoration",6,8,1,0,"beach_rock_floor_decoration_46")
 spawn("beach_rock_floor_decoration",6,7,2,0,"beach_rock_floor_decoration_47")
@@ -8976,7 +9405,7 @@ spawn("swamp_oak_cluster",23,11,0,0,"swamp_oak_cluster_5")
 spawn("forest_heather",23,11,3,0,"forest_heather_302")
 spawn("forest_oak_stump",24,8,0,0,"forest_oak_stump_12")
 spawn("forest_oak",12,13,1,0,"forest_oak_34")
-spawn("forest_oak",8,8,2,0,"forest_oak_35")
+spawn("forest_oak",8,7,2,0,"forest_oak_35")
 spawn("forest_oak",21,18,3,0,"forest_oak_36")
 spawn("swamp_oak",10,12,2,0,"swamp_oak_43")
 spawn("swamp_oak",21,8,1,0,"swamp_oak_44")
@@ -9029,7 +9458,7 @@ spawn("forest_ruins_pillar_03",25,6,0,0,"forest_ruins_pillar_03_110")
 forest_ruins_pillar_03_110.model:disable()
 spawn("forest_ruins_pillar_03",26,6,0,0,"forest_ruins_pillar_03_113")
 forest_ruins_pillar_03_113.model:disable()
-spawn("wall_button_new",11,9,3,0,"wall_button_new_1")
+spawn("wall_button_new",16,0,3,0,"wall_button_new_1")
 wall_button_new_1.button:setDisableSelf(false)
 wall_button_new_1.data:setSource("data = {}\
 \9\9\9\9\9\9function get(self,name)\
@@ -9104,7 +9533,6 @@ spawner_24.spawner:setDisableSelf(false)
 spawn("forest_willow",21,26,1,1,"forest_willow_45")
 spawn("daemon_head_ruins",19,20,0,0,"daemon_head_ruins_1")
 spawn("daemon_head_ruins",19,10,0,0,"daemon_head_ruins_2")
-spawn("daemon_head_ruins",5,6,3,0,"daemon_head_ruins_3")
 spawn("beach_lever",6,9,0,0,"city_lever_1")
 city_lever_1.lever:setDisableSelf(false)
 city_lever_1.lever:addConnector("onActivate", "script_cityBuildings", "checkCityLevers")
@@ -9205,6 +9633,59 @@ function reset()\
         lever.lever:setState(\"deactivated\")\
     end\
 end")
+spawn("forest_heather",6,5,0,0,"forest_heather_48")
+spawn("forest_willow",6,5,2,0,"forest_willow_50")
+spawn("forest_spruce_sapling_pillar",8,6,3,0,"forest_spruce_sapling_pillar_36")
+spawn("forest_spruce_smallest_01",7,5,3,0,"forest_spruce_smallest_01_58")
+spawn("forest_heather",7,5,1,0,"forest_heather_61")
+spawn("pedestal",6,7,3,0,"pedestal_3")
+spawn("forest_spruce_smallest_01",5,8,0,0,"forest_spruce_smallest_01_59")
+spawn("forest_heather",5,8,2,0,"forest_heather_62")
+spawn("beach_thicket_01",5,8,2,0,"beach_thicket_01_41")
+spawn("forest_border_rocks_01",6,6,0,0,"forest_border_rocks_01_151")
+spawn("forest_oak_trunk",7,6,0,0,"forest_oak_trunk_58")
+spawn("forest_ruins_pillar_03",9,9,1,0,"forest_ruins_pillar_03_114")
+spawn("forest_ruins_pillar_03",10,9,1,0,"forest_ruins_pillar_03_115")
+spawn("forest_ruins_pillar_03",11,10,1,0,"forest_ruins_pillar_03_154")
+spawn("mine_door_spear",7,9,1,0,"mine_door_spear_24")
+spawn("mine_door_spear",8,7,2,0,"mine_door_spear_25")
+spawn("mine_door_spear",9,9,1,0,"mine_door_spear_26")
+spawn("forest_ruins_pillar_03",12,8,1,0,"forest_ruins_pillar_03_156")
+spawn("mine_door_spear",11,8,2,0,"mine_door_spear_27")
+spawn("forest_ruins_wall_end_right",9,10,0,0,"forest_ruins_wall_end_right_10")
+spawn("forest_ruins_pillar_03",8,9,1,0,"forest_ruins_pillar_03_153")
+spawn("forest_ruins_pillar_03",9,10,1,0,"forest_ruins_pillar_03_157")
+spawn("forest_ruins_wall_02",10,9,0,0,"forest_ruins_wall_02_105")
+spawn("forest_ruins_pillar_01",8,8,3,0,"forest_ruins_pillar_01_27")
+spawn("fence_button",10,9,0,0,"button_ruined_1")
+button_ruined_1.data:setSource("data = { [\"offset\"] = vec(-0.5,0.5,0) }\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+button_ruined_1.button:setDisableSelf(false)
+spawn("fence_button",10,9,0,0,"button_ruined_2")
+button_ruined_2.data:setSource("data = { [\"offset\"] = vec(0,0,0) }\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+button_ruined_2.button:setDisableSelf(false)
+button_ruined_2.button:addConnector("onActivate", "mine_door_spear_27", "open")
+spawn("fence_button",10,9,0,0,"button_ruined_3")
+button_ruined_3.data:setSource("data = { [\"offset\"] = vec(0.5,0.5,0) }\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+button_ruined_3.button:setDisableSelf(false)
+button_ruined_3.button:addConnector("onActivate", "mine_door_spear_27", "open")
+spawn("fence_button",10,9,0,0,"button_ruined_4")
+button_ruined_4.data:setSource("data = { [\"offset\"] = vec(0.5,0,0) }\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+button_ruined_4.button:setDisableSelf(false)
+button_ruined_4.button:addConnector("onActivate", "mine_door_spear_27", "open")
+spawn("fence_button",10,9,0,0,"button_ruined_5")
+button_ruined_5.data:setSource("data = { [\"offset\"] = vec(0,-0.5,0) }\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+button_ruined_5.button:setDisableSelf(false)
+button_ruined_5.button:addConnector("onActivate", "mine_door_spear_27", "open")
 
 --- level 6 ---
 
@@ -11004,7 +11485,7 @@ loadLayer("floor_elevation", {
 	1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	1,1,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -11069,19 +11550,19 @@ loadLayer("heightmap", {
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,-2,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,-1,-1,-1,-1,-1,0,0,-1,-1,0,0,0,-2,
-	0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,-2,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,-1,-1,0,0,0,0,0,-1,-1,0,0,0,-2,
+	0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,0,-1,-1,-1,-1,-1,-1,0,0,0,-1,-1,-1,0,0,0,-2,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,-1,-1,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-2,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-2,-2,-2,-2,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-2,-2,-2,-2,-2,-2,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,-2,-2,-1,-1,-2,-2,-2,-2,-1,-1,-2,-2,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-2,-2,-1,-1,-1,-2,-2,-1,-1,-1,-1,-2,-2,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-2,-2,-2,-1,-1,-1,-2,-2,-2,-1,-1,-1,-2,-2,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-2,-2,-2,-1,-1,-1,-1,-2,-2,-2,-2,-2,-2,-2,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2,-2,-2,-2,-2,-2,-2,-2,-1,-1,-1,-2,-2,-2,-2,-2,-2,-2,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-1,-1,-2,-2,-2,-2,-2,-2,-2,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,
+	0,0,0,-1,-1,-1,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,-2,-2,-1,-1,-2,-2,-2,-2,-1,-1,-2,-2,
+	0,0,0,0,-1,0,-1,-1,-1,0,0,0,0,0,0,-1,-1,-1,-1,-2,-2,-1,-1,-1,-2,-2,-1,-1,-1,-1,-2,-2,
+	0,0,0,0,-1,0,-1,0,0,0,0,0,0,0,0,-1,-1,-1,-2,-2,-2,-1,-1,-1,-2,-2,-2,-1,-1,-1,-2,-2,
+	0,0,0,0,-1,-1,-1,0,0,0,0,0,0,0,0,-1,-1,-1,-2,-2,-2,-1,-1,-1,-1,-2,-2,-2,-2,-2,-2,-2,
+	0,0,0,0,-1,0,0,0,0,0,0,0,0,0,-2,-2,-2,-2,-2,-2,-2,-2,-1,-1,-1,-2,-2,-2,-2,-2,-2,-2,
+	0,0,0,0,-1,0,0,-1,-1,0,0,0,0,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-1,-1,-2,-2,-2,-2,-2,-2,-2,
+	0,0,0,0,-1,-1,-1,-1,0,0,0,0,0,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,
 	0,0,0,0,0,0,0,0,0,0,0,-2,-2,-2,-1,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,
 	0,0,0,0,0,0,0,0,0,0,0,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,
 	0,0,0,0,0,0,0,0,0,0,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,
@@ -11180,29 +11661,29 @@ loadLayer("tiles", {
 	8,7,1,2,2,2,1,1,1,1,1,5,5,1,3,1,5,5,5,1,1,1,1,1,1,1,1,1,4,4,4,4,
 	8,7,1,1,1,1,1,1,1,5,5,5,5,5,5,5,5,5,5,1,1,1,1,1,1,1,4,4,4,4,4,4,
 	8,7,5,5,5,5,5,5,5,5,1,1,5,5,5,5,5,5,1,1,1,4,4,4,4,4,4,4,4,4,4,4,
-	8,7,5,5,5,5,5,5,5,5,1,1,1,1,5,5,5,1,1,1,4,4,1,1,4,4,4,4,1,1,4,4,
-	8,7,5,5,5,5,5,5,5,1,1,1,3,1,5,5,1,1,1,4,4,1,1,1,4,4,1,1,1,1,4,4,
-	8,7,5,5,5,5,5,5,5,1,3,1,1,1,5,5,1,1,4,4,4,1,1,5,5,4,4,1,1,1,4,4,
-	8,7,5,5,5,5,5,5,1,1,1,3,1,5,5,5,1,1,4,4,4,1,1,5,5,4,4,4,4,4,4,4,
-	8,7,5,5,5,5,5,5,5,1,3,3,5,5,5,5,4,4,4,4,4,4,1,1,5,4,4,4,4,4,4,4,
-	8,7,5,5,5,5,5,5,5,1,1,1,5,5,5,4,4,4,4,4,4,4,4,1,1,4,4,4,4,4,4,4,
-	8,7,5,5,5,5,5,5,5,5,5,5,5,5,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
+	8,7,5,1,1,1,5,5,5,5,1,1,1,1,5,5,5,1,1,1,4,4,1,1,4,4,4,4,1,1,4,4,
+	8,7,5,5,1,5,1,1,1,1,1,1,3,1,5,5,1,1,1,4,4,1,1,1,4,4,1,1,1,1,4,4,
+	8,7,5,5,1,5,1,5,5,1,3,1,1,1,5,5,1,1,4,4,4,1,1,5,5,4,4,1,1,1,4,4,
+	8,7,5,5,1,1,1,5,1,1,1,3,1,5,5,5,1,1,4,4,4,1,1,5,5,4,4,4,4,4,4,4,
+	8,7,5,5,1,5,5,5,5,1,3,3,5,5,5,5,4,4,4,4,4,4,1,1,5,4,4,4,4,4,4,4,
+	8,7,5,5,1,5,5,1,1,1,1,1,5,5,5,4,4,4,4,4,4,4,4,1,1,4,4,4,4,4,4,4,
+	8,7,5,5,1,1,1,1,5,5,5,5,5,5,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
 	8,7,5,5,5,5,5,5,5,5,5,5,5,5,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
 	8,7,7,7,7,7,7,7,7,5,5,5,5,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
 	8,8,8,8,8,8,8,8,8,5,5,5,5,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
 })
 
-spawn("forest_heightmap",3,0,1,0,"forest_heightmap_2")
-spawn("beach_wall_button",2,30,0,0,"beach_wall_button_1")
+spawn("forest_heightmap",0,0,1,0,"second_beach_present_heightmap")
+spawn("beach_wall_button",1,31,0,0,"beach_wall_button_1")
 beach_wall_button_1.button:setDisableSelf(false)
 beach_wall_button_1.button:addConnector("onActivate", "script_entity_3", "button")
-spawn("beach_wall_button",3,30,0,0,"beach_wall_button_2")
+spawn("beach_wall_button",2,31,0,0,"beach_wall_button_2")
 beach_wall_button_2.button:setDisableSelf(false)
 beach_wall_button_2.button:addConnector("onActivate", "script_entity_3", "button")
-spawn("beach_wall_button",4,30,0,0,"beach_wall_button_3")
+spawn("beach_wall_button",3,31,0,0,"beach_wall_button_3")
 beach_wall_button_3.button:setDisableSelf(false)
 beach_wall_button_3.button:addConnector("onActivate", "script_entity_3", "button")
-spawn("script_entity",3,29,0,0,"script_entity_3")
+spawn("script_entity",2,30,0,0,"script_entity_3")
 script_entity_3.script:setSource("key = {1,0,1}\
 code = {0,0,0}\
 \
@@ -11234,7 +11715,7 @@ function checkButtons()\
 \9end\
 end\
 ")
-spawn("beach_door_portcullis",3,29,0,0,"beach_door_portcullis_1")
+spawn("beach_door_portcullis",2,30,0,0,"beach_door_portcullis_1")
 spawn("background_hill_01",0,23,3,1,"background_hill_01_1")
 spawn("beach_rock_outside_wall_high",14,31,3,0,"beach_rock_outside_wall_high_5")
 spawn("beach_rock_arch_small",14,29,2,0,"beach_rock_arch_small_1")
@@ -11242,7 +11723,7 @@ spawn("beach_rock_arch_small",13,31,0,0,"beach_rock_arch_small_2")
 spawn("beach_rock_arch_small",12,31,0,0,"beach_rock_arch_small_3")
 spawn("beach_rock_2x1",24,24,2,0,"beach_rock_2x1_1")
 spawn("forest_oak_trunk",30,18,1,0,"forest_oak_trunk_1")
-spawn("forest_oak_trunk",30,20,2,0,"forest_oak_trunk_2")
+spawn("forest_oak_trunk",29,23,2,0,"forest_oak_trunk_2")
 spawn("beach_rock_border",31,19,3,0,"beach_rock_border_3")
 spawn("forest_seaweed_floor_01",31,18,3,0,"forest_seaweed_floor_01_1")
 spawn("forest_seaweed_floor_01",31,19,1,0,"forest_seaweed_floor_01_2")
@@ -11442,7 +11923,7 @@ spawn("forest_ruins_pillar_fallen",23,25,1,0,"forest_ruins_pillar_fallen_1")
 spawn("forest_wall_text_short",23,26,1,0,"forest_wall_text_short_1")
 forest_wall_text_short_1.walltext:setWallText("Fish of the\
 southern waters")
-spawn("blue_gem",16,23,0,0,"blue_gem_1")
+spawn("blue_gem",17,22,0,0,"blue_gem_1")
 blue_gem_1.data:setSource("\9\9\9\9data = {}\
 \9\9\9\9function get(name)\
 \9\9\9\9\9return self.data[name]\
@@ -11547,7 +12028,7 @@ spawn("beach_rock_border",30,15,3,0,"beach_rock_border_7")
 spawn("beach_rock_border",30,16,3,0,"beach_rock_border_8")
 spawn("invisible_platform",30,15,1,0,"invisible_platform_2")
 spawn("invisible_platform",30,14,1,0,"invisible_platform_3")
-spawn("beach_rock_border",30,20,0,0,"beach_rock_border_9")
+spawn("beach_rock_border",27,24,0,0,"beach_rock_border_9")
 spawn("beach_seaweed_01",30,17,1,0,"beach_seaweed_01_4")
 spawn("forest_elevation_edge",31,17,3,-1,"forest_elevation_edge_5")
 spawn("beach_ground_01",30,17,2,0,"beach_ground_01_4")
@@ -11576,7 +12057,7 @@ spawn("forest_seaweed_floor_01",31,15,3,0,"forest_seaweed_floor_01_16")
 spawn("forest_seaweed_floor_01",31,14,3,0,"forest_seaweed_floor_01_17")
 spawn("forest_seaweed_floor_01",31,16,3,0,"forest_seaweed_floor_01_19")
 spawn("invisible_wall",29,20,1,0,"invisible_wall_6")
-spawn("invisible_wall",30,20,1,0,"invisible_wall_7")
+spawn("invisible_wall",27,24,1,0,"invisible_wall_7")
 spawn("invisible_wall",31,19,1,0,"invisible_wall_8")
 spawn("invisible_wall",31,18,1,0,"invisible_wall_9")
 spawn("invisible_wall",31,17,1,0,"invisible_wall_10")
@@ -11630,7 +12111,7 @@ spawn("invisible_wall",31,16,1,1,"invisible_wall_31")
 spawn("invisible_wall",31,15,1,1,"invisible_wall_32")
 spawn("invisible_wall",31,14,1,1,"invisible_wall_33")
 spawn("invisible_wall",31,18,1,1,"invisible_wall_34")
-spawn("invisible_wall",30,20,1,1,"invisible_wall_35")
+spawn("invisible_wall",27,24,1,1,"invisible_wall_35")
 spawn("beach_rock_3x1",31,12,0,0,"beach_rock_3x1_8")
 spawn("beach_rock_2x1",31,12,1,0,"beach_rock_2x1_11")
 spawn("beach_rock_3x1",30,11,1,0,"beach_rock_3x1_9")
@@ -11659,7 +12140,7 @@ spawn("beach_rock_3x1",27,16,0,1,"beach_rock_3x1_10")
 spawn("beach_rock_arch_small",28,14,0,0,"beach_rock_arch_small_10")
 spawn("beach_rock_1x1_low",26,14,1,0,"beach_rock_1x1_low_11")
 spawn("beach_rock_1x1_lowest",27,12,3,0,"beach_rock_1x1_lowest_11")
-spawn("forest_day_sky",4,0,2,0,"forest_day_sky_2")
+spawn("forest_day_sky",1,0,2,0,"second_beach_present_sky")
 spawn("beach_lever",27,13,2,0,"beach_lever_1")
 beach_lever_1.lever:setDisableSelf(false)
 beach_lever_1.lever:addConnector("onActivate", "beach_door_portcullis_3", "open")
@@ -11729,18 +12210,23 @@ zarchton_2.detectedtimer:setTimerInterval(0)
 zarchton_2.detectedtimer:setDisableSelf(false)
 zarchton_2.detectedtimer:setTriggerOnStart(true)
 zarchton_2.detectedtimer:setCurrentLevelOnly(true)
-spawn("floor_trigger",27,18,3,0,"floor_trigger_1")
+spawn("floor_trigger",28,18,3,0,"floor_trigger_1")
 floor_trigger_1.floortrigger:setTriggeredByParty(true)
 floor_trigger_1.floortrigger:setTriggeredByMonster(false)
 floor_trigger_1.floortrigger:setTriggeredByItem(false)
 floor_trigger_1.floortrigger:setTriggeredByDigging(false)
 floor_trigger_1.floortrigger:setDisableSelf(true)
 floor_trigger_1.floortrigger:addConnector("onActivate", "script_entity_4", "spawnAmbush")
+floor_trigger_1.floortrigger:disable()
 spawn("script_entity",30,19,3,0,"script_entity_4")
 script_entity_4.script:setSource("function spawnAmbush()\
 \9self.go:spawn(\"zarchton_ambush\")\
+end\
+\
+function enableTrigger()\
+\9floor_trigger_1.floortrigger:enable()\
 end")
-spawn("beach_rock_blocker_01",30,20,2,0,"beach_rock_blocker_01_4")
+spawn("beach_rock_blocker_01",27,24,2,0,"beach_rock_blocker_01_4")
 spawn("invisible_wall",31,19,1,1,"invisible_wall_44")
 spawn("beach_rock_spire_pillar",31,18,2,-1,"beach_rock_spire_pillar_1")
 spawn("forest_ruins_pillar_01",24,10,2,0,"forest_ruins_pillar_01_1")
@@ -12133,24 +12619,6 @@ spawn("forest_oak",10,7,1,0,"forest_oak_4")
 spawn("forest_oak",9,6,3,0,"forest_oak_6")
 spawn("forest_ruins_wall_ivy_02",12,5,2,0,"forest_ruins_wall_ivy_02_1")
 spawn("beach_rock_outside_wall_high",10,5,0,0,"beach_rock_outside_wall_high_7")
-spawn("crystal_area",25,13,2,0,"crystal_area_1")
-spawn("crystal_area_inside",24,11,3,0,"crystal_area_inside_6")
-spawn("crystal_area_inside",25,12,3,0,"crystal_area_inside_7")
-spawn("crystal_area_inside",24,12,2,0,"crystal_area_inside_8")
-spawn("crystal_area_inside",25,10,3,0,"crystal_area_inside_9")
-spawn("crystal_area_inside",24,10,2,0,"crystal_area_inside_10")
-spawn("crystal_area",24,13,2,0,"crystal_area_11")
-spawn("crystal_area",23,12,3,0,"crystal_area_12")
-spawn("crystal_area",22,11,3,0,"crystal_area_13")
-spawn("crystal_area",23,10,3,0,"crystal_area_14")
-spawn("crystal_area",24,9,0,0,"crystal_area_15")
-spawn("crystal_area",25,9,0,0,"crystal_area_16")
-spawn("crystal_area",26,13,2,0,"crystal_area_18")
-spawn("crystal_area",26,13,1,0,"crystal_area_19")
-spawn("crystal_area",24,13,3,0,"crystal_area_23")
-spawn("crystal_area",23,12,2,0,"crystal_area_24")
-spawn("crystal_area",23,10,0,0,"crystal_area_21")
-spawn("crystal_area",24,9,3,0,"crystal_area_22")
 spawn("beach_rock_blocker_02",18,6,0,0,"beach_rock_blocker_02_3")
 spawn("beach_rock_1x1_lowest",24,11,3,0,"beach_rock_1x1_lowest_35")
 spawn("beach_rock_border",24,12,0,0,"beach_rock_border_101")
@@ -12169,16 +12637,7 @@ spawn("beach_rock_blocker_01",18,7,3,0,"beach_rock_blocker_01_6")
 spawn("beach_rock_pillar_decoration",18,8,0,0,"beach_rock_pillar_decoration_5")
 spawn("beach_rock_pillar_decoration",25,14,0,0,"beach_rock_pillar_decoration_6")
 spawn("beach_rock_floor_decoration",26,12,3,0,"beach_rock_floor_decoration_1")
-spawn("crystal_area_inside",25,11,2,0,"crystal_area_inside_5")
-spawn("healing_crystal",28,10,0,0,"healing_crystal_1")
-spawn("crystal_area_inside",25,9,2,0,"crystal_area_inside_11")
-spawn("crystal_area_inside",23,11,2,0,"crystal_area_inside_23")
-spawn("crystal_area_inside",25,13,2,0,"crystal_area_inside_24")
-spawn("crystal_area_inside",23,10,3,0,"crystal_area_inside_25")
-spawn("crystal_area_inside",23,12,3,0,"crystal_area_inside_26")
-spawn("crystal_area_inside",24,13,3,0,"crystal_area_inside_27")
-spawn("crystal_area_inside",26,13,3,0,"crystal_area_inside_28")
-spawn("crystal_area_inside",24,9,3,0,"crystal_area_inside_29")
+spawn("healing_crystal",25,11,0,0,"healing_crystal_1")
 spawn("beach_rock_pillar_decoration",24,22,3,0,"beach_rock_pillar_decoration_7")
 spawn("beach_rock_pillar_decoration",19,16,3,0,"beach_rock_pillar_decoration_8")
 spawn("tattered_shirt",12,5,2,0,"tattered_shirt_1")
@@ -12210,10 +12669,10 @@ spawn("beach_crab",21,20,2,0,"beach_crab_8")
 spawn("beach_crab",19,22,1,0,"beach_crab_11")
 spawn("sound",12,0,3,0,"sound_22")
 sound_22.sound:setSound("beach_waves")
-spawn("mine_door_spear",23,18,3,0,"mine_door_spear_1")
-spawn("mine_door_spear",22,18,0,0,"mine_door_spear_2")
-mine_door_spear_2.door:setDoorState("open")
-spawn("beach_pressure_plate",22,18,1,0,"beach_pressure_plate_2")
+spawn("mine_door_spear",23,16,0,0,"mine_door_spear_1")
+mine_door_spear_1.door:setDoorState("open")
+spawn("mine_door_spear",22,16,1,0,"mine_door_spear_2")
+spawn("beach_pressure_plate",23,15,1,0,"beach_pressure_plate_2")
 beach_pressure_plate_2.floortrigger:setTriggeredByParty(true)
 beach_pressure_plate_2.floortrigger:setTriggeredByMonster(true)
 beach_pressure_plate_2.floortrigger:setTriggeredByItem(true)
@@ -12223,7 +12682,7 @@ beach_pressure_plate_2.floortrigger:addConnector("onToggle", "mine_door_spear_2"
 spawn("beach_rock_1x1_lowest",23,17,1,0,"beach_rock_1x1_lowest_38")
 spawn("beach_rock_1x1_lowest",23,17,3,0,"beach_rock_1x1_lowest_39")
 spawn("beach_rock_border",22,16,3,0,"beach_rock_border_113")
-spawn("beach_pressure_plate",22,17,1,0,"beach_pressure_plate_3")
+spawn("beach_pressure_plate",23,16,1,0,"beach_pressure_plate_3")
 beach_pressure_plate_3.floortrigger:setTriggeredByParty(true)
 beach_pressure_plate_3.floortrigger:setTriggeredByMonster(true)
 beach_pressure_plate_3.floortrigger:setTriggeredByItem(true)
@@ -12330,14 +12789,14 @@ spawn("beach_rock_spire",14,13,1,0,"beach_rock_spire_15")
 spawn("beach_rock_spire",14,13,0,0,"beach_rock_spire_16")
 spawn("beach_rock_spire",14,13,2,0,"beach_rock_spire_17")
 spawn("teleporter",16,14,2,0,"teleporter_17")
-teleporter_17.teleporter:setTeleportTarget(9,9,25,0)
+teleporter_17.teleporter:setTeleportTarget(9,4,22,0)
 teleporter_17.teleporter:setSpin("east")
 teleporter_17.teleporter:setTriggeredByParty(true)
 teleporter_17.teleporter:setTriggeredByMonster(true)
 teleporter_17.teleporter:setTriggeredByItem(false)
 teleporter_17.teleporter:setTriggeredBySpell(false)
 teleporter_17.controller:setInitialState("deactivate")
-spawn("teleporter",8,25,2,0,"teleporter_18")
+spawn("teleporter",3,22,2,0,"teleporter_18")
 teleporter_18.teleporter:setTeleportTarget(9,16,13,0)
 teleporter_18.teleporter:setSpin("south")
 teleporter_18.teleporter:setTriggeredByParty(true)
@@ -12357,7 +12816,7 @@ spawn("beach_rock_arch_small",8,22,2,0,"beach_rock_arch_small_243")
 spawn("beach_rock_spire",13,23,1,0,"beach_rock_spire_18")
 spawn("beach_rock_spire",11,28,1,0,"beach_rock_spire_19")
 spawn("beach_rock_3x2",11,29,3,0,"beach_rock_3x2_10")
-spawn("beach_rock_3x2",8,28,0,0,"beach_rock_3x2_11")
+spawn("beach_rock_3x2",8,29,2,0,"beach_rock_3x2_11")
 spawn("beach_rock_3x2",10,19,1,0,"beach_rock_3x2_20")
 spawn("beach_rock_1x1_lowest",8,24,0,0,"beach_rock_1x1_lowest_60")
 spawn("beach_rock_1x1_lowest",11,27,2,0,"beach_rock_1x1_lowest_61")
@@ -12369,7 +12828,7 @@ spawn("beach_rock_pillar_decoration",11,25,2,0,"beach_rock_pillar_decoration_28"
 spawn("beach_rock_pillar_decoration",11,27,2,0,"beach_rock_pillar_decoration_29")
 spawn("forest_border_rocks_01",10,27,1,0,"forest_border_rocks_01_3")
 spawn("forest_border_rocks_01",11,26,2,0,"forest_border_rocks_01_4")
-spawn("blooddrop_cap",17,11,0,0,"blooddrop_cap_2")
+spawn("blooddrop_cap",3,18,3,0,"blooddrop_cap_2")
 blooddrop_cap_2.data:setSource("\9\9\9\9data = {}\
 \9\9\9\9function get(name)\
 \9\9\9\9\9return self.data[name]\
@@ -12680,9 +13139,6 @@ ornate_key_1.detectedtimer:setCurrentLevelOnly(true)
 pedestal_7.surface:addItem(ornate_key_1.item)
 spawn("beach_rock_3x1",19,8,1,0,"beach_rock_3x1_76")
 spawn("beach_rock_arch_small",20,8,2,0,"beach_rock_arch_small_245")
-spawn("crystal_area",22,11,2,0,"crystal_area_3")
-spawn("crystal_area",22,11,0,0,"crystal_area_4")
-spawn("crystal_area_inside",22,11,1,0,"crystal_area_inside_1")
 spawn("script_entity",10,14,2,0,"script_entity_10")
 script_entity_10.script:setSource("function spawnCrowern()\
 \9local m = self.go:spawn(\"crowern\")\
@@ -12697,7 +13153,7 @@ spawner_12.spawner:setSpawnedEntity("turtle")
 spawner_12.spawner:setMonsterLevel(1)
 spawner_12.spawner:setCooldown(1000)
 spawner_12.spawner:setDisableSelf(false)
-spawn("floor_trigger",22,16,3,0,"floor_trigger_14")
+spawn("floor_trigger",23,18,3,0,"floor_trigger_14")
 floor_trigger_14.floortrigger:setTriggeredByParty(true)
 floor_trigger_14.floortrigger:setTriggeredByMonster(false)
 floor_trigger_14.floortrigger:setTriggeredByItem(false)
@@ -12717,15 +13173,15 @@ beach_lock_ornate_2.clickable:disable()
 beach_lock_ornate_2.lock:setOpenedBy("ornate_key")
 beach_lock_ornate_2.lock:addConnector("onActivate", "beach_door_portcullis_6", "open")
 beach_lock_ornate_2.lock:disable()
-spawn("beach_rock_wall_01",23,15,3,0,"beach_rock_wall_01_14")
-spawn("beach_rock_wall_01",24,15,3,0,"beach_rock_wall_01_15")
-spawn("beach_rock_pillar_01",23,15,3,0,"beach_rock_pillar_01_13")
+spawn("beach_rock_wall_01",22,17,3,0,"beach_rock_wall_01_14")
+spawn("beach_rock_wall_01",23,17,3,0,"beach_rock_wall_01_15")
+spawn("beach_rock_pillar_01",22,17,3,0,"beach_rock_pillar_01_13")
 spawn("round_key",26,18,0,0,"round_key_3")
 round_key_3.detectedtimer:setTimerInterval(0)
 round_key_3.detectedtimer:setDisableSelf(false)
 round_key_3.detectedtimer:setTriggerOnStart(true)
 round_key_3.detectedtimer:setCurrentLevelOnly(true)
-spawn("beach_rock_blocker_02",23,15,2,0,"beach_rock_blocker_02_11")
+spawn("beach_rock_blocker_02",22,17,2,0,"beach_rock_blocker_02_11")
 spawn("beach_rock_arch_small",12,29,2,0,"beach_rock_arch_small_105")
 spawn("beach_rock_border",17,31,3,0,"beach_rock_border_155")
 spawn("chest",13,30,1,-1,"chest_1")
@@ -12808,7 +13264,7 @@ timer_6.timer:addConnector("onActivate", "beach_secret_door_7", "open")
 timer_6.timer:disable()
 spawn("beach_statue_01",29,23,3,0,"beach_statue_01_1")
 spawn("beach_rock_blocker_02",29,23,0,0,"beach_rock_blocker_02_12")
-spawn("throwing_knife",22,18,2,0,"throwing_knife_1")
+spawn("throwing_knife",23,16,2,0,"throwing_knife_1")
 throwing_knife_1.data:setSource("\9\9\9\9data = {}\
 \9\9\9\9function get(name)\
 \9\9\9\9\9return self.data[name]\
@@ -13003,7 +13459,7 @@ spawn("forest_spruce_sapling_pillar",8,12,3,1,"forest_spruce_sapling_pillar_4")
 spawn("grass_planes_01",2,10,2,1,"grass_planes_01_1")
 spawn("beach_rock_2x1",5,19,1,1,"beach_rock_2x1_96")
 spawn("beach_rock_arch_small",4,19,1,1,"beach_rock_arch_small_249")
-spawn("swamp_oak",4,23,0,2,"swamp_oak_12")
+spawn("swamp_oak",3,24,0,2,"swamp_oak_12")
 spawn("swamp_oak",7,22,0,2,"swamp_oak_13")
 spawn("beach_rock_blocker_01",5,13,3,1,"beach_rock_blocker_01_28")
 spawn("beach_rock_blocker_02",5,14,0,1,"beach_rock_blocker_02_13")
@@ -13215,8 +13671,8 @@ borra_2.detectedtimer:setTimerInterval(0)
 borra_2.detectedtimer:setDisableSelf(false)
 borra_2.detectedtimer:setTriggerOnStart(true)
 borra_2.detectedtimer:setCurrentLevelOnly(true)
-spawn("beach_rock_3x2",6,26,0,1,"beach_rock_3x2_22")
-spawn("beach_rock_3x2",5,23,2,1,"beach_rock_3x2_23")
+spawn("beach_rock_3x2",2,26,0,1,"beach_rock_3x2_22")
+spawn("beach_rock_3x2",1,23,2,1,"beach_rock_3x2_23")
 spawn("swamp_oak",7,27,0,1,"swamp_oak_14")
 spawn("swamp_oak",9,29,0,0,"swamp_oak_15")
 spawn("cudgel",12,5,3,0,"cudgel_1")
@@ -13312,7 +13768,6 @@ spawn("grass_planes_01",3,4,2,1,"grass_planes_01_28")
 spawn("grass_planes_01",4,4,2,1,"grass_planes_01_29")
 spawn("grass_planes_01",2,4,2,1,"grass_planes_01_30")
 spawn("grass_planes_01",5,4,2,1,"grass_planes_01_31")
-spawn("time_hint_floorCircle",24,14,0,0,"time_hint_floorCircle_1")
 spawn("forest_lantern",16,5,3,0,"forest_lantern_35")
 spawn("beach_oar_boat",27,2,0,0,"beach_oar_boat_1")
 beach_oar_boat_1.obstacle:disable()
@@ -13391,7 +13846,205 @@ sack_5.detectedtimer:setCurrentLevelOnly(true)
 spawn("forest_willow",11,19,3,1,"forest_willow_47")
 spawn("forest_willow",11,12,0,2,"forest_willow_48")
 spawn("beach_rock_blocker_01",13,24,2,0,"beach_rock_blocker_01_98")
-spawn("time_crystal",25,11,2,0,"time_crystal_1")
+spawn("beach_lever",24,10,1,0,"beach_lever_4")
+beach_lever_4.lever:setDisableSelf(false)
+beach_lever_4.lever:addConnector("onActivate", "teleporter_49", "activate")
+spawn("beach_rock_1x1_lowest",21,12,3,0,"beach_rock_1x1_lowest_66")
+spawn("dead_crystal",10,21,2,0,"dead_crystal_2")
+spawn("beach_thicket_01",10,21,0,-1,"beach_thicket_01_40")
+spawn("forest_elevation_edge",10,21,3,-1,"forest_elevation_edge_351")
+spawn("forest_elevation_edge",10,21,0,-1,"forest_elevation_edge_352")
+spawn("forest_elevation_edge",10,21,1,-1,"forest_elevation_edge_353")
+spawn("forest_elevation_edge",10,21,2,-1,"forest_elevation_edge_354")
+spawn("peasant_cap",19,11,2,0,"peasant_cap_2")
+peasant_cap_2.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+peasant_cap_2.detectedtimer:setTimerInterval(0)
+peasant_cap_2.detectedtimer:setDisableSelf(false)
+peasant_cap_2.detectedtimer:setTriggerOnStart(true)
+peasant_cap_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("peasant_breeches",19,11,2,0,"peasant_breeches_2")
+peasant_breeches_2.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+peasant_breeches_2.detectedtimer:setTimerInterval(0)
+peasant_breeches_2.detectedtimer:setDisableSelf(false)
+peasant_breeches_2.detectedtimer:setTriggerOnStart(true)
+peasant_breeches_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("sandals",24,27,0,0,"sandals_2")
+sandals_2.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+sandals_2.detectedtimer:setTimerInterval(0)
+sandals_2.detectedtimer:setDisableSelf(false)
+sandals_2.detectedtimer:setTriggerOnStart(true)
+sandals_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("beach_rock_border",20,16,0,0,"beach_rock_border_219")
+spawn("beach_rock_1x1_lowest",11,13,2,1,"beach_rock_1x1_lowest_71")
+spawn("pellet_box",14,17,1,0,"pellet_box_8")
+pellet_box_8.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+pellet_box_8.item:setStackSize(10)
+pellet_box_8.detectedtimer:setTimerInterval(0)
+pellet_box_8.detectedtimer:setDisableSelf(false)
+pellet_box_8.detectedtimer:setTriggerOnStart(true)
+pellet_box_8.detectedtimer:setCurrentLevelOnly(true)
+spawn("horned_fruit",17,11,0,0,"horned_fruit_2")
+horned_fruit_2.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+horned_fruit_2.detectedtimer:setTimerInterval(0)
+horned_fruit_2.detectedtimer:setDisableSelf(false)
+horned_fruit_2.detectedtimer:setTriggerOnStart(true)
+horned_fruit_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("beach_rock_arch_small",3,24,1,0,"beach_rock_arch_small_209")
+spawn("beach_rock_arch_small",5,24,2,0,"beach_rock_arch_small_210")
+spawn("beach_rock_arch_small",5,26,0,0,"beach_rock_arch_small_211")
+spawn("beach_rock_arch_small",7,24,0,0,"beach_rock_arch_small_272")
+spawn("beach_rock_arch_small",5,24,3,0,"beach_rock_arch_small_273")
+spawn("beach_rock_arch_small",7,24,3,0,"beach_rock_arch_small_275")
+spawn("beach_rock_arch_small",5,24,1,0,"beach_rock_arch_small_276")
+spawn("beach_rock_arch_small",3,26,0,0,"beach_rock_arch_small_277")
+spawn("beach_rock_arch_small",7,24,2,0,"beach_rock_arch_small_278")
+spawn("beach_rock_arch_small",7,22,2,0,"beach_rock_arch_small_279")
+spawn("beach_rock_arch_small",7,22,2,0,"beach_rock_arch_small_280")
+spawn("beach_rock_arch_small",7,22,2,0,"beach_rock_arch_small_281")
+spawn("beach_rock_arch_small",2,21,1,0,"beach_rock_arch_small_282")
+spawn("beach_rock_arch_small",4,21,1,0,"beach_rock_arch_small_283")
+spawn("beach_rock_arch_small",2,23,0,0,"beach_rock_arch_small_284")
+spawn("beach_rock_arch_small",5,21,2,0,"beach_rock_arch_small_285")
+spawn("beach_rock_arch_small",5,23,0,0,"beach_rock_arch_small_286")
+spawn("beach_rock_arch_small",7,26,3,0,"beach_rock_arch_small_287")
+spawn("beach_rock_arch_small",5,26,3,0,"beach_rock_arch_small_288")
+spawn("beach_rock_arch_small",3,28,0,0,"beach_rock_arch_small_291")
+spawn("beach_rock_arch_small",8,29,3,0,"beach_rock_arch_small_292")
+spawn("beach_rock_arch_small",6,29,3,0,"beach_rock_arch_small_293")
+spawn("beach_rock_arch_small",4,29,3,0,"beach_rock_arch_small_294")
+spawn("beach_rock_arch_small",5,27,3,0,"beach_rock_arch_small_295")
+spawn("beach_rock_arch_small",3,27,1,0,"beach_rock_arch_small_296")
+spawn("beach_rock_arch_small",6,27,2,0,"beach_rock_arch_small_297")
+spawn("beach_rock_arch_small",5,29,0,0,"beach_rock_arch_small_298")
+spawn("beach_rock_arch_small",8,26,3,0,"beach_rock_arch_small_299")
+spawn("beach_rock_arch_small",8,24,2,0,"beach_rock_arch_small_300")
+spawn("beach_rock_arch_small",6,26,1,0,"beach_rock_arch_small_301")
+spawn("beach_rock_border",7,23,0,0,"beach_rock_border_220")
+spawn("beach_rock_border",6,23,0,0,"beach_rock_border_221")
+spawn("beach_rock_border",5,22,1,0,"beach_rock_border_222")
+spawn("beach_rock_border",4,23,1,0,"beach_rock_border_223")
+spawn("beach_rock_border",4,24,3,0,"beach_rock_border_224")
+spawn("beach_rock_border",4,25,3,0,"beach_rock_border_225")
+spawn("beach_rock_border",4,27,3,0,"beach_rock_border_226")
+spawn("beach_rock_border",5,28,0,0,"beach_rock_border_227")
+spawn("beach_rock_border",4,28,2,0,"beach_rock_border_228")
+spawn("beach_rock_border",6,28,2,0,"beach_rock_border_229")
+spawn("beach_rock_border",5,22,2,0,"beach_rock_border_230")
+spawn("beach_rock_border",6,23,3,0,"beach_rock_border_231")
+spawn("beach_rock_border",5,25,0,0,"beach_rock_border_232")
+spawn("beach_rock_border",6,25,1,0,"beach_rock_border_233")
+spawn("beach_rock_border",6,25,2,0,"beach_rock_border_234")
+spawn("beach_rock_border",7,27,3,0,"beach_rock_border_235")
+spawn("beach_rock_border",7,27,0,0,"beach_rock_border_236")
+spawn("beach_rock_border",8,27,2,0,"beach_rock_border_237")
+spawn("beach_rock_border",9,27,2,0,"beach_rock_border_238")
+spawn("beach_rock_floor_decoration",5,22,2,0,"beach_rock_floor_decoration_57")
+spawn("beach_rock_floor_decoration",6,25,1,0,"beach_rock_floor_decoration_58")
+spawn("beach_rock_floor_decoration",4,27,1,0,"beach_rock_floor_decoration_59")
+spawn("beach_secret_door",7,23,3,0,"beach_secret_door_11")
+spawn("beach_secret_door",5,25,3,0,"beach_secret_door_12")
+spawn("beach_rock_1x1_low",5,23,1,0,"beach_rock_1x1_low_74")
+spawn("beach_rock_1x1_low",5,23,1,0,"beach_rock_1x1_low_75")
+spawn("pellet_box",5,22,0,0,"pellet_box_9")
+pellet_box_9.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+pellet_box_9.item:setStackSize(10)
+pellet_box_9.detectedtimer:setTimerInterval(0)
+pellet_box_9.detectedtimer:setDisableSelf(false)
+pellet_box_9.detectedtimer:setTriggerOnStart(true)
+pellet_box_9.detectedtimer:setCurrentLevelOnly(true)
+spawn("mine_wooden_support",6,23,1,0,"mine_wooden_support_1")
+spawn("mine_wooden_support",6,25,1,0,"mine_wooden_support_3")
+spawn("mine_wooden_support",5,24,1,0,"mine_wooden_support_2")
+spawn("mine_bridge_01",8,27,1,0,"mine_bridge_01_17")
+spawn("mine_bridge_01",7,28,2,0,"mine_bridge_01_18")
+spawn("mine_bridge_01",4,24,2,0,"mine_bridge_01_19")
+spawn("mine_bridge_01",4,25,2,0,"mine_bridge_01_20")
+spawn("beach_lock_ornate",6,25,1,0,"beach_lock_ornate_3")
+beach_lock_ornate_3.clickable:disable()
+beach_lock_ornate_3.lock:setOpenedBy("")
+beach_lock_ornate_3.lock:disable()
+spawn("beach_rock_floor_decoration",8,22,2,0,"beach_rock_floor_decoration_60")
+spawn("ceiling_witch_lantern",4,24,1,0,"ceiling_witch_lantern_3")
+spawn("ceiling_witch_lantern",5,28,1,0,"ceiling_witch_lantern_4")
+spawn("summon_stone_dormant",9,24,0,0,"summon_stone_dormant_1")
+summon_stone_dormant_1.detectedtimer:setTimerInterval(0)
+summon_stone_dormant_1.detectedtimer:setDisableSelf(false)
+summon_stone_dormant_1.detectedtimer:setTriggerOnStart(true)
+summon_stone_dormant_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("beach_rock_floor_decoration",9,24,3,0,"beach_rock_floor_decoration_61")
+spawn("beach_rock_floor_decoration",9,24,1,0,"beach_rock_floor_decoration_62")
+spawn("beach_cattail_wall",11,21,0,0,"beach_cattail_wall_15")
+spawn("beach_cattail_wall",12,25,2,0,"beach_cattail_wall_16")
+spawn("tattered_cloak",8,25,3,0,"tattered_cloak_2")
+tattered_cloak_2.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+tattered_cloak_2.detectedtimer:setTimerInterval(0)
+tattered_cloak_2.detectedtimer:setDisableSelf(false)
+tattered_cloak_2.detectedtimer:setTriggerOnStart(true)
+tattered_cloak_2.detectedtimer:setCurrentLevelOnly(true)
+spawn("beach_secret_door",6,24,0,0,"beach_secret_door_13")
+spawn("summon_stone",6,25,3,0,"summon_stone_1")
+summon_stone_1.detectedtimer:setTimerInterval(0)
+summon_stone_1.detectedtimer:setDisableSelf(false)
+summon_stone_1.detectedtimer:setTriggerOnStart(true)
+summon_stone_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("floor_trigger",9,25,2,0,"floor_trigger_58")
+floor_trigger_58.floortrigger:setTriggeredByParty(true)
+floor_trigger_58.floortrigger:setTriggeredByMonster(true)
+floor_trigger_58.floortrigger:setTriggeredByItem(true)
+floor_trigger_58.floortrigger:setTriggeredByDigging(false)
+floor_trigger_58.floortrigger:setDisableSelf(false)
+floor_trigger_58.floortrigger:addConnector("onActivate", "beach_secret_door_12", "open")
+floor_trigger_58.floortrigger:addConnector("onActivate", "summon_stone_dormant_1", "activate")
+spawn("beach_crab",26,18,2,0,"beach_crab_18")
+spawn("forest_grass_01",4,27,1,0,"forest_grass_01_56")
+spawn("fire_bomb",17,13,1,0,"fire_bomb_3")
+fire_bomb_3.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+fire_bomb_3.detectedtimer:setTimerInterval(0)
+fire_bomb_3.detectedtimer:setDisableSelf(false)
+fire_bomb_3.detectedtimer:setTriggerOnStart(true)
+fire_bomb_3.detectedtimer:setCurrentLevelOnly(true)
+spawn("beach_door_portcullis",13,16,0,0,"beach_door_portcullis_12")
+spawn("beach_wall_button",9,15,0,0,"beach_wall_button_5")
+beach_wall_button_5.button:setDisableSelf(false)
+beach_wall_button_5.button:addConnector("onActivate", "beach_door_portcullis_12", "toggle")
+spawn("beach_rock_floor_decoration",5,25,3,0,"beach_rock_floor_decoration_63")
+spawn("beach_rock_border",7,25,3,0,"beach_rock_border_239")
+spawn("invisible_wall_text",6,25,1,0,"invisible_wall_text_1")
+invisible_wall_text_1.walltext:setWallText("A destroyed lock stand")
+invisible_wall_text_1.data:setSource("data = { [\"size\"] = vec(2.0,1.0,0) }\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+spawn("invisible_wall_text",24,14,2,0,"invisible_wall_text_2")
+invisible_wall_text_2.walltext:setWallText("A destroyed lock stand")
+invisible_wall_text_2.data:setSource("data = { [\"size\"] = vec(2.0,1.0,0) }\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+spawn("floor_trigger",26,18,1,0,"floor_trigger_59")
+floor_trigger_59.floortrigger:setTriggeredByParty(true)
+floor_trigger_59.floortrigger:setTriggeredByMonster(false)
+floor_trigger_59.floortrigger:setTriggeredByItem(false)
+floor_trigger_59.floortrigger:setTriggeredByDigging(false)
+floor_trigger_59.floortrigger:setDisableSelf(true)
+floor_trigger_59.floortrigger:addConnector("onActivate", "script_entity_4", "enableTrigger")
+spawn("forest_willow",20,14,3,1,"forest_willow_51")
+spawn("starting_location",23,13,2,0,"starting_location_1")
+spawn("beach_rock_pillar_decoration",28,24,0,0,"beach_rock_pillar_decoration_37")
 
 --- level 10 ---
 
@@ -13491,12 +14144,12 @@ loadLayer("tiles", {
 	7,6,1,1,1,1,1,1,1,1,5,5,3,3,5,1,1,1,1,1,1,5,1,1,1,1,1,1,1,1,1,4,
 	7,6,1,1,1,1,1,1,1,1,5,5,5,1,5,5,5,5,1,5,5,5,1,1,1,1,1,1,1,1,1,5,
 	7,6,1,1,1,1,1,1,1,1,5,5,5,1,5,5,5,5,1,5,5,5,5,5,1,1,1,1,5,1,5,5,
-	7,6,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
-	7,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,2,2,2,1,5,5,5,5,5,5,
-	7,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,5,5,5,5,2,2,2,2,5,5,5,5,5,5,
+	7,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+	7,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,2,2,2,2,2,2,2,2,1,5,5,5,5,5,5,
+	7,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,5,5,5,5,5,2,2,2,2,5,5,5,5,5,5,
 	7,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,2,2,2,2,2,2,2,1,5,5,5,5,5,5,
-	7,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,5,5,5,5,2,2,2,1,5,5,5,5,5,5,
-	7,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,2,2,2,1,1,3,3,1,1,4,
+	7,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,5,5,5,2,2,2,2,1,5,5,5,5,5,5,
+	7,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,5,5,2,2,2,2,1,1,3,3,1,1,4,
 	7,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,5,5,5,2,2,1,5,5,1,5,5,1,4,
 	7,6,1,1,1,1,1,1,1,1,1,1,1,5,5,5,5,5,5,5,5,5,5,1,5,5,5,5,5,5,1,4,
 	7,6,1,1,1,1,1,1,1,1,1,5,5,5,5,5,5,5,5,1,1,5,1,1,5,5,5,5,5,5,1,4,
@@ -13517,8 +14170,8 @@ loadLayer("tiles", {
 	7,7,7,7,7,7,7,7,7,7,7,5,5,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
 })
 
-spawn("beach_day_sky",2,0,2,0,"beach_day_sky_2")
-spawn("forest_heightmap",1,0,2,0,"forest_heightmap_3")
+spawn("beach_day_sky",1,0,2,0,"second_beach_past_sky")
+spawn("forest_heightmap",0,0,2,0,"second_beach_past_heightmap")
 spawn("healing_crystal",25,11,1,0,"healing_crystal_2")
 spawn("swamp_oak",28,15,3,1,"swamp_oak_5")
 spawn("beach_rock_arch",29,12,0,0,"beach_rock_arch_1")
@@ -13809,7 +14462,7 @@ beach_lock_round_1.lock:setOpenedBy("round_key")
 beach_lock_round_1.lock:addConnector("onActivate", "beach_secret_door_3", "open")
 beach_lock_round_1.lock:addConnector("onActivate", "script_entity_11", "openPastPassage")
 spawn("forest_spruce_sapling_02",25,9,3,1,"forest_spruce_sapling_02_3")
-spawn("forest_plant_cluster_01",22,9,3,0,"forest_plant_cluster_01_2")
+spawn("forest_plant_cluster_01",21,13,3,0,"forest_plant_cluster_01_2")
 spawn("forest_grass_01",22,10,0,0,"forest_grass_01_2")
 spawn("forest_grass_01",24,12,0,0,"forest_grass_01_3")
 spawn("forest_grass_01",24,14,0,0,"forest_grass_01_4")
@@ -13881,14 +14534,10 @@ beach_pressure_plate_4.floortrigger:setTriggeredByItem(true)
 beach_pressure_plate_4.floortrigger:setTriggeredByDigging(false)
 beach_pressure_plate_4.floortrigger:setDisableSelf(false)
 beach_pressure_plate_4.floortrigger:addConnector("onToggle", "mine_door_spear_3", "toggle")
-spawn("forest_stairs_down",19,11,3,0,"forest_stairs_down_4")
-spawn("beach_rock_3x1",17,10,2,0,"beach_rock_3x1_39")
-spawn("beach_rock_arch",20,9,3,0,"beach_rock_arch_20")
-spawn("beach_rock_3x1",17,9,1,0,"beach_rock_3x1_40")
+spawn("forest_stairs_down",19,9,3,0,"forest_stairs_down_4")
 spawn("beach_rock_3x2",16,11,2,1,"beach_rock_3x2_12")
-spawn("beach_rock_spire",19,10,2,0,"beach_rock_spire_12")
 spawn("beach_rock_2x1",19,12,1,0,"beach_rock_2x1_44")
-spawn("beach_rock_arch_small",21,12,2,0,"beach_rock_arch_small_125")
+spawn("beach_rock_arch_small",20,12,2,0,"beach_rock_arch_small_125")
 spawn("beach_rock_floor_decoration",20,10,2,0,"beach_rock_floor_decoration_10")
 spawn("forest_spruce_sapling_pillar",21,10,0,1,"forest_spruce_sapling_pillar_2")
 spawn("beach_rock_3x1",26,8,2,0,"beach_rock_3x1_13")
@@ -14073,7 +14722,6 @@ spawn("beach_rock_2x1",15,6,3,0,"beach_rock_2x1_57")
 spawn("beach_rock_2x1",12,3,1,0,"beach_rock_2x1_58")
 spawn("beach_rock_2x1",13,2,2,0,"beach_rock_2x1_59")
 spawn("beach_rock_2x1",12,2,0,0,"beach_rock_2x1_60")
-spawn("beach_rock_3x2",18,8,3,0,"beach_rock_3x2_17")
 spawn("beach_rock_1x1_low",15,5,2,0,"beach_rock_1x1_low_43")
 spawn("beach_rock_1x1_lowest",17,3,3,0,"beach_rock_1x1_lowest_45")
 spawn("beach_rock_1x1",17,3,1,0,"beach_rock_1x1_35")
@@ -14097,10 +14745,8 @@ spawn("beach_rock_blocker_02",18,6,0,0,"beach_rock_blocker_02_6")
 spawn("beach_rock_pillar_decoration",25,8,1,0,"beach_rock_pillar_decoration_16")
 spawn("beach_rock_pillar_decoration",30,6,0,0,"beach_rock_pillar_decoration_17")
 spawn("beach_rock_pillar_decoration",22,2,0,0,"beach_rock_pillar_decoration_18")
-spawn("beach_rock_3x2",17,8,0,0,"beach_rock_3x2_18")
 spawn("beach_rock_blocker_01",18,7,3,0,"beach_rock_blocker_01_7")
 spawn("beach_rock_pillar_decoration",18,8,0,0,"beach_rock_pillar_decoration_19")
-spawn("beach_rock_3x1",20,7,2,0,"beach_rock_3x1_53")
 spawn("beach_crab",29,4,0,0,"beach_crab_12")
 spawn("beach_crab",28,5,3,0,"beach_crab_13")
 spawn("beach_crab",22,5,1,0,"beach_crab_14")
@@ -14240,6 +14886,21 @@ magic_aquamarine_2.detectedtimer:setDisableSelf(false)
 magic_aquamarine_2.detectedtimer:setTriggerOnStart(true)
 magic_aquamarine_2.detectedtimer:setCurrentLevelOnly(true)
 pedestal_8.surface:addItem(magic_aquamarine_2.item)
+spawn("beach_secret_door",18,11,3,0,"beach_secret_door_9")
+spawn("beach_secret_door",20,11,3,0,"beach_secret_door_10")
+spawn("beach_rock_floor_decoration",20,8,2,0,"beach_rock_floor_decoration_52")
+spawn("beach_rock_3x1",19,8,1,0,"beach_rock_3x1_39")
+spawn("beach_rock_arch_small",20,8,2,0,"beach_rock_arch_small_254")
+spawn("beach_rock_3x1",21,10,3,0,"beach_rock_3x1_40")
+spawn("beach_rock_spire",19,10,2,0,"beach_rock_spire_12")
+spawn("beach_rock_3x1",17,10,3,0,"beach_rock_3x1_120")
+spawn("beach_rock_3x1",15,9,1,1,"beach_rock_3x1_121")
+spawn("beach_rock_3x2",16,8,0,0,"beach_rock_3x2_9")
+spawn("beach_rock_2x1",14,9,1,1,"beach_rock_2x1_147")
+spawn("beach_rock_arch",22,8,3,0,"beach_rock_arch_20")
+spawn("beach_rock_3x1",19,7,1,0,"beach_rock_3x1_53")
+spawn("beach_rock_3x1",18,12,2,0,"beach_rock_3x1_122")
+spawn("beach_rock_blocker_01",17,12,0,0,"beach_rock_blocker_01_99")
 
 --- level 11 ---
 
@@ -14300,9 +14961,9 @@ loadLayer("tiles", {
 	1,1,1,1,1,3,3,1,1,3,1,3,3,1,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 	1,1,1,1,1,3,1,1,1,3,1,3,3,1,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 	1,1,1,1,1,3,3,1,3,3,3,3,1,1,1,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,3,3,1,3,3,3,3,2,1,3,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,3,3,1,1,2,2,1,2,1,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,3,3,1,2,1,3,3,3,3,3,1,2,3,1,3,3,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,3,3,1,3,3,3,3,2,1,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,3,3,1,1,2,2,1,2,1,3,3,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,3,3,1,2,1,3,3,3,3,3,1,2,3,1,3,3,3,3,1,1,1,1,1,1,1,1,1,
 	1,1,1,1,1,3,3,1,2,3,3,3,3,3,1,1,3,3,1,3,3,1,1,1,1,1,1,1,1,1,1,1,
 	1,1,1,1,1,3,3,3,1,3,3,3,3,3,1,3,1,3,2,3,3,1,1,1,1,1,1,1,1,1,1,1,
 	1,1,1,1,1,1,3,3,1,2,2,1,3,3,2,2,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,
@@ -14312,8 +14973,8 @@ loadLayer("tiles", {
 	1,1,1,1,1,1,1,1,3,1,2,1,3,3,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,
 	1,1,1,1,1,1,1,1,3,2,2,1,1,1,1,1,1,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,
 	1,1,1,1,1,1,1,1,3,3,2,3,3,1,1,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,3,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,3,1,3,3,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -14330,7 +14991,7 @@ spawn("forest_lantern",13,9,1,0,"forest_lantern_7")
 spawn("mine_stairs_up",13,6,0,0,"mine_stairs_up_1")
 spawn("forest_lantern",7,10,3,0,"forest_lantern_8")
 spawn("forest_lantern",15,10,0,0,"forest_lantern_9")
-spawn("forest_heightmap",0,0,1,0,"forest_heightmap_4")
+spawn("forest_heightmap",0,0,1,0,"minute_grotto_present_heightmap")
 spawn("beach_rock_arch_small",11,10,0,0,"beach_rock_arch_small_54")
 spawn("beach_rock_arch_small",10,10,0,0,"beach_rock_arch_small_55")
 spawn("beach_rock_arch_small",10,8,2,0,"beach_rock_arch_small_56")
@@ -14685,7 +15346,6 @@ spawn("beach_rock_floor_decoration",17,10,0,0,"beach_rock_floor_decoration_7")
 spawn("beach_rock_floor_decoration",17,10,3,0,"beach_rock_floor_decoration_8")
 spawn("beach_rock_border",19,8,2,0,"beach_rock_border_111")
 spawn("beach_rock_border",17,10,0,0,"beach_rock_border_112")
-spawn("beach_rock_arch_small",19,10,2,0,"beach_rock_arch_small_117")
 spawn("beach_rock_2x1",16,11,1,0,"beach_rock_2x1_38")
 spawn("beach_rock_2x1",17,11,2,0,"beach_rock_2x1_39")
 spawn("beach_rock_2x1",16,8,1,0,"beach_rock_2x1_40")
@@ -14701,7 +15361,6 @@ spawn("beach_rock_3x1",17,8,3,0,"beach_rock_3x1_29")
 beach_rock_3x1_29.obstacle:disable()
 beach_rock_3x1_29.projectilecollider:disable()
 beach_rock_3x1_29.occluder:disable()
-spawn("beach_rock_arch_small",19,10,2,0,"beach_rock_arch_small_118")
 spawn("beach_rock_3x1",16,11,3,0,"beach_rock_3x1_32")
 beach_rock_3x1_32.obstacle:disable()
 beach_rock_3x1_32.projectilecollider:disable()
@@ -14926,8 +15585,414 @@ torch_1.detectedtimer:setTimerInterval(0)
 torch_1.detectedtimer:setDisableSelf(false)
 torch_1.detectedtimer:setTriggerOnStart(true)
 torch_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("dungeon_sky",1,0,1,0,"minute_grotto_present_sky")
+spawn("beach_rock_3x1",9,8,3,0,"beach_rock_3x1_126")
+beach_rock_3x1_126.obstacle:disable()
+beach_rock_3x1_126.projectilecollider:disable()
+beach_rock_3x1_126.occluder:disable()
+spawn("beach_rock_3x1",9,9,3,0,"beach_rock_3x1_127")
+beach_rock_3x1_127.obstacle:disable()
+beach_rock_3x1_127.projectilecollider:disable()
+beach_rock_3x1_127.occluder:disable()
+spawn("beach_rock_3x1",9,10,3,0,"beach_rock_3x1_128")
+beach_rock_3x1_128.obstacle:disable()
+beach_rock_3x1_128.projectilecollider:disable()
+beach_rock_3x1_128.occluder:disable()
+spawn("beach_rock_3x1",14,18,3,0,"beach_rock_3x1_129")
+beach_rock_3x1_129.obstacle:disable()
+beach_rock_3x1_129.projectilecollider:disable()
+beach_rock_3x1_129.occluder:disable()
+spawn("beach_rock_arch_small",19,10,2,0,"beach_rock_arch_small_117")
+spawn("bone_club",7,10,2,0,"bone_club_1")
+bone_club_1.data:setSource("data = {}\
+function get(self,name)\9return self.data[name] end\
+function set(self,name,value)\9self.data[name] = value end")
+bone_club_1.detectedtimer:setTimerInterval(0)
+bone_club_1.detectedtimer:setDisableSelf(false)
+bone_club_1.detectedtimer:setTriggerOnStart(true)
+bone_club_1.detectedtimer:setCurrentLevelOnly(true)
 
 --- level 12 ---
+
+newMap{
+	name = "Minute Grotto (Past)",
+	width = 32,
+	height = 32,
+	levelCoord = {3,0,1},
+	ambientTrack = "dungeon",
+	tiles = {
+		"beach_ground",
+		"beach_ground_stones",
+		"beach_wall",
+	}
+}
+
+loadLayer("heightmap", {
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,-1,-1,-1,-1,0,0,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,-1,0,0,-1,-1,-1,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,0,0,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,-1,0,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+})
+
+loadLayer("tiles", {
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,3,3,3,3,1,1,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,3,3,1,1,3,1,3,3,1,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,3,1,1,1,3,1,3,3,1,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,3,3,1,3,3,3,3,1,1,1,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,3,3,1,3,3,3,3,2,1,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,3,3,1,1,2,2,1,2,1,3,3,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,3,3,1,2,1,3,3,3,3,3,1,2,3,1,3,3,3,3,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,3,3,1,2,3,3,3,3,3,1,1,3,3,1,3,3,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,3,3,3,1,3,3,3,3,3,1,3,1,3,2,3,3,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,3,3,1,2,2,1,3,3,2,2,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,3,3,3,3,2,3,3,3,2,1,3,1,3,3,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,3,3,2,2,1,1,1,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,3,3,3,1,3,3,3,1,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,3,1,2,1,3,3,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,3,2,2,1,1,1,1,1,1,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,3,3,2,3,3,1,1,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,3,1,3,3,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+})
+
+spawn("forest_lantern",13,9,1,0,"forest_lantern_2")
+spawn("mine_stairs_up",13,6,0,0,"mine_stairs_up_3")
+spawn("forest_lantern",7,10,3,0,"forest_lantern_3")
+spawn("forest_lantern",15,10,0,0,"forest_lantern_5")
+spawn("forest_heightmap",0,0,1,0,"minute_grotto_past_heightmap")
+spawn("beach_rock_arch_small",11,10,0,0,"beach_rock_arch_small_149")
+spawn("beach_rock_arch_small",10,10,0,0,"beach_rock_arch_small_150")
+spawn("beach_rock_arch_small",10,8,2,0,"beach_rock_arch_small_151")
+spawn("beach_rock_arch_small",7,12,1,0,"beach_rock_arch_small_152")
+spawn("beach_rock_arch_small",9,12,3,0,"beach_rock_arch_small_153")
+spawn("beach_rock_arch_small",9,12,2,0,"beach_rock_arch_small_154")
+spawn("beach_rock_arch_small",9,14,0,0,"beach_rock_arch_small_155")
+spawn("beach_rock_arch_small",10,14,0,0,"beach_rock_arch_small_156")
+spawn("beach_rock_arch_small",10,12,2,0,"beach_rock_arch_small_157")
+spawn("beach_rock_arch_small",9,14,3,0,"beach_rock_arch_small_158")
+spawn("beach_rock_arch_small",7,14,0,0,"beach_rock_arch_small_159")
+spawn("beach_rock_arch_small",12,12,2,0,"beach_rock_arch_small_160")
+spawn("beach_rock_arch_small",6,12,0,0,"beach_rock_arch_small_161")
+spawn("beach_rock_arch_small",6,10,0,0,"beach_rock_arch_small_162")
+spawn("beach_rock_arch_small",10,10,2,0,"beach_rock_arch_small_167")
+spawn("beach_high_rock_pillar_01",8,10,3,0,"beach_high_rock_pillar_01_11")
+spawn("beach_rock_border",12,10,0,0,"beach_rock_border_135")
+spawn("beach_rock_border",13,10,0,0,"beach_rock_border_136")
+spawn("beach_rock_border",9,12,3,0,"beach_rock_border_137")
+spawn("beach_rock_spire_pillar",15,8,3,0,"beach_rock_spire_pillar_16")
+spawn("beach_rock_1x1_low",7,11,3,0,"beach_rock_1x1_low_49")
+spawn("beach_rock_1x1_low",7,11,2,0,"beach_rock_1x1_low_50")
+spawn("beach_rock_1x1",7,11,0,0,"beach_rock_1x1_36")
+spawn("beach_rock_blocker_02",14,7,1,0,"beach_rock_blocker_02_7")
+spawn("beach_rock_1x1_lowest",14,8,0,0,"beach_rock_1x1_lowest_51")
+spawn("beach_rock_3x1",13,5,3,0,"beach_rock_3x1_55")
+beach_rock_3x1_55.obstacle:disable()
+beach_rock_3x1_55.projectilecollider:disable()
+beach_rock_3x1_55.occluder:disable()
+spawn("beach_rock_arch_small",14,10,3,0,"beach_rock_arch_small_168")
+spawn("beach_rock_arch_small",14,8,2,0,"beach_rock_arch_small_169")
+spawn("beach_rock_arch_small",15,6,2,0,"beach_rock_arch_small_170")
+spawn("beach_rock_arch_small",12,10,3,0,"beach_rock_arch_small_171")
+spawn("beach_rock_arch_small",14,6,2,0,"beach_rock_arch_small_172")
+spawn("beach_rock_arch_small",12,6,1,0,"beach_rock_arch_small_173")
+spawn("mine_stairs_up",19,9,1,0,"mine_stairs_up_4")
+spawn("forest_lantern",12,8,3,0,"forest_lantern_14")
+spawn("beach_rock_pillar_decoration",8,10,2,0,"beach_rock_pillar_decoration_21")
+spawn("beach_rock_floor_decoration",12,8,1,0,"beach_rock_floor_decoration_11")
+spawn("beach_door_wood",13,15,3,0,"beach_door_wood_2")
+spawn("mine_ceiling_lantern",10,18,0,0,"mine_ceiling_lantern_2")
+spawn("beach_wall_text",9,18,2,0,"beach_wall_text_2")
+beach_wall_text_2.walltext:setWallText("The words you read here\
+are harmless.\
+\
+But what is kept here\
+my break your bones.")
+spawn("beach_rock_pillar_decoration",9,18,2,0,"beach_rock_pillar_decoration_22")
+spawn("beach_rock_floor_decoration",10,18,1,0,"beach_rock_floor_decoration_12")
+spawn("spawner",16,13,2,0,"spawner_1")
+spawner_1.spawner:setSpawnedEntity("turtle")
+spawner_1.spawner:setMonsterLevel(1)
+spawner_1.spawner:setCooldown(1)
+spawner_1.spawner:setDisableSelf(false)
+spawn("spawner",18,9,2,0,"spawner_2")
+spawner_2.spawner:setSpawnedEntity("zarchton")
+spawner_2.spawner:setMonsterLevel(1)
+spawner_2.spawner:setCooldown(0)
+spawner_2.spawner:setDisableSelf(false)
+spawn("spawner",10,20,0,0,"spawner_7")
+spawner_7.spawner:setSpawnedEntity("mummy1")
+spawner_7.spawner:setMonsterLevel(1)
+spawner_7.spawner:setCooldown(0)
+spawner_7.spawner:setDisableSelf(true)
+spawn("beach_secret_door",10,19,2,0,"beach_secret_door_6")
+spawn("beach_rock_1x1_lowest",9,20,2,0,"beach_rock_1x1_lowest_52")
+spawn("forest_lantern",10,20,2,0,"forest_lantern_15")
+spawn("mine_support_pillar_01",10,20,3,0,"mine_support_pillar_01_5")
+spawn("beach_rock_2x1",11,21,0,0,"beach_rock_2x1_62")
+spawn("beach_rock_arch_small",11,21,3,0,"beach_rock_arch_small_174")
+spawn("beach_rock_arch_small",11,19,3,0,"beach_rock_arch_small_175")
+spawn("beach_rock_arch_small",9,19,1,0,"beach_rock_arch_small_176")
+spawn("mine_support_pillar_01",11,20,1,0,"mine_support_pillar_01_6")
+spawn("beach_rock_arch_small",8,19,0,0,"beach_rock_arch_small_178")
+spawn("beach_rock_arch_small",12,14,2,0,"beach_rock_arch_small_179")
+spawn("beach_rock_arch_small",10,16,0,0,"beach_rock_arch_small_180")
+spawn("beach_rock_arch_small",8,16,1,0,"beach_rock_arch_small_181")
+spawn("beach_rock_arch_small",20,12,2,0,"beach_rock_arch_small_183")
+spawn("beach_rock_arch_small",19,12,2,0,"beach_rock_arch_small_184")
+spawn("beach_rock_arch_small",17,12,2,0,"beach_rock_arch_small_185")
+spawn("beach_rock_arch_small",17,14,0,0,"beach_rock_arch_small_186")
+spawn("beach_rock_arch_small",19,14,3,0,"beach_rock_arch_small_187")
+spawn("beach_rock_arch_small",19,15,3,0,"beach_rock_arch_small_188")
+spawn("beach_rock_3x1",16,12,3,0,"beach_rock_3x1_56")
+beach_rock_3x1_56.obstacle:disable()
+beach_rock_3x1_56.projectilecollider:disable()
+beach_rock_3x1_56.occluder:disable()
+spawn("beach_rock_3x1",16,9,3,0,"beach_rock_3x1_57")
+beach_rock_3x1_57.obstacle:disable()
+beach_rock_3x1_57.projectilecollider:disable()
+beach_rock_3x1_57.occluder:disable()
+spawn("beach_rock_arch_small",15,12,3,0,"beach_rock_arch_small_191")
+spawn("beach_rock_arch_small",13,12,1,0,"beach_rock_arch_small_192")
+spawn("beach_rock_arch_small",17,12,3,0,"beach_rock_arch_small_193")
+spawn("beach_rock_arch_small",15,12,1,0,"beach_rock_arch_small_194")
+spawn("beach_rock_arch_small",17,8,2,0,"beach_rock_arch_small_195")
+spawn("beach_rock_arch_small",17,10,0,0,"beach_rock_arch_small_196")
+spawn("beach_rock_arch_small",17,10,2,0,"beach_rock_arch_small_199")
+spawn("beach_rock_arch_small",17,12,0,0,"beach_rock_arch_small_200")
+spawn("beach_rock_arch_small",19,12,3,0,"beach_rock_arch_small_201")
+spawn("beach_rock_arch_small",17,12,1,0,"beach_rock_arch_small_202")
+spawn("beach_rock_blocker_02",18,14,3,0,"beach_rock_blocker_02_8")
+spawn("beach_rock_floor_decoration",14,15,1,0,"beach_rock_floor_decoration_13")
+spawn("beach_rock_floor_decoration",18,14,0,0,"beach_rock_floor_decoration_14")
+spawn("beach_rock_border",13,13,1,0,"beach_rock_border_138")
+spawn("beach_rock_border",13,12,1,0,"beach_rock_border_139")
+spawn("beach_rock_arch_small",13,14,0,0,"beach_rock_arch_small_203")
+spawn("beach_rock_arch_small",13,12,0,0,"beach_rock_arch_small_204")
+spawn("beach_rock_arch_small",14,10,0,0,"beach_rock_arch_small_205")
+spawn("beach_rock_arch_small",15,9,0,0,"beach_rock_arch_small_206")
+spawn("beach_rock_arch_small",15,8,1,0,"beach_rock_arch_small_207")
+spawn("beach_rock_arch_small",17,8,1,0,"beach_rock_arch_small_208")
+spawn("beach_rock_1x1_low",14,12,1,0,"beach_rock_1x1_low_51")
+spawn("beach_rock_1x1_low",15,12,1,0,"beach_rock_1x1_low_52")
+spawn("beach_rock_1x1_low",15,12,1,0,"beach_rock_1x1_low_53")
+spawn("beach_rock_pillar_decoration",17,11,2,0,"beach_rock_pillar_decoration_23")
+spawn("beach_rock_pillar_decoration",16,12,1,0,"beach_rock_pillar_decoration_24")
+spawn("beach_rock_pillar_decoration",18,11,0,0,"beach_rock_pillar_decoration_25")
+spawn("beach_rock_1x1_lowest",18,8,3,0,"beach_rock_1x1_lowest_53")
+spawn("beach_rock_floor_decoration",16,9,1,0,"beach_rock_floor_decoration_15")
+spawn("beach_rock_floor_decoration",17,10,0,0,"beach_rock_floor_decoration_16")
+spawn("beach_rock_floor_decoration",17,10,3,0,"beach_rock_floor_decoration_17")
+spawn("beach_rock_border",19,8,2,0,"beach_rock_border_140")
+spawn("beach_rock_border",17,10,0,0,"beach_rock_border_141")
+spawn("beach_rock_2x1",16,11,1,0,"beach_rock_2x1_63")
+spawn("beach_rock_2x1",17,11,2,0,"beach_rock_2x1_64")
+spawn("beach_rock_2x1",16,8,1,0,"beach_rock_2x1_65")
+spawn("beach_rock_2x1",13,11,2,0,"beach_rock_2x1_66")
+spawn("beach_rock_2x1",20,13,0,0,"beach_rock_2x1_67")
+spawn("beach_rock_spire_pillar",18,15,0,0,"beach_rock_spire_pillar_18")
+spawn("beach_rock_spire_pillar",15,10,2,0,"beach_rock_spire_pillar_19")
+spawn("beach_rock_pillar_decoration",19,11,1,0,"beach_rock_pillar_decoration_26")
+spawn("beach_rock_pillar_decoration",15,14,2,0,"beach_rock_pillar_decoration_27")
+spawn("mine_support_pillar_01",19,14,2,0,"mine_support_pillar_01_7")
+spawn("mine_support_pillar_01",18,11,2,0,"mine_support_pillar_01_8")
+spawn("beach_rock_3x1",17,8,3,0,"beach_rock_3x1_58")
+beach_rock_3x1_58.obstacle:disable()
+beach_rock_3x1_58.projectilecollider:disable()
+beach_rock_3x1_58.occluder:disable()
+spawn("beach_rock_3x1",16,11,3,0,"beach_rock_3x1_59")
+beach_rock_3x1_59.obstacle:disable()
+beach_rock_3x1_59.projectilecollider:disable()
+beach_rock_3x1_59.occluder:disable()
+spawn("beach_rock_arch_small",13,14,2,0,"beach_rock_arch_small_212")
+spawn("beach_rock_3x1",13,7,3,0,"beach_rock_3x1_60")
+beach_rock_3x1_60.obstacle:disable()
+beach_rock_3x1_60.projectilecollider:disable()
+beach_rock_3x1_60.occluder:disable()
+spawn("beach_rock_2x1",17,14,2,0,"beach_rock_2x1_69")
+spawn("beach_rock_arch_small",18,15,3,0,"beach_rock_arch_small_215")
+spawn("beach_rock_arch_small",10,6,1,0,"beach_rock_arch_small_216")
+spawn("beach_rock_3x1",11,15,3,0,"beach_rock_3x1_61")
+beach_rock_3x1_61.obstacle:disable()
+beach_rock_3x1_61.projectilecollider:disable()
+beach_rock_3x1_61.occluder:disable()
+spawn("beach_rock_3x1",15,15,3,0,"beach_rock_3x1_62")
+spawn("beach_rock_arch_small",11,8,2,0,"beach_rock_arch_small_217")
+spawn("beach_rock_arch_small",11,8,0,0,"beach_rock_arch_small_218")
+spawn("beach_rock_arch_small",10,12,1,0,"beach_rock_arch_small_219")
+spawn("beach_door_portcullis",11,9,3,0,"beach_door_portcullis_7")
+spawn("forest_lantern",13,7,1,0,"forest_lantern_16")
+spawn("forest_wall_text_short",11,9,2,0,"forest_wall_text_short_4")
+forest_wall_text_short_4.walltext:setWallText("To enter, one must\
+put their hand in\
+the fire.")
+spawn("beach_lock_round",11,9,0,0,"beach_lock_round_3")
+beach_lock_round_3.lock:setOpenedBy("iron_key")
+beach_lock_round_3.lock:addConnector("onActivate", "beach_door_portcullis_9", "open")
+spawn("forest_lantern",17,13,0,0,"forest_lantern_17")
+spawn("floor_trigger",19,9,1,0,"floor_trigger_11")
+floor_trigger_11.floortrigger:setTriggeredByParty(true)
+floor_trigger_11.floortrigger:setTriggeredByMonster(true)
+floor_trigger_11.floortrigger:setTriggeredByItem(true)
+floor_trigger_11.floortrigger:setTriggeredByDigging(false)
+floor_trigger_11.floortrigger:setDisableSelf(false)
+floor_trigger_11.floortrigger:addConnector("onActivate", "script_entity_9", "dayTime")
+spawn("scroll",18,11,3,0,"scroll_1")
+scroll_1.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+scroll_1.scrollitem:setScrollText("I looked at the demon face on and he didn't see me.\
+So I walked away.\
+I looked at the demon through the portal and  t didn't see me.\
+So I walked away.\
+A third time I looked at the demon, two portals between us.\
+It looked back.\
+And I looked away.")
+scroll_1.detectedtimer:setTimerInterval(0)
+scroll_1.detectedtimer:setDisableSelf(false)
+scroll_1.detectedtimer:setTriggerOnStart(true)
+scroll_1.detectedtimer:setCurrentLevelOnly(true)
+spawn("beach_rock_arch_small",12,17,2,0,"beach_rock_arch_small_177")
+spawn("beach_rock_arch_small",12,16,0,0,"beach_rock_arch_small_182")
+spawn("beach_rock_arch_small",16,16,3,0,"beach_rock_arch_small_189")
+spawn("beach_rock_arch_small",14,16,3,0,"beach_rock_arch_small_190")
+spawn("beach_rock_arch_small",13,16,0,0,"beach_rock_arch_small_213")
+spawn("beach_rock_3x1",12,19,1,0,"beach_rock_3x1_123")
+beach_rock_3x1_123.obstacle:disable()
+beach_rock_3x1_123.projectilecollider:disable()
+beach_rock_3x1_123.occluder:disable()
+spawn("beach_rock_1x1",13,19,2,0,"beach_rock_1x1_45")
+spawn("beach_rock_1x1",16,18,1,0,"beach_rock_1x1_47")
+spawn("beach_rock_2x1",17,16,2,0,"beach_rock_2x1_148")
+spawn("beach_rock_arch_small",13,19,3,0,"beach_rock_arch_small_255")
+spawn("beach_rock_arch_small",15,19,3,0,"beach_rock_arch_small_256")
+spawn("beach_rock_arch_small",17,19,3,0,"beach_rock_arch_small_257")
+spawn("beach_rock_arch_small",13,17,2,0,"beach_rock_arch_small_258")
+spawn("beach_rock_arch_small",13,19,0,0,"beach_rock_arch_small_259")
+spawn("beach_rock_arch_small",12,19,0,0,"beach_rock_arch_small_260")
+spawn("beach_rock_arch_small",16,16,2,0,"beach_rock_arch_small_261")
+spawn("beach_rock_3x1",16,19,3,0,"beach_rock_3x1_124")
+beach_rock_3x1_124.obstacle:disable()
+beach_rock_3x1_124.projectilecollider:disable()
+beach_rock_3x1_124.occluder:disable()
+spawn("beach_rock_arch_small",14,16,0,0,"beach_rock_arch_small_262")
+spawn("beach_rock_arch_small",17,16,2,0,"beach_rock_arch_small_263")
+spawn("beach_rock_floor_decoration",16,18,3,0,"beach_rock_floor_decoration_53")
+spawn("beach_rock_floor_decoration",14,17,3,0,"beach_rock_floor_decoration_54")
+spawn("beach_rock_1x1_lowest",17,17,0,0,"beach_rock_1x1_lowest_67")
+spawn("beach_rock_2x1",16,19,0,0,"beach_rock_2x1_149")
+spawn("beach_rock_1x1_lowest",13,19,1,0,"beach_rock_1x1_lowest_68")
+spawn("beach_rock_1x1_lowest",13,17,3,0,"beach_rock_1x1_lowest_69")
+spawn("beach_rock_floor_decoration",12,18,0,0,"beach_rock_floor_decoration_55")
+spawn("beach_rock_border",14,19,0,0,"beach_rock_border_217")
+spawn("falconskyre",15,18,1,0,"falconskyre_7")
+falconskyre_7.data:setSource("\9\9\9\9data = {}\
+\9\9\9\9function get(name)\
+\9\9\9\9\9return self.data[name]\
+\9\9\9\9end\
+\9\9\9\9function set(name,value)\
+\9\9\9\9\9self.data[name] = value\
+\9\9\9\9end\
+\9\9\9")
+falconskyre_7.detectedtimer:setTimerInterval(0)
+falconskyre_7.detectedtimer:setDisableSelf(false)
+falconskyre_7.detectedtimer:setTriggerOnStart(true)
+falconskyre_7.detectedtimer:setCurrentLevelOnly(true)
+spawn("beach_boulder",17,17,1,0,"beach_boulder_35")
+spawn("beach_rock_arch_small",12,16,3,0,"beach_rock_arch_small_264")
+spawn("floor_trigger",13,18,3,0,"floor_trigger_57")
+floor_trigger_57.floortrigger:setTriggeredByParty(true)
+floor_trigger_57.floortrigger:setTriggeredByMonster(false)
+floor_trigger_57.floortrigger:setTriggeredByItem(false)
+floor_trigger_57.floortrigger:setTriggeredByDigging(false)
+floor_trigger_57.floortrigger:setDisableSelf(true)
+floor_trigger_57.floortrigger:addConnector("onActivate", "script_entity_15", "spawnMob")
+floor_trigger_57.floortrigger:addConnector("onActivate", "script_entity_14", "spawnMob")
+spawn("beach_rock_arch_small",10,16,1,0,"beach_rock_arch_small_265")
+spawn("beach_rock_arch_small",14,14,2,0,"beach_rock_arch_small_214")
+spawn("beach_rock_2x1",16,15,1,0,"beach_rock_2x1_68")
+spawn("beach_rock_1x1_lowest",16,15,0,0,"beach_rock_1x1_lowest_70")
+spawn("beach_rock_3x1",9,7,3,0,"beach_rock_3x1_54")
+beach_rock_3x1_54.obstacle:disable()
+beach_rock_3x1_54.projectilecollider:disable()
+beach_rock_3x1_54.occluder:disable()
+spawn("beach_rock_arch_small",5,7,0,0,"beach_rock_arch_small_163")
+spawn("beach_rock_arch_small",6,8,1,0,"beach_rock_arch_small_164")
+spawn("beach_rock_arch_small",8,8,1,0,"beach_rock_arch_small_165")
+spawn("beach_rock_arch_small",9,8,1,0,"beach_rock_arch_small_166")
+spawn("beach_rock_3x1",8,4,3,0,"beach_rock_3x1_125")
+spawn("beach_door_portcullis",7,7,2,0,"beach_door_portcullis_11")
+beach_door_portcullis_11.door:setPullChain(true)
+spawn("beach_rock_arch_small",5,4,1,0,"beach_rock_arch_small_266")
+spawn("beach_rock_arch_small",7,4,1,0,"beach_rock_arch_small_267")
+spawn("beach_rock_arch_small",9,4,2,0,"beach_rock_arch_small_268")
+spawn("beach_rock_arch_small",6,7,1,0,"beach_rock_arch_small_269")
+spawn("mine_ceiling_lantern",7,6,0,0,"mine_ceiling_lantern_9")
+spawn("beach_rock_arch_small",6,7,0,0,"beach_rock_arch_small_270")
+spawn("beach_rock_arch_small",6,9,0,0,"beach_rock_arch_small_271")
+spawn("beach_rock_border",7,6,1,0,"beach_rock_border_218")
+spawn("beach_rock_floor_decoration",8,6,1,0,"beach_rock_floor_decoration_56")
+spawn("beach_rock_2x1",6,5,3,0,"beach_rock_2x1_150")
+spawn("forest_grass_01",7,5,0,0,"forest_grass_01_54")
+spawn("forest_grass_01",8,6,3,0,"forest_grass_01_55")
+spawn("floor_corpse",6,6,1,0,"floor_corpse_16")
+spawn("floor_corpse",8,5,3,0,"floor_corpse_17")
+spawn("beach_rock_arch_small",19,8,2,0,"beach_rock_arch_small_118")
+spawn("healing_crystal",22,12,0,0,"healing_crystal_8")
+spawn("dungeon_sky_past",2,0,1,0,"minute_grotto_past_sky")
+spawn("beach_rock_3x1",14,18,3,0,"beach_rock_3x1_130")
+beach_rock_3x1_130.obstacle:disable()
+beach_rock_3x1_130.projectilecollider:disable()
+beach_rock_3x1_130.occluder:disable()
+spawn("beach_rock_arch_small",19,10,2,0,"beach_rock_arch_small_197")
+
+--- level 13 ---
 
 newMap{
 	name = "Magic Cave",
@@ -15468,376 +16533,6 @@ script_entity_2.script:setSource("do\
 \9--item.containeritem:addItem(loot.item)\
 end")
 
---- level 13 ---
-
-newMap{
-	name = "Minute Grotto (Past)",
-	width = 32,
-	height = 32,
-	levelCoord = {3,0,1},
-	ambientTrack = "dungeon",
-	tiles = {
-		"beach_ground",
-		"beach_ground_stones",
-		"beach_wall",
-	}
-}
-
-loadLayer("heightmap", {
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,-1,-1,-1,-1,0,0,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,-1,0,0,-1,-1,-1,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,-1,-1,0,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-})
-
-loadLayer("tiles", {
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,3,3,1,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,3,3,1,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,3,3,3,3,1,1,1,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,3,3,3,3,3,3,2,1,3,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,3,3,1,1,2,2,1,2,1,3,3,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,3,3,1,2,1,3,3,3,3,3,1,2,3,1,3,3,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,3,3,1,2,3,3,3,3,3,1,1,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,3,3,3,1,3,3,3,3,3,1,3,1,3,2,3,3,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,3,3,1,2,2,1,3,3,2,2,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,3,3,3,3,2,3,3,2,2,1,3,1,3,3,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,3,3,2,2,1,1,1,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,3,3,3,1,3,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,3,1,2,1,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,3,2,2,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,3,3,2,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,3,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-})
-
-spawn("forest_lantern",13,9,1,0,"forest_lantern_2")
-spawn("mine_stairs_up",13,6,0,0,"mine_stairs_up_3")
-spawn("forest_lantern",7,10,3,0,"forest_lantern_3")
-spawn("forest_lantern",15,10,0,0,"forest_lantern_5")
-spawn("forest_heightmap",0,0,1,0,"forest_heightmap_1")
-spawn("beach_rock_arch_small",11,10,0,0,"beach_rock_arch_small_149")
-spawn("beach_rock_arch_small",10,10,0,0,"beach_rock_arch_small_150")
-spawn("beach_rock_arch_small",10,8,2,0,"beach_rock_arch_small_151")
-spawn("beach_rock_arch_small",7,12,1,0,"beach_rock_arch_small_152")
-spawn("beach_rock_arch_small",9,12,3,0,"beach_rock_arch_small_153")
-spawn("beach_rock_arch_small",9,12,2,0,"beach_rock_arch_small_154")
-spawn("beach_rock_arch_small",9,14,0,0,"beach_rock_arch_small_155")
-spawn("beach_rock_arch_small",10,14,0,0,"beach_rock_arch_small_156")
-spawn("beach_rock_arch_small",10,12,2,0,"beach_rock_arch_small_157")
-spawn("beach_rock_arch_small",9,14,3,0,"beach_rock_arch_small_158")
-spawn("beach_rock_arch_small",7,14,0,0,"beach_rock_arch_small_159")
-spawn("beach_rock_arch_small",12,12,2,0,"beach_rock_arch_small_160")
-spawn("beach_rock_3x1",9,7,3,0,"beach_rock_3x1_54")
-beach_rock_3x1_54.obstacle:disable()
-beach_rock_3x1_54.projectilecollider:disable()
-beach_rock_3x1_54.occluder:disable()
-spawn("beach_rock_arch_small",6,12,0,0,"beach_rock_arch_small_161")
-spawn("beach_rock_arch_small",6,10,0,0,"beach_rock_arch_small_162")
-spawn("beach_rock_arch_small",6,8,0,0,"beach_rock_arch_small_163")
-spawn("beach_rock_arch_small",6,8,1,0,"beach_rock_arch_small_164")
-spawn("beach_rock_arch_small",8,8,1,0,"beach_rock_arch_small_165")
-spawn("beach_rock_arch_small",9,8,1,0,"beach_rock_arch_small_166")
-spawn("beach_rock_arch_small",10,10,2,0,"beach_rock_arch_small_167")
-spawn("beach_high_rock_pillar_01",8,10,3,0,"beach_high_rock_pillar_01_11")
-spawn("beach_rock_border",12,10,0,0,"beach_rock_border_135")
-spawn("beach_rock_border",13,10,0,0,"beach_rock_border_136")
-spawn("beach_rock_border",9,12,3,0,"beach_rock_border_137")
-spawn("beach_rock_spire_pillar",15,8,3,0,"beach_rock_spire_pillar_16")
-spawn("beach_rock_1x1_low",7,11,3,0,"beach_rock_1x1_low_49")
-spawn("beach_rock_1x1_low",7,11,2,0,"beach_rock_1x1_low_50")
-spawn("beach_rock_1x1",7,11,0,0,"beach_rock_1x1_36")
-spawn("beach_rock_blocker_02",14,7,1,0,"beach_rock_blocker_02_7")
-spawn("beach_rock_1x1_lowest",14,8,0,0,"beach_rock_1x1_lowest_51")
-spawn("beach_rock_3x1",13,5,3,0,"beach_rock_3x1_55")
-beach_rock_3x1_55.obstacle:disable()
-beach_rock_3x1_55.projectilecollider:disable()
-beach_rock_3x1_55.occluder:disable()
-spawn("beach_rock_arch_small",14,10,3,0,"beach_rock_arch_small_168")
-spawn("beach_rock_arch_small",14,8,2,0,"beach_rock_arch_small_169")
-spawn("beach_rock_arch_small",15,6,2,0,"beach_rock_arch_small_170")
-spawn("beach_rock_arch_small",12,10,3,0,"beach_rock_arch_small_171")
-spawn("beach_rock_arch_small",14,6,2,0,"beach_rock_arch_small_172")
-spawn("beach_rock_arch_small",12,6,1,0,"beach_rock_arch_small_173")
-spawn("mine_stairs_up",19,11,1,0,"mine_stairs_up_4")
-spawn("forest_lantern",12,8,3,0,"forest_lantern_14")
-spawn("beach_rock_pillar_decoration",8,10,2,0,"beach_rock_pillar_decoration_21")
-spawn("beach_rock_floor_decoration",12,8,1,0,"beach_rock_floor_decoration_11")
-spawn("beach_door_wood",13,15,3,0,"beach_door_wood_2")
-spawn("pedestal",8,18,1,0,"pedestal_3")
-spawn("whitewood_wand",8,18,1,0,"whitewood_wand_3")
-whitewood_wand_3.data:setSource("\9\9\9\9data = {}\
-\9\9\9\9function get(name)\
-\9\9\9\9\9return self.data[name]\
-\9\9\9\9end\
-\9\9\9\9function set(name,value)\
-\9\9\9\9\9self.data[name] = value\
-\9\9\9\9end\
-\9\9\9")
-whitewood_wand_3.detectedtimer:setTimerInterval(0)
-whitewood_wand_3.detectedtimer:setDisableSelf(false)
-whitewood_wand_3.detectedtimer:setTriggerOnStart(true)
-whitewood_wand_3.detectedtimer:setCurrentLevelOnly(true)
-pedestal_3.surface:addItem(whitewood_wand_3.item)
-pedestal_3.surface:addConnector("onInsertItem", "script_entity_8", "sticksAndStones")
-pedestal_3.door:disable()
-spawn("mine_ceiling_lantern",10,18,0,0,"mine_ceiling_lantern_2")
-spawn("pedestal",12,17,3,0,"pedestal_4")
-pedestal_4.surface:addConnector("onInsertItem", "script_entity_8", "sticksAndStones")
-pedestal_4.door:disable()
-spawn("beach_wall_text",9,18,2,0,"beach_wall_text_2")
-beach_wall_text_2.walltext:setWallText("The words you read here\
-are harmless.\
-\
-But what is kept here\
-my break your bones.")
-spawn("beach_rock_pillar_decoration",9,18,2,0,"beach_rock_pillar_decoration_22")
-spawn("script_entity",7,18,0,0,"script_entity_12")
-script_entity_12.script:setSource("function sticksAndStones()\
-\9local result1 = \"\"\
-\9local result2 = \"\"\
-\9local valid = {\"rock\", \"whitewood_wand\", \"branch\"}\
-\9for j=1,2 do\
-\9\9for _,c in findEntity(\"pedestal_\"..j).surface:contents() do\
-\9\9\9if result1 == \"\" then\
-\9\9\9\9result1 = addItem(c)\
-\9\9\9elseif result2 == \"\" then\
-\9\9\9\9result2 = addItem(c)\
-\9\9\9end\
-\9\9end\
-\9end\
-\9if result1 ~= result2 then\
-\9\9local final = 0\
-\9\9for _,v in pairs(valid) do\
-\9\9\9if result1 == v or result2 == v then\
-\9\9\9\9final = final + 1\
-\9\9\9end\
-\9\9end\
-\9\9if final== 2 then\
-\9\9\9beach_door_wood_1.door:open()\
-\9\9\9beach_secret_door_4.controller:open()\
-\9\9\9for i=4,6 do\
-\9\9\9\9findEntity(\"spawner_\"..i).controller:activate()\
-\9\9\9end\
-\9\9\9pedestal_1.surface:removeConnector(\"onInsertItem\",\"script_entity_8\",\"sticksAndStones\")\
-\9\9end\
-\9end\
-end\
-\
-function addItem(c)\
-\9local v = \"\"\
-\9if c.go.name == \"rock\" then\
-\9\9return \"rock\"\
-\9elseif c.go.name == \"whitewood_wand\" then\
-\9\9return \"whitewood_wand\"\
-\9elseif c.go.name == \"branch\" then\
-\9\9return \"branch\"\
-\9end\
-end")
-spawn("beach_rock_floor_decoration",10,18,1,0,"beach_rock_floor_decoration_12")
-spawn("spawner",16,13,2,0,"spawner_1")
-spawner_1.spawner:setSpawnedEntity("turtle")
-spawner_1.spawner:setMonsterLevel(1)
-spawner_1.spawner:setCooldown(1)
-spawner_1.spawner:setDisableSelf(false)
-spawn("spawner",18,9,2,0,"spawner_2")
-spawner_2.spawner:setSpawnedEntity("zarchton")
-spawner_2.spawner:setMonsterLevel(1)
-spawner_2.spawner:setCooldown(0)
-spawner_2.spawner:setDisableSelf(false)
-spawn("spawner",10,20,0,0,"spawner_7")
-spawner_7.spawner:setSpawnedEntity("mummy1")
-spawner_7.spawner:setMonsterLevel(1)
-spawner_7.spawner:setCooldown(0)
-spawner_7.spawner:setDisableSelf(true)
-spawn("beach_secret_door",10,19,2,0,"beach_secret_door_6")
-spawn("beach_rock_1x1_lowest",9,20,2,0,"beach_rock_1x1_lowest_52")
-spawn("forest_lantern",10,20,2,0,"forest_lantern_15")
-spawn("mine_support_pillar_01",10,20,3,0,"mine_support_pillar_01_5")
-spawn("beach_rock_2x1",11,21,0,0,"beach_rock_2x1_62")
-spawn("beach_rock_arch_small",11,21,3,0,"beach_rock_arch_small_174")
-spawn("beach_rock_arch_small",11,19,3,0,"beach_rock_arch_small_175")
-spawn("beach_rock_arch_small",9,19,1,0,"beach_rock_arch_small_176")
-spawn("mine_support_pillar_01",11,20,1,0,"mine_support_pillar_01_6")
-spawn("beach_rock_arch_small",12,17,2,0,"beach_rock_arch_small_177")
-spawn("beach_rock_arch_small",8,19,0,0,"beach_rock_arch_small_178")
-spawn("beach_rock_arch_small",12,14,2,0,"beach_rock_arch_small_179")
-spawn("beach_rock_arch_small",10,16,0,0,"beach_rock_arch_small_180")
-spawn("beach_rock_arch_small",8,16,1,0,"beach_rock_arch_small_181")
-spawn("beach_rock_arch_small",12,16,0,0,"beach_rock_arch_small_182")
-spawn("beach_rock_arch_small",20,12,2,0,"beach_rock_arch_small_183")
-spawn("beach_rock_arch_small",19,12,2,0,"beach_rock_arch_small_184")
-spawn("beach_rock_arch_small",17,12,2,0,"beach_rock_arch_small_185")
-spawn("beach_rock_arch_small",17,14,0,0,"beach_rock_arch_small_186")
-spawn("beach_rock_arch_small",19,14,3,0,"beach_rock_arch_small_187")
-spawn("beach_rock_arch_small",19,15,3,0,"beach_rock_arch_small_188")
-spawn("beach_rock_3x1",16,12,3,0,"beach_rock_3x1_56")
-beach_rock_3x1_56.obstacle:disable()
-beach_rock_3x1_56.projectilecollider:disable()
-beach_rock_3x1_56.occluder:disable()
-spawn("beach_rock_3x1",16,9,3,0,"beach_rock_3x1_57")
-beach_rock_3x1_57.obstacle:disable()
-beach_rock_3x1_57.projectilecollider:disable()
-beach_rock_3x1_57.occluder:disable()
-spawn("beach_rock_arch_small",16,16,3,0,"beach_rock_arch_small_189")
-spawn("beach_rock_arch_small",14,16,3,0,"beach_rock_arch_small_190")
-spawn("beach_rock_arch_small",15,12,3,0,"beach_rock_arch_small_191")
-spawn("beach_rock_arch_small",13,12,1,0,"beach_rock_arch_small_192")
-spawn("beach_rock_arch_small",17,12,3,0,"beach_rock_arch_small_193")
-spawn("beach_rock_arch_small",15,12,1,0,"beach_rock_arch_small_194")
-spawn("beach_rock_arch_small",17,8,2,0,"beach_rock_arch_small_195")
-spawn("beach_rock_arch_small",17,10,0,0,"beach_rock_arch_small_196")
-spawn("beach_rock_arch_small",19,8,2,0,"beach_rock_arch_small_197")
-spawn("beach_rock_arch_small",19,10,0,0,"beach_rock_arch_small_198")
-spawn("beach_rock_arch_small",17,10,2,0,"beach_rock_arch_small_199")
-spawn("beach_rock_arch_small",17,12,0,0,"beach_rock_arch_small_200")
-spawn("beach_rock_arch_small",19,12,3,0,"beach_rock_arch_small_201")
-spawn("beach_rock_arch_small",17,12,1,0,"beach_rock_arch_small_202")
-spawn("beach_rock_blocker_02",18,14,3,0,"beach_rock_blocker_02_8")
-spawn("beach_rock_floor_decoration",14,15,1,0,"beach_rock_floor_decoration_13")
-spawn("beach_rock_floor_decoration",18,14,0,0,"beach_rock_floor_decoration_14")
-spawn("beach_rock_border",13,13,1,0,"beach_rock_border_138")
-spawn("beach_rock_border",13,12,1,0,"beach_rock_border_139")
-spawn("beach_rock_arch_small",13,14,0,0,"beach_rock_arch_small_203")
-spawn("beach_rock_arch_small",13,12,0,0,"beach_rock_arch_small_204")
-spawn("beach_rock_arch_small",14,10,0,0,"beach_rock_arch_small_205")
-spawn("beach_rock_arch_small",15,9,0,0,"beach_rock_arch_small_206")
-spawn("beach_rock_arch_small",15,8,1,0,"beach_rock_arch_small_207")
-spawn("beach_rock_arch_small",17,8,1,0,"beach_rock_arch_small_208")
-spawn("beach_rock_arch_small",19,8,1,0,"beach_rock_arch_small_209")
-spawn("beach_rock_1x1_low",14,12,1,0,"beach_rock_1x1_low_51")
-spawn("beach_rock_1x1_low",15,12,1,0,"beach_rock_1x1_low_52")
-spawn("beach_rock_1x1_low",15,12,1,0,"beach_rock_1x1_low_53")
-spawn("beach_rock_pillar_decoration",17,11,2,0,"beach_rock_pillar_decoration_23")
-spawn("beach_rock_pillar_decoration",16,12,1,0,"beach_rock_pillar_decoration_24")
-spawn("beach_rock_pillar_decoration",18,11,0,0,"beach_rock_pillar_decoration_25")
-spawn("beach_rock_1x1_lowest",18,8,3,0,"beach_rock_1x1_lowest_53")
-spawn("beach_rock_floor_decoration",16,9,1,0,"beach_rock_floor_decoration_15")
-spawn("beach_rock_floor_decoration",17,10,0,0,"beach_rock_floor_decoration_16")
-spawn("beach_rock_floor_decoration",17,10,3,0,"beach_rock_floor_decoration_17")
-spawn("beach_rock_border",19,8,2,0,"beach_rock_border_140")
-spawn("beach_rock_border",17,10,0,0,"beach_rock_border_141")
-spawn("beach_rock_arch_small",20,8,2,0,"beach_rock_arch_small_210")
-spawn("beach_rock_2x1",16,11,1,0,"beach_rock_2x1_63")
-spawn("beach_rock_2x1",17,11,2,0,"beach_rock_2x1_64")
-spawn("beach_rock_2x1",16,8,1,0,"beach_rock_2x1_65")
-spawn("beach_rock_2x1",13,11,2,0,"beach_rock_2x1_66")
-spawn("beach_rock_2x1",20,13,0,0,"beach_rock_2x1_67")
-spawn("beach_rock_spire_pillar",20,10,0,0,"beach_rock_spire_pillar_17")
-spawn("beach_rock_spire_pillar",18,15,0,0,"beach_rock_spire_pillar_18")
-spawn("beach_rock_spire_pillar",15,10,2,0,"beach_rock_spire_pillar_19")
-spawn("beach_rock_pillar_decoration",19,11,1,0,"beach_rock_pillar_decoration_26")
-spawn("beach_rock_pillar_decoration",15,14,2,0,"beach_rock_pillar_decoration_27")
-spawn("mine_support_pillar_01",19,14,2,0,"mine_support_pillar_01_7")
-spawn("mine_support_pillar_01",18,11,2,0,"mine_support_pillar_01_8")
-spawn("beach_rock_3x1",17,8,3,0,"beach_rock_3x1_58")
-beach_rock_3x1_58.obstacle:disable()
-beach_rock_3x1_58.projectilecollider:disable()
-beach_rock_3x1_58.occluder:disable()
-spawn("beach_rock_arch_small",19,10,2,0,"beach_rock_arch_small_211")
-spawn("beach_rock_3x1",16,11,3,0,"beach_rock_3x1_59")
-beach_rock_3x1_59.obstacle:disable()
-beach_rock_3x1_59.projectilecollider:disable()
-beach_rock_3x1_59.occluder:disable()
-spawn("beach_rock_arch_small",13,14,2,0,"beach_rock_arch_small_212")
-spawn("beach_rock_arch_small",13,16,0,0,"beach_rock_arch_small_213")
-spawn("beach_rock_arch_small",16,15,2,0,"beach_rock_arch_small_214")
-spawn("beach_rock_3x1",13,7,3,0,"beach_rock_3x1_60")
-beach_rock_3x1_60.obstacle:disable()
-beach_rock_3x1_60.projectilecollider:disable()
-beach_rock_3x1_60.occluder:disable()
-spawn("beach_rock_2x1",16,15,1,0,"beach_rock_2x1_68")
-spawn("beach_rock_2x1",17,14,2,0,"beach_rock_2x1_69")
-spawn("beach_rock_arch_small",18,15,3,0,"beach_rock_arch_small_215")
-spawn("beach_rock_arch_small",10,6,1,0,"beach_rock_arch_small_216")
-spawn("beach_rock_3x1",11,15,3,0,"beach_rock_3x1_61")
-beach_rock_3x1_61.obstacle:disable()
-beach_rock_3x1_61.projectilecollider:disable()
-beach_rock_3x1_61.occluder:disable()
-spawn("beach_rock_3x1",15,16,3,0,"beach_rock_3x1_62")
-spawn("beach_rock_arch_small",11,8,2,0,"beach_rock_arch_small_217")
-spawn("beach_rock_arch_small",11,8,0,0,"beach_rock_arch_small_218")
-spawn("beach_rock_arch_small",10,12,1,0,"beach_rock_arch_small_219")
-spawn("beach_door_portcullis",11,9,3,0,"beach_door_portcullis_7")
-spawn("forest_lantern",13,7,1,0,"forest_lantern_16")
-spawn("forest_wall_text_short",11,9,2,0,"forest_wall_text_short_4")
-forest_wall_text_short_4.walltext:setWallText("To enter, one must\
-put their hand in\
-the fire.")
-spawn("beach_lock_round",11,9,0,0,"beach_lock_round_3")
-beach_lock_round_3.lock:setOpenedBy("iron_key")
-beach_lock_round_3.lock:addConnector("onActivate", "beach_door_portcullis_9", "open")
-spawn("forest_lantern",17,13,0,0,"forest_lantern_17")
-spawn("floor_trigger",19,11,1,0,"floor_trigger_11")
-floor_trigger_11.floortrigger:setTriggeredByParty(true)
-floor_trigger_11.floortrigger:setTriggeredByMonster(true)
-floor_trigger_11.floortrigger:setTriggeredByItem(true)
-floor_trigger_11.floortrigger:setTriggeredByDigging(false)
-floor_trigger_11.floortrigger:setDisableSelf(false)
-floor_trigger_11.floortrigger:addConnector("onActivate", "script_entity_9", "dayTime")
-spawn("scroll",18,11,3,0,"scroll_1")
-scroll_1.data:setSource("\9\9\9\9data = {}\
-\9\9\9\9function get(name)\
-\9\9\9\9\9return self.data[name]\
-\9\9\9\9end\
-\9\9\9\9function set(name,value)\
-\9\9\9\9\9self.data[name] = value\
-\9\9\9\9end\
-\9\9\9")
-scroll_1.scrollitem:setScrollText("I looked at the demon face on and he didn't see me.\
-So I walked away.\
-I looked at the demon through the portal and  t didn't see me.\
-So I walked away.\
-A third time I looked at the demon, two portals between us.\
-It looked back.\
-And I looked away.")
-scroll_1.detectedtimer:setTimerInterval(0)
-scroll_1.detectedtimer:setDisableSelf(false)
-scroll_1.detectedtimer:setTriggerOnStart(true)
-scroll_1.detectedtimer:setCurrentLevelOnly(true)
-
 --- level 14 ---
 
 newMap{
@@ -16004,28 +16699,28 @@ loadLayer("tiles", {
 	5,5,5,5,5,3,3,3,3,3,3,3,3,4,5,3,3,3,3,3,3,3,4,4,5,6,5,3,3,3,3,3,
 	6,3,3,5,5,5,3,3,3,3,3,4,5,5,3,3,3,5,5,3,3,3,4,4,4,5,5,5,5,3,3,3,
 	6,3,3,3,5,5,3,3,3,3,5,4,5,5,3,3,3,5,5,5,5,6,6,4,4,4,4,4,5,5,3,3,
-	6,3,3,3,5,3,3,5,4,4,5,5,5,5,5,5,5,5,5,5,5,6,1,4,6,6,4,4,4,5,3,3,
-	6,3,3,5,5,3,3,5,4,4,4,4,5,5,3,3,3,5,5,4,4,4,4,6,6,6,6,4,4,5,3,3,
-	6,3,3,5,5,5,5,5,5,5,4,4,5,5,3,3,3,5,5,4,4,3,3,6,1,6,6,4,4,5,1,3,
-	6,3,3,5,3,3,3,5,5,5,5,5,5,5,3,3,3,5,5,5,4,4,3,6,6,4,4,4,5,5,1,3,
-	6,3,3,5,3,3,3,5,5,5,5,5,5,5,5,3,3,3,5,5,5,4,4,4,4,4,4,5,5,5,3,3,
-	6,3,3,5,5,5,5,5,5,5,5,5,5,5,5,3,3,3,5,5,4,5,2,4,4,4,4,5,5,3,3,6,
-	6,3,5,5,5,5,5,5,5,5,5,5,5,5,5,5,3,3,3,5,5,5,5,5,4,5,5,5,3,1,3,6,
-	6,3,5,5,5,5,5,5,5,5,5,5,5,4,4,4,4,4,4,5,5,4,4,4,4,5,5,3,3,3,3,3,
-	6,3,5,5,5,5,5,5,5,5,5,5,5,4,4,4,4,4,4,5,4,4,4,4,4,4,5,3,3,3,3,3,
-	6,3,3,3,3,3,3,3,3,3,3,5,5,4,4,4,4,4,4,5,4,4,4,4,4,4,4,4,3,3,3,3,
+	6,3,3,3,5,3,3,5,4,4,5,5,6,5,5,5,5,5,5,5,5,6,1,4,6,6,4,4,4,5,3,3,
+	6,3,3,5,5,3,3,5,6,4,4,4,5,5,3,3,3,5,5,4,4,4,4,6,6,6,6,4,4,5,3,3,
+	6,3,3,5,5,5,5,5,5,5,4,6,6,5,3,3,3,5,5,4,4,3,3,6,1,6,6,4,4,5,1,3,
+	6,3,3,5,3,3,3,5,5,5,5,6,6,6,3,3,3,5,5,5,4,4,3,6,6,4,4,4,5,5,1,3,
+	6,3,3,5,3,3,3,5,5,5,5,5,5,5,6,3,3,3,5,5,5,4,4,4,4,4,4,5,5,5,3,3,
+	6,3,3,5,5,6,6,6,5,6,5,6,6,5,5,3,3,3,5,5,4,5,2,4,4,4,4,5,5,3,3,6,
+	6,3,5,5,5,6,6,6,5,5,5,6,6,6,6,6,3,3,3,5,5,5,5,5,4,5,5,5,3,1,3,6,
+	6,3,5,5,5,5,6,6,6,6,5,5,5,4,4,4,4,4,4,5,5,4,4,4,4,5,5,3,3,3,3,3,
+	6,3,5,5,5,5,6,6,6,6,6,6,5,4,4,4,4,4,4,5,4,4,4,4,4,4,5,3,3,3,3,3,
+	6,3,3,3,3,3,3,3,3,3,3,6,5,4,4,4,4,4,4,5,4,4,4,4,4,4,4,4,3,3,3,3,
 	6,3,3,3,3,3,3,3,3,3,3,3,5,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,3,3,3,
 	6,3,3,3,5,5,5,5,5,3,3,3,5,5,5,5,3,3,3,5,4,4,4,4,4,4,4,4,4,3,3,6,
 	6,3,3,5,5,5,5,5,5,5,3,3,5,5,5,3,3,3,3,5,3,3,5,5,4,4,4,4,4,3,3,6,
-	6,3,3,5,5,5,5,5,5,5,3,3,5,5,5,3,3,3,5,5,3,3,3,5,4,4,4,4,3,3,3,6,
-	6,3,3,5,5,5,5,5,5,5,3,3,5,5,3,3,3,5,5,5,5,3,3,5,4,4,4,4,3,3,3,3,
+	6,3,3,5,5,5,5,5,5,5,3,3,5,5,5,3,3,3,5,5,3,3,3,5,4,4,4,4,4,3,3,6,
+	6,3,3,5,5,5,5,5,5,5,3,3,5,6,3,3,3,6,5,5,6,3,3,5,4,4,4,4,3,3,3,3,
 	6,3,3,5,5,5,5,5,5,5,3,3,5,5,3,3,3,5,5,5,5,5,5,5,3,3,4,4,3,3,3,3,
-	6,3,3,5,5,5,5,5,5,5,3,3,5,5,3,3,3,5,5,3,3,5,4,4,3,3,4,4,3,3,3,6,
-	6,3,3,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,3,3,5,4,4,4,4,4,4,3,3,3,3,
-	6,3,3,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,3,3,5,4,4,4,4,4,3,3,3,3,3,
-	6,3,3,5,5,5,5,5,5,5,5,3,3,3,5,5,6,6,6,3,3,3,4,4,4,4,3,3,3,3,3,3,
-	6,3,3,3,5,5,5,5,5,5,3,3,3,3,5,6,6,6,6,1,3,3,3,3,3,3,3,3,3,3,3,3,
-	6,3,3,3,3,3,3,3,3,3,3,6,3,3,5,6,6,6,1,3,3,6,6,3,3,3,3,3,3,3,3,3,
+	6,3,3,5,5,5,5,5,5,5,6,6,5,6,6,3,3,5,6,3,3,5,4,4,3,3,4,4,3,3,3,6,
+	6,3,3,5,5,5,5,5,5,6,6,5,5,6,6,5,5,5,5,3,3,5,4,4,4,4,4,4,3,3,3,3,
+	6,3,3,5,5,5,5,5,5,6,5,5,5,5,5,5,5,5,6,3,3,5,4,4,4,4,4,3,3,3,3,3,
+	6,3,3,5,5,5,5,5,5,5,5,6,6,6,5,5,6,6,6,3,3,3,4,4,4,4,3,3,3,3,3,3,
+	6,3,3,3,5,5,5,5,5,5,6,6,6,6,5,6,6,6,6,1,3,3,3,3,3,3,3,3,3,3,3,3,
+	6,3,3,3,3,3,3,3,3,3,3,6,6,6,5,6,6,6,1,3,3,6,6,3,3,3,3,3,3,3,3,3,
 	6,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,6,3,3,3,3,3,3,3,3,3,3,3,6,
 	6,6,6,6,6,6,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,6,
 	6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,
@@ -16815,3 +17510,47 @@ forest_bridge_no_icon_121.model:disable()
 spawn("forest_ruins_ceiling_flat",21,17,0,0,"forest_ruins_ceiling_flat_14")
 spawn("swamp_oak",18,25,0,0,"swamp_oak_42")
 spawn("forest_exit",20,0,0,0,"forest_exit_9")
+spawn("dungeon_pillar",25,26,2,0,"dungeon_pillar_3")
+spawn("dungeon_wall_01",24,26,0,0,"dungeon_wall_01_191")
+spawn("forest_ruins_wall_01",24,26,0,0,"forest_ruins_wall_01_108")
+forest_ruins_wall_01_108.model:disable()
+spawn("dungeon_wall_01",24,25,2,0,"dungeon_wall_01_192")
+spawn("dungeon_wall_01",24,26,0,1,"dungeon_wall_01_194")
+spawn("forest_ruins_wall_01",24,26,0,1,"forest_ruins_wall_01_109")
+forest_ruins_wall_01_109.model:disable()
+spawn("dungeon_wall_01",24,25,2,1,"dungeon_wall_01_196")
+spawn("dungeon_pillar",25,26,2,1,"dungeon_pillar_4")
+spawn("dungeon_wall_01",24,25,1,0,"dungeon_wall_01_197")
+spawn("dungeon_wall_01",25,25,3,0,"dungeon_wall_01_198")
+spawn("forest_ruins_wall_01",25,25,3,0,"forest_ruins_wall_01_110")
+forest_ruins_wall_01_110.model:disable()
+spawn("dungeon_wall_01",24,25,1,1,"dungeon_wall_01_199")
+spawn("dungeon_wall_01",25,25,3,1,"dungeon_wall_01_200")
+spawn("forest_ruins_wall_01",25,25,3,1,"forest_ruins_wall_01_113")
+forest_ruins_wall_01_113.model:disable()
+spawn("dungeon_pillar",24,26,2,0,"dungeon_pillar_5")
+spawn("dungeon_pillar",24,26,2,1,"dungeon_pillar_120")
+spawn("dungeon_pillar",25,25,2,1,"dungeon_pillar_122")
+spawn("dungeon_pillar",25,25,2,0,"dungeon_pillar_124")
+spawn("dungeon_wall_01",24,25,0,0,"dungeon_wall_01_201")
+spawn("dungeon_wall_01",24,24,2,0,"dungeon_wall_01_202")
+spawn("forest_ruins_wall_01",24,25,0,0,"forest_ruins_wall_01_114")
+forest_ruins_wall_01_114.model:disable()
+spawn("dungeon_pillar",24,25,2,0,"dungeon_pillar_125")
+spawn("dungeon_wall_01",23,25,1,0,"dungeon_wall_01_203")
+spawn("forest_ruins_wall_01",24,25,3,0,"forest_ruins_wall_01_115")
+forest_ruins_wall_01_115.model:disable()
+spawn("dungeon_pillar",24,25,2,1,"dungeon_pillar_126")
+spawn("forest_ruins_wall_01",24,25,0,0,"forest_ruins_wall_01_116")
+forest_ruins_wall_01_116.model:disable()
+spawn("dungeon_wall_01",24,25,3,0,"dungeon_wall_01_204")
+spawn("dungeon_wall_01",23,25,1,1,"dungeon_wall_01_205")
+spawn("forest_ruins_wall_01",24,25,3,1,"forest_ruins_wall_01_117")
+forest_ruins_wall_01_117.model:disable()
+spawn("dungeon_wall_01",24,25,3,1,"dungeon_wall_01_206")
+spawn("dungeon_wall_01",24,25,0,1,"dungeon_wall_01_207")
+spawn("dungeon_wall_01",24,24,2,1,"dungeon_wall_01_208")
+spawn("forest_ruins_wall_01",24,25,0,1,"forest_ruins_wall_01_118")
+forest_ruins_wall_01_118.model:disable()
+spawn("forest_ruins_wall_01",24,25,0,1,"forest_ruins_wall_01_119")
+forest_ruins_wall_01_119.model:disable()

@@ -168,3 +168,104 @@ defineObject{
 	editorIcon = 100,
 	reflectionMode = "always",
 }
+
+defineObject{
+	name = "dungeon_sky",
+	components = {
+		{
+			class = "Model",
+		},
+		{
+			class = "Model",
+			name = "nightSky",
+			material = "night_sky",
+		},
+		{
+			class = "Model",
+			name = "stars",
+		},
+		{
+			class = "Sky",
+			-- farClip = 11,
+			sunColor1 = vec(0, 0, 0),--day
+			sunColor2 = vec(0, 0, 0),--dawn/dusk
+			sunColor3 = vec(0, 0, 0),--night
+			fogMode = "linear_lit",
+			fogColor1 = vec(0.12, 0.1, 0.13),
+			fogColor2 = vec(0.12, 0.1, 0.13),
+			fogColor3 = vec(0.12, 0.1, 0.13),
+			fogRange = {1,1},
+			ambientIntensity = 1.0,
+			tonemapSaturation = 0.9,
+		},
+		{
+			class = "Light",
+			type = "directional",
+			castShadow = false,
+			brightness = 0,
+			range = 0,
+		},
+		{
+			class = "Light",
+			name = "ambient",
+			type = "ambient",
+			castShadow = false,
+			brightness = 0,
+			range = 0,
+		},
+	},
+	placement = "floor",
+	editorIcon = 100,
+	reflectionMode = "always",
+}
+
+defineObject{
+	name = "dungeon_sky_past",
+	components = {
+		{
+			class = "Model",
+		},
+		{
+			class = "Model",
+			name = "nightSky",
+			material = "night_sky",
+		},
+		{
+			class = "Model",
+			name = "stars",
+		},
+		{
+			class = "Sky",
+			-- farClip = 11,
+			sunColor1 = vec(0, 0, 0),--day
+			sunColor2 = vec(0, 0, 0),--dawn/dusk
+			sunColor3 = vec(0, 0, 0),--night
+			fogMode = "linear_lit",
+			fogColor1 = vec(0.13, 0.11, 0.12),
+			fogColor2 = vec(0.13, 0.11, 0.12),
+			fogColor3 = vec(0.13, 0.11, 0.12),
+			fogRange = {1,1},
+			ambientIntensity = 3.0,
+			tonemapSaturation = 1.25,
+		},
+		{
+			class = "Light",
+			type = "directional",
+			castShadow = false,
+			brightness = 0,
+			range = 0,
+		},
+		{
+			class = "Light",
+			name = "ambient",
+			type = "ambient",
+			castShadow = false,
+			brightness = 0,
+			range = 0,
+		},
+	},
+	placement = "floor",
+	editorIcon = 100,
+	reflectionMode = "always",
+}
+

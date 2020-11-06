@@ -41,135 +41,174 @@ function start()
 	-------------------
 	-- Second Beach ---
 	-------------------
-	if beach_ocean_2 then
-	findEntity("beach_rock_1x1_low_6"):getComponent("model"):setOffset(vec(-1.5,-0.8,0))
-	findEntity("beach_rock_spire_4"):getComponent("model"):setOffset(vec(-20,0,0))
-	findEntity("beach_rock_1x1_4"):getComponent("model"):setOffset(vec(-20,1,-10))
-	findEntity("beach_rock_spire_5"):getComponent("model"):setOffset(vec(40,0,0))
-	findEntity("beach_rock_2x1_9"):getComponent("model"):setOffset(vec(-20,-2,-8))
+	if second_beach_present_heightmap then
+		local level = second_beach_present_heightmap.level
+		skies[level] = second_beach_present_sky.id
+
+		beach_rock_1x1_low_6.model:setOffset(vec(-1.5,-0.8,0))
+		beach_rock_spire_4.model:setOffset(vec(-20,0,0))
+		beach_rock_1x1_4.model:setOffset(vec(-20,1,-10))
+		beach_rock_spire_5.model:setOffset(vec(40,0,0))
+		beach_rock_2x1_9.model:setOffset(vec(-20,-2,-8))
 	
-	-- Area around wrecked ship --
-	beach_boulder_3:setWorldPosition(beach_boulder_3:getWorldPosition() + vec(2.7,3.1,2.2)) -- present
-	beach_boulder_3:setWorldRotationAngles(126,0,0) -- present
-	Dungeon.getMap(1):setAutomapTile(24,18,0)
-	beach_boulder_7:setWorldPosition(beach_boulder_7:getWorldPosition() + vec(2.7,3.1,2.2)) -- present
-	beach_boulder_7:setWorldRotationAngles(126,0,0) -- present
-	
-	findEntity("beach_shipwreck_land_hull_1"):getComponent("model"):setOffset(vec(0.27,-1.35,5.65))
-	findEntity("beach_shipwreck_land_hull_1"):getComponent("model"):setRotationAngles(17.1,6.2,24.5)
-	
-	local pos = forest_ruins_pillar_fallen_1:getWorldPosition()
-	forest_ruins_pillar_fallen_1:setWorldPosition(vec(pos.x + 1.77, pos.y + 0, pos.z - 2.03))
-	forest_ruins_pillar_fallen_1:setWorldRotationAngles(0,67,0)
-	
-	beach_ocean_2:setWorldRotationAngles(0,45,0) -- present
-	beach_ocean_3:setWorldRotationAngles(0,45,0) -- past
-	
-	-- Start area pier --
-	forest_bridge_1:setWorldPosition(forest_bridge_1:getWorldPosition() + vec(0,-1.5,0))
-	forest_bridge_2:setWorldPosition(forest_bridge_2:getWorldPosition() + vec(0,-1.5,0))
-	for i=13,16 do
-		findEntity("forest_bridge_pillar_"..i):setWorldPositionY(-3.5)
-		findEntity("forest_bridge_pillar_"..i):setWorldPosition(findEntity("forest_bridge_pillar_"..i):getWorldPosition() + vec(0,0,1.5))
-	end	
-	invisible_platform_15:setWorldPositionY(-0.5)
-	invisible_platform_16:setWorldPositionY(-0.5)
-	invisible_platform_17:setWorldPositionY(-0.75)
-	
-	forest_bridge_no_icon_4:setWorldPosition(forest_bridge_no_icon_4:getWorldPosition() + vec(0,-3.14,0.38))
-	forest_bridge_no_icon_4:setWorldRotationAngles(45,0,0)
-	
-	-- Beach cliff objects and decoration --
-	for i=1,14 do		
-		findEntity("invisible_platform_"..i):setWorldPositionY(0.0)
-	end
-	for i=1,16 do
-		findEntity("beach_ground_01_"..i):setWorldPositionY(0.0)
-	end
-	for i=1,18 do
-		findEntity("forest_elevation_edge_"..i):setWorldPositionY(-3)
-	end
-	beach_rock_1x1_lowest_10:setWorldPosition(beach_rock_1x1_lowest_10:getWorldPosition() + vec(0,0.8,0.5)) -- present
-	beach_rock_1x1_lowest_22:setWorldPosition(beach_rock_1x1_lowest_22:getWorldPosition() + vec(0,0.8,0.5)) -- past
-	forest_bridge_no_icon_1:setWorldPosition(forest_bridge_no_icon_1:getWorldPosition() + vec(0.0,-2.54,0.2)) -- present
-	forest_bridge_no_icon_1:setWorldRotationAngles(42,0,0) -- present
-	forest_bridge_no_icon_2:setWorldPosition(forest_bridge_no_icon_2:getWorldPosition() + vec(0.0,-2.54,0.2)) -- past
-	forest_bridge_no_icon_2:setWorldRotationAngles(42,0,0) -- past
-	forest_bridge_pillar_1:setWorldPosition(forest_bridge_pillar_1:getWorldPosition() + vec(0.05,-3.07,-1)) -- present
-	forest_bridge_pillar_10:setWorldPosition(forest_bridge_pillar_10:getWorldPosition() + vec(0.05,-3.07,-1)) -- past
-	for i=2,12 do
-		findEntity("forest_bridge_pillar_"..i):setWorldPosition(findEntity("forest_bridge_pillar_"..i):getWorldPosition() + vec(0.3,-1.52,-1.5))
-	end
+		-- Area around wrecked ship --
+		beach_boulder_3:setWorldPosition(beach_boulder_3:getWorldPosition() + vec(2.7,3.1,2.2)) -- present
+		beach_boulder_3:setWorldRotationAngles(126,0,0) -- present
+		Dungeon.getMap(1):setAutomapTile(24,18,0)
 		
-	-- Beach cliff rocks (block view from ocean corner) -- 
-	beach_rock_3x1_8:setWorldPosition(beach_rock_3x1_8:getWorldPosition() + vec(8.0,0.0,0.0)) -- present
-	beach_rock_3x1_8:setWorldRotationAngles(0,45,0) -- present
-	beach_rock_3x1_1:setWorldPosition(beach_rock_3x1_1:getWorldPosition() + vec(8.0,0.0,0.0)) -- past
-	beach_rock_3x1_1:setWorldRotationAngles(0,45,0) -- past
-	
-	-- Beach central cave --
-	beach_rock_wall_01_1:setWorldPosition(beach_rock_wall_01_1:getWorldPosition() + vec(-1.6,0.0,-0.45)) -- present
-	beach_rock_wall_01_1:setWorldRotationAngles(0,-41,0) -- present
-	beach_rock_1x1_low_28:setWorldPosition(beach_rock_1x1_low_28:getWorldPosition() + vec(-0.45,3.4,-5.4)) -- present
-	beach_rock_1x1_low_28:setWorldRotationAngles(0,90,180) -- present
-	beach_rock_arch_15:setWorldRotationAngles(0,45,0) -- present
-	beach_boulder_11:setWorldPosition(beach_boulder_11:getWorldPosition() + vec(1.9,0.36,-4.5)) -- present
-	forest_bridge_no_icon_3:setWorldPosition(forest_bridge_no_icon_3:getWorldPosition() + vec(-2.48,1.14,-3.46)) -- present
-	forest_bridge_no_icon_3:setWorldRotationAngles(-22,98,0) -- present
-	beach_boulder_13:setWorldPosition(beach_boulder_13:getWorldPosition() + vec(1.18,3.42,-0.12)) -- present
-
-	-- Time Device altar (present only)
-	forest_altar_1:setWorldPosition(forest_altar_1:getWorldPosition() + vec(0,0,1.0))
-	for _,entity in forest_altar_1.surface:contents() do
-		if entity.go.name == "enchanted_timepiece" then
-			local m = entity.go:getWorldPosition()
-			entity.go:setWorldPosition(m + vec(0.2,0,1.25))
+		beach_shipwreck_land_hull_1.model:setOffset(vec(0.27,-1.35,5.65))
+		beach_shipwreck_land_hull_1.model:setRotationAngles(17.1,6.2,24.5)
+		
+		local pos = forest_ruins_pillar_fallen_1:getWorldPosition()
+		forest_ruins_pillar_fallen_1:setWorldPosition(vec(pos.x + 1.77, pos.y + 0, pos.z - 2.03))
+		forest_ruins_pillar_fallen_1:setWorldRotationAngles(0,67,0)
+		
+		beach_ocean_2:setWorldRotationAngles(0,45,0)
+		
+		-- Start area pier --
+		forest_bridge_1:setWorldPosition(forest_bridge_1:getWorldPosition() + vec(0,-1.5,0))
+		forest_bridge_2:setWorldPosition(forest_bridge_2:getWorldPosition() + vec(0,-1.5,0))
+		for i=13,16 do
+			findEntity("forest_bridge_pillar_"..i):setWorldPositionY(-3.5)
+			findEntity("forest_bridge_pillar_"..i):setWorldPosition(findEntity("forest_bridge_pillar_"..i):getWorldPosition() + vec(0,0,1.5))
+		end	
+		invisible_platform_15:setWorldPositionY(-0.5)
+		invisible_platform_16:setWorldPositionY(-0.5)
+		invisible_platform_17:setWorldPositionY(-0.75)
+		
+		forest_bridge_no_icon_4:setWorldPosition(forest_bridge_no_icon_4:getWorldPosition() + vec(0,-3.14,0.38))
+		forest_bridge_no_icon_4:setWorldRotationAngles(45,0,0)
+		
+		-- Beach cliff objects and decoration --
+		for i=1,14 do		
+			findEntity("invisible_platform_"..i):setWorldPositionY(0.0)
 		end
-	end
-	--enchanted_timepiece_1:setWorldPosition(enchanted_timepiece_1:getWorldPosition() + vec(0.5,0,1.0))
-	timenote_1_1:setWorldPosition(timenote_1_1:getWorldPosition() + vec(0,0,1.2))
-	beach_lock_ornate_1:setWorldPosition(beach_lock_ornate_1:getWorldPosition() + vec(0.12,-0.64,0.32))
-	beach_lock_ornate_1:setWorldRotationAngles(16,25,9.6)
+		for i=1,16 do
+			findEntity("beach_ground_01_"..i):setWorldPositionY(0.0)
+		end
+		for i=1,18 do
+			findEntity("forest_elevation_edge_"..i):setWorldPositionY(-3)
+		end
+		beach_rock_1x1_lowest_10:setWorldPosition(beach_rock_1x1_lowest_10:getWorldPosition() + vec(0,0.8,0.5)) -- present
+		beach_rock_1x1_lowest_22:setWorldPosition(beach_rock_1x1_lowest_22:getWorldPosition() + vec(0,0.8,0.5)) -- past
+		forest_bridge_no_icon_1:setWorldPosition(forest_bridge_no_icon_1:getWorldPosition() + vec(0.0,-2.54,0.2)) -- present
+		forest_bridge_no_icon_1:setWorldRotationAngles(42,0,0) -- present
+		forest_bridge_no_icon_2:setWorldPosition(forest_bridge_no_icon_2:getWorldPosition() + vec(0.0,-2.54,0.2)) -- past
+		forest_bridge_no_icon_2:setWorldRotationAngles(42,0,0) -- past
+		forest_bridge_pillar_1:setWorldPosition(forest_bridge_pillar_1:getWorldPosition() + vec(0.05,-3.07,-1)) -- present
+		forest_bridge_pillar_10:setWorldPosition(forest_bridge_pillar_10:getWorldPosition() + vec(0.05,-3.07,-1)) -- past
+		for i=2,12 do
+			findEntity("forest_bridge_pillar_"..i):setWorldPosition(findEntity("forest_bridge_pillar_"..i):getWorldPosition() + vec(0.3,-1.52,-1.5))
+		end
+			
+		-- Beach cliff rocks (block view from ocean corner) -- 
+		beach_rock_3x1_8:setWorldPosition(beach_rock_3x1_8:getWorldPosition() + vec(8.0,0.0,0.0)) -- present
+		beach_rock_3x1_8:setWorldRotationAngles(0,45,0) -- present
+		beach_rock_3x1_1:setWorldPosition(beach_rock_3x1_1:getWorldPosition() + vec(8.0,0.0,0.0)) -- past
+		beach_rock_3x1_1:setWorldRotationAngles(0,45,0) -- past
+		
+		-- Beach central cave --
+		beach_rock_wall_01_1:setWorldPosition(beach_rock_wall_01_1:getWorldPosition() + vec(-1.6,0.0,-0.45)) -- present
+		beach_rock_wall_01_1:setWorldRotationAngles(0,-41,0) -- present
+		beach_rock_1x1_low_28:setWorldPosition(beach_rock_1x1_low_28:getWorldPosition() + vec(-0.45,3.4,-5.4)) -- present
+		beach_rock_1x1_low_28:setWorldRotationAngles(0,90,180) -- present
+		beach_rock_arch_15:setWorldRotationAngles(0,45,0) -- present
+		beach_boulder_11:setWorldPosition(beach_boulder_11:getWorldPosition() + vec(1.9,0.36,-4.5)) -- present
+		forest_bridge_no_icon_3:setWorldPosition(forest_bridge_no_icon_3:getWorldPosition() + vec(-2.48,1.14,-3.46)) -- present
+		forest_bridge_no_icon_3:setWorldRotationAngles(-22,98,0) -- present
+		beach_boulder_13:setWorldPosition(beach_boulder_13:getWorldPosition() + vec(1.18,3.42,-0.12)) -- present
+		beach_wall_button_5:setWorldPosition(beach_wall_button_5:getWorldPosition() + vec(0,0,-0.3)) -- present
 
-	-- items and objects
-	findEntity("wooden_box_2"):getComponent("model"):setOffset(vec(-0.6,0.7,-0.6))
-	findEntity("wooden_box_2"):getComponent("model"):setRotationAngles(-30,35,35)
-	findEntity("shovel_1"):getComponent("model"):setOffset(vec(0.6,0.58,-0.0))
-	findEntity("shovel_1"):getComponent("model"):setRotationAngles(45,-10,-90)
-	findEntity("beach_sandpile_1"):getComponent("model"):setOffset(vec(-0.45,-0.35,2))	
-	
-	daemon_head_3:setWorldPosition(daemon_head_3:getWorldPosition() + vec(-0.27,0,0.0))
-	mine_ceiling_lantern_4:setWorldPosition(mine_ceiling_lantern_4:getWorldPosition() + vec(-1.5,-0.7,0.9))
+		beach_rock_1x1_low_74:setWorldPosition(beach_rock_1x1_low_74:getWorldPosition() + vec(1.5,-0.4,1.6))
+		beach_rock_1x1_low_74:setWorldRotationAngles(0,-45,0)
+		beach_rock_1x1_low_75:setWorldPosition(beach_rock_1x1_low_75:getWorldPosition() + vec(1.6,3.8,1.5))
+		beach_rock_1x1_low_75:setWorldRotationAngles(0,50,180)
+		beach_lock_ornate_3:setWorldPosition(vec(20.86,-1.04,20.08))
+		beach_lock_ornate_3:setWorldRotationAngles(70.4,-32.8,71.2)
+
+		-- Time Device altar
+		forest_altar_1:setWorldPosition(forest_altar_1:getWorldPosition() + vec(0,0,1.0))
+		for _,entity in forest_altar_1.surface:contents() do
+			if entity.go.name == "enchanted_timepiece" then
+				local m = entity.go:getWorldPosition()
+				entity.go:setWorldPosition(m + vec(0.2,0,1.25))
+			end
+		end
+		timenote_1_1:setWorldPosition(timenote_1_1:getWorldPosition() + vec(0,0,1.2))
+		beach_lock_ornate_1:setWorldPosition(beach_lock_ornate_1:getWorldPosition() + vec(0.12,-0.64,0.32))
+		beach_lock_ornate_1:setWorldRotationAngles(16,25,9.6)
+
+		-- items and objects
+		wooden_box_2.model:setOffset(vec(-0.6,0.7,-0.6))
+		wooden_box_2.model:setRotationAngles(-30,35,35)
+		shovel_1.model:setOffset(vec(0.6,0.58,-0.0))
+		shovel_1.model:setRotationAngles(45,-10,-90)
+		beach_sandpile_1.model:setOffset(vec(-0.45,-0.35,2))	
+		
+		daemon_head_3:setWorldPosition(daemon_head_3:getWorldPosition() + vec(-0.27,0,0.0))
+		mine_ceiling_lantern_4:setWorldPosition(mine_ceiling_lantern_4:getWorldPosition() + vec(-1.5,-0.7,0.9))
 	end
-	
+
+	if second_beach_past_heightmap then
+		local level = second_beach_past_heightmap.level
+		skies[level] = second_beach_past_sky.id
+
+		beach_ocean_3:setWorldRotationAngles(0,45,0)
+		beach_boulder_7:setWorldPosition(beach_boulder_7:getWorldPosition() + vec(2.7,3.1,2.2)) -- present
+		beach_boulder_7:setWorldRotationAngles(126,0,0) -- present
+	end
 	-------------------
 	-- Minute Grotto --
 	-------------------
-	if note_1 then
-	for i=27,36 do
-		findEntity("beach_rock_3x1_"..i):setWorldPosition(findEntity("beach_rock_3x1_"..i):getWorldPosition() + vec(-5,5,-2.7))
-		findEntity("beach_rock_3x1_"..i):setWorldRotationAngles(104,0,96)
+	if minute_grotto_present_heightmap then
+		local level = minute_grotto_present_heightmap.level
+		skies[level] = minute_grotto_present_sky.id
+
+		-- Move 3x1 rocks to cover ceiling
+		for e in Dungeon.getMap(level):allEntities() do
+			if e and e.name == "beach_rock_3x1" then
+				local m = e:getWorldPosition()
+				e:setWorldPosition(m + vec(-5,5,-2.7))
+				e:setWorldRotationAngles(104,0,96)
+			end
+		end
+		
+		beach_rock_1x1_low_38:setWorldPosition(beach_rock_1x1_low_38:getWorldPosition() + vec(1.5,-0.4,1.6))
+		beach_rock_1x1_low_38:setWorldRotationAngles(0,-45,0)
+		beach_rock_1x1_low_39:setWorldPosition(beach_rock_1x1_low_39:getWorldPosition() + vec(1.6,3.8,1.5))
+		beach_rock_1x1_low_39:setWorldRotationAngles(0,50,180)	
+		beach_high_rock_pillar_01_10:setWorldPosition(beach_high_rock_pillar_01_10:getWorldPosition() + vec(0.75,0.75,0.4))
+		
+		-- Items --
+		throwing_knife_2:setWorldPosition(vec(30.19,1.27,35.73))
+		throwing_knife_2:setWorldRotationAngles(115,133,-40)
+		note_1:setWorldPosition(vec(30.07,1.00,35.89))
+		note_1:setWorldRotationAngles(87.2,26.4,-2.4)
+		iron_key_1:setWorldPosition(vec(36.05,-0.14,70.51))
+		iron_key_1:setWorldRotationAngles(33,62,23)
 	end
-	
-	beach_rock_1x1_low_38:setWorldPosition(beach_rock_1x1_low_38:getWorldPosition() + vec(1.5,-0.4,1.6))
-	beach_rock_1x1_low_38:setWorldRotationAngles(0,-45,0)
-	beach_rock_1x1_low_39:setWorldPosition(beach_rock_1x1_low_39:getWorldPosition() + vec(1.6,3.8,1.5))
-	beach_rock_1x1_low_39:setWorldRotationAngles(0,50,180)	
-	beach_high_rock_pillar_01_10:setWorldPosition(beach_high_rock_pillar_01_10:getWorldPosition() + vec(0.75,0.75,0.4))
-	
-	-- Items --
-	throwing_knife_2:setWorldPosition(vec(30.19,1.27,35.73))
-	throwing_knife_2:setWorldRotationAngles(115,133,-40)
-	note_1:setWorldPosition(vec(30.07,1.00,35.89))
-	note_1:setWorldRotationAngles(87.2,26.4,-2.4)
-	iron_key_1:setWorldPosition(vec(36.05,-0.14,70.51))
-	iron_key_1:setWorldRotationAngles(33,62,23)
+
+	if minute_grotto_past_heightmap then
+		local level = minute_grotto_past_heightmap.level
+		skies[level] = minute_grotto_past_sky.id
+
+		-- Move 3x1 rocks to cover ceiling
+		for e in Dungeon.getMap(level):allEntities() do
+			if e and e.name == "beach_rock_3x1" then
+				local m = e:getWorldPosition()
+				e:setWorldPosition(m + vec(-5,5,-2.7))
+				e:setWorldRotationAngles(104,0,96)
+			end
+		end
 	end
 	
 	--------------------
 	-- Bridge of Ages --
 	--------------------
-	if short_bow_1 then
+	if bridge_of_eras_present_heightmap then
+		local level = bridge_of_eras_present_heightmap.level
+		skies[level] = bridge_of_eras_present_sky.id
+
 		short_bow_1:setWorldPosition(vec(73.55,0.76,32.91))
 		short_bow_1:setWorldRotationAngles(101,-2.4,72)
 		short_bow_1.gravity:disable()	
@@ -233,17 +272,35 @@ function start()
 		end
 
 		for i=1,4 do
-			findEntity("demo_pillar_"..i):setWorldPosition(vec(81, 0, 59.4 + (i*3) - 3))
-			findEntity("demo_button_"..i):setWorldPosition(vec(80.87, 0, 59.4 + (i*3) - 3))
-			findEntity("gate_demo_"..i.."_bot"):setWorldPosition(findEntity("gate_demo_"..i.."_top"):getWorldPosition() + vec(0,-0.5,0))
+			-- findEntity("demo_pillar_"..i):setWorldPosition(vec(81, 0, 59.4 + (i*3) - 3))
+			-- findEntity("demo_button_1_"..i):setWorldPosition(vec(80.87, 0, 59.4 + (i*3) - 3))
+			findEntity("gate_demo_1_"..i.."_bot"):setWorldPosition(findEntity("gate_demo_1_"..i.."_top"):getWorldPosition() + vec(0,-0.5,0))
 		end
-		beach_wall_button_5:setWorldPosition(vec(78.4, 0, 64.5))
+	end
+
+	if bridge_of_eras_past_heightmap then
+		local level = bridge_of_eras_past_heightmap.level
+		skies[level] = bridge_of_eras_past_sky.id
+
 	end
 	
 	--------------------
 	--  Ruined City   --
 	--------------------
-	if mine_ceiling_lantern_6 then
+	if ruined_city_present_heightmap then
+		local level = ruined_city_present_heightmap.level
+		skies[level] = ruined_city_present_sky.id
+
+		mine_ceiling_lantern_6:setWorldPosition(vec(7.5,-0.25,39))
+		forest_lantern_blue_4:setWorldPosition(vec(14.6,-3,46.5))
+		city_lock_ornate_1:setWorldPosition(vec(75.4,0,82.5))
+		turnButton:setWorldPosition(vec(51.3,0,70.5))
+	end
+
+	if ruined_city_past_heightmap then
+		local level = ruined_city_past_heightmap.level
+		skies[level] = ruined_city_past_sky.id
+
 		mine_ceiling_lantern_6:setWorldPosition(vec(7.5,-0.25,39))
 		forest_lantern_blue_4:setWorldPosition(vec(14.6,-3,46.5))
 		city_lock_ornate_1:setWorldPosition(vec(75.4,0,82.5))
@@ -387,7 +444,7 @@ end
 -- Offset and Rotate Level Object                                       --
 --------------------------------------------------------------------------
 
-objname = "bridge_pillar_sound_2"
+objname = "beach_lock_ornate_3"
 objname2 = nil
 
 function move(x,y,z)
@@ -402,6 +459,7 @@ function move(x,y,z)
 		else
 		-- Object
 		findEntity(objname):setWorldPosition(vec(posx + xx, posy + yy, posz + zz))
+		print("Offset: ", findEntity(objname).x * 3, findEntity(objname).y * 3 )
 		print("Offset: ", findEntity(objname):getWorldPosition())
 		end
 	end
@@ -442,9 +500,16 @@ skyMode = "normal"
 skyTimer = 0
 timeTravelTimer = 0
 deviceMaxCharge = 5
+travel_mode = ""
+travel_crystal = {}
+destination = {}
+skies = {}
+travel_path = {}
 
-function setSkyMode(n)
+function setSkyMode(n, d)
+	if not d then d = {} end
 	skyMode = n
+	destination = d
 	if n == "travel_back_end" then
 		playSound("teleport")
 	end
@@ -454,16 +519,85 @@ function setSkyMode(n)
 end
 
 function updateTimeTravelTimer(n)
-	timeTravelTimer = math.max(timeTravelTimer + n, 0)
-	if timeTravelTimer == 0 then
-		playSound("time_1")
-		playSound("time_2")
-		setSkyMode("travel_forward")
+	timeTravelTimer = round(n)
+	local location = { party.x, party.y, party.elevation }
+	travel_path[#travel_path+1] = location
+	
+	if timeTravelTimer >= 5 then
+		tryTimeTravel("timer")
 	end
 end
 
-function teleportParty(level)
-	party:setPosition(party.x, party.y, party.facing, party.elevation, level)
+function tryTimeTravel(type)
+	if functions2.script.skyMode ~= "normal" then return false end
+	if type == "device" or type == "teleporter" then 
+		travel_path = { { party.x, party.y, party.elevation } }
+	end
+	local period = party.data:get("period") or "present"
+	local offset = period == "present" and 1 or -1
+
+	-- Locate crystal to keep device charged at the other time period
+	if type == "device" then
+		travel_crystal = {}
+		local dx,dy = getForward(party.facing)
+		for e in Dungeon.getMap(party.level):entitiesAt(party.x + dx, party.y + dy) do
+			if e and (e.name == "healing_crystal" or e.name == "dead_crystal") then
+				travel_crystal[1] = e.x
+				travel_crystal[2] = e.y
+				travel_crystal[3] = e.elevation
+				travel_crystal[4], travel_crystal[5], travel_crystal[6] = e.map:getLevelCoord()
+			end
+		end
+	end
+
+	local obstacle = false
+	local elevation = false
+	local platform = false
+	local d = {}
+	
+	-- Check if the party's position in the other time period is valid
+	if #travel_path ~= 0 then
+		for i=#travel_path,1,-1 do
+			obstacle = Dungeon.getMap(party.level + offset):isBlocked(travel_path[i][1], travel_path[i][2], travel_path[i][3]) or false
+			elevation = Dungeon.getMap(party.level + offset):getElevation(travel_path[i][1], travel_path[i][2]) == travel_path[i][3]
+			platform = false
+			for e in Dungeon.getMap(party.level + offset):entitiesAt(travel_path[i][1], travel_path[i][2]) do
+				if e.platform and e.elevation == travel_path[i][3] then platform = true end
+			end
+			if ((not obstacle and elevation) or (not obstacle and platform)) and #travel_crystal ~= 0 then
+				d = travel_path[i]
+				break 
+			end
+		end
+	end
+
+	-- Check if target location is at floor level or a platform and no obstacles are there
+	if ((not obstacle and elevation) or (not obstacle and platform)) and #travel_crystal ~= 0 then
+		if period == "present" then
+			party.data:set("period", "past")
+			playSound("time_1")
+			setSkyMode("travel_back", d)
+		else
+			party.data:set("period", "present")
+			playSound("time_2")
+			setSkyMode("travel_forward", d)
+		end
+		travel_mode = type
+		travel_path = { { party.x, party.y, party.elevation } }
+	else
+		if type == "device" then
+			hudPrint("The coordinates of your destination are unsafe.")
+		end
+	end
+
+	if #travel_crystal == 0 then
+		hudPrint("A crystal is necessary to travel.")
+		return false
+	end
+end
+
+function teleportParty(level, x, y, elevation)
+	party:setPosition(x, y, party.facing, elevation, level)
 	GameMode.setTimeOfDay((GameMode.getTimeOfDay() + 1) % 2)
 	if gotDevice and not party.party:isCarrying("enchanted_timepiece") then
 		local timepiece = nil
@@ -491,37 +625,30 @@ function teleportParty(level)
 end
 
 function updateSky(t)
-	local sky = nil
-	local fog_min = 5
+	if not skies[party.level] then return false end
+	local x,y,z = destination[1], destination[2], destination[3]
+	local sky = findEntity(skies[party.level]).sky
+	local fog_min = 1
 	local fog_base = 440
 	local fog_var = 350
-	if party.level == forest_day_sky_2.level then
-		sky = forest_day_sky_2.sky
-		fog_min = 1
-		fog_base = 470
-		fog_var = 350
-	elseif  party.level == beach_day_sky_2.level then
-		sky = beach_day_sky_2.sky
-		fog_min = 1
-		fog_base = 420
-		fog_var = 350
-	elseif  party.level == bridge_sky_1.level then
-		sky = bridge_sky_1.sky
+	if string.match(sky.go.name, "past") then
+		fog_base = fog_base - 50
+	end
+
+	if sky.go == bridge_of_eras_present_sky then
 		fog_min = 5
 		fog_base = 11
 		fog_var = 1
-	elseif  party.level == bridge_sky_2.level then
-		sky = bridge_sky_2.sky
+	elseif sky.go == bridge_of_eras_past_sky then
 		fog_min = 5
 		fog_base = 11
 		fog_var = 1
-	else
-		return
 	end
 	-- print("timer: " .. skyTimer .. " / mode: " .. skyMode)
 	-- print(sky:getFogRange()[1] .. " / " .. sky:getFogRange()[2])
 	if skyMode == "normal" then
-		if (party.level == bridge_sky_1.level or party.level == bridge_sky_2.level) then
+		skyTimer = 0
+		if (sky.go == bridge_of_eras_present_sky or sky.go == bridge_of_eras_past_sky) then
 			sky:setFogRange({fog_min, fog_base})
 		else
 			sky:setFogRange({1, fog_base + (math.cos((t+0.5)/30*90) * fog_var)})
@@ -529,26 +656,27 @@ function updateSky(t)
 	elseif skyMode == "travel_back" then
 		party.party:setMovementSpeed(0)
 		if sky:getFogRange()[2] > 1 then
-			skyTimer = math.min((skyTimer + 0.5) + (skyTimer * 0.05), fog_base+fog_var)
+			skyTimer = math.min(skyTimer + ((2.5 + (skyTimer * 0.02)) * 2), fog_base+fog_var)
 			sky:setFogRange({0, math.max(fog_base + ((math.cos((t+0.5)/30*90) * fog_var)) - (skyTimer * 2),1)})
-			GameMode.fadeOut(0xFFFFFF, 2)
-			GameMode.setTimeMultiplier(math.max(0.5 - (skyTimer/500), 0.02))
+			-- GameMode.fadeOut(0xFFFFFF, 1.0)
+			-- GameMode.setTimeMultiplier(math.max(0.5 - (skyTimer/500), 0.02))
+			GameMode.setTimeMultiplier(0.5)
 		else			
 			party.party:shakeCamera(0.1,1)
 			sky:setFogRange({0,1})
-			GameMode.fadeOut(0xDDDDFF, 0.2)
+			-- GameMode.fadeOut(0xDDDDFF, 0.2)
 			setSkyMode("travel_back_end")
-			delayedCall("functions2", 0.1, "teleportParty", party.level + 1)
+			delayedCall("functions2", 0.1, "teleportParty", party.level + 1, x, y, z)
 			delayedCall("functions2", 0.15, "setSkyMode", "arrive_back")
 		end
 	elseif skyMode == "arrive_back" then
 		if sky:getFogRange()[2] < 1 then
-			skyTimer = math.max((skyTimer - 0.01 - (skyTimer * 0.01)),0)
+			skyTimer = math.max(skyTimer - (2.5 + (skyTimer * 0.05)), 0)
 			sky:setFogRange({0, fog_base + ((math.cos((t+0.5)/30*90) * fog_var)) - (skyTimer * 2)})
-			GameMode.fadeIn(0xFFFFFF, 2)
+			-- GameMode.fadeIn(0xFFFFFF, 1.0)
 		else
 			sky:setFogRange({1, fog_base + (math.cos((t+0.5)/30*90) * fog_var)})
-			GameMode.fadeIn(0xDDDDFF, 0.5)
+			-- GameMode.fadeIn(0xDDDDFF, 0.3)
 			delayedCall("functions2", 0.1, "setSkyMode", "arrive_back_end")
 		end
 	elseif skyMode == "arrive_back_end" then
@@ -556,32 +684,33 @@ function updateSky(t)
 		skyTimer = 0
 		setSkyMode("normal")
 		GameMode.setTimeMultiplier(1)
-		timeTravelTimer = deviceMaxCharge
+		timeTravelTimer = 1
 		
 	elseif skyMode == "travel_forward" then
 		party.party:setMovementSpeed(0)
 		if sky:getFogRange()[2] > 1 then
-			skyTimer = math.min((skyTimer + 0.5) + (skyTimer * 0.1), fog_base+fog_var)
+			skyTimer = math.min(skyTimer + ((2.5 + (skyTimer * 0.02)) * 2), fog_base+fog_var)
 			sky:setFogRange({0, math.max(fog_base + ((math.cos((t+0.5)/30*90) * fog_var)) - (skyTimer * 2),1)})
-			GameMode.fadeOut(0xFFFFFF, 2)
-			GameMode.setTimeMultiplier(math.max(0.5 - (skyTimer/850), 0.01))
+			-- GameMode.fadeOut(0xFFFFFF, 2)
+			-- GameMode.setTimeMultiplier(math.max(0.5 - (skyTimer/850), 0.01))
+			GameMode.setTimeMultiplier(0.5)
 		else
 			party.party:shakeCamera(0.1,1)
 			sky:setFogRange({0,1})
-			GameMode.fadeOut(0xDDDDFF, 0.2)
+			-- GameMode.fadeOut(0xDDDDFF, 0.2)
 			setSkyMode("travel_forward_end")
-			delayedCall("functions2", 0.2, "teleportParty", party.level - 1)
-			delayedCall("functions2", 0.5, "setSkyMode", "arrive_forward")
+			delayedCall("functions2", 0.1, "teleportParty", party.level - 1, x, y, z)
+			delayedCall("functions2", 0.15, "setSkyMode", "arrive_forward")
 		end
 	elseif skyMode == "arrive_forward" then
 		if sky:getFogRange()[2] < 1 then
-			skyTimer = math.max((skyTimer - 0.5) - (skyTimer * 0.02),0)
+			skyTimer = math.max(skyTimer - (2.5 + (skyTimer * 0.05)), 0)
 			sky:setFogRange({0, fog_base + ((math.cos((t+0.5)/30*90) * fog_var)) - (skyTimer * 2)})
-			GameMode.fadeIn(0xFFFFFF, 2)
+			-- GameMode.fadeIn(0xFFFFFF, 2)
 		else
 			sky:setFogRange({1, fog_base + (math.cos((t+0.5)/30*90) * fog_var)})
-			GameMode.fadeIn(0xDDDDFF, 0.5)
-			delayedCall("functions2", 0.5, "setSkyMode", "arrive_forward_end")
+			-- GameMode.fadeIn(0xDDDDFF, 0.5)
+			delayedCall("functions2", 0.1, "setSkyMode", "arrive_forward_end")
 		end
 	elseif skyMode == "arrive_forward_end" then
 		party.party:setMovementSpeed(1)
@@ -590,12 +719,16 @@ function updateSky(t)
 		GameMode.setTimeMultiplier(1)
 		timeTravelTimer = 0
 	end
-	
-	findEntity("beach_ocean_2"):getComponent("surface"):setOffset(vec(0, -1.4 + (math.cos((t+0.5)/30*90) * 0.2), 0))
-	findEntity("beach_ocean_3"):getComponent("surface"):setOffset(vec(0, -1.4 + (math.cos((t+0.5)/30*90) * 0.2), 0))
-	findEntity("beach_ocean_4"):getComponent("surface"):setOffset(vec(0, -1.4 + (math.cos((t+0.5)/30*90) * 0.2), 0))
-	findEntity("beach_oar_boat_1").model:setOffset(vec(0, 0.6 + ((math.cos((t+0.5)/30*90) * 0.2) + (math.cos(party.gametime2:getValue()/100)*0.1) ), 0))
-	findEntity("beach_oar_boat_1").model:setRotationAngles( math.cos((party.gametime2:getValue()+20) / 50) * 4.0 , 10 + t, 0)
+
+	-- Wave motion for oar boat and sack
+	if beach_ocean_2 then
+		findEntity("beach_ocean_2"):getComponent("surface"):setOffset(vec(0, -1.4 + (math.cos((t+0.5)/30*90) * 0.2), 0))
+		findEntity("beach_ocean_3"):getComponent("surface"):setOffset(vec(0, -1.4 + (math.cos((t+0.5)/30*90) * 0.2), 0))
+		findEntity("beach_ocean_4"):getComponent("surface"):setOffset(vec(0, -1.4 + (math.cos((t+0.5)/30*90) * 0.2), 0))
+		findEntity("beach_oar_boat_1").model:setOffset(vec(0, 0.6 + ((math.cos((t+0.5)/30*90) * 0.2) + (math.cos(party.gametime2:getValue()/100)*0.1) ), 0))
+		findEntity("beach_oar_boat_1").model:setRotationAngles( math.cos((party.gametime2:getValue()+20) / 50) * 4.0 , 10 + t, 0)
+	end
+	-- 
 	if sack_5 then 
 		if not functions.script.get("got_starting_sack") then
 			sack_5:setWorldPosition(vec(82.66,-1.45 + ((math.cos((t+0.5)/30*90) * 0.2) + (math.cos(party.gametime2:getValue()/100)*0.1) + (math.cos((party.gametime2:getValue()+20) / 50) * -0.05) ),87.8))
@@ -641,4 +774,8 @@ function multiply( m1, m2 )
     end
  
     return res
+end
+
+function round(n)
+	return math.floor(n * 1 + 0.5) / 1
 end

@@ -17,12 +17,11 @@ end
 local onHitMonster = function(self, monster, tside, damage, champion)
 	local secondary2 = functions.script.secondary
 	local item = self.go.item
-	functions.script.onMonsterAttacked(self, monster, tside, damage, champion)
+	functions.script.onHitMonster(self, monster, tside, damage, champion)
 	functions.script.reset_attack(self, champion, slot, secondary2, item) -- (when hit)
 end
 
 local onProjectileHitMonster = function(self, item, damage, damageType)
-	
 	return functions.script.onProjectileHitMonster(self, item, damage, damageType)
 end
 
