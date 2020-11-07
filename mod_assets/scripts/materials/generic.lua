@@ -147,6 +147,20 @@ defineMaterial{
 }
 
 defineMaterial{
+	name = "ornament_lock_amateria",
+	diffuseMap = "assets/textures/env/ornament_lock_dif.tga",
+	specularMap = "assets/textures/env/ornament_lock_spec.tga",
+	normalMap = "assets/textures/env/ornament_lock_normal.tga",
+	doubleSided = false,
+	lighting = true,
+	alphaTest = false,
+	blendMode = "Additive",
+	textureAddressMode = "Wrap",
+	glossiness = 0,
+	depthBias = 0,
+}
+
+defineMaterial{
 	name = "white_light",
 	diffuseMap = "assets/textures/common/white.tga",
 	doubleSided = false,

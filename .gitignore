@@ -1,0 +1,4 @@
+files/**
+docs/**
+.code-workspace
+Grimrock 2 Dungeon.dungeon_editor

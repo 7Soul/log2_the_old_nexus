@@ -82,6 +82,7 @@ import "mod_assets/scripts/items/tinkering.lua"
 import "mod_assets/scripts/particles/blooddrop.lua"
 import "mod_assets/scripts/particles/soundGate.lua"
 import "mod_assets/scripts/particles/forest_lantern2.lua"
+import "mod_assets/scripts/particles/amateria.lua"
 import "mod_assets/fire_cave/scripts/init.lua"
 
 defineObject{
@@ -1752,7 +1753,7 @@ defineObject{
 						elseif h == 16 then
 							hoverTxt1 = "Spell Multi"
 							hoverTxt2 = "Increases the damage you deal with all spells. This is affected by Willpower."
-							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, hoverX, hoverY, 1)
+							functions.script.statToolTip(context, hoverTxt1, hoverTxt2, hoverX, hoverY, 2)
 						elseif h == 17 then
 							hoverTxt1 = "Elemental Multi"
 							hoverTxt2 = "The multipliers for Fire, Shock and Cold. Increases the damage you deal with elemental attacks."

@@ -3128,8 +3128,6 @@ spawn("mine_support_beam_floor_double",16,25,3,-1,"mine_support_beam_floor_doubl
 spawn("mine_support_beam_floor_double",16,25,3,0,"mine_support_beam_floor_double_409")
 spawn("mine_support_beam_floor_double",16,25,3,1,"mine_support_beam_floor_double_410")
 spawn("forest_oak_cluster",17,27,3,-2,"forest_oak_cluster_34")
-spawn("mine_secret_lever",16,25,0,0,"mine_secret_lever_1")
-mine_secret_lever_1.lever:setDisableSelf(false)
 spawn("mine_support_secret_button",13,24,2,0,"mine_support_secret_button_1")
 mine_support_secret_button_1.button:setDisableSelf(false)
 mine_support_secret_button_1.detectedtimer:setTimerInterval(0)
@@ -6385,27 +6383,27 @@ spawn("mine_support_beam_floor_double",26,12,2,-2,"mine_support_beam_floor_doubl
 spawn("mine_support_beam_floor_double",27,12,2,-2,"mine_support_beam_floor_double_369")
 spawn("mine_support_beam_floor_double",27,11,2,-2,"mine_support_beam_floor_double_370")
 spawn("mine_support_beam_floor_double",26,11,2,-2,"mine_support_beam_floor_double_371")
-spawn("beam",11,13,1,0,"beam_1")
+spawn("beam",18,9,1,0,"beam_1")
 beam_1.data:setSource("data = { [\"angle\"] = 45, [\"angle2\"] = 0, [\"index\"] = 0 }\
 function get(self,name) return self.data[name] end\
 function set(self,name,value) self.data[name] = value end")
 beam_1.angle:setValue(0)
-spawn("beam",11,13,1,0,"beam_2")
+spawn("beam",18,9,1,0,"beam_2")
 beam_2.data:setSource("data = { [\"angle\"] = 45, [\"angle2\"] = 0, [\"index\"] = 1 }\
 function get(self,name) return self.data[name] end\
 function set(self,name,value) self.data[name] = value end")
 beam_2.angle:setValue(0)
-spawn("beam",11,13,1,0,"beam_3")
+spawn("beam",18,9,1,0,"beam_3")
 beam_3.data:setSource("data = { [\"angle\"] = 45, [\"angle2\"] = 0, [\"index\"] = 2 }\
 function get(self,name) return self.data[name] end\
 function set(self,name,value) self.data[name] = value end")
 beam_3.angle:setValue(0)
-spawn("beam",11,13,1,0,"beam_4")
+spawn("beam",18,9,1,0,"beam_4")
 beam_4.data:setSource("data = { [\"angle\"] = 45, [\"angle2\"] = 0, [\"index\"] = 3 }\
 function get(self,name) return self.data[name] end\
 function set(self,name,value) self.data[name] = value end")
 beam_4.angle:setValue(0)
-spawn("beam",11,13,1,0,"beam_5")
+spawn("beam",18,9,1,0,"beam_5")
 beam_5.data:setSource("data = { [\"angle\"] = 45, [\"angle2\"] = 0, [\"index\"] = 4 }\
 function get(self,name) return self.data[name] end\
 function set(self,name,value) self.data[name] = value end")
@@ -12028,7 +12026,7 @@ spawn("beach_rock_border",30,15,3,0,"beach_rock_border_7")
 spawn("beach_rock_border",30,16,3,0,"beach_rock_border_8")
 spawn("invisible_platform",30,15,1,0,"invisible_platform_2")
 spawn("invisible_platform",30,14,1,0,"invisible_platform_3")
-spawn("beach_rock_border",27,24,0,0,"beach_rock_border_9")
+spawn("beach_rock_border",30,20,0,0,"beach_rock_border_9")
 spawn("beach_seaweed_01",30,17,1,0,"beach_seaweed_01_4")
 spawn("forest_elevation_edge",31,17,3,-1,"forest_elevation_edge_5")
 spawn("beach_ground_01",30,17,2,0,"beach_ground_01_4")
@@ -12057,7 +12055,7 @@ spawn("forest_seaweed_floor_01",31,15,3,0,"forest_seaweed_floor_01_16")
 spawn("forest_seaweed_floor_01",31,14,3,0,"forest_seaweed_floor_01_17")
 spawn("forest_seaweed_floor_01",31,16,3,0,"forest_seaweed_floor_01_19")
 spawn("invisible_wall",29,20,1,0,"invisible_wall_6")
-spawn("invisible_wall",27,24,1,0,"invisible_wall_7")
+spawn("invisible_wall",30,20,1,0,"invisible_wall_7")
 spawn("invisible_wall",31,19,1,0,"invisible_wall_8")
 spawn("invisible_wall",31,18,1,0,"invisible_wall_9")
 spawn("invisible_wall",31,17,1,0,"invisible_wall_10")
@@ -12111,7 +12109,7 @@ spawn("invisible_wall",31,16,1,1,"invisible_wall_31")
 spawn("invisible_wall",31,15,1,1,"invisible_wall_32")
 spawn("invisible_wall",31,14,1,1,"invisible_wall_33")
 spawn("invisible_wall",31,18,1,1,"invisible_wall_34")
-spawn("invisible_wall",27,24,1,1,"invisible_wall_35")
+spawn("invisible_wall",30,20,1,1,"invisible_wall_35")
 spawn("beach_rock_3x1",31,12,0,0,"beach_rock_3x1_8")
 spawn("beach_rock_2x1",31,12,1,0,"beach_rock_2x1_11")
 spawn("beach_rock_3x1",30,11,1,0,"beach_rock_3x1_9")
@@ -12141,7 +12139,7 @@ spawn("beach_rock_arch_small",28,14,0,0,"beach_rock_arch_small_10")
 spawn("beach_rock_1x1_low",26,14,1,0,"beach_rock_1x1_low_11")
 spawn("beach_rock_1x1_lowest",27,12,3,0,"beach_rock_1x1_lowest_11")
 spawn("forest_day_sky",1,0,2,0,"second_beach_present_sky")
-spawn("beach_lever",27,13,2,0,"beach_lever_1")
+spawn("beach_lever",26,13,0,0,"beach_lever_1")
 beach_lever_1.lever:setDisableSelf(false)
 beach_lever_1.lever:addConnector("onActivate", "beach_door_portcullis_3", "open")
 spawn("forest_altar",24,11,2,0,"forest_altar_1")
@@ -12226,7 +12224,7 @@ end\
 function enableTrigger()\
 \9floor_trigger_1.floortrigger:enable()\
 end")
-spawn("beach_rock_blocker_01",27,24,2,0,"beach_rock_blocker_01_4")
+spawn("beach_rock_blocker_01",30,20,2,0,"beach_rock_blocker_01_4")
 spawn("invisible_wall",31,19,1,1,"invisible_wall_44")
 spawn("beach_rock_spire_pillar",31,18,2,-1,"beach_rock_spire_pillar_1")
 spawn("forest_ruins_pillar_01",24,10,2,0,"forest_ruins_pillar_01_1")
@@ -12311,10 +12309,13 @@ spawn("beach_rock_arch_small",24,15,2,0,"beach_rock_arch_small_44")
 spawn("beach_rock_arch_small",25,15,2,0,"beach_rock_arch_small_45")
 spawn("beach_rock_arch_small",25,17,0,0,"beach_rock_arch_small_46")
 spawn("beach_rock_arch_small",25,17,3,0,"beach_rock_arch_small_47")
-spawn("beach_lock_ornate",24,14,2,0,"beach_lock_ornate_1")
+spawn("beach_lock_ornate",23,13,2,0,"beach_lock_ornate_1")
 beach_lock_ornate_1.clickable:disable()
 beach_lock_ornate_1.lock:setOpenedBy("")
 beach_lock_ornate_1.lock:disable()
+beach_lock_ornate_1.data:setSource("data = { [\"amateria\"] = true }\
+function get(name)\9return self.data[name] end\
+function set(name,value)\9self.data[name] = value end")
 spawn("beach_rock_border",24,15,0,0,"beach_rock_border_78")
 spawn("forest_grass_01",22,11,2,0,"forest_grass_01_10")
 spawn("forest_grass_01",24,10,2,0,"forest_grass_01_12")
@@ -12669,26 +12670,9 @@ spawn("beach_crab",21,20,2,0,"beach_crab_8")
 spawn("beach_crab",19,22,1,0,"beach_crab_11")
 spawn("sound",12,0,3,0,"sound_22")
 sound_22.sound:setSound("beach_waves")
-spawn("mine_door_spear",23,16,0,0,"mine_door_spear_1")
-mine_door_spear_1.door:setDoorState("open")
-spawn("mine_door_spear",22,16,1,0,"mine_door_spear_2")
-spawn("beach_pressure_plate",23,15,1,0,"beach_pressure_plate_2")
-beach_pressure_plate_2.floortrigger:setTriggeredByParty(true)
-beach_pressure_plate_2.floortrigger:setTriggeredByMonster(true)
-beach_pressure_plate_2.floortrigger:setTriggeredByItem(true)
-beach_pressure_plate_2.floortrigger:setTriggeredByDigging(false)
-beach_pressure_plate_2.floortrigger:setDisableSelf(false)
-beach_pressure_plate_2.floortrigger:addConnector("onToggle", "mine_door_spear_2", "toggle")
 spawn("beach_rock_1x1_lowest",23,17,1,0,"beach_rock_1x1_lowest_38")
 spawn("beach_rock_1x1_lowest",23,17,3,0,"beach_rock_1x1_lowest_39")
 spawn("beach_rock_border",22,16,3,0,"beach_rock_border_113")
-spawn("beach_pressure_plate",23,16,1,0,"beach_pressure_plate_3")
-beach_pressure_plate_3.floortrigger:setTriggeredByParty(true)
-beach_pressure_plate_3.floortrigger:setTriggeredByMonster(true)
-beach_pressure_plate_3.floortrigger:setTriggeredByItem(true)
-beach_pressure_plate_3.floortrigger:setTriggeredByDigging(false)
-beach_pressure_plate_3.floortrigger:setDisableSelf(false)
-beach_pressure_plate_3.floortrigger:addConnector("onToggle", "mine_door_spear_1", "toggle")
 spawn("tattered_cloak",24,18,2,0,"tattered_cloak_1")
 tattered_cloak_1.data:setSource("\9\9\9\9data = {}\
 \9\9\9\9function get(name)\
@@ -13173,6 +13157,9 @@ beach_lock_ornate_2.clickable:disable()
 beach_lock_ornate_2.lock:setOpenedBy("ornate_key")
 beach_lock_ornate_2.lock:addConnector("onActivate", "beach_door_portcullis_6", "open")
 beach_lock_ornate_2.lock:disable()
+beach_lock_ornate_2.data:setSource("data = { [\"amateria\"] = true }\
+function get(name)\9return self.data[name] end\
+function set(name,value)\9self.data[name] = value end")
 spawn("beach_rock_wall_01",22,17,3,0,"beach_rock_wall_01_14")
 spawn("beach_rock_wall_01",23,17,3,0,"beach_rock_wall_01_15")
 spawn("beach_rock_pillar_01",22,17,3,0,"beach_rock_pillar_01_13")
@@ -13264,19 +13251,6 @@ timer_6.timer:addConnector("onActivate", "beach_secret_door_7", "open")
 timer_6.timer:disable()
 spawn("beach_statue_01",29,23,3,0,"beach_statue_01_1")
 spawn("beach_rock_blocker_02",29,23,0,0,"beach_rock_blocker_02_12")
-spawn("throwing_knife",23,16,2,0,"throwing_knife_1")
-throwing_knife_1.data:setSource("\9\9\9\9data = {}\
-\9\9\9\9function get(name)\
-\9\9\9\9\9return self.data[name]\
-\9\9\9\9end\
-\9\9\9\9function set(name,value)\
-\9\9\9\9\9self.data[name] = value\
-\9\9\9\9end\
-\9\9\9")
-throwing_knife_1.detectedtimer:setTimerInterval(0)
-throwing_knife_1.detectedtimer:setDisableSelf(false)
-throwing_knife_1.detectedtimer:setTriggerOnStart(true)
-throwing_knife_1.detectedtimer:setCurrentLevelOnly(true)
 spawn("throwing_knife",9,13,0,0,"throwing_knife_3")
 throwing_knife_3.data:setSource("\9\9\9\9data = {}\
 \9\9\9\9function get(name)\
@@ -13975,6 +13949,9 @@ spawn("beach_lock_ornate",6,25,1,0,"beach_lock_ornate_3")
 beach_lock_ornate_3.clickable:disable()
 beach_lock_ornate_3.lock:setOpenedBy("")
 beach_lock_ornate_3.lock:disable()
+beach_lock_ornate_3.data:setSource("data = { [\"amateria\"] = true }\
+function get(name)\9return self.data[name] end\
+function set(name,value)\9self.data[name] = value end")
 spawn("beach_rock_floor_decoration",8,22,2,0,"beach_rock_floor_decoration_60")
 spawn("ceiling_witch_lantern",4,24,1,0,"ceiling_witch_lantern_3")
 spawn("ceiling_witch_lantern",5,28,1,0,"ceiling_witch_lantern_4")
@@ -14043,8 +14020,20 @@ floor_trigger_59.floortrigger:setTriggeredByDigging(false)
 floor_trigger_59.floortrigger:setDisableSelf(true)
 floor_trigger_59.floortrigger:addConnector("onActivate", "script_entity_4", "enableTrigger")
 spawn("forest_willow",20,14,3,1,"forest_willow_51")
-spawn("starting_location",23,13,2,0,"starting_location_1")
-spawn("beach_rock_pillar_decoration",28,24,0,0,"beach_rock_pillar_decoration_37")
+spawn("beach_rock_pillar_decoration",31,20,0,0,"beach_rock_pillar_decoration_37")
+spawn("starting_location",24,13,2,0,"starting_location_1")
+spawn("beach_rock_blocker_02",23,15,2,0,"beach_rock_blocker_02_18")
+spawn("beach_rock_wall_01",24,15,3,0,"beach_rock_wall_01_27")
+spawn("beach_rock_wall_01",23,15,3,0,"beach_rock_wall_01_28")
+spawn("beach_rock_pillar_01",23,15,3,0,"beach_rock_pillar_01_24")
+spawn("script_entity",25,14,1,0,"script_entity_12")
+script_entity_12.script:setSource("function openPastPassage()\
+\9beach_rock_wall_01_14:destroy()\
+\9beach_rock_wall_01_15:destroy()\
+\9beach_rock_pillar_01_13:destroy()\
+\9beach_rock_blocker_02_11:destroy()\
+\9Dungeon.getMap(1):setAutomapTile(23, 15, 0)\
+end")
 
 --- level 10 ---
 

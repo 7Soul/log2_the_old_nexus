@@ -10,13 +10,11 @@ defineTrait{
 	- Dual Wielding damage penalty reduced to 25% (normally 40%)
 	
 	Assassination: Powerful attacks (such as criticals) add a charge to your weapon, up to 4.
-	- Melee attacks Gain +2 Pierce and +2 Crit per charge.
-	- Ranged attacks Gain +3 Attack Power and +2 Crit per charge.
-	- Back attacks spend all charges to deal 2% of a target's health per charge, while you heal for that much.
+	- Gain +4% Physical Damage and +2 Crit per charge.
+	- Back attacks spend charges to deal 5, 15, 25, 50% (based on charges) extra damage.
 	
-	Fleshbore: Ranged attacks reduce the target's armor by 1, stacking up to 10.
-	- Reduction per hit increased by 1 every 6 levels.
-	- Maximum stacks increased by 1 every 3 levels.]],
+	Fleshbore: Ranged attacks and back attacks have a 1% chance (+1% per level) to cause bleeding.
+	- You deal 20% extra damage to bleeding enemies.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			level = champion:getLevel() - 1
@@ -46,10 +44,11 @@ defineTrait{
 	- Can't wear any Body Armor or Pants. 
 	- Can't wear Heavy Armor.
 	
-	Berserker Frenzy: Gain a buff that fades over 20 seconds if party gets attacked. Duration and effects are increased if a party member dies.
-	- Protection up to +4 per level (+6 per 3 levels).
-	- Strength up to +2 (+1 per 3 levels).
-	- Heals up to 3% health per second based on current health.
+	Berserker Frenzy: Gain Frenzy with each attack. At maximum Frenzy, gain a large Health Regen and Action Speed bonus.
+	- You lose 5% Frenzy per second if you don't attack anything for 8 seconds.
+		Every 25% Frenzy grants you:
+		- Protection +1 (+1 per level).
+		- Strength +1 (+1 per 4 levels).
 	
 	Red Hills Rage High: For every 5 combined points in Strength and Vitality you gain:
 	- +2% Action Speed.
@@ -200,6 +199,11 @@ defineTrait{
 	- Health 50 (+5 per level)
 	- Energy 50 (+6 per level)
 	- 20% of your physical damage is converted to Poison.
+
+	Nature Attunement: Weapons and armor made of wood, bone and leather grant you greater effects.
+	- Weapons: +10% Action Speed (+1% per level).
+	- Armor: +3% Energy and Health Regen (+0.5% per level).
+	- (Basically excludes heavy armor and items made of metal)
 	
 	Herbologist: You can attach a herb to your Gloves, Bracers and Necklace, gaining its effects.
 	
@@ -244,13 +248,13 @@ defineTrait{
 	gameEffect = [[
 	- Health 35 (+5 per level)
 	- Energy 60 (+9 per level)
-	
-	Trine Imperium:  You gain damage multipliers based on resistances (33% conversion).	
-	- Gain Fire Multi based on Shock and Cold resistances.
-	- Gain Shock Multi based on Cold and Fire resistances.
-	- Gain Cold Multi based on Fire and Shock resistances.
-	
-	Elemental Balance: Casting a spell of one element boosts others by 25% while weakening itself by 5% for 9 seconds.
+	Converts 20% of your resistances to elemental damage.
+
+	Spell Echo: Spells you cast have a 2% chance (+1% per level) to echo, being cast a second time at half the power.
+	- Gain an extra 1% chance for every 50 points of Health and Energy.
+	- All spells cost 10% extra energy.
+
+	Trine Imperium: Casting a spell of one element boosts others by 25% while weakening itself by 5% for 9 seconds.
 	- You regain 5% Max Energy (+1% per 10 Willpower) when using this bonus.]],
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
@@ -538,7 +542,6 @@ defineTrait{
 	onRecomputeStats = function(champion, level)
 		if level > 0 then
 			champion:addStatModifier("food_rate", 25)
-			champion:addStatModifier("energy_regeneration_rate", 100)
 		end
 	end,
 }

@@ -135,8 +135,8 @@ function start()
 			end
 		end
 		timenote_1_1:setWorldPosition(timenote_1_1:getWorldPosition() + vec(0,0,1.2))
-		beach_lock_ornate_1:setWorldPosition(beach_lock_ornate_1:getWorldPosition() + vec(0.12,-0.64,0.32))
-		beach_lock_ornate_1:setWorldRotationAngles(16,25,9.6)
+		-- beach_lock_ornate_1:setWorldPosition(beach_lock_ornate_1:getWorldPosition() + vec(0.12,-0.64,0.32))
+		-- beach_lock_ornate_1:setWorldRotationAngles(16,25,9.6)
 
 		-- items and objects
 		wooden_box_2.model:setOffset(vec(-0.6,0.7,-0.6))
@@ -516,6 +516,16 @@ function setSkyMode(n, d)
 	if n == "travel_forward_end" then
 		playSound("teleport")
 	end
+end
+
+function tryAmateria(type)
+	local dx,dy = getForward(party.facing)
+	for e in Dungeon.getMap(party.level):entitiesAt(party.x + dx, party.y + dy) do
+		if e.amateria then
+			e.monster:die()
+		end
+	end
+
 end
 
 function updateTimeTravelTimer(n)

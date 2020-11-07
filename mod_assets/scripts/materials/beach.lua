@@ -82,6 +82,20 @@ defineMaterial{
 }
 
 defineMaterial{
+	name = "beach_lock_support_amateria",
+	diffuseMap = "assets/textures/env/dungeon_wall_01_dif.tga",
+	specularMap = "assets/textures/env/dungeon_wall_01_spec.tga",
+	normalMap = "assets/textures/env/dungeon_wall_01_normal.tga",
+	doubleSided = false,
+	lighting = true,
+	alphaTest = false,
+	blendMode = "Additive",
+	textureAddressMode = "Wrap",
+	glossiness = 0,
+	depthBias = 0,
+}
+
+defineMaterial{
 	name = "beach_lock_support_text",
 	diffuseMap = "assets/textures/env/beach_lock_support_text_dif.tga",
 	specularMap = "assets/textures/env/beach_lock_support_text_spec.tga",

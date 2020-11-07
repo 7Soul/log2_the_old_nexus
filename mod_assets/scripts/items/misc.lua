@@ -162,7 +162,7 @@ defineObject{
 		},
 		{
 			class = "Item",
-			uiName = "Time Device",
+			uiName = "Amateria Device",
 			gfxAtlas = "mod_assets/textures/gui/items.dds",
 			gfxIndex = 13,
 			weight = 0.15,
@@ -184,7 +184,7 @@ defineObject{
 			onUseItem = function(self)
 				local icon = self.go.item:getGfxIndex()
 				if icon == 26 then
-					delayedCall("functions2", 0, "tryTimeTravel", "device")
+					delayedCall("functions2", 0, "tryAmateria", "device")
 				else
 					if icon == 13 then
 						hudPrint("The Time Device has no charge.")
