@@ -706,6 +706,7 @@ defineObject{
 			class = "Lock",
 			sound = "key_lock",
 		},
+		amateriaTimer
 	},
 	placement = "wall",
 	editorIcon = 20,
@@ -947,7 +948,7 @@ defineObject{
 								else
 									setMouseItem(nil)
 								end
-							end		
+							end
 						end
 					end
 				end

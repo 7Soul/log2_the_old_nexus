@@ -444,8 +444,8 @@ end
 -- Offset and Rotate Level Object                                       --
 --------------------------------------------------------------------------
 
-objname = "beach_lock_ornate_3"
-objname2 = nil
+objname = "beach_lock_ornate_4"
+objname2 = "broken_lock"
 
 function move(x,y,z)
 	if objname then

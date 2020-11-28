@@ -1,3 +1,5 @@
+
+
 local orig_defineObject = defineObject
 
 local onEquipItem = function(self, champion, slot)
@@ -61,7 +63,7 @@ local onMonsterDie = function(self)
 	functions.script.onMonsterDie(self)
 end
 
-local onDamage = function(self, damage, damageType)
+local onDamageMonster = function(self, damage, damageType)
 	functions.script.onDamageMonster(self, damage, damageType)
 end
 

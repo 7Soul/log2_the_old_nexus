@@ -1,4 +1,5 @@
 -- objects patch for detect spells
+import "mod_assets/scripts/objects/amateria.lua"
 import "mod_assets/spells_pack/defineObject.lua"
 -- import standard assets
 import "mod_assets/scripts/mod_standard_assets.lua"
@@ -119,7 +120,7 @@ defineObject{
 					functions2.script.updateTimeTravelTimer(distance)
 				end
 			end
-
+			
 			-- Herb multiply
 			local fiberBalls = 0
 			for i=1,4 do
@@ -184,7 +185,7 @@ defineObject{
 								break
 							else
 								if champion:getItem(slot).go.name == "pellet_box" then
-									herbSlot = slot
+									pelletSlot = slot
 								end
 								slotsFilled = slotsFilled + 1
 							end

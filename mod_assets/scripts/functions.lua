@@ -1377,8 +1377,8 @@ function onMonsterDealDamage(self, champion, damage)
 	if damage > 1 and ((item1 and item1:hasTrait("shield")) or (item2 and item2:hasTrait("shield")) or isArmorSetEquipped(champion, "chitin")) then
 		local chance = getBlockChance(champion)
 		local blockAmount = isArmorSetEquipped(champion, "valor") and 0.26 or 0.51
-		print("chance", chance)
-		print("amount", blockAmount)
+		-- print("chance", chance)
+		-- print("amount", blockAmount)
 
 		if math.random() <= chance then			
 			champion:setHealth(champion:getHealth() + math.ceil(damage * blockAmount))
@@ -1864,7 +1864,7 @@ function onProjectileHitMonster(self, item, damage, damageType) -- self = monste
 			return false
 		else
 			return true
-	end
+		end
 	end
 end
 
@@ -2744,7 +2744,7 @@ function isArmorSetEquipped(champion, set)
 			setCount = setCount + 1
 		else
 			-- Armor Training counts any glove and helmet as completing a set
-			if champion:hasTrait("armor_training") and (secondarySlots == 3 or secondarySlots == 9) then
+			if champion:hasTrait("armor_training") and (secondarySlots[i] == 3 or secondarySlots[i] == 9) then
 				setCount = setCount + 1
 			end
 		end
