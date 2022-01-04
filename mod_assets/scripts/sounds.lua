@@ -54,3 +54,12 @@ defineSound{
 	minDistance = 0,
 	maxDistance = 8,
 }
+
+defineSound{
+	name = "monster_cast",
+	filename = "mod_assets/sounds/monster_cast.wav",
+	loop = false,
+	volume = 1,
+	minDistance = 1,
+	maxDistance = 10,
+}

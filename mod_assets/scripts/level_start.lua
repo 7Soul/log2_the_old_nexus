@@ -8,6 +8,21 @@ rotx = 0
 roty = 0
 rotz = 0
 gotDevice = false
+keypressDelay = 0
+
+data = {}
+function get(name) return data[name] end
+function set(name,value) data[name] = value end
+function add(name,value) data[name] = data[name] and data[name] + value or value end
+
+-- Allows for key presses
+function keypressDelaySet(n)
+	keypressDelay = n
+end
+
+function keypressDelayGet()
+	return keypressDelay
+end
 
 function revealMap(noMobs)
 	local startx, starty = party.x, party.y
@@ -36,7 +51,9 @@ function killAllMobs()
 end
 
 function start()
-	print("functions2 initiated")
+	print("functions initiated")
+	print("Shift+U     Shift+M     Ctrl+Shift+K    Shift+L     Shift+J     Shift+Z     Shift+H     Shift+K")
+	print("Adv. Time   Reveal Map  Kill All Mobs   Level Up    Move Frwd   Open Doors  Full Heal   Kill Mob")
 	
 	-------------------
 	-- Second Beach ---
@@ -63,7 +80,9 @@ function start()
 		forest_ruins_pillar_fallen_1:setWorldPosition(vec(pos.x + 1.77, pos.y + 0, pos.z - 2.03))
 		forest_ruins_pillar_fallen_1:setWorldRotationAngles(0,67,0)
 		
+		if beach_ocean_2 then
 		beach_ocean_2:setWorldRotationAngles(0,45,0)
+		end
 		
 		-- Start area pier --
 		forest_bridge_1:setWorldPosition(forest_bridge_1:getWorldPosition() + vec(0,-1.5,0))
@@ -123,8 +142,8 @@ function start()
 		beach_rock_1x1_low_74:setWorldRotationAngles(0,-45,0)
 		beach_rock_1x1_low_75:setWorldPosition(beach_rock_1x1_low_75:getWorldPosition() + vec(1.6,3.8,1.5))
 		beach_rock_1x1_low_75:setWorldRotationAngles(0,50,180)
-		beach_lock_ornate_3:setWorldPosition(vec(20.86,-1.04,20.08))
-		beach_lock_ornate_3:setWorldRotationAngles(70.4,-32.8,71.2)
+		-- beach_lock_ornate_3:setWorldPosition(vec(20.86,-1.04,20.08))
+		-- beach_lock_ornate_3:setWorldRotationAngles(70.4,-32.8,71.2)
 
 		-- Time Device altar
 		forest_altar_1:setWorldPosition(forest_altar_1:getWorldPosition() + vec(0,0,1.0))
@@ -420,6 +439,7 @@ function start()
 		end
 	end
 	if objname then
+		if not findEntity(objname) then return false end
 		if objname2 then
 			-- Model within object
 			local pos = findEntity(objname):getComponent(objname2):getOffset()
@@ -444,8 +464,8 @@ end
 -- Offset and Rotate Level Object                                       --
 --------------------------------------------------------------------------
 
-objname = "beach_lock_ornate_4"
-objname2 = "broken_lock"
+objname = "forest_ruins_dome_gold_key"
+objname2 = nil
 
 function move(x,y,z)
 	if objname then
@@ -539,7 +559,7 @@ function updateTimeTravelTimer(n)
 end
 
 function tryTimeTravel(type)
-	if functions2.script.skyMode ~= "normal" then return false end
+	if functions.script.skyMode ~= "normal" then return false end
 	if type == "device" or type == "teleporter" then 
 		travel_path = { { party.x, party.y, party.elevation } }
 	end
@@ -676,8 +696,8 @@ function updateSky(t)
 			sky:setFogRange({0,1})
 			-- GameMode.fadeOut(0xDDDDFF, 0.2)
 			setSkyMode("travel_back_end")
-			delayedCall("functions2", 0.1, "teleportParty", party.level + 1, x, y, z)
-			delayedCall("functions2", 0.15, "setSkyMode", "arrive_back")
+			delayedCall("functions", 0.1, "teleportParty", party.level + 1, x, y, z)
+			delayedCall("functions", 0.15, "setSkyMode", "arrive_back")
 		end
 	elseif skyMode == "arrive_back" then
 		if sky:getFogRange()[2] < 1 then
@@ -687,7 +707,7 @@ function updateSky(t)
 		else
 			sky:setFogRange({1, fog_base + (math.cos((t+0.5)/30*90) * fog_var)})
 			-- GameMode.fadeIn(0xDDDDFF, 0.3)
-			delayedCall("functions2", 0.1, "setSkyMode", "arrive_back_end")
+			delayedCall("functions", 0.1, "setSkyMode", "arrive_back_end")
 		end
 	elseif skyMode == "arrive_back_end" then
 		party.party:setMovementSpeed(1)
@@ -709,8 +729,8 @@ function updateSky(t)
 			sky:setFogRange({0,1})
 			-- GameMode.fadeOut(0xDDDDFF, 0.2)
 			setSkyMode("travel_forward_end")
-			delayedCall("functions2", 0.1, "teleportParty", party.level - 1, x, y, z)
-			delayedCall("functions2", 0.15, "setSkyMode", "arrive_forward")
+			delayedCall("functions", 0.1, "teleportParty", party.level - 1, x, y, z)
+			delayedCall("functions", 0.15, "setSkyMode", "arrive_forward")
 		end
 	elseif skyMode == "arrive_forward" then
 		if sky:getFogRange()[2] < 1 then
@@ -720,7 +740,7 @@ function updateSky(t)
 		else
 			sky:setFogRange({1, fog_base + (math.cos((t+0.5)/30*90) * fog_var)})
 			-- GameMode.fadeIn(0xDDDDFF, 0.5)
-			delayedCall("functions2", 0.1, "setSkyMode", "arrive_forward_end")
+			delayedCall("functions", 0.1, "setSkyMode", "arrive_forward_end")
 		end
 	elseif skyMode == "arrive_forward_end" then
 		party.party:setMovementSpeed(1)
@@ -735,13 +755,13 @@ function updateSky(t)
 		findEntity("beach_ocean_2"):getComponent("surface"):setOffset(vec(0, -1.4 + (math.cos((t+0.5)/30*90) * 0.2), 0))
 		findEntity("beach_ocean_3"):getComponent("surface"):setOffset(vec(0, -1.4 + (math.cos((t+0.5)/30*90) * 0.2), 0))
 		findEntity("beach_ocean_4"):getComponent("surface"):setOffset(vec(0, -1.4 + (math.cos((t+0.5)/30*90) * 0.2), 0))
-		findEntity("beach_oar_boat_1").model:setOffset(vec(0, 0.6 + ((math.cos((t+0.5)/30*90) * 0.2) + (math.cos(party.gametime2:getValue()/100)*0.1) ), 0))
-		findEntity("beach_oar_boat_1").model:setRotationAngles( math.cos((party.gametime2:getValue()+20) / 50) * 4.0 , 10 + t, 0)
+		findEntity("beach_oar_boat_1").model:setOffset(vec(0, 0.6 + ((math.cos((t+0.5)/30*90) * 0.2) + (math.cos(party.gametime:getValue()/100)*0.1) ), 0))
+		findEntity("beach_oar_boat_1").model:setRotationAngles( math.cos((party.gametime:getValue()+20) / 50) * 4.0 , 10 + t, 0)
 	end
 	-- 
 	if sack_5 then 
 		if not functions.script.get("got_starting_sack") then
-			sack_5:setWorldPosition(vec(82.66,-1.45 + ((math.cos((t+0.5)/30*90) * 0.2) + (math.cos(party.gametime2:getValue()/100)*0.1) + (math.cos((party.gametime2:getValue()+20) / 50) * -0.05) ),87.8))
+			sack_5:setWorldPosition(vec(82.66,-1.45 + ((math.cos((t+0.5)/30*90) * 0.2) + (math.cos(party.gametime:getValue()/100)*0.1) + (math.cos((party.gametime:getValue()+20) / 50) * -0.05) ),87.8))
 		end
 	else
 		functions.script.set("got_starting_sack", true)

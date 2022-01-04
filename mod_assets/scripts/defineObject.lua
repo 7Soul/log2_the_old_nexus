@@ -2,9 +2,9 @@
 
 local orig_defineObject = defineObject
 
-local onEquipItem = function(self, champion, slot)
-	functions.script.onEquipItem(self, champion, slot)
-end
+-- local onEquipItem = function(self, champion, slot)
+-- 	functions.script.onEquipItem(self, champion, slot)
+-- end
 
 local onUnequipItem = function(self, champion, slot)
 	functions.script.onUnequipItem(self, champion, slot)
@@ -103,7 +103,7 @@ defineObject = function(def)
 	if def.components then
 		for _,c in pairs(def.components) do
 			if c.class == "Item" then
-				c.onEquipItem = onEquipItem
+				-- c.onEquipItem = onEquipItem
 				c.onUnequipItem = onUnequipItem
 			end
 			if c.class == "MeleeAttack" then

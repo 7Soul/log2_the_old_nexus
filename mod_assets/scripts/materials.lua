@@ -11,3 +11,18 @@ defineMaterial{
 	glossiness = 60,
 	depthBias = 0,
 }
+
+defineMaterial{
+	name = "amateria",
+	diffuseMap = "mod_assets/textures/effects/beam.tga",
+	doubleSided = false,
+	lighting = true,
+	alphaTest = false,
+	blendMode = "Additive",
+	textureAddressMode = "Wrap",
+	glossiness = 0,
+	depthBias = 0,
+	onUpdate = function(self, time)
+		self:setTexcoordScaleOffset(1, 1, time*8, 0)
+	end,
+}

@@ -1,7 +1,6 @@
 secondary = 0
 spellSlinger = {}
 stepCount = 0
-keypressDelay = 0
 skillNames = { "block", "light_armor", "heavy_armor", "accuracy", "critical", "firearms", "seafaring", "tinkering", "alchemy", "ranged_weapons", "throwing_weapons", "light_weapons_c", "heavy_weapons_c", "spellblade", "elemental_magic", "poison_mastery", "concentration", "witchcraft" }
 metalSlugList = { 250, 900, 20, 1550, 900, 900, 1550, 20, 900, 900, 250, 1550 }
 metalSlug = 0
@@ -32,15 +31,6 @@ end
 
 function getStepCount()
 	return stepCount
-end
-
--- Allows for key presses
-function keypressDelaySet(n)
-	keypressDelay = n
-end
-
-function keypressDelayGet()
-	return keypressDelay
 end
 
 function addTables(t1, t2)
@@ -154,7 +144,7 @@ function teststart()
 		end
 	end
 
-	if Editor.isRunning() then
+	if Editor.isRunning() and false then
 		party.party:getChampionByOrdinal(1):setClass("assassin_class")
 		party.party:getChampionByOrdinal(2):setClass("tinkerer")
 		party.party:getChampionByOrdinal(3):setClass("hunter")

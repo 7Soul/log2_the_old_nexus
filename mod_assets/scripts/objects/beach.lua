@@ -771,45 +771,45 @@ defineObject{
 			model = "assets/models/env/beach_lock_support.fbx",
 			staticShadow = true,
 		},
-		{
-			class = "Script",
-			name = "data",
-			source = [[data = { ["amateria"] = true }
-function get(name)	return self.data[name] end
-function set(name,value)	self.data[name] = value end]],
-			onInit = function(self)
-				local m = self.go:getWorldRotation()
-				self.set("m", m)
+-- 		{
+-- 			class = "Script",
+-- 			name = "data",
+-- 			source = [[data = { ["amateria"] = true }
+-- function get(name)	return self.data[name] end
+-- function set(name,value)	self.data[name] = value end]],
+-- 			onInit = function(self)
+-- 				local m = self.go:getWorldRotation()
+-- 				self.set("m", m)
 				
-				if self.get("amateria") then
-					local particles = self.go:createComponent("Particle", "amateriaParticles")
-					particles:setParticleSystem("amateria")
-					particles:setEmitterMesh( self.go.stand:getModel() )
-					local particles2 = self.go:createComponent("Particle", "amateriaParticles2")
-					particles2:setParticleSystem("amateria_less")
-					particles2:setEmitterMesh( self.go.model:getModel() )
-					particles2:setOffset( self.go.model:getOffset() )
+-- 				if self.get("amateria") then
+-- 					local particles = self.go:createComponent("Particle", "amateriaParticles")
+-- 					particles:setParticleSystem("amateria")
+-- 					particles:setEmitterMesh( self.go.stand:getModel() )
+-- 					local particles2 = self.go:createComponent("Particle", "amateriaParticles2")
+-- 					particles2:setParticleSystem("amateria_less")
+-- 					particles2:setEmitterMesh( self.go.model:getModel() )
+-- 					particles2:setOffset( self.go.model:getOffset() )
 
-					local broken_model = self.go:createComponent("Model", "broken_model")
-					broken_model:setModel( self.go.stand:getModel() )
-					broken_model:setStaticShadow( self.go.stand:getStaticShadow() )
-					local broken_lock = self.go:createComponent("Model", "broken_lock")
-					broken_lock:setModel( self.go.model:getModel() )
-					broken_lock:setStaticShadow( self.go.stand:getStaticShadow() )
+-- 					local broken_model = self.go:createComponent("Model", "broken_model")
+-- 					broken_model:setModel( self.go.stand:getModel() )
+-- 					broken_model:setStaticShadow( self.go.stand:getStaticShadow() )
+-- 					local broken_lock = self.go:createComponent("Model", "broken_lock")
+-- 					broken_lock:setModel( self.go.model:getModel() )
+-- 					broken_lock:setStaticShadow( self.go.stand:getStaticShadow() )
 
-					broken_model:setOffset( self.go.stand:getOffset() + vec(0.12,-0.64,0.32)  )
-					broken_model:setRotationAngles( 16, 25, 9 )
-					broken_lock:setOffset( self.go.stand:getOffset() + vec(0.46,0.64,-0.03)  )
-					broken_lock:setRotationAngles( 16, 28, 6 )
-					-- self.go.stand:setMaterial( "beach_lock_support_amateria" )
-					-- self.go.model:setMaterial( "ornament_lock_amateria" )
-					-- self.go.stand:setEmissiveColor( vec(-0.4,-0.4,-0.4) )
-					-- self.go.model:setEmissiveColor( vec(-0.4,-0.4,-0.4) )
-					self.go.stand:setOffset( vec(0,-10,0) )
-					self.go.model:setOffset( vec(0,-10,0) )
-				end
-			end,
-		},
+-- 					broken_model:setOffset( self.go.stand:getOffset() + vec(0.12,-0.64,0.32)  )
+-- 					broken_model:setRotationAngles( 16, 25, 9 )
+-- 					broken_lock:setOffset( self.go.stand:getOffset() + vec(0.46,0.64,-0.03)  )
+-- 					broken_lock:setRotationAngles( 16, 28, 6 )
+-- 					-- self.go.stand:setMaterial( "beach_lock_support_amateria" )
+-- 					-- self.go.model:setMaterial( "ornament_lock_amateria" )
+-- 					-- self.go.stand:setEmissiveColor( vec(-0.4,-0.4,-0.4) )
+-- 					-- self.go.model:setEmissiveColor( vec(-0.4,-0.4,-0.4) )
+-- 					self.go.stand:setOffset( vec(0,-10,0) )
+-- 					self.go.model:setOffset( vec(0,-10,0) )
+-- 				end
+-- 			end,
+-- 		},
 	},
 	tags = { "puzzle" }
 }

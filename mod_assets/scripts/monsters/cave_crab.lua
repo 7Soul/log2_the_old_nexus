@@ -54,7 +54,7 @@ defineObject{
 			sound = "crab_walk",
 			cooldown = 1.5,
 			onBeginAction = function(self)
-				functions.script.takeBleedDamage(self.go.monster)
+				-- functions.script.takeBleedDamage(self.go.monster)
 			end,
 		},
 		{

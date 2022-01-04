@@ -79,12 +79,3 @@ function set(self,name,value) self.data[name] = value end]],
 	editorIcon = 272,
 	tags = { "obstacle" },
 }
-
-defineSound{
-	name = "monster_cast",
-	filename = "mod_assets/sounds/monster_cast.wav",
-	loop = false,
-	volume = 1,
-	minDistance = 1,
-	maxDistance = 10,
-}

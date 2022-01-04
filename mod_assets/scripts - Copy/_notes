@@ -1,0 +1,51 @@
+
+Extra stats in items
+
+Stats:
+    Spells
+spell_multi - Affects ALL spells
+physical_multi
+fire_multi
+cold_multi
+shock_multi
+poison_multi
+neutral_multi
+
+    Status Effects
+burn_chance_multi
+burn_chance_basic_multi
+burn_duration_multi
+freeze_chance_basic_multi
+freeze_duration_multi
+arc_chance_basic_multi
+arc_duration_multi
+arc_range_multi
+bleeding_chance_multi
+poison_chance_multi
+poison_chance_50hp_multi - When monster is above 50% hp
+
+    Attacks
+physical_multi
+melee_multi
+light_weapons_multi
+heavy_weapons_multi
+ranged_multi
+missile_multi
+throwing_multi
+firearms_multi
+dual_wielding_multi
+power_attack_multi
+
+    Misc Resistances
+diseased_multi
+bleeding_multi
+poisoned_multi
+
+
+    Example:
+
+{
+	class = "Script",
+	name = "effects_script",
+	source = [[data = { ["physical_multi"] = -5 } function getData(self) return data end]],
+}

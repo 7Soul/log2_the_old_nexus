@@ -706,7 +706,6 @@ defineObject{
 			class = "Lock",
 			sound = "key_lock",
 		},
-		amateriaTimer
 	},
 	placement = "wall",
 	editorIcon = 20,
@@ -1107,6 +1106,58 @@ defineObject{
 			size = vec(0.8, 1.6, 0.4),
 			frontFacing = true,
 			--debugDraw = true,
+		},
+	},
+	editorIcon = 248,
+	automapIcon = 140,
+	tags = { "level_design" },
+}
+
+defineObject{
+	name = "pushable_ladder",
+	baseObject = "ladder",
+	components = {
+		{
+			class = "PushableLadder",
+		},
+		{
+			class = "Controller",
+			onIncrement = function(self)
+				self.go.pushableladder:pushRight()
+			end,
+			onDecrement = function(self)
+				self.go.pushableladder:pushLeft()
+			end,
+		},
+		{
+			class = "Clickable",
+			name = "clickRight",
+			offset = vec(0.6, 1.4, -1.2),
+			size = vec(0.7, 1.2, 0.1),
+			maxDistance = 0,
+			-- frontFacing = true,
+			-- debugDraw = true,
+			onClick = function(self)
+				-- print(self.go.facing)
+				if party.facing == self.go.facing then
+					self.go.pushableladder:push((party.facing+1)%4)
+				end
+			end,
+		},
+		{
+			class = "Clickable",
+			name = "clickLeft",
+			offset = vec(-0.6, 1.4, -1.2),
+			size = vec(0.7, 1.2, 0.1),
+			maxDistance = 0,
+			-- frontFacing = true,
+			-- debugDraw = true,
+			onClick = function(self)
+				-- print(self.go.facing)
+				if party.facing == self.go.facing then
+					self.go.pushableladder:push((party.facing-1)%4)
+				end
+			end,
 		},
 	},
 	editorIcon = 248,
